@@ -26,7 +26,7 @@
   gather_facts: false
   tasks:
     - name: Include orchestrator role
-      include_role:
+      ansible.builtin.include_role:
         name: ../orchestrator/roles/orchestrator
       when: idrac_telemetry_support is true
 
@@ -36,7 +36,7 @@
   gather_facts: false
   tasks:
     - name: Include grafana role
-      include_role:
+      ansible.builtin.include_role:
         name: ../monitor/roles/grafana
       when: idrac_telemetry_support is true
 
