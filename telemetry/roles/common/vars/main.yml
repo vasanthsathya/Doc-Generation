@@ -32,6 +32,8 @@ grafana_conf_path: '/opt/omnia/.data/grafana_svc_details.ini'
 docker_login_fail_msg: "Docker login failed! Please check the credentials and re-execute playbook."
 
 # Usage: validate_telemetry_config.yml
+success_msg_k8s_pod_network_cidr: "Appliance k8s pod network cidr validated"
+fail_msg_k8s_pod_network_cidr: "Failed. Incorrect appliance k8s pod network cidr provided in input/telemetry_config.yml"
 folder_perm: '644'
 vault_file_perm: '0644'
 idrac_telemetry_support_success_msg: "idrac_telemetry_support validated"
@@ -47,7 +49,7 @@ timescaledb_success_msg: "Timescale DB name validated successfully"
 timescaledb_fail_msg: "Timescale DB name should have minimum length of 2"
 mysqldb_success_msg: "MySQL DB name validated successfully"
 mysqldb_fail_msg: "MySQL DB name should have minimum length of 2"
-fail_timezone_msg: "Failed. Incorrect timezone provided. Please check the file timezone.txt in telemetry/roles/common/files/ folder"
+fail_timezone_msg: "Failed. Incorrect timezone provided. Please check the file timezone.txt in provision/roles/common/files/ folder"
 idrac_group_fail_msg: "Failed. idrac group should contain atleast 1 node in inventory for iDRAC telemetry"
 idrac_group_success_msg: "idrac group validated in inventory for iDRAC telemetry"
 telemetry_manager_group_fail_msg: "Failed. manager group should contain only 1 node in inventory for slurm telemetry"
@@ -58,7 +60,6 @@ inventory_absent_message: "Failed. Inventory file absent for telemetry. manager 
 vault_filename: "{{ role_path }}/../../../input/.telemetry_vault_key"
 login_vars_fail_msg: "Username/password validation in telemetry_config.yml failed. Please check the requirements."
 min_length_idrac: 3
-min_length_grafana: 5
 max_length: 30
 idrac_credentials_fail_msg: "idrac_username and idrac_password must be provided as extra variables."
 idrac_inventory_msg: "idrac group is not present in inventory file. Playbook will check for /opt/omnia/provisioned_idrac_inventory"

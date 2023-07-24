@@ -67,6 +67,29 @@
     fail_msg: "{{ slurm_telemetry_idrac_support_fail_msg }}"
   when: slurm_telemetry_support is true
 
+- name: Check k8s is installed or not
+  ansible.builtin.command: kubectl get pods -A
+  changed_when: false
+  failed_when: false
+  register: k8s_pods
+
+- name: Validate k8s_pod_net_cidr
+  when: "'nfs-client-provisioner' not in k8s_pods.stdout"
+  block:
+    - name: Assert kubernetes pod network CIDR
+      ansible.builtin.assert:
+        that:
+          - appliance_k8s_pod_net_cidr | ansible.utils.ipv4
+          - appliance_k8s_pod_net_cidr | length > 9
+          - '"/" in appliance_k8s_pod_net_cidr '
+        success_msg: "{{ success_msg_k8s_pod_network_cidr }}"
+        fail_msg: "{{ fail_msg_k8s_pod_network_cidr }}"
+      when: idrac_telemetry_support is true
+
+    - name: Set kubernetes pod CIDR
+      ansible.builtin.set_fact:
+        k8s_net_cidr: "{{ appliance_k8s_pod_net_cidr }}"
+
 - name: Assert timescale db name
   ansible.builtin.assert:
     that: timescaledb_name | length > 1
@@ -174,30 +197,6 @@
     owner: root
     create: true
   when: "'$ANSIBLE_VAULT;' not in config_content.stdout"
-
-- name: Assert grafana credentials
-  block:
-    - name: Assert grafana_username and grafana_username
-      ansible.builtin.assert:
-        that:
-          - grafana_username | length >= min_length_grafana
-          - grafana_username | length <= max_length
-          - '"-" not in grafana_username '
-          - '"\\" not in grafana_username '
-          - '"\"" not in grafana_username '
-          - " \"'\" not in grafana_username "
-          - grafana_password | length >= min_length_grafana
-          - grafana_password | length <= max_length
-          - not grafana_password == 'admin'
-          - '"-" not in grafana_password '
-          - '"\\" not in grafana_password '
-          - '"\"" not in grafana_password '
-          - " \"'\" not in grafana_password "
-      no_log: true
-  rescue:
-    - name: Validation issue in input/monitor_config.yml
-      ansible.builtin.fail:
-        msg: "{{ monitor_config_fail_msg }}"
 
 - name: Verify Inventory file for Slurm telemetry
   when: slurm_telemetry_support

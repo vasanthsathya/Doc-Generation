@@ -48,3 +48,12 @@
     owner: root
     create: true
   when: ansible_vault_search_key not in monitor_config_content.stdout
+
+# Validate appliance_k8s_pod_net_cidr from monitor_config.yml when orchestrator role is being called from monitor.yml
+# Else appliance_k8s_pod_net_cidr will be taken from telemetry_config.yml
+- name: Include k8s validations
+  ansible.builtin.include_tasks: validate_k8s_params.yml
+  when: idrac_telemetry_support is not defined and install_k8s
+
+- name: Include grafana validations
+  ansible.builtin.include_tasks: validate_grafana_params.yml

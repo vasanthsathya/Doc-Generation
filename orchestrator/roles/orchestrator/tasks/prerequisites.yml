@@ -13,6 +13,11 @@
 #  limitations under the License.
 ---
 
+- name: Saving management station os
+  ansible.builtin.set_fact:
+    mgmt_os: "{{ ansible_facts['distribution'] | lower }}"
+    install_k8s: false
+
 - name: Set control plane OS version
   ansible.builtin.set_fact:
     control_plane_version: "{{ ansible_facts['distribution_version'] | float }}"
@@ -24,3 +29,17 @@
     replace: "{{ keypath_str }}"
   when: (os_supported_rocky in mgmt_os and control_plane_version >= rocky_version) or
         (os_supported_rhel in mgmt_os and control_plane_version >= redhat_version)
+
+# Checking if the last task of orchestrator role has been executed successfully
+- name: Check if kubernetes control plane is up and running
+  block:
+    - name: Get K8s pods
+      ansible.builtin.command: kubectl get pods --all-namespaces
+      changed_when: false
+      register: k8s_pods
+      failed_when: false
+
+    - name: Set install orchestrator to true
+      ansible.builtin.set_fact:
+        install_k8s: true
+      when: "'nfs-client-provisioner' not in k8s_pods.stdout"
