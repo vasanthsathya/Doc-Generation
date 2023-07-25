@@ -35,7 +35,6 @@ rhel_epel_repo8: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noa
 max_retries: 20
 os_supported_redhat: "redhat"
 rhel_code_ready_repo: codeready-builder-for-rhel-8-x86_64-rpms
-#docker_login_fail_msg: "Docker login failed! Please check the credentials and re-execute playbook."
 
 # Usage: validate_telemetry_config.yml
 success_msg_k8s_pod_network_cidr: "Appliance k8s pod network cidr validated"
