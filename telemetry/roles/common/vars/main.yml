@@ -13,8 +13,15 @@
 # limitations under the License.
 ---
 
+slurm_telemetry_support: false
+timescaledb_name: "telemetry_metrics"
+
+# Usage: include_provision_config.yml
+provision_config_file: "{{ role_path }}/../../../input/provision_config.yml"
+fail_msg_provision_config_file: "provision_config.yml file doesn't exist."
+provision_vault_filename: "{{ role_path }}/../../../input/.provision_vault_key"
+
 # Usage: pre-requisites.yml
-installation_required: "Grafana installation through monitor.yml is mandatory for telemetry.yml"
 os_supported_leap: "leap"
 selinux_warning: "Warning! SELinux status is disabled by user. No SELinux policy is loaded"
 telemetry_config_file: "{{ role_path }}/../../../input/telemetry_config.yml"
@@ -28,8 +35,7 @@ rhel_epel_repo8: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noa
 max_retries: 20
 os_supported_redhat: "redhat"
 rhel_code_ready_repo: codeready-builder-for-rhel-8-x86_64-rpms
-grafana_conf_path: '/opt/omnia/.data/grafana_svc_details.ini'
-docker_login_fail_msg: "Docker login failed! Please check the credentials and re-execute playbook."
+#docker_login_fail_msg: "Docker login failed! Please check the credentials and re-execute playbook."
 
 # Usage: validate_telemetry_config.yml
 success_msg_k8s_pod_network_cidr: "Appliance k8s pod network cidr validated"
@@ -39,39 +45,36 @@ vault_file_perm: '0644'
 idrac_telemetry_support_success_msg: "idrac_telemetry_support validated"
 idrac_telemetry_support_fail_msg: "Failed. idrac_telemetry_support only accepts boolean
                                     values true or false"
-slurm_telemetry_support_success_msg: "slurm_telemetry_support validated"
-slurm_telemetry_support_fail_msg: "Failed. slurm_telemetry_support only accepts boolean
+omnia_telemetry_support_success_msg: "omnia_telemetry_support validated"
+omnia_telemetry_support_fail_msg: "Failed. omnia_telemetry_support only accepts boolean
                                     values true or false"
-slurm_telemetry_idrac_support_success_msg: "slurm and idrac telemetry are supported"
-slurm_telemetry_idrac_support_fail_msg: "slurm telemetry is supported only when
-                                      idrac_telemetry_support is true"
-timescaledb_success_msg: "Timescale DB name validated successfully"
-timescaledb_fail_msg: "Timescale DB name should have minimum length of 2"
-mysqldb_success_msg: "MySQL DB name validated successfully"
-mysqldb_fail_msg: "MySQL DB name should have minimum length of 2"
-fail_timezone_msg: "Failed. Incorrect timezone provided. Please check the file timezone.txt in provision/roles/common/files/ folder"
-idrac_group_fail_msg: "Failed. idrac group should contain atleast 1 node in inventory for iDRAC telemetry"
-idrac_group_success_msg: "idrac group validated in inventory for iDRAC telemetry"
-telemetry_manager_group_fail_msg: "Failed. manager group should contain only 1 node in inventory for slurm telemetry"
-telemetry_manager_group_success_msg: "Manager group validated in inventory for slurm telemetry"
-telemetry_compute_group_fail_msg: "compute group should contain atleast 1 node in inventory for slurm telemetry"
-telemetry_compute_group_success_msg: "Compute group validated in inventory for slurm telemetry"
-inventory_absent_message: "Failed. Inventory file absent for telemetry. manager or compute group not present in inventory"
+fail_timezone_msg: "Failed. Incorrect timezone provided. Please check the file timezone.txt in provision/roles/provision_validation/files/timezone.txt folder"
 vault_filename: "{{ role_path }}/../../../input/.telemetry_vault_key"
 login_vars_fail_msg: "Username/password validation in telemetry_config.yml failed. Please check the requirements."
 min_length_idrac: 3
 max_length: 30
-idrac_credentials_fail_msg: "idrac_username and idrac_password must be provided as extra variables."
+idrac_credentials_fail_msg: "idrac_username and idrac_password must be provided in telemetry_config.yml."
 idrac_inventory_msg: "idrac group is not present in inventory file. Playbook will check for /opt/omnia/provisioned_idrac_inventory"
 idarc_inventory_path: "/opt/omnia/provisioned_idrac_inventory"
 idrac_file_status: "There is no inventory present under /opt/omnia/provisioned_idrac_inventory.
                     Please provide inventory with idrac group or create an inventory /opt/omnia/provisioned_idrac_inventory"
 idrac_exec_msg: "Since the absence of idrac group in inventory and existence of /opt/omnia/provisioned_idrac_inventory file.
                    iDRAC telemetry execution will be skipped"
+collect_metrics_success_msg: "collect_metrics values validated successfully"
+collect_metrics_fail_msg: "Values of collect_regular_metrics, collect_health_check_metrics, collect_gpu_metrics should be either true or false"
+collection_interval_success_msg: "omnia_telemetry_collection_interval validated successfully."
+collection_interval_fail_msg: "omnia_telemetry_collection_interval value should be between 60 sec to 3600 seconds."
+fuzzy_offset_success_msg: "fuzzy_offset value validated successfully."
+fuzzy_offset_fail_msg: "fuzzy_offset value can not be empty."
+metric_collection_timeout_success_msg: "metric_collection_timeout validated successfully."
+metric_collection_timeout_fail_msg: "metric_collection_timeout can not be left empty and should be less than omnia_telemetry_collection_interval"
 
 # Usage: k8s_secrets.yml
 namespace: telemetry-and-visualizations
 secrets_name: credentials
+mysqldb_user: "mysqldb"
+mysqldb_password: "mysqldb"
+mysqldb_root_password: "mysqldb"
 
 # Usage: set_docker_os.yml
 docker_rocky_os: "8.5"

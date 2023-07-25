@@ -26,9 +26,8 @@
   gather_facts: false
   tasks:
     - name: Include orchestrator role
-      ansible.builtin.include_role:
+      include_role:
         name: ../orchestrator/roles/orchestrator
-      when: idrac_telemetry_support is true
 
 - name: Install grafana on control plane
   hosts: localhost
@@ -36,9 +35,8 @@
   gather_facts: false
   tasks:
     - name: Include grafana role
-      ansible.builtin.include_role:
+      include_role:
         name: ../monitor/roles/grafana
-      when: idrac_telemetry_support is true
 
 - name: Create kubernetes secrets for telemetry
   hosts: localhost
