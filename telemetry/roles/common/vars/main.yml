@@ -44,9 +44,6 @@ vault_file_perm: '0644'
 idrac_telemetry_support_success_msg: "idrac_telemetry_support validated"
 idrac_telemetry_support_fail_msg: "Failed. idrac_telemetry_support only accepts boolean
                                     values true or false"
-omnia_telemetry_support_success_msg: "omnia_telemetry_support validated"
-omnia_telemetry_support_fail_msg: "Failed. omnia_telemetry_support only accepts boolean
-                                    values true or false"
 fail_timezone_msg: "Failed. Incorrect timezone provided. Please check the file timezone.txt in provision/roles/provision_validation/files/timezone.txt folder"
 vault_filename: "{{ role_path }}/../../../input/.telemetry_vault_key"
 login_vars_fail_msg: "Username/password validation in telemetry_config.yml failed. Please check the requirements."
@@ -59,14 +56,6 @@ idrac_file_status: "There is no inventory present under /opt/omnia/provisioned_i
                     Please provide inventory with idrac group or create an inventory /opt/omnia/provisioned_idrac_inventory"
 idrac_exec_msg: "Since the absence of idrac group in inventory and existence of /opt/omnia/provisioned_idrac_inventory file.
                    iDRAC telemetry execution will be skipped"
-collect_metrics_success_msg: "collect_metrics values validated successfully"
-collect_metrics_fail_msg: "Values of collect_regular_metrics, collect_health_check_metrics, collect_gpu_metrics should be either true or false"
-collection_interval_success_msg: "omnia_telemetry_collection_interval validated successfully."
-collection_interval_fail_msg: "omnia_telemetry_collection_interval value should be between 60 sec to 3600 seconds."
-fuzzy_offset_success_msg: "fuzzy_offset value validated successfully."
-fuzzy_offset_fail_msg: "fuzzy_offset value can not be empty."
-metric_collection_timeout_success_msg: "metric_collection_timeout validated successfully."
-metric_collection_timeout_fail_msg: "metric_collection_timeout can not be left empty and should be less than omnia_telemetry_collection_interval"
 
 # Usage: k8s_secrets.yml
 namespace: telemetry-and-visualizations

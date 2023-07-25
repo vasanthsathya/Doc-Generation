@@ -50,14 +50,6 @@
     success_msg: "{{ idrac_telemetry_support_success_msg }}"
     fail_msg: "{{ idrac_telemetry_support_fail_msg }}"
 
-- name: Assert omnia telemetry support
-  ansible.builtin.assert:
-    that:
-      - omnia_telemetry_support == true or omnia_telemetry_support == false
-    quiet: true
-    success_msg: "{{ omnia_telemetry_support_success_msg }}"
-    fail_msg: "{{ omnia_telemetry_support_fail_msg }}"
-
 - name: Check k8s is installed or not
   ansible.builtin.command: kubectl get pods -A
   changed_when: false
@@ -132,68 +124,3 @@
     - name: Extra variables not provided correctly
       ansible.builtin.fail:
         msg: "{{ idrac_credentials_fail_msg }}"
-
-# Add validation for omnia_telemetry_support and idrac_telemetry_support can not be false together
-
-- name: Verify omnia_telemetry parameters
-  when: omnia_telemetry_support
-  block:
-    - name: Assert the collect metrics values
-      ansible.builtin.assert:
-        that:
-          - collect_regular_metrics == true or collect_regular_metrics == false
-          - collect_health_check_metrics == true or collect_health_check_metrics == false
-          - collect_gpu_metrics == true or collect_gpu_metrics == false
-        quiet: true
-        success_msg: "{{ collect_metrics_success_msg }}"
-        fail_msg: "{{ collect_metrics_fail_msg }}"
-
-    - name: Assert the omnia_telemetry_collection_interval
-      ansible.builtin.assert:
-        that:
-          - omnia_telemetry_collection_interval >= 60
-          - omnia_telemetry_collection_interval <= 3600
-        quiet: true
-        success_msg: "{{ collection_interval_success_msg }}"
-        fail_msg: "{{ collection_interval_fail_msg }}"
-
-    - name: Assert the fuzzy_offset value
-      ansible.builtin.assert:
-        that:
-          - fuzzy_offset != ""
-          - fuzzy_offset is not none
-          - fuzzy_offset is defined
-        quiet: true
-        success_msg: "{{ fuzzy_offset_success_msg }}"
-        fail_msg: "{{ fuzzy_offset_fail_msg }}"
-
-    - name: Assert the metric_collection_timeout value
-      ansible.builtin.assert:
-        that:
-          - metric_collection_timeout != ""
-          - metric_collection_timeout is not none
-          - metric_collection_timeout is defined
-          - metric_collection_timeout < omnia_telemetry_collection_interval
-        quiet: true
-        success_msg: "{{ metric_collection_timeout_success_msg }}"
-        fail_msg: "{{ metric_collection_timeout_fail_msg }}"
-
-- name: Create ansible vault key
-  ansible.builtin.set_fact:
-    vault_key: "{{ lookup('password', '/dev/null chars=ascii_letters') }}"
-  when: "'$ANSIBLE_VAULT;' not in config_content.stdout"
-
-- name: Save vault key
-  ansible.builtin.lineinfile:
-    path: "{{ vault_filename }}"
-    line: "{{ vault_key }}"
-    mode: "{{ vault_file_perm }}"
-    owner: root
-    create: true
-  when: "'$ANSIBLE_VAULT;' not in config_content.stdout"
-
-- name: Encrypt telemetry_config.yml file
-  ansible.builtin.command: >-
-    ansible-vault encrypt {{ telemetry_config_file }}
-    --vault-password-file {{ vault_filename }}
-  changed_when: false

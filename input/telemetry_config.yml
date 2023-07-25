@@ -27,10 +27,6 @@ appliance_k8s_pod_net_cidr: "192.168.0.0/16"
 # Accepted values:  "true" or "false"
 idrac_telemetry_support: false
 
-# This variable is used to enable omnia telemetry support
-# Accepted values:  "true" or "false"
-omnia_telemetry_support: false
-
 # Username used for connecting to timescale db
 # The username must not contain -,\, ',"
 # The Length of the username should be at least 2 characters.
@@ -53,32 +49,3 @@ idrac_username: ""
 # The password must not contain -,\, ',"
 # Required only if idrac_telemetry_support is true
 idrac_password: ""
-
-##### BELOW VARIABLES ARE MANDATORY WHEN omnia_telemetry_support IS SET TO true
-# Below values give user an option to select what all metrics need to be discovered
-# Default value for all the metrics is true
-# Accepted values: "true" or "false"
-# Required only if omnia_telemetry_support is true
-collect_regular_metrics: true
-collect_health_check_metrics: true
-collect_gpu_metrics: true
-
-# This value will have minimum 60 seconds and maximum 3600 seconds i.e., 1 minute to 1 hour.
-# The values mentioned is in seconds.
-# Default value is 300 seconds
-# Required only if omnia_telemetry_support is true
-omnia_telemetry_collection_interval: 300
-
-# This is an advanced setting parameter for omnia_telemetry
-# This offset will be added to telemetry collection interval to avoid all nodes collecting at the same time.
-# For larger cluster this offset can be set to higher value.
-# Default value: 60
-# Required only if omnia_telemetry_support is true
-fuzzy_offset: 60
-
-# This is an advanced setting parameter for omnia_telemetry
-# This value should be less than omnia_telemetry_collection_interval
-# The value mentioned is in seconds.
-# Default value is 5 seconds
-# Required only if omnia_telemetry_support is true
-metric_collection_timeout: 5
