@@ -55,5 +55,7 @@
   ansible.builtin.include_tasks: validate_k8s_params.yml
   when: idrac_telemetry_support is not defined and install_k8s
 
+# Validate grafana params only when required
 - name: Include grafana validations
   ansible.builtin.include_tasks: validate_grafana_params.yml
+  when: params_grafana
