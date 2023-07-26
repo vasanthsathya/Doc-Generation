@@ -240,3 +240,19 @@ scrape_configs:
     labels:
       job: utils cluster logs
       __path__: /var/log/omnia/utils_cluster.log
+
+- job_name: cluster deployment logs
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: cluster deployment logs
+      __path__: /var/log/xcat/cluster.log*
+
+- job_name: compute log messages
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: compute log messages
+      __path__: /var/log/xcat/computes.log*
