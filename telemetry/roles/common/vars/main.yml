@@ -56,13 +56,11 @@ idrac_file_status: "There is no inventory present under /opt/omnia/provisioned_i
                     Please provide inventory with idrac group or create an inventory /opt/omnia/provisioned_idrac_inventory"
 idrac_exec_msg: "Since the absence of idrac group in inventory and existence of /opt/omnia/provisioned_idrac_inventory file.
                    iDRAC telemetry execution will be skipped"
+advanced_vars_fail_msg: "Please give correct inputs for advanced configurations for telemetry in telemetry_config.yml"
 
 # Usage: k8s_secrets.yml
 namespace: telemetry-and-visualizations
 secrets_name: credentials
-mysqldb_user: "mysqldb"
-mysqldb_password: "mysqldb"
-mysqldb_root_password: "mysqldb"
 
 # Usage: set_docker_os.yml
 docker_rocky_os: "8.5"

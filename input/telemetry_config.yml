@@ -49,3 +49,22 @@ idrac_username: ""
 # The password must not contain -,\, ',"
 # Required only if idrac_telemetry_support is true
 idrac_password: ""
+
+### ADVANCE CONFIGURATIONS FOR IDRAC TELEMETRY ###
+# Username used for connecting to mysql db
+# The username must not contain -,\, ',"
+# The Length of the username should be at least 2 characters.
+# Mandatory field when idrac_telemetry_support is true
+mysqldb_user: ""
+
+# Password used for connecting to mysql db
+# The password must not contain -,\, ',"
+# The Length of the password should be at least 2 characters.
+# Mandatory field when idrac_telemetry_support is true
+mysqldb_password: ""
+
+# Password used for connecting to timescale db for root user
+# The password must not contain -,\, ',"
+# The Length of the password should be at least 2 characters.
+# Mandatory field when idrac_telemetry_support is true
+mysqldb_root_password: ""

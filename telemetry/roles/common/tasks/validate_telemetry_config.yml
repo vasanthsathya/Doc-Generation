@@ -125,6 +125,44 @@
       ansible.builtin.fail:
         msg: "{{ idrac_credentials_fail_msg }}"
 
+- name: Assert advance parameters for idrac telemetry
+  when: idrac_telemetry_support
+  block:
+    - name: Assert mysqldb user name
+      ansible.builtin.assert:
+        that:
+          - mysqldb_user | length > 1
+          - '"-" not in mysqldb_user '
+          - '"\\" not in mysqldb_user '
+          - '"\"" not in mysqldb_user '
+          - " \"'\" not in mysqldb_user "
+      no_log: true
+
+    - name: Assert mysqldb user password
+      ansible.builtin.assert:
+        that:
+          - mysqldb_password | length > 1
+          - '"-" not in mysqldb_password '
+          - '"\\" not in mysqldb_password '
+          - '"\"" not in mysqldb_password '
+          - " \"'\" not in mysqldb_password "
+      no_log: true
+
+    - name: Assert mysqldb root user password
+      ansible.builtin.assert:
+        that:
+          - mysqldb_root_password | length > 1
+          - '"-" not in mysqldb_root_password '
+          - '"\\" not in mysqldb_root_password '
+          - '"\"" not in mysqldb_root_password '
+          - " \"'\" not in mysqldb_root_password "
+      no_log: true
+
+  rescue:
+    - name: Validation issue in telemetry_config.yml
+      ansible.builtin.fail:
+        msg: "{{ advanced_vars_fail_msg }}"
+
 - name: Create ansible vault key
   ansible.builtin.set_fact:
     vault_key: "{{ lookup('password', '/dev/null chars=ascii_letters') }}"
