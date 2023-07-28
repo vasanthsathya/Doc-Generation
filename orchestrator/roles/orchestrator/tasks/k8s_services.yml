@@ -118,3 +118,13 @@
     kubectl patch storageclasses.storage.k8s.io nfs-client \
     -p '{ "metadata": { "annotations":{ "storageclass.kubernetes.io/is-default-class":"true" }}}'
   changed_when: true
+
+- name: Get K8s namespaces
+  ansible.builtin.command: kubectl get namespaces
+  changed_when: false
+  register: k8s_namespaces
+
+- name: Create namespace network-config
+  ansible.builtin.command: kubectl create namespace network-config
+  changed_when: true
+  when: "'network-config' not in k8s_namespaces.stdout"
