@@ -13,20 +13,26 @@
 # limitations under the License.
 ---
 
-- name: Pre-requisites for grafana
-  ansible.builtin.include_tasks: pre-requisites.yml
+- name: Check if grafana is already up and running
+  ansible.builtin.include_tasks: install_check.yml
 
-- name: Create k8s secrets for grafana
-  ansible.builtin.include_tasks: secrets.yml
+- name: Initiate installation of grafana
+  when: install_grafana
+  block:
+    - name: Pre-requisites for grafana
+      ansible.builtin.include_tasks: pre-requisites.yml
 
-- name: Create persistent volume for grafana
-  ansible.builtin.include_tasks: volume.yml
+    - name: Create k8s secrets for grafana
+      ansible.builtin.include_tasks: secrets.yml
 
-- name: Create grafana pod
-  ansible.builtin.include_tasks: deployment.yml
+    - name: Create persistent volume for grafana
+      ansible.builtin.include_tasks: volume.yml
 
-- name: Add grafana-plugins for visualization
-  ansible.builtin.include_tasks: plugins.yml
+    - name: Create grafana pod
+      ansible.builtin.include_tasks: deployment.yml
+
+    - name: Add grafana-plugins for visualization
+      ansible.builtin.include_tasks: plugins.yml
 
 - name: Get grafana service IP
   ansible.builtin.command: kubectl get svc "{{ grafana_k8s }}" -n "{{ grafana_namespace }}" -o=jsonpath='{.spec.clusterIP}'
