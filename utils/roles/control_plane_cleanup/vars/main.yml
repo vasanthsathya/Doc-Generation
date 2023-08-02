@@ -49,10 +49,20 @@ postgres_packages:
   - perl-DBD-Pg
 control_plane_os_redhat: "redhat"
 
-# Usage: cleanup_monitor_setup.yml
+# Usage: clean_monitor_setup.yml
 monitor_namespace: monitoring
 exports_path: /etc/exports
 exports_regexp:
   - "/install"
   - "/tftpboot"
   - "/var/nfs_repo"
+crio_socket: /var/run/crio/crio.sock
+
+# Usage: clean_docker_registry.yml
+docker_registry_file: /etc/systemd/system/docker-registry.service
+docker_packages: "docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras"
+docker_del_files:
+  - /var/lib/docker
+  - /var/lib/containerd
+  - /opt/omnia/containerd
+  - /etc/yum.repos.d/docker-ce.repo

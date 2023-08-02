@@ -72,6 +72,9 @@ download_epel_package_warn_msg: "[WARNING] Failed to download epel packages from
 rhel_epel_repo8: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 custom_software_repo: "{{ other_pkg_dir }}/custom_software/Packages"
 control_plane_os_redhat: "redhat"
+control_plane_os_rocky: "rocky"
+download_apptainer_fail_msg: "Failed. Unable to download apptainer package from epel repository."
+apptainer_packages: "apptainer fakeroot fakeroot-libs squashfuse squashfuse-libs"
 
 # Usage: manage_subscription_manager.yml
 rhsm_release_file_path: "/opt/omnia/.data/rhsm_release"

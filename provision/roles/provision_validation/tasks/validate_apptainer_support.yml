@@ -13,10 +13,9 @@
 # limitations under the License.
 ---
 
-- name: Prepare control plane for provisioning
-  hosts: localhost
-  connection: local
-  roles:
-    - role: provision_validation
-    - role: xcat_prepare_cp
-    - role: xcat_docker_registry
+- name: Verify the value of apptainer_support
+  ansible.builtin.assert:
+    that:
+      - apptainer_support == true or apptainer_support == false
+    success_msg: "{{ apptainer_support_success_msg }}"
+    fail_msg: "{{ apptainer_support_fail_msg }}"

@@ -13,17 +13,10 @@
 #  limitations under the License.
 ---
 
-- name: Check k8s namespace monitoring present or not
-  ansible.builtin.command: kubectl get namespaces
-  changed_when: false
-  failed_when: false
-  register: k8s_namespace
-
 - name: Reset kubeadm
-  ansible.builtin.command: kubeadm reset -f
+  ansible.builtin.command: kubeadm reset --cri-socket={{ crio_socket }} -f
   changed_when: false
   failed_when: false
-  when: monitor_namespace in k8s_namespace.stdout
 
 - name: Remove /etc/exports entries
   ansible.builtin.lineinfile:
