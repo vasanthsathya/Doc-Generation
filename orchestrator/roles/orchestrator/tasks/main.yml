@@ -57,7 +57,7 @@
     - name: Reset kubeadm & initialise k8s
       block:
         - name: Reset kubeadm
-          ansible.builtin.command: kubeadm reset -f
+          ansible.builtin.command: "kubeadm reset --cri-socket={{ crio_socket_path }} -f"
           changed_when: false
 
         - name: Initialise k8s

@@ -153,7 +153,7 @@
 
 - name: Install docker-ce-cli
   ansible.builtin.package:
-    name: docker-ce-cli
+    name: "{{ docker_cli_package }}"
     state: present
 
 - name: Start and enable crio

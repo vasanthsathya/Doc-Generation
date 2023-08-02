@@ -13,10 +13,10 @@
 # limitations under the License.
 ---
 
-- name: Prepare control plane for provisioning
-  hosts: localhost
-  connection: local
-  roles:
-    - role: provision_validation
-    - role: xcat_prepare_cp
-    - role: xcat_docker_registry
+- name: Validate image_url provided
+  ansible.builtin.assert:
+    that:
+      - item.image_url is defined
+      - item.image_url | length > image_length
+    success_msg: "{{ image_url_success_msg }}"
+    fail_msg: "{{ image_url_fail_msg }}"

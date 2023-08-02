@@ -62,6 +62,9 @@
 - name: Validate rhel_repo_path
   ansible.builtin.include_tasks: validate_repo_path.yml
 
+- name: Validate apptainer_support
+  ansible.builtin.include_tasks: validate_apptainer_support.yml
+
 # Encrypt provision_config.yml after all the validations are successful
 
 - name: Encrypt config file once validations are successful

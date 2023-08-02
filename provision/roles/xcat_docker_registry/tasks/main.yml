@@ -13,10 +13,5 @@
 # limitations under the License.
 ---
 
-- name: Prepare control plane for provisioning
-  hosts: localhost
-  connection: local
-  roles:
-    - role: provision_validation
-    - role: xcat_prepare_cp
-    - role: xcat_docker_registry
+- name: Create docker registry
+  ansible.builtin.include_tasks: create_docker_registry.yml

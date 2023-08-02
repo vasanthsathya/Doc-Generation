@@ -13,10 +13,11 @@
 # limitations under the License.
 ---
 
-- name: Prepare control plane for provisioning
-  hosts: localhost
-  connection: local
-  roles:
-    - role: provision_validation
-    - role: xcat_prepare_cp
-    - role: xcat_docker_registry
+- name: Install apptainer packages
+  ansible.builtin.include_tasks: package_installation.yml
+
+- name: Configure docker registry on the cluster
+  ansible.builtin.include_tasks: configure_cluster.yml
+
+- name: Fetch hpc images
+  ansible.builtin.include_tasks: get_hpc_images.yml
