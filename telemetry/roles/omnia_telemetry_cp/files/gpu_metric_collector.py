@@ -23,24 +23,31 @@ class GPUMetricCollector:
     GPUMetricCollector class is responsible for collecting all gpu metrics
     '''
     def __init__(self):
-        pass
+        self.gpu_metric_output_dict = {}
 
-    def metric_collector(self, aggregation_level, gpu_metric_output_dict):
+    def get_nvidia_metrics(self):
+        # run nvidia-smi command and store output in a variable
+        nvidia_metrics_cmd_output = data_collector_nvidia_gpu.get_nvidia_metrics_output()
+
+        # get temperature details for NVIDIA GPU
+        gpu_temp = data_collector_nvidia_gpu.get_nvidia_gpu_temp(nvidia_metrics_cmd_output)
+        if gpu_temp is not None:
+            for index, item in enumerate(gpu_temp):
+                self.gpu_metric_output_dict["gpu_temperature:gpu" + str(index)] = item
+
+        # get utilization details for NVIDIA GPU
+        gpu_util = data_collector_nvidia_gpu.get_nvidia_gpu_utilization(nvidia_metrics_cmd_output)
+        if gpu_util is not None:
+            for index, item in enumerate(gpu_util):
+                self.gpu_metric_output_dict["gpu_utilization:gpu" + str(index)] = item
+
+        # get average of utilization of all GPUs in the system
+        gpu_avg_util = data_collector_nvidia_gpu.get_nvidia_gpu_avg_utilization(nvidia_metrics_cmd_output)
+        self.gpu_metric_output_dict["gpu_utilization:average"] = gpu_avg_util
+
+    def metric_collector(self, aggregation_level):
         '''
         Method to make method calls to collect all metrics for gpu
         '''
         if aggregation_level == 'node':
-            # run nvidia-smi command and store output in a variable
-            nvidia_metrics_cmd_output = data_collector_nvidia_gpu.get_nvidia_metrics_output()
-
-            # get temperature details for NVIDIA GPU
-            data_collector_nvidia_gpu.\
-                get_nvidia_gpu_temp(nvidia_metrics_cmd_output, gpu_metric_output_dict)
-
-            # get utilization details for NVIDIA GPU
-            data_collector_nvidia_gpu.\
-                get_nvidia_gpu_utilization(nvidia_metrics_cmd_output, gpu_metric_output_dict)
-
-            # get average of utilization of all GPUs in the system
-            data_collector_nvidia_gpu.\
-                get_nvidia_gpu_avg_utilization(nvidia_metrics_cmd_output, gpu_metric_output_dict)
+            self.get_nvidia_metrics()

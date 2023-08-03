@@ -30,7 +30,7 @@ def get_nvidia_metrics_output():
     return command_result
 
 
-def get_nvidia_gpu_temp(nvidia_metrics_cmd_result, gpu_metric_output_dict):
+def get_nvidia_gpu_temp(nvidia_metrics_cmd_result):
     '''
     This method collects nvidia gpu temp from nvidia query output
     and stores it in gpu metric dictionary
@@ -38,17 +38,14 @@ def get_nvidia_gpu_temp(nvidia_metrics_cmd_result, gpu_metric_output_dict):
     :param gpu_metric_output_dict: dictionary with nvidia gpu temperature data added
     '''
     if nvidia_metrics_cmd_result is not None:
-        try:
-            gpu_temp_list = parser.get_col_from_csv(nvidia_metrics_cmd_result, 'temperature.gpu')
-            for index, item in enumerate(gpu_temp_list):
-                gpu_metric_output_dict["gpu_temperature:gpu" + str(index)] = item
-        except Exception as err:
-            syslog.syslog(syslog.LOG_ERR, "Exception thrown in get_nvidia_gpu_temp :" + err)
+        gpu_temp_list = parser.get_col_from_csv(nvidia_metrics_cmd_result, 'temperature.gpu')
+        return gpu_temp_list
     else:
         syslog.syslog(syslog.LOG_ERR, "nvidia-smi command did not give output for gpu metrics.")
+        return None
 
 
-def get_nvidia_gpu_utilization(nvidia_metrics_cmd_result, gpu_metric_output_dict):
+def get_nvidia_gpu_utilization(nvidia_metrics_cmd_result):
     '''
     This method collects nvidia gpu utilization from nvidia query output
     and stores it in gpu metric dictionary
@@ -56,19 +53,14 @@ def get_nvidia_gpu_utilization(nvidia_metrics_cmd_result, gpu_metric_output_dict
     :param gpu_metric_output_dict: dictionary with nvidia gpu utilization data added
     '''
     if nvidia_metrics_cmd_result is not None:
-        try:
-            gpu_utilization_list = parser. \
-                get_col_from_csv(nvidia_metrics_cmd_result, 'utilization.gpu [%]')
-            for index, item in enumerate(gpu_utilization_list):
-                gpu_metric_output_dict["gpu_utilization:gpu" + str(index)] = item
-        except Exception as err:
-            syslog. \
-                syslog(syslog.LOG_ERR, "Exception thrown in get_nvidia_gpu_utilization :" + err)
+        gpu_util_list = parser.get_col_from_csv(nvidia_metrics_cmd_result, 'utilization.gpu [%]')
+        return gpu_util_list
     else:
         syslog.syslog(syslog.LOG_ERR, "nvidia-smi command did not give output for gpu metrics.")
+        return None
 
 
-def get_nvidia_gpu_avg_utilization(nvidia_metrics_cmd_result, gpu_metric_output_dict):
+def get_nvidia_gpu_avg_utilization(nvidia_metrics_cmd_result):
     '''
     This method calculates average gpu utilization on the node
     and stores it in gpu metric dictionary
@@ -76,12 +68,9 @@ def get_nvidia_gpu_avg_utilization(nvidia_metrics_cmd_result, gpu_metric_output_
     :param gpu_metric_output_dict: dictionary with nvidia gpu average utilization data added
     '''
     if nvidia_metrics_cmd_result is not None:
-        try:
-            gpu_utilization_list = parser. \
-                get_col_from_csv(nvidia_metrics_cmd_result, 'utilization.gpu [%]')
-            gpu_metric_output_dict["gpu_utilization:average"] = \
-                sum(gpu_utilization_list) / len(gpu_utilization_list)
-        except Exception as err:
-            syslog.syslog(syslog.LOG_ERR, "Exception thrown in get_nvidia_gpu_avg_utilization :" + err)
+        gpu_util_list = parser.get_col_from_csv(nvidia_metrics_cmd_result, 'utilization.gpu [%]')
+        gpu_average_utilization = sum(gpu_util_list)/len(gpu_util_list)
+        return gpu_average_utilization
     else:
         syslog.syslog(syslog.LOG_ERR, "nvidia-smi command did not give output for gpu metrics.")
+        return None

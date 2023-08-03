@@ -15,28 +15,13 @@
 
 from gpu_metric_collector import GPUMetricCollector as GMC
 
-class DictConditional(dict):
-    def __init__(self, cond=lambda x: x is not None):
-        self.cond = cond
-    def __setitem__(self, key, value):
-        if not self.cond(value):
-            if key in self:
-                del self[key]
-        else:
-            dict.__setitem__(self, key, value)
-
-
 def main():
-    
-    gpu_metric_output_dict = DictConditional(lambda x: x is not None)
-    cmd_output_dict = {}
 
     gpu_metric_collector = GMC()
     #if collect_regular_metrics == true:
-    gpu_metric_collector.metric_collector("node", gpu_metric_output_dict)
-
-    #print output
-    print("print result: "+ str(gpu_metric_output_dict))
+    gpu_metric_collector.metric_collector("node")
+    metric_output_dict = gpu_metric_collector.gpu_metric_output_dict
+    print("print result: "+ str(metric_output_dict))
 
 if __name__ == "__main__":
     main()

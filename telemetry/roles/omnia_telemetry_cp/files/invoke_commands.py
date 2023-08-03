@@ -16,32 +16,37 @@
 import subprocess  # Importing the subprocess module to execute commands
 import logging  # Importing the logging module to handle logging
 
+'''
 
-def get_logger():
-    # Create a logger with a specific name, so it can be retrieved consistently across modules
-    logger = logging.getLogger("invoke_commands")
-    if not logger.handlers:
-        # Only configure the logger if it doesn't already have handlers
-        logger.setLevel(logging.DEBUG)
-        formatter = logging.Formatter('%(asctime)s - %(process)d-%(levelname)s : %(message)s')
-        file_handler = logging.FileHandler('/tmp/demofile2.log')
-        file_handler.setFormatter(formatter)
-        logger.addHandler(file_handler)
-    return logger
+Module to get output of command
+
+'''
+
+import syslog
+
+import subprocess
+
 
 def call_command(command):
-    logger = get_logger()
+    """
+    Call a command using subprocess and return the output or log errors using syslog.
+    Args:
+        command (str): The command to be executed.
+    Returns:
+        str or None: The output of the command or None if an error occurred.
+    """
     try:
-        output = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, shell=True)
+        output = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True,
+                                shell=True, check=False)
         if output.returncode == 0:
             return output.stdout.strip() if output.stdout else None
-        else:
-            logger.error(f"Command returned non-zero exit status: {output.returncode}")
-            logger.error(f"Error output: {output.stderr}")
-            return None
-
-    except Exception as e:
-        logger.error(f"An error occurred: {e}", exc_info=True)
+        # Log an error message with the command's non-zero exit status and the error output
+        syslog.openlog(ident="invoke_commands", logoption=syslog.LOG_PID)
+        syslog.syslog(syslog.LOG_ERR, f"Command returned non-zero exit status: {output.returncode}")
+        syslog.syslog(syslog.LOG_ERR, f"Error output: {output.stderr}")
         return None
 
-
+    except Exception as exc:
+        syslog.openlog(ident="invoke_commands", logoption=syslog.LOG_PID)
+        syslog.syslog(syslog.LOG_ERR, f"An error occurred: {exc}")
+        return None
