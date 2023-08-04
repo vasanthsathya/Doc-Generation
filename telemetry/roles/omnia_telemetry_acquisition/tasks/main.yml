@@ -12,3 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+
+- name: Stop omnia telemetry
+  ansible.builtin.include_tasks: stop_omnia_telemetry.yml
+  when: not hostvars['127.0.0.1']['omnia_telemetry_support']
