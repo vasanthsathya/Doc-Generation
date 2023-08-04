@@ -24,7 +24,7 @@
 appliance_k8s_pod_net_cidr: "192.168.0.0/16"
 
 # This variable is used to enable iDRAC telemetry support and visualizations
-# Accepted values:  "true" or "false"
+# Accepted values:  true or false
 idrac_telemetry_support: false
 
 # Username used for connecting to timescale db
@@ -70,38 +70,47 @@ mysqldb_password: ""
 mysqldb_root_password: ""
 
 # This variable is used to start or stop omnia telemetry
-# Accepted values:  "true" or "false"
+# Accepted values:  true or false
 # If omnia_telemetry_support is true, then at least one of collect_regular_metrics or collect_health_check_metrics or collect_gpu_metrics should be true, to collect metrics
 # If omnia_telemetry_support is false, telemetry acquisition will be stopped
 omnia_telemetry_support: true
 
 # This variable denotes the time interval of telemerey data collection from required computue nodes
-# Default value is 300 seconds
+# This variable accepts input in seconds
+# Default value is 300
+# Example 1: omnia_telemetry_collection_interval: 300
+# Example 2: omnia_telemetry_collection_interval: 600
 # Valid range: minimum 60 seconds and maximum 3600 seconds(i.e. 1 minute to 1 hour)
 omnia_telemetry_collection_interval: 300
 
 # This variable is used to enable metric collection part of the regular metric group
-# Accepted values:  "true" or "false"
+# Accepted values:  true or false
 collect_regular_metrics: true
 
 # This variable is used to enable metric collection related to health check
-# Accepted values:  "true" or "false"
+# Accepted values:  true or false
 collect_health_check_metrics: true
 
 # This variable is used to enable metric collection related to GPU
-# Accepted values:  "true" or "false"
+# Accepted values:  true or false
 collect_gpu_metrics: true
 
 # Advanced Setting for omnia Telemetry
 
 # This variable is used to set an appropriate time interval for all compute nodes so that they do not congest the admin network
 # A random rumber between 0 and fuzzy_offset gets added with omnia_telemetry_collection_interval value to decide individual compute node's telemetry data collection interval
-# Default value is 60 seconds
+# This variable accepts input in seconds
+# Default value is 60
+# Example 1: fuzzy_offset: 60
+# Example 2: fuzzy_offset: 100
 # For larger cluster this parameter can be set with higher value
 # This value should be less than omnia_telemetry_collection_interval value
 fuzzy_offset: 60
 
 # This variable is used to define data collection timeout period
-# Default value is 5 sec
+# This variable accepts input in seconds
+# Default value is 5
+# Example 1: metric_collection_timeout: 5
+# Example 2: metric_collection_timeout: 10
 # This value should be less than omnia_telemetry_collection_interval value
 metric_collection_timeout: 5
