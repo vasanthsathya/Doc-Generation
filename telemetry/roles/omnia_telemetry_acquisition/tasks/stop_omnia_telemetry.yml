@@ -13,5 +13,12 @@
 # limitations under the License.
 ---
 
-# Usage: stop_omnia_telemetry.yml
-omnia_telemetry_service: omnia_telemetry.service
+- name: Gathering service facts
+  ansible.builtin.service_facts:
+
+- name: Stop {{ omnia_telemetry_service }}
+  ansible.builtin.service:
+    name: "{{ omnia_telemetry_service }}"
+    state: stopped
+    enabled: false
+  when: omnia_telemetry_service in ansible_facts.services
