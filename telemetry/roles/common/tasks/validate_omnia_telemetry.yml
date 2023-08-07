@@ -13,72 +13,56 @@
 # limitations under the License.
 ---
 
-- name: Assert omnia telemetry support
+- name: Assert omnia telemetry collection interval
   ansible.builtin.assert:
     that:
-      - omnia_telemetry_support == true or omnia_telemetry_support == false
+      - omnia_telemetry_collection_interval is integer
+      - omnia_telemetry_collection_interval >= min_interval and omnia_telemetry_collection_interval <= max_interval
     quiet: true
-    fail_msg: "{{ omnia_telemetry_support_fail_msg }}"
+    fail_msg: "{{ omnia_telemetry_collection_interval_fail_msg }}"
 
-- name: Waiting for {{ idrac_omnia_telemetry_support_false_warn_time }} seconds
-  ansible.builtin.pause:
-    seconds: "{{ idrac_omnia_telemetry_support_false_warn_time }}"
-    prompt: "{{ idrac_omnia_telemetry_support_warn_msg }}"
-  when: not idrac_telemetry_support and not omnia_telemetry_support
+- name: Assert collect regular metrics
+  ansible.builtin.assert:
+    that:
+      - collect_regular_metrics == true or collect_regular_metrics == false
+    quiet: true
+    fail_msg: "{{ collect_regular_metrics_fail_msg }}"
 
-- name: Validation block
-  when: omnia_telemetry_support
-  block:
-    - name: Assert omnia telemetry collection interval
-      ansible.builtin.assert:
-        that:
-          - omnia_telemetry_collection_interval is integer
-          - omnia_telemetry_collection_interval >= min_interval and omnia_telemetry_collection_interval <= max_interval
-        quiet: true
-        fail_msg: "{{ omnia_telemetry_collection_interval_fail_msg }}"
+- name: Assert collect health check metrics
+  ansible.builtin.assert:
+    that:
+      - collect_health_check_metrics == true or collect_health_check_metrics == false
+    quiet: true
+    fail_msg: "{{ collect_health_check_metrics_fail_msg }}"
 
-    - name: Assert collect regular metrics
-      ansible.builtin.assert:
-        that:
-          - collect_regular_metrics == true or collect_regular_metrics == false
-        quiet: true
-        fail_msg: "{{ collect_regular_metrics_fail_msg }}"
+- name: Assert collect gpu metrics
+  ansible.builtin.assert:
+    that:
+      - collect_gpu_metrics == true or collect_gpu_metrics == false
+    quiet: true
+    fail_msg: "{{ collect_gpu_metrics_fail_msg }}"
 
-    - name: Assert collect health check metrics
-      ansible.builtin.assert:
-        that:
-          - collect_health_check_metrics == true or collect_health_check_metrics == false
-        quiet: true
-        fail_msg: "{{ collect_health_check_metrics_fail_msg }}"
+- name: Assert all metric collection are flase
+  ansible.builtin.assert:
+    that:
+      - collect_regular_metrics or collect_health_check_metrics or collect_gpu_metrics
+    quiet: true
+    fail_msg: "{{ all_omnia_telemetry_support_false_fail_msg }}"
 
-    - name: Assert collect gpu metrics
-      ansible.builtin.assert:
-        that:
-          - collect_gpu_metrics == true or collect_gpu_metrics == false
-        quiet: true
-        fail_msg: "{{ collect_gpu_metrics_fail_msg }}"
+- name: Assert fuzzy offset
+  ansible.builtin.assert:
+    that:
+      - fuzzy_offset is integer
+      - fuzzy_offset >= 0
+      - fuzzy_offset < omnia_telemetry_collection_interval
+    quiet: true
+    fail_msg: "{{ fuzzy_offset_fail_msg }}"
 
-    - name: Assert all metric collection are flase
-      ansible.builtin.assert:
-        that:
-          - collect_regular_metrics or collect_health_check_metrics or collect_gpu_metrics
-        quiet: true
-        fail_msg: "{{ all_omnia_telemetry_support_false_fail_msg }}"
-
-    - name: Assert fuzzy offset
-      ansible.builtin.assert:
-        that:
-          - fuzzy_offset is integer
-          - fuzzy_offset >= 0
-          - fuzzy_offset < omnia_telemetry_collection_interval
-        quiet: true
-        fail_msg: "{{ fuzzy_offset_fail_msg }}"
-
-    - name: Assert metric collection timeout
-      ansible.builtin.assert:
-        that:
-          - metric_collection_timeout is integer
-          - metric_collection_timeout > 0
-          - metric_collection_timeout < omnia_telemetry_collection_interval
-        quiet: true
-        fail_msg: "{{ metric_collection_timeout_fail_msg }}"
+- name: Assert metric collection timeout
+  ansible.builtin.assert:
+    that:
+      - metric_collection_timeout is integer
+      - metric_collection_timeout > 0
+      - metric_collection_timeout < omnia_telemetry_collection_interval
+    quiet: true
+    fail_msg: "{{ metric_collection_timeout_fail_msg }}"
