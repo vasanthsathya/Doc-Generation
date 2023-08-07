@@ -13,6 +13,10 @@
 # limitations under the License.
 ---
 
+- name: Set hpc_apptainer_path
+  ansible.builtin.set_fact:
+    hpc_apptainer_path: "{{ hostvars['127.0.0.1']['hpc_apptainer_path'] }}"
+
 - name: Fetch hpc images list
   ansible.builtin.command: cat {{ hpc_image_list }}
   changed_when: false
@@ -22,9 +26,9 @@
 
 - name: Create the directory for apptainer sif files
   ansible.builtin.file:
-    path: "{{ apptainer_sif_dir }}"
+    path: "{{ hpc_apptainer_path }}"
     state: directory
-    mode: "{{ file_permission }}"
+    mode: "{{ apptainer_path_mode }}"
 
 - name: Pull hpc images using apptainer
   ansible.builtin.command: apptainer pull {{ apptainer_sif_path }} docker://{{ item }}
