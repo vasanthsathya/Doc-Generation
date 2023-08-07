@@ -66,3 +66,23 @@
       - metric_collection_timeout < omnia_telemetry_collection_interval
     quiet: true
     fail_msg: "{{ metric_collection_timeout_fail_msg }}"
+
+- name: Validate omnia inventory
+  ansible.builtin.assert:
+    that:
+      - groups['manager'] is defined
+      - groups['compute'] is defined
+    quiet: true
+    fail_msg: "{{ inventory_fail_msg }}"
+
+- name: Validate manager group
+  ansible.builtin.assert:
+    that: "groups['manager'] | length | int == 1"
+    quiet: true
+    fail_msg: "{{ manager_group_fail_msg }}"
+
+- name: Validate compute group
+  ansible.builtin.assert:
+    that: "groups['compute'] | length | int >= 1"
+    quiet: true
+    fail_msg: "{{ compute_group_fail_msg }}"

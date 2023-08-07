@@ -57,6 +57,9 @@ exports_regexp:
   - "/tftpboot"
   - "/var/nfs_repo"
 crio_socket: /var/run/crio/crio.sock
+grafana_folders:
+  - /opt/omnia/telemetry/grafana
+  - /opt/omnia/telemetry/github-grafana-plugins
 
 # Usage: clean_docker_registry.yml
 docker_registry_file: /etc/systemd/system/docker-registry.service

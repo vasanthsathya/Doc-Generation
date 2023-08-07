@@ -31,6 +31,7 @@ pip_packages:
   - omsdk
   - PyMySQL
 mysqldb_collection_name: community.mysql:3.1.0
+retry_count: 3
 rhel_epel_repo8: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 max_retries: 20
 os_supported_redhat: "redhat"
@@ -73,6 +74,11 @@ collect_gpu_metrics_fail_msg: "Failed. collect_gpu_metrics accepts boolean value
 all_omnia_telemetry_support_false_fail_msg: "Failed. One of Regular, health-check or GPU metric collector must be true if omnia_telemetry_support is true"
 fuzzy_offset_fail_msg: "Failed. fuzzy_offset accepts integer values and should be less than omnia_telemetry_collection_interval"
 metric_collection_timeout_fail_msg: "Failed. metric_collection_timeout accepts integer values and should be less than omnia_telemetry_collection_interval"
+inventory_fail_msg: "Inventory comprising manager and compute groups should be passed when omnia_telemetry_support is true."
+inventory_success_msg: "Inventory is passed."
+manager_group_fail_msg: "Manager group should contain exactly 1 node"
+compute_group_fail_msg: "Compute group should contain atleast 1 node"
+login_group_fail_msg: "Login group should contain exactly 1 node"
 
 # Usage: k8s_secrets.yml
 namespace: telemetry-and-visualizations

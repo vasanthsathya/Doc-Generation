@@ -29,3 +29,9 @@
   ansible.builtin.command: /usr/sbin/exportfs -r
   changed_when: true
   failed_when: false
+
+- name: Remove grafana persistent data
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  with_items: "{{ grafana_folders }}"

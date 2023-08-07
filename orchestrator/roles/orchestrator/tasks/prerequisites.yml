@@ -13,11 +13,12 @@
 #  limitations under the License.
 ---
 
-- name: Saving management station os
+- name: Saving variables
   ansible.builtin.set_fact:
     mgmt_os: "{{ ansible_facts['distribution'] | lower }}"
     install_k8s: false
     params_grafana: false
+    grafana_support: false
 
 - name: Set control plane OS version
   ansible.builtin.set_fact:
@@ -44,19 +45,3 @@
       ansible.builtin.set_fact:
         install_k8s: true
       when: "'nfs-client-provisioner' not in k8s_pods.stdout"
-
-- name: Check if grafana configuration parameters are needed
-  block:
-    # Grafana parameters are needed to install grafana
-    - name: Grafana parameters are needed when running monitor.yml
-      ansible.builtin.set_fact:
-        params_grafana: true
-      when: idrac_telemetry_support is not defined
-
-    # Grafana parameters are needed to configure grafana when idrac_telemetry_support is true
-    - name: Grafana parameters are needed when running telemetry.yml with idrac_telemetry_support as true
-      ansible.builtin.set_fact:
-        params_grafana: true
-      when:
-        - idrac_telemetry_support is defined
-        - idrac_telemetry_support is true

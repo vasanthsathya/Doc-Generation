@@ -34,6 +34,16 @@
     - name: Add grafana-plugins for visualization
       ansible.builtin.include_tasks: plugins.yml
 
+- name: Check running pods to see if idrac visualizations need to be setup
+  ansible.builtin.command: kubectl get pods -A
+  changed_when: false
+  register: kubectl_output
+
+- name: Include grafana_config role
+  ansible.builtin.include_role:
+    name: ../telemetry/roles/grafana_config
+  when: "'idrac-telemetry' in kubectl_output.stdout and 'timescaledb' in kubectl_output.stdout"
+
 - name: Get grafana service IP
   ansible.builtin.command: kubectl get svc "{{ grafana_k8s }}" -n "{{ grafana_namespace }}" -o=jsonpath='{.spec.clusterIP}'
   changed_when: false

@@ -87,6 +87,7 @@ docker_repo_dest: /etc/yum.repos.d/docker-ce.repo
 crio_repo: "devel:kubic:libcontainers:stable:cri-o:1.21,rhel-8-for-x86_64-appstream-rpms,rhel-8-for-x86_64-baseos-rpms"
 file_mode: 0700
 docker_cli_package: docker-ce-cli-24.0.4
+retry_count: 3
 
 # Usage: k8s_firewalld.yml
 k8s_master_ports:

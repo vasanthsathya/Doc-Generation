@@ -13,6 +13,20 @@
 #  limitations under the License.
 ---
 
+- name: Install netaddr
+  ansible.builtin.command: "{{ pip_version }} install netaddr"
+  changed_when: false
+
+- name: Install ansible.utils galaxy collection
+  ansible.builtin.command: ansible-galaxy collection install "{{ utils_collection }}"
+  changed_when: true
+  retries: "{{ retry_count }}"
+
+- name: Common package installation
+  ansible.builtin.package:
+    name: "{{ k8s_pkgs }}"
+    state: present
+
 - name: Permanently Disable swap
   ansible.builtin.mount:
     name: "swap"

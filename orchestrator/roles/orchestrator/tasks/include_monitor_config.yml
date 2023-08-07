@@ -37,13 +37,13 @@
 
 - name: Create ansible vault key
   ansible.builtin.set_fact:
-    provision_vault_key: "{{ lookup('password', '/dev/null chars=ascii_letters') }}"
+    monitor_vault_key: "{{ lookup('password', '/dev/null chars=ascii_letters') }}"
   when: ansible_vault_search_key not in monitor_config_content.stdout
 
 - name: Save vault key to monitor_vault_path
   ansible.builtin.lineinfile:
     path: "{{ monitor_vault_path }}"
-    line: "{{ provision_vault_key }}"
+    line: "{{ monitor_vault_key }}"
     mode: "{{ conf_file_mode }}"
     owner: root
     create: true
@@ -51,11 +51,24 @@
 
 # Validate appliance_k8s_pod_net_cidr from monitor_config.yml when orchestrator role is being called from monitor.yml
 # Else appliance_k8s_pod_net_cidr will be taken from telemetry_config.yml
-- name: Include k8s validations
+- name: Include k8s validations when orchestrator is being called from monitor.yml
   ansible.builtin.include_tasks: validate_k8s_params.yml
   when: idrac_telemetry_support is not defined and install_k8s
 
-# Validate grafana params only when required
+# Grafana support is true when running from telemetry.yml when credentials are given
+- name: Check if grafana support is required when running from telemetry.yml
+  ansible.builtin.set_fact:
+    grafana_support: true
+  when:
+    - grafana_username | length >= min_length_grafana
+    - grafana_password | length >= min_length_grafana
+    - idrac_telemetry_support is true
+
+- name: Set grafana support to true when running from monitor.yml
+  ansible.builtin.set_fact:
+    grafana_support: true
+  when: idrac_telemetry_support is not defined
+
 - name: Include grafana validations
   ansible.builtin.include_tasks: validate_grafana_params.yml
-  when: params_grafana
+  when: grafana_support
