@@ -66,3 +66,4 @@ docker_del_files:
   - /var/lib/containerd
   - /opt/omnia/containerd
   - /etc/yum.repos.d/docker-ce.repo
+  - /docker-registry
