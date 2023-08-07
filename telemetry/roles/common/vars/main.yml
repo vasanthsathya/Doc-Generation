@@ -36,7 +36,7 @@ max_retries: 20
 os_supported_redhat: "redhat"
 rhel_code_ready_repo: codeready-builder-for-rhel-8-x86_64-rpms
 
-# Usage: validate_common_telemetry_config.yml
+# Usage: validate_telemetry_config.yml
 success_msg_k8s_pod_network_cidr: "Appliance k8s pod network cidr validated"
 fail_msg_k8s_pod_network_cidr: "Failed. Incorrect appliance k8s pod network cidr provided in input/telemetry_config.yml"
 folder_perm: '644'
