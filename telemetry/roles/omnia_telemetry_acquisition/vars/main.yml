@@ -12,3 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+
+# Usage: stop_omnia_telemetry.yml
+omnia_telemetry_service: omnia_telemetry.service

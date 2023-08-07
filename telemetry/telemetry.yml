@@ -20,34 +20,26 @@
   roles:
     - common
 
-- name: Install kubernetes on control plane
+- name: Install kubernetes and grafana on control plane
   hosts: localhost
   connection: local
   gather_facts: false
   tasks:
-    - name: Include orchestrator role
-      ansible.builtin.include_role:
-        name: ../orchestrator/roles/orchestrator
+    - name: Install kubernetes and grafana on control plane when telemetry support is true
+      when: idrac_telemetry_support or omnia_telemetry_support
+      block:
+        - name: Include orchestrator role
+          ansible.builtin.include_role:
+            name: ../orchestrator/roles/orchestrator
 
-- name: Install grafana on control plane
-  hosts: localhost
-  connection: local
-  gather_facts: false
-  tasks:
-    - name: Include grafana role
-      ansible.builtin.include_role:
-        name: ../monitor/roles/grafana
+        - name: Include grafana role
+          ansible.builtin.include_role:
+            name: ../monitor/roles/grafana
 
-- name: Create kubernetes secrets for telemetry
-  hosts: localhost
-  connection: local
-  gather_facts: false
-  tasks:
-    - name: Create k8s secrets for database credentials
-      ansible.builtin.include_role:
-        name: common
-        tasks_from: k8s_secrets.yml
-      when: idrac_telemetry_support is true
+        - name: Create k8s secrets for database credentials
+          ansible.builtin.include_role:
+            name: common
+            tasks_from: k8s_secrets.yml
 
 - name: Install idrac telemetry
   hosts: localhost
@@ -85,3 +77,10 @@
   roles:
     - slurm_telemetry
   tags: slurm_telemetry
+
+- name: Install Omnia Telemetry
+  hosts: manager, compute, login
+  gather_facts: false
+  roles:
+    - omnia_telemetry_acquisition
+  tags: omnia_telemetry

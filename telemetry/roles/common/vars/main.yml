@@ -58,6 +58,20 @@ idrac_exec_msg: "Since the absence of idrac group in inventory and existence of 
                    iDRAC telemetry execution will be skipped"
 advanced_vars_fail_msg: "Please give correct inputs for advanced configurations for telemetry in telemetry_config.yml"
 
+# Usage: validate_omnia_telemetry.yml
+min_interval: 60
+max_interval: 3600
+omnia_telemetry_support_fail_msg: "Failed. omnia_telemetry_support accepts boolean value true or false"
+idrac_omnia_telemetry_support_false_warn_time: 10
+idrac_omnia_telemetry_support_warn_msg: "Warning. Both iDRAC and omnia telemetry support are false"
+omnia_telemetry_collection_interval_fail_msg: "Failed. omnia_telemetry_collection_interval accepts integer values between 60 to 3600 seconds"
+collect_regular_metrics_fail_msg: "Failed. collect_regular_metrics accepts boolean value true or false"
+collect_health_check_metrics_fail_msg: "Failed. collect_health_check_metrics accepts boolean value true or false"
+collect_gpu_metrics_fail_msg: "Failed. collect_gpu_metrics accepts boolean value true or false"
+all_omnia_telemetry_support_false_fail_msg: "Failed. One of Regular, health-check or GPU metric collector must be true if omnia_telemetry_support is true"
+fuzzy_offset_fail_msg: "Failed. fuzzy_offset accepts integer values and should be less than omnia_telemetry_collection_interval"
+metric_collection_timeout_fail_msg: "Failed. metric_collection_timeout accepts integer values and should be less than omnia_telemetry_collection_interval"
+
 # Usage: k8s_secrets.yml
 namespace: telemetry-and-visualizations
 secrets_name: credentials

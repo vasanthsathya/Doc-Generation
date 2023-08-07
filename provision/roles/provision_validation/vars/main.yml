@@ -72,14 +72,14 @@ dedicated_discovery_fail_msg: "Failed.If network interface type is dedicated, on
 omnia_admin_ip: "{{ admin_nic_subnet.split('.')[0] + '.' + admin_nic_subnet.split('.')[1] + '.' + '255' + '.' + '254' }}"
 omnia_admin_netmask: 255.255.0.0
 admin_nic_path: "/etc/sysconfig/network-scripts/ifcfg-{{ admin_nic }}"
-fail_admin_nic_dedicated: "Failed. Please assign admin nic IP. "
+fail_admin_nic_dedicated: "Failed. Please assign admin nic IP to the admin_nic {{ admin_nic }} provided in provision_config.yml."
 
 # Usage: assign_nic_config.yml
 pxe_subnet_msg: "Failed. Please provide proper pxe_subnet"
 omnia_bmc_ip: "{{ bmc_nic_subnet.split('.')[0] + '.' + bmc_nic_subnet.split('.')[1] + '.' + '255' + '.' + '254' }}"
 omnia_bmc_netmask: 255.255.0.0
 fail_mapping_bmc_dedicated: "Failed.BMC is only supported in shared LOM. Check the configuration once."
-fail_admin_nic_lom: "Failed. Please assign admin and bmc IP to the given nic in provision_config.yml."
+fail_admin_nic_lom: "Failed. Please assign admin and bmc IP to the the admin_nic {{ admin_nic }} provided in provision_config.yml."
 
 # Usage: enable_nic_configuration.yml
 nic_subnet: 16
@@ -172,7 +172,9 @@ desired_capacity_success_msg: "desired_capacity of disk_partition successfully v
 desired_capacity_fail_msg: "Failed. Provide valid integer value to desired_capacity of disk_partition"
 supported_rhel_os_version: ["8.0", "8.1", "8.2", "8.3", "8.4", "8.5", "8.6", "8.7", "8.8", "8.9"]
 provision_os_version_fail_msg: "Failed. Invalid provision_os_version: {{ provision_os_version }} provided in provision_config.yml.
-Supported provision_os_version values are 8.0,8.1,8.2,8.3,8.4,8.5,8.6,8.7"
+Supported provision_os_version values are 8.0,8.1,8.2,8.3,8.4,8.5,8.6,8.7,8.8"
+rocky_update_warning_msg: "[WARNING] Rocky Linux OS version on the cluster will be upgraded to the latest 8.x irrespective of provision_os_version
+provided in provision_config.yml"
 
 # Usage: validate_domain_name.yml
 domain_name_success_msg: "domain_name successfully validated"
