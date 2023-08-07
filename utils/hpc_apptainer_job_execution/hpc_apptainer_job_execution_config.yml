@@ -14,7 +14,6 @@
 ---
 
 # Docker images to be downloaded in all target nodes using apptainer to create sif file
-# All sif files will be stored in /root/apptainer folder of target nodes
 # Example for single image
 # hpc_apptainer_image: 
 #   - { image_url: "docker.io/intel/oneapi-hpckit:latest" }
@@ -25,3 +24,7 @@
 # If provided docker credentials in omnia_config.yml, it will be used for downloading docker images
 hpc_apptainer_image: 
   - { image_url: "docker.io/intel/oneapi-hpckit:latest" }
+
+# Path to directory for storing apptainer sif files in cluster nodes
+# Recommended to provide a directory inside shared path across all nodes in the cluster.
+hpc_apptainer_path: "/home/omnia-share/softwares/apptainer"

@@ -21,6 +21,7 @@ metadata_path: "/opt/omnia/.data/metadata.yml"
 metadata_missing_fail_msg: "Failed. Run provision.yml and provision the server before executing hpc_apptainer_job_execution.yml"
 cp_ip_fail_msg: "Failed. Run provision.yml and verify no failures occurred.
 Re-run hpc_apptainer_job_execution.yml after provision.yml execution and provisioning of server."
+apptainer_path_fail_msg: "Failed. hpc_apptainer_path can't be empty in hpc_apptainer_job_execution_config.yml"
 
 # Usage: validate_image_url.yml
 image_length: 3
@@ -61,5 +62,5 @@ docker_registry_port: 5001
 docker_pull_fail_msg: "Failed. Unable to pull the image_url of hpc_apptainer_image variable provided in the input hpc_apptainer_job_execution_config.yml."
 
 # Usage: get_hpc_images.yml
-apptainer_sif_dir: "/root/apptainer"
-apptainer_sif_path: "{{ apptainer_sif_dir }}/{{ item.split('/')[-1] | replace(':', '_') }}.sif"
+apptainer_path_mode: 0777
+apptainer_sif_path: "{{ hpc_apptainer_path }}/{{ item.split('/')[-1] | replace(':', '_') }}.sif"

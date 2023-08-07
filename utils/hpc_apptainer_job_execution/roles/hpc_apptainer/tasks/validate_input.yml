@@ -26,6 +26,13 @@
   ansible.builtin.include_tasks: validate_image_url.yml
   with_items: "{{ hpc_apptainer_image }}"
 
+- name: Validate hpc_apptainer_path
+  ansible.builtin.assert:
+    that: 
+      - hpc_apptainer_path | default("", true) | length > 1
+    quiet: true
+    fail_msg: "{{ apptainer_path_fail_msg }}"
+
 - name: Include omnia_config.yml
   ansible.builtin.include_tasks: include_omnia_config.yml
 
