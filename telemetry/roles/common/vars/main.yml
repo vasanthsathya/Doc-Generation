@@ -46,7 +46,7 @@ idrac_telemetry_support_fail_msg: "Failed. idrac_telemetry_support only accepts 
                                     values true or false"
 omnia_telemetry_support_fail_msg: "Failed. omnia_telemetry_support accepts boolean value true or false"
 idrac_omnia_telemetry_support_false_warn_time: 10
-idrac_omnia_telemetry_support_warn_msg: "Warning. Both iDRAC and omnia telemetry support are false"
+idrac_omnia_telemetry_support_warn_msg: "Warning. Both idrac_telemetry_support and omnia_telemetry_support are false"
 vault_filename: "{{ role_path }}/../../../input/.telemetry_vault_key"
 login_vars_fail_msg: "Username/password validation in telemetry_config.yml failed. Please check the requirements."
 
