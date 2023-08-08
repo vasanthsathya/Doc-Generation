@@ -13,16 +13,10 @@
 # limitations under the License.
 ---
 
-- name: Prepare control plane for provisioning
-  hosts: localhost
-  connection: local
-  roles:
-    - role: provision_validation
-    - role: xcat_prepare_cp
-    - role: xcat_docker_registry
-    
-- name: Prepare control plane for telemetry
-  hosts: localhost
-  connection: local
-  roles:
-    - role: ../telemetry/roles/omnia_telemetry_cp
+- name: Install python pyinstaller
+  ansible.builtin.command: "{{ python_version }} -m pip install {{ pyinstaller_python_package }}"
+  changed_when: true
+
+- name: Install python psutil
+  ansible.builtin.command: "{{ python_version }} -m pip install {{ psutil_python_package }}"
+  changed_when: true
