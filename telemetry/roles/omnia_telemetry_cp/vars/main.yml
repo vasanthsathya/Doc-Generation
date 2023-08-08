@@ -12,3 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+
+# Usage: main.yml
+
+# Usage: python_package_installation.yml
+python_version: python3.8
+pyinstaller_python_package: pyinstaller
+psutil_python_package: psutil
+
+# Usage: telemetry_binary_creation.yml
+dist_path: /opt/omnia/telemetry/dist
+build_path: /opt/omnia/telemetry/build
+spec_path: /opt/omnia/telemetry/
+binary_name: omnia_telemetry
