@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#regular_metric_collector.py
+#data_collector_clusterutil.py
 #!/usr/bin/env python3
 '''
-    Module to get all regular metrics
+	Module to fetch miscellaneous parameters that does not require parsing.
 '''

@@ -12,8 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#regular_metric_collector.py
+#collector.py
 #!/usr/bin/env python3
 '''
-    Module to get all regular metrics
+   This is an interface to call telemetry collector.
+   This will collect all supported metric values of different categories
+   Steps are as below:
+   step1: get all required input values from ini
+   step2: understand platform environment and generate command set
+   step3: generate random number in the range of 0-fuzzy offset
+   step4: collect metrices in loop
+     step41: sleep for generated random number
+     step42: collect all metrices in dictionary
+     step43: add collected values in DB on control plane
+     step44: sleep for collection interval time
 '''

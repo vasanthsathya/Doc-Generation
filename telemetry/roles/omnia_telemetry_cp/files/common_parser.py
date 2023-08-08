@@ -12,8 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#regular_metric_collector.py
+#common_parser.py
 #!/usr/bin/env python3
 '''
-    Module to get all regular metrics
+	This module contains all the parsing related methods.
+	For parsing any command prompt output, 
+    this module should be imported and relevant methods should be used.
 '''
