@@ -14,7 +14,6 @@
 ---
 
 # Include telemetry_config_file.yml
-
 - name: Check that the telemetry_config.yml exists
   ansible.builtin.stat:
     path: "{{ telemetry_config_file }}"
@@ -50,30 +49,21 @@
     success_msg: "{{ idrac_telemetry_support_success_msg }}"
     fail_msg: "{{ idrac_telemetry_support_fail_msg }}"
 
-- name: Check k8s is installed or not
-  ansible.builtin.command: kubectl get pods -A
-  changed_when: false
-  failed_when: false
-  register: k8s_pods
+- name: Assert omnia telemetry support
+  ansible.builtin.assert:
+    that:
+      - omnia_telemetry_support == true or omnia_telemetry_support == false
+    quiet: true
+    fail_msg: "{{ omnia_telemetry_support_fail_msg }}"
 
-- name: Validate k8s_pod_net_cidr
-  when: "'nfs-client-provisioner' not in k8s_pods.stdout"
-  block:
-    - name: Assert kubernetes pod network CIDR
-      ansible.builtin.assert:
-        that:
-          - appliance_k8s_pod_net_cidr | ansible.utils.ipv4
-          - appliance_k8s_pod_net_cidr | length > 9
-          - '"/" in appliance_k8s_pod_net_cidr '
-        success_msg: "{{ success_msg_k8s_pod_network_cidr }}"
-        fail_msg: "{{ fail_msg_k8s_pod_network_cidr }}"
-      when: idrac_telemetry_support is true
-
-    - name: Set kubernetes pod CIDR
-      ansible.builtin.set_fact:
-        k8s_net_cidr: "{{ appliance_k8s_pod_net_cidr }}"
+- name: Waiting for {{ idrac_omnia_telemetry_support_false_warn_time }} seconds
+  ansible.builtin.pause:
+    seconds: "{{ idrac_omnia_telemetry_support_false_warn_time }}"
+    prompt: "{{ idrac_omnia_telemetry_support_warn_msg }}"
+  when: not idrac_telemetry_support and not omnia_telemetry_support
 
 - name: Assert usernames and passwords in telemetry_login_vars.yml
+  when: idrac_telemetry_support or omnia_telemetry_support
   block:
     - name: Assert timescaledb user name
       ansible.builtin.assert:
@@ -101,68 +91,42 @@
       ansible.builtin.fail:
         msg: "{{ login_vars_fail_msg }}"
 
-- name: Verify iDRAC username and password
+# Include validations for idrac telemetry
+- name: Validate idrac telemetry
+  ansible.builtin.include_tasks: validate_idrac_telemetry.yml
   when: idrac_telemetry_support
+
+# Include validations for omnia telemetry
+- name: Validate omnia telemetry
+  ansible.builtin.include_tasks: validate_omnia_telemetry.yml
+  when: omnia_telemetry_support
+
+- name: Set variable if k8s needs to be installed
+  when: idrac_telemetry_support or omnia_telemetry_support
   block:
-    - name: Assert idrac_username and idrac_password
-      ansible.builtin.assert:
-        that:
-          - idrac_username | length >= min_length_idrac
-          - idrac_username | length < max_length
-          - '"-" not in idrac_username '
-          - '"\\" not in idrac_username '
-          - '"\"" not in idrac_username '
-          - " \"'\" not in idrac_username "
-          - idrac_password | length > min_length_idrac | int - 1
-          - idrac_password | length < max_length | int + 1
-          - '"-" not in idrac_password '
-          - '"\\" not in idrac_password '
-          - '"\"" not in idrac_password '
-          - " \"'\" not in idrac_password "
-      no_log: true
-  rescue:
-    - name: Extra variables not provided correctly
-      ansible.builtin.fail:
-        msg: "{{ idrac_credentials_fail_msg }}"
+    - name: Check k8s is installed or not
+      ansible.builtin.command: kubectl get pods -A
+      changed_when: false
+      failed_when: false
+      register: k8s_pods
 
-- name: Assert advance parameters for idrac telemetry
-  when: idrac_telemetry_support
-  block:
-    - name: Assert mysqldb user name
-      ansible.builtin.assert:
-        that:
-          - mysqldb_user | length > 1
-          - '"-" not in mysqldb_user '
-          - '"\\" not in mysqldb_user '
-          - '"\"" not in mysqldb_user '
-          - " \"'\" not in mysqldb_user "
-      no_log: true
+    - name: Validate k8s_pod_net_cidr
+      when: "'nfs-client-provisioner' not in k8s_pods.stdout"
+      block:
+        - name: Assert kubernetes pod network CIDR
+          ansible.builtin.assert:
+            that:
+              - appliance_k8s_pod_net_cidr | ansible.utils.ipv4
+              - appliance_k8s_pod_net_cidr | length > 9
+              - '"/" in appliance_k8s_pod_net_cidr '
+            success_msg: "{{ success_msg_k8s_pod_network_cidr }}"
+            fail_msg: "{{ fail_msg_k8s_pod_network_cidr }}"
 
-    - name: Assert mysqldb user password
-      ansible.builtin.assert:
-        that:
-          - mysqldb_password | length > 1
-          - '"-" not in mysqldb_password '
-          - '"\\" not in mysqldb_password '
-          - '"\"" not in mysqldb_password '
-          - " \"'\" not in mysqldb_password "
-      no_log: true
+        - name: Set kubernetes pod CIDR
+          ansible.builtin.set_fact:
+            k8s_net_cidr: "{{ appliance_k8s_pod_net_cidr }}"
 
-    - name: Assert mysqldb root user password
-      ansible.builtin.assert:
-        that:
-          - mysqldb_root_password | length > 1
-          - '"-" not in mysqldb_root_password '
-          - '"\\" not in mysqldb_root_password '
-          - '"\"" not in mysqldb_root_password '
-          - " \"'\" not in mysqldb_root_password "
-      no_log: true
-
-  rescue:
-    - name: Validation issue in telemetry_config.yml
-      ansible.builtin.fail:
-        msg: "{{ advanced_vars_fail_msg }}"
-
+# Encrypt telemetry_config.yml
 - name: Create ansible vault key
   ansible.builtin.set_fact:
     vault_key: "{{ lookup('password', '/dev/null chars=ascii_letters') }}"

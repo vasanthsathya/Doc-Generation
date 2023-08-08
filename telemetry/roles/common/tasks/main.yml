@@ -16,9 +16,6 @@
 - name: Validate telemetry_config.yml
   ansible.builtin.include_tasks: validate_telemetry_config.yml
 
-- name: Validate omnia telemetry
-  ansible.builtin.include_tasks: validate_omnia_telemetry.yml
-
 - name: Include provision_config.yml for timezone
   ansible.builtin.include_tasks: include_provision_config.yml
 

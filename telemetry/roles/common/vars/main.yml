@@ -44,11 +44,16 @@ vault_file_perm: '0644'
 idrac_telemetry_support_success_msg: "idrac_telemetry_support validated"
 idrac_telemetry_support_fail_msg: "Failed. idrac_telemetry_support only accepts boolean
                                     values true or false"
-fail_timezone_msg: "Failed. Incorrect timezone provided. Please check the file timezone.txt in provision/roles/provision_validation/files/timezone.txt folder"
+omnia_telemetry_support_fail_msg: "Failed. omnia_telemetry_support accepts boolean value true or false"
+idrac_omnia_telemetry_support_false_warn_time: 10
+idrac_omnia_telemetry_support_warn_msg: "Warning. Both idrac_telemetry_support and omnia_telemetry_support are false"
 vault_filename: "{{ role_path }}/../../../input/.telemetry_vault_key"
 login_vars_fail_msg: "Username/password validation in telemetry_config.yml failed. Please check the requirements."
+
+# Usage: validate_idrac_telemetry.yml
 min_length_idrac: 3
 max_length: 30
+fail_timezone_msg: "Failed. Incorrect timezone provided. Please check the file timezone.txt in provision/roles/provision_validation/files/timezone.txt folder"
 idrac_credentials_fail_msg: "idrac_username and idrac_password must be provided in telemetry_config.yml."
 idrac_inventory_msg: "idrac group is not present in inventory file. Playbook will check for /opt/omnia/provisioned_idrac_inventory"
 idarc_inventory_path: "/opt/omnia/provisioned_idrac_inventory"
@@ -61,9 +66,6 @@ advanced_vars_fail_msg: "Please give correct inputs for advanced configurations 
 # Usage: validate_omnia_telemetry.yml
 min_interval: 60
 max_interval: 3600
-omnia_telemetry_support_fail_msg: "Failed. omnia_telemetry_support accepts boolean value true or false"
-idrac_omnia_telemetry_support_false_warn_time: 10
-idrac_omnia_telemetry_support_warn_msg: "Warning. Both iDRAC and omnia telemetry support are false"
 omnia_telemetry_collection_interval_fail_msg: "Failed. omnia_telemetry_collection_interval accepts integer values between 60 to 3600 seconds"
 collect_regular_metrics_fail_msg: "Failed. collect_regular_metrics accepts boolean value true or false"
 collect_health_check_metrics_fail_msg: "Failed. collect_health_check_metrics accepts boolean value true or false"
