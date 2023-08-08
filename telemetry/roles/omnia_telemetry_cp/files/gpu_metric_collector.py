@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#regular_metric_collector.py
+#gpu_metric_collector.py
 #!/usr/bin/env python3
 '''
-    Module to get all regular metrics
+	Module to gather gpu related metrics
 '''
