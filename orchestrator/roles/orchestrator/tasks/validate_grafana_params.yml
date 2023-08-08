@@ -13,9 +13,6 @@
 #  limitations under the License.
 ---
 
-- name: Include monitor configuration variables
-  ansible.builtin.include_tasks: include_monitor_config.yml
-
 - name: Assert grafana credentials
   block:
     - name: Assert grafana_username and grafana_password

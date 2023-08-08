@@ -13,6 +13,12 @@
 #  limitations under the License.
 ---
 
+# Usage: include_monitor_config.yml
+monitor_config_filename: "{{ role_path }}/../../../input/monitor_config.yml"
+monitor_vault_path: "{{ role_path }}/../../../input/.monitor_vault_key"
+ansible_vault_search_key: "$ANSIBLE_VAULT;"
+conf_file_mode: 0644
+
 # Usage: validate_k8s_params.yml
 os_supported_rhel: "redhat"
 os_supported_rocky: "rocky"
@@ -24,6 +30,14 @@ fail_msg_k8s_pod_network_cidr: "Failed. Incorrect appliance k8s pod network cidr
 utils_collection: ansible.utils:2.5.2
 pip_version: pip3.8
 
+# Usage: validate_grafana_params.yml
+fail_msg_grafana_credentials: "Failed. Incorrect grafana_username or grafana_password provided in input/monitor_config.yml"
+mount_validation_msg: "Make sure mount location value is not null"
+min_length_grafana: 5
+max_length: 30
+selinux_warning: "Warning! SELinux status is disabled by user. No SELinux policy is loaded"
+os_supported_leap: "leap"
+
 # Usage: k8s_installation_leap.yml
 k8s_repo_leap: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
 rpm_pkg_leap: https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
@@ -34,7 +48,6 @@ docker_repo_dest_leap: /etc/YaST2/docker-ce.repo
 kubeadm_version: kubeadm-1.21.0-0.x86_64
 kubelet_version: kubelet-1.21.0-0.x86_64
 kubectl_version: kubectl-1.21.0-0.x86_64
-os_supported_leap: "leap"
 os_supported_leap_version: "15.3"
 min_retries: 3
 max_retries: 10
@@ -64,7 +77,6 @@ k8s_packages:
 k8s_conf_dest: /etc/modules-load.d/
 crio_conf_dest: /etc/modules-load.d/
 k8s_crio_conf_dest: /etc/sysctl.d/
-conf_file_mode: 0644
 crio_repo1_url: https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/CentOS_8/devel:kubic:libcontainers:stable.repo
 crio_repo1_dest: /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo
 crio_repo2_url: https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.21:/1.21.7/CentOS_8/
@@ -74,6 +86,7 @@ docker_repo_url: https://download.docker.com/linux/centos/docker-ce.repo
 docker_repo_dest: /etc/yum.repos.d/docker-ce.repo
 crio_repo: "devel:kubic:libcontainers:stable:cri-o:1.21,rhel-8-for-x86_64-appstream-rpms,rhel-8-for-x86_64-baseos-rpms"
 file_mode: 0700
+docker_cli_package: docker-ce-cli-24.0.4
 
 # Usage: k8s_firewalld.yml
 k8s_master_ports:
@@ -111,6 +124,7 @@ yaml_repo_dir_path: /root/k8s
 yaml_repo_dir_mode: 0755
 tigera_operator_url: https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/tigera-operator.yaml
 calico_yml_url: https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/custom-resources.yaml
+crio_socket_path: /var/run/crio/crio.sock
 
 # Usage: k8s_services.yml
 metallb_config_file_dest: /root/k8s/metal-config.yaml

@@ -13,6 +13,8 @@
 # limitations under the license.
 ---
 
+namespace: telemetry-and-visualizations
+secrets_name: credentials
 pv_name: timescaledb-storage
 timescaledb_storage: 30Gi
 pvc_name: timescaledb-storage-claim

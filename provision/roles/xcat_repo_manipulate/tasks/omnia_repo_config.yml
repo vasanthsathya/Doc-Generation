@@ -74,9 +74,9 @@
       ansible.builtin.command: dnf download {{ common_repo_packages }} --resolve --destdir="{{ omnia_common_xcat_repo }}"
       changed_when: true
   rescue:
-    - name: Warning - Downloading omnia common repo packages failed
-      ansible.builtin.debug:
-        msg: "{{ download_common_package_warn_msg }}"
+    - name: Failed - Downloading omnia common repo packages failed
+      ansible.builtin.fail:
+        msg: "{{ download_common_package_fail_msg }}"
 
 - name: Download crb and epel packages for rhel
   block:
@@ -100,10 +100,26 @@
           ansible.builtin.command: dnf download {{ epel_repo_packages }} --arch=x86_64,noarch --destdir="{{ omnia_common_xcat_repo }}"
           changed_when: true
       rescue:
-        - name: Warning - Downloading epel repo packages failed
-          ansible.builtin.debug:
-            msg: "{{ download_epel_package_warn_msg }}"
+        - name: Failed - Downloading epel repo packages failed
+          ansible.builtin.fail:
+            msg: "{{ download_epel_package_fail_msg }}"
   when: control_plane_os_redhat in control_plane_os
+
+- name: Install epel-release repo
+  ansible.builtin.package:
+    name: epel-release
+    state: present
+  when: control_plane_os_rocky in control_plane_os
+
+- name: Downloading apptainer package
+  block:
+    - name: Download apptainer package
+      ansible.builtin.command: dnf download {{ apptainer_packages }} --arch=x86_64,noarch --destdir="{{ omnia_common_xcat_repo }}"
+      changed_when: true
+  rescue:
+    - name: Downloading apptainer package failed
+      ansible.builtin.fail:
+        msg: "{{ download_apptainer_fail_msg }}"
 
 - name: Create custom_software directory
   ansible.builtin.file:
@@ -126,6 +142,14 @@
     src: "{{ other_pkg_list_src }}"
     dest: "{{ other_pkg_list_dest }}"
     mode: "{{ other_pkg_list_mode }}"
+
+- name: Add apptainer in omnia package list
+  ansible.builtin.lineinfile:
+    path: "{{ other_pkg_list_dest }}"
+    insertafter: "EOF"
+    state: present
+    line: 'omnia/apptainer'
+  when: apptainer_support
 
 - name: Configure omnia pkglist to osimage
   ansible.builtin.command: chdef -t osimage -o {{ provision_os_image }} otherpkglist={{ other_pkg_list_dest }}
