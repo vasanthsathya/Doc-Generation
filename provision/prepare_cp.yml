@@ -20,7 +20,7 @@
     - role: provision_validation
     - role: xcat_prepare_cp
     - role: xcat_docker_registry
-    
+
 - name: Prepare control plane for telemetry
   hosts: localhost
   connection: local
