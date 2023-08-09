@@ -12,3 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+
+- name: Copy the systemd service file
+  ansible.builtin.template:
+    src: "{{ omnia_telemetry_template_path }}"
+    dest: "{{ omnia_telemetry_service_path }}"
+    mode: "{{ omnia_telemetry_service_file_permissions }}"
+
+- name: Reload systemd daemon
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Start and Enable omnia_telemetry service
+  ansible.builtin.service:
+    name: omnia_telemetry.service
+    state: started
+    enabled: true
