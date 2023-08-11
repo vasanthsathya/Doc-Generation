@@ -11,18 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
----
 
-- name: Prepare control plane for provisioning
-  hosts: localhost
-  connection: local
-  roles:
-    - role: provision_validation
-    - role: xcat_prepare_cp
-    - role: xcat_docker_registry
-
-- name: Prepare control plane for telemetry
-  hosts: localhost
-  connection: local
-  roles:
-    - role: ../telemetry/roles/omnia_telemetry_cp
+#data_collector_slurm.py
+#!/usr/bin/env python3
+'''
+	Module to fetch parameters related to slurm.
+'''

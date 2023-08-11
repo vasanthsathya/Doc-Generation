@@ -12,3 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+
+- name: Telemetry binary creation
+  ansible.builtin.command: pyinstaller -F collector.py --distpath {{ dist_path }} --workpath {{ build_path }} --specpath {{ spec_path }} -n {{ binary_name }}
+  changed_when: true
+  args:
+    chdir: "{{ role_path }}/files"

@@ -73,7 +73,7 @@ mysqldb_root_password: ""
 # Accepted values:  true or false
 # If omnia_telemetry_support is true, then at least one of collect_regular_metrics or collect_health_check_metrics or collect_gpu_metrics should be true, to collect metrics
 # If omnia_telemetry_support is false, telemetry acquisition will be stopped
-omnia_telemetry_support: true
+omnia_telemetry_support: false
 
 # This variable denotes the time interval of telemerey data collection from required computue nodes
 # This variable accepts input in seconds

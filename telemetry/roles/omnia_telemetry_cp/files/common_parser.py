@@ -11,18 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
----
 
-- name: Prepare control plane for provisioning
-  hosts: localhost
-  connection: local
-  roles:
-    - role: provision_validation
-    - role: xcat_prepare_cp
-    - role: xcat_docker_registry
-
-- name: Prepare control plane for telemetry
-  hosts: localhost
-  connection: local
-  roles:
-    - role: ../telemetry/roles/omnia_telemetry_cp
+#common_parser.py
+#!/usr/bin/env python3
+'''
+	This module contains all the parsing related methods.
+	For parsing any command prompt output, 
+    this module should be imported and relevant methods should be used.
+'''
