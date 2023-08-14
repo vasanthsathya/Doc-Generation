@@ -21,6 +21,7 @@
 
 - name: Check pre-requisites for telemetry and visualizations
   ansible.builtin.include_tasks: pre-requisites.yml
+  when: idrac_telemetry_support or omnia_telemetry_support
 
 - name: Create iDRAC inventory
   ansible.builtin.include_tasks: create_idrac_inventory.yml
@@ -28,3 +29,4 @@
 
 - name: Set the docker version for slurm telemetry
   ansible.builtin.include_tasks: set_docker_os.yml
+  when: slurm_telemetry_support
