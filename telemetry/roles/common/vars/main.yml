@@ -14,7 +14,6 @@
 ---
 
 slurm_telemetry_support: false
-timescaledb_name: "telemetry_metrics"
 
 # Usage: include_provision_config.yml
 provision_config_file: "{{ role_path }}/../../../input/provision_config.yml"
@@ -62,7 +61,8 @@ idrac_file_status: "There is no inventory present under /opt/omnia/provisioned_i
                     Please provide inventory with idrac group or create an inventory /opt/omnia/provisioned_idrac_inventory"
 idrac_exec_msg: "Since the absence of idrac group in inventory and existence of /opt/omnia/provisioned_idrac_inventory file.
                    iDRAC telemetry execution will be skipped"
-advanced_vars_fail_msg: "Please give correct inputs for advanced configurations for telemetry in telemetry_config.yml"
+advanced_vars_fail_msg: "Please give correct inputs for advanced configurations for idrac telemetry in telemetry_config.yml. 
+                  Advanced configurations include inputs related to mysqldb for storing idrac credentials"
 validation_error_msg_empty: "Validation Error: The pod external IP start range and end range should not be empty in telemetry_config.yml."
 validation_error_msg_4_octets: "Validation Error: The pod external IP range should have 4 octets."
 validation_error_msg_octet_range: "Validation Error: The third and fourth octets of the pod external IP should be between 0 and 255."
@@ -81,12 +81,13 @@ validation_success_msg_same_third_octet_order: "Fourth octet of the pod external
 min_interval: 60
 max_interval: 3600
 omnia_telemetry_collection_interval_fail_msg: "Failed. omnia_telemetry_collection_interval accepts integer values between 60 to 3600 seconds"
-collect_regular_metrics_fail_msg: "Failed. collect_regular_metrics accepts boolean value true or false"
-collect_health_check_metrics_fail_msg: "Failed. collect_health_check_metrics accepts boolean value true or false"
-collect_gpu_metrics_fail_msg: "Failed. collect_gpu_metrics accepts boolean value true or false"
+collect_regular_metrics_fail_msg: "Failed. collect_regular_metrics accepts values true or false"
+collect_health_check_metrics_fail_msg: "Failed. collect_health_check_metrics accepts values true or false"
+collect_gpu_metrics_fail_msg: "Failed. collect_gpu_metrics accepts values true or false"
 all_omnia_telemetry_support_false_fail_msg: "Failed. One of Regular, health-check or GPU metric collector must be true if omnia_telemetry_support is true"
-fuzzy_offset_fail_msg: "Failed. fuzzy_offset accepts integer values and should be less than omnia_telemetry_collection_interval"
-metric_collection_timeout_fail_msg: "Failed. metric_collection_timeout accepts integer values and should be less than omnia_telemetry_collection_interval"
+fuzzy_offset_fail_msg: "Failed. fuzzy_offset accepts integer values greater than equal to 60 and less than omnia_telemetry_collection_interval value"
+metric_collection_timeout_fail_msg: "Failed. metric_collection_timeout accepts integer values greater than 0 and less than omnia_telemetry_collection_interval"
+telemetry_config_syntax_fail_msg: "Failed. Syntax errors present in telemetry_config.yml. Fix errors and re-run playbook again."
 inventory_fail_msg: "Inventory comprising manager and compute groups should be passed when omnia_telemetry_support is true."
 inventory_success_msg: "Inventory is passed."
 manager_group_fail_msg: "Manager group should contain exactly 1 node"

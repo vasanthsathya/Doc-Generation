@@ -38,8 +38,19 @@
   when: "'$ANSIBLE_VAULT;' in config_content.stdout"
 
 - name: Include variable file telemetry_config.yml
-  ansible.builtin.include_vars: "{{ telemetry_config_file }}"
-  no_log: true
+  block:
+    - name: Include variable file telemetry_config.yml
+      ansible.builtin.include_vars: "{{ telemetry_config_file }}"
+      register: include_telemetry_config
+      no_log: true
+  rescue:
+    - name: Failed to include telemetry_config.yml
+      ansible.builtin.fail:
+        msg: "{{ telemetry_config_syntax_fail_msg }} Error: {{ include_telemetry_config.message }}"
+
+- name: Set idrac telemetry support value
+  ansible.builtin.set_fact:
+    idrac_telemetry_support: "{{ idrac_telemetry_support | lower }}"
 
 - name: Assert idrac telemetry support
   ansible.builtin.assert:
@@ -48,6 +59,10 @@
     quiet: true
     success_msg: "{{ idrac_telemetry_support_success_msg }}"
     fail_msg: "{{ idrac_telemetry_support_fail_msg }}"
+
+- name: Set omnia telemetry support value
+  ansible.builtin.set_fact:
+    omnia_telemetry_support: "{{ omnia_telemetry_support | lower }}"
 
 - name: Assert omnia telemetry support
   ansible.builtin.assert:

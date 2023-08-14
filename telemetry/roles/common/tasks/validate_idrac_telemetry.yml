@@ -47,6 +47,7 @@
           - '"\\" not in mysqldb_user '
           - '"\"" not in mysqldb_user '
           - " \"'\" not in mysqldb_user "
+          - not mysqldb_user == 'root'
       no_log: true
 
     - name: Assert mysqldb user password
