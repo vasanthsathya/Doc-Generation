@@ -24,3 +24,9 @@ directory_permissions: "0755"
 
 # Usage: stop_omnia_telemetry.yml
 omnia_telemetry_service: omnia_telemetry.service
+
+# Usage: service_execution.yml
+omnia_telemetry_template_path: "templates/omnia_telemetry_service_template.j2"
+omnia_telemetry_service_shell_file_path: /opt/omnia/telemetry/omnia_telemetry
+omnia_telemetry_service_path: /etc/systemd/system/omnia_telemetry.service
+omnia_telemetry_service_file_permissions: 0644
