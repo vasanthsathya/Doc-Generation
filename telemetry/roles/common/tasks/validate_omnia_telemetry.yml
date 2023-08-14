@@ -21,12 +21,20 @@
     quiet: true
     fail_msg: "{{ omnia_telemetry_collection_interval_fail_msg }}"
 
+- name: Set collect regular metrics value
+  ansible.builtin.set_fact:
+    collect_regular_metrics: "{{ collect_regular_metrics | lower }}"
+
 - name: Assert collect regular metrics
   ansible.builtin.assert:
     that:
       - collect_regular_metrics == true or collect_regular_metrics == false
     quiet: true
     fail_msg: "{{ collect_regular_metrics_fail_msg }}"
+
+- name: Set collect health check metrics value
+  ansible.builtin.set_fact:
+    collect_health_check_metrics: "{{ collect_health_check_metrics | lower }}"
 
 - name: Assert collect health check metrics
   ansible.builtin.assert:
@@ -35,6 +43,10 @@
     quiet: true
     fail_msg: "{{ collect_health_check_metrics_fail_msg }}"
 
+- name: Set collect gpu metrics value
+  ansible.builtin.set_fact:
+    collect_gpu_metrics: "{{ collect_gpu_metrics | lower }}"
+
 - name: Assert collect gpu metrics
   ansible.builtin.assert:
     that:
@@ -42,10 +54,10 @@
     quiet: true
     fail_msg: "{{ collect_gpu_metrics_fail_msg }}"
 
-- name: Assert all metric collection are flase
+- name: Assert all metric collection are false
   ansible.builtin.assert:
     that:
-      - collect_regular_metrics or collect_health_check_metrics or collect_gpu_metrics
+      - collect_regular_metrics == true or collect_health_check_metrics == true or collect_gpu_metrics == true
     quiet: true
     fail_msg: "{{ all_omnia_telemetry_support_false_fail_msg }}"
 
@@ -53,7 +65,7 @@
   ansible.builtin.assert:
     that:
       - fuzzy_offset is integer
-      - fuzzy_offset >= 0
+      - fuzzy_offset >= 60
       - fuzzy_offset < omnia_telemetry_collection_interval
     quiet: true
     fail_msg: "{{ fuzzy_offset_fail_msg }}"

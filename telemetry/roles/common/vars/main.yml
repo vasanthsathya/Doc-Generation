@@ -81,12 +81,13 @@ validation_success_msg_same_third_octet_order: "Fourth octet of the pod external
 min_interval: 60
 max_interval: 3600
 omnia_telemetry_collection_interval_fail_msg: "Failed. omnia_telemetry_collection_interval accepts integer values between 60 to 3600 seconds"
-collect_regular_metrics_fail_msg: "Failed. collect_regular_metrics accepts boolean value true or false"
-collect_health_check_metrics_fail_msg: "Failed. collect_health_check_metrics accepts boolean value true or false"
-collect_gpu_metrics_fail_msg: "Failed. collect_gpu_metrics accepts boolean value true or false"
+collect_regular_metrics_fail_msg: "Failed. collect_regular_metrics accepts values true or false"
+collect_health_check_metrics_fail_msg: "Failed. collect_health_check_metrics accepts values true or false"
+collect_gpu_metrics_fail_msg: "Failed. collect_gpu_metrics accepts values true or false"
 all_omnia_telemetry_support_false_fail_msg: "Failed. One of Regular, health-check or GPU metric collector must be true if omnia_telemetry_support is true"
-fuzzy_offset_fail_msg: "Failed. fuzzy_offset accepts integer values and should be less than omnia_telemetry_collection_interval"
-metric_collection_timeout_fail_msg: "Failed. metric_collection_timeout accepts integer values and should be less than omnia_telemetry_collection_interval"
+fuzzy_offset_fail_msg: "Failed. fuzzy_offset accepts integer values greater than equal to 60 and less than omnia_telemetry_collection_interval value"
+metric_collection_timeout_fail_msg: "Failed. metric_collection_timeout accepts integer values greater than 0 and less than omnia_telemetry_collection_interval"
+telemetry_config_syntax_fail_msg: "Failed. Syntax errors present in telemetry_config.yml. Fix errors and re-run playbook again."
 inventory_fail_msg: "Inventory comprising manager and compute groups should be passed when omnia_telemetry_support is true."
 inventory_success_msg: "Inventory is passed."
 manager_group_fail_msg: "Manager group should contain exactly 1 node"

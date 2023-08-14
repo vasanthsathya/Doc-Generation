@@ -111,7 +111,7 @@ collect_gpu_metrics: true
 # Example 1: fuzzy_offset: 60
 # Example 2: fuzzy_offset: 100
 # For larger cluster this parameter can be set with higher value
-# This value should be less than omnia_telemetry_collection_interval value
+# This value should be between 60 and omnia_telemetry_collection_interval value
 fuzzy_offset: 60
 
 # This variable is used to define data collection timeout period
@@ -119,5 +119,5 @@ fuzzy_offset: 60
 # Default value is 5
 # Example 1: metric_collection_timeout: 5
 # Example 2: metric_collection_timeout: 10
-# This value should be less than omnia_telemetry_collection_interval value
+# This value should be greater than 0 and less than omnia_telemetry_collection_interval value
 metric_collection_timeout: 5
