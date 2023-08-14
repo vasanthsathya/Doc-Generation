@@ -66,3 +66,6 @@
 
     - name: Deploy K8s dashboard
       ansible.builtin.import_tasks: k8s_services.yml
+
+- name: Configure Metallb
+  ansible.builtin.include_tasks: configure_metallb.yml

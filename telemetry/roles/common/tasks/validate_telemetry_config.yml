@@ -126,6 +126,63 @@
           ansible.builtin.set_fact:
             k8s_net_cidr: "{{ appliance_k8s_pod_net_cidr }}"
 
+- name: Set variable if metallb needs to be configured
+  when: omnia_telemetry_support or idrac_telemetry_support
+  block:
+    - name: Register IPAddressPool output
+      ansible.builtin.command: "kubectl get IPAddressPool -A"
+      changed_when: false
+      failed_when: false
+      register: ipaddresspool_output
+
+    - name: Validations for pod_external_ip_start_range and pod_external_ip_end_range
+      block:
+        - name: Check if pod external IP start and end ranges are not empty
+          ansible.builtin.assert:
+            that:
+              - pod_external_ip_start_range != ""
+              - pod_external_ip_end_range != ""
+            fail_msg: "{{ validation_error_msg_empty }}"
+            success_msg: "{{ validation_success_msg_empty }}"
+
+        - name: Split pod external IP ranges into octets
+          ansible.builtin.set_fact:
+            start_range_octets: "{{ pod_external_ip_start_range.split('.') }}"
+            end_range_octets: "{{ pod_external_ip_end_range.split('.') }}"
+
+        - name: Check if pod external IP range has 4 octets
+          ansible.builtin.assert:
+            that:
+              - start_range_octets | length == 4
+              - end_range_octets | length == 4
+            fail_msg: "{{ validation_error_msg_4_octets }}"
+            success_msg: "{{ validation_success_msg_4_octets }}"
+
+        - name: Check if third and fourth octets of pod external IP are within 0 to 255
+          ansible.builtin.assert:
+            that:
+              - 0 <= start_range_octets[2] | int <= 255
+              - 0 <= start_range_octets[3] | int <= 255
+              - 0 <= end_range_octets[2] | int <= 255
+              - 0 <= end_range_octets[3] | int <= 255
+            fail_msg: "{{ validation_error_msg_octet_range }}"
+            success_msg: "{{ validation_success_msg_octet_range }}"
+
+        - name: Check if third octet of pod external IP start range is less than or equal to third octet of end range
+          ansible.builtin.assert:
+            that:
+              - start_range_octets[2] | int <= end_range_octets[2] | int
+            fail_msg: "{{ validation_error_msg_octet_order }}"
+            success_msg: "{{ validation_success_msg_octet_order }}"
+
+        - name: Check if fourth octet of pod external IP start range is less than fourth octet of end range when third octets are the same
+          ansible.builtin.assert:
+            that:
+              - start_range_octets[2] != end_range_octets[2] or start_range_octets[3] | int < end_range_octets[3] | int
+            fail_msg: "{{ validation_error_msg_same_third_octet_order }}"
+            success_msg: "{{ validation_success_msg_same_third_octet_order }}"
+      when: "'metallb-system' not in ipaddresspool_output.stdout"
+
 # Encrypt telemetry_config.yml
 - name: Create ansible vault key
   ansible.builtin.set_fact:
