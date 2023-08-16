@@ -12,8 +12,52 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#gpu_metric_collector.py
-#!/usr/bin/env python3
 '''
-	Module to gather gpu related metrics
+Module to gather gpu check metrics
 '''
+
+import data_collector_nvidia_gpu
+import utility
+
+class GPUMetricCollector:
+    '''
+    GPUMetricCollector class is responsible for collecting all gpu metrics
+    '''
+    def __init__(self):
+        self.gpu_metric_output_dict = {}
+
+    def get_nvidia_metrics(self):
+        '''
+        This method collects all the nvidia gpu metrics
+        '''
+        # run nvidia-smi command and store output in a variable
+        nvidia_metrics_cmd_output = data_collector_nvidia_gpu.get_nvidia_metrics_output()
+
+        # get temperature details for NVIDIA GPU
+        gpu_temp = data_collector_nvidia_gpu.get_nvidia_gpu_temp(nvidia_metrics_cmd_output)
+        if gpu_temp is not None:
+            for index, item in enumerate(gpu_temp):
+                self.gpu_metric_output_dict["gpu_temperature:gpu" + str(index)] = str(item) + ' C'
+        else:
+            self.gpu_metric_output_dict["gpu_temperature:gpu"] = utility.Result.NO_DATA.value
+
+        # get utilization details for NVIDIA GPU
+        gpu_util = data_collector_nvidia_gpu.get_nvidia_gpu_utilization(nvidia_metrics_cmd_output)
+        if gpu_util is not None:
+            for index, item in enumerate(gpu_util):
+                self.gpu_metric_output_dict["gpu_utilization:gpu" + str(index)] = str(item) + '%'
+        else:
+            self.gpu_metric_output_dict["gpu_utilization:gpu"] = utility.Result.NO_DATA.value
+
+        # get average of utilization of all GPUs in the system
+        gpu_avg_util = data_collector_nvidia_gpu.get_nvidia_gpu_avg_utilization(nvidia_metrics_cmd_output)
+        if gpu_avg_util is not None:
+            self.gpu_metric_output_dict["gpu_utilization:average"] = str(gpu_avg_util) + '%'
+        else:
+            self.gpu_metric_output_dict["gpu_utilization:average"] = utility.Result.NO_DATA.value
+
+    def metric_collector(self, aggregation_level):
+        '''
+        This method collects all the gpu metric parameters.
+        '''
+        self.get_nvidia_metrics()

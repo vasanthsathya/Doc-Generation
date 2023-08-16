@@ -19,3 +19,36 @@
 	For parsing any command prompt output, 
     this module should be imported and relevant methods should be used.
 '''
+
+from io import StringIO
+import pandas as pd
+import common_logging
+
+#-----------------------dataframe parser-----------------------------------------------
+
+def get_df_format(command_input):
+    '''
+    i/p: gets csv format output of any command as input and the column name whose data is required
+    o/p: convert df to dict of list and return.
+    '''
+    try:
+        csv_string = StringIO(command_input)
+        dataframe = pd.read_csv(csv_string, sep=",", header=0)
+        dataframe.columns = dataframe.columns.str.strip()
+        return dataframe
+    except Exception as err:
+        common_logging.log_error("data_collector_nvidia_gpu:get_nvidia_metrics_output",
+                                 "nvidia-smi command did not give output for gpu metrics." + str(err))
+        return None
+
+def get_col_from_df(dataframe, col_name):
+    '''
+    i/p: gets dataframe and column name as input
+    o/p: extract column data from dataframe into a list and return
+    '''
+    try:
+        return dataframe[col_name].tolist()
+    except Exception as err:
+        common_logging.log_error("data_collector_nvidia_gpu:get_nvidia_metrics_output",
+                                 "nvidia-smi command did not give output for gpu metrics." + str(err))
+        return None
