@@ -13,7 +13,7 @@
 # limitations under the License.
 
 '''
-Module to gather gpu check metrics
+Module to gather gpu related metrics
 '''
 
 import data_collector_nvidia_gpu
