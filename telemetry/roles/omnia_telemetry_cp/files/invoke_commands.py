@@ -17,3 +17,33 @@
 '''
 	Module to invoke all system commands
 '''
+import subprocess
+import common_logging
+
+def call_command(command):
+    """
+    Call a command using subprocess and return the output or log errors using syslog.
+
+    Args:
+        command (str or list): The command to be executed, as a string or a list of arguments.
+
+    Returns:
+        str or None: The output of the command or None if an error occurred.
+    """
+    try:
+        if isinstance(command, str):
+            # Split the command into a list of arguments
+            command = command.split()
+
+        output = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, check=False)
+        # A return code of 0 means success,while a non-zero return code means failure.
+        if output.returncode == 0:
+            return output.stdout.strip() if output.stdout else None
+
+        # Log an error message with the error output
+        common_logging.log_error('invoke_commands:call_command', f"Error output: {output.stderr}")
+
+    except Exception as exc:
+        common_logging.log_error('invoke_commands:call_command', f"An error occurred: {exc}")
+
+    return None
