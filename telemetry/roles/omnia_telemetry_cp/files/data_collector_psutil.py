@@ -17,3 +17,41 @@
 '''
 	Module to get metrics using psutil library.
 '''
+import psutil
+import common_logging
+
+def get_cpu_time_info():
+    '''
+    Get CPU time information using psutil.
+    '''
+    try:
+        cpu_times_info = psutil.cpu_times()
+        return cpu_times_info
+    except psutil.Error as exc:
+        # Log the error with exception details using common_logging.log_error
+        common_logging.log_error('data_collector_psutil:get_cpu_time_info', f"Error occurred while getting CPU time information: {exc}")
+        return None
+
+def get_packet_info():
+    '''
+    Get packet information using psutil.
+    '''
+    try:
+        packet_info = psutil.net_io_counters(pernic=True)
+        return packet_info
+    except psutil.Error as exc:
+        # Log the error with exception details using common_logging.log_error
+        common_logging.log_error('data_collector_psutil:get_packet_info', f"Error occurred while getting packet information: {exc}")
+        return None
+
+def get_memory_info():
+    '''
+    Get memory information using psutil.
+    '''
+    try:
+        memory_info = psutil.virtual_memory()
+        return memory_info
+    except psutil.Error as exc:
+        # Log the error with exception details using common_logging.log_error
+        common_logging.log_error('data_collector_psutil:get_memory_info', f"Error occurred while getting memory information: {exc}")
+        return None
