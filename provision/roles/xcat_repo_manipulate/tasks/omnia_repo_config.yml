@@ -121,6 +121,25 @@
       ansible.builtin.fail:
         msg: "{{ download_apptainer_fail_msg }}"
 
+- name: Read telemetry pckglist
+  ansible.builtin.command: cat "{{ telemetry_pckg_path }}"
+  register: telemetry_pckg_output
+  changed_when: false
+
+- name: Install pgdg on control plane
+  ansible.builtin.command: dnf install {{ item }} -y
+  when: '"pgdg-redhat-repo" in item'
+  with_items: "{{ telemetry_pckg_output.stdout_lines }}"
+
+- name: Disable psql on control plane
+  ansible.builtin.command: dnf -qy module disable postgresql
+  changed_when: false
+
+- name: Download the telemetry packages
+  ansible.builtin.command: dnf download {{ item }} --downloadonly --downloaddir {{ omnia_common_xcat_repo }}
+  with_items: "{{ telemetry_pckg_output.stdout_lines }}"
+  changed_when: false
+
 - name: Create custom_software directory
   ansible.builtin.file:
     path: "{{ custom_software_repo }}"
@@ -150,6 +169,28 @@
     state: present
     line: 'omnia/apptainer'
   when: apptainer_support
+
+- name: Add the telemetry packages to OS image
+  block:
+    - name: Read telemetry pckglist
+      ansible.builtin.command: cat "{{ telemetry_pkg_list_src }}"
+      register: telemetry_post_pckg_op
+      changed_when: false
+
+    - name: Add telemetry in omnia package list
+      ansible.builtin.lineinfile:
+        path: "{{ other_pkg_list_dest }}"
+        insertafter: "EOF"
+        state: present
+        line: "{{ item }}"
+      with_items: "{{ telemetry_post_pckg_op.stdout_lines }}"
+
+    - name: Disable postgresql on compute nodes
+      ansible.builtin.lineinfile:
+        path: "{{ xcat_rhel8_post_script }}"
+        insertafter: "EOF"
+        line: "dnf -qy module disable postgresql"
+  when: omnia_telemetry_support
 
 - name: Configure omnia pkglist to osimage
   ansible.builtin.command: chdef -t osimage -o {{ provision_os_image }} otherpkglist={{ other_pkg_list_dest }}
