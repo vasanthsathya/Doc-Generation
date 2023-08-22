@@ -1,3 +1,4 @@
+
 # Copyright 2023 Dell Inc. or its subsidiaries. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +23,12 @@ create_repo_role_vars:
   - "{{ role_path }}/vars/postscripts.yml"
 os_supported_rhel: "redhat"
 provision_os_rhel: "rhel"
+
+# Usage: check_telemetry_encryption.yml
+telemetry_config_filename: "{{ playbook_dir }}/../input/telemetry_config.yml"
+telemetry_vault_path: "{{ playbook_dir }}/../input/.telemetry_vault_key"
+tele_conf_file_mode: 0644
+ansible_vault_search_key: "$ANSIBLE_VAULT;"
 
 # Usage: pre_requisites.yml
 xcat_connection_search_key: "connection failure"
@@ -75,6 +82,8 @@ control_plane_os_redhat: "redhat"
 control_plane_os_rocky: "rocky"
 download_apptainer_fail_msg: "Failed. Unable to download apptainer package from epel repository."
 apptainer_packages: "apptainer fakeroot fakeroot-libs squashfuse squashfuse-libs"
+telemetry_pckg_path: "{{ role_path }}/files/telemetry_pkglist"
+telemetry_pkg_list_src: "{{ role_path }}/files/postscripts//telemetry.pkglist"
 
 # Usage: manage_subscription_manager.yml
 rhsm_release_file_path: "/opt/omnia/.data/rhsm_release"

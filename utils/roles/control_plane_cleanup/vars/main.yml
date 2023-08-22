@@ -44,6 +44,8 @@ xcat_download_files:
   - /etc/yum.repos.d/xcat-core.repo
   - /etc/yum.repos.d/xcat-dep.repo
 xcat_package: xCAT
+pgdg_package:
+  - pgdg-redhat-repo
 postgres_packages:
   - postgresql*
   - perl-DBD-Pg
