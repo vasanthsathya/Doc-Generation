@@ -13,11 +13,11 @@
 # limitations under the License.
 ---
 
-- name: Set fact to encryption var
+- name: Set fact to encryption variable
   ansible.builtin.set_fact:
     telemetry_config_encrypted: false
 
-- name: Check telemetry_config.yml file is encrypted
+- name: Check if telemetry_config.yml file is encrypted
   ansible.builtin.command: cat {{ telemetry_config_filename }}
   changed_when: false
   register: telemetry_config_content
