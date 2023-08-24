@@ -13,18 +13,20 @@
 # limitations under the License.
 ---
 
-- name: Omnia telemetry setup
-  when: hostvars['127.0.0.1']['omnia_telemetry_support']
-  block:
-    - name: Install telemetry packages
-      ansible.builtin.include_tasks: package_installation.yml
+- name: Disable postgresql on compute nodes
+  ansible.builtin.command: dnf -qy module disable postgresql
+  changed_when: true
 
-    - name: Binary transfer to compute nodes with init file
-      ansible.builtin.include_tasks: binary_transfer.yml
+- name: Read telemetry pckglist
+  ansible.builtin.command: cat "{{ telemetry_package_list }}"
+  register: telemetry_packages
+  delegate_to: localhost
+  changed_when: false
 
-    - name: Initiate omnia_telemetry service execution
-      ansible.builtin.include_tasks: service_execution.yml
-
-- name: Stop omnia telemetry
-  ansible.builtin.include_tasks: stop_omnia_telemetry.yml
-  when: not hostvars['127.0.0.1']['omnia_telemetry_support']
+- name: Install telemetry package
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  when: '"pgdg-redhat-repo" not in item'
+  with_items: "{{ telemetry_packages.stdout_lines }}"

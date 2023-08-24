@@ -17,3 +17,125 @@
 '''
     Module to get all regular metrics
 '''
+import data_collector_psutil
+import invoke_commands
+import common_parser
+import utility
+
+class RegularMetricCollector:
+    '''
+    RegularMetricCollector class is responsible for collecting all regular metrics.
+    '''
+
+    def __init__(self):
+        self.regular_metric_output_dict = {}
+
+    def get_blocked_process(self):
+        '''
+        Retrieve blocked process information and store it in the dictionary.
+        '''
+        # Run the command to read /proc/stat and grep for procs_blocked
+        command = "grep procs_blocked /proc/stat"
+        output = invoke_commands.call_command(command)
+
+        if output is not None:
+            tokens = common_parser.split_by_regex(output, r"\s+")
+            blocked_processes = tokens[1]
+
+            # BlockedProcess is number of blocked processes waiting for I/O
+            self.regular_metric_output_dict["BlockedProcesses"] = blocked_processes + " processes"
+        else:
+            self.regular_metric_output_dict["BlockedProcesses"] = utility.Result.NO_DATA.value
+
+
+    def get_cpu_info(self):
+        '''
+        Retrieve CPU time information and store it in the dictionary.
+        '''
+        cputimes = data_collector_psutil.get_cpu_time_info()
+        if cputimes is not None:
+            # CPUSystem is CPU time spent in system mode
+            self.regular_metric_output_dict["CPUSystem"] = str(cputimes.system) + " seconds"
+            # CPUWait is CPU time spent in I/O wait mode
+            self.regular_metric_output_dict["CPUWait"] = str(cputimes.iowait) + " seconds"
+        else:
+            self.regular_metric_output_dict["CPUSystem"] = utility.Result.NO_DATA.value
+            self.regular_metric_output_dict["CPUWait"] = utility.Result.NO_DATA.value
+
+
+    def get_packet_errors(self):
+        '''
+        Retrieve packet error information and store it in the dictionary.
+        '''
+        netio = data_collector_psutil.get_packet_info()
+        if netio is not None:
+            for interface, values in netio.items():
+                self.regular_metric_output_dict[f"ErrorsRecv:{interface}"] = str(values.errin)
+                self.regular_metric_output_dict[f"ErrorsSent:{interface}"] = str(values.errout)
+        else:
+            self.regular_metric_output_dict["ErrorsRecv"] = utility.Result.NO_DATA.value
+            self.regular_metric_output_dict["ErrorsSent"] = utility.Result.NO_DATA.value
+
+    def get_hardware_corrupted_memory(self):
+        '''
+        Retrieve HardwareCorrupted information and store it in the dictionary.
+        '''
+        # Run the command to grep for HardwareCorrupted in /proc/meminfo
+        command = "grep HardwareCorrupted /proc/meminfo"
+        output = invoke_commands.call_command(command)
+
+        if output is not None:
+            tokens = common_parser.split_by_regex(output, r"\s+")
+            hardware_corrupted = tokens[1]
+
+            # Hardware corrupted memory detected by ECC
+            self.regular_metric_output_dict["HardwareCorruptedMemory"] = hardware_corrupted + " kB"
+        else:
+            self.regular_metric_output_dict["HardwareCorruptedMemory"] = utility.Result.NO_DATA.value
+
+    def get_virtual_memory_info(self):
+        '''
+        Retrieve virtual memory information and store it in the provided dictionary.
+        '''
+        mem = data_collector_psutil.get_memory_info()
+        if mem is not None:
+            # MemoryFree is Free system memory
+            self.regular_metric_output_dict["MemoryFree"] = str(mem.free) + " bytes"
+            # MemoryTotal is Total memory on the system
+            self.regular_metric_output_dict["MemoryTotal"] = str(mem.total) + " bytes"
+            # MemoryAvailable is Available memory on the system
+            self.regular_metric_output_dict["MemoryAvailable"] = str(mem.available) + " bytes"
+            # MemoryPercent is the percentage usage as ((total - available) / total) * 100
+            self.regular_metric_output_dict["MemoryPercent"] = str(mem.percent)
+            # MemoryUsed is memory used
+            self.regular_metric_output_dict["MemoryUsed"] = str(mem.used) + " bytes"
+            # MemoryActive is memory currently in use
+            self.regular_metric_output_dict["MemoryActive"] = str(mem.active) + " bytes"
+            # MemoryInactive is memory that is marked as not used
+            self.regular_metric_output_dict["MemoryInactive"] = str(mem.inactive) + " bytes"
+            # MemoryCached is cache for various things
+            self.regular_metric_output_dict["MemoryCached"] = str(mem.cached) + " bytes"
+            # MemoryShared is memory that may be simultaneously accessed by multiple processes
+            self.regular_metric_output_dict["MemoryShared"] = str(mem.shared) + " bytes"
+        else:
+            self.regular_metric_output_dict["MemoryFree"] = utility.Result.NO_DATA.value
+            self.regular_metric_output_dict["MemoryTotal"] = utility.Result.NO_DATA.value
+            self.regular_metric_output_dict["MemoryAvailable"] = utility.Result.NO_DATA.value
+            self.regular_metric_output_dict["MemoryPercent"] = utility.Result.NO_DATA.value
+            self.regular_metric_output_dict["MemoryUsed"] = utility.Result.NO_DATA.value
+            self.regular_metric_output_dict["MemoryActive"] = utility.Result.NO_DATA.value
+            self.regular_metric_output_dict["MemoryInactive"] = utility.Result.NO_DATA.value
+            self.regular_metric_output_dict["MemoryCached"] = utility.Result.NO_DATA.value
+            self.regular_metric_output_dict["MemoryShared"] = utility.Result.NO_DATA.value
+
+
+    def metric_collector(self, aggregation_level):
+        '''
+        This method aggregrates all the regular metric parameters.
+        '''
+        self.regular_metric_output_dict = {}
+        self.get_blocked_process()
+        self.get_cpu_info()
+        self.get_packet_errors()
+        self.get_hardware_corrupted_memory()
+        self.get_virtual_memory_info()
