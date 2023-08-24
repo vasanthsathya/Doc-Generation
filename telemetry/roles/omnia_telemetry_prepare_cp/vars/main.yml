@@ -12,18 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+# Usage: config_file_update.yml
+init_file_path: "{{ role_path }}/files/telemetry.ini"
+config_file_path_src: "{{ role_path }}/files/config.yml"
 
-- name: Create telemetry directory on nodes
-  ansible.builtin.file:
-    path: "{{ omnia_telemetry_dest }}"
-    state: directory
-    mode: "{{ directory_permissions }}"
+# Uasage: ini_file_update.yml
+timescaledb_vars_file: "{{ role_path }}/../timescaledb/vars/main.yml"
 
-- name: Transfer all binaries to compute nodes
-  ansible.builtin.copy:
-    src: "{{ binary_files_path }}"
-    dest: "{{ omnia_telemetry_dest }}"
-    force: false
-    owner: root
-    group: root
-    mode: "{{ binary_mode }}"
+# Usage: create_omnia_telemetry_schema.yml
+timescaledb_vars_filepath: "{{ role_path }}/../timescaledb/vars/main.yml"
+db_schema_utility: "{{ role_path }}/files/omnia_telemetry_schema_creation.py"
+python_version: python3.8

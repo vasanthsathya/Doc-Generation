@@ -13,17 +13,15 @@
 # limitations under the License.
 ---
 
-- name: Create telemetry directory on nodes
+- name: Create timescaledb config directory on nodes
   ansible.builtin.file:
-    path: "{{ omnia_telemetry_dest }}"
+    path: "{{ config_file_path_dst }}"
     state: directory
     mode: "{{ directory_permissions }}"
 
-- name: Transfer all binaries to compute nodes
+- name: Transfer config file to compute nodes
   ansible.builtin.copy:
-    src: "{{ binary_files_path }}"
-    dest: "{{ omnia_telemetry_dest }}"
-    force: false
-    owner: root
-    group: root
-    mode: "{{ binary_mode }}"
+    src: "{{ config_file_path_src }}"
+    dest: "{{ config_file_path_dst }}"
+    force: true
+    mode: "{{ file_mode }}"
