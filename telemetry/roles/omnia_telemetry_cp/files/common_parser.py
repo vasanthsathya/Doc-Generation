@@ -12,20 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#common_parser.py
-#!/usr/bin/env python3
 '''
-	This module contains all the parsing related methods.
-	For parsing any command prompt output, 
+    This module contains all the parsing related methods.
+    For parsing any command prompt output, 
     this module should be imported and relevant methods should be used.
 '''
 
-from io import StringIO
 import pandas as pd
+import re
+import json
+import configparser
 import common_logging
+from io import StringIO
 
-#-----------------------dataframe parser-----------------------------------------------
-
+#dataframe parser
 def get_df_format(command_input):
     '''
     i/p: gets csv format output of any command as input and the column name whose data is required
@@ -52,3 +52,90 @@ def get_col_from_df(dataframe, col_name):
         common_logging.log_error("data_collector_nvidia_gpu:get_nvidia_metrics_output",
                                  "nvidia-smi command did not give output for gpu metrics." + str(err))
         return None
+
+def split_by_regex(input_data, regex):
+    '''
+    Split the input text w.r.t passed regex delimiter and return the list of tokens
+    '''
+    return re.split(regex,input_data)
+
+#custom delimiter parser
+def get_custom_header(delimited_text, delimiter):
+    '''
+    Generates n custom headers where n is the number of tokens in the delimited_text
+    Header index starts with 1
+    Example:  header1, header2, header3
+    '''
+    values_split=split_by_regex(delimited_text, delimiter)
+    headers=["header{}".format(i) for i in range (1,len(values_split))]
+    return headers
+
+def get_dict_list_format_parser_output(command_output, delimiter, with_header=0):
+    '''
+    i/p:Tabular format input with or without header
+    o/p:
+        Returns dictionary with values as list format data of the input.
+        Keys will be the headers and value will be a list with all entried under that header
+    '''
+    dict_output={}
+    command_output_lines = split_by_regex(command_output,"\n")
+    #get the headers
+    if with_header==1:
+        header_list=split_by_regex(command_output_lines[0], delimiter)
+        #skip the top header row for tabular output with header
+        start_index=1
+    else:
+        header_list=get_custom_header(command_output_lines[0], delimiter)
+        start_index=0
+    #initialization: set the headers as ditionary key and empty list as values
+    for values in header_list:
+        dict_output[values]=[]
+
+    #fill the dictionary with values
+    for index in range(start_index,len(command_output_lines)):
+        #split and put into lists
+        command_output_line_splited=split_by_regex(command_output_lines[index], delimiter)
+        for key_index, header in enumerate(header_list):
+            dict_output[header].append(command_output_line_splited[key_index])
+    return dict_output
+
+#json parser
+def get_json_format(command_input):
+    '''
+    i/p: gets json format output of any command as input
+    o/p: python json object for the input.
+    '''
+    try:
+        return json.loads(command_input)
+    except Exception as err:
+        common_logging.log_error("common_parser:get_json_format","Exception in json parsing: "+str(type(err)) +" "+ str(err))
+        return None
+
+#ini parser
+def get_ini_dict(ini_file_path):
+    '''
+    i/p: Path to a ini file
+        Example Format for ini file:
+            [omnia_telemetry]
+            omnia_telemetry_collection_interval=5
+            collect_regular_metrics=true
+            collect_health_check_metrics=true
+            collect_gpu_metrics=true
+            fuzzy_offset=60
+    o/p: A dictionary with key value pairs from the ini
+    '''
+    config_object = configparser.ConfigParser()
+    try:
+        with open(ini_file_path, 'r', encoding='utf-8') as file:
+            # Read the content of the file
+            config_object.read_file(file)
+        # Read the ini into a dictionary
+        output_dict={s:dict(config_object.items(s)) for s in config_object.sections()}
+        return output_dict
+    except FileNotFoundError:
+        common_logging.log_error("common_parser:get_ini_dict",f"File '{ini_file_path}' not found")
+    except IOError:
+        common_logging.log_error("common_parser:get_ini_dict",f"Error reading file '{ini_file_path}'")
+    except Exception as err:
+        common_logging.log_error("common_parser:get_ini_dict","Exception in ini parsing: "+str(type(err)) +" "+ str(err))
+    return None
