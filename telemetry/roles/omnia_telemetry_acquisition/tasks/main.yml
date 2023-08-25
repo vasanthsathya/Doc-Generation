@@ -16,6 +16,9 @@
 - name: Omnia telemetry setup
   when: hostvars['127.0.0.1']['omnia_telemetry_support']
   block:
+    - name: Install telemetry packages
+      ansible.builtin.include_tasks: package_installation.yml
+
     - name: Binary transfer to remote nodes
       ansible.builtin.include_tasks: binary_transfer.yml
 
