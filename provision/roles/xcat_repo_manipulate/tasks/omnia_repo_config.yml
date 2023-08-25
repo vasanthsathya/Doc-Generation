@@ -195,4 +195,3 @@
 - name: Configure omnia pkglist to osimage
   ansible.builtin.command: chdef -t osimage -o {{ provision_os_image }} otherpkglist={{ other_pkg_list_dest }}
   changed_when: true
-  

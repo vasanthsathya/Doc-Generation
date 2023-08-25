@@ -30,4 +30,3 @@
     update_cache: true
   when: '"pgdg-redhat-repo" not in item'
   with_items: "{{ telemetry_packages.stdout_lines }}"
-  
