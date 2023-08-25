@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#invoke_commands.py
-#!/usr/bin/env python3
 '''
 	Module to invoke all system commands
 '''
 import subprocess
 import common_logging
+import utility
+import common_parser
 
 def call_command(command):
     """
@@ -32,18 +32,17 @@ def call_command(command):
     """
     try:
         if isinstance(command, str):
-            # Split the command into a list of arguments
-            command = command.split()
-
-        output = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True, check=False)
+            # Split the command by space into a list of tokens
+            command = common_parser.split_by_regex(command," ")
+        output = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, \
+                                timeout=float(utility.dict_telemetry_ini["metric_collection_timeout"]),universal_newlines=True, check=False)
         # A return code of 0 means success,while a non-zero return code means failure.
         if output.returncode == 0:
             return output.stdout.strip() if output.stdout else None
-
         # Log an error message with the error output
         common_logging.log_error('invoke_commands:call_command', f"Error output: {output.stderr}")
-
+    except subprocess.TimeoutExpired:
+        common_logging.log_error('invoke_commands:call_command', f"Command invocation timeout: {command}")
     except Exception as exc:
         common_logging.log_error('invoke_commands:call_command', f"An error occurred: {exc}")
-
     return None

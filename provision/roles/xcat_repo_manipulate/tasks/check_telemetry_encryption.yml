@@ -51,4 +51,3 @@
         path: "{{ telemetry_config_filename }}"
         mode: "{{ tele_conf_file_mode }}"
   when: telemetry_config_encrypted
-  

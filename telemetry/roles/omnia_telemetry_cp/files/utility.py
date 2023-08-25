@@ -17,6 +17,24 @@ Utility functions for miscellaneous tasks.
 """
 
 import random
+from enum import Enum
+import common_parser
+import common_logging
+
+#Dictionary to hold the telemetry.ini values. telemetry.ini holds telemetry user inputs
+dict_telemetry_ini={}
+TELEMETRY_INI_PATH="/opt/omnia/telemetry/telemetry.ini"
+
+def set_telemetry_ini_values():
+    """
+        Set the ini values from TELEMETRY_INI_PATH
+    """
+    global dict_telemetry_ini
+    dict_telemetry_ini=common_parser.get_ini_dict(TELEMETRY_INI_PATH)["omnia_telemetry"]
+    if dict_telemetry_ini is not None:
+        return True
+    common_logging.log_error("Utility:set_telemetry_ini_values","Unable to parse telemetry ini")
+    return False
 
 def generate_random_fuzzy_offset(fuzzy_offset=60):
     """
