@@ -11,23 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
----
 
-- name: Disable postgresql on compute nodes
-  ansible.builtin.command: dnf -qy module disable postgresql
-  changed_when: true
+"""
+Utility functions for miscellaneous tasks.
+"""
 
-- name: Read telemetry pckglist
-  ansible.builtin.command: cat "{{ telemetry_package_list }}"
-  register: telemetry_packages
-  delegate_to: localhost
-  changed_when: false
+import random
 
-- name: Install telemetry package
-  ansible.builtin.package:
-    name: "{{ item }}"
-    state: present
-    update_cache: true
-  when: '"pgdg-redhat-repo" not in item'
-  with_items: "{{ telemetry_packages.stdout_lines }}"
-  
+def generate_random_fuzzy_offset(fuzzy_offset=60):
+    """
+    Generate a random fuzzy offset.
+
+    Args:
+        fuzzy_offset (float): The maximum offset value.
+
+    Returns:
+        float: A random fuzzy offset value rounded to 2 decimal places.
+    """
+    random_fuzzy_offset = round(random.uniform(0, fuzzy_offset), 2)
+    return random_fuzzy_offset
