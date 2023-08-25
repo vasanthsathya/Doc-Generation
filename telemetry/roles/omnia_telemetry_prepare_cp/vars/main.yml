@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+
 # Usage: config_file_update.yml
 init_file_path: "{{ role_path }}/files/telemetry.ini"
 config_file_path_src: "{{ role_path }}/files/config.yml"
