@@ -13,17 +13,8 @@
 # limitations under the License.
 ---
 
-- name: Create telemetry directory on nodes
-  ansible.builtin.file:
-    path: "{{ omnia_telemetry_dest }}"
-    state: directory
-    mode: "{{ directory_permissions }}"
-
-- name: Transfer all binaries to compute nodes
-  ansible.builtin.copy:
-    src: "{{ binary_files_path }}"
-    dest: "{{ omnia_telemetry_dest }}"
-    force: false
-    owner: root
-    group: root
-    mode: "{{ binary_mode }}"
+host: 
+port: 
+username: 
+password: 
+database: 

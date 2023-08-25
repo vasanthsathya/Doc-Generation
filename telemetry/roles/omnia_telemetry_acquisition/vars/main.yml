@@ -17,10 +17,13 @@
 telemetry_config_file: "{{ role_path }}/../../../input/telemetry_config.yml"
 binary_files_path: "/opt/omnia/telemetry/dist/omnia_telemetry"
 omnia_telemetry_dest: "/opt/omnia/telemetry"
-init_file_path: "{{ role_path }}/files/telemetry.ini"
+init_file_path: "{{ role_path }}/../omnia_telemetry_prepare_cp/files/telemetry.ini"
+init_file_path_dest: "/opt/omnia/telemetry/telemetry.ini"
 binary_mode: "0544"
-ini_file_mode: "0666"
+file_mode: "0666"
 directory_permissions: "0755"
+config_file_path_dst: "/opt/omnia/telemetry/.timescaledb/"
+config_file_path_src: "{{ role_path }}/../omnia_telemetry_prepare_cp/files/config.yml"
 
 # Usage: stop_omnia_telemetry.yml
 omnia_telemetry_service: omnia_telemetry.service
