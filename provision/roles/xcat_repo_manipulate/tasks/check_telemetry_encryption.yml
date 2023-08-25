@@ -25,7 +25,7 @@
 
 - name: Set fact if file is encrypted
   ansible.builtin.set_fact:
-     telemetry_config_encrypted: true
+    telemetry_config_encrypted: true
   when: ansible_vault_search_key in telemetry_config_content.stdout
 
 - name: Decrpyt telemetry_config.yml
@@ -51,3 +51,4 @@
         path: "{{ telemetry_config_filename }}"
         mode: "{{ tele_conf_file_mode }}"
   when: telemetry_config_encrypted
+  

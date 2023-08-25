@@ -61,7 +61,7 @@ idrac_file_status: "There is no inventory present under /opt/omnia/provisioned_i
                     Please provide inventory with idrac group or create an inventory /opt/omnia/provisioned_idrac_inventory"
 idrac_exec_msg: "Since the absence of idrac group in inventory and existence of /opt/omnia/provisioned_idrac_inventory file.
                    iDRAC telemetry execution will be skipped"
-advanced_vars_fail_msg: "Please give correct inputs for advanced configurations for idrac telemetry in telemetry_config.yml. 
+advanced_vars_fail_msg: "Please give correct inputs for advanced configurations for idrac telemetry in telemetry_config.yml.
                   Advanced configurations include inputs related to mysqldb for storing idrac credentials"
 validation_error_msg_empty: "Validation Error: The pod external IP start range and end range should not be empty in telemetry_config.yml."
 validation_error_msg_4_octets: "Validation Error: The pod external IP range should have 4 octets."
