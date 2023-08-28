@@ -47,8 +47,7 @@ def get_nvidia_gpu_temp(nvidia_metrics_cmd_result):
     '''
     if nvidia_metrics_cmd_result is not None:
         try:
-            gpu_temp_list = common_parser.get_col_from_df(nvidia_metrics_cmd_result,
-                                                          'temperature.gpu')
+            gpu_temp_list = common_parser.get_col_from_df(nvidia_metrics_cmd_result, 'temperature.gpu')
             return gpu_temp_list
         except Exception as err:
             common_logging.log_error("data_collector_nvidia_gpu:get_nvidia_gpu_temp",
@@ -66,8 +65,7 @@ def get_nvidia_gpu_utilization(nvidia_metrics_cmd_result):
     '''
     if nvidia_metrics_cmd_result is not None:
         try:
-            gpu_util_list = common_parser.get_col_from_df(nvidia_metrics_cmd_result,
-                                                          'utilization.gpu [%]')
+            gpu_util_list = common_parser.get_col_from_df(nvidia_metrics_cmd_result, 'utilization.gpu [%]')
             return gpu_util_list
         except Exception as err:
             common_logging.log_error("data_collector_nvidia_gpu:get_nvidia_gpu_utilization",
@@ -85,8 +83,7 @@ def get_nvidia_gpu_avg_utilization(nvidia_metrics_cmd_result):
     '''
     if nvidia_metrics_cmd_result is not None:
         try:
-            gpu_util_list = common_parser.get_col_from_df(nvidia_metrics_cmd_result,
-                                                          'utilization.gpu [%]')
+            gpu_util_list = common_parser.get_col_from_df(nvidia_metrics_cmd_result, 'utilization.gpu [%]')
             gpu_average_utilization = sum(gpu_util_list)/len(gpu_util_list)
             return gpu_average_utilization
         except Exception as err:
