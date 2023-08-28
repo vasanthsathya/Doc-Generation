@@ -22,6 +22,7 @@
 
 from io import StringIO
 import pandas as pd
+import yaml
 import common_logging
 
 #-----------------------dataframe parser-----------------------------------------------
@@ -52,3 +53,23 @@ def get_col_from_df(dataframe, col_name):
         common_logging.log_error("data_collector_nvidia_gpu:get_nvidia_metrics_output",
                                  "nvidia-smi command did not give output for gpu metrics." + str(err))
         return None
+
+def parse_yaml_file(filepath):
+
+    '''
+    This module parses yaml file and provides the dictionary output
+
+    Args:
+        filepath (str): The file path along with filename
+    '''
+
+    cfg = {}
+    try:
+        with open(f'{filepath}', 'r') as ymlfile:
+            cfg = yaml.safe_load(ymlfile)
+        return cfg
+    except Exception as ex:
+        # Log the error message with the error output
+        common_logging.log_error("common_parser:parse_yaml_file",
+                                 "Error in parsing inputs for timescaledb connection" + str(ex))
+        return cfg
