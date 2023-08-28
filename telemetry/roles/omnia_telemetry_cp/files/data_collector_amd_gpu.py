@@ -125,3 +125,97 @@ def get_amd_gpu_avg_utilization():
                                      "could not parse gpu utilization from rocm-smi"+str(err))
             return None
     return None
+
+# -------------------------------AMD GPU health metric collection-------------------------------
+
+def get_gpu_health_driver():
+    '''
+    This method collects amd gpu driver health from rocm query output
+    '''
+    amd_metrics_query = "rocm-smi --showdriverversion --csv"
+    command_result = invoke_commands.call_command(amd_metrics_query)
+    list_info = invoke_commands.call_command("rocm-smi -i --csv")
+    gpu_driver = {}
+    if command_result is not None and list_info is not None:
+        try:
+            command_result_df = common_parser.get_df_format(command_result)
+            gpu_util_list = common_parser.get_col_from_df(command_result_df, 'Driver version')
+            list_info_df = common_parser.get_df_format(list_info)
+            gpu_list = common_parser.get_col_from_df(list_info_df, 'GPU ID')
+            for index,item in enumerate(gpu_list):
+                gpu_driver[index] = gpu_util_list[0]
+            return gpu_driver
+        except Exception as err:
+            common_logging.log_error("data_collector_amd_gpu:get_gpu_health_driver",
+                                     "could not parse gpu driver health from rocm-smi. "+str(err))
+            return None
+    return None
+
+def get_gpu_health_nvlink():
+    '''
+    This method collects amd gpu nvlink health from rocm query output
+    '''
+    gpu_util = None
+    return gpu_util
+
+def get_gpu_health_pcie():
+    '''
+    This method collects amd gpu pcie health from rocm query output
+    '''
+    amd_metrics_query = "rocm-smi --showbus --csv"
+    command_result = invoke_commands.call_command(amd_metrics_query)
+    if command_result is not None:
+        try:
+            command_result_df = common_parser.get_df_format(command_result)
+            gpu_util_list = common_parser.get_col_from_df(command_result_df, 'PCI Bus')
+            return gpu_util_list
+        except Exception as err:
+            common_logging.log_error("data_collector_amd_gpu:get_gpu_health_pcie",
+                                     "could not parse gpu pcie health from rocm-smi. "+str(err))
+            return None
+    return None
+
+def get_gpu_health_pmu():
+    '''
+    This method collects amd gpu pmu health from rocm query output
+    '''
+    gpu_util = None
+    return gpu_util
+
+def get_gpu_health_power():
+    '''
+    This method collects amd gpu power health from rocm query output
+    '''
+    amd_metrics_query = "rocm-smi -P -M --csv"
+    command_result = invoke_commands.call_command(amd_metrics_query)
+    if command_result is not None:
+        try:
+            command_result_df = common_parser.get_df_format(command_result)
+            gpu_util_list_max = common_parser.get_col_from_df(command_result_df,
+                                                              'Max Graphics Package Power (W)')
+            gpu_util_list_avg = common_parser.get_col_from_df(command_result_df,
+                                                              'Average Graphics Package Power (W)')
+            return gpu_util_list_max,gpu_util_list_avg
+        except Exception as err:
+            common_logging.log_error("data_collector_amd_gpu:get_gpu_health_power",
+                                     "could not parse gpu power health from rocm-smi. "+str(err))
+            return None,None
+    return None,None
+
+def get_gpu_health_thermal():
+    '''
+    This method collects amd gpu thermal health from rocm query output
+    '''
+    amd_metrics_query = "rocm-smi -t --csv"
+    command_result = invoke_commands.call_command(amd_metrics_query)
+    if command_result is not None:
+        command_result_df = common_parser.get_df_format(command_result)
+        try:
+            gpu_temp = common_parser.get_col_from_df(command_result_df,
+                                                                'Temperature (Sensor edge) (C)')
+            return gpu_temp
+        except Exception as err:
+            common_logging.log_error("data_collector_amd_gpu:get_gpu_health_thermal",
+                                     "could not parse sensor_edge temp from rocm-smi. " + str(err))
+        return None
+    return None

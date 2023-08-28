@@ -26,8 +26,9 @@ def get_nvidia_metrics_output():
     This method collects command output for nvidia-smi command for gpu metrics
     :return: nvidia query output
     '''
-    nvidia_metrics_query = "nvidia-smi --query-gpu=temperature.gpu,utilization.gpu " \
-                           "--format=csv,nounits"
+    nvidia_metrics_query = "nvidia-smi --query-gpu=gpu_name,driver_version,pci.bus_id," \
+        "power.management,power.limit,power.draw,temperature.gpu,utilization.gpu \
+            --format=csv,nounits"
     command_result = invoke_commands.call_command(nvidia_metrics_query)
     if command_result is not None:
         command_result_df = common_parser.get_df_format(command_result)
@@ -88,5 +89,112 @@ def get_nvidia_gpu_avg_utilization(nvidia_metrics_cmd_result):
         except Exception as err:
             common_logging.log_error("data_collector_nvidia_gpu:get_nvidia_gpu_avg_utilization",
                                      "could not parse gpu utilization from nvidia-smi"+str(err))
+            return None
+    return None
+
+def get_gpu_health_driver(nvidia_health_metrics_cmd_result):
+    '''
+    This method collects nvidia gpu driver from nvidia query output
+    and stores it in gpu metric dictionary
+    '''
+    if nvidia_health_metrics_cmd_result is not None:
+        try:
+            gpu_driver_list = common_parser.get_col_from_df(nvidia_health_metrics_cmd_result, \
+                                                            'driver_version')
+            return gpu_driver_list
+        except Exception as err:
+            common_logging.log_error('data_collector_nvidia_gpu:get_gpu_health_driver',
+                                     "Error occurred while getting GPU Driver health:" \
+                                        + str(err))
+            return None
+    return None
+
+def get_gpu_health_nvlink(nvidia_health_metrics_cmd_result):
+    '''
+    This method collects nvidia gpu nvlink from nvidia output
+    and stores it in gpu metric dictionary
+    '''
+    if nvidia_health_metrics_cmd_result is not None:
+        try:
+            gpu_list = common_parser.get_col_from_df(nvidia_health_metrics_cmd_result, 'name')
+            gpu_nvlink_status = {}
+            for index, item in enumerate(gpu_list):
+                gpu_nvlink_status[index] = invoke_commands.call_command(f"nvidia-smi nvlink --status -i {index}")
+            return gpu_nvlink_status
+        except Exception as err:
+            common_logging.log_error('data_collector_nvidia_gpu:get_gpu_health_nvlink',
+                                     "Error occurred while getting GPU NVLink Status:" \
+                                        + {str(err)})
+            return None
+    return None
+
+def get_gpu_health_pcie(nvidia_health_metrics_cmd_result):
+    '''
+    This method collects nvidia gpu pcie from nvidia query output
+    and stores it in gpu metric dictionary
+    '''
+    if nvidia_health_metrics_cmd_result is not None:
+        try:
+            gpu_pcie_list = common_parser.get_col_from_df(nvidia_health_metrics_cmd_result, \
+                                                          'pci.bus_id')
+            return gpu_pcie_list
+        except Exception as err:
+            common_logging.log_error('data_collector_nvidia_gpu:get_gpu_health_pcie',
+                                     "Error occurred while getting GPU PCIE health:" \
+                                        + str(err))
+            return None
+    return None
+
+def get_gpu_health_pmu(nvidia_health_metrics_cmd_result):
+    '''
+    This method collects nvidia gpu pmu from nvidia query output
+    and stores it in gpu metric dictionary
+    '''
+    if nvidia_health_metrics_cmd_result is not None:
+        try:
+            gpu_pmu_list = common_parser.get_col_from_df(nvidia_health_metrics_cmd_result, \
+                                                         'power.management')
+            return gpu_pmu_list
+        except Exception as err:
+            common_logging.log_error('data_collector_nvidia_gpu:get_gpu_health_pmu',
+                                     "Error occurred while getting GPU " \
+                                        "Power Management health:" \
+                                        + str(err))
+            return None
+    return None
+
+def get_gpu_health_power(nvidia_health_metrics_cmd_result):
+    '''
+    This method collects nvidia gpu power from nvidia query output
+    and stores it in gpu metric dictionary
+    '''
+    if nvidia_health_metrics_cmd_result is not None:
+        try:
+            gpu_power_limit_list = common_parser.get_col_from_df\
+                (nvidia_health_metrics_cmd_result, 'power.limit [W]')
+            gpu_power_draw_list = common_parser.get_col_from_df\
+                (nvidia_health_metrics_cmd_result, 'power.draw [W]')
+            return(gpu_power_limit_list,gpu_power_draw_list)
+        except Exception as err:
+            common_logging.log_error('data_collector_nvidia_gpu:get_gpu_health_power',
+                                     "Error occurred while getting GPU Power health:" \
+                                        + str(err))
+            return None,None
+    return None,None
+
+def get_gpu_health_thermal(nvidia_health_metrics_cmd_result):
+    '''
+    This method collects nvidia gpu thermal from nvidia query output
+    and stores it in gpu metric dictionary
+    '''
+    if nvidia_health_metrics_cmd_result is not None:
+        try:
+            gpu_thermal_list = common_parser.get_col_from_df(nvidia_health_metrics_cmd_result, \
+                                                             'temperature.gpu')
+            return gpu_thermal_list
+        except Exception as err:
+            common_logging.log_error('data_collector_nvidia_gpu:get_gpu_health_thermal',
+                                     "Error occurred while getting GPU Thermal health: " \
+                                        + str(err))
             return None
     return None
