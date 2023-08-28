@@ -19,6 +19,7 @@
 '''
 
 import pandas as pd
+import yaml
 import re
 import json
 import configparser
@@ -53,6 +54,25 @@ def get_col_from_df(dataframe, col_name):
                                  "nvidia-smi command did not give output for gpu metrics." + str(err))
         return None
 
+def parse_yaml_file(filepath):
+
+    '''
+    This module parses yaml file and provides the dictionary output
+
+    Args:
+        filepath (str): The file path along with filename
+    '''
+
+    cfg = {}
+    try:
+        with open(f'{filepath}', 'r') as ymlfile:
+            cfg = yaml.safe_load(ymlfile)
+        return cfg
+    except Exception as ex:
+        # Log the error message with the error output
+        common_logging.log_error("common_parser:parse_yaml_file",
+                                 "Error in parsing inputs for timescaledb connection" + str(ex))
+        return cfg
 def split_by_regex(input_data, regex):
     '''
     Split the input text w.r.t passed regex delimiter and return the list of tokens
