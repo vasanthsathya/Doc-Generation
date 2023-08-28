@@ -17,6 +17,9 @@ Module to gather health check metrics.
 '''
 
 import data_collector_kubernetes
+import data_collector_storage
+import data_collector_os
+
 
 class HealthCheckMetricCollector:
     '''
@@ -44,13 +47,29 @@ class HealthCheckMetricCollector:
         self.health_check_metric_output_dict["kubernetescomponentsstatus"]=\
             kubernetes_component_status_dict["kubernetescomponentsstatus"]
 
+    def get_health_node_dmesg(self):
+        '''
+           This method checks if dmesg is giving some output or not.
+        '''
+        dmesg_op_dict = data_collector_os.get_health_node_dmesg()
+        self.health_check_metric_output_dict["Dmesg"] = dmesg_op_dict["Dmesg"]
+
+    def get_beegfs_details(self):
+        '''
+            This method checks if beeGFS client is reachable or not.
+        '''
+        beegfs_op_dict = data_collector_storage.get_beegfs_details()
+        self.health_check_metric_output_dict["Beegfs client Reachable"] = beegfs_op_dict["Beegfs client Reachable"]
+
     def metric_collector(self, aggregation_level="compute"):
         '''
-        This method aggregrates all the health check parameters.
+        This method aggregates all the health check parameters.
         '''
         self.health_check_metric_output_dict={}
-        if aggregation_level in ["manager","manager,login"]:
-            # Get following informations through kubernetes
+        self.get_health_node_dmesg()
+        self.get_beegfs_details()
+        if aggregation_level in ["manager", "manager, login"]:
+            # Get following information's through kubernetes
             # 1.Kubernetespodsstatus
             # 2.Kuberneteschildnode
             # 3.kubernetesnodesstatus
