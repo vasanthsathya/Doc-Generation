@@ -58,7 +58,7 @@ def db_close(db_conn):
 
     db_conn.close()
 
-def create_db_query(regular_metric_output_dict,health_check_metric_output_dict,gpu_metric_output_dict,service_tag):
+def create_db_query(combined_result_dict, service_tag):
     '''
     Database query creation
     :param regular_metric_output_dict: Regular metrics data dictionary
@@ -69,29 +69,15 @@ def create_db_query(regular_metric_output_dict,health_check_metric_output_dict,g
     if service_tag is not None:
         db_query_list=[]
         timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
-        if regular_metric_output_dict:
-            for key,value in regular_metric_output_dict.items():
+        for metric, metric_dict in combined_result_dict.items():
+            for key,value in metric_dict.items():
                 if value!="":
-                    label = key+" Regular Metric"
-                    db_data_tuple = (key,"Regular Metric",label,value,service_tag,timestamp)
-                    db_query_list.append(db_data_tuple)
-        
-        if health_check_metric_output_dict:
-            for key,value in health_check_metric_output_dict.items():
-                if value!="":
-                    label = key+" Health Check Metric"
-                    db_data_tuple = (key,"Health Metric",label,value,service_tag,timestamp)
-                    db_query_list.append(db_data_tuple)
-
-        if gpu_metric_output_dict:
-            for key,value in gpu_metric_output_dict.items():
-                if value!="":
-                    label = key+" GPU Metric"
-                    db_data_tuple = (key,"GPU Metric",label,value,service_tag,timestamp)
+                    label = key+" "+metric
+                    db_data_tuple = (key,metric,label,value,service_tag,timestamp)
                     db_query_list.append(db_data_tuple)
         return db_query_list
     else:
-         common_logging.log_error("dbupdate:create_db_query","Service Tag is empty.")
+        common_logging.log_error("dbupdate:create_db_query","Service Tag is empty.")
 
 def db_insert(db_conn, db_query):
     '''
@@ -112,8 +98,7 @@ def db_insert(db_conn, db_query):
                                  "Error in inserting data to Database" + str(ex))
         db_close(db_conn)
 
-def dbupdate(regular_metric_output_dict, health_check_metric_output_dict, gpu_metric_output_dict,\
-             service_tag):
+def update_db(combined_result_dict, service_tag):
     '''
     This module updates the Timescaledb on the control plane with telemetry data
 
@@ -129,7 +114,7 @@ def dbupdate(regular_metric_output_dict, health_check_metric_output_dict, gpu_me
 
     if db_conn is not None:
         #Create sql query
-        db_query = create_db_query(regular_metric_output_dict,health_check_metric_output_dict,gpu_metric_output_dict,service_tag)
+        db_query = create_db_query(combined_result_dict,service_tag)
 
         #Insert into database
         db_insert(db_conn, db_query)
