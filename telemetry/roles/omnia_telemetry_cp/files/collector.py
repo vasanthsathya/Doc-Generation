@@ -12,18 +12,78 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#collector.py
-#!/usr/bin/env python3
 '''
-   This is an interface to call telemetry collector.
-   This will collect all supported metric values of different categories
-   Steps are as below:
-   step1: get all required input values from ini
-   step2: understand platform environment and generate command set
-   step3: generate random number in the range of 0-fuzzy offset
-   step4: collect metrices in loop
-     step41: sleep for generated random number
-     step42: collect all metrices in dictionary
-     step43: add collected values in DB on control plane
-     step44: sleep for collection interval time
+Module to initiate omnia telemetry data collection
 '''
+import time
+import sys
+import signal
+import common_logging
+import dbupdate
+import utility
+from regular_metric_collector import RegularMetricCollector
+from gpu_metric_collector import GPUMetricCollector
+from health_check_metric_collector import HealthCheckMetricCollector
+
+def cleanup(signum, frame):
+    '''
+    Cleanup operations to be executed during graceful shutdown.
+    '''
+    try:
+        # Close database connection
+
+        # Close syslog
+        common_logging.close_syslog()
+
+    except Exception as err:
+        pass
+
+def handle_sigterm(signum, frame):
+    '''
+    sigterm handler for stop telemetry
+    '''
+    cleanup(signum, frame)
+    sys.exit(0)
+
+def main():
+    '''
+    Module main to initiate the telemetry data collection functionality
+    '''
+
+    common_logging.setup_syslog('omnia_telemetry')
+
+    # Register signal handler for SIGTERM
+    #signal.signal(signal.SIGTERM, handle_sigterm)
+
+    # Copy telemetry ini to dictionary dict_telemetry_ini
+    if utility.set_telemetry_ini_values() is True:
+        # Sleep for fuzzt_offset value
+        time.sleep(utility.generate_random_fuzzy_offset(utility.dict_telemetry_ini["fuzzy_offset"]))
+
+        if utility.dict_telemetry_ini["collect_regular_metrics"] =="true":
+            regular_metric_collector_obj=RegularMetricCollector()
+        if utility.dict_telemetry_ini["collect_health_check_metrics"]=="true":
+            health_metric_collector_obj=HealthCheckMetricCollector()
+        if utility.dict_telemetry_ini["collect_gpu_metrics"]=="true":
+            gpu_metric_collector_obj=GPUMetricCollector()
+        while True:
+            combined_result_dict={"Regular Metric":{},"Health Check Metric":{},"GPU Metric":{}}
+
+            if utility.dict_telemetry_ini["collect_regular_metrics"] == "true":
+                regular_metric_collector_obj.metric_collector(utility.dict_telemetry_ini["group_info"])
+                combined_result_dict["Regular Metric"]=regular_metric_collector_obj.regular_metric_output_dict
+
+            if utility.dict_telemetry_ini["collect_health_check_metrics"] == "true":
+                health_metric_collector_obj.metric_collector(utility.dict_telemetry_ini["group_info"])
+                combined_result_dict["Health Check Metric"]=health_metric_collector_obj.health_check_metric_output_dict
+
+            if utility.dict_telemetry_ini["collect_gpu_metrics"] == "true":
+                gpu_metric_collector_obj.metric_collector(utility.dict_telemetry_ini["group_info"])
+                combined_result_dict["GPU Metric"]=gpu_metric_collector_obj.gpu_metric_output_dict
+            #DB Update
+            dbupdate(combined_result_dict["Regular Metric"],combined_result_dict["Health Check Metric"],combined_result_dict["GPU Metric"],utility.get_system_name())
+            #sleep for omnia_telemetry_collection_interval time
+            time.sleep(int(utility.dict_telemetry_ini["omnia_telemetry_collection_interval"]))
+
+if __name__ == "__main__":
+    main()

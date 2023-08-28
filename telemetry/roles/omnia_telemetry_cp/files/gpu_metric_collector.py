@@ -15,8 +15,9 @@
 '''
 Module to gather gpu related metrics
 '''
-
+import math
 import data_collector_nvidia_gpu
+import data_collector_amd_gpu
 import utility
 
 class GPUMetricCollector:
@@ -56,8 +57,42 @@ class GPUMetricCollector:
         else:
             self.gpu_metric_output_dict["gpu_utilization:average"] = utility.Result.NO_DATA.value
 
+    def get_amd_metrics(self):
+        '''
+        This method collects all the AMD gpu metrics
+        '''
+        # get temperature details for AMD GPU
+        gpu_temp = data_collector_amd_gpu.get_amd_gpu_temp()
+        if gpu_temp is not None:
+            for keys, values in gpu_temp.items():
+                for index, value in enumerate(values):
+                    if not math.isnan(float(value)):
+                        self.gpu_metric_output_dict['gpu_temperature:' + keys + ':gpu' + str(index)] = str(value) + ' C'
+                    else:
+                        self.gpu_metric_output_dict['gpu_temperature:' + keys + ':gpu' + str(index)] = utility.Result.NO_DATA.value
+        else:
+            self.gpu_metric_output_dict["gpu_temperature:gpu"] = utility.Result.NO_DATA.value
+
+        # get utilization details for AMD GPU
+        gpu_util = data_collector_amd_gpu.get_amd_gpu_utilization()
+        if gpu_util is not None:
+            for index, item in enumerate(gpu_util):
+                self.gpu_metric_output_dict["gpu_utilization:gpu" + str(index)] = str(item) + '%'
+        else:
+            self.gpu_metric_output_dict["gpu_utilization:gpu"] = utility.Result.NO_DATA.value
+
+        # get average of utilization of all GPUs in the system
+        gpu_avg_util = data_collector_amd_gpu.get_amd_gpu_avg_utilization()
+        if gpu_avg_util is not None:
+            self.gpu_metric_output_dict["gpu_utilization:average"] = str(gpu_avg_util) + '%'
+        else:
+            self.gpu_metric_output_dict["gpu_utilization:average"] = utility.Result.NO_DATA.value
+
     def metric_collector(self, aggregation_level):
         '''
         This method collects all the gpu metric parameters.
         '''
+        # Run only when nvidia gpu present
         self.get_nvidia_metrics()
+        # Run only when amd gpu present
+        self.get_amd_metrics()

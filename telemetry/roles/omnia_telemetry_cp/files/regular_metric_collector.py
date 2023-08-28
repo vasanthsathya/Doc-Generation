@@ -21,6 +21,7 @@ import data_collector_psutil
 import invoke_commands
 import common_parser
 import utility
+import data_collector_slurm
 
 class RegularMetricCollector:
     '''
@@ -128,8 +129,23 @@ class RegularMetricCollector:
             self.regular_metric_output_dict["MemoryCached"] = utility.Result.NO_DATA.value
             self.regular_metric_output_dict["MemoryShared"] = utility.Result.NO_DATA.value
 
+    def get_using_slurm(self):
+        '''
+        This method initiates slurm calls to data_collector_slurm and retrieves necessary values.
+        '''
+        #sinfo
+        sinfo_dict=data_collector_slurm.get_cluster_values_sinfo()
+        self.regular_metric_output_dict["NodesTotal"]=sinfo_dict["NodesTotal"]
+        self.regular_metric_output_dict["NodesUp"]=sinfo_dict["NodesUp"]
+        #squeue
+        squeue_dict=data_collector_slurm.get_cluster_values_squeue()
+        self.regular_metric_output_dict["QueuedJobs"]=squeue_dict["QueuedJobs"]
+        self.regular_metric_output_dict["RunningJobs"]=squeue_dict["RunningJobs"]
+        #sacct
+        sacct_dict=data_collector_slurm.get_cluster_values_sacct()
+        self.regular_metric_output_dict["FailedJobs"]=sacct_dict["FailedJobs"]
 
-    def metric_collector(self, aggregation_level):
+    def metric_collector(self, aggregation_level="compute"):
         '''
         This method aggregrates all the regular metric parameters.
         '''
@@ -139,3 +155,15 @@ class RegularMetricCollector:
         self.get_packet_errors()
         self.get_hardware_corrupted_memory()
         self.get_virtual_memory_info()
+
+        #Get cluster level parameters.
+        if aggregation_level in ["manager","manager,login"]:
+            # Get following informations through slurm
+            # 1.NodesClosed
+            # 2.NodesDown
+            # 3.NodesTotal
+            # 4.NodesUp
+            # 5.QueuedJobs
+            # 6.RunningJobs
+            # 7.FailedJobs
+            self.get_using_slurm()
