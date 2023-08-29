@@ -68,11 +68,12 @@ def create_db_query(combined_result_dict, service_tag):
         db_query_list=[]
         timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
         for metric, metric_dict in combined_result_dict.items():
-            for key,value in metric_dict.items():
-                if value!="":
-                    label = key+" "+metric
-                    db_data_tuple = (key,metric,label,value,service_tag,timestamp)
-                    db_query_list.append(db_data_tuple)
+            if metric_dict:
+                for key,value in metric_dict.items():
+                    if value!="":
+                        label = key+" "+metric
+                        db_data_tuple = (key,metric,label,value,service_tag,timestamp)
+                        db_query_list.append(db_data_tuple)
         return db_query_list
     else:
         common_logging.log_error("dbupdate:create_db_query","Service Tag is empty.")
