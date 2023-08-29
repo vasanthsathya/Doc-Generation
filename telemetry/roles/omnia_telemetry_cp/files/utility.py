@@ -20,21 +20,37 @@ import random
 from enum import Enum
 import common_parser
 import common_logging
+import platform
+import invoke_commands
 
-#Dictionary to hold the telemetry.ini values. telemetry.ini holds telemetry user inputs
-dict_telemetry_ini={}
-TELEMETRY_INI_PATH="/opt/omnia/telemetry/telemetry.ini"
+# Dictionary to hold the telemetry.ini values. telemetry.ini holds telemetry user inputs
+dict_telemetry_ini = {}
+TELEMETRY_INI_PATH = "/opt/omnia/telemetry/telemetry.ini"
+
+class Result(Enum):
+    '''
+    Enum values for mapping value to result in database
+    '''
+    NO_DATA = "No data"
+    SUCCESS = "Pass"
+    FAILURE = "Fail"
+    UNKNOWN = "Unknown"
+
+def get_system_name():
+    '''Get system Serial no./Service Tag'''
+    return invoke_commands.call_command('dmidecode -s system-serial-number')
 
 def set_telemetry_ini_values():
     """
         Set the ini values from TELEMETRY_INI_PATH
     """
     global dict_telemetry_ini
-    dict_telemetry_ini=common_parser.get_ini_dict(TELEMETRY_INI_PATH)["omnia_telemetry"]
+    dict_telemetry_ini = common_parser.get_ini_dict(TELEMETRY_INI_PATH)["omnia_telemetry"]
     if dict_telemetry_ini is not None:
         return True
-    common_logging.log_error("Utility:set_telemetry_ini_values","Unable to parse telemetry ini")
+    common_logging.log_error("Utility:set_telemetry_ini_values", "Unable to parse telemetry ini")
     return False
+
 
 def generate_random_fuzzy_offset(fuzzy_offset=60):
     """
@@ -48,3 +64,13 @@ def generate_random_fuzzy_offset(fuzzy_offset=60):
     """
     random_fuzzy_offset = round(random.uniform(0, fuzzy_offset), 2)
     return random_fuzzy_offset
+
+
+def get_system_hostname():
+    ''' Get the system hostname '''
+    try:
+        hostname = platform.uname()[1]
+        return hostname
+    except Exception as exc:
+        common_logging.log_error('utility:get_system_hostname', f"An error occurred: {exc}")
+        return None

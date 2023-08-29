@@ -23,6 +23,8 @@
 import psycopg2
 import common_parser
 import common_logging
+import time
+import datetime
 
 filepath = "/opt/omnia/telemetry/.timescaledb/config.yml"
 
@@ -56,6 +58,26 @@ def db_close(db_conn):
 
     db_conn.close()
 
+def create_db_query(combined_result_dict, service_tag):
+    '''
+    Database query creation
+    :param combined_result_dict: Combined metrics data dictionary
+    :param service_tag: System serial number/service tag
+    '''
+    if service_tag is not None:
+        db_query_list=[]
+        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+        for metric, metric_dict in combined_result_dict.items():
+            if metric_dict:
+                for key,value in metric_dict.items():
+                    if value!="":
+                        label = key+" "+metric
+                        db_data_tuple = (key,metric,label,value,service_tag,timestamp)
+                        db_query_list.append(db_data_tuple)
+        return db_query_list
+    else:
+        common_logging.log_error("dbupdate:create_db_query","Service Tag is empty.")
+
 def db_insert(db_conn, db_query):
     '''
     This module inserts data into database
@@ -75,13 +97,12 @@ def db_insert(db_conn, db_query):
                                  "Error in inserting data to Database" + str(ex))
         db_close(db_conn)
 
-def dbupdate(regular_metric_output_dict, health_check_metric_output_dict, gpu_metric_output_dict,\
-             service_tag):
+def update_db(combined_result_dict, service_tag):
     '''
     This module updates the Timescaledb on the control plane with telemetry data
 
     Args:
-       Regular metric {dict}, GPU Metric {dict}, Health Check Metric {dict}
+       Combined metric dictionary {dict}
     '''
 
     #Fetch the db connect info from config file
@@ -92,7 +113,7 @@ def dbupdate(regular_metric_output_dict, health_check_metric_output_dict, gpu_me
 
     if db_conn is not None:
         #Create sql query
-        #db_query = create_db_query(regular_metric_output_dict,health_check_metric_output_dict,gpu_metric_output_dict,service_tag)
+        db_query = create_db_query(combined_result_dict,service_tag)
 
         #Insert into database
         db_insert(db_conn, db_query)
