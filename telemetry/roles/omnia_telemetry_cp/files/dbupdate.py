@@ -61,9 +61,7 @@ def db_close(db_conn):
 def create_db_query(combined_result_dict, service_tag):
     '''
     Database query creation
-    :param regular_metric_output_dict: Regular metrics data dictionary
-    :param health_check_metric_output_dict: health check metrics data dictionary
-    :param gpu_metric_output_dict: GPU metrics data dictionary
+    :param combined_result_dict: Combined metrics data dictionary
     :param service_tag: System serial number/service tag
     '''
     if service_tag is not None:
@@ -103,7 +101,7 @@ def update_db(combined_result_dict, service_tag):
     This module updates the Timescaledb on the control plane with telemetry data
 
     Args:
-       Regular metric {dict}, GPU Metric {dict}, Health Check Metric {dict}
+       Combined metric dictionary {dict}
     '''
 
     #Fetch the db connect info from config file
