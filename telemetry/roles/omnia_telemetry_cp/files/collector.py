@@ -19,7 +19,7 @@ import time
 import sys
 import signal
 import common_logging
-import dbupdate
+from dbupdate import DatabaseClient
 import utility
 from regular_metric_collector import RegularMetricCollector
 from gpu_metric_collector import GPUMetricCollector
@@ -60,12 +60,17 @@ def main():
         # Sleep for fuzzt_offset value
         time.sleep(utility.generate_random_fuzzy_offset(int(utility.dict_telemetry_ini["fuzzy_offset"])))
 
+        # Create objects for different telemetry groups
         if utility.dict_telemetry_ini["collect_regular_metrics"] =="true":
             regular_metric_collector_obj=RegularMetricCollector()
         if utility.dict_telemetry_ini["collect_health_check_metrics"]=="true":
             health_metric_collector_obj=HealthCheckMetricCollector()
         if utility.dict_telemetry_ini["collect_gpu_metrics"]=="true":
             gpu_metric_collector_obj=GPUMetricCollector()
+
+        # Create object for database client
+        dbclient_obj = DatabaseClient()
+
         while True:
             combined_result_dict={"Regular Metric":{},"Health Check Metric":{},"GPU Metric":{}}
 
@@ -81,7 +86,7 @@ def main():
                 gpu_metric_collector_obj.metric_collector(utility.dict_telemetry_ini["group_info"])
                 combined_result_dict["GPU Metric"]=gpu_metric_collector_obj.gpu_metric_output_dict
             #DB Update
-            dbupdate.update_db(combined_result_dict,utility.get_system_name())
+            dbclient_obj.update_db(combined_result_dict,utility.get_system_name())
             #sleep for omnia_telemetry_collection_interval time
             time.sleep(int(utility.dict_telemetry_ini["omnia_telemetry_collection_interval"]))
 

@@ -28,94 +28,98 @@ import datetime
 
 filepath = "/opt/omnia/telemetry/.timescaledb/config.yml"
 
-def db_connect(dbdata):
-    '''
-    This module creates Database Connection
-    '''
+class DatabaseClient:
 
-    dbuser = dbdata['username']
-    dbpwd = dbdata['password']
-    dbhost = dbdata['host']
-    dbport = dbdata['port']
-    dbtelemetry = dbdata['database']
-    #Create connection string for connecting to db
-    connection_string = f"postgres://{dbuser}:{dbpwd}@{dbhost}:{dbport}/{dbtelemetry}".format(
-        dbuser = dbuser, dbpwd = dbpwd, dbhost = dbhost, dbport = dbport, dbtelemetry = dbtelemetry)
-    try:
-        conn = psycopg2.connect(connection_string)
-        if conn is not None:
-            conn.autocommit = True
-    except Exception as ex:
-        # Log the error message with the error output
-        common_logging.log_error("dbupdate:db_connect",
-                                 "Error in connecting to timescaledb" + str(ex))
-    return conn
+    def __init__(self):
+        self.db_conn = None
 
-def db_close(db_conn):
-    '''
-    This module closes the database connection object
-    '''
+    def db_connect(self, dbdata):
+        '''
+        This module creates Database Connection
+        '''
 
-    db_conn.close()
+        dbuser = dbdata['username']
+        dbpwd = dbdata['password']
+        dbhost = dbdata['host']
+        dbport = dbdata['port']
+        dbtelemetry = dbdata['database']
+        #Create connection string for connecting to db
+        connection_string = f"postgres://{dbuser}:{dbpwd}@{dbhost}:{dbport}/{dbtelemetry}".format(
+            dbuser = dbuser, dbpwd = dbpwd, dbhost = dbhost, dbport = dbport, dbtelemetry = dbtelemetry)
+        try:
+            self.db_conn = psycopg2.connect(connection_string)
+            if self.db_conn is not None:
+                self.db_conn.autocommit = True
+        except Exception as ex:
+            # Log the error message with the error output
+            common_logging.log_error("dbupdate:db_connect",
+                                    "Error in connecting to timescaledb" + str(ex))
 
-def create_db_query(combined_result_dict, service_tag):
-    '''
-    Database query creation
-    :param combined_result_dict: Combined metrics data dictionary
-    :param service_tag: System serial number/service tag
-    '''
-    if service_tag is not None:
-        db_query_list=[]
-        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
-        for metric, metric_dict in combined_result_dict.items():
-            if metric_dict:
-                for key,value in metric_dict.items():
-                    if value!="":
-                        label = key+" "+metric
-                        db_data_tuple = (key,metric,label,value,service_tag,timestamp)
-                        db_query_list.append(db_data_tuple)
-        return db_query_list
-    else:
-        common_logging.log_error("dbupdate:create_db_query","Service Tag is empty.")
+    def db_close(self):
+        '''
+        This module closes the database connection object
+        '''
 
-def db_insert(db_conn, db_query):
-    '''
-    This module inserts data into database
-    '''
+        self.db_conn.close()
 
-    try:
-        db_cursor = db_conn.cursor()
-        sql_insert_query = """INSERT INTO omnia_telemetry.metrics \
-                           (id, context, label, value, system, time )\
-                           VALUES (%s,%s,%s,%s,%s,%s)"""
-        db_cursor.executemany(sql_insert_query, db_query)
-        db_conn.commit()
-        db_cursor.close()
-    except Exception as ex:
-        # Log the error message with the error output
-        common_logging.log_error("dbupdate:db_insert",
-                                 "Error in inserting data to Database" + str(ex))
-        db_close(db_conn)
+    def create_db_query(self, combined_result_dict, service_tag):
+        '''
+        Database query creation
+        :param combined_result_dict: Combined metrics data dictionary
+        :param service_tag: System serial number/service tag
+        '''
+        if service_tag is not None:
+            db_query_list=[]
+            timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+            for metric, metric_dict in combined_result_dict.items():
+                if metric_dict:
+                    for key,value in metric_dict.items():
+                        if value!="":
+                            label = key+" "+metric
+                            db_data_tuple = (key,metric,label,value,service_tag,timestamp)
+                            db_query_list.append(db_data_tuple)
+            return db_query_list
+        else:
+            common_logging.log_error("dbupdate:create_db_query","Service Tag is empty.")
 
-def update_db(combined_result_dict, service_tag):
-    '''
-    This module updates the Timescaledb on the control plane with telemetry data
+    def db_insert(self, db_query):
+        '''
+        This module inserts data into database
+        '''
 
-    Args:
-       Combined metric dictionary {dict}
-    '''
+        try:
+            db_cursor = self.db_conn.cursor()
+            sql_insert_query = """INSERT INTO omnia_telemetry.metrics \
+                            (id, context, label, value, system, time )\
+                            VALUES (%s,%s,%s,%s,%s,%s)"""
+            db_cursor.executemany(sql_insert_query, db_query)
+            self.db_conn.commit()
+            db_cursor.close()
+        except Exception as ex:
+            # Log the error message with the error output
+            common_logging.log_error("dbupdate:db_insert",
+                                    "Error in inserting data to Database" + str(ex))
+            self.db_close()
 
-    #Fetch the db connect info from config file
-    dbdata = common_parser.parse_yaml_file(filepath)
+    def update_db(self, combined_result_dict, service_tag):
+        '''
+        This module updates the Timescaledb on the control plane with telemetry data
 
-    #Connect to the database
-    db_conn = db_connect(dbdata)
+        Args:
+        Combined metric dictionary {dict}
+        '''
 
-    if db_conn is not None:
-        #Create sql query
-        db_query = create_db_query(combined_result_dict,service_tag)
+        #Fetch the db connect info from config file
+        dbdata = common_parser.parse_yaml_file(filepath)
 
-        #Insert into database
-        db_insert(db_conn, db_query)
+        #Connect to the database
+        self.db_connect(dbdata)
 
-        db_close(db_conn)
+        if self.db_conn is not None:
+            #Create sql query
+            db_query = self.create_db_query(combined_result_dict,service_tag)
+
+            #Insert into database
+            self.db_insert(db_query)
+
+            self.db_close()
