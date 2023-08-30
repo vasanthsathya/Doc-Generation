@@ -264,7 +264,7 @@ class HealthCheckMetricCollector:
         self.get_beegfs_details()
         self.get_nvidia_metrics()
         self.get_amd_metrics()
-        if aggregation_level in ["manager", "manager, login"]:
+        if aggregation_level in ["manager", "manager,login"]:
             # Get following information's through kubernetes
             # 1.Kubernetespodsstatus
             # 2.Kuberneteschildnode
