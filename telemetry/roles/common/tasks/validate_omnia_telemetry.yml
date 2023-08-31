@@ -18,7 +18,6 @@
     that:
       - omnia_telemetry_collection_interval is integer
       - omnia_telemetry_collection_interval >= min_interval and omnia_telemetry_collection_interval <= max_interval
-    quiet: true
     fail_msg: "{{ omnia_telemetry_collection_interval_fail_msg }}"
 
 - name: Set collect regular metrics value
@@ -29,7 +28,6 @@
   ansible.builtin.assert:
     that:
       - collect_regular_metrics == true or collect_regular_metrics == false
-    quiet: true
     fail_msg: "{{ collect_regular_metrics_fail_msg }}"
 
 - name: Set collect health check metrics value
@@ -40,7 +38,6 @@
   ansible.builtin.assert:
     that:
       - collect_health_check_metrics == true or collect_health_check_metrics == false
-    quiet: true
     fail_msg: "{{ collect_health_check_metrics_fail_msg }}"
 
 - name: Set collect gpu metrics value
@@ -51,14 +48,12 @@
   ansible.builtin.assert:
     that:
       - collect_gpu_metrics == true or collect_gpu_metrics == false
-    quiet: true
     fail_msg: "{{ collect_gpu_metrics_fail_msg }}"
 
 - name: Assert all metric collection are false
   ansible.builtin.assert:
     that:
       - collect_regular_metrics == true or collect_health_check_metrics == true or collect_gpu_metrics == true
-    quiet: true
     fail_msg: "{{ all_omnia_telemetry_support_false_fail_msg }}"
 
 - name: Assert fuzzy offset
@@ -67,7 +62,6 @@
       - fuzzy_offset is integer
       - fuzzy_offset >= 60
       - fuzzy_offset < omnia_telemetry_collection_interval
-    quiet: true
     fail_msg: "{{ fuzzy_offset_fail_msg }}"
 
 - name: Assert metric collection timeout
@@ -76,7 +70,6 @@
       - metric_collection_timeout is integer
       - metric_collection_timeout > 0
       - metric_collection_timeout < omnia_telemetry_collection_interval
-    quiet: true
     fail_msg: "{{ metric_collection_timeout_fail_msg }}"
 
 - name: Validate omnia inventory
@@ -84,17 +77,14 @@
     that:
       - groups['manager'] is defined
       - groups['compute'] is defined
-    quiet: true
     fail_msg: "{{ inventory_fail_msg }}"
 
 - name: Validate manager group
   ansible.builtin.assert:
     that: "groups['manager'] | length | int == 1"
-    quiet: true
     fail_msg: "{{ manager_group_fail_msg }}"
 
 - name: Validate compute group
   ansible.builtin.assert:
     that: "groups['compute'] | length | int >= 1"
-    quiet: true
     fail_msg: "{{ compute_group_fail_msg }}"

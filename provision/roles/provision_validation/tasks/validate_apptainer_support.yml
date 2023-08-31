@@ -13,6 +13,10 @@
 # limitations under the License.
 ---
 
+- name: Set apptainer_support value
+  ansible.builtin.set_fact:
+    apptainer_support: "{{ apptainer_support | lower }}"
+    
 - name: Verify the value of apptainer_support
   ansible.builtin.assert:
     that:
