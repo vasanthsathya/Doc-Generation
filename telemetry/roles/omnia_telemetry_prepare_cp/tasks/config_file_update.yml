@@ -15,13 +15,15 @@
 
 - name: Include timescaledb vars file
   ansible.builtin.include_vars: "{{ timescaledb_vars_file }}"
+  no_log: true
 
-- name: Get timecsaledb service IP
+- name: Get timescaledb service IP
   ansible.builtin.command: kubectl get svc "{{ timescaledb_k8s_name }}" -n "{{ namespace }}" -o=jsonpath='{.status.loadBalancer.ingress[0].ip}'
   changed_when: false
   register: timescaledb_host
+  no_log: true
 
-- name: Update timecsaledb config file
+- name: Update timescaledb config file
   ansible.builtin.lineinfile:
     path: "{{ config_file_path_src }}"
     regexp: "{{ item.name }}: (.*)$"

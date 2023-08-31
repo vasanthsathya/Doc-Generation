@@ -16,7 +16,7 @@
 - name: Update telemetry ini file
   ansible.builtin.lineinfile:
     path: "{{ init_file_path }}"
-    regexp: "{{ item.name }}:(.*)$"
+    regexp: "{{ item.name }}=(.*)$"
     line: "{{ item.name }}={{ item.value | lower }}"
   with_items:
     - { name: omnia_telemetry_collection_interval, value: "{{ omnia_telemetry_collection_interval }}" }
