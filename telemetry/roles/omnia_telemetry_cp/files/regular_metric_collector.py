@@ -137,6 +137,7 @@ class RegularMetricCollector:
         sinfo_dict=data_collector_slurm.get_cluster_values_sinfo()
         self.regular_metric_output_dict["NodesTotal"]=sinfo_dict["NodesTotal"]
         self.regular_metric_output_dict["NodesUp"]=sinfo_dict["NodesUp"]
+        self.regular_metric_output_dict["NodesDown"]=sinfo_dict["NodesDown"]
         #squeue
         squeue_dict=data_collector_slurm.get_cluster_values_squeue()
         self.regular_metric_output_dict["QueuedJobs"]=squeue_dict["QueuedJobs"]

@@ -55,33 +55,40 @@ def get_cluster_values_sinfo():
     o/p:
         A dictionary "dict_cluster_parameter_sinfo" with all required values.
         values retrieved from sinfo:
-            1.NodesClosed
+            1.NodesUp
             2.NodesDown
             3.NodesTotal
-            4.NodesUp
     '''
     dict_cluster_parameter_sinfo={}
+    dict_cluster_parameter_sinfo["NodesDown"]=utility.Result.NO_DATA.value
     dict_cluster_parameter_sinfo["NodesTotal"]=utility.Result.NO_DATA.value
     dict_cluster_parameter_sinfo["NodesUp"]=utility.Result.NO_DATA.value
 
-    nodes_up=0
-    nodes_total=0
+    set_nodes_all=set([])
+    set_nodes_up=set([])
+    set_nodes_down=set([])
 
     sinfo_output = invoke_commands.call_command('sinfo --format=%N\t%P\t%a\t%C\t%t\t%D\t%m')
 
     if sinfo_output is not None:
         try:
             parsed_dict_list_output_sinfo = common_parser.get_dict_list_format_parser_output(sinfo_output,"\t",1)
-            column_list_avail=parsed_dict_list_output_sinfo["AVAIL"]
-            column_list_nodes=parsed_dict_list_output_sinfo["NODES"]
-            for index,value in enumerate (column_list_nodes):
-                #Total Nodes
-                nodes_total=nodes_total + int(value)
-                #Nodes Up
-                if column_list_avail[index] =="up":
-                    nodes_up= nodes_up + int(value)
-            dict_cluster_parameter_sinfo["NodesUp"]=str(nodes_up)
-            dict_cluster_parameter_sinfo["NodesTotal"]=str(nodes_total)
+            column_list_state=parsed_dict_list_output_sinfo["STATE"]
+            column_list_nodelist=parsed_dict_list_output_sinfo["NODELIST"]
+
+            for index,node_state in enumerate (column_list_state):
+                for node in column_list_nodelist[index].split(','):
+                    # Total Nodes
+                    set_nodes_all.add(node)
+                    # Nodes Up
+                    if node_state in ['idle','mixed','completing']:
+                        set_nodes_up.add(node)
+                    # Nodes Down
+                    elif node_state in ['down','drained','draining','fail','failing','future','inval','maint','powered_down','powering_down','unknown']:
+                        set_nodes_down.add(node)
+            dict_cluster_parameter_sinfo["NodesDown"]=str(len(list(set_nodes_down)))
+            dict_cluster_parameter_sinfo["NodesUp"]=str(len(list(set_nodes_up)))
+            dict_cluster_parameter_sinfo["NodesTotal"]=str(len(list(set_nodes_all)))
         except Exception as err:
             common_logging.log_error("data_collector_slurm:get_cluster_values_sinfo", "sinfo command output parsing issue: " +str(type(err)) +" "+ str(err))
     else:

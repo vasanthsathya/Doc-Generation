@@ -19,7 +19,7 @@
 - name: Set beegfs_support value
   ansible.builtin.set_fact:
     beegfs_support: "{{ beegfs_support | lower }}"
-    
+
 - name: Assert beegfs_support
   ansible.builtin.assert:
     that:
