@@ -18,7 +18,7 @@
     ldap_required: "{{ ldap_required | lower }}"
     freeipa_required: "{{ freeipa_required | lower }}"
     enable_secure_login_node: "{{ enable_secure_login_node | lower }}"
-    
+
 - name: Verify the value of ldap_required
   ansible.builtin.assert:
     that:
