@@ -26,9 +26,7 @@ def get_nvidia_metrics_output():
     This method collects command output for nvidia-smi command for gpu metrics
     :return: nvidia query output
     '''
-    nvidia_metrics_query = "nvidia-smi --query-gpu=gpu_name,driver_version,pci.bus_id," \
-        "power.management,power.limit,power.draw,temperature.gpu,utilization.gpu \
-            --format=csv,nounits"
+    nvidia_metrics_query = "nvidia-smi --query-gpu=gpu_name,driver_version,pci.bus_id,power.management,power.limit,power.draw,temperature.gpu,utilization.gpu --format=csv,nounits"
     command_result = invoke_commands.call_command(nvidia_metrics_query)
     if command_result is not None:
         command_result_df = common_parser.get_df_format(command_result)

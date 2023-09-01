@@ -15,14 +15,17 @@
 
 - name: Include timescaledb variables
   ansible.builtin.include_vars: "{{ timescaledb_vars_filepath }}"
+  no_log: true
 
 - name: Fetch the timescaledb pod external service IP
   ansible.builtin.command: kubectl get svc timescaledb -n telemetry-and-visualizations -o=jsonpath='{.status.loadBalancer.ingress[0].ip}'
   register: timescaledb_ip
   changed_when: false
+  no_log: true
 
 - name: Invoke python utility to create schema and table
   ansible.builtin.command: |
     {{ python_version }} {{ db_schema_utility }} {{ timescaledb_user }} {{ timescaledb_password }}
     {{ timescaledb_ip.stdout }} {{ timescaledb_container_port }} {{ timescaledb_name }}
   changed_when: false
+  no_log: true

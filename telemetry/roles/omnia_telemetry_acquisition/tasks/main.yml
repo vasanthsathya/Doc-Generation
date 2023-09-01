@@ -25,7 +25,7 @@
     - name: Update and transfer ini file to remote nodes
       ansible.builtin.include_tasks: ini_file_transfer.yml
 
-    - name: Transfer databse configuration file to remote nodes
+    - name: Transfer database configuration file to remote nodes
       ansible.builtin.include_tasks: config_file_transfer.yml
 
     - name: Initiate omnia_telemetry service execution
