@@ -67,7 +67,7 @@
   register: timezone_check
 
 - name: Set variable if metallb needs to be configured
-  when: omnia_telemetry_support or idrac_telemetry_support
+  when: omnia_telemetry_support or idrac_telemetry_support or visualization_support
   block:
     - name: Register IPAddressPool output
       ansible.builtin.command: "kubectl get IPAddressPool -A"

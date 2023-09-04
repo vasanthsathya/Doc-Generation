@@ -17,8 +17,6 @@
   ansible.builtin.set_fact:
     mgmt_os: "{{ ansible_facts['distribution'] | lower }}"
     install_k8s: false
-    params_grafana: false
-    grafana_support: false
 
 - name: Set control plane OS version
   ansible.builtin.set_fact:

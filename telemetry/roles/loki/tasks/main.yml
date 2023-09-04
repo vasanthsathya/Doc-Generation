@@ -13,14 +13,17 @@
 #  limitations under the License.
 ---
 
-- name: Build promtail image
-  ansible.builtin.import_tasks: promtail_image.yml
+- name: Initiate loki configuration if visualization_support is true
+  when: visualization_support
+  block:
+    - name: Build promtail image
+      ansible.builtin.import_tasks: promtail_image.yml
 
-- name: Deploy loki pod
-  ansible.builtin.import_tasks: k8s_loki_pod.yml
+    - name: Deploy loki pod
+      ansible.builtin.import_tasks: k8s_loki_pod.yml
 
-- name: Deploy loki service
-  ansible.builtin.import_tasks: loki_service.yml
+    - name: Deploy loki service
+      ansible.builtin.import_tasks: loki_service.yml
 
-- name: Configure loki in grafana
-  ansible.builtin.import_tasks: configure_loki_grafana.yml
+    - name: Configure loki in grafana
+      ansible.builtin.import_tasks: configure_loki_grafana.yml

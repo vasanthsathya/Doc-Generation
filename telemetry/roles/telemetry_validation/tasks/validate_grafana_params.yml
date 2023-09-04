@@ -41,35 +41,3 @@
   ansible.builtin.fail:
     msg: "{{ mount_validation_msg }}"
   when: mount_location | length < 1
-
-- name: Saving management station OS
-  ansible.builtin.set_fact:
-    mgmt_os: "{{ ansible_facts['distribution'] | lower }}"
-
-- name: Set SELinux to permissive mode
-  block:
-    - name: Fetch SElinux mode
-      ansible.builtin.command: /usr/sbin/sestatus
-      register: sestatus_current
-      changed_when: false
-
-    - name: Check SELinux status
-      ansible.builtin.debug:
-        msg: "{{ selinux_warning }}"
-      when: '"SELinux status:                 disabled" in sestatus_current.stdout_lines'
-
-    - name: Set SElinux to permissive mode
-      ansible.builtin.command: /usr/sbin/setenforce 0
-      when: '"SELinux status:                 enabled" in sestatus_current.stdout_lines'
-  when: os_supported_leap not in mgmt_os
-
-- name: Encrypt monitor_config.yml
-  ansible.builtin.command: >-
-    {{ ansible_vault_path.stdout.split(' ')[1] }} encrypt {{ monitor_config_filename }}
-    --vault-password-file {{ monitor_vault_path }}
-  changed_when: false
-
-- name: Update monitor_config.yml permission
-  ansible.builtin.file:
-    path: "{{ monitor_config_filename }}"
-    mode: "{{ conf_file_mode }}"

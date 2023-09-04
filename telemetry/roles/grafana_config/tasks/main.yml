@@ -14,11 +14,8 @@
 ---
 
 - name: Configure grafana for telemetry
-  when: grafana_support is true
+  when: visualization_support and idrac_telemetry_support
   block:
-    - name: Include telemetry_config.yml
-      ansible.builtin.include_tasks: include_telemetry_config.yml
-
     - name: Add telemetry datasource on grafana
       ansible.builtin.include_tasks: add_datasource.yml
 
