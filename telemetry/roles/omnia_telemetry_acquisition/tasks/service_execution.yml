@@ -26,5 +26,5 @@
 - name: Start and Enable omnia_telemetry service
   ansible.builtin.service:
     name: omnia_telemetry.service
-    state: started
+    state: restarted
     enabled: true

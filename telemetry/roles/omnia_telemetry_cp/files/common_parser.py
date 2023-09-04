@@ -159,3 +159,36 @@ def get_ini_dict(ini_file_path):
     except Exception as err:
         common_logging.log_error("common_parser:get_ini_dict","Exception in ini parsing: "+str(type(err)) +" "+ str(err))
     return None
+
+def split_by_space_and_quote(command):
+    """
+    Split commands with whitespaces and quotations.
+
+    Args:
+        command (str or list): The command to be executed, as a string or a list of arguments.
+
+    Returns:
+        list: List of tokens in command after splitting.
+    """
+    command_list=[]
+    start_index=0
+    flag=False
+    for index in range(len(command)):
+        if command[index] == '"' and flag is False:
+            flag=True
+            start_index=index+1
+
+        elif command[index]=='"' and flag is True:
+            command_list.append(command[start_index:index])
+            start_index=index+1
+            flag=False
+
+        elif command[index]==' ' and flag is False:
+            command_list.append(command[start_index:index])
+            start_index=index+1
+
+        elif index==len(command)-1:
+            command_list.append(command[start_index:index+1])
+        else:
+            pass
+    return command_list

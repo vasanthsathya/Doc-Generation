@@ -25,68 +25,85 @@ from regular_metric_collector import RegularMetricCollector
 from gpu_metric_collector import GPUMetricCollector
 from health_check_metric_collector import HealthCheckMetricCollector
 
-def cleanup(signum, frame):
+# Declare global variables for metric collector objects and DBCLIENT_OBJ
+REGULAR_METRIC_COLLECTOR_OBJ = None
+HEALTH_METRIC_COLLECTOR_OBJ = None
+GPU_METRIC_COLLECTOR_OBJ = None
+DBCLIENT_OBJ = None
+
+def cleanup():
     '''
     Cleanup operations to be executed during graceful shutdown.
     '''
-    try:
-        # Close database connection
+    global REGULAR_METRIC_COLLECTOR_OBJ, HEALTH_METRIC_COLLECTOR_OBJ, GPU_METRIC_COLLECTOR_OBJ
+    global DBCLIENT_OBJ
 
-        # Close syslog
-        common_logging.close_syslog()
+    # Delete the metric collector objects if they exist
+    if REGULAR_METRIC_COLLECTOR_OBJ:
+        del REGULAR_METRIC_COLLECTOR_OBJ
+    if HEALTH_METRIC_COLLECTOR_OBJ:
+        del HEALTH_METRIC_COLLECTOR_OBJ
+    if GPU_METRIC_COLLECTOR_OBJ:
+        del GPU_METRIC_COLLECTOR_OBJ
 
-    except Exception as err:
-        pass
+    # Close any open database connections
+    if DBCLIENT_OBJ:
+        DBCLIENT_OBJ.db_close()
+
+    # Close syslog
+    common_logging.close_syslog()
 
 def handle_sigterm(signum, frame):
     '''
-    sigterm handler for stop telemetry
+    sigterm handler for restart,stop omnia telemetry service
     '''
-    cleanup(signum, frame)
+    cleanup()
     sys.exit(0)
 
 def main():
     '''
     Module main to initiate the telemetry data collection functionality
     '''
+    global REGULAR_METRIC_COLLECTOR_OBJ, HEALTH_METRIC_COLLECTOR_OBJ, GPU_METRIC_COLLECTOR_OBJ
+    global DBCLIENT_OBJ
 
     common_logging.setup_syslog('omnia_telemetry')
 
     # Register signal handler for SIGTERM
-    #signal.signal(signal.SIGTERM, handle_sigterm)
+    signal.signal(signal.SIGTERM, handle_sigterm)
 
     # Copy telemetry ini to dictionary dict_telemetry_ini
     if utility.set_telemetry_ini_values() is True:
-        # Sleep for fuzzt_offset value
+        # Sleep for fuzzy_offset value
         time.sleep(utility.generate_random_fuzzy_offset(int(utility.dict_telemetry_ini["fuzzy_offset"])))
 
         # Create objects for different telemetry groups
         if utility.dict_telemetry_ini["collect_regular_metrics"] =="true":
-            regular_metric_collector_obj=RegularMetricCollector()
+            REGULAR_METRIC_COLLECTOR_OBJ=RegularMetricCollector()
         if utility.dict_telemetry_ini["collect_health_check_metrics"]=="true":
-            health_metric_collector_obj=HealthCheckMetricCollector()
+            HEALTH_METRIC_COLLECTOR_OBJ=HealthCheckMetricCollector()
         if utility.dict_telemetry_ini["collect_gpu_metrics"]=="true":
-            gpu_metric_collector_obj=GPUMetricCollector()
+            GPU_METRIC_COLLECTOR_OBJ=GPUMetricCollector()
 
         # Create object for database client
-        dbclient_obj = DatabaseClient()
+        DBCLIENT_OBJ = DatabaseClient()
 
         while True:
             combined_result_dict={"Regular Metric":{},"Health Check Metric":{},"GPU Metric":{}}
 
             if utility.dict_telemetry_ini["collect_regular_metrics"] == "true":
-                regular_metric_collector_obj.metric_collector(utility.dict_telemetry_ini["group_info"])
-                combined_result_dict["Regular Metric"]=regular_metric_collector_obj.regular_metric_output_dict
+                REGULAR_METRIC_COLLECTOR_OBJ.metric_collector(utility.dict_telemetry_ini["group_info"])
+                combined_result_dict["Regular Metric"]=REGULAR_METRIC_COLLECTOR_OBJ.regular_metric_output_dict
 
             if utility.dict_telemetry_ini["collect_health_check_metrics"] == "true":
-                health_metric_collector_obj.metric_collector(utility.dict_telemetry_ini["group_info"])
-                combined_result_dict["Health Check Metric"]=health_metric_collector_obj.health_check_metric_output_dict
+                HEALTH_METRIC_COLLECTOR_OBJ.metric_collector(utility.dict_telemetry_ini["group_info"])
+                combined_result_dict["Health Check Metric"]=HEALTH_METRIC_COLLECTOR_OBJ.health_check_metric_output_dict
 
             if utility.dict_telemetry_ini["collect_gpu_metrics"] == "true":
-                gpu_metric_collector_obj.metric_collector(utility.dict_telemetry_ini["group_info"])
-                combined_result_dict["GPU Metric"]=gpu_metric_collector_obj.gpu_metric_output_dict
+                GPU_METRIC_COLLECTOR_OBJ.metric_collector(utility.dict_telemetry_ini["group_info"])
+                combined_result_dict["GPU Metric"]=GPU_METRIC_COLLECTOR_OBJ.gpu_metric_output_dict
             #DB Update
-            dbclient_obj.update_db(combined_result_dict,utility.get_system_name())
+            DBCLIENT_OBJ.update_db(combined_result_dict,utility.get_system_name())
             #sleep for omnia_telemetry_collection_interval time
             time.sleep(int(utility.dict_telemetry_ini["omnia_telemetry_collection_interval"]))
 
