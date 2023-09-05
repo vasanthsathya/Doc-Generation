@@ -129,18 +129,8 @@
       no_log: true
   tags: xcat
 
-- name: Enable postgres repo
-  ansible.builtin.command: dnf -qy module enable postgresql
-  changed_when: false
-
 - name: Uninstall postgres
   block:
-    - name: Remove pgdg
-      ansible.builtin.package:
-        name: "{{ pgdg_package }}"
-        state: absent
-      failed_when: false
-
     - name: Remove postgres
       ansible.builtin.package:
         name: "{{ postgres_packages }}"
