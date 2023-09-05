@@ -26,8 +26,9 @@ timescaledb_name: "telemetry_metrics"
 grafana_k8s: grafana
 grafana_namespace: grafana
 telemetry_folder_name: telemetry
-dashboards:
+idrac_dashboards:
   - "{{ role_path }}/files/parallel-coordinate.json"
+slurm_dashboards:
   - "{{ role_path }}/files/Sankey.json"
   - "{{ role_path }}/files/SpiralLayout.json"
   - "{{ role_path }}/files/PowerMap.json"

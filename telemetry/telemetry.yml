@@ -13,38 +13,15 @@
 # limitations under the License.
 ---
 
-- name: Common role for telemetry
+- name: Telemetry for omnia
   hosts: localhost
   connection: local
   gather_facts: true
   roles:
-    - common
-
-- name: Install kubernetes and grafana on control plane
-  hosts: localhost
-  connection: local
-  gather_facts: false
-  tasks:
-    - name: Include orchestrator role
-      ansible.builtin.include_role:
-        name: ../orchestrator/roles/orchestrator
-      when: idrac_telemetry_support or omnia_telemetry_support
-
-    - name: Include grafana role
-      ansible.builtin.include_role:
-        name: ../monitor/roles/grafana
-      when: idrac_telemetry_support and grafana_support
-
-    - name: Create k8s secrets for database credentials
-      ansible.builtin.include_role:
-        name: common
-        tasks_from: k8s_secrets.yml
-
-- name: Install idrac telemetry
-  hosts: localhost
-  connection: local
-  gather_facts: true
-  roles:
+    - telemetry_validation
+    - orchestrator
+    - grafana
+    - loki
     - timescaledb
     - idrac_telemetry
     - grafana_config
