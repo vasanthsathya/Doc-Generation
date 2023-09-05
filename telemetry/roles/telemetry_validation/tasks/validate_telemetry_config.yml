@@ -58,7 +58,6 @@
   ansible.builtin.assert:
     that:
       - idrac_telemetry_support == true or idrac_telemetry_support == false
-    quiet: true
     success_msg: "{{ idrac_telemetry_support_success_msg }}"
     fail_msg: "{{ idrac_telemetry_support_fail_msg }}"
 
@@ -66,7 +65,6 @@
   ansible.builtin.assert:
     that:
       - omnia_telemetry_support == true or omnia_telemetry_support == false
-    quiet: true
     fail_msg: "{{ omnia_telemetry_support_fail_msg }}"
 
 - name: Assert visualization support
