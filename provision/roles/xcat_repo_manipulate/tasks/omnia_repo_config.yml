@@ -126,15 +126,6 @@
   register: telemetry_pckg_output
   changed_when: false
 
-- name: Install pgdg on control plane
-  ansible.builtin.command: dnf install {{ item }} -y
-  when: '"pgdg-redhat-repo" in item'
-  with_items: "{{ telemetry_pckg_output.stdout_lines }}"
-
-- name: Disable psql on control plane
-  ansible.builtin.command: dnf -qy module disable postgresql
-  changed_when: false
-
 - name: Download the telemetry packages
   ansible.builtin.command: dnf download {{ item }} --downloadonly --downloaddir {{ omnia_common_xcat_repo }}
   with_items: "{{ telemetry_pckg_output.stdout_lines }}"
@@ -184,12 +175,6 @@
         state: present
         line: "{{ item }}"
       with_items: "{{ telemetry_post_pckg_op.stdout_lines }}"
-
-    - name: Disable postgresql on compute nodes
-      ansible.builtin.lineinfile:
-        path: "{{ xcat_rhel8_post_script }}"
-        insertafter: "EOF"
-        line: "dnf -qy module disable postgresql"
   when: omnia_telemetry_support
 
 - name: Configure omnia pkglist to osimage
