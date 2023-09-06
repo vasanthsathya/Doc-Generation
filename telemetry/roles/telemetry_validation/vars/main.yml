@@ -45,6 +45,8 @@ idrac_telemetry_support_success_msg: "idrac_telemetry_support validated"
 idrac_telemetry_support_fail_msg: "Failed. idrac_telemetry_support only accepts boolean
                                     values true or false"
 omnia_telemetry_support_fail_msg: "Failed. omnia_telemetry_support accepts boolean value true or false"
+visualization_support_success_msg: "visualization_support_ validated"
+visualization_support_fail_msg: "Failed. visualization_support accepts boolean value true or false"
 idrac_omnia_telemetry_support_false_warn_time: 10
 idrac_omnia_telemetry_support_warn_msg: "Warning. Both idrac_telemetry_support and omnia_telemetry_support are false"
 vault_filename: "{{ role_path }}/../../../input/.telemetry_vault_key"
@@ -94,10 +96,12 @@ manager_group_fail_msg: "Manager group should contain exactly 1 node"
 compute_group_fail_msg: "Compute group should contain atleast 1 node"
 login_group_fail_msg: "Login group should contain exactly 1 node"
 
-# Usage: k8s_secrets.yml
-namespace: telemetry-and-visualizations
-secrets_name: credentials
-
 # Usage: set_docker_os.yml
 docker_rocky_os: "8.5"
 slurm_telemetry_dockerfile_path: "{{ playbook_dir }}/roles/slurm_telemetry/files/Dockerfile"
+
+# Usage: validate_grafana.yml
+fail_msg_grafana_credentials: "Failed. Incorrect grafana_username or grafana_password format provided"
+mount_validation_msg: "Make sure mount location value is not null"
+min_length_grafana: 5
+max_length: 30

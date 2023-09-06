@@ -13,12 +13,6 @@
 #  limitations under the License.
 ---
 
-# Usage: include_monitor_config.yml
-monitor_config_filename: "{{ role_path }}/../../../input/monitor_config.yml"
-monitor_vault_path: "{{ role_path }}/../../../input/.monitor_vault_key"
-ansible_vault_search_key: "$ANSIBLE_VAULT;"
-conf_file_mode: 0644
-
 # Usage: validate_k8s_params.yml
 os_supported_rhel: "redhat"
 os_supported_rocky: "rocky"
@@ -31,7 +25,7 @@ utils_collection: ansible.utils:2.5.2
 pip_version: pip3.8
 
 # Usage: validate_grafana_params.yml
-fail_msg_grafana_credentials: "Failed. Incorrect grafana_username or grafana_password provided in input/monitor_config.yml"
+fail_msg_grafana_credentials: "Failed. Incorrect grafana_username or grafana_password provided in input/telemetry_config.yml"
 mount_validation_msg: "Make sure mount location value is not null"
 min_length_grafana: 5
 max_length: 30
@@ -114,7 +108,6 @@ helm_installer_file_mode: 0700
 helm_stable_repo_url: https://charts.helm.sh/stable
 
 # Usage: k8s_init.yml
-docker_login_fail_msg: "Docker login failed! Please check the credentials and re-execute playbook."
 k8s_root_directory: /root/.kube
 k8s_root_directory_mode: 0755
 k8s_config_src: /etc/kubernetes/admin.conf
@@ -160,3 +153,7 @@ rocky_version: "8.7"
 redhat_version: "8.7"
 keypath_str: '"keyPath": "/etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release"'
 policy_file_path: "/etc/containers/policy.json"
+
+# Usage: k8s_secrets.yml
+namespace: telemetry-and-visualizations
+secrets_name: credentials

@@ -18,11 +18,11 @@
 
 - name: Include provision_config.yml for timezone
   ansible.builtin.include_tasks: include_provision_config.yml
-  when: idrac_telemetry_support or omnia_telemetry_support
+  when: idrac_telemetry_support or omnia_telemetry_support or visualization_support
 
 - name: Check pre-requisites for telemetry and visualizations
   ansible.builtin.include_tasks: pre-requisites.yml
-  when: idrac_telemetry_support or omnia_telemetry_support
+  when: idrac_telemetry_support or omnia_telemetry_support or visualization_support
 
 - name: Create iDRAC inventory
   ansible.builtin.include_tasks: create_idrac_inventory.yml
