@@ -35,27 +35,6 @@
   failed_when: false
   register: k8s_pods
 
-- name: Login to docker
-  block:
-    - name: Docker login
-      ansible.builtin.command: docker login -u {{ docker_username }} -p {{ docker_password }}
-      changed_when: true
-      register: docker_login_output
-      retries: 10
-      delay: 5
-      until: docker_login_output is not failed
-      when: docker_username or docker_password
-      no_log: true
-  rescue:
-    - name: Warning - docker login failed
-      ansible.builtin.debug:
-        msg: "Warning: {{ docker_login_output.stderr }}"
-
-- name: Docker login check
-  ansible.builtin.fail:
-    msg: "{{ docker_login_fail_msg }}"
-  when: docker_login_output is failed
-
 - name: Initialize kubeadm (This process may take 5-10min)
   block:
     - name: Initialize kubeadm (This process may take 5-10min)
