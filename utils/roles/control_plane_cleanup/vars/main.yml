@@ -36,6 +36,11 @@ xcat_del_files:
   - /var/lib/dhcpd/dhcpd6.leases
   - /var/lib/dhcpd/dhcpd.leases~
   - /var/lib/dhcpd/dhcpd.leases.rpmsave
+  - /var/lib/dhcpd
+  - /var/lib/dhclient
+  - /etc/dhcp/dhcpd.conf.rpmsave
+  - /etc/dhcp/dhcpd.conf.xcatbak
+  - /etc/dhcp/dhclient.conf
 pg_dir_path: "/var/lib/pgsql"
 omnia_dir: "/opt/omnia"
 file_permission: "754"
