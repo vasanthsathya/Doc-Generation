@@ -18,13 +18,13 @@
     this module should be imported and relevant methods should be used.
 '''
 
-import pandas as pd
-import yaml
 import re
 import json
 import configparser
-import common_logging
 from io import StringIO
+import yaml
+import pandas as pd
+import common_logging
 
 #dataframe parser
 def get_df_format(command_input):
@@ -87,7 +87,7 @@ def get_custom_header(delimited_text, delimiter):
     Example:  header1, header2, header3
     '''
     values_split=split_by_regex(delimited_text, delimiter)
-    headers=["header{}".format(i) for i in range (1,len(values_split))]
+    headers=["header{}".format(i) for i in range (1,len(values_split)+1)]
     return headers
 
 def get_dict_list_format_parser_output(command_output, delimiter, with_header=0):
@@ -159,3 +159,36 @@ def get_ini_dict(ini_file_path):
     except Exception as err:
         common_logging.log_error("common_parser:get_ini_dict","Exception in ini parsing: "+str(type(err)) +" "+ str(err))
     return None
+
+def split_by_space_and_quote(command):
+    """
+    Split commands with whitespaces and quotations.
+
+    Args:
+        command (str or list): The command to be executed, as a string or a list of arguments.
+
+    Returns:
+        list: List of tokens in command after splitting.
+    """
+    command_list=[]
+    start_index=0
+    flag=False
+    for index in range(len(command)):
+        if command[index] == '"' and flag is False:
+            flag=True
+            start_index=index+1
+
+        elif command[index]=='"' and flag is True:
+            command_list.append(command[start_index:index])
+            start_index=index+1
+            flag=False
+
+        elif command[index]==' ' and flag is False:
+            command_list.append(command[start_index:index])
+            start_index=index+1
+
+        elif index==len(command)-1:
+            command_list.append(command[start_index:index+1])
+        else:
+            pass
+    return command_list
