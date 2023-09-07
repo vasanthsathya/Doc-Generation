@@ -65,14 +65,16 @@ idrac_exec_msg: "Since the absence of idrac group in inventory and existence of 
                    iDRAC telemetry execution will be skipped"
 advanced_vars_fail_msg: "Please give correct inputs for advanced configurations for idrac telemetry in telemetry_config.yml.
                   Advanced configurations include inputs related to mysqldb for storing idrac credentials"
-validation_error_msg_empty: "Validation Error: The pod external IP start range and end range should not be empty in telemetry_config.yml."
+validation_error_msg_format_start_range: "Invalid Format! pod_external_ip_start_range accepts this format x.y.240.100"
+validation_error_msg_format_end_range: "Invalid Format! pod_external_ip_end_range accepts this format x.y.240.105"
 validation_error_msg_4_octets: "Validation Error: The pod external IP range should have 4 octets."
 validation_error_msg_octet_range: "Validation Error: The third and fourth octets of the pod external IP should be between 0 and 255."
 validation_error_msg_octet_order: "Validation Error: The third octet of the pod external IP start range should be less than or equal
                                     to the third octet of the end range."
 validation_error_msg_same_third_octet_order: "Validation Error: The fourth octet of the pod external IP start range should be
                                                less than the fourth octet of the end range when the third octets are the same."
-validation_success_msg_empty: "Pod external IP ranges are not empty."
+validation_success_msg_format_start_range: "pod_external_ip_start_range format is valid."
+validation_success_msg_format_end_range: "pod_external_ip_end_range is valid."
 validation_success_msg_4_octets: "Pod external IP range has 4 octets."
 validation_success_msg_octet_range: "Third and fourth octets of pod external IP are within the valid range."
 validation_success_msg_octet_order: "Third octet of the pod external IP start range is less than or equal to the third octet of the end range."

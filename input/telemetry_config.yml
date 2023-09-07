@@ -42,6 +42,10 @@ appliance_k8s_pod_net_cidr: "192.168.0.0/16"
 # If pod_external_ip_start_range: "x.y.240.100" and pod_external_ip_end_range: "x.y.240.105" and 
 # If admin_nic_subnet provided in provision_config.yml is 10.5.0.0, pod_external_ip_start_range will be 10.5.240.100 and pod_external_ip_end_range will be 10.5.240.105
 # Make sure the IP range is not assigned to any node in the cluster.
+# First and Second octet values are neither validated nor used by Omnia. Instead they will be calculated internally by Omnia from admin_nic_subnet provided in provision_config.yml
+# Only third and fourth octet values will be validated and used for External IPs
+# The third octet value of pod_external_ip_end_range should be greater than or equal to third octet value of pod_external_ip_start_range.
+# The fourth octet value of pod_external_ip_end_range should be greater than fourth octet value of pod_external_ip_start_range when third octet values are same
 pod_external_ip_start_range: "x.y.240.100"
 pod_external_ip_end_range: "x.y.240.105"
 
