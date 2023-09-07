@@ -23,14 +23,14 @@ import utility
 
 def get_kubectl_get_pods():
     '''
-    Gets the following parameters
-    Kubernetespodsstatus:Is the status for all pods OK
+    Get the following parameters
+        1.Kubernetespodsstatus:Is the status for all pods OK
     '''
     dict_cluster_parameter_kubectl_pods={}
     dict_cluster_parameter_kubectl_pods["Kubernetespodsstatus"]=utility.Result.UNKNOWN.value
     flag_kubernetes_pods_status= True
 
-    output=invoke_commands.call_command('kubectl get pods -A -o json')
+    output=invoke_commands.call_command('sudo kubectl get pods -A -o json')
     if output is not None:
         #Convert output to to json format
         pods_json=common_parser.get_json_format(output)
@@ -60,12 +60,11 @@ def get_kubectl_get_pods():
  "kubectl get pods -A command output is None")
     return dict_cluster_parameter_kubectl_pods
 
-
 def get_kubectl_get_nodes():
     '''
-    Gets the following parameters
-    Kuberneteschildnode: Are all Kubernetes child nodes up
-    kubernetesnodesstatus: Is the status for all Kubernetes nodes OK
+    Get the following parameters
+        1.Kuberneteschildnode: Are all Kubernetes child nodes up
+        2.kubernetesnodesstatus: Is the status for all Kubernetes nodes OK
     '''
     dict_cluster_parameter_kubectl_nodes={}
     dict_cluster_parameter_kubectl_nodes["Kuberneteschildnode"]=utility.Result.UNKNOWN.value
@@ -75,7 +74,7 @@ def get_kubectl_get_nodes():
     #index of status (type) in json output
     index_status=4
 
-    output=invoke_commands.call_command('kubectl get nodes -o json')
+    output=invoke_commands.call_command('sudo kubectl get nodes -o json')
     if output is not None:
         nodes_json=common_parser.get_json_format(output)
         if nodes_json is not None:
@@ -119,40 +118,27 @@ def get_kubectl_get_nodes():
 
     return dict_cluster_parameter_kubectl_nodes
 
-
 def get_kubectl_get_cs():
     '''
-    Gets the following parameters
-    kubernetescomponentsstatus:Are all expected agents and services up and running for active nodes?
+    Get the following parameters
+        1.kubernetescomponentsstatus: Get the component status
     '''
     dict_cluster_parameter_kubectl_cs={}
     dict_cluster_parameter_kubectl_cs["kubernetescomponentsstatus"]=\
         utility.Result.UNKNOWN.value
-    #index of component status (type) in json output
-    index_cs=0
 
-    output=invoke_commands.call_command('kubectl get componentstatus -o json')
+    output=invoke_commands.call_command('sudo kubectl get --raw=/livez?verbose')
     if output is not None:
-        cs_json=common_parser.get_json_format(output)
-        if cs_json is not None:
-            try:
-                #Iterate over each entries in json. Each entry/item corresponds to individual components of the command output : kubectl get componentstatus
-                for index in range(len(cs_json["items"])):
-                    if cs_json["items"][index]["metadata"]["name"] == "etcd-0":
-                        if  cs_json["items"][index]["conditions"][index_cs]["type"] == "Healthy":
-                            dict_cluster_parameter_kubectl_cs["kubernetescomponentsstatus"]=\
-                                utility.Result.SUCCESS.value
-                        else:
-                            dict_cluster_parameter_kubectl_cs["kubernetescomponentsstatus"]=\
-                                utility.Result.FAILURE.value
-                        break
-            except Exception as err:
-                common_logging.log_error("data_collector_kubernetes:get_kubectl_get_cs",\
- "kubectl get componentstatus json parsing issue: " +str(type(err)) +" "+ str(err))
+        component_status = common_parser.query_from_txt(output, "healthz check (\\w+)")
+        if component_status is not None:
+            if component_status== "passed":
+                dict_cluster_parameter_kubectl_cs["kubernetescomponentsstatus"]=\
+                                            utility.Result.SUCCESS.value
+            elif component_status== "failed":
+                dict_cluster_parameter_kubectl_cs["kubernetescomponentsstatus"]=\
+                                            utility.Result.FAILURE.value
         else:
-            common_logging.log_error("data_collector_kubernetes:get_kubectl_get_cs",\
- "kubectl get componentstatus json parsed output is None")
+            common_logging.log_error("data_collector_kubernetes:get_kubectl_get_cs","component healthz check information not found.")
     else:
-        common_logging.log_error("data_collector_kubernetes:get_kubectl_get_cs",\
- "kubectl get componentstatus command output is None")
+        common_logging.log_error("data_collector_kubernetes:get_kubectl_get_cs","kubectl get --raw=/livez?verbose command output is None")
     return dict_cluster_parameter_kubectl_cs
