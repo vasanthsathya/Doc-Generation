@@ -26,7 +26,7 @@ pip_version: pip3.8
 
 # Usage: validate_grafana_params.yml
 fail_msg_grafana_credentials: "Failed. Incorrect grafana_username or grafana_password provided in input/telemetry_config.yml"
-mount_validation_msg: "Make sure mount location value is not null"
+mount_validation_msg: "Make sure mount location value is given in correct format."
 min_length_grafana: 5
 max_length: 30
 selinux_warning: "Warning! SELinux status is disabled by user. No SELinux policy is loaded"

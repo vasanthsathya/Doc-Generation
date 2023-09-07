@@ -35,3 +35,4 @@ certs_path:
 docker_registry_path:
   - { src: "{{ role_path }}/files/docker-registry", dest: "/docker-registry/docker-registry" }
   - { src: "{{ role_path }}/files/docker-registry.service", dest: "/etc/systemd/system/docker-registry.service" }
+docker_registry_enable_fail_msg: "Failed to initiate docker-registry service."

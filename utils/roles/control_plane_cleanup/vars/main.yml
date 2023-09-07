@@ -54,8 +54,7 @@ postgres_packages:
   - perl-DBD-Pg
 control_plane_os_redhat: "redhat"
 
-# Usage: clean_monitor_setup.yml
-monitor_namespace: monitoring
+# Usage:clean_telemetry_setup.yml
 exports_path: /etc/exports
 exports_regexp:
   - "/install"
@@ -63,8 +62,17 @@ exports_regexp:
   - "/var/nfs_repo"
 crio_socket: /var/run/crio/crio.sock
 grafana_folders:
-  - /opt/omnia/telemetry/grafana
-  - /opt/omnia/telemetry/github-grafana-plugins
+  - "{{ mount_location }}grafana"
+  - "{{ mount_location }}github-grafana-plugins"
+telemetry_folders:
+  - "{{ mount_location }}iDRAC-Telemetry-Reference-Tools/"
+  - "{{ mount_location }}iDRAC-Telemetry-Scripting/"
+database_folders:
+  - "{{ mount_location }}mysqldb/"
+  - "{{ mount_location }}timescaledb/"
+metallb_files:
+  - "/var/lib/ipaddresspool.yaml"
+  - "/var/lib/l2advertisement.yaml"
 
 # Usage: clean_docker_registry.yml
 docker_registry_file: /etc/systemd/system/docker-registry.service
@@ -75,3 +83,9 @@ docker_del_files:
   - /opt/omnia/containerd
   - /etc/yum.repos.d/docker-ce.repo
   - /docker-registry
+
+# Usage:include_telemetry_config.yml
+telemetry_config_file: "{{ role_path }}/../../../input/telemetry_config.yml"
+telemetry_vault_filename: "{{ role_path }}/../../../input/.telemetry_vault_key"
+telemetry_config_syntax_fail_msg: "Failed.Syntax errors present in telemetry_config.yml.Fix errors and re-run playbook again."
+vault_file_perm: '0644'

@@ -63,7 +63,7 @@ idrac_file_status: "There is no inventory present under /opt/omnia/provisioned_i
                     Please provide inventory with idrac group or create an inventory /opt/omnia/provisioned_idrac_inventory"
 idrac_exec_msg: "Since the absence of idrac group in inventory and existence of /opt/omnia/provisioned_idrac_inventory file.
                    iDRAC telemetry execution will be skipped"
-advanced_vars_fail_msg: "Please give correct inputs for advanced configurations for idrac telemetry in telemetry_config.yml.
+advanced_vars_fail_msg: "Please give correct inputs for advanced configurations (mysqldb credentials) for idrac telemetry in telemetry_config.yml.
                   Advanced configurations include inputs related to mysqldb for storing idrac credentials"
 validation_error_msg_format_start_range: "Invalid Format! pod_external_ip_start_range accepts this format x.y.240.100"
 validation_error_msg_format_end_range: "Invalid Format! pod_external_ip_end_range accepts this format x.y.240.105"

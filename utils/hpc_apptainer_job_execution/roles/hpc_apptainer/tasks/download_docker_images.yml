@@ -42,6 +42,25 @@
       ansible.builtin.debug:
         msg: "Warning: {{ docker_login_output.msg }}"
 
+- name: Start and enable docker-registry service
+  block:
+    - name: Check if service is already running
+      ansible.builtin.systemd:
+        name: "docker-registry"
+      register: docker_registry_status
+
+    - name: Initiate service if not running already
+      ansible.builtin.systemd:
+        name: docker-registry
+        state: started
+        enabled: true
+      when: docker_registry_status.status.ActiveState == "inactive"
+
+  rescue:
+    - name: Failed to initiate docker-registry service
+      ansible.builtin.fail:
+        msg: "{{ docker_registry_failure_msg }}"
+
 - name: Pull docker images
   block:
     - name: Pull docker image
