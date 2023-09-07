@@ -55,12 +55,12 @@ postgres_packages:
 control_plane_os_redhat: "redhat"
 
 # Usage:clean_telemetry_setup.yml
-exports_path:/etc/exports
+exports_path: /etc/exports
 exports_regexp:
   - "/install"
   - "/tftpboot"
   - "/var/nfs_repo"
-crio_socket:/var/run/crio/crio.sock
+crio_socket: /var/run/crio/crio.sock
 grafana_folders:
   - "{{ mount_location }}grafana"
   - "{{ mount_location }}github-grafana-plugins"
@@ -85,7 +85,7 @@ docker_del_files:
   - /docker-registry
 
 # Usage:include_telemetry_config.yml
-telemetry_config_file:"{{role_path}}/../../../input/telemetry_config.yml"
-telemetry_vault_filename:"{{role_path}}/../../../input/.telemetry_vault_key"
-telemetry_config_syntax_fail_msg:"Failed.Syntax errors present in telemetry_config.yml.Fix errors and re-run playbook again."
-vault_file_perm:'0644'
+telemetry_config_file: "{{ role_path }}/../../../input/telemetry_config.yml"
+telemetry_vault_filename: "{{ role_path }}/../../../input/.telemetry_vault_key"
+telemetry_config_syntax_fail_msg: "Failed.Syntax errors present in telemetry_config.yml.Fix errors and re-run playbook again."
+vault_file_perm: '0644'
