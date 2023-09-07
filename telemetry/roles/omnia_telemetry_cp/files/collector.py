@@ -88,8 +88,9 @@ def main():
 
         # Create object for database client
         DBCLIENT_OBJ = DatabaseClient()
-
+        
         while True:
+            prerequisite.check_component_existence()
             combined_result_dict={"Regular Metric":{},"Health Check Metric":{},"GPU Metric":{}}
 
             if utility.dict_telemetry_ini["collect_regular_metrics"] == "true":
