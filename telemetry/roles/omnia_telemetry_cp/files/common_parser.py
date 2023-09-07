@@ -18,13 +18,13 @@
     this module should be imported and relevant methods should be used.
 '''
 
-import pandas as pd
-import yaml
 import re
 import json
 import configparser
-import common_logging
 from io import StringIO
+import yaml
+import pandas as pd
+import common_logging
 
 #dataframe parser
 def get_df_format(command_input):
@@ -87,7 +87,7 @@ def get_custom_header(delimited_text, delimiter):
     Example:  header1, header2, header3
     '''
     values_split=split_by_regex(delimited_text, delimiter)
-    headers=["header{}".format(i) for i in range (1,len(values_split))]
+    headers=["header{}".format(i) for i in range (1,len(values_split)+1)]
     return headers
 
 def get_dict_list_format_parser_output(command_output, delimiter, with_header=0):

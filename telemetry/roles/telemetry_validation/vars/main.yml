@@ -104,4 +104,3 @@ slurm_telemetry_dockerfile_path: "{{ playbook_dir }}/roles/slurm_telemetry/files
 fail_msg_grafana_credentials: "Failed. Incorrect grafana_username or grafana_password format provided"
 mount_validation_msg: "Make sure mount location value is not null"
 min_length_grafana: 5
-max_length: 30
