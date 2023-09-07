@@ -59,6 +59,7 @@ python_version: python3.8
 docker_python_package: docker==6.1.3
 hpc_image_list: /opt/omnia/hpc_images.yml
 docker_registry_port: 5001
+docker_registry_failure_msg: "Failed to initiate docker-registry service."
 docker_pull_fail_msg: "Failed. Unable to pull the image_url of hpc_apptainer_image variable provided in the input hpc_apptainer_job_execution_config.yml."
 
 # Usage: get_hpc_images.yml

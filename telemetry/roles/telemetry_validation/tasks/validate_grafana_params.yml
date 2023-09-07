@@ -40,4 +40,5 @@
 - name: Validate mount_location
   ansible.builtin.fail:
     msg: "{{ mount_validation_msg }}"
-  when: mount_location | length < 1
+  when:
+    - mount_location | length < 1 or mount_location[-1] != '/'

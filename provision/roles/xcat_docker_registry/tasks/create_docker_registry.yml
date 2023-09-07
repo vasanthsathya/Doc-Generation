@@ -108,8 +108,14 @@
   args:
     warn: false
 
-- name: Start and enable docker-registry service
-  ansible.builtin.systemd:
-    name: docker-registry
-    state: started
-    enabled: true
+- name: Enable docker-registry service
+  block:
+    - name: Start and enable docker-registry service
+      ansible.builtin.systemd:
+        name: docker-registry
+        state: started
+        enabled: true
+  rescue:
+    - name: Failed to start docker-registry service
+      ansible.builtin.debug:
+        msg: "{{ docker_registry_enable_fail_msg }}"
