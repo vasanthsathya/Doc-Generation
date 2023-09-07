@@ -19,6 +19,7 @@ import math
 import data_collector_nvidia_gpu
 import data_collector_amd_gpu
 import utility
+import prerequisite
 
 class GPUMetricCollector:
     '''
@@ -93,6 +94,13 @@ class GPUMetricCollector:
         This method collects all the gpu metric parameters.
         '''
         # Run only when nvidia gpu present
-        self.get_nvidia_metrics()
+        if prerequisite.dict_component_existence['nvidiagpu']:
+            self.get_nvidia_metrics()
         # Run only when amd gpu present
-        self.get_amd_metrics()
+        if prerequisite.dict_component_existence['amdgpu']:
+            self.get_amd_metrics()
+        
+        if prerequisite.dict_component_existence['nvidiagpu'] is False and prerequisite.dict_component_existence['amdgpu'] is False:
+            self.gpu_metric_output_dict["gpu_temperature"] = utility.Result.NO_DATA.value
+            self.gpu_metric_output_dict["gpu_utilization"] = utility.Result.NO_DATA.value
+            self.gpu_metric_output_dict["gpu_utilization:average"] = utility.Result.NO_DATA.value

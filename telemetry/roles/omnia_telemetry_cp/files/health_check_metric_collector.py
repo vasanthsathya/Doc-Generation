@@ -23,6 +23,7 @@ from collections import defaultdict
 import utility
 import data_collector_nvidia_gpu
 import data_collector_amd_gpu
+import prerequisite
 
 class HealthCheckMetricCollector:
     '''
@@ -243,16 +244,16 @@ class HealthCheckMetricCollector:
         if gpu_thermal is not None:
             for index, item in enumerate(gpu_thermal):
                 if int(item) < 85:
-                    self.health_check_metric_output_dict["gpu_temperature:gpu" \
+                    self.health_check_metric_output_dict["gpu_health_temperature:gpu" \
                                                          + str(index)] = \
                                                             utility.Result.SUCCESS.value
                 else:
-                    self.health_check_metric_output_dict["gpu_temperature:gpu" \
+                    self.health_check_metric_output_dict["gpu_health_temperature:gpu" \
                                                          + str(index)] = \
                                                             utility.Result.FAILURE.value
 
         else:
-            self.health_check_metric_output_dict["gpu_temperature:gpu"] = \
+            self.health_check_metric_output_dict["gpu_health_temperature:gpu"] = \
                 utility.Result.UNKNOWN.value
 
     def metric_collector(self, aggregation_level="compute"):
@@ -262,8 +263,25 @@ class HealthCheckMetricCollector:
         self.health_check_metric_output_dict={}
         self.get_health_node_dmesg()
         self.get_beegfs_details()
-        self.get_nvidia_metrics()
-        self.get_amd_metrics()
+        # Run only when nvidia gpu present
+        if prerequisite.dict_component_existence['nvidiagpu']:
+            self.get_nvidia_metrics()
+        # Run only when amd gpu present
+        if prerequisite.dict_component_existence['amdgpu']:
+            self.get_amd_metrics()
+        if prerequisite.dict_component_existence['nvidiagpu'] is False and prerequisite.dict_component_existence['amdgpu'] is False:
+            self.health_check_metric_output_dict["gpu_driver_health"] = \
+                utility.Result.UNKNOWN.value
+            self.health_check_metric_output_dict["gpu_health_nvlink"] = \
+                        utility.Result.UNKNOWN.value
+            self.health_check_metric_output_dict["gpu_health_pcie"] = \
+                utility.Result.UNKNOWN.value
+            self.health_check_metric_output_dict["gpu_health_pmu"] = \
+                utility.Result.UNKNOWN.value
+            self.health_check_metric_output_dict["gpu_health_power"] = \
+                utility.Result.UNKNOWN.value
+            self.health_check_metric_output_dict["gpu_health_temperature"] = \
+                utility.Result.UNKNOWN.value
         if aggregation_level in ["manager", "manager,login"]:
             # Get following information's through kubernetes
             # 1.Kubernetespodsstatus

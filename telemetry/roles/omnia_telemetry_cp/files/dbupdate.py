@@ -62,7 +62,7 @@ class DatabaseClient:
 
         self.db_conn.close()
 
-    def create_db_query(self, combined_result_dict, service_tag):
+    def create_db_query(self, combined_result_dict, service_tag, hostname):
         '''
         Database query creation
         :param combined_result_dict: Combined metrics data dictionary
@@ -76,7 +76,7 @@ class DatabaseClient:
                     for key,value in metric_dict.items():
                         if value!="":
                             label = key+" "+metric
-                            db_data_tuple = (key,metric,label,value,service_tag,timestamp)
+                            db_data_tuple = (key,metric,label,value,service_tag,hostname,timestamp)
                             db_query_list.append(db_data_tuple)
             return db_query_list
         else:
@@ -90,8 +90,8 @@ class DatabaseClient:
         try:
             db_cursor = self.db_conn.cursor()
             sql_insert_query = """INSERT INTO omnia_telemetry.metrics \
-                            (id, context, label, value, system, time )\
-                            VALUES (%s,%s,%s,%s,%s,%s)"""
+                            (id, context, label, value, system, hostname, time )\
+                            VALUES (%s,%s,%s,%s,%s,%s,%s)"""
             db_cursor.executemany(sql_insert_query, db_query)
             self.db_conn.commit()
             db_cursor.close()
@@ -101,7 +101,7 @@ class DatabaseClient:
                                     "Error in inserting data to Database" + str(ex))
             self.db_close()
 
-    def update_db(self, combined_result_dict, service_tag):
+    def update_db(self, combined_result_dict, service_tag, hostname):
         '''
         This module updates the Timescaledb on the control plane with telemetry data
 
@@ -117,7 +117,7 @@ class DatabaseClient:
 
         if self.db_conn is not None:
             #Create sql query
-            db_query = self.create_db_query(combined_result_dict,service_tag)
+            db_query = self.create_db_query(combined_result_dict,service_tag,hostname)
 
             #Insert into database
             self.db_insert(db_query)
