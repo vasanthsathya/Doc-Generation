@@ -26,6 +26,24 @@ import yaml
 import pandas as pd
 import common_logging
 
+def query_from_txt(input_txt,pattern):
+    '''
+    Query a value from a text.
+    Example: 
+        Need to find the value of "healthz check" from bellow text. The value should be "passed".
+
+        input_txt=  "[+]poststarthook/apiservice-openapi-controller ok
+                     [+]shutdown ok
+                     healthz check passed"
+
+        pattern= "healthz check (\\w+)"
+    '''
+    status_match = re.search(pattern, input_txt)
+    if status_match:
+        return status_match.group(1)
+    else:
+        return None
+
 #dataframe parser
 def get_df_format(command_input):
     '''
