@@ -40,7 +40,7 @@ def check_kubernetes_existence():
     '''
     Method to check kubernetes existence
     '''
-    output = invoke_commands.call_command("kubectl --version")
+    output = invoke_commands.call_command("sudo kubectl version")
     if output is not None:
         dict_component_existence["kubernetes"] = True
     else:

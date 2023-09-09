@@ -18,10 +18,13 @@
     Module to get all regular metrics
 '''
 import data_collector_psutil
+import data_collector_smart
+import data_collector_os
 import invoke_commands
 import common_parser
 import utility
 import data_collector_slurm
+import prerequisite
 
 class RegularMetricCollector:
     '''
@@ -161,6 +164,22 @@ class RegularMetricCollector:
         sacct_dict=data_collector_slurm.get_cluster_values_sacct()
         self.regular_metric_output_dict["FailedJobs"]=sacct_dict["FailedJobs"]
 
+    def get_smart_regular_parameters(self):
+        '''
+        Get the following regular metric parameters:
+        1. SMARTHDATemp
+        '''
+        SMARTHDATemp_dict=data_collector_smart.get_using_smartctl("SMARTHDATemp")
+        for key in SMARTHDATemp_dict.keys():
+            self.regular_metric_output_dict["SMARTHDATemp:"+key]=SMARTHDATemp_dict[key]
+
+    def get_unique_user_login(self):
+        '''
+        Get the following regular metric parameters:
+        1. UniqueUserLogin
+        '''
+        self.regular_metric_output_dict["UniqueUserLogin"]=str(data_collector_os.get_unique_loggedin_users())
+
     def metric_collector(self, aggregation_level="compute"):
         '''
         This method aggregrates all the regular metric parameters.
@@ -171,15 +190,33 @@ class RegularMetricCollector:
         self.get_packet_errors()
         self.get_hardware_corrupted_memory()
         self.get_virtual_memory_info()
+        if prerequisite.dict_component_existence["smartctl"]:
+            self.get_smart_regular_parameters()
+        else:
+            self.regular_metric_output_dict["SMARTHDATemp"] = utility.Result.NO_DATA.value
 
         #Get cluster level parameters.
         if aggregation_level in ["manager","manager,login"]:
-            # Get following informations through slurm
-            # 1.NodesClosed
-            # 2.NodesDown
-            # 3.NodesTotal
-            # 4.NodesUp
-            # 5.QueuedJobs
-            # 6.RunningJobs
-            # 7.FailedJobs
-            self.get_using_slurm()
+            if prerequisite.dict_component_existence["slurm"]:
+                # Get following informations through slurm
+                # 1.NodesDown
+                # 2.NodesTotal
+                # 3.NodesUp
+                # 4.QueuedJobs
+                # 5.RunningJobs
+                # 6.FailedJobs
+                self.get_using_slurm()
+            else:
+                self.regular_metric_output_dict["NodesTotal"] = utility.Result.NO_DATA.value
+                self.regular_metric_output_dict["NodesUp"] = utility.Result.NO_DATA.value
+                self.regular_metric_output_dict["NodesDown"] = utility.Result.NO_DATA.value
+                self.regular_metric_output_dict["QueuedJobs"] = utility.Result.NO_DATA.value
+                self.regular_metric_output_dict["RunningJobs"] = utility.Result.NO_DATA.value
+                self.regular_metric_output_dict["FailedJobs"] = utility.Result.NO_DATA.value
+
+
+
+        if aggregation_level in ["login","manager,login"]:
+            # Get the Folloiwng parameter
+            #1. UniqueUserLogin
+            self.get_unique_user_login()

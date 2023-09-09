@@ -18,6 +18,7 @@ Module to gather health check metrics.
 
 import data_collector_kubernetes
 import data_collector_storage
+import data_collector_smart
 import data_collector_os
 from collections import defaultdict
 import utility
@@ -256,6 +257,15 @@ class HealthCheckMetricCollector:
             self.health_check_metric_output_dict["gpu_health_temperature:gpu"] = \
                 utility.Result.UNKNOWN.value
 
+    def get_smart_health_parameters(self):
+        '''
+        Get the following health metric parameters:
+        1. smart
+        '''
+        smart_dict=data_collector_smart.get_using_smartctl("smart")
+        for key in smart_dict.keys():
+            self.health_check_metric_output_dict["smart:"+key]=smart_dict[key]
+
     def metric_collector(self, aggregation_level="compute"):
         '''
         This method aggregates all the health check parameters.
@@ -263,6 +273,12 @@ class HealthCheckMetricCollector:
         self.health_check_metric_output_dict={}
         self.get_health_node_dmesg()
         self.get_beegfs_details()
+
+        if prerequisite.dict_component_existence["smartctl"]:
+            self.get_smart_health_parameters()
+        else:
+            self.health_check_metric_output_dict["smart"] = utility.Result.UNKNOWN.value
+
         # Run only when nvidia gpu present
         if prerequisite.dict_component_existence['nvidiagpu']:
             self.get_nvidia_metrics()
@@ -283,9 +299,17 @@ class HealthCheckMetricCollector:
             self.health_check_metric_output_dict["gpu_health_temperature"] = \
                 utility.Result.UNKNOWN.value
         if aggregation_level in ["manager", "manager,login"]:
-            # Get following information's through kubernetes
-            # 1.Kubernetespodsstatus
-            # 2.Kuberneteschildnode
-            # 3.kubernetesnodesstatus
-            # 4.kubernetescomponentsstatus
-            self.get_using_kubernetes()
+
+            if prerequisite.dict_component_existence["kubernetes"]:
+
+                # Get following information's through kubernetes
+                # 1.Kubernetespodsstatus
+                # 2.Kuberneteschildnode
+                # 3.kubernetesnodesstatus
+                # 4.kubernetescomponentsstatus
+                self.get_using_kubernetes()
+            else:
+                self.health_check_metric_output_dict["Kubernetespodsstatus"] = utility.Result.UNKNOWN.value
+                self.health_check_metric_output_dict["Kuberneteschildnode"] = utility.Result.UNKNOWN.value
+                self.health_check_metric_output_dict["kubernetesnodesstatus"] = utility.Result.UNKNOWN.value
+                self.health_check_metric_output_dict["kubernetescomponentsstatus"] = utility.Result.UNKNOWN.value
