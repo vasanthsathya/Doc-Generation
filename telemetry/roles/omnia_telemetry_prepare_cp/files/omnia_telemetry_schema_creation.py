@@ -69,6 +69,7 @@ def db_table(conn):
                        label    TEXT NOT NULL,
                        value    TEXT NOT NULL,
                        system   TEXT,
+                       hostname TEXT,
                        time     TIMESTAMPTZ NOT NULL
                   );
                   SELECT create_hypertable('omnia_telemetry.metrics', 'time', if_not_exists => TRUE);

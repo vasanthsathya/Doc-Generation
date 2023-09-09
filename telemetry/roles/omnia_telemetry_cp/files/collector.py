@@ -105,7 +105,7 @@ def main():
                 GPU_METRIC_COLLECTOR_OBJ.metric_collector(utility.dict_telemetry_ini["group_info"])
                 combined_result_dict["GPU Metric"]=GPU_METRIC_COLLECTOR_OBJ.gpu_metric_output_dict
             #DB Update
-            DBCLIENT_OBJ.update_db(combined_result_dict,prerequisite.get_system_name())
+            DBCLIENT_OBJ.update_db(combined_result_dict,prerequisite.get_system_name(),utility.get_system_hostname())
             #sleep for omnia_telemetry_collection_interval time
             time.sleep(int(utility.dict_telemetry_ini["omnia_telemetry_collection_interval"]))
 
