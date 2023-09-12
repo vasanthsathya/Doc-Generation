@@ -28,7 +28,7 @@ def get_amd_gpu_temp():
     and stores it in gpu metric dictionary
     '''
     amd_metrics_query = "rocm-smi -t --csv"
-    command_result = invoke_commands.call_command(amd_metrics_query)
+    command_result = invoke_commands.run_command(amd_metrics_query)
     if command_result is not None:
         gpu_temp = {}
         command_result_df = common_parser.get_df_format(command_result)
@@ -93,7 +93,7 @@ def get_amd_gpu_utilization():
     and stores it in gpu metric dictionary
     '''
     amd_metrics_query = "rocm-smi -u --csv"
-    command_result = invoke_commands.call_command(amd_metrics_query)
+    command_result = invoke_commands.run_command(amd_metrics_query)
     if command_result is not None:
         try:
             command_result_df = common_parser.get_df_format(command_result)
@@ -128,8 +128,8 @@ def get_gpu_health_driver():
     This method collects amd gpu driver health from rocm query output
     '''
     amd_metrics_query = "rocm-smi --showdriverversion --csv"
-    command_result = invoke_commands.call_command(amd_metrics_query)
-    list_info = invoke_commands.call_command("rocm-smi -i --csv")
+    command_result = invoke_commands.run_command(amd_metrics_query)
+    list_info = invoke_commands.run_command("rocm-smi -i --csv")
     gpu_driver = {}
     if command_result is not None and list_info is not None:
         try:
@@ -158,7 +158,7 @@ def get_gpu_health_pcie():
     This method collects amd gpu pcie health from rocm query output
     '''
     amd_metrics_query = "rocm-smi --showbus --csv"
-    command_result = invoke_commands.call_command(amd_metrics_query)
+    command_result = invoke_commands.run_command(amd_metrics_query)
     if command_result is not None:
         try:
             command_result_df = common_parser.get_df_format(command_result)
@@ -182,7 +182,7 @@ def get_gpu_health_power():
     This method collects amd gpu power health from rocm query output
     '''
     amd_metrics_query = "rocm-smi -P -M --csv"
-    command_result = invoke_commands.call_command(amd_metrics_query)
+    command_result = invoke_commands.run_command(amd_metrics_query)
     if command_result is not None:
         try:
             command_result_df = common_parser.get_df_format(command_result)
@@ -202,7 +202,7 @@ def get_gpu_health_thermal():
     This method collects amd gpu thermal health from rocm query output
     '''
     amd_metrics_query = "rocm-smi -t --csv"
-    command_result = invoke_commands.call_command(amd_metrics_query)
+    command_result = invoke_commands.run_command(amd_metrics_query)
     if command_result is not None:
         command_result_df = common_parser.get_df_format(command_result)
         try:

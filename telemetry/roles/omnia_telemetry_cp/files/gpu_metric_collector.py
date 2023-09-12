@@ -83,7 +83,7 @@ class GPUMetricCollector:
             self.gpu_metric_output_dict["gpu_utilization:gpu"] = utility.Result.NO_DATA.value
 
         # get average of utilization of all GPUs in the system
-        gpu_avg_util = data_collector_amd_gpu.get_amd_gpu_avg_utilization()
+        gpu_avg_util = data_collector_amd_gpu.get_amd_gpu_avg_utilization(gpu_util)
         if gpu_avg_util is not None:
             self.gpu_metric_output_dict["gpu_utilization:average"] = str(gpu_avg_util) + '%'
         else:
