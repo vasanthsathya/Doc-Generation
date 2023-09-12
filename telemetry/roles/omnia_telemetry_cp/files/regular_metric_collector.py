@@ -24,6 +24,7 @@ import invoke_commands
 import common_parser
 import utility
 import data_collector_slurm
+import prerequisite
 
 class RegularMetricCollector:
     '''
@@ -189,19 +190,32 @@ class RegularMetricCollector:
         self.get_packet_errors()
         self.get_hardware_corrupted_memory()
         self.get_virtual_memory_info()
-        self.get_smart_regular_parameters()
+        if prerequisite.dict_component_existence["smartctl"]:
+            self.get_smart_regular_parameters()
+        else:
+            self.regular_metric_output_dict["SMARTHDATemp"] = utility.Result.NO_DATA.value
 
         #Get cluster level parameters.
         if aggregation_level in ["manager","manager,login"]:
-            # Get following informations through slurm
-            # 1.NodesClosed
-            # 2.NodesDown
-            # 3.NodesTotal
-            # 4.NodesUp
-            # 5.QueuedJobs
-            # 6.RunningJobs
-            # 7.FailedJobs
-            self.get_using_slurm()
+            if prerequisite.dict_component_existence["slurm"]:
+                # Get following informations through slurm
+                # 1.NodesDown
+                # 2.NodesTotal
+                # 3.NodesUp
+                # 4.QueuedJobs
+                # 5.RunningJobs
+                # 6.FailedJobs
+                self.get_using_slurm()
+            else:
+                self.regular_metric_output_dict["NodesTotal"] = utility.Result.NO_DATA.value
+                self.regular_metric_output_dict["NodesUp"] = utility.Result.NO_DATA.value
+                self.regular_metric_output_dict["NodesDown"] = utility.Result.NO_DATA.value
+                self.regular_metric_output_dict["QueuedJobs"] = utility.Result.NO_DATA.value
+                self.regular_metric_output_dict["RunningJobs"] = utility.Result.NO_DATA.value
+                self.regular_metric_output_dict["FailedJobs"] = utility.Result.NO_DATA.value
+
+
+
         if aggregation_level in ["login","manager,login"]:
             # Get the Folloiwng parameter
             #1. UniqueUserLogin
