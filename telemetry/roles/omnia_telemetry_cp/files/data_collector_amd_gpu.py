@@ -87,7 +87,6 @@ def get_amd_gpu_temp():
                              "rocm-smi command did not give output for gpu temperature metrics.")
     return None
 
-
 def get_amd_gpu_utilization():
     '''
     This method collects amd gpu utilization from rocm query output
@@ -107,22 +106,18 @@ def get_amd_gpu_utilization():
     return None
 
 
-def get_amd_gpu_avg_utilization():
+def get_amd_gpu_avg_utilization(gpu_util_list):
     '''
     This method calculates average gpu utilization on the node
     and stores it in gpu metric dictionary
     '''
-    amd_metrics_query = "rocm-smi -u --csv"
-    command_result = invoke_commands.call_command(amd_metrics_query)
-    if command_result is not None:
+    if gpu_util_list is not None:
         try:
-            command_result_df = common_parser.get_df_format(command_result)
-            gpu_util_list = common_parser.get_col_from_df(command_result_df, 'GPU use (%)')
             gpu_average_utilization = sum(gpu_util_list)/len(gpu_util_list)
             return gpu_average_utilization
         except Exception as err:
             common_logging.log_error("data_collector_amd_gpu:get_amd_gpu_avg_utilization",
-                                     "could not parse gpu utilization from rocm-smi"+str(err))
+                                     "could not calculate gpu utilization from rocm-smi"+str(err))
             return None
     return None
 

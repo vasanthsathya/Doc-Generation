@@ -56,8 +56,8 @@ def get_df_format(command_input):
         dataframe.columns = dataframe.columns.str.strip()
         return dataframe
     except Exception as err:
-        common_logging.log_error("data_collector_nvidia_gpu:get_nvidia_metrics_output",
-                                 "nvidia-smi command did not give output for gpu metrics." + str(err))
+        common_logging.log_error("common_parser:get_df_format",
+                                 "could not convert csv to dataframe." + str(err))
         return None
 
 def get_col_from_df(dataframe, col_name):
@@ -68,8 +68,8 @@ def get_col_from_df(dataframe, col_name):
     try:
         return dataframe[col_name].tolist()
     except Exception as err:
-        common_logging.log_error("data_collector_nvidia_gpu:get_nvidia_metrics_output",
-                                 "nvidia-smi command did not give output for gpu metrics." + str(err))
+        common_logging.log_error("common_parser:get_col_from_df",
+                                 "could not fetch required column from dataframe." + str(err))
         return None
 
 def parse_yaml_file(filepath):
