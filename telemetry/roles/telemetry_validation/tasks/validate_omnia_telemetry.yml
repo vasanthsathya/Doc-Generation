@@ -61,7 +61,7 @@
     that:
       - fuzzy_offset is integer
       - fuzzy_offset >= 60
-      - fuzzy_offset < omnia_telemetry_collection_interval
+      - fuzzy_offset <= omnia_telemetry_collection_interval
     fail_msg: "{{ fuzzy_offset_fail_msg }}"
 
 - name: Assert metric collection timeout

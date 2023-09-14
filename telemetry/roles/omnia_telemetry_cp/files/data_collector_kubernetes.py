@@ -28,8 +28,7 @@ def get_kubectl_get_pods():
     '''
     dict_cluster_parameter_kubectl_pods={}
     dict_cluster_parameter_kubectl_pods["Kubernetespodsstatus"]=utility.Result.UNKNOWN.value
-    flag_kubernetes_pods_status= True
-
+    flag_kubernetes_pods_status="Unknown"
     output=invoke_commands.call_command('sudo kubectl get pods -A -o json')
     if output is not None:
         #Convert output to to json format
@@ -37,18 +36,21 @@ def get_kubectl_get_pods():
         if pods_json is not None:
             try:
                 #Iterate over each entries in json. Each entry/item corresponds to individual pods of the command output : kubectl get pods -A
-                for index in range(len(pods_json["items"])):
-                    #Get the status and check if it is "Running" or not
-                    if pods_json["items"][index]["status"]["phase"]!= "Running":
-                        #Not Running so Fail
-                        flag_kubernetes_pods_status= False
-                        break
-                if flag_kubernetes_pods_status is True:
-                    dict_cluster_parameter_kubectl_pods["Kubernetespodsstatus"]=\
-                        utility.Result.SUCCESS.value
-                else:
-                    dict_cluster_parameter_kubectl_pods["Kubernetespodsstatus"]=\
-                        utility.Result.FAILURE.value
+                total_pods=len(pods_json["items"])
+                #Check if pod exists. If pod doesn't exist, output will be Unknown
+                if total_pods > 0:
+                    for index in range(total_pods):
+                        #Get the status and check if it is "Running" or not
+                        if pods_json["items"][index]["status"]["phase"]!= "Running":
+                            #Not Running so Fail
+                            flag_kubernetes_pods_status= "False"
+                            break
+                    if flag_kubernetes_pods_status == "False":
+                        dict_cluster_parameter_kubectl_pods["Kubernetespodsstatus"]=\
+                            utility.Result.FAILURE.value
+                    else:
+                        dict_cluster_parameter_kubectl_pods["Kubernetespodsstatus"]=\
+                            utility.Result.SUCCESS.value
             except Exception as err:
                 common_logging.log_error("data_collector_kubernetes:get_kubectl_get_pods",\
  "kubectl get pods -A json parsing issue: " + str(type(err)) +" "+ str(err))
@@ -60,6 +62,7 @@ def get_kubectl_get_pods():
  "kubectl get pods -A command output is None")
     return dict_cluster_parameter_kubectl_pods
 
+
 def get_kubectl_get_nodes():
     '''
     Get the following parameters
@@ -69,43 +72,46 @@ def get_kubectl_get_nodes():
     dict_cluster_parameter_kubectl_nodes={}
     dict_cluster_parameter_kubectl_nodes["Kuberneteschildnode"]=utility.Result.UNKNOWN.value
     dict_cluster_parameter_kubectl_nodes["kubernetesnodesstatus"]=utility.Result.UNKNOWN.value
-    flag_child_nodes_up=True
-    flag_all_nodes_up=True
+    flag_child_nodes_up= "Unknown"
+    flag_all_nodes_up= "Unknown"
     #index of status (type) in json output
     index_status=4
-
     output=invoke_commands.call_command('sudo kubectl get nodes -o json')
     if output is not None:
         nodes_json=common_parser.get_json_format(output)
         if nodes_json is not None:
             try:
                 #Iterate over each entries in json. Each entry/item corresponds to individual nodes of the command output : kubectl get nodes
-                #First entry will be for master node and the rest are for the child nodes
-                for index in range(len(nodes_json["items"])):
-                    #Get the status and check if it is "Ready" or not
-                    if nodes_json["items"][index]["status"]["conditions"][index_status]["type"] != "Ready":
-                        flag_all_nodes_up = False
-                        #Check if child node
-                        if index!=0:
-                            flag_child_nodes_up = False
-                            #break since we found non ready status in child nodes
-                            break
-
+                total_nodes=len(nodes_json["items"])
+                if total_nodes>0:
+                    for index in range(total_nodes):
+                        #Get the status and check if it is "Ready" or not
+                        if nodes_json["items"][index]["status"]["conditions"][index_status]["type"] != "Ready":
+                            flag_all_nodes_up = "False"
+                            # In case single node is present, then that is both master and child node
+                            if total_nodes==1:
+                                flag_child_nodes_up = "False"
+                            else:
+                                #Check if non Ready node is a child node
+                                if "node-role.kubernetes.io/master" not in nodes_json["items"][index]["metadata"]["labels"].keys():
+                                    flag_child_nodes_up = "False"
+                                    #break since we found non ready status in child nodes
+                                    break
                 #set the parameters
                 #kubernetesnodesstatus
-                if flag_all_nodes_up is True:
-                    dict_cluster_parameter_kubectl_nodes["kubernetesnodesstatus"]=\
-                        utility.Result.SUCCESS.value
-                else:
+                if flag_all_nodes_up == "False":
                     dict_cluster_parameter_kubectl_nodes["kubernetesnodesstatus"]=\
                         utility.Result.FAILURE.value
+                else:
+                    dict_cluster_parameter_kubectl_nodes["kubernetesnodesstatus"]=\
+                        utility.Result.SUCCESS.value
                 #Kuberneteschildnode
-                if flag_child_nodes_up is True:
-                    dict_cluster_parameter_kubectl_nodes["Kuberneteschildnode"]=\
-                        utility.Result.SUCCESS.value
-                else:
+                if flag_child_nodes_up == "False":
                     dict_cluster_parameter_kubectl_nodes["Kuberneteschildnode"]=\
                         utility.Result.FAILURE.value
+                else:
+                    dict_cluster_parameter_kubectl_nodes["Kuberneteschildnode"]=\
+                        utility.Result.SUCCESS.value
             except Exception as err:
                 common_logging.log_error("data_collector_kubernetes:get_kubectl_get_nodes",\
  "kubectl get nodes json parsing issue: " +str(type(err)) +" "+ str(err))
@@ -115,8 +121,8 @@ def get_kubectl_get_nodes():
     else:
         common_logging.log_error("data_collector_kubernetes:get_kubectl_get_nodes",\
  "kubectl get nodes command output is None")
-
     return dict_cluster_parameter_kubectl_nodes
+
 
 def get_kubectl_get_cs():
     '''

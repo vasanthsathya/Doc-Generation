@@ -57,8 +57,8 @@ def get_using_smartctl(parameter):
                         pattern="Temperature:\\s*(.*)"
                         temperature=common_parser.query_from_txt(command_output,pattern)
                     if temperature is not None:
-                        dict_smartctl[hdd]=temperature.strip()
-
+                        # Take only the temperature value and ignore the unit.
+                        dict_smartctl[hdd]=common_parser.split_by_regex(temperature.strip(),"\s+")[0]
                 elif parameter=="smart":
                     '''get SMART health status.
                     Few drives give "SMART Health Status" value and other gives 
