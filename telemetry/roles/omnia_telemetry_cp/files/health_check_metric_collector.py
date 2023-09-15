@@ -273,6 +273,10 @@ class HealthCheckMetricCollector:
         self.health_check_metric_output_dict={}
         self.get_health_node_dmesg()
         self.get_beegfs_details()
+        if prerequisite.dict_component_existence["beegfs"]:
+            self.get_beegfs_details()
+        else:
+            self.health_check_metric_output_dict["Beegfs client Reachable"] = utility.Result.UNKNOWN.value
 
         if prerequisite.dict_component_existence["smartctl"]:
             self.get_smart_health_parameters()
