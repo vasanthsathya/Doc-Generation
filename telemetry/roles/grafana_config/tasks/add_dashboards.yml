@@ -21,6 +21,7 @@
     title: "{{ telemetry_folder_name }}"
     state: present
   no_log: true
+  when: idrac_telemetry_support
 
 - name: Import dashboards for idrac visualizations
   community.grafana.grafana_dashboard:
