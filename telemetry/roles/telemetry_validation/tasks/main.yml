@@ -1,4 +1,4 @@
-# Copyright 2022 Dell Inc. or its subsidiaries. All Rights Reserved.
+# Copyright 2023 Dell Inc. or its subsidiaries. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+
+- name: Initialize variables
+  ansible.builtin.set_fact:
+    telemetry_validation_status: true
 
 - name: Validate telemetry_config.yml
   ansible.builtin.include_tasks: validate_telemetry_config.yml
