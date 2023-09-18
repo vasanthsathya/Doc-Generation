@@ -16,6 +16,16 @@
 - name: Gather facts from all the nodes
   hosts: manager, compute, login
 
+- name: Validate all input parameters
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - scheduler/roles/cluster_validation
+    - security/roles/security_validation
+    - storage/roles/storage_validation
+    - telemetry/roles/telemetry_validation
+
 - name: Configure security on nodes
   ansible.builtin.import_playbook: security/security.yml
 
