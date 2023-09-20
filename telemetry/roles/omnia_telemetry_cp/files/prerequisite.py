@@ -61,7 +61,7 @@ def check_amd_gpu_existence():
     Method to check whether AMD GPU is present
     '''
     amd_output = invoke_commands.call_command_with_pipe\
-                ("lspci|grep \"Display controller: Advanced Micro Devices, Inc. [AMD/ATI]\"")
+                ("lspci|grep \"Display controller: Advanced Micro Devices, Inc. \[AMD/ATI\]\"")
     if (amd_output is not None) and len(amd_output)>0:
         dict_component_existence["amdgpu"] = True
     else:
