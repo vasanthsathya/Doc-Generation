@@ -74,12 +74,14 @@ munge-devel, perl-Switch, rrdtool-devel, lua-devel, hwloc-devel, http-parser-dev
 Make sure crb repos configured in control plane and re-run provision.yml"
 epel_repo_packages: "slurm-slurmd slurm-pmi slurm-slurmctld slurm-slurmdbd slurm-slurmrestd man2html Lmod hdf5 libjwt lua-term slurm slurm-libs man2html-core
 dkms perl-URI-Encode rocm-comgr rocm-opencl rocm-opencl-devel pdsh pdsh-rcmd-ssh"
-download_epel_package_fail_msg: "Failed. Unable to download packages from the epel repo configured in control plane."
+download_epel_package_fail_msg: "Failed. Unable to download packages from the epel repo configured in control plane.
+This might be due to internet connectivity issue when accessing the epel repository. Try re-running playbook after sometime."
 rhel_epel_repo8: https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 custom_software_repo: "{{ other_pkg_dir }}/custom_software/Packages"
 control_plane_os_redhat: "redhat"
 control_plane_os_rocky: "rocky"
-download_apptainer_fail_msg: "Failed. Unable to download apptainer package from epel repository."
+download_apptainer_fail_msg: "Failed. Unable to download apptainer package from epel repository.
+This might be due to internet connectivity issue when accessing the epel repository. Try re-running playbook after sometime."
 apptainer_packages: "apptainer fakeroot fakeroot-libs squashfuse squashfuse-libs"
 telemetry_pckg_path: "{{ role_path }}/files/telemetry_pkglist"
 telemetry_pkg_list_src: "{{ role_path }}/files/postscripts//telemetry.pkglist"
