@@ -63,6 +63,7 @@ disjoint_fail_msg: "manager and compute groups should be disjoint"
 disjoint_success_msg: "manager and compute groups are disjoint"
 nfs_node_group_fail_msg: "nfs_node group should contain exactly 1 node"
 nfs_node_group_success_msg: "nfs_node group check passed"
+invalid_inventory_fail_msg: "Failed. Invalid inventory format. Provide inventory with manager and compute group."
 
 # Usage: install_packages.yml
 ansible_base_version: '2.9'
