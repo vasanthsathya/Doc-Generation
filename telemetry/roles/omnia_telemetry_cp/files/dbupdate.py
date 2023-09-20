@@ -23,10 +23,12 @@
 import psycopg2
 import common_parser
 import common_logging
+import common_security
 import time
 import datetime
 
 filepath = "/opt/omnia/telemetry/.timescaledb/config.yml"
+keypath = "/opt/omnia/telemetry/.timescaledb/.config_pass.key"
 
 class DatabaseClient:
 
@@ -111,7 +113,7 @@ class DatabaseClient:
         '''
 
         #Fetch the db connect info from config file
-        dbdata = common_parser.parse_yaml_file(filepath)
+        dbdata = common_parser.parse_yaml_file(common_security.get_config_data(filepath,keypath))
 
         #Connect to the database
         self.db_connect(dbdata)

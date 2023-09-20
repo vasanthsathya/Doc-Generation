@@ -11,24 +11,30 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
----
 
-- name: Create timescaledb config directory on nodes
-  ansible.builtin.file:
-    path: "{{ config_file_path_dst }}"
-    state: directory
-    mode: "{{ directory_permissions }}"
+#!/usr/bin/env python3
 
-- name: Transfer config file to compute nodes
-  ansible.builtin.copy:
-    src: "{{ config_file_path_src }}"
-    dest: "{{ config_file_path_dst }}"
-    force: true
-    mode: "{{ file_mode }}"
+'''
+    This module contains tasks required for database update
+    The query should be created along with timestamp before updating
+    the database.
+'''
 
-- name: Transfer config security key to compute nodes
-  ansible.builtin.copy:
-    src: "{{ config_key_path }}"
-    dest: "{{ config_file_path_dst }}"
-    force: true
-    mode: "{{ file_mode }}"
+from cryptography.fernet import Fernet
+
+def genarate_config_key():
+    '''
+    This module generate config file encryption key
+    '''
+    key = Fernet.generate_key()
+    with open('/opt/omnia/telemetry/.timescaledb/.config_pass.key', 'wb') as filekey:
+        filekey.write(key)
+
+def main():
+    '''
+    This module initiates encryption key generation
+    '''
+    genarate_config_key()
+
+if __name__ == '__main__':
+    main()

@@ -13,6 +13,13 @@
 # limitations under the License.
 ---
 
+- name: Create ini file template
+  ansible.builtin.copy:
+    src: "{{ init_file_path_src }}"
+    dest: "{{ omnia_telemetry_dest }}"
+    mode: "{{ file_mode }}"
+    force: true
+
 - name: Update telemetry ini file
   ansible.builtin.lineinfile:
     path: "{{ init_file_path }}"

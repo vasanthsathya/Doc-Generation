@@ -11,24 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
----
 
-- name: Create timescaledb config directory on nodes
-  ansible.builtin.file:
-    path: "{{ config_file_path_dst }}"
-    state: directory
-    mode: "{{ directory_permissions }}"
+'''
+    This module contains tasks which handle secuity implementaions
+'''
+from cryptography.fernet import Fernet
 
-- name: Transfer config file to compute nodes
-  ansible.builtin.copy:
-    src: "{{ config_file_path_src }}"
-    dest: "{{ config_file_path_dst }}"
-    force: true
-    mode: "{{ file_mode }}"
+def get_config_data(filepath, keypath):
+    '''
+    This module decrypts the config file and returns file data
+    '''
+    with open(keypath, 'rb') as passfile:
+        key = passfile.read()
+    fernet = Fernet(key)
 
-- name: Transfer config security key to compute nodes
-  ansible.builtin.copy:
-    src: "{{ config_key_path }}"
-    dest: "{{ config_file_path_dst }}"
-    force: true
-    mode: "{{ file_mode }}"
+    with open(filepath, 'rb') as datafile:
+        encrypted_file_data = datafile.read()
+
+    decrypted_file_data = fernet.decrypt(encrypted_file_data)
+    return decrypted_file_data.decode()

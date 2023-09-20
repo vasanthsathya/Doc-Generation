@@ -17,17 +17,20 @@
 telemetry_config_file: "{{ role_path }}/../../../input/telemetry_config.yml"
 binary_files_path: "/opt/omnia/telemetry/dist/omnia_telemetry"
 omnia_telemetry_dest: "/opt/omnia/telemetry"
-init_file_path: "{{ role_path }}/../omnia_telemetry_prepare_cp/files/telemetry.ini"
-init_file_path_dest: "/opt/omnia/telemetry/telemetry.ini"
+
+# Usage: ini_file_transfer.yml
+init_file_path: "/opt/omnia/telemetry/telemetry.ini"
 binary_mode: "0500"
 file_mode: "0600"
 directory_permissions: "0600"
+
+# Usage: config_file_transfer.yml
 config_file_path_dst: "/opt/omnia/telemetry/.timescaledb/"
-config_file_path_src: "{{ role_path }}/../omnia_telemetry_prepare_cp/files/config.yml"
+config_file_path_src: "/opt/omnia/telemetry/.timescaledb/config.yml"
+config_key_path: "/opt/omnia/telemetry/.timescaledb/.config_pass.key"
 
 # Usage: stop_omnia_telemetry.yml
 omnia_telemetry_service: omnia_telemetry.service
-
 
 # Usage: package_installation.yml
 telemetry_package_list: "{{ playbook_dir }}/../provision/roles/xcat_repo_manipulate/files/telemetry_pkglist"

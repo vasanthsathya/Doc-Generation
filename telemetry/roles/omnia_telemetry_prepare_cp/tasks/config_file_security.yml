@@ -13,22 +13,25 @@
 # limitations under the License.
 ---
 
-- name: Create timescaledb config directory on nodes
+- name: Get config key status
+  ansible.builtin.stat:
+    path: "{{ config_key_path }}"
+  register: key_status
+
+- name: Invoke python utility to generate key if not exists
+  ansible.builtin.command: |
+    {{ python_version }} {{ key_generation_utility }}
+  changed_when: false
+  no_log: true
+  when: not key_status.stat.exists
+
+- name: Set config key permissions
   ansible.builtin.file:
-    path: "{{ config_file_path_dst }}"
-    state: directory
-    mode: "{{ directory_permissions }}"
-
-- name: Transfer config file to compute nodes
-  ansible.builtin.copy:
-    src: "{{ config_file_path_src }}"
-    dest: "{{ config_file_path_dst }}"
-    force: true
+    path: "{{ config_key_path }}"
     mode: "{{ file_mode }}"
 
-- name: Transfer config security key to compute nodes
-  ansible.builtin.copy:
-    src: "{{ config_key_path }}"
-    dest: "{{ config_file_path_dst }}"
-    force: true
-    mode: "{{ file_mode }}"
+- name: Invoke python utility to encrypt config file
+  ansible.builtin.command: |
+    {{ python_version }} {{ config_encryption_utility }}
+  changed_when: false
+  no_log: true

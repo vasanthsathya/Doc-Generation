@@ -72,25 +72,25 @@ def get_col_from_df(dataframe, col_name):
                                  "could not fetch required column from dataframe." + str(err))
         return None
 
-def parse_yaml_file(filepath):
+def parse_yaml_file(filedata):
 
     '''
-    This module parses yaml file and provides the dictionary output
+    This module parses yaml file data and provides the dictionary output
 
     Args:
-        filepath (str): The file path along with filename
+        filedata (str): The yaml file data in string format
     '''
 
     cfg = {}
     try:
-        with open(f'{filepath}', 'r') as ymlfile:
-            cfg = yaml.safe_load(ymlfile)
+        cfg = yaml.safe_load(filedata)
         return cfg
     except Exception as ex:
         # Log the error message with the error output
         common_logging.log_error("common_parser:parse_yaml_file",
                                  "Error in parsing inputs for timescaledb connection" + str(ex))
         return cfg
+
 def split_by_regex(input_data, regex):
     '''
     Split the input text w.r.t passed regex delimiter and return the list of tokens
