@@ -62,7 +62,7 @@ class DatabaseClient:
 
         self.db_conn.close()
 
-    def create_db_query(self, combined_result_dict, service_tag, hostname):
+    def create_db_query(self, combined_result_dict,combined_unit_dict, service_tag, hostname):
         '''
         Database query creation
         :param combined_result_dict: Combined metrics data dictionary
@@ -75,8 +75,9 @@ class DatabaseClient:
                 if metric_dict:
                     for key,value in metric_dict.items():
                         if value!="":
+                            unit = common_parser.get_unit(key,combined_unit_dict)
                             label = key+" "+metric
-                            db_data_tuple = (key,metric,label,value,service_tag,hostname,timestamp)
+                            db_data_tuple = (key,metric,label,value,unit,service_tag,hostname,timestamp)
                             db_query_list.append(db_data_tuple)
             return db_query_list
         else:
@@ -90,8 +91,8 @@ class DatabaseClient:
         try:
             db_cursor = self.db_conn.cursor()
             sql_insert_query = """INSERT INTO omnia_telemetry.metrics \
-                            (id, context, label, value, system, hostname, time )\
-                            VALUES (%s,%s,%s,%s,%s,%s,%s)"""
+                            (id, context, label, value, unit, system, hostname, time )\
+                            VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"""
             db_cursor.executemany(sql_insert_query, db_query)
             self.db_conn.commit()
             db_cursor.close()
@@ -101,7 +102,7 @@ class DatabaseClient:
                                     "Error in inserting data to Database" + str(ex))
             self.db_close()
 
-    def update_db(self, combined_result_dict, service_tag, hostname):
+    def update_db(self, combined_result_dict,combined_unit_dict, service_tag, hostname):
         '''
         This module updates the Timescaledb on the control plane with telemetry data
 
@@ -117,7 +118,7 @@ class DatabaseClient:
 
         if self.db_conn is not None:
             #Create sql query
-            db_query = self.create_db_query(combined_result_dict,service_tag,hostname)
+            db_query = self.create_db_query(combined_result_dict,combined_unit_dict,service_tag,hostname)
 
             #Insert into database
             self.db_insert(db_query)

@@ -104,7 +104,6 @@ class HealthCheckMetricCollector:
 
         self.gpu_health_metrics(health_metrics)
 
-
     def get_amd_metrics(self):
         '''
         This method collects all the amd gpu health metrics
@@ -272,7 +271,6 @@ class HealthCheckMetricCollector:
         '''
         self.health_check_metric_output_dict={}
         self.get_health_node_dmesg()
-        self.get_beegfs_details()
         if prerequisite.dict_component_existence["beegfs"]:
             self.get_beegfs_details()
         else:

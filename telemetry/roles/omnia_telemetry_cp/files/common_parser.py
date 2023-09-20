@@ -210,3 +210,11 @@ def split_by_space_and_quote(command):
         else:
             pass
     return command_list
+
+def get_unit(key, combined_unit_dict):
+    key = split_by_regex(key, ':')[0]
+    for metric, metric_dict in combined_unit_dict.items():
+        if metric_dict:
+            if key in metric_dict.keys():
+                return metric_dict[key]
+    return None

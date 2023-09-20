@@ -20,7 +20,6 @@ import invoke_commands
 import common_logging
 import utility
 
-
 def get_beegfs_version():
     '''
           Returns whether beegfs client is present or not
@@ -29,13 +28,12 @@ def get_beegfs_version():
     output = invoke_commands.run_command(beegfs_service_status)
     if output is not None:
         if output == "failed":
-            common_logging.log_error("data_collector_beegfs:get_beegfs_version",
+            common_logging.log_error("data_collector_storage:get_beegfs_version",
                                      "beegfs gave errors" + output)
             return 0
         if output == "active":
             return 1
     return -1
-
 
 def get_beegfs_details():
     '''
@@ -53,14 +51,14 @@ def get_beegfs_details():
             beegfs_op_dict["Beegfs client Reachable"] = utility.Result.SUCCESS.value
         else:
             beegfs_op_dict["Beegfs client Reachable"] = utility.Result.FAILURE.value
-            common_logging.log_error("data_collector_beegfs:get_beegfs_details",
+            common_logging.log_error("data_collector_storage:get_beegfs_details",
                                      "beegfs gave errors" + output)
     elif beegfs_status == 0 and output is not None:
         beegfs_op_dict["Beegfs client Reachable"] = utility.Result.FAILURE.value
-        common_logging.log_error("data_collector_beegfs:get_beegfs_details",
+        common_logging.log_error("data_collector_storage:get_beegfs_details",
                                  "beegfs gave errors" + output)
     else:
-        common_logging.log_error("data_collector_beegfs:get_beegfs_details",
+        common_logging.log_error("data_collector_storage:get_beegfs_details",
                                  "beegfs gave error" + error_str)
 
     return beegfs_op_dict
