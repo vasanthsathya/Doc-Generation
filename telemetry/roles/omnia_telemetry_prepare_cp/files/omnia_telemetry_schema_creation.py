@@ -68,6 +68,7 @@ def db_table(conn):
                        context  TEXT NOT NULL,
                        label    TEXT NOT NULL,
                        value    TEXT NOT NULL,
+                       unit     TEXT,
                        system   TEXT,
                        hostname TEXT,
                        time     TIMESTAMPTZ NOT NULL
