@@ -41,10 +41,15 @@ def get_kubectl_get_pods():
                 if total_pods > 0:
                     for index in range(total_pods):
                         #Get the status and check if it is "Running" or not
-                        if pods_json["items"][index]["status"]["phase"]!= "Running":
-                            #Not Running so Fail
-                            flag_kubernetes_pods_status= "False"
-                            break
+                        # Pod status
+                        pod_status=pods_json["items"][index]["status"]["phase"]
+                        # Container status
+                        container_status_list=pods_json["items"][index]["status"]["containerStatuses"][0]["state"].keys()
+                        # Pod and Container both should be running
+                        if pod_status != "Running" or "running" not in container_status_list:
+                                # Not Running so Fail
+                                flag_kubernetes_pods_status= "False"
+                                break
                     if flag_kubernetes_pods_status == "False":
                         dict_cluster_parameter_kubectl_pods["Kubernetespodsstatus"]=\
                             utility.Result.FAILURE.value
