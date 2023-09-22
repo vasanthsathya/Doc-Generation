@@ -14,11 +14,22 @@
 ---
 
 # Usage: config_file_update.yml
-init_file_path: "{{ role_path }}/files/telemetry.ini"
 config_file_path_src: "{{ role_path }}/files/config.yml"
+config_file_path_dst: "/opt/omnia/telemetry/.timescaledb/"
+config_file_path: "/opt/omnia/telemetry/.timescaledb/config.yml"
+file_mode: "0600"
+directory_permissions: "0600"
 
 # Uasage: ini_file_update.yml
 timescaledb_vars_file: "{{ role_path }}/../timescaledb/vars/main.yml"
+init_file_path: "/opt/omnia/telemetry/telemetry.ini"
+init_file_path_src: "{{ role_path }}/files/telemetry.ini"
+omnia_telemetry_dest: "/opt/omnia/telemetry"
+
+# Usage: security_config.yml
+config_key_path: "/opt/omnia/telemetry/.timescaledb/.config_pass.key"
+key_generation_utility: "{{ role_path }}/files/generate_key.py"
+config_encryption_utility: "{{ role_path }}/files/encrypt_config.py"
 
 # Usage: create_omnia_telemetry_schema.yml
 timescaledb_vars_filepath: "{{ role_path }}/../timescaledb/vars/main.yml"

@@ -25,14 +25,14 @@
   block:
     - name: Update the group information on manager node
       ansible.builtin.lineinfile:
-        path: "{{ init_file_path_dest }}"
+        path: "{{ init_file_path }}"
         regexp: "group_info=(.*)$"
         line: "group_info=manager"
       when: "'login' in groups"
 
     - name: Update the group information on manager node when login node not present
       ansible.builtin.lineinfile:
-        path: "{{ init_file_path_dest }}"
+        path: "{{ init_file_path }}"
         regexp: "group_info=(.*)$"
         line: "group_info=manager,login"
       when: "'login' not in groups"
@@ -44,6 +44,6 @@
   block:
     - name: Update the group information for manager node
       ansible.builtin.lineinfile:
-        path: "{{ init_file_path_dest }}"
+        path: "{{ init_file_path }}"
         regexp: "group_info=(.*)$"
         line: "group_info=login"

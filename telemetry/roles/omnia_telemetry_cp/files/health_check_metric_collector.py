@@ -150,15 +150,15 @@ class HealthCheckMetricCollector:
         if gpu_driver is not None:
             for index, item in enumerate(gpu_driver):
                 if item is not None or item!="N/A":
-                    self.health_check_metric_output_dict["gpu_driver_health:gpu" \
+                    self.health_check_metric_output_dict["gpu_health_driver:gpu" \
                                                         + str(index)] = \
                                                            utility.Result.SUCCESS.value
                 else:
-                    self.health_check_metric_output_dict["gpu_driver_health:gpu" \
+                    self.health_check_metric_output_dict["gpu_health_driver:gpu" \
                                                         + str(index)] = \
                                                            utility.Result.FAILURE.value
         else:
-            self.health_check_metric_output_dict["gpu_driver_health:gpu"] = \
+            self.health_check_metric_output_dict["gpu_health_driver:gpu"] = \
                 utility.Result.UNKNOWN.value
 
     def get_gpu_nvlink_health_metric(self, gpu_nvlink):
@@ -288,7 +288,7 @@ class HealthCheckMetricCollector:
         if prerequisite.dict_component_existence['amdgpu']:
             self.get_amd_metrics()
         if prerequisite.dict_component_existence['nvidiagpu'] is False and prerequisite.dict_component_existence['amdgpu'] is False:
-            self.health_check_metric_output_dict["gpu_driver_health"] = \
+            self.health_check_metric_output_dict["gpu_health_driver"] = \
                 utility.Result.UNKNOWN.value
             self.health_check_metric_output_dict["gpu_health_nvlink"] = \
                         utility.Result.UNKNOWN.value
