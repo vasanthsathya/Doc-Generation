@@ -46,10 +46,7 @@ def call_command(command, pipe = False, output=''):
             if pipe is True:
                 return output
         elif output.returncode != 0 and output is not None:
-            if pipe is False:
-                common_logging.log_error('invoke_commands:call_command', f"Error output: {output.stderr}")
-            if pipe is True:
-                return output
+            common_logging.log_error('invoke_commands:call_command', f"Error : {output.stderr} Command : {command} ")
         else:
             common_logging.log_error('invoke_commands:call_command', f"Error output in: {command}")
        
