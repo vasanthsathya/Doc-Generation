@@ -22,19 +22,27 @@
 
 from cryptography.fernet import Fernet
 
-def genarate_config_key():
+
+def encrypt_config_file():
     '''
-    This module generate config file encryption key
+    This module encrypts the config file
     '''
-    key = Fernet.generate_key()
-    with open('/opt/omnia/telemetry/.timescaledb/.config_pass.key', 'wb') as filekey:
-        filekey.write(key)
+    with open('/opt/omnia/telemetry/.timescaledb/.config_pass.key', 'rb') as filekey:
+        key = filekey.read()
+    fernet = Fernet(key)
+
+    with open('/opt/omnia/telemetry/.timescaledb/config.yml', 'rb') as file:
+        original = file.read()
+    encrypted = fernet.encrypt(original)
+
+    with open('/opt/omnia/telemetry/.timescaledb/config.yml', 'wb') as encrypted_file:
+        encrypted_file.write(encrypted)
 
 def main():
     '''
-    This module initiates encryption key generation
+    This module initiates config encryption
     '''
-    genarate_config_key()
+    encrypt_config_file()
 
 if __name__ == '__main__':
     main()
