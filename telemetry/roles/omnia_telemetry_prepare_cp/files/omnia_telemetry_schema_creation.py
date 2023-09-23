@@ -22,19 +22,12 @@
 
 import sys
 import psycopg2
-import pandas
-from psycopg2.extensions import AsIs
 
 dbuser = sys.argv[1]
 dbpwd = sys.argv[2]
 dbhost = sys.argv[3]
 dbport = sys.argv[4]
 dbtelemetry = sys.argv[5]
-column_name = sys.argv[6]
-column_value = sys.argv[7]
-start_time = sys.argv[8]
-stop_time = sys.argv[9]
-filename= sys.argv[10]
 
 def db_connect():
     '''
@@ -51,35 +44,41 @@ def db_connect():
         sys.exit('Failed to connect to timescaledb')
     return conn
 
-def get_data_by_timerange_and_column(conn):
-    try:
-        # Query the database to retrieve the data based on the time range, column name, and column value
-        sql_query_case1 = '''
-                          SELECT * FROM omnia_telemetry.metrics
-                          WHERE time BETWEEN %s AND %s AND %s = %s
-                          '''
-        sql_query_case2 = '''
-                          SELECT * FROM omnia_telemetry.metrics WHERE %s = %s
-                          '''
-        sql_query_case3 = '''
-                          SELECT * FROM omnia_telemetry.metrics
-                          WHERE time BETWEEN %s AND %s
-                          '''
-        sql_query_case4 = '''
-                          SELECT * FROM omnia_telemetry.metrics
-                          '''
-        if column_name == 'None' and column_value == 'None' and start_time == 'None' and stop_time == 'None':
-            dataframe = pandas.read_sql(sql_query_case4, conn)
-        elif column_name == 'None' and column_value == 'None' and start_time != 'None' and stop_time != 'None':
-            dataframe = pandas.read_sql(sql_query_case3, conn, params=(start_time, stop_time))
-        elif column_name != 'None' and column_value != 'None' and start_time == 'None' and stop_time == 'None':
-            dataframe = pandas.read_sql(sql_query_case2, conn, params=(AsIs(column_name), column_value))
-        else:
-            print(start_time + stop_time)
-            dataframe = pandas.read_sql(sql_query_case1, conn, params= (start_time, stop_time, AsIs(column_name), column_value))
-        return dataframe
-    except Exception as ex:
-        sys.exit('Failed to fetch data from timescaledb.'+ str(ex))
+def db_schema(conn):
+    '''
+    This module is used to create omnia telemetry schema
+
+    Args:
+       conn (Connection Object): It accepts connection object as input
+    '''
+    sql_query = '''CREATE SCHEMA IF NOT EXISTS omnia_telemetry;'''
+    cursor = conn.cursor()
+    cursor.execute(sql_query)
+    cursor.close()
+
+def db_table(conn):
+    '''
+    This module creates a table for omnia telemetry metrics
+
+    Args:
+       conn (Connection Object): It accepts connection object as input
+    '''
+    sql_query = '''CREATE TABLE IF NOT EXISTS omnia_telemetry.metrics (
+                       id       TEXT NOT NULL,
+                       context  TEXT NOT NULL,
+                       label    TEXT NOT NULL,
+                       value    TEXT NOT NULL,
+                       unit     TEXT,
+                       system   TEXT,
+                       hostname TEXT,
+                       time     TIMESTAMPTZ NOT NULL
+                  );
+                  SELECT create_hypertable('omnia_telemetry.metrics', 'time', if_not_exists => TRUE);
+                  SELECT add_retention_policy('omnia_telemetry.metrics', INTERVAL '2 months', if_not_exists => TRUE);
+                  '''
+    cursor = conn.cursor()
+    cursor.execute(sql_query)
+    cursor.close()
 
 def main():
     '''
@@ -87,8 +86,8 @@ def main():
     '''
     db_conn = db_connect()
     if db_conn is not None:
-        dataframe = get_data_by_timerange_and_column(db_conn)
-        dataframe.to_csv(filename)
+        db_schema(db_conn)
+        db_table(db_conn)
         db_conn.close()
 
 if __name__ == '__main__':
