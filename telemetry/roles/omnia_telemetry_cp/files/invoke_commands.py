@@ -40,13 +40,16 @@ def call_command(command, pipe = False, output=''):
                                               ["metric_collection_timeout"]), \
                                                 universal_newlines=True, check=False)
         # A return code of 0 means success,while a non-zero return code means failure.
-        if output.returncode == 0:
+        if output.returncode == 0 and output is not None:
             if pipe is False:
                 return output.stdout.strip() if output.stdout else None
             if pipe is True:
                 return output
-        # Log an error message with the error output
-        common_logging.log_error('invoke_commands:call_command', f"Error output: {output.stderr}")
+        elif output.returncode != 0 and output is not None:
+            common_logging.log_error('invoke_commands:call_command', f"Error : {output.stderr} Command : {command} ")
+        else:
+            common_logging.log_error('invoke_commands:call_command', f"Error output in: {command}")
+       
     except subprocess.TimeoutExpired:
         common_logging.log_error('invoke_commands:call_command',
                                  f"Command invocation timeout: {command}")
