@@ -74,6 +74,7 @@ def db_table(conn):
                        time     TIMESTAMPTZ NOT NULL
                   );
                   SELECT create_hypertable('omnia_telemetry.metrics', 'time', if_not_exists => TRUE);
+                  SELECT add_retention_policy('omnia_telemetry.metrics', INTERVAL '2 months', if_not_exists => TRUE);
                   '''
     cursor = conn.cursor()
     cursor.execute(sql_query)
