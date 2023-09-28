@@ -91,7 +91,8 @@ def get_kubectl_get_nodes():
                 if total_nodes>0:
                     for index in range(total_nodes):
                         #Get the status and check if it is "Ready" or not
-                        if nodes_json["items"][index]["status"]["conditions"][index_status]["type"] != "Ready":
+                        kubelet_status = next( key for key in nodes_json["items"][index]["status"]["conditions"] if key["reason"] == "KubeletReady")
+                        if kubelet_status["type"] != "Ready":
                             flag_all_nodes_up = "False"
                             # In case single node is present, then that is both master and child node
                             if total_nodes==1:
