@@ -67,9 +67,9 @@ def get_cluster_values_sinfo():
     set_nodes_all=set([])
     set_nodes_up=set([])
     set_nodes_down=set([])
-
     sinfo_output = invoke_commands.call_command('sinfo --format=%N\t%P\t%a\t%C\t%t\t%D\t%m')
-
+    slurm_down_states = ['down','drained','draining','fail','failing','future','inval','maint','powered_down','powering_down','unknown']
+    slurm_up_states = ['idle','mixed','completing']
     if sinfo_output is not None:
         try:
             parsed_dict_list_output_sinfo = common_parser.get_dict_list_format_parser_output(sinfo_output,"\t",1)
@@ -77,14 +77,15 @@ def get_cluster_values_sinfo():
             column_list_nodelist=parsed_dict_list_output_sinfo["NODELIST"]
 
             for index,node_state in enumerate (column_list_state):
+                state = common_parser.split_by_regex(node_state, '\*')[0]
                 for node in column_list_nodelist[index].split(','):
                     # Total Nodes
                     set_nodes_all.add(node)
                     # Nodes Up
-                    if node_state in ['idle','mixed','completing']:
+                    if state in slurm_up_states:
                         set_nodes_up.add(node)
                     # Nodes Down
-                    elif node_state in ['down','drained','draining','fail','failing','future','inval','maint','powered_down','powering_down','unknown']:
+                    elif state in slurm_down_states:
                         set_nodes_down.add(node)
             dict_cluster_parameter_sinfo["NodesDown"]=str(len(list(set_nodes_down)))
             dict_cluster_parameter_sinfo["NodesUp"]=str(len(list(set_nodes_up)))
@@ -120,10 +121,10 @@ def get_cluster_values_squeue():
             column_list_state=parsed_dict_list_output_squeue["STATE"]
             for value in column_list_state:
                 #Running Jobs
-                if value =="R":
+                if value == "RUNNING":
                     running_jobs= running_jobs+1
                 #Pending/Queued Jobs
-                if value =="PD":
+                if value == "PENDING":
                     queued_jobs= queued_jobs+1
             dict_cluster_parameter_squeue["QueuedJobs"]=str(queued_jobs)
             dict_cluster_parameter_squeue["RunningJobs"]=str(running_jobs)
