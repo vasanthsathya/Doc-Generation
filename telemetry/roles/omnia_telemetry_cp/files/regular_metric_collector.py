@@ -185,6 +185,8 @@ class RegularMetricCollector:
         SMARTHDATemp_dict = data_collector_smart.get_using_smartctl("SMARTHDATemp")
         for key in SMARTHDATemp_dict.keys():
             self.regular_metric_output_dict["SMARTHDATemp:" + key] = SMARTHDATemp_dict[key]
+        self.regular_unit["SMARTHDATemp"] = "C"
+
 
     def get_unique_user_login(self):
         '''
