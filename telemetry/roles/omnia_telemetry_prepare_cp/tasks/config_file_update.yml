@@ -48,3 +48,4 @@
     - { name: database, value: "{{ timescaledb_name }}" }
     - { name: username, value: "{{ timescaledb_user }}" }
     - { name: password, value: "{{ timescaledb_password }}" }
+    - { name: gssencmode, value: disable }
