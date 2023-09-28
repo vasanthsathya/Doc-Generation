@@ -45,9 +45,10 @@ class DatabaseClient:
         dbhost = dbdata['host']
         dbport = dbdata['port']
         dbtelemetry = dbdata['database']
+        dbgssencmode = dbdata['gssencmode']
         #Create connection string for connecting to db
-        connection_string = f"postgres://{dbuser}:{dbpwd}@{dbhost}:{dbport}/{dbtelemetry}".format(
-            dbuser = dbuser, dbpwd = dbpwd, dbhost = dbhost, dbport = dbport, dbtelemetry = dbtelemetry)
+        connection_string = f"postgres://{dbuser}:{dbpwd}@{dbhost}:{dbport}/{dbtelemetry}?gssencmode={dbgssencmode}".format(
+            dbuser = dbuser, dbpwd = dbpwd, dbhost = dbhost, dbport = dbport, dbtelemetry = dbtelemetry, dbgssencmode = dbgssencmode)
         try:
             self.db_conn = psycopg2.connect(connection_string)
             if self.db_conn is not None:
