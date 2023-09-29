@@ -48,7 +48,6 @@ def get_cluster_values_sacct():
         common_logging.log_error("data_collector_slurm:get_cluster_values_sacct", "sacct command output is None")
     return dict_cluster_parameter_sacct
 
-
 def get_cluster_values_sinfo():
     '''
     get all sinfo related values from this method.
@@ -68,7 +67,7 @@ def get_cluster_values_sinfo():
     set_nodes_up=set([])
     set_nodes_down=set([])
     sinfo_output = invoke_commands.call_command('sinfo --format=%N\t%P\t%a\t%C\t%t\t%D\t%m')
-    slurm_down_states = ['down','drained','draining','fail','failing','future','inval','maint','powered_down','powering_down','unknown']
+    slurm_down_states = ['down','drained','draining','fail','failing','future','inval','maint','powered_down','powering_down','unknown','unk']
     slurm_up_states = ['idle','mixed','completing']
     if sinfo_output is not None:
         try:
@@ -77,15 +76,17 @@ def get_cluster_values_sinfo():
             column_list_nodelist=parsed_dict_list_output_sinfo["NODELIST"]
 
             for index,node_state in enumerate (column_list_state):
+                # state ending with * denotes node currently not responding, hence declaring that node as down.
+                star_present = state.endswith('*')
                 state = common_parser.split_by_regex(node_state, '\*')[0]
                 for node in column_list_nodelist[index].split(','):
                     # Total Nodes
                     set_nodes_all.add(node)
                     # Nodes Up
-                    if state in slurm_up_states:
+                    if not star_present and state in slurm_up_states:
                         set_nodes_up.add(node)
                     # Nodes Down
-                    elif state in slurm_down_states:
+                    elif star_present or state in slurm_down_states:
                         set_nodes_down.add(node)
             dict_cluster_parameter_sinfo["NodesDown"]=str(len(list(set_nodes_down)))
             dict_cluster_parameter_sinfo["NodesUp"]=str(len(list(set_nodes_up)))
@@ -95,7 +96,6 @@ def get_cluster_values_sinfo():
     else:
         common_logging.log_error("data_collector_slurm:get_cluster_values_sinfo", "sinfo command output is None")
     return dict_cluster_parameter_sinfo
-
 
 def get_cluster_values_squeue():
     '''
