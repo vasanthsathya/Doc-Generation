@@ -78,7 +78,10 @@ class DatabaseClient:
                 if metric_dict:
                     for key,value in metric_dict.items():
                         if value!="":
-                            unit = common_parser.get_unit(key,combined_unit_dict)
+                            if value in ["No data", "Unknown"]:
+                                unit=""
+                            else:
+                                unit = common_parser.get_unit(key,combined_unit_dict)
                             label = key+" "+metric
                             db_data_tuple = (key,metric,label,value,unit,service_tag,hostname,timestamp)
                             db_query_list.append(db_data_tuple)
