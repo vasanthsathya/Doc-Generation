@@ -244,16 +244,16 @@ class HealthCheckMetricCollector:
         if gpu_thermal is not None:
             for index, item in enumerate(gpu_thermal):
                 if int(item) < 85:
-                    self.health_check_metric_output_dict["gpu_health_temperature:gpu" \
+                    self.health_check_metric_output_dict["gpu_health_thermal:gpu" \
                                                          + str(index)] = \
                                                             utility.Result.SUCCESS.value
                 else:
-                    self.health_check_metric_output_dict["gpu_health_temperature:gpu" \
+                    self.health_check_metric_output_dict["gpu_health_thermal:gpu" \
                                                          + str(index)] = \
                                                             utility.Result.FAILURE.value
 
         else:
-            self.health_check_metric_output_dict["gpu_health_temperature:gpu"] = \
+            self.health_check_metric_output_dict["gpu_health_thermal:gpu"] = \
                 utility.Result.UNKNOWN.value
 
     def get_smart_health_parameters(self):
@@ -298,7 +298,7 @@ class HealthCheckMetricCollector:
                 utility.Result.UNKNOWN.value
             self.health_check_metric_output_dict["gpu_health_power"] = \
                 utility.Result.UNKNOWN.value
-            self.health_check_metric_output_dict["gpu_health_temperature"] = \
+            self.health_check_metric_output_dict["gpu_health_thermal"] = \
                 utility.Result.UNKNOWN.value
         if aggregation_level in ["manager", "manager,login"]:
 
