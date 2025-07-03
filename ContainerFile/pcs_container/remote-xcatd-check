@@ -1,0 +1,55 @@
+#!/bin/bash
+. /usr/lib/ocf/resource.d/heartbeat/.ocf-shellfuncs
+case "$1" in
+  start)
+    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o ConnectTimeout=30 root@localhost "systemctl start xcatd"
+    if [ $? -eq 0 ]; then
+      exit $OCF_SUCCESS
+    else
+      exit $OCF_ERR_GENERIC
+    fi
+    ;;
+  stop)
+    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o ConnectTimeout=30 root@localhost "systemctl stop xcatd"
+    exit $OCF_SUCCESS
+    ;;
+  restart)
+    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o ConnectTimeout=30 root@localhost "/opt/xcat/sbin/restartxcatd -v"
+    if [ $? -eq 0 ]; then
+      exit $OCF_SUCCESS
+    else
+      exit $OCF_ERR_GENERIC
+    fi
+    ;;
+  monitor)
+    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes -o ConnectTimeout=30 root@localhost "systemctl is-active --quiet xcatd"
+    if [ $? -eq 0 ]; then
+      exit $OCF_SUCCESS
+    else
+      exit $OCF_NOT_RUNNING
+    fi
+    ;;
+  meta-data)
+    cat <<EOF_META
+<resource-agent name="xcatd-remote-check">
+  <version>1.0</version>
+  <longdesc lang="en">
+    Monitors and manages xCAT service via SSH from container to host.
+  </longdesc>
+  <shortdesc lang="en">xCAT monitor via SSH</shortdesc>
+  <parameters/>
+  <actions>
+    <action name="start" timeout="10s"/>
+    <action name="stop" timeout="10s"/>
+    <action name="monitor" timeout="10s" interval="30s"/>
+    <action name="meta-data" timeout="5s"/>
+  </actions>
+</resource-agent>
+EOF_META
+    exit $OCF_SUCCESS
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|monitor|meta-data}"
+    exit $OCF_ERR_UNIMPLEMENTED
+    ;;
+esac

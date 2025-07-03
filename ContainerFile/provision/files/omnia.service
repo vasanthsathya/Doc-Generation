@@ -1,0 +1,10 @@
+[Unit]
+Description=Service to monitor provisioning
+
+[Service]
+Type=simple
+ExecStart=/opt/omnia/services/omnia_service_script.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
