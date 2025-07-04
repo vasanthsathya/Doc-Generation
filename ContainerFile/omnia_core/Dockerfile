@@ -86,5 +86,9 @@ RUN chmod +x /entrypoint.sh
 # Configure workdir for podman
 WORKDIR /omnia
 
+# Copy pulp certificate to core container's trust
+COPY cert-copy.sh /cert-copy.sh
+RUN chmod +x /cert-copy.sh
+
 # Set the entrypoint script as the entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
