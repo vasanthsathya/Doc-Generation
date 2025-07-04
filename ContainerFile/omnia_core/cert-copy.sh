@@ -22,5 +22,4 @@ else
   echo "$(date '+%Y-%m-%d %H:%M:%S'): Cert not found at $CERT_PATH" >> "$LOG_FILE"
 fi
 
-echo "$(date '+%Y-%m-%d %H:%M:%S'): Starting main process" >> "$LOG_FILE"
 exec "$@"
