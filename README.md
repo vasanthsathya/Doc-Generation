@@ -85,15 +85,6 @@ k8s_to_kubespray:
   "1.31.4": "v2.28.0"
 ```
 
-## `omnia_startup.sh` Script Overview
-
-Once `omnia_core` image is build using `build_images.sh` script we can execute `omnia_startup.sh` script, this will create core container and do all necessary task to get passwordless ssh to core containers.
-
-```bash
-wget https://raw.githubusercontent.com/dell/omnia/refs/heads/pub/new_architecture/omnia_startup.sh
-chmod +x omnia_startup.sh
-./omnia_startup.sh
-```
 
 ## Updating Python Packages
 
