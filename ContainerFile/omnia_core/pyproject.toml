@@ -26,5 +26,6 @@ dependencies = [
     "toml==0.10.2",
     "http-client",
     "gitPython",
-    "ansible-lint"
+    "ansible-lint",
+    "jmespath"
 ]
