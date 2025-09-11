@@ -1,11 +1,11 @@
-# Use Fedora 38 as the base image
-FROM fedora:38
+# Use Fedora 40 as the base image
+FROM fedora:40
 
 # Build arguments
 ARG OMNIA_VERSION=staging
 
-# Update the system and install Python 3.11
-RUN dnf -y install python3.11 python3.11-pip git git-lfs openssh-server \
+# Update the system and install Python 3.12
+RUN dnf -y install python3 python3-pip git git-lfs openssh-server \
     iproute systemd passwd openssl jq createrepo yum-utils \
     wget unzip tar dnf-plugins-core rsync iputils nano && \
     dnf clean all
