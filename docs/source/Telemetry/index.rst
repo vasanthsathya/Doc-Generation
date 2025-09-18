@@ -8,4 +8,3 @@ Telemetry and visualization
     service_cluster_telemetry
     grafana
     prometheus
-    service_cluster_telemetry
