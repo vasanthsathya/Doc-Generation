@@ -9,7 +9,7 @@ Prerequisites
 
 * Redfish must be enabled in iDRAC.
 * All service cluster nodes should have access to the Internet.
-* iDRAC firware must be updated to the latest version. 
+* iDRAC firmware must be updated to the latest version. 
 * Datacenter license must be installed on the nodes.
 * Ensure that the correct node service tags are being displayed in the iDRAC interface. Otherwise, telemetry data won't be collected by the ``idrac_telemetry_receiver`` container.
 * Ensure that ``discovery_provision.yml`` playbook has been executed successfully and the ``bmc_group_data.csv`` file has been generated.
