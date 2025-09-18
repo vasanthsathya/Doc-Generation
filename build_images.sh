@@ -79,7 +79,7 @@ build_omnia_kubespray() {
 
 
 # Default parameterized values
-OMNIA_VERSION="staging"
+OMNIA_VERSION="pub/ochami"
 KUBESPRAY_VERSION='v2.28.0'
 
 # Parse command line arguments
