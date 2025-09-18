@@ -1,0 +1,48 @@
+﻿Parameter,Details
+"**node_name**
+
+``string``
+
+Required","* Prefix for target node names, if dynamically allocated.
+* Hostname: ``<node_name>0000x.<domain_name>``
+* Hostname should be less than or equal to 65 characters.
+* **Example**: ``servernode00001.Omnia.test``,  where  ``<node_name>`` is ``servernode``,  ``<domain_name> is Omnia.test``, and ``00001`` is appended by Omnia.
+
+**Default values**: ``node``"
+"**pxe_mapping_file_path**
+
+``string``
+
+Optional","* This variable is required to discover nodes using a mapping file.
+* The mapping file consists of the Service tag, Admin MAC, Hostname, Admin IP address, and/or BMC IP address.
+* Ensure that the admin IP addresses provided are within the ``admin_static_ranges``.
+* The headers of the ``.csv`` file are ``SERVICE_TAG``, ``ADMIN_MAC``, ``HOSTNAME``, ``ADMIN_IP``, and ``BMC_IP``
+* A sample file is provided here: ``examples/pxe_mapping_file.csv``"
+"**timezone**
+
+``string``
+
+Required","Timezone to be used during OS provisioning. Available timezones are provided `here <../../../Appendices/Timezones.html>`_.
+
+Choices:
+
+* ``GMT`` <- default
+* ``EST``
+* ``CET``
+* ``MST``
+* ``CST6CDT``
+* ``PST8PDT``"
+"**language**
+
+``string``
+
+Required","Language to be used during OS provisioning.
+
+**Default value**: ``en-US``"
+"**default_lease_time**
+
+``integer``
+
+Required","Default lease time for IPs assigned by DHCP. Range: 21600-86400
+
+**Default value**: ``86400``"

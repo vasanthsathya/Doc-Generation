@@ -1,0 +1,63 @@
+﻿Functional Group Name,Layer,Details
+Default - ``default_x86_64``,Compute,"* Omnia assigns the default functional group to nodes which do not fit into any specific  functional groups.
+
+
+**Example**:
+::
+      functional_groups:
+      - name: ""default_x86_64""
+        location_id: SU-1.RACK-1
+        cluster_name: """"
+        parent: """"                                                                "
+Slurm worker node - ``slurm_node_x86_64``,Compute,"* This  functional group is used to configure the nodes for Slurm worker. The nodes included in this  functional group will have the necessary tools and configurations to run Slurm worker.
+* The nodes in this  functional group can be used to run Slurm worker.
+
+**Example**:
+::
+     functional_groups:
+      - name: ""slurm_node_x86_64""
+        location_id: SU-1.RACK-1
+        cluster_name: """"
+        parent: """""
+Slurm control plane - ``slurm_control_node_x86_64``,Management,"* Nodes with ``slurm_control_node``  functional group can be added to the Slurm head node groups.
+* This  functional group is used to configure the nodes for Slurm head. The nodes included in this  functional group will have the necessary tools and configurations to run Slurm head.
+* The nodes in this  functional group can be used to run the Slurm head.
+
+**Example**:
+::
+     functional_groups:
+      - name: ""slurm_control_node_x86_64""
+        location_id: SU-1.RACK-1
+        cluster_name: """"
+        parent: """""
+Service Cluster Kubernetes worker node - ``service_kube_node_x86_64``,Management,"* * ``service_kube_node``  functional group: Service Cluster Kubernetes worker node groups can be provided in this  functional group.
+* This  functional group is used to configure the Kubernetes worker nodes on service cluster.
+* The nodes included in this  functional group will have the necessary tools and configurations to configure and run Kubernetes worker on service cluster.
+
+
+**Example**:
+::
+    functional_groups:
+      - name: ""service_kube_node_x86_64""
+        location_id: SU-1.RACK-1
+        cluster_name: """"
+        parent: """""
+Compiler - ``login_compiler_node_x86_64``,Management,"* This  functional group is used to configure the nodes for compilation. The nodes included in this  functional group will have the necessary tools and configurations to perform compilation.
+* The nodes in this  functional group can be used to compile the code.
+
+**Example**:
+::
+     functional_groups:
+      - name: ""login_compiler_node_x86_64""
+        location_id: SU-1.RACK-1
+        cluster_name: """"
+        parent: """""
+Login node - ``login_node_x86_64``,Management,"* This  functional group is used to configure the nodes for user logins. The nodes included in this  functional group will have the necessary tools and configurations to support user login activities.
+
+**Example**:
+::
+     functional_groups:
+      - name: ""login_node_x86_64""
+        location_id: SU-1.RACK-1
+        cluster_name: """"
+        parent: """""

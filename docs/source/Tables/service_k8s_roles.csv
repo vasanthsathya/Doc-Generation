@@ -1,0 +1,13 @@
+﻿Role Name,Layer,Details
+service_kube_node_x86_64- ``service_kube_node``,Management,"* This role is used to configure the Kubernetes worker nodes on service cluster. This role should not have same group as ``kube_node`` role.
+
+* The nodes included in this role will have the necessary tools and configurations to configure and run Kubernetes worker on service cluster.
+
+* ``service_kube_node`` role: Service Cluster Kubernetes worker node groups can be provided in this role.
+    
+     ::
+
+          - name: ""service_kube_node""
+             groups:
+                - grp0
+                - grp1"

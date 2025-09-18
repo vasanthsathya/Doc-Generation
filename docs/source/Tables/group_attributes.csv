@@ -1,0 +1,20 @@
+﻿Attribute,Mandatory/Conditional mandatory/Optional,Description
+Group Name - ``grpN``,Mandatory,"* User defined name of the group.
+* Range for ``N`` is 0-99.
+
+ **Example**: ``grp0``, ``grp1``, and ``grp2``."
+Name of the cluster- ``cluster_name``,Conditional mandatory,"* Name of the cluster to which the group belongs to. 
+* ``cluster_name`` attribute is mandatory for Kubernetes related roles. For non-Kubernetes roles, this field will remain empty.
+* This input is case-sensitive. Do not add any special characters except ``_`` (underscore) for the cluster name."
+Location of the node - ``location_id``,Mandatory,"* Scalable unit and rack number range.
+* Range for ``<n>`` is 0-99.
+* **Format**: ``SU-<n>.RACK-<n>``
+
+ **Example**: ``SU-1.RACK-1``
+
+.. note:: This attribute is case-sensitive. Ensure to use uppercase characters only."
+Service tab of the parent node- ``parent``,Conditional mandatory,"*  List of service tag of associated active service node(s).
+*  This field will be empty for group of nodes which is associated with ``login_node``, ``compiler_node``, ``service_node``,  ``auth_server``, ``service_kube_control_plane``,  ``service_etcd``, ``kube_control_plane``, ``etcd``, ``slurm_control_node``.
+*  If ``service``functional_group is not defined, then value will be empty for worker and default functional_group."
+Node architecture - ``architecture``,Mandatory,"* Architecture of the nodes.
+* Possible values: ``x86_64`` or ``ARM``"
