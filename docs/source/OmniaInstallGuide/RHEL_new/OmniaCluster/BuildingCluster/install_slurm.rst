@@ -37,7 +37,7 @@ Set up Slurm
 
 **Install Slurm**
 
-Run either of the following commands:
+Run the following command:
 
     1. ::
 
