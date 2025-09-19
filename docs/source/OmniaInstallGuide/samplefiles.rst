@@ -14,23 +14,11 @@ Inventory file for service K8s cluster
 
         [kube_control_plane]
 
-        10.5.1.101
+        10.5.0.201
+        10.5.0.202
+        10.5.0.203 
 
-        [etcd]
-
-        10.5.1.101
-
-        [kube_node]
-
-        10.5.1.102
-
-        10.5.1.103
-
-        10.5.1.104
-
-        10.5.1.105
-
-        10.5.1.106
+        
 
 
 Inventory file for PXE boot order
@@ -52,15 +40,12 @@ software_config.json for RHEL
     "cluster_os_version": "10.0",
     "repo_config": "always",
     "softwares": [
-        {"name": "cuda", "version": "13.0.1"},
-        {"name": "ofed", "version": "24.10-3.2.5.0"},
-        {"name": "openldap"},
-        {"name": "nfs"},
-        {"name": "slurm"},
-        {"name": "service_k8s", "version": "1.31.4"},
-        {"name": "ucx", "version": "1.15.0"},
-        {"name": "openmpi", "version": "4.1.6"},
-        {"name": "csi_driver_powerscale", "version":"v2.14.0"}        
+        {"name": "cuda", "version": "13.0.1", "arch": ["x86_64","aarch64"]},
+        {"name": "ofed", "version": "24.10-3.2.5.0", "arch": ["x86_64"]},
+        {"name": "openldap", "arch": ["x86_64"]},
+        {"name": "nfs", "arch": ["x86_64","aarch64"]},
+        {"name": "service_k8s","version": "1.31.4", "arch": ["x86_64"]},
+        {"name": "slurm", "arch": ["x86_64","aarch64"]}
     ],
     "slurm": [
         {"name": "slurm_control_node"},
