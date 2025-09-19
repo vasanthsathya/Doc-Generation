@@ -13,10 +13,13 @@ Set up Slurm
     
     OR,
 
+  ::
+
     "softwares": [
-                    {"name": "custom_slurm" },
+                    {"name": "slurm_custom" },
                  ]
-    Ensure that you provide the ``custom_slurm.json`` by adding the user_repo_url: slurm-repo data in ``local_repo_config.yml``.
+    
+Ensure that you provide the ``slurm_custom.json`` by adding the user_repo_url: slurm-repo data in ``local_repo_config.yml``.
 
 * Ensure that the following sub-group entry is also present in the ``software_config.json`` file: ::
 
@@ -26,7 +29,7 @@ Set up Slurm
                     {"name": "login_node"}
                 ]
 
-* Ensure to run ``local_repo.yml`` with the ``slurm`` entry present in ``software_config.json`` to download all required slurm packages.
+* Ensure to run ``local_repo.yml`` with the ``slurm/slurm_custom`` entry present in ``software_config.json`` to download all required slurm packages.
 
 * Once all the required parameters in `omnia_config.yml <../schedulerinputparams.html#id13>`_ are filled in, ``discovery.yml`` can be used to set up Slurm.
 
@@ -41,7 +44,8 @@ Run the following command:
 
     1. ::
 
-           cd /omnia/discovery ansible-playbook discovery.yml
+           cd /omnia/discovery
+           ansible-playbook discovery.yml
 
     
     
