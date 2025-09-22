@@ -42,7 +42,7 @@ Ensure that you provide the ``slurm_custom.json`` by adding the user_repo_url: s
 
 Run the following command:
 
-    1. ::
+     ::
 
            cd /omnia/discovery
            ansible-playbook discovery.yml
