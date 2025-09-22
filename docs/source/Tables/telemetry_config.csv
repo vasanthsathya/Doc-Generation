@@ -13,3 +13,20 @@
 * If ``idrac_telemetry_support`` is set to ``true`` and ``idrac_telemetry_collection_type`` is ``prometheus``, then the ``prometheus`` and ``prometheus_pump`` containers are deployed during the execution of the ``prepare_oim.yml`` playbook.
 * **Accepted value**: ``kafka``
 * **Sample**: ``idrac_telemetry_collection_type: ""kafka""``"
+kafka_configurations > ``persistence_size``,Conditional Mandatory,"* **Type**: Integer
+* The amount of storage allocated for Kafka's persistent volume.
+* **Accepted values**: a number followed by Ki, Mi, Gi, Ti, Pi, or Ei.
+* **Default value**: 8Gi"
+kafka_configurations > ``log_retention_hours``,Conditional Mandatory,"* **Type**: Integer
+* The number of hours to retain Kafka logs before they are deleted.
+* **Default value**:  168 (7 days)"
+kafka_configurations > ``log_retention_bytes``,Conditional Mandatory,"* **Type**: Integer
+* The maximum size of Kafka logs (in bytes) before they are deleted.
+* **Default value**:  -1 (unlimited)"
+kafka_configurations > ``log_segment_bytes``,Conditional Mandatory,"* **Type**: Integer
+* The maximum size of Kafka log segments (in bytes) before they are deleted.
+* **Default value**:  1073741824 (1 GB)"
+kafka_configurations > ``topic_partitions``,Conditional Mandatory,"* **Type**: Integer
+* The number of partitions for each Kafka topic.
+* Increasing this can improve throughput but also increases storage or overhead.
+* **Default value**:  1"

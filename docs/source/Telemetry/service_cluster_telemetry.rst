@@ -2,7 +2,7 @@
 Deploy iDRAC telemetry service on the service cluster
 =======================================================
 
-To deploy telemetry service on the service cluster and collect iDRAC telemetry data using Prometheus, refer to the following guide.
+To deploy telemetry service on the service cluster and collect iDRAC telemetry data using Kafka, refer to the following guide.
 
 Prerequisites
 ===============
@@ -11,11 +11,11 @@ Prerequisites
 * All service cluster nodes should have access to the Internet.
 * iDRAC firmware must be updated to the latest version. 
 * Datacenter license must be installed on the nodes.
-* Ensure that the correct node service tags are being displayed in the iDRAC interface. Otherwise, telemetry data won't be collected by the ``idrac_telemetry_receiver`` container.
-* Ensure that ``discovery_provision.yml`` playbook has been executed successfully and the ``bmc_group_data.csv`` file has been generated.
-* Ensure that the ``service_k8s_cluster`` playbook has been executed successfully and Kubernetes on the service cluster is up and running. For a step-by-step guide, `click here <../OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/Kubernetes/service_cluster_k8s.html>`_.
-* For federated telemetry collection on service cluster, all BMC (iDRAC) IPs must be reachable from the service cluster nodes.
-* Before running the ``telemetry.yml`` playbook for the service cluster, ensure that all the nodes mentioned in the ``<service_cluster_name>_cluster_layout`` inventory are booted up and reachable. If any of the nodes is not reachable, remove the node from the inventory and then proceed.
+* Ensure that the correct node service tags are being displayed on the iDRAC interface. Otherwise, telemetry data cannot be collected by the ``idrac_telemetry_receiver`` container.
+* For telemetry collection on service cluster, all BMC (iDRAC) IPs must be reachable from the service cluster nodes.
+* Ensure that the ``service_k8s_cluster`` playbook has been executed successfully and Kubernetes on the service K8s controller node is up and running. For a step-by-step guide, `click here <../OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/Kubernetes/service_cluster_k8s.html>`_.
+* Ensure that ``discovery.yml`` playbook has been executed successfully and the ``bmc_group_data.csv`` file has been generated.
+* Before running the ``telemetry.yml`` playbook for the service cluster, ensure that all the service K8s compute node are reachable and booted and have been configured in the service K8s cluster.
 
 Steps
 ======
