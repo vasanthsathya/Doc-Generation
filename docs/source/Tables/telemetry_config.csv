@@ -23,6 +23,9 @@ kafka_configurations > ``log_retention_hours``,Conditional Mandatory,"* **Type**
 kafka_configurations > ``log_retention_bytes``,Conditional Mandatory,"* **Type**: Integer
 * The maximum size of Kafka logs (in bytes) before they are deleted.
 * **Default value**:  -1 (unlimited)"
+kafka_configurations > ``log_segment_bytes``,Conditional Mandatory,"* **Type**: Integer
+* The maximum size of Kafka log segments (in bytes) before they are deleted.
+* **Default value**:  1073741824 (1 GB)"
 kafka_configurations > ``topic_partitions``,Conditional Mandatory,"* **Type**: Integer
 * The number of partitions for each Kafka topic.
 * Increasing this can improve throughput but also increases storage or overhead.
