@@ -101,7 +101,7 @@ Steps
    :header-rows: 1
    :keepspace:
 
-4. Run ansible-playbook ``service_k8s_cluster.yml``.
+4. Run ``ansible-playbook service_k8s_cluster.yml``.
 
 
 5. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. 
