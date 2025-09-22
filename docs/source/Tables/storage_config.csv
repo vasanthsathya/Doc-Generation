@@ -12,7 +12,9 @@
     * Client_share_path—Path where nfs server contents needs to be mounted. The default value is /opt/omnia.
     * Nfs_server—The value is always false.
 * See the following sample: 
+
     :: 
+
           nfs_client_params:
                 {
                       nfs_name: ""nfs_storage_default""

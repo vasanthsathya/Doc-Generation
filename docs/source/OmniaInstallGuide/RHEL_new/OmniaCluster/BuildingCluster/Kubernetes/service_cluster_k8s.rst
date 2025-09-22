@@ -95,6 +95,7 @@ Steps
    :keepspace:
 
 4. Run ``ansible-playbook utils/connect_external_server.yml``. This playbook is used to set up passwordless SSH to the ``kube_control_planes`` and updating the repositories and plup repository certificates. See the following sample:
+   
     ::
 
         [root@omnia_core utils]# cat inv
