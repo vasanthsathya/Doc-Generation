@@ -36,15 +36,7 @@ Prerequisites
     }
 
 * Ensure that there are a minimum of  three ``kube_control_planes``.
-
 * Ensure that the ``kube_control_planes`` has a full-featured RHEL operating system (OS) installed. 
-
-* Ensure that the ``kube_control_planes`` has internet access and Git installed. If Git is not installed, use the following command to install it.
-
-    ::
-
-        dnf install git -y
-
 * The ``kube_control_planes`` has internet access to download necessary packages for cluster deployment and configuration.
 * The ``kube_control_planes`` must have two active Network Interface Cards (NICs):  
 

@@ -84,3 +84,8 @@ Click here for more information on `OpenLDAP, FreeIPA <BuildingCluster/Authentic
 
 ``/opt/omnia/input/project_default/high_availability_config.yml``
 ----------------------------------------------------------
+
+.. csv-table:: Parameters for Service Cluster HA
+        :file: ../../../Tables/service_k8s_high_availability.csv
+        :header-rows: 1
+        :keepspace:
