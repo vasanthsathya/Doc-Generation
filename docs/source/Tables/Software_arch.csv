@@ -1,0 +1,10 @@
+﻿Software name,x86_64 ,aarch64
+default_packages.json,Yes,Yes
+cuda.json,Yes,Yes
+ofed.json,Yes,No
+openldap.json,Yes,No
+nfs.json,Yes,Yes
+slurm_custom.json,Yes,Yes
+service_k8s.json,Yes,No
+ucx.json,Yes,No
+openmpi,Yes,No

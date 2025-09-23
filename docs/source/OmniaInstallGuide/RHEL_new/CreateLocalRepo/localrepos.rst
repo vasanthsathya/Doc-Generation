@@ -27,7 +27,7 @@ Configuring specific local repositories
 
 .. note::
     * If the package version is customized, ensure that the same ``version`` value is also updated in the ``software_config.json``.
-    * If the target cluster runs on RHEL, ensure that the "dkms" package is also included in ``/opt/omnia/input/project_default/config/<cluster_os_type>/9.x/cuda.json``, as shown above.
+    * If the target cluster runs on RHEL, ensure that the "dkms" package is also included in ``/opt/omnia/input/project_default/config/<arch>/<cluster_os_type>/10.0/cuda.json``, as shown above.
 
 **OFED**
 
@@ -35,7 +35,7 @@ Configuring specific local repositories
 
             {"name": "ofed", "version": "24.10-3.2.5.0", "arch": ["x86_64"]},
 
-    For a list of repositories (and their types) configured for OFED, view the ``/opt/omnia/input/project_default/config/<cluster_os_type>/<cluster_os_version>/ofed.json`` file. To customize your OFED installation, update the ``url`` parameter with your desired OFED version URL. ::
+    For a list of repositories (and their types) configured for OFED, view the ``/opt/omnia/input/project_default/config/<arch>/<cluster_os_type>/<cluster_os_version>/ofed.json`` file. To customize your OFED installation, update the ``url`` parameter with your desired OFED version URL. ::
 
         {
           "ofed": {
@@ -121,4 +121,4 @@ Configuring specific local repositories
 
                 {"name": "additional_software"},
 
-    Create an ``additional_software.json`` file in the following directory: ``/opt/omnia/input/project_default/config/<cluster_os_type>/<cluster_os_version>`` and add your choice of additional software. For a cluster running RHEL 10.0, go to ``/opt/omnia/input/project_default/config/rhel/10.0/`` and create the file there. For more information, `click here <../../../Utils/software_update.html>`_.
+    Create an ``additional_software.json`` file in the following directory: ``/opt/omnia/input/project_default/config/<arch>/<cluster_os_type>/<cluster_os_version>`` and add your choice of additional software. For a cluster running RHEL 10.0, go to ``/opt/omnia/input/project_default/config/<arch>/rhel/10.0/`` and create the file there. For more information, `click here <../../../Utils/software_update.html>`_.
