@@ -1,0 +1,14 @@
+﻿Software name,x86_64 ,aarch64
+amdgpu.json ,Yes     ,No
+cuda.json,Yes     ,Yes     
+ofed.json,Yes     ,No
+freeipa.json,Yes     ,No
+openldap.json,Yes     ,No
+secure_login_node.json,Yes     ,No
+nfs.json,Yes     ,Yes     
+slurm.json  ,Yes     ,Yes     
+k8s.json,Yes     ,No
+service_k8s.json,Yes     ,No
+ucx.json,Yes     ,No
+openmpi,Yes     ,No
+racadm    ,Yes     ,No
