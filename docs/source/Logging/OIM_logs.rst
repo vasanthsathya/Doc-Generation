@@ -11,7 +11,7 @@ OIM logs
 Omnia containers
 -----------------
 
-This table shows the status of Omnia containers running on the OIM:
+The following table shows the status of Omnia containers running on the OIM:
 
 +--------------+-------------------------------------+----------------------+-------------+-------------+---------------------------------------------------+-------------------+
 | CONTAINER ID | IMAGE                               | COMMAND              | CREATED     | STATUS      | PORTS                                             | NAMES             |
