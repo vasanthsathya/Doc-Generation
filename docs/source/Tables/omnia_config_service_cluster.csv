@@ -7,7 +7,7 @@
 * **Accepted values**: ``true`` or ``false``"
 ``k8s_cni``,Mandatory,"* **Type**: String
 * Kubernetes SDN network.
-* **Accepted values**: ``calico`` or ``flannel``
+* **Accepted values**: ``calico``
 * **Default value**: ``calico``"
 ``pod_external_ip_range``,Mandatory,"* **Type**: String
 * These addresses will be used by the loadbalancer for assigning external IPs to Kubernetes services.

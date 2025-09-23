@@ -43,6 +43,15 @@ The ``service_k8s_cluster.yml`` playbook is dependent on the inputs provided to 
    :header-rows: 1
    :keepspace:
 
+See the following sample:
+::
+
+      slurm_cluster:
+      - cluster_name: slurm_cluster
+        installation_type: "configless"
+        restart_slurm_services: true
+        nfs_storage_name: nfs_slurm
+
 ``/opt/omnia/input/project_default/security_config.yml``
 ----------------------------------------------------------
 
@@ -75,3 +84,8 @@ Click here for more information on `OpenLDAP, FreeIPA <BuildingCluster/Authentic
 
 ``/opt/omnia/input/project_default/high_availability_config.yml``
 ----------------------------------------------------------
+
+.. csv-table:: Parameters for Service Cluster HA
+        :file: ../../../Tables/service_k8s_high_availability.csv
+        :header-rows: 1
+        :keepspace:

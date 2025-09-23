@@ -36,16 +36,9 @@ Prerequisites
     }
 
 * Ensure that there are a minimum of  three ``kube_control_planes``.
-
 * Ensure that the ``kube_control_planes`` has a full-featured RHEL operating system (OS) installed. 
-
-* Ensure that the ``kube_control_planes`` has internet access and Git installed. If Git is not installed, use the following command to install it.
-
-    ::
-
-        dnf install git -y
-
 * The ``kube_control_planes`` has internet access to download necessary packages for cluster deployment and configuration.
+* Ensure that the nfs server is reachable on all the diskless and diskfull nodes.
 * The ``kube_control_planes`` must have two active Network Interface Cards (NICs):  
 
   * One connected to the public network.  
@@ -101,12 +94,22 @@ Steps
    :header-rows: 1
    :keepspace:
 
-4. Run ``ansible-playbook service_k8s_cluster.yml``.
+4. Run ``ansible-playbook utils/connect_external_server.yml``. This playbook is used to set up passwordless SSH to the ``kube_control_planes`` and updating the repositories and plup repository certificates. See the following sample:
+   
+    ::
+
+        [root@omnia_core utils]# cat inv
+        [kube_control_plane]
+        10.5.0.211  ansible_user=root ansible_ssh_pass=****
+        10.5.0.212  ansible_user=root ansible_ssh_pass=****
+        10.5.0.213  ansible_user=root ansible_ssh_pass=****        
+
+5. Run ``ansible-playbook service_k8s_cluster.yml``.
 
 
-5. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. 
+6. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. 
 
-6. Run ``discovery.yml`` playbook to discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups.
+7. Run ``discovery.yml`` playbook to discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups.
    After successfully running the ``discovery.yml`` playbook, you can either manually PXE boot the nodes or use the ``set_pxe_boot.yml`` playbook. PXE booting allows the nodes to load diskless images from the Omnia Infrastructure Manager (OIM). For detailed steps on using ``set_pxe_boot.yml``, see Set PXE Boot Order.
 
 
@@ -118,27 +121,31 @@ Once all the required input files are filled up, use the below commands to set u
     cd scheduler
     ansible-playbook service_k8s_cluster.yml - i <ivn>
 
-In the command above, ``<ivn>`` refers to the inventory. See the following sample:
+In the command above, ``<kube_control_planes>`` refers to the inventory. See the following sample:
 
     ::
 
-        [Inventory]
+        [root@omnia_core scheduler]# cat inv
+        [kube_control_plane]
         10.5.0.201  
         10.5.0.202 
         10.5.0.203 
+        [etcd]
+        10.5.0.211
+        10.5.0.212
+        10.5.0.213
 
 
 Additional installations
 =========================
 
-After deploying Kubernetes, you can install the following additional packages on top of the Kubernetes stack on the service cluster:
+After deploying Kubernetes, the following additional packages are installed on top of the Kubernetes stack on the service cluster:
 
 1. **nfs-client-provisioner**
 
-        * NFS subdir external provisioner is an automatic provisioner that use your existing and already configured external NFS server to support dynamic provisioning of Kubernetes Persistent Volumes via Persistent Volume Claims.
+        * NFS subdir external provisioner is an automatic provisioner that use your existing and already configured external NFS server to support dynamic provisioning of Kubernetes Persistent Volumes via Persistent Volume Claims (PVC).
         * The nfs_name mentioned in ``storage_config.yml`` should match the ``nfs_storage_name`` of the entries for the ``service_k8s_cluster``.
-        * Use the same NFS server IP provided during ``omnia_startup.sh`` execution. 
-        * Path is mentioned in ``/omnia/k8s_pvc_data`` under ``{{ nfs_server_share_path }}``.
+        * The path to PVC is mentioned under ``{{ nfs_server_share_path }}``.
 
     Click `here <https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner>`_ for more information.
 

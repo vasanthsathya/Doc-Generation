@@ -5,7 +5,23 @@
 
      Required    ","* This JSON list contains all parameters required to set up NFS.
 * The default value for the ``nfs_name``  is the ``nfs_storage_default``. Type: string.
-* For a bolt-on set up where there is a pre-existing NFS export, set ``nfs_server`` to ``false``."
+* For a bolt-on set up where there is a pre-existing NFS export, set ``nfs_server`` to ``false``.
+* See the following parameters: 
+    * Server_ip—Provide the IP of the NFS server which is accessible to all the diskful and diskless nodes.
+    * Server_share_path—Provide server share path of the NFS Server.
+    * Client_share_path—Path where nfs server contents needs to be mounted. The default value is /opt/omnia.
+    * Nfs_server—The value is always false.
+* See the following sample::
+
+          nfs_client_params:
+                {
+                      nfs_name: ""nfs_storage_default""
+                      server_ip: """", # Provide the IP of the NFS server
+                      server_share_path: """", # Provide server share path of the NFS Server
+                      client_share_path: /opt/omnia,
+                      client_mount_options: ""nosuid,rw,sync,hard,intr"",
+                      nfs_server: false,
+               }"
 "beegfs_rdma_support
      ``boolean``
      Optional","This variable is used if user has RDMA-capable network hardware (e.g.,   InfiniBand)
