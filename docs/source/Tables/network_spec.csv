@@ -1,0 +1,33 @@
+﻿Network Name,Parameters for the network,Parameter details
+"``admin_network``
+
+
+
+
+.. note:: This name cannot be modified. This is mandatory for discovery and provisioning of the cluster nodes.","**oim_nic_name**
+
+``string``
+
+Mandatory",The name of the NIC on which the administrative network is accessible to the OIM.
+,"**netmask_bits**
+
+``integer``
+
+Mandatory",The 32-bit “mask” used to divide an IP address into subnets and specify the network’s available hosts.
+,"**primary_oim_admin_ip**
+
+``IP address``
+
+Mandatory",The admin IP address of the OIM server
+,"**primary_oim_bmc_ip**
+
+``IP address``
+
+Conditional mandatory","* The iDRAC  IP address of the OIM server
+* Mandatory only if ``idrac_telemetry`` is set to ``true`` and telemetry data needs to be collected.
+* This field can be omitted if iDRAC telemetry is not required."
+,"**dynamic_range**
+
+``IP address range``
+
+Mandatory",The dynamic range of IPs to be provisioned on target nodes.
