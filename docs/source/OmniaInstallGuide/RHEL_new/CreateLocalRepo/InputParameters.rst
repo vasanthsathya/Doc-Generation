@@ -26,20 +26,29 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
     "cluster_os_version": "10.0",
     "repo_config": "always",
     "softwares": [
+        {"name": "default_packages", "arch": ["x86_64","aarch64"]},
         {"name": "cuda", "version": "13.0.1", "arch": ["x86_64","aarch64"]},
         {"name": "ofed", "version": "24.10-3.2.5.0", "arch": ["x86_64"]},
         {"name": "openldap", "arch": ["x86_64"]},
         {"name": "nfs", "arch": ["x86_64","aarch64"]},
         {"name": "service_k8s","version": "1.31.4", "arch": ["x86_64"]},
-        {"name": "slurm", "arch": ["x86_64","aarch64"]}
+        {"name": "slurm_custom", "arch": ["x86_64","aarch64"]}
     ],
-    "slurm": [
+    "slurm_custom": [
         {"name": "slurm_control_node"},
         {"name": "slurm_node"},
-        {"name": "login_node"}
+        {"name": "login_node"},
+        {"name": "login_compiler_node"}
+    ],
+    "service_k8s": [
+        {"name": "service_kube_control_plane"},
+        {"name": "service_etcd"},
+        {"name": "service_kube_node"}
     ]
  
     }
+
+
 
 .. note::
 
@@ -48,29 +57,35 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
     ::
      
         {
-           "cluster_os_type": "rhel",
-           "cluster_os_version": "10.0",
-           "repo_config": "always",
-           "softwares": [
-               {"name": "cuda", "version": "13.0.1", "arch": ["x86_64","aarch64"]},
-               {"name": "ofed", "version": "24.10-3.2.5.0", "arch": ["x86_64"]},
-               {"name": "openldap", "arch": ["x86_64"]},
-               {"name": "nfs", "arch": ["x86_64","aarch64"]},
-               {"name": "slurm", "arch": ["x86_64","aarch64"]},
-               {"name": "service_k8s", "version": "1.31.4", "arch": ["x86_64"]},
-               {"name": "ucx", "version": "1.15.0", "arch": ["x86_64"]},
-               {"name": "openmpi", "version": "4.1.6", "arch": ["x86_64"]}
+            "cluster_os_type": "rhel",
+            "cluster_os_version": "10.0",
+            "repo_config": "always",
+            "softwares": [
+                {"name": "default_packages", "arch": ["x86_64","aarch64"]},
+                {"name": "cuda", "version": "13.0.1", "arch": ["x86_64","aarch64"]},
+                {"name": "ofed", "version": "24.10-3.2.5.0", "arch": ["x86_64"]},
+                {"name": "openldap", "arch": ["x86_64"]},
+                {"name": "nfs", "arch": ["x86_64","aarch64"]},
+                {"name": "slurm_custom", "arch": ["x86_64","aarch64"]},
+                {"name": "service_k8s", "version": "1.31.4", "arch": ["x86_64"]},
+                {"name": "ucx", "version": "1.15.0", "arch": ["x86_64"]},
+                {"name": "openmpi", "version": "4.1.6", "arch": ["x86_64"]}
             ],
-                "slurm": [
+            "slurm_custom": [
                 {"name": "slurm_control_node"},
                 {"name": "slurm_node"},
-                {"name": "login_node"}
-            ] 
- 
+                {"name": "login_node"},
+                {"name": "login_compiler_node"}
+            ],
+            "service_k8s": [
+                {"name": "service_kube_control_plane"},
+                {"name": "service_etcd"},
+                {"name": "service_kube_node"}
+            ]
         }
+ 
 
-    * For additional_software support, update the input/config/{arch}/rhel/10.0/additional_software.json file with the required {arch} data,
-where {arch} can either be x86_64 or aarch64, or a combination of both.
+    * For additional_software support, update the input/config/{arch}/rhel/10.0/additional_software.json file with the required {arch} data, where {arch} can either be x86_64 or aarch64, or a combination of both.
 
 .. note::
 
@@ -86,3 +101,7 @@ where {arch} can either be x86_64 or aarch64, or a combination of both.
    :header-rows: 1
    :keepspace:
    :widths: auto
+
+.. note::
+
+    * For systems with RedHat subscription, subscription URLs ``override rhel_os_urls`` and are processed automatically by the ``local_repo.yml`` playbook.
