@@ -8,10 +8,54 @@ OIM logs
     * If you want log files for specific playbook execution, ensure to use the ``cd`` command to move into the specific directory before executing the playbook. For example, if you want local repo logs, ensure to enter ``cd local_repo`` before executing the playbook. If the directory is not changed, all the playbook execution log files will be consolidated and provided as part of omnia logs located in ``/var/log/omnia.log``.
 
 
-Omnia containers
------------------
 
-The following table shows the status of Omnia containers running on the OIM:
+Omnia Logs
+-----------
+
+The following table provides an overview of the various Omnia log files, their locations, and their purposes for monitoring.
+
++------------------------------------------------------------------------+---------------------------------------------+
+| Location                                                               | Purpose                                     |
++========================================================================+=============================================+
+| /opt/omnia/log/core/playbooks/discovery.log                            | Discovery logs                              |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/local_repo.log                           | Local Repository logs                       |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/prepare_oim.log                          | Prepare OIM Logs                            |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/provision.log                            | Provision Logs                              |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/scheduler.log                            | Scheduler Logs                              |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/telemetry.log                            | Telemetry logs                              |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/utils.log                                | Utility logs                                |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/credential_utility.log                   | Credential utility logs                     |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/openchami/*log                                          | OpenCHAMI playbook logs                     |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/pulp/*log                                               | Pulp container logs                         |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/local_repo/*log                                         | Local repo logs                             |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/kubespray/*log                                          | Kubespray logs                              |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/container/*log                                     | Core container logs                         |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/validation_omnia_project_default.log     | Omnia input validation report logs          |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/input_validation.log                     | Omnia input validation playbook logs        |
++------------------------------------------------------------------------+---------------------------------------------+
+
+
+Logs of individual Podman containers in OIM
+------------------------------------------------
+   1. To view the containers running on OIM, run the following command:
+
+     ``podman ps -a``
+
+     The following table shows the status of Omnia containers running on the OIM:
 
 +--------------+-------------------------------------------+----------------------+-------------+-------------+---------------------------------------------------+-------------------+
 | CONTAINER ID | IMAGE                                     | COMMAND              | CREATED     | STATUS      | PORTS                                             | NAMES             |
@@ -44,14 +88,6 @@ The following table shows the status of Omnia containers running on the OIM:
 +--------------+-------------------------------------------+----------------------+-------------+-------------+---------------------------------------------------+-------------------+
 | b08dc56c006f | ghcr.io/openchami/coredhcp:v0.3.0         | /coredhcp            | 2 hours ago | Up 2 hours  |                                                   | coresmd           |
 +--------------+-------------------------------------------+----------------------+-------------+-------------+---------------------------------------------------+-------------------+
-
-
-
-Logs of individual Podman containers in OIM
-------------------------------------------------
-   1. To view the containers running on OIM, run the following command:
-
-     ``podman ps -a``
 
    2. To view the logs from a specific container, run the following command:
 
