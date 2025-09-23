@@ -18,14 +18,6 @@ Prerequisites
     * Once the ``prepare_oim.yml`` playbook has been executed, any subsequent edits to the ``high_availability_config.yml`` or ``functional_groups_config.yml`` files will not take effect. To apply changes made to these configuration files, you must re-run the ``prepare_oim.yml`` playbook.
     * The virtual IP addresses specified in the ``high_availability_config.yml`` file must be within the same subnet as the admin network.
 
-Playbook execution
--------------------
-
-Once the details have been provided to the input files and the ``prepare_oim.yml`` playbook is executed, passive service nodes can be discovered during the cluster discovery and provision process using the below command:
-
-::
-
-    ansible-playbook discovery_provision.yml
 
 Sample
 -------

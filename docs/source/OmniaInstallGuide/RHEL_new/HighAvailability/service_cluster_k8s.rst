@@ -63,7 +63,7 @@ Steps
    :header-rows: 1
    :keepspace:
 
-3. Fill  the ``omnia_config.yml``,  ``high_availability_config.yml`` (for `service cluster HA <../../HighAvailability/service_cluster_ha.html>`_), and ``storage_config.yml``. The nfs_name mentioned in ``storage_config.yml`` should match the ``nfs_storage_name`` of the entries for the ``service_k8s_cluster`` in ``omnia_config.yml`` where deployment is set to true.
+3. Fill  the ``omnia_config.yml``,  ``high_availability_config.yml`` (for `service cluster HA <../HighAvailability/service_cluster_ha.html>`_), and ``storage_config.yml``. The nfs_name mentioned in ``storage_config.yml`` should match the ``nfs_storage_name`` of the entries for the ``service_k8s_cluster`` in ``omnia_config.yml`` where deployment is set to true.
    See the following sample:
 
     ::
@@ -89,23 +89,26 @@ Steps
    :header-rows: 1
    :keepspace:
 
-4. Run ``ansible-playbook utils/connect_external_server.yml``. This playbook is used to set up passwordless SSH to the ``kube_control_planes`` and updating the repositories and plup repository certificates. See the following sample:
+4. Run ``ansible-playbook utils/connect_external_server.yml -i <inv>``. 
+        This playbook is used to set up passwordless SSH to the ``kube_control_planes`` and updating the repositories and plup repository certificates. See the following sample:
    
+   Sample for inv:
+
     ::
 
-        [root@omnia_core utils]# cat inv
         [kube_control_plane]
         10.5.0.211  ansible_user=root ansible_ssh_pass=****
         10.5.0.212  ansible_user=root ansible_ssh_pass=****
         10.5.0.213  ansible_user=root ansible_ssh_pass=****        
 
-5. Run ``ansible-playbook service_k8s_cluster.yml``. This playbook deploys the service_k8s cluster with diskfull kube controller nodes and also extracts the configuration required for diskless kube nodes. It generates the kubeadm token and cloud-init vars for diskless kube node.  The token expires after 24 hours. The step 5 and step 6 need to be executed within 24 hours and pxe boot also needs to be completed. If the token gets expired , use the script ``<ansible-playbook scheduler/generate_token_and_pod_status.yml  --tags kubeadm_token>`` to generate the new token and run ``discovery.yml`` again and pxe boot the nodes. After all the diskless nodes are pxebooted, use the utility to check the status of service cluster nodes and pods: ``ansible-playbook scheduler/generate_token_and_pod_status.yml  --tags pod_status``
+5. Run ``ansible-playbook service_k8s_cluster.yml -i <inv>``. 
+       This playbook deploys the service_k8s cluster with diskfull kube controller nodes and also extracts the configuration required for diskless kube nodes. It generates the kubeadm token and cloud-init vars for diskless kube node.  The token expires after 24 hours. The step 5 and step 6 need to be executed within 24 hours and pxe boot also needs to be completed. If the token gets expired , use the script ``<ansible-playbook scheduler/generate_token_and_pod_status.yml  --tags kubeadm_token>`` to generate the new token and run ``discovery.yml`` again and pxe boot the nodes. After all the diskless nodes are pxebooted, use the utility to check the status of service cluster nodes and pods: ``ansible-playbook scheduler/generate_token_and_pod_status.yml  --tags pod_status``
 
 
 6. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. 
 
 7. Run ``discovery.yml`` playbook to discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups.
-   After successfully running the ``discovery.yml`` playbook, you can either manually PXE boot the nodes or use the ``set_pxe_boot.yml`` playbook. PXE booting allows the nodes to load diskless images from the Omnia Infrastructure Manager (OIM). For detailed steps on using ``set_pxe_boot.yml``, see Set PXE Boot Order.
+       After successfully running the ``discovery.yml`` playbook, you can either manually PXE boot the nodes or use the ``set_pxe_boot.yml`` playbook. PXE booting allows the nodes to load diskless images from the Omnia Infrastructure Manager (OIM). For detailed steps on using ``set_pxe_boot.yml``, see Set PXE Boot Order.
 
 
 Playbook execution
@@ -114,11 +117,11 @@ Playbook execution
 Once all the required input files are filled up, use the below commands to set up Kubernetes on the service cluster: ::
 
     cd scheduler
-    ansible-playbook service_k8s_cluster.yml - i <ivn>
+    ansible-playbook service_k8s_cluster.yml - i <inv>
 
+    Sample for inv:
+     
 
-
-        [root@omnia_core scheduler]# cat inv
         [kube_control_plane]
         10.5.0.211
         10.5.0.212
