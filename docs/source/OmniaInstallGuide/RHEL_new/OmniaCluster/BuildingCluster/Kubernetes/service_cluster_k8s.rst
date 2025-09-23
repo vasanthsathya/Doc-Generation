@@ -99,8 +99,7 @@ Steps
         10.5.0.212  ansible_user=root ansible_ssh_pass=****
         10.5.0.213  ansible_user=root ansible_ssh_pass=****        
 
-5. Run ``ansible-playbook service_k8s_cluster.yml``. This playbook deploys the service_k8s cluster with diskfull kube controller nodes and also extracts the configuration required for diskless kube nodes. It generates the kubeadm token and cloud-init vars for diskless kube node.  The token expires after 24 hours. The step 5 and step 6 need to be executed within 24 hours and pxe boot also needs to be completed. If the token gets expired , use the script ``<ansible-playbook scheduler/generate_token_and_pod_status.yml  --tags kubeadm_token>`` to generate the new token and run ``discovery.yml`` again and pxe boot the nodes.
-    after all the diskless nodes are pxebooted, use the utility to check the status of service cluster nodes and pods: ``ansible-playbook scheduler/generate_token_and_pod_status.yml  --tags pod_status``
+5. Run ``ansible-playbook service_k8s_cluster.yml``. This playbook deploys the service_k8s cluster with diskfull kube controller nodes and also extracts the configuration required for diskless kube nodes. It generates the kubeadm token and cloud-init vars for diskless kube node.  The token expires after 24 hours. The step 5 and step 6 need to be executed within 24 hours and pxe boot also needs to be completed. If the token gets expired , use the script ``<ansible-playbook scheduler/generate_token_and_pod_status.yml  --tags kubeadm_token>`` to generate the new token and run ``discovery.yml`` again and pxe boot the nodes. After all the diskless nodes are pxebooted, use the utility to check the status of service cluster nodes and pods: ``ansible-playbook scheduler/generate_token_and_pod_status.yml  --tags pod_status``
 
 
 6. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. 
