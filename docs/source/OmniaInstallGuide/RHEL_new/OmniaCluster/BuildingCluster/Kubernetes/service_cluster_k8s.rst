@@ -116,7 +116,7 @@ Once all the required input files are filled up, use the below commands to set u
     cd scheduler
     ansible-playbook service_k8s_cluster.yml - i <ivn>
 
-    ::
+
 
         [root@omnia_core scheduler]# cat inv
         [kube_control_plane]
