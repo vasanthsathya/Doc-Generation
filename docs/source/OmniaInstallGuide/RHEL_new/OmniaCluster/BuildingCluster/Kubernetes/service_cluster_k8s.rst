@@ -1,5 +1,5 @@
 ==========================================
-Set up Kubernetes on the service cluster
+Set up High Availability (HA) Kubernetes on the service cluster
 ==========================================
 
 With Omnia, you can deploy a service Kubernetes cluster on the designated service nodes to efficiently distribute workload and manage resources for telemetry data collection. 
