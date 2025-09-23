@@ -12,28 +12,23 @@ Prerequisites
 * To deploy Kubernetes on service cluster, ensure that ``service_k8s`` is added under ``softwares`` in the ``/opt/omnia/input/project_default/software_config.json``. Refer the sample config file below: ::
 
     {
-        "cluster_os_type": "rhel",
-        "cluster_os_version": "10.0",
-        "repo_config": "always",
-        "softwares": [
-            {"name": "cuda", "version": "13.0.1", "arch": ["x86_64","aarch64"]},
-            {"name": "ofed", "version": "24.10-3.2.5.0", "arch": ["x86_64"]},
-            {"name": "openldap", "arch": ["x86_64"]},
-            {"name": "nfs", "arch": ["x86_64","aarch64"]},
-            {"name": "service_k8s","version": "1.31.4", "arch": ["x86_64"]},
-            {"name": "slurm", "arch": ["x86_64","aarch64"]}
-        ],
-        "slurm": [
-            {"name": "slurm_control_node"},
-            {"name": "slurm_node"},
-            {"name": "login_node"}
-        ],
-        "service_k8s": [
-            {"name": "service_kube_control_plane"},
-            {"name": "service_etcd"},
-            {"name": "service_kube_node"}
+
+         "cluster_os_type": "rhel",
+          "cluster_os_version": "10.0",
+           "repo_config": "always",
+           "softwares": [
+                {"name": "nfs", "arch": ["x86_64","aarch64"]},
+                {"name": "service_k8s","version": "1.31.4", "arch": ["x86_64"]}
+            ],
+
+         "service_k8s": [
+                {"name": "service_kube_control_plane"},
+                {"name": "service_etcd"},
+                {"name": "service_kube_node"}
         ]
+
     }
+ 
 
 * Ensure that there are a minimum of  three ``kube_control_planes``.
 * Ensure that the ``kube_control_planes`` has a full-featured RHEL operating system (OS) installed. 
@@ -43,7 +38,7 @@ Prerequisites
 
   * One connected to the public network.  
   * One dedicated to internal cluster communication. 
-* If you want to use a NFS share for the omnia shared path, ensure the following:
+* To use NFS for service Kubernetes cluster, ensure the following prerequisites are met:
 
   * The NFS share has 755 permissions and ``no_root_squash`` is enabled on the mounted NFS share. 
   * Edit the ``/etc/exports`` file on the NFS server to include the ``no_root_squash`` option for the exported path.
@@ -78,7 +73,7 @@ Steps
            nfs_name: "nfs_storage_default"
            server_ip: "", # Provide the IP of the NFS server
            server_share_path: "", # Provide server share path of the NFS Server
-           client_share_path: /home,
+           client_share_path: /opt/omnia,,
            client_mount_options: "nosuid,rw,sync,hard,intr",
            nfs_server: false,
         }
@@ -104,7 +99,8 @@ Steps
         10.5.0.212  ansible_user=root ansible_ssh_pass=****
         10.5.0.213  ansible_user=root ansible_ssh_pass=****        
 
-5. Run ``ansible-playbook service_k8s_cluster.yml``.
+5. Run ``ansible-playbook service_k8s_cluster.yml``. This playbook deploys the service_k8s cluster with diskfull kube controller nodes and also extracts the configuration required for diskless kube nodes. It generates the kubeadm token and cloud-init vars for diskless kube node.  The token expires after 24 hours. The step 5 and step 6 need to be executed within 24 hours and pxe boot also needs to be completed. If the token gets expired , use the script ``<ansible-playbook scheduler/generate_token_and_pod_status.yml  --tags kubeadm_token>`` to generate the new token and run ``discovery.yml`` again and pxe boot the nodes.
+    after all the diskless nodes are pxebooted, use the utility to check the status of service cluster nodes and pods: ``ansible-playbook scheduler/generate_token_and_pod_status.yml  --tags pod_status``
 
 
 6. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. 
@@ -121,15 +117,13 @@ Once all the required input files are filled up, use the below commands to set u
     cd scheduler
     ansible-playbook service_k8s_cluster.yml - i <ivn>
 
-In the command above, ``<kube_control_planes>`` refers to the inventory. See the following sample:
-
     ::
 
         [root@omnia_core scheduler]# cat inv
         [kube_control_plane]
-        10.5.0.201  
-        10.5.0.202 
-        10.5.0.203 
+        10.5.0.211
+        10.5.0.212
+        10.5.0.213 
         [etcd]
         10.5.0.211
         10.5.0.212
@@ -150,12 +144,11 @@ After deploying Kubernetes, the following additional packages are installed on t
     Click `here <https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner>`_ for more information.
 
 
-3. **CSI-driver-for-PowerScale**
+2. **CSI-driver-for-PowerScale**
 
     The CSI Driver for Dell PowerScale (formerly known as Isilon) is a Container Storage Interface (CSI) plugin that enables Kubernetes to provision and manage persistent storage using PowerScale.
     It enables Kubernetes clusters to dynamically provision, bind, expand, snapshot, and manage volumes on a PowerScale node.
-    Omnia installs the multus plugin as part of ``omnia.yml`` or ``scheduler.yml`` execution.
-
+    
     Click `here <../../../../AdvancedConfigurations/PowerScale_CSI.html>`_ for more information.
 
 Next step
