@@ -20,11 +20,13 @@ Group
 
 A **group** is based on the physical characteristics of the nodes. It refers to nodes that are located in the same place or have similar hardware. For example, nodes in the same rack or SU (Scalable Unit) might be grouped together, with specific functional groups like **Service Kube Node** or **Slurm Control Node**. Groups help with physical organization and management of nodes.
 
-**Note:** Both **functional groups** and **groups** must be configured in the ``functional_groups_config.yml`` input file. This file defines how nodes are organized in Omnia, including their functional roles and group assignments.
+Both **functional groups** and **groups** must be configured in the ``functional_groups_config.yml`` input file. This file defines how nodes are organized in Omnia, including their functional roles and group assignments.
 
 
-Functional groups offered by Omnia
--------------------------------------
+Functional groups in Omnia
+---------------------------
+
+The following table lists the functional groups available in Omnia.
 
 .. note:: 
     
@@ -43,6 +45,10 @@ Functional groups offered by Omnia
 Recommended Software by Functional Group
 =========================================
 
+The following table lists the functional groups along with the recommended software to be deployed on each group.  
+Ensure that the corresponding ``software_config.json`` file contains the required inputs for proper deployment.
+
+
 +----------------------------------+--------------------------------------------------------------------------------------+
 | Functional Group Name            | Recommended Software                                                                 |
 +----------------------------------+--------------------------------------------------------------------------------------+
@@ -60,7 +66,7 @@ Recommended Software by Functional Group
 Group attributes
 ----------------
 
-Nodes with similar roles or functionalities can be grouped together. To do so, fill up the ``functional_groups_config.yml`` input file in the ``/opt/omnia/input/project_default`` directory which includes all necessary attributes for the nodes, based on their role within the cluster. Each group will have following attributes as indicated in the table below:
+Nodes with similar functional roles or functionalities can be grouped together. To do so, fill up the ``functional_groups_config.yml`` input file in the ``/opt/omnia/input/project_default`` directory which includes all necessary attributes for the nodes, based on their role within the cluster. Each group will have following attributes as indicated in the table below:
 
 .. note:: Groups associated with the ``service_kube_control_plane``, ``service_etcd``, ``service_kube_node``, and ``oim_ha_node`` roles should not be used to fulfill any other roles.
 

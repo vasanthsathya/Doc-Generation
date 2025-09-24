@@ -10,7 +10,7 @@ Slurm worker node - ``slurm_node_x86_64``,Compute,"* This functional group is us
         location_id: SU-1.RACK-1
         cluster_name: """"
         parent: """""
-Slurm worker node - ``slurm_node_aarch64,Compute,"* This functional group is used to configure nodes as Slurm workers on the aarch64 architecture. The nodes included in this functional group will have the necessary tools and configurations to run Slurm workloads.  
+Slurm worker node - ``slurm_node_aarch64``,Compute,"* This functional group is used to configure nodes as Slurm workers on the aarch64 architecture. The nodes included in this functional group will have the necessary tools and configurations to run Slurm workloads.  
 * Nodes in this functional group can be used as Slurm worker nodes for aarch64 clusters.
 
 **Example**:
@@ -44,7 +44,7 @@ Service Cluster Kubernetes worker node - ``service_kube_node_x86_64``,Management
         location_id: SU-1.RACK-1
         cluster_name: """"
         parent: """""
-Compiler - ``login_compiler_node_x86_64``,Management,"* This functional group is used to configure nodes for compilation on the x86_64 architecture. The nodes included in this functional group will have the necessary tools and configurations to perform compilation.  
+Login and Compiler node - ``login_compiler_node_x86_64``,Management,"* This functional group is used to configure nodes for compilation on the x86_64 architecture. The nodes included in this functional group will have the necessary tools and configurations to perform compilation.  
 * Nodes in this functional group can be used to compile code on x86_64 systems.
 
 **Example**:
