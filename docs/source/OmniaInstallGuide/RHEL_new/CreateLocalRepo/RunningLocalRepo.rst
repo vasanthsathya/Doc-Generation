@@ -71,32 +71,15 @@ Here's an example of how the log files are organized in the ``/opt/omnia/log/loc
 Updating local repositories after modifying JSON files
 ==========================================================
 
-After the execution of the ``local_repo.yml`` playbook is complete, any modifications made to a ``<software_name>.json`` file (for example, ``k8s.json``, ``slurm.json``, ``additional_software.json``) will **not** be reflected in the local repositories automatically.
-To apply the changes, you must **re-run the** ``local_repo.yml`` **playbook** while explicitly specifying the updated software names using the ``softwares`` argument.
+After the execution of the ``local_repo.yml`` playbook is complete, any modifications made to a ``<software_name>.json`` file (for example, ``service_k8s.json``, ``slurm_custom.json``, ``additional_software.json``) will **not** be reflected in the local repositories automatically.
+To apply the changes, you must **re-run the** ``local_repo.yml`` **playbook**.
 
 Command format
 --------------
 
 ::
 
-   ansible-playbook local_repo.yml -e "softwares=<comma-separated list of software names>"
-
-Examples
----------
-
-* If you modified ``service_k8s.json``: ::
-
-    ansible-playbook local_repo.yml -e "softwares=k8s"
-
-* If you modified multiple ``.json`` files, such as ``service_k8s.json`` and ``slurm.json``: ::
-
-    ansible-playbook local_repo.yml -e "softwares=k8s,slurm"
-
-* If you updated ``additional_software.json`` with a few additional packages of your choice: ::
-
-    ansible-playbook local_repo.yml -e "softwares=additional_software"
-
-.. note:: When specifying software names, omit the ``.json`` extension.
+   ansible-playbook local_repo.yml 
 
 
 **[Optional]** `Update all local repositories <update_local_repo.html>`_
