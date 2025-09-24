@@ -10,7 +10,7 @@
 * In case of ``always``, packages are downloaded and cached on OIM during ``local_repo.yml`` execution; compute nodes get the packages from OIM. Caching these packages allow them to be reused in future operations without needing to download them again.
 * In case of ``partial``, packages are not pre-downloaded or cached. OIM downloads from upstream URLs when needed.
 * In case of ``never``, the packages are not downloaded or cached, but streamed directly from the source URLs.
-* **Accepted value**: ``always``, ``partial``, ``never``
+* **Accepted value**: ``always``, ``partial``
 * **Default value**: ``always``
 
 .. note:: The following packages will always be downloaded from the local Pulp repository, regardless of the value of ``repo_config``:

@@ -24,7 +24,7 @@ Metadata report
 ===================
 
 After a successful execution of the ``local_repo.yml`` playbook, a metadata file called ``localrepo_metadata.yml`` is created under the ``/opt/omnia/offline_repo/.data/`` directory. 
-This file captures the ``repo_config`` (``always``, ``partial``, or ``never``) details provided during the playbook execution. 
+This file captures the ``repo_config`` (``always``, ``partial``) details provided during the playbook execution. 
 If the ``local_repo.yml`` playbook is re-run, it compares the current repository policy with the previously captured metadata. Based on this, there can be two scenarios:
 
     * If a change in policy is detected, you will be prompted to confirm whether to proceed with the updated configuration or not.
