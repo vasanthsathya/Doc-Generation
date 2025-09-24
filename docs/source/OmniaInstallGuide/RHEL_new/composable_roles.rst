@@ -1,5 +1,5 @@
-Step 2: Assign functional roles for the nodes
-==============================================
+Step 2: Create groups and assign functional roles to the nodes
+================================================================
 
 In Omnia, nodes are organized based on their assigned **functional groups**. Nodes with the same functional group can be clubbed under a **group**. By combining both functional groups and groups, Omnia offers a powerful and flexible approach to managing large-scale node infrastructures, ensuring both logical organization and physical optimization of resources.
 
@@ -43,7 +43,7 @@ The following table lists the functional groups available in Omnia.
 
   
 Recommended Software by Functional Group
-=========================================
+------------------------------------------
 
 The following table lists the functional groups along with the recommended software to be deployed on each group.  
 Ensure that the corresponding ``software_config.json`` file contains the required inputs for proper deployment.
@@ -51,7 +51,7 @@ Ensure that the corresponding ``software_config.json`` file contains the require
 
 +----------------------------------+--------------------------------------------------------------------------------------+
 | Functional Group Name            | Recommended Software                                                                 |
-+----------------------------------+--------------------------------------------------------------------------------------+
++==================================+======================================================================================+
 | service_kube_node_x86_64         | service_k8s.json, nfs.json, openldap.json, ofed.json                                 |
 +----------------------------------+--------------------------------------------------------------------------------------+
 | slurm_control_node_x86_64        | slurm_custom.json, nfs.json, openldap.json, ofed.json                                |
