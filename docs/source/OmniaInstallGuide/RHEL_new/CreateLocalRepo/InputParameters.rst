@@ -108,4 +108,4 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
 
 .. note::
 
-    * For systems with RedHat subscription, subscription URLs ``override rhel_os_urls`` and are processed automatically by the ``local_repo.yml`` playbook.
+    * For systems with RedHat subscription, subscription URLs override ``rhel_os_urls`` and are processed automatically by the ``local_repo.yml`` playbook.

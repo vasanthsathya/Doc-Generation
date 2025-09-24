@@ -68,17 +68,17 @@ Configuring specific local repositories
 
     For more information about installing Kubernetes, `click here <../OmniaCluster/BuildingCluster/install_kubernetes.html>`_.
 
-.. note:: The version of ``k8s`` provided above is the only version of the package that Omnia supports.
+.. note:: The version of ``service_k8s`` provided above is the only version of the package that Omnia supports.
 
 **Slurm**
 
     To install Slurm, include the following line under ``softwares`` in ``software_config.json``: ::
 
-            {"name": "slurm", "arch": ["x86_64","aarch64"]},
+            {"name": "slurm_custom", "arch": ["x86_64","aarch64"]},
 
     For more information about installing Slurm, `click here <../OmniaCluster/BuildingCluster/install_slurm.html>`_.
 
-.. note:: Omnia recommends installing Slurm with ``repo_config`` variable set to ``always``  in ``software_config.json``. This is due to intermittent connectivity issues with the EPEL8 repositories.
+.. note:: If ``slurm_custom`` is defined in ``software_config.json``, provide the corresponding repository information in the ``user_repo_url_<arch>`` field of ``local_repo-config.yml``.
 
 
 **OpenLDAP**
