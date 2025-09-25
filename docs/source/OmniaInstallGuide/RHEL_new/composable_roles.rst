@@ -46,7 +46,9 @@ Recommended Software by Functional Group
 ------------------------------------------
 
 The following table lists the functional groups along with the recommended software to be deployed on each group.  
-Ensure that the corresponding ``software_config.json`` file contains the required inputs for proper deployment.
+Ensure that the corresponding ``software_config.json`` file contains the required inputs for proper deployment.  
+For more information, see :doc:`InputParameters`.
+
 
 
 +----------------------------------+--------------------------------------------------------------------------------------+
