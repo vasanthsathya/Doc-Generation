@@ -1,58 +1,16 @@
-Centralized authentication on the cluster
-==========================================
+Step 4: Setup OpenLDAP for centralized authentication 
+======================================================
 
-The security feature allows cluster admin users to set up FreeIPA or OpenLDAP in order to allow or deny access to the user(s).
-
-Configuring FreeIPA/OpenLDAP security
---------------------------------------
+Set up OpenLDAP to allow or deny access to the user(s).
 
 **Prerequisites**
 
-* To set up FreeIPA, ensure that the following entry is present in the ``/opt/omnia/input/project_default/software_config.json``: ::
-
-    {"name": "freeipa"}
-
 * To set up OpenLDAP, ensure that the following entry is present in the ``/opt/omnia/input/project_default/software_config.json``: ::
 
-    {"name": "openldap"}
+    {"name": "openldap", "arch": ["x86_64"]}
 
-* Run ``local_repo.yml`` to create offline repositories of FreeIPA or OpenLDAP. If both were downloaded, ensure that the non-required software is removed from ``/opt/omnia/input/project_default/software_config.json`` before running ``security.yml``. For more information, `click here <../../CreateLocalRepo/index.html>`_.
+* Run ``local_repo.yml`` to create offline repositories of OpenLDAP. For more information, `click here <../../CreateLocalRepo/index.html>`_.
 
-* Enter the following parameters in ``/opt/omnia/input/project_default/security_config.yml``:
-
-.. csv-table:: Parameters for Authentication
-   :file: ../../../../Tables/security_config.csv
-   :header-rows: 1
-   :keepspace:
-
-.. csv-table:: Parameters for OpenLDAP configuration
-   :file: ../../../../Tables/security_config_ldap.csv
-   :header-rows: 1
-   :keepspace:
-
-.. csv-table:: Parameters for FreeIPA configuration
-   :file: ../../../../Tables/security_config_freeipa.csv
-   :header-rows: 1
-   :keepspace:
-
-
-Running the security role
---------------------------
-
-The wrapper playbook ``omnia.yml`` handles execution of the security or authentication role. Alternatively: ::
-
-    cd security
-    ansible-playbook security.yml -i inventory
-
-The provided inventory should contain ``auth_server`` and ``login_node`` [optional] groups. The inventory file is case-sensitive. Follow the format provided in the `sample files <../../../samplefiles.html#inventory-file>`_.
-
-    * Do not include the IP of the OIM or local host in the ``auth_server`` group of the inventory file.
-    * For `secure login node functionality <Authentication.html#configuring-login-node-security>`_, ensure to add the ``login_node`` group in the provided inventory file. To customize the security features on the login node, update the desired parameters in ``/opt/omnia/input/project_default/login_node_security_config.yml``.
-    * If a subsequent run of ``security.yml`` fails, the ``/opt/omnia/input/project_default/security_config.yml`` file will be unencrypted.
-
-.. note:: Installation of OpenLDAP server or FreeIPA server on OIM is not supported.
-
-.. caution:: No users will be created by Omnia.
 
 Create a new user on OpenLDAP
 -----------------------------
@@ -94,7 +52,8 @@ Below is a sample file: ::
 2. Run the command ``ldapadd -D <enter admin binddn > -w < bind_password > -f create_user.ldif`` to execute the LDIF file and create the account.
 3. To set up a password for this account, use the command ``ldappasswd -D <enter admin binddn > -w < bind_password > -S <user_dn>``. The value of ``user_dn`` is the distinguished name that indicates where the user was created. (In this example, ``uid=ldapuser,ou=People,dc=omnia,dc=test``)
 
-Setting up Passwordless SSH for the OpenLDAP/FreeIPA users
+
+Configure Passwordless SSH for the OpenLDAP/FreeIPA users
 -----------------------------------------------------------
 
 Once user accounts are created, admins can enable passwordless SSH for users to run HPC jobs on the cluster nodes.
@@ -128,86 +87,105 @@ Where inventory follows the format defined under inventory file in the provided 
 
 .. caution:: Do not run ssh-keygen commands after passwordless SSH is set up on the nodes.
 
-Configuring login node security
-________________________________
+Configure OpenLDAP as a proxy server
+--------------------------------------
 
-**Prerequisites**
+Omnia allows the internal OpenLDAP server to be configured as a proxy, where it utilizes the external LDAP servers as a backend database to store user data and acts as an authentication entity to allow/deny them access to the cluster. OpenLDAP client will be configured through the proxy server which means that there won't be any direct communication between OpenLDAP client and the external LDAP server.
 
-* Ensure that the following entry is present in the ``/opt/omnia/input/project_default/software_config.json``: ::
+.. note:: If the OpenLDAP server is set up as a proxy, the user database is not replicated onto the server.
 
-      {"name": "secure_login_node"}
+Perform the following steps to configure OpenLDAP as a proxy server:
 
-* Run ``local_repo.yml`` to create an offline repository of all utilities used to secure the login node. For more information, `click here. <../../CreateLocalRepo/index.html>`_
+1. Go to ``/opt/omnia/authservice/slapd.conf``, replace the ``slapd.conf`` with the updated ``slapd.conf`` file, and run the following command to restart the ``omnia_auth`` container.::
 
-* For secure login node functionality, ensure to add the ``login_node`` group in the provided inventory file.
+		podman restart omnia_auth
 
-Enter the following parameters in ``/opt/omnia/input/project_default/login_node_security_config.yml``.
+2. Now, locate the ``slapd.conf`` config file present in ``/opt/omnia/authservice/`` and modify the file to add the new LDAP configurations. Add the following lines to the config file based on the operating system running on the cluster:
 
-+-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Variable                    | Details                                                                                                                                                                        |
-+=============================+================================================================================================================================================================================+
-| **max_failures**            | The number of login failures that can take place before the account is   locked out.                                                                                           |
-|      ``integer``            |                                                                                                                                                                                |
-|      Optional               |      **Default values**: ``3``                                                                                                                                                 |
-+-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-|**failure_reset_interval**   | Period (in seconds) after which the number of failed login attempts is   reset. Min value: 30; Max value: 60.                                                                  |
-|      ``integer``            |                                                                                                                                                                                |
-|      Optional               |      **Default values**: ``60``                                                                                                                                                |
-+-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **lockout_duration**        | Period (in seconds) for which users are locked out. Min value: 5; Max   value: 10.                                                                                             |
-|      ``integer``            |                                                                                                                                                                                |
-|      Optional               |      **Default values**: ``10``                                                                                                                                                |
-+-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-|**session_timeout**          | User sessions that have been idle for a specific period can be ended   automatically. Min value: 90; Max value: 180.                                                           |
-|      ``integer``            |                                                                                                                                                                                |
-|      Optional               |      **Default values**: ``180``                                                                                                                                               |
-+-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-|**alert_email_address**      | Email address used for sending alerts in case of authentication failure.   When blank, authentication failure alerts are disabled.                                             |
-|     ``string``              | User can mention multiple comma-separated alert email addresses.                                                                                                               |
-|      Optional               | **Example**: ::                                                                                                                                                                |
-|                             |    alert_email_address: "user1@domain.com,user2@domain.com"                                                                                                                    |
-+-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-|**smtp_server**              | This parameter will be applicable only when ``alert_email_address`` is provided.                                                                                               |
-|      ``string``             | This variable contains the SMTP server details configured on the cluster, from where the email alerts would be sent in case of authentication failures.                        |
-|      Optional               | Currently, Omnia only supports configuration of a single SMTP server on the cluster. The SMTP server should be reachable from the ``login_node`` to receive the email alerts.  |
-|                             | **Example**: ::                                                                                                                                                                |
-|                             |       smtp_server:                                                                                                                                                             |
-|                             |         - { host: "smtp-server.domain.com", port: "25", sender_address: "alert@domain.com" }"                                                                                  |
-+-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-|**user**                     | Access control list of users. Accepted formats are username@ip   (root@1.2.3.4) or username (root). Multiple users can be separated using   whitespaces.                       |
-|      ``string``             |                                                                                                                                                                                |
-|      Optional               |                                                                                                                                                                                |
-+-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-|**allow_deny**               | This variable decides whether users are to be allowed or denied access.   Ensure that AllowUsers or DenyUsers entries on sshd configuration file are   not commented.          |
-|      ``string``             |                                                                                                                                                                                |
-|      Optional               |      Choices:                                                                                                                                                                  |
-|                             |                                                                                                                                                                                |
-|                             |      * ``allow`` <- Default                                                                                                                                                    |
-|                             |      * ``deny``                                                                                                                                                                |
-+-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-|**restrict_program_support** | This variable is used to disable services. Root access is   mandatory.                                                                                                         |
-|      ``boolean``            |                                                                                                                                                                                |
-|      Optional               |      Choices:                                                                                                                                                                  |
-|                             |                                                                                                                                                                                |
-|                             |      * ``false`` <- Default                                                                                                                                                    |
-|                             |      * ``true``                                                                                                                                                                |
-+-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-|**restrict_softwares**       | List of services to be disabled (Comma-separated). Example:   'telnet,lpd,bluetooth'                                                                                           |
-|      ``string``             |                                                                                                                                                                                |
-|      Optional               |      Choices:                                                                                                                                                                  |
-|                             |                                                                                                                                                                                |
-|                             |      * ``telnet``                                                                                                                                                              |
-|                             |      * ``lpd``                                                                                                                                                                 |
-|                             |      * ``bluetooth``                                                                                                                                                           |
-|                             |      * ``rlogin``                                                                                                                                                              |
-|                             |      * ``rexec``                                                                                                                                                               |
-+-----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    For RHEL: ::
 
-Advanced Settings
-------------------
+        include        /etc/openldap/schema/core.schema
+        include        /etc/openldap/schema/cosine.schema
+        include        /etc/openldap/schema/nis.schema
+        include        /etc/openldap/schema/inetorgperson.schema
+        
+        
+        pidfile         /run/openldap/slapd.pid
+        argsfile        /run/openldap/slapd.args
+        
+        # Load dynamic backend modules:
+        modulepath      /usr/lib64/openldap
+        moduleload      back_ldap.la
+        moduleload      back_meta.la
 
-* To install FreeIPA server on the NFS node, `click here <../../../../Utils/freeipa_installation.html>`_.
+        #######################################################################
+        # Meta database definitions
+        #######################################################################
+        database        meta
+        suffix          "dc=phantom,dc=test"
+        rootdn          cn=admin,dc=phantom,dc=test
+        rootpw          Dell1234
 
-* To replicate the OpenLDAP server `click here <../ReplicatingLDAP.html>`_.
+        uri             "ldap://10.5.0.104:389/dc=phantom,dc=test"
+        suffixmassage   "dc=phantom,dc=test" "dc=perf,dc=test"
+        idassert-bind
+         bindmethod=simple
+         binddn="cn=admin,dc=perf,dc=test"
+         credentials="Dell1234"
+         flags=override
+         mode=none
+        TLSCACertificateFile    /etc/openldap/certs/ldapserver.crt
+        TLSCertificateFile      /etc/openldap/certs/ldapserver.crt
+        TLSCertificateKeyFile   /etc/pki/tls/certs/ldapserver.key
 
-* To set up the internal OpenLDAP server as a proxy, `click here <../OpenLDAP_proxy.html>`_.
+Change the **<parameter>** values in the config file, as described below:
+
+* **database**: Database used in the ``slapd.conf`` file, that captures the details of the external LDAP server to be used. For example, ``meta``.
+* **suffix**: Captures the domain name of internal OpenLDAP user, to refine the user search while attempting to authenticate the user. For example, ``"dc=omnia,dc=test"``.
+* **rootdn**: Admin or root username of the internal OpenLDAP server set up by Omnia. For example, ``cn=admin,dc=omnia,dc=test``.
+* **rootpw**: Admin password for the internal OpenLDAP server. For example, ``Dell1234``.
+
+* **uri**: Captures the IP of the external LDAP server along with the port and the domain of the user in ``"ldap://<IP  of external LDAP server>:<Port number>/<suffix>"`` format. For example, ``"ldap://10.5.0.104:389/dc=omnia,dc=test"``.
+* **suffixmassage**: ``suffixmassage`` allows you to dynamically move the LDAP client information from the existing internal OpenLDAP server to the external LDAP server that you want to configure as a proxy. This is provided in the ``suffixmassage <suffix1> <suffix2>`` format.
+
+        * ``<suffix1>`` is the internal OpenLDAP server suffix (base DN).
+        * ``<suffix2>`` is the external LDAP server suffix (base DN).
+
+* **binddn**: Admin username and domain of the external LDAP server.
+* **credentials**: Admin password for the external LDAP server.
+
+* **TLSCACertificateFile**: Omnia, by default, creates the TLSA certificate in ``/etc/openldap/certs/ldapserver.crt``.
+* **TLSCertificateFile**: Omnia, by default, creates the TLS certificate in ``/etc/openldap/certs/ldapserver.crt``.
+* **TLSCertificateKeyFile**: Omnia, by default, creates the certificate key file in ``/etc/pki/tls/certs/ldapserver.key``.
+
+.. note::
+   * The values for ``suffix`` and ``rootdn`` parameters in the ``slapd.conf`` file must be the same as those provided in the ``get_config_credentials.yml`` file.
+
+   * Multiple external LDAP servers can also be configured on the proxy server. The OpenLDAP proxy server allows users from multiple external LDAP servers to authenticate onto the cluster. You can provide two sets of external LDAP server details as shown below: ::
+
+            uri "ldap://10.5.0.104:389/dc=omnia1,dc=test"
+            idassert-bind
+             bindmethod=simple
+             binddn="cn=admin,dc=omnia,dc=test"
+             credentials="Dell1234"
+             flags=override
+             mode=none
+
+            uri "ldap://10.5.0.105:389/dc=omnia2,dc=test"
+            idassert-bind
+             bindmethod=simple
+             binddn="cn=admin,dc=omnia,dc=test"
+             credentials="Dell12345"
+             flags=override
+             mode=none
+
+3. Once the new configurations are present in the ``slapd.conf`` file, restart the ``omnia_auth`` container: ::
+
+    podman restart omnia_auth
+
+5. Restart the internal OpenLDAP server to seal in the configurations. Execute the following command to restart the server: ::
+
+    systemctl restart slapd-ltb.service
+
+
+Once these configurations are applied on the internal OpenLDAP server, it sets up the external LDAP server as an authentication server. The internal OpenLDAP server doesn't store any kind of user data and no users can be created/modified from here.

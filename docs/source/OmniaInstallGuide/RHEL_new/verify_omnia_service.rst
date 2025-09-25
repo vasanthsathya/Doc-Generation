@@ -1,4 +1,4 @@
-Step 6: Verify the status of Omnia container services
+Step 8: Verify the status of Omnia container services
 ======================================================
 
 After successfully running the ``prepare.oim.yml``, you can verify if the omnia.target and
