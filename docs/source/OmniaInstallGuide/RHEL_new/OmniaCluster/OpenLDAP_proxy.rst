@@ -7,26 +7,25 @@ Omnia allows the internal OpenLDAP server to be configured as a proxy, where it 
 
 Perform the following steps to configure OpenLDAP as a proxy server:
 
-1. Before proceeding with the new configuration, first remove the existing LDAP configurations by removing the ``/usr/local/openldap/etc/openldap/slapd.d/`` folder and then create another directory with the same folder hierarchy using the ``mkdir`` command.  Execute the following commands to perform these operations: ::
+1. Go to ``/opt/omnia/authservice/slapd.conf``, replace the ``slapd.conf`` with the updated ``slapd.conf`` file, and run the following command to restart the ``omnia_auth`` container.::
 
-		rm -rf /usr/local/openldap/etc/openldap/slapd.d/
-		mkdir /usr/local/openldap/etc/openldap/slapd.d/
+		podman restart omnia_auth
 
-2. Now, locate the ``slapd.conf`` config file present in ``/usr/local/openldap/etc/openldap/`` and modify the file to add the new LDAP configurations. Add the following lines to the config file based on the operating system running on the cluster:
+2. Now, locate the ``slapd.conf`` config file present in ``/opt/omnia/authservice/`` and modify the file to add the new LDAP configurations. Add the following lines to the config file based on the operating system running on the cluster:
 
     For RHEL: ::
 
-        include        /usr/local/openldap/etc/openldap/schema/core.schema
-        include        /usr/local/openldap/etc/openldap/schema/cosine.schema
-        include        /usr/local/openldap/etc/openldap/schema/nis.schema
-        include        /usr/local/openldap/etc/openldap/schema/inetorgperson.schema
-
-
-        pidfile         /usr/local/openldap/var/run/slapd.pid
-        argsfile        /usr/local/openldap/var/run/slapd.args
-
+        include        /etc/openldap/schema/core.schema
+        include        /etc/openldap/schema/cosine.schema
+        include        /etc/openldap/schema/nis.schema
+        include        /etc/openldap/schema/inetorgperson.schema
+        
+        
+        pidfile         /run/openldap/slapd.pid
+        argsfile        /run/openldap/slapd.args
+        
         # Load dynamic backend modules:
-        modulepath      /usr/local/openldap/libexec/openldap
+        modulepath      /usr/lib64/openldap
         moduleload      back_ldap.la
         moduleload      back_meta.la
 
@@ -71,24 +70,7 @@ Change the **<parameter>** values in the config file, as described below:
 * **TLSCertificateKeyFile**: Omnia, by default, creates the certificate key file in ``/etc/pki/tls/certs/ldapserver.key``.
 
 .. note::
-   * The values for ``suffix`` and ``rootdn`` parameters in the ``slapd.conf`` file must be the same as those provided in the ``input/security_config.yml`` file.
-
-   * If you have your own set of TLS certificates and keys that you want to utilize instead of the default ones created by Omnia, then you can provide the path to them in the ``input/security_config.yml`` file. During ``omnia.yml`` execution, the user provided certificates and key files are copied from the OIM to the ``auth_server`` (OpenLDAP). An example for the certificate and key entries in the ``input/security_config.yml`` file for the proxy OpenLDAP server is provided below: ::
-
-           # Certificate Authority(CA) issued certificate file path
-           tls_ca_certificate: "/root/certificates/omnia_ca_cert.crt"
-           # OpenLDAP Certificate file path
-           tls_certificate: "/root/certificates/omnia_cert.pem"
-           # OpenLDAP Certificate key file path
-           tls_certificate_key: "/root/certificates/omnia_cert_key.key"
-
-    Use the same certificates and keys in the ``slapd.conf`` file, as shown below:
-
-      RHEL: ::
-
-         TLSCACertificateFile    /etc/pki/tls/certs/omnia_ca_cert.crt
-         TLSCertificateFile      /etc/pki/tls/certs/omnia_cert.pem
-         TLSCertificateKeyFile   /etc/pki/tls/certs/omnia_cert_key.key
+   * The values for ``suffix`` and ``rootdn`` parameters in the ``slapd.conf`` file must be the same as those provided in the ``get_config_credentials.yml`` file.
 
    * Multiple external LDAP servers can also be configured on the proxy server. The OpenLDAP proxy server allows users from multiple external LDAP servers to authenticate onto the cluster. You can provide two sets of external LDAP server details as shown below: ::
 
@@ -108,17 +90,9 @@ Change the **<parameter>** values in the config file, as described below:
              flags=override
              mode=none
 
-3. Once the new configurations are present in the ``slapd.conf`` file, execute the following OpenLDAP server "slaptest" command to apply the configurations: ::
+3. Once the new configurations are present in the ``slapd.conf`` file, restart the ``omnia_auth`` container: ::
 
-    slaptest -f /usr/local/openldap/etc/openldap/slapd.conf -F /usr/local/openldap/etc/openldap/slapd.d
-
-
-4. Change the schema ownership to LDAP and set the necessary file permissions (770). Execute the following commands to do so: ::
-
-    chown -R ldap:ldap /usr/local/openldap/etc/openldap/slapd.d/
-    chown root:ldap /usr/local/openldap/etc/openldap/slapd.d/
-    chmod -R 754 /usr/local/openldap/etc/openldap/slapd.d/
-    chmod 770 /usr/local/openldap/etc/openldap/slapd.d/
+    podman restart omnia_auth
 
 5. Restart the internal OpenLDAP server to seal in the configurations. Execute the following command to restart the server: ::
 
