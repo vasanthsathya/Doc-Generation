@@ -12,26 +12,8 @@ Configuring OpenLDAP security
 
     {"name": "openldap", "arch": ["x86_64"]}
 
-* Run ``local_repo.yml`` to create offline repositories of OpenLDAP. Ensure that the non-required software is removed from ``/opt/omnia/input/project_default/software_config.json`` before running ``security.yml``. For more information, `click here <../../CreateLocalRepo/index.html>`_.
+* Run ``local_repo.yml`` to create offline repositories of OpenLDAP. For more information, `click here <../../CreateLocalRepo/index.html>`_.
 
-
-Running the security role
---------------------------
-
-The wrapper playbook ``omnia.yml`` handles execution of the security or authentication role. Alternatively: ::
-
-    cd security
-    ansible-playbook security.yml -i inventory
-
-The provided inventory should contain ``auth_server`` and ``login_node`` [optional] groups. The inventory file is case-sensitive. Follow the format provided in the `sample files <../../../samplefiles.html#inventory-file>`_.
-
-    * Do not include the IP of the OIM or local host in the ``auth_server`` group of the inventory file.
-    * For `secure login node functionality <Authentication.html#configuring-login-node-security>`_, ensure to add the ``login_node`` group in the provided inventory file. To customize the security features on the login node, update the desired parameters in ``/opt/omnia/input/project_default/login_node_security_config.yml``.
-    * If a subsequent run of ``security.yml`` fails, the ``/opt/omnia/input/project_default/security_config.yml`` file will be unencrypted.
-
-.. note:: Installation of OpenLDAP server or FreeIPA server on OIM is not supported.
-
-.. caution:: No users will be created by Omnia.
 
 Create a new user on OpenLDAP
 -----------------------------
