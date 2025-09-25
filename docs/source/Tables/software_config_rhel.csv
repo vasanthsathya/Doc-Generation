@@ -9,7 +9,6 @@
 * Omnia sets up a local Pulp repository on the OIM and downloads all the necessary packages or images for the cluster into this repository. The behavior of the Pulp container varies depending on the value of the ``repo_config`` parameter.
 * In case of ``always``, packages are downloaded and cached on OIM during ``local_repo.yml`` execution; compute nodes get the packages from OIM. Caching these packages allow them to be reused in future operations without needing to download them again.
 * In case of ``partial``, packages are not pre-downloaded or cached. OIM downloads from upstream URLs when needed.
-* In case of ``never``, the packages are not downloaded or cached, but streamed directly from the source URLs.
 * **Accepted value**: ``always``, ``partial``
 * **Default value**: ``always``
 
