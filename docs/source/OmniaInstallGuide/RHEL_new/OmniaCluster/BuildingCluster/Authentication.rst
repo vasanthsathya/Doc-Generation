@@ -1,10 +1,7 @@
 Step 4: Setup OpenLDAP for centralized authentication 
 ======================================================
 
-The security feature allows cluster admin users to set up OpenLDAP in order to allow or deny access to the user(s).
-
-Configuring OpenLDAP security
---------------------------------------
+Set up OpenLDAP to allow or deny access to the user(s).
 
 **Prerequisites**
 
@@ -55,7 +52,8 @@ Below is a sample file: ::
 2. Run the command ``ldapadd -D <enter admin binddn > -w < bind_password > -f create_user.ldif`` to execute the LDIF file and create the account.
 3. To set up a password for this account, use the command ``ldappasswd -D <enter admin binddn > -w < bind_password > -S <user_dn>``. The value of ``user_dn`` is the distinguished name that indicates where the user was created. (In this example, ``uid=ldapuser,ou=People,dc=omnia,dc=test``)
 
-Setting up Passwordless SSH for the OpenLDAP/FreeIPA users
+
+Configure Passwordless SSH for the OpenLDAP/FreeIPA users
 -----------------------------------------------------------
 
 Once user accounts are created, admins can enable passwordless SSH for users to run HPC jobs on the cluster nodes.
@@ -89,7 +87,7 @@ Where inventory follows the format defined under inventory file in the provided 
 
 .. caution:: Do not run ssh-keygen commands after passwordless SSH is set up on the nodes.
 
-Setting up OpenLDAP as a proxy server
+Configure OpenLDAP as a proxy server
 --------------------------------------
 
 Omnia allows the internal OpenLDAP server to be configured as a proxy, where it utilizes the external LDAP servers as a backend database to store user data and acts as an authentication entity to allow/deny them access to the cluster. OpenLDAP client will be configured through the proxy server which means that there won't be any direct communication between OpenLDAP client and the external LDAP server.
