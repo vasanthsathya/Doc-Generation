@@ -35,7 +35,7 @@ Steps
 3. Execute the ``telemetry.yml`` playbook. ::
 
     cd telemetry
-    ansible-playbook telemetry.yml -i /opt/omnia_inventory/<service_cluster_name>_cluster_layout
+    ansible-playbook telemetry.yml -i inventory
 
 Result
 =======
