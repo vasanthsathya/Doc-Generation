@@ -47,7 +47,7 @@ Recommended Software by Functional Group
 
 The following table lists the functional groups along with the recommended software to be deployed on each group.  
 Ensure that the corresponding ``software_config.json`` file contains the required inputs for proper deployment.  
-For more information, see the `InputParameters file <OmniaInstallGuide/RHEL_new/CreateLocalRepo/InputParameters.html>`_.
+For more information, see the `InputParameters file <https://omnia-devel.readthedocs.io/en/latest/OmniaInstallGuide/RHEL_new/CreateLocalRepo/InputParameters.html>`_.
 
 +----------------------------------+--------------------------------------------------------------------------------------+
 | Functional Group Name            | Recommended Software                                                                 |
