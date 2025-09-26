@@ -14,7 +14,7 @@ Step 10: Set up Slurm on nodes
 1. To download the artifacts required to set up Slurm on the nodes, run the ``local_repo.yml`` playbook.
 2. Provide the slurm cluster information in the ``functional_groups_config.yml``: `Create groups and assign functional roles to the nodes <../../composable_roles.html>`_
 3. To build diskless images for cluster nodes, run the ``build.image.yml`` playbook: `Build cluster node images <../../build_images.html>`_
-4. To discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups, run  the ``discovery.yml`` playbook: `Discover cluster nodes <../../provision/index.html>`_
+4. To discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups, run  the ``discovery.yml`` playbook: `Discover cluster nodes <../../Provision/index.html>`_
 
 After booting the nodes, verify the following to ensure slurm is deployed successfully: 
 On slurm controller node
