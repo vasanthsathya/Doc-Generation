@@ -33,4 +33,3 @@ Use the below command to execute the playbook: ::
     * On subsequent runs of ``discovery.yml``, if users are unable to log into the server, refresh the ssh key manually and retry. ::
 
         ssh-keygen -R <node IP>
->
