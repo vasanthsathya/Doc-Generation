@@ -3,30 +3,25 @@ Step 2: Create groups and assign functional roles to the nodes
 
 In Omnia, nodes are organized based on their assigned **functional groups** and **groups**. By combining both functional groups and groups, Omnia offers a powerful and flexible approach to manage large-scale node infrastructures, ensuring both logical organization and physical optimization of resources.
 
-Functional Group
-----------------
 
-A **functional group** defines what a node does in the system. It is a way to categorize nodes based on their functionality. For example, a node could belong to a functional group such as:
+* A **functional group** defines what a node does in the system. It is a way to categorize nodes based on their functionality. Functional groups help group nodes that perform similar tasks, making it easier to manage and assign resources.
+  For example, a node could belong to a functional group such as:
 
-- **Service Kube Node** 
-- **Login Node** 
-- **Login Compiler Node** 
-- **Slurm Control Node** 
+  - **Service Kube Node** 
+  - **Login Node** 
+  - **Login Compiler Node** 
+  - **Slurm Control Node** 
 
-Functional groups help group nodes that perform similar tasks, making it easier to manage and assign resources.
+ 
+ * A **group** is based on the physical characteristics of the nodes. It refers to nodes that are located in the same place or have similar hardware. For example, nodes in the same rack or SU (Scalable Unit) might be grouped together, with specific functional groups like **Service Kube Node** or **Slurm Control Node**. Groups help with physical organization and management of nodes.
 
-Group
--------
-
-A **group** is based on the physical characteristics of the nodes. It refers to nodes that are located in the same place or have similar hardware. For example, nodes in the same rack or SU (Scalable Unit) might be grouped together, with specific functional groups like **Service Kube Node** or **Slurm Control Node**. Groups help with physical organization and management of nodes.
-
-Both **functional groups** and **groups** must be configured in the ``functional_groups_config.yml`` input file. This file defines how nodes are organized in Omnia, including their functional roles and group assignments.
+   Both **functional groups** and **groups** must be configured in the ``functional_groups_config.yml`` input file. This file defines how nodes are organized in Omnia, including their functional roles and group assignments.
 
 
-Functional groups in Omnia
----------------------------
+Create Functional groups
+------------------
 
-The following table lists the functional groups available in Omnia.
+Nodes with similar functional roles or functionalities can be grouped together. The following table lists the functional groups available in Omnia.
 
 .. note:: 
     
@@ -42,7 +37,7 @@ The following table lists the functional groups available in Omnia.
    :keepspace:
 
   
-Recommended Software by Functional Group
+Recommended Software by functional groups
 ------------------------------------------
 
 The following table lists the functional groups along with the recommended software to be deployed on each group.  
@@ -69,10 +64,10 @@ For more information, see the `Input parameters for Local Repositories <https://
 | login_compiler_node_aarch64      | slurm_custom.json, nfs.json, openldap.json, ofed.json, ucx.json, openmpi.json        |                                                                               
 +-------------------------------------------------------------------------------------------------------------------------+
 
-Group attributes
+Create Groups
 ----------------
 
-Nodes with similar functional roles or functionalities can be grouped together. To do so, fill up the ``functional_groups_config.yml`` input file in the ``/opt/omnia/input/project_default`` directory which includes all necessary attributes for the nodes, based on their role within the cluster. Each group will have following attributes as indicated in the table below:
+Nodes that are located in the same place or similar hardware can be grouped together. To do so, update the ``functional_groups_config.yml`` input file in the ``/opt/omnia/input/project_default`` directory which includes all necessary attributes for the nodes, based on their role within the cluster. Each group will have following attributes as indicated in the table below:
 
 .. note:: Groups associated with the ``service_kube_control_plane``, ``service_etcd``, ``service_kube_node``, and ``oim_ha_node`` roles should not be used to fulfill any other roles.
 
