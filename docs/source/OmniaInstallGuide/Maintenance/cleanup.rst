@@ -27,8 +27,8 @@ Use the below command to execute the playbook: ::
 .. caution::
     * After a clean-up, reprovision your cluster by performing the following.  Alternatively, disable any OS available in the ``Boot Option Enable/Disable`` section of your BIOS settings (``BIOS Settings`` > ``Boot Settings`` > ``UEFI Boot Settings``) on all target nodes.
       
-        * To delete the omnia container, click `Step 1 <https://omnia-devel.readthedocs.io/en/latest/OmniaInstallGuide/RHEL_new/omnia_startup.html>`_.
-        * To retain the existing omnia container, click `Step 2 <https://omnia-devel.readthedocs.io/en/latest/OmniaInstallGuide/RHEL_new/composable_roles.html>`_.
+        * To delete the omnia container, click `Deploy Omnia core container <https://omnia-devel.readthedocs.io/en/latest/OmniaInstallGuide/RHEL_new/omnia_startup.html>`_.
+        * To retain the existing omnia container, click `Create groups and assign functional roles to the nodes <https://omnia-devel.readthedocs.io/en/latest/OmniaInstallGuide/RHEL_new/composable_roles.html>`_.
      
     * On subsequent runs of ``discovery.yml``, if users are unable to log into the server, refresh the ssh key manually and retry. ::
 
