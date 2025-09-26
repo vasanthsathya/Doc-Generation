@@ -8,3 +8,4 @@ Limitations
 - Containerized benchmark job execution is not supported on Slurm clusters.
 - All iDRACs must use the same username and password.
 - Omnia playbooks will fail if the OIM is unable to access online resources or the Internet.
+- Support for Kube controllers is through diskfull installation only.
