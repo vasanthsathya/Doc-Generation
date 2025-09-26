@@ -96,11 +96,11 @@ Omnia allows the internal OpenLDAP server to be configured as a proxy, where it 
 
 Perform the following steps to configure OpenLDAP as a proxy server:
 
-1. Go to ``/opt/omnia/authservice/slapd.conf``, replace the ``slapd.conf`` with the updated ``slapd.conf`` file, and run the following command to restart the ``omnia_auth`` container.::
+1. Go to ``/opt/omnia/auth/slapd.conf``, replace the ``slapd.conf`` with the updated ``slapd.conf`` file, and run the following command to restart the ``omnia_auth`` container.::
 
 		podman restart omnia_auth
 
-2. Now, locate the ``slapd.conf`` config file present in ``/opt/omnia/authservice/`` and modify the file to add the new LDAP configurations. Add the following lines to the config file based on the operating system running on the cluster:
+2. Now, locate the ``slapd.conf`` config file present in ``/opt/omnia/auth/`` and modify the file to add the new LDAP configurations. Add the following lines to the config file based on the operating system running on the cluster:
 
     For RHEL: ::
 
