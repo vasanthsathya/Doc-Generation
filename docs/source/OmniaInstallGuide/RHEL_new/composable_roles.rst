@@ -1,7 +1,7 @@
 Step 2: Create groups and assign functional roles to the nodes
 ================================================================
 
-In Omnia, nodes are organized based on their assigned **functional groups**. Nodes with the same functional group can be clubbed under a **group**. By combining both functional groups and groups, Omnia offers a powerful and flexible approach to managing large-scale node infrastructures, ensuring both logical organization and physical optimization of resources.
+In Omnia, nodes are organized based on their assigned **functional groups** and **groups**. By combining both functional groups and groups, Omnia offers a powerful and flexible approach to manage large-scale node infrastructures, ensuring both logical organization and physical optimization of resources.
 
 Functional Group
 ----------------
