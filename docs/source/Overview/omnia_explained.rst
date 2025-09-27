@@ -3,11 +3,11 @@ Types of clusters deployed by Omnia
 
 Omnia can deploy and configure PowerEdge servers (nodes), and build clusters that use Slurm or Kubernetes (or both) for workload management. Apart from the general compute nodes of the cluster, a cluster deployed by Omnia has two additional nodes:
 
-1. **Omnia Infrastructure Manager (OIM)**: The OIM is like a central node in a cluster, separate from the actual computing nodes. It acts as the main hub of the cluster, hosting the Omnia provisioning and monitoring tool. When setting up the cluster, the Omnia repository is copied and downloaded to the OIM.
-2. **Head Node**: The head node in an Omnia cluster is a server that is responsible for hosting the scheduling manager (``kube_control_plane`` or ``slurm_control_node``). Similar to the OIM, the head node is separate from the compute nodes in the cluster. It plays a crucial role in managing the scheduling of tasks within the cluster.
+**Omnia Infrastructure Manager (OIM)**: The OIM is like a central node in a cluster, separate from the actual computing nodes. It acts as the main hub of the cluster, hosting the Omnia provisioning and monitoring tool. When setting up the cluster, the Omnia repository is copied and downloaded to the OIM.
 
-Kubernetes cluster
--------------------
+
+Service Kubernetes cluster
+----------------------------
 
 Components of a Kubernetes cluster are:
 

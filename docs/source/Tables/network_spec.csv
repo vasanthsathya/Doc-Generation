@@ -31,3 +31,5 @@ Conditional mandatory","* The iDRAC  IP address of the OIM server
 ``IP address range``
 
 Mandatory",The dynamic range of IPs to be provisioned on target nodes.
+,dns,"The list of external DNS server IP address for the admin network.
+ "
