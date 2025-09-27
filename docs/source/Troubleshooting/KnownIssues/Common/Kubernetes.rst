@@ -39,7 +39,7 @@ Kubernetes
 
 2. If the pod(s) are not in ``Running`` state, delete it using the command: ``kubectl delete pods <name of pod>``
 
-3. Re-run the ``omnia.yml``or ``scheduler.yml`` playbook to bring up Kubernetes on the previously failed pods.
+3. Re-run the ``service_k8s_cluster.yml`` playbook to bring up Kubernetes on the previously failed pods.
 
 
 ⦾ **If the DNS servers are unresponsive, the Kubernetes pods stop communicating with the servers.**
@@ -52,7 +52,7 @@ Kubernetes
 
 2. On the management node, edit the ``omnia_config.yml`` file to change the Kubernetes Pod Network CIDR. The suggested IP range is 192.168.0.0/16. Ensure that the IP provided is not in use on your host network.
 
-3. List ``k8s`` in ``input/software_config.json`` and re-run ``omnia.yml``.
+3. List ``k8s`` in ``input/software_config.json`` and re-run ``service_k8s_cluster.yml``.
 
 
 ⦾ **Why does the** ``TASK: Initialize Kubeadm`` fail with ``nnode.Registration.name: Invalid value: "<Host name>"`` **error?**
@@ -64,11 +64,11 @@ Kubernetes
     .. include:: ../../../Appendices/hostnamereqs.rst
 
 
-⦾ **What to do if** ``omnia.yml`` **playbook execution fails with MetalLB, a load-balancer for bare metal Kubernetes cluster?**
+⦾ **What to do if** ``service_k8s_cluster.yml`` **playbook execution fails with MetalLB, a load-balancer for bare metal Kubernetes cluster?**
 
 **Potential Cause**: This failure is caused due to an issue with Kubespray, a third-party software. For more information about this issue, `click here <https://github.com/kubernetes-sigs/kubespray/issues/11847>`_.
 
-**Resolution**: If your ``omnia.yml`` playbook execution fails while waiting for the MetalLB controller to be up and running, you need to wait for the MetalLB pods to come to running state and then re-run ``omnia.yml/scheduler.yml``.
+**Resolution**: If your ``service_k8s_cluster.yml`` playbook execution fails while waiting for the MetalLB controller to be up and running, you need to wait for the MetalLB pods to come to running state and then re-run ``omnia.yml/scheduler.yml``.
 
 
 ⦾ **Why does the NFS-client provisioner go to a** ``ContainerCreating`` **or** ``CrashLoopBackOff`` **state?**
@@ -102,22 +102,3 @@ Kubernetes
         * Post deletion, the pod will be restarted and it will come to running state.
 
 
-⦾ **Why does the nvidia-device-plugin pods in** ``ContainerCreating`` **status fail with a** ``no runtime for "nvidia" is configured`` **error?**
-
-.. image:: ../../../images/nvidia_noruntime.png
-
-**Potential Cause**: nvidia-container-toolkit is not installed on GPU nodes.
-
-**Resolution**: Install Kubernetes, download nvidia-container-toolkit, and perform the necessary configurations based on the OS running on the cluster.
-
-⦾ **After running the** ``reset_cluster_configuration.yml`` **playbook on a Kubernetes cluster, which should ideally delete all Kubernetes services and files, it is observed that some Kubernetes logs and configuration files are still present on the** ``kube_control_plane``. **However, these left-over files do not cause any issues for Kubernetes re-installation on the cluster. The files are present under the following directories:**
-
-* ``/var/log/containers/``
-* ``/sys/fs/cgroup/``
-* ``etc/system``
-* ``/run/systemd/transient/``
-* ``/tmp/releases``
-
-**Potential Cause**: When ``reset_cluster_configuration.yml`` is executed on a Kubernetes cluster, it triggers the Kubespray playbook ``kubernetes_sigs.kubespray.reset`` internally, which is responsible for removing Kubernetes configuration and services from the cluster. However, this Kubespray playbook doesn't delete all Kubernetes services and files, resulting in some files being left behind on the ``kube_control_plane``.
-
-**Workaround**: After running the ``reset_cluster_configuration.yml`` playbook on a Kubernetes cluster, users can choose to remove the files from the directories mentioned above if they wish to do so.

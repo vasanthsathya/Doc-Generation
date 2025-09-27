@@ -1,43 +1,43 @@
-Set up Slurm
+Step 10: Set up Slurm on nodes
 ==============
 
 **Prerequisites**
 
-* Ensure that ``slurm`` entry is present in the ``softwares`` list in ``software_config.json``, as mentioned below:
-  
-  ::
+* Fill the mandatory parameters in ``omnia_config.yml``: `Input parameters for the cluster <../schedulerinputparams.html#id13>`_
+* Fill the parameters in ``storage_config.yml``: `Input parameters for the cluster <../schedulerinputparams.html#id13>`_
+* Add ``slurm_custom`` to ``software_config.json`` and add ``slurm_custom`` subgroups.
+* Add ``slurm_custom`` repository URL to ``user_repo_url_x86_64`` or ``user_repo_url_aarch64`` in ``local_repo_config.yml``.
 
-    "softwares": [
-                    {"name": "slurm_custom", "arch": ["x86_64","aarch64"]},
-                 ]
+
+**Setup Slurm:**
+
+1. To download the artifacts required to set up Slurm on the nodes, run the ``local_repo.yml`` playbook.
+2. Provide the slurm cluster information in the ``functional_groups_config.yml``: `Create groups and assign functional roles to the nodes <../../composable_roles.html>`_
+3. To build diskless images for cluster nodes, run the ``build.image.yml`` playbook: `Build cluster node images <../../build_images.html>`_
+4. To discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups, run  the ``discovery.yml`` playbook: `Discover cluster nodes <../../Provision/index.html>`_
+
+After booting the nodes, verify the following to ensure slurm is deployed successfully: 
+On slurm controller node
+    * Verify if the required services are running. Run the following commands and confirm that each service is active (running):
     
-Ensure that you provide the ``slurm_custom.json`` by adding the ``user_repo_url: slurm-repo data`` in ``local_repo_config.yml``.
+    ::
+          systemctl status munge
+          systemctl status slurmctld
+          systemctl status slurmdbd
+          systemctl status mariadb
 
-* Ensure that the following sub-group entry is also present in the ``software_config.json`` file: ::
-
-            "slurm": [
-                    {"name": "slurm_control_node"},
-                    {"name": "slurm_node"},
-                    {"name": "login_node"}
-                ]
-
-* Ensure to run ``local_repo.yml`` with the ``slurm_custom`` entry present in ``software_config.json`` to download all required slurm packages.
-
-* Once all the required parameters in `omnia_config.yml <../schedulerinputparams.html#id13>`_ are filled in, ``discovery.yml`` can be used to set up Slurm.
-
-* ``slurm installation_type`` is configless by default. Ensure that ``nfs_client_params`` are filled in ``storage_config.yml`` before running the ``discovery.yml`` playbook to deploy Slurm.
+    * Verify the node status with sinfo:
+   
+        * Ensure that the worker nodes are listed and the node state should be idle.
 
 
+**PAM Feature for Slurm**
 
+Slurm PAM restricts SSH access to compute nodes for non-root users. You can log in only while their job is actively running on the node. After the job is completed, you are is automatically logged out.  
 
-**Install Slurm**
+On login node: Switch to the LDAP user:
+::
+      ssh <ldap_user>@<login_node_hostname>
+      Run the job
 
-Run the following command:
-
-     ::
-
-           cd /omnia/discovery
-           ansible-playbook discovery.yml
-
-    
-    
+While the job is running, ssh as ``<ldap_user>`` to the slurm node where the job is running. After the job is completed, ``<ldap_user>`` is logged out.
