@@ -56,7 +56,7 @@ Steps
 
 1. Run ``local_repo.yml`` playbook to download the artifacts required to set up Kubernetes on the service cluster nodes.
 
-2. Fill in the service cluster details in the ``functional_groups_config.yml``: `Create groups and assign functional roles to the nodes <../../composable_roles.html>`_.
+2. Fill in the service cluster details in the ``functional_groups_config.yml``: `Create groups and assign functional roles to the nodes <../composable_roles.html>`_.
 
 .. csv-table:: functional_groups_config.yml
    :file: ../../../../../Tables/service_k8s_roles.csv
@@ -107,7 +107,7 @@ Steps
     This playbook deploys the service_k8s cluster with diskfull kube controller nodes and also extracts the configuration required for diskless kube nodes. It generates the kubeadm token and cloud-init vars for diskless kube node.  The token expires after 24 hours. The step 5 and step 6 need to be executed within 24 hours and pxe boot also needs to be completed. If the token gets expired , use the script ``ansible-playbook scheduler/generate_token_and_pod_status.yml -i <inv>  --tags kubeadm_token`` to generate the new token and run ``discovery.yml`` again and pxe boot the nodes. 
 
 
-6. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. See `Build cluster node images <../build_images>`_.
+6. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. See `Build cluster node images <../build_images.html>`_.
 
 7. Run ``discovery.yml`` playbook to discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups. See `Discover cluster nodes <../Provision/index.html>`_
     
