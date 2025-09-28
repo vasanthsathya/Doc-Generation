@@ -77,7 +77,7 @@ The following table lists the functional groups along with the recommended softw
 | login_compiler_node_x86_64       | slurm_custom.json, nfs.json, openldap.json, ofed.json, ucx.json, openmpi.json        |
 +----------------------------------+--------------------------------------------------------------------------------------+
 | login_compiler_node_aarch64      | slurm_custom.json, nfs.json, openldap.json, ofed.json, ucx.json, openmpi.json        |                                                                               
-+-------------------------------------------------------------------------------------------------------------------------+
++----------------------------------+--------------------------------------------------------------------------------------+
 
 Sample
 -------
