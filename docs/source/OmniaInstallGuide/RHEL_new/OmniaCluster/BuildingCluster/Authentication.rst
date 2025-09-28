@@ -64,7 +64,7 @@ Omnia authenticates users against OpenLDAP using TLS-only connection. The connec
 
 
 .. csv-table:: Parameters for Authentication
-   :file: ../../../../Tables/security_config.csv
+   :file: ../../../../Tables/security_config_ldap.csv
    :header-rows: 1
    :keepspace:
 
