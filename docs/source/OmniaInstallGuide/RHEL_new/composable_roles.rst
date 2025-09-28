@@ -6,9 +6,7 @@ In Omnia, nodes are organized based on their assigned **groups** and **functiona
 
 * A **group** is based on the physical characteristics of the nodes. It refers to nodes that are located in the same place or have similar hardware. For example, nodes in the same rack or SU (Scalable Unit) might be grouped together, with specific functional groups like **Service Kube Node** or **Slurm Control Node**. Groups help with physical organization and management of nodes.
 
-   Both **functional groups** and **groups** must be configured in the ``functional_groups_config.yml`` input file. This file defines how nodes are organized in Omnia, including their functional roles and group assignments.
-
-
+   
 * A **functional group** defines what a node does in the system. It is a way to categorize nodes based on their functionality. Functional groups help group nodes that perform similar tasks, making it easier to manage and assign resources.
   For example, a node could belong to a functional group such as:
 
@@ -17,6 +15,8 @@ In Omnia, nodes are organized based on their assigned **groups** and **functiona
   - **Login Compiler Node** 
   - **Slurm Control Node** 
   - **Slurm Node**
+  
+Both **functional groups** and **groups** must be configured in the ``functional_groups_config.yml`` input file. This file defines how nodes are organized in Omnia, including their functional roles and group assignments.
 
 
 Create Groups
