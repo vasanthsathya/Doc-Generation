@@ -11,9 +11,10 @@ In Omnia, nodes are organized based on their assigned **functional groups** and 
   - **Login Node** 
   - **Login Compiler Node** 
   - **Slurm Control Node** 
+  - **Slurm Node**
 
  
- * A **group** is based on the physical characteristics of the nodes. It refers to nodes that are located in the same place or have similar hardware. For example, nodes in the same rack or SU (Scalable Unit) might be grouped together, with specific functional groups like **Service Kube Node** or **Slurm Control Node**. Groups help with physical organization and management of nodes.
+* A **group** is based on the physical characteristics of the nodes. It refers to nodes that are located in the same place or have similar hardware. For example, nodes in the same rack or SU (Scalable Unit) might be grouped together, with specific functional groups like **Service Kube Node** or **Slurm Control Node**. Groups help with physical organization and management of nodes.
 
    Both **functional groups** and **groups** must be configured in the ``functional_groups_config.yml`` input file. This file defines how nodes are organized in Omnia, including their functional roles and group assignments.
 
@@ -41,8 +42,9 @@ Recommended Software by functional groups
 ------------------------------------------
 
 The following table lists the functional groups along with the recommended software to be deployed on each group.  
-Ensure that the corresponding ``software_config.json`` file contains the required inputs for proper deployment.  
-For more information, see the `Input parameters for Local Repositories <https://omnia-devel.readthedocs.io/en/latest/OmniaInstallGuide/RHEL_new/CreateLocalRepo/InputParameters.html>`_.
+
+.. caution:: Ensure that the ``software_config.json`` file contains all required inputs for the software to be deployed on each functional group.  For more information, see `Input parameters for Local Repositories <https://omnia-devel.readthedocs.io/en/latest/OmniaInstallGuide/RHEL_new/CreateLocalRepo/InputParameters.html>`_.
+
 
 +----------------------------------+--------------------------------------------------------------------------------------+
 | Functional Group Name            | Recommended Software                                                                 |
@@ -93,12 +95,11 @@ Here's a sample (using mapping file) for your reference:
         location_id: SU-1.RACK-1
         parent: ""
     
-    functional_groups:              
-        - name: "slurm_node_x86_64"
-          cluster_name: ""
-          
-        - name: "slurm_control_node_x86_64"
-          cluster_name: ""
+    functional_groups:
+    - name: "slurm_control_node_x86_64"
+      cluster_name: "slurm_cluster"
+      group:
+        - grp0
           
    
 
