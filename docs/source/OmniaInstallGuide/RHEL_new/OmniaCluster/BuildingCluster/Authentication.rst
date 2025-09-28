@@ -116,7 +116,7 @@ Perform the following steps to configure OpenLDAP as a proxy server:
          mode=none
         TLSCACertificateFile    /etc/openldap/certs/ldapserver.crt
         TLSCertificateFile      /etc/openldap/certs/ldapserver.crt
-        TLSCertificateKeyFile   /etc/pki/tls/certs/ldapserver.key
+        TLSCertificateKeyFile   /etc/openldap/certs/ldapserver.key
 
 Change the **<parameter>** values in the config file, as described below:
 
