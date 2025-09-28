@@ -60,7 +60,7 @@ Below is a sample file: ::
 Configure OpenLDAP connection type
 --------------------------------------
 
-Omnia authenticates all users against OpenLDAP using TLS-only communication. The connection type is predefined in the ``security_config.yml`` present in the ``/opt/omnia/input/project_default/`` directory.
+Omnia authenticates users against OpenLDAP using TLS-only connection. The connection type is predefined to TLS in the ``security_config.yml`` available at ``/opt/omnia/input/project_default/`` directory.
 
 
 .. csv-table:: Parameters for Authentication
