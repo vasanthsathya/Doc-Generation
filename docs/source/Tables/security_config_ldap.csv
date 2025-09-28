@@ -1,7 +1,7 @@
 ﻿Parameter,Details
 "ldap_connection_type 
      ``string``      
-     Required        ","For a TLS connection, provide a valid certification path. For an SSL   connection, ensure port 636 is open.
+     Required        ","For TLS  connection, ensure port 389 is open.
                                 
      Choices:                                             
                                                           
