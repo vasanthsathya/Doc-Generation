@@ -64,13 +64,13 @@ User needs to provide the following credentials during cluster configuration. On
 
     4. DockerHub (Username/Password)
 
-    6. OpenLDAP (``openldap_db_username``, ``openldap_db_password``, ``openldap_config_username``, ``openldap_config_password``, ``openldap_monitor_password``)
+    5. OpenLDAP (``openldap_db_username``, ``openldap_db_password``, ``openldap_config_username``, ``openldap_config_password``, ``openldap_monitor_password``)
 
-    7. Telemetry (``mysql_user``, ``mysql_password``, ``mysql_root_password``)
+    6. Telemetry (``mysql_user``, ``mysql_password``, ``mysql_root_password``)
 
-    8. Minio s3 bucket (Password)
+    7. Minio s3 bucket (Password)
 
-    9. Pulp (Password)
+    8. Pulp (Password)
 
     
 Authentication to external systems
@@ -242,13 +242,39 @@ Auditing and logging
 
 Omnia creates and stores log files related to containers at ``<nfs_share_path>/omnia/log/``. The events during the installation of Omnia are captured as logs. For different roles called by Omnia, separate log files are created as listed below:
 
-    * discovery.log
-    * network.log
-    * provision.log
-    * scheduler.log
-    * security.log
-    * storage.log
-    * utils.log
++------------------------------------------------------------------------+---------------------------------------------+
+| Location                                                               | Purpose                                     |
++========================================================================+=============================================+
+| /opt/omnia/log/core/playbooks/discovery.log                            | Discovery logs                              |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/local_repo.log                           | Local Repository logs                       |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/prepare_oim.log                          | Prepare OIM Logs                            |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/provision.log                            | Provision Logs                              |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/scheduler.log                            | Scheduler Logs                              |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/telemetry.log                            | Telemetry logs                              |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/utils.log                                | Utility logs                                |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/credential_utility.log                   | Credential utility logs                     |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/openchami/*log                                          | OpenCHAMI playbook logs                     |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/pulp/*log                                               | Pulp container logs                         |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/local_repo/*log                                         | Local repo logs                             |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/kubespray/*log                                          | Kubespray logs                              |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/container/*log                                     | Core container logs                         |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/validation_omnia_project_default.log     | Omnia input validation report logs          |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/input_validation.log                     | Omnia input validation playbook logs        |
++------------------------------------------------------------------------+---------------------------------------------+
 
 Additionally, an aggregate of the events taking place during storage, scheduler and network role installation called ``omnia.log`` is created in ``/var/log``.
 
