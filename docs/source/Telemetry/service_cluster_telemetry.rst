@@ -53,7 +53,7 @@ Steps
     192.168.10.1
     192.168.10.2
 
-    .. note:: For all nodes in ``kube_control_plane``, ensure that BMC IP address is specified for with the variable bmc_ip along with the admin IP address.
+    .. note:: For all nodes in the ``kube_control_plane`` group, ensure that the BMC IP address is defined using the ``bmc_ip`` variable, in addition to the admin IP address.
 
 
 Result
