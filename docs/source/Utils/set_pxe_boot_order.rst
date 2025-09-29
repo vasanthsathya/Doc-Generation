@@ -1,5 +1,7 @@
+.. _set-pxe-boot-order:
+
 Set PXE Boot Order
-====================
+==================
 
 When PXE boot order is set on a node in Omnia, the node automatically retrieves and boots into the diskless image provided by the Omnia Infrastructure Manager (OIM).
 
