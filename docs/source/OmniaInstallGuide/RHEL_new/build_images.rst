@@ -29,11 +29,11 @@ To build images for the nodes present in each functional group, do the following
 
 2. To build the image, run the appropriate playbook based on the node architecture:
 
-   * For x86_64 nodes:
+   * For x86_64 nodes::
 
          ansible-playbook build_image_x86_64.yml
 
-   * For aarch64 nodes:
+   * For aarch64 nodes::
 
          ansible-playbook build_image_aarch64.yml
 
