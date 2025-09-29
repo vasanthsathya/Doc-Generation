@@ -19,7 +19,6 @@
        * manifests
        * tarballs
        * container images
-       * AMD GPU drivers
   "
 **softwares**,Mandatory,"* **Type**: JSON list
 * A JSON list of required software with the software version (optional) and architecture type ``aarch64``, ``x86_64`` or both. This field is mandatory.

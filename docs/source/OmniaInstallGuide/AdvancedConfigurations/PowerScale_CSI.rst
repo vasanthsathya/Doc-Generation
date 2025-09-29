@@ -26,9 +26,15 @@ PowerScale SmartConnect [Optional]
 Prerequisites
 --------------
 
-1. Download the ``secret.yaml`` file template from this `link <https://github.com/dell/csi-powerscale/blob/release/v2.14.0/samples/secret/secret.yaml>`_.
+1. On the storage network, make sure DHCP is enabled, but the gateway IP for storage must not be assigned by the DHCP server.
 
-2. Update the following parameters in the ``secret.yaml`` file as per your cluster details and keep the rest as default values. For example:
+2. Upstream DNS resolution must be available from both the admin (PXE) and storage networks.
+
+3. Verify that the PowerScale system is operational.
+
+4. Download the ``secret.yaml`` file template from this `link <https://github.com/dell/csi-powerscale/blob/release/v2.14.0/samples/secret/secret.yaml>`_.
+
+5. Update the following parameters in the ``secret.yaml`` file as per your cluster details and keep the rest as default values. For example:
 
     *	clusterName: <desired cluster name>
     *	endpoint: <endpoint_IP>
@@ -40,11 +46,11 @@ Prerequisites
 
    .. image:: ../../images/csi_powerscale_1.png
 
-3. Download the ``values.yaml`` files template using the following command: ::
+6. Download the ``values.yaml`` files template using the following command: ::
 
     wget https://raw.githubusercontent.com/dell/helm-charts/csi-isilon-2.14.0/charts/csi-isilon/values.yaml
 
-4. Update the following parameters in the ``values.yaml`` file and keep the rest as default values. Refer the below sample values:
+7. Update the following parameters in the ``values.yaml`` file and keep the rest as default values. Refer the below sample values:
 
     * controllerCount: 1
 
@@ -72,9 +78,9 @@ Prerequisites
 
     * isiPath: /ifs/data/csi
 
-5. Ensure that ``get_config_credentials.yml`` playbook has been executed and the ``omnia_config_credentials`` file has been generated. Once that's done, add the values for ``csi_username`` and ``csi_password`` to that file.
+8. Ensure that ``get_config_credentials.yml`` playbook has been executed and the ``omnia_config_credentials`` file has been generated. Once that's done, add the values for ``csi_username`` and ``csi_password`` to that file.
 
-6. Enable ``auth_basic`` for the PowerScale devices: Omnia authenticates and connects with PowerScale devices using basic authentication. To check and enable basic authentication from PowerScale's end, do the following:
+9. Enable ``auth_basic`` for the PowerScale devices: Omnia authenticates and connects with PowerScale devices using basic authentication. To check and enable basic authentication from PowerScale's end, do the following:
 
     i. Establish an SSH connection with the PowerScale node.
     ii. Execute the following command: 
