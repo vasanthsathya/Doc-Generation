@@ -16,7 +16,7 @@ Re-provision the nodes with modifications
 ------------------------------------------
 
 1. Update the mapping file, ``functional_group_config.yml`` and ``software_config.json`` as required.
-2. In the event of any modification to the ``functional_group_config.yml`` or ``software_config.json``, run the ``local_repo.yml`` playbook, and then run the ``build_image_x86_64.yml`` or ``build_image_aarch64.yml`` to build the new images. For more information, see see :doc:`../RHEL_new/CreateLocalRepo/RunningLocalRepo.rst`.
+2. In the event of any modification to the ``functional_group_config.yml`` or ``software_config.json``, run the ``local_repo.yml`` playbook, and then run the ``build_image_x86_64.yml`` or ``build_image_aarch64.yml`` to build the new images. For more information, see see :doc:`../RHEL_new/CreateLocalRepo/RunningLocalRepo`.
 3. After the images are created, run the ``discovery.yml`` playbook. For more information, see :doc:`../RHEL_new/Provision/installprovisiontool`.
 4. PXE boot the required nodes to be reprovisioned.
 
