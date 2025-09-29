@@ -1,7 +1,7 @@
 Update the input parameters for discovering the nodes
 ========================================================
 
-Fill in all required parameters in ``/opt/omnia/input/project_default/provision_config.yml``, ``/opt/omnia/input/project_default/omnia_config_credentials.yml``, ``/opt/omnia/input/project_default/software_config.json``, ``storage_config.yml``, ``omnia_config.yml`` and ``/opt/omnia/input/project_default/network_spec.yml``.
+Fill in all required parameters in ``/opt/omnia/input/project_default/provision_config.yml``, ``/opt/omnia/input/project_default/omnia_config_credentials.yml``, ``/opt/omnia/input/project_default/software_config.json``, ``/opt/omnia/input/project_default/storage_config.yml``, ``/opt/omnia/input/project_default/omnia_config.yml`` and ``/opt/omnia/input/project_default/network_spec.yml``.
 
 .. caution:: Do not remove or comment any lines in the above mentioned ``.yml`` files.
 
