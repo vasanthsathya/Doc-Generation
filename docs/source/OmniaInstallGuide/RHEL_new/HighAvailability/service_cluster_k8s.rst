@@ -48,7 +48,7 @@ Prerequisites
         
         /<your_server_share_path>  *(rw,sync,no_root_squash,no_subtree_check)
 
-* Ensure that the following ``kube_control_planes`` hostname prerequisites are met.
+* Ensure that the following ``kube_control_planes`` hostname prerequisites are met. See `Prerequisites <https://omnia-devel.readthedocs.io/en/latest/OmniaInstallGuide/RHEL_new/Provision/provisionprereqs.html>`_.
 
     .. include:: ../../Appendices/hostnamereqs.rst
 
