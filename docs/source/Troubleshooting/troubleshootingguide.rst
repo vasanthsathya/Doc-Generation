@@ -37,9 +37,11 @@ Packages download issues during ``local_repo.yml`` playbook execution
 2. To view the overall download status of all softwares in the .csv format, run the following command:
 
 ::
+
         opt/omnia/log/local_repo/<arch>/software.csv
 
 Example: :: 
+        
         /opt/omnia/log/local_repo/x86_64/software.csv
 
 .. image:: images/troubleshoot_local_repo_1.png
