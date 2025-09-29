@@ -1,14 +1,4 @@
 ﻿Parameter,Details
-"**node_name**
-
-``string``
-
-Required","* Prefix for target node names, if dynamically allocated.
-* Hostname: ``<node_name>0000x.<domain_name>``
-* Hostname should be less than or equal to 65 characters.
-* **Example**: ``servernode00001.Omnia.test``,  where  ``<node_name>`` is ``servernode``,  ``<domain_name> is Omnia.test``, and ``00001`` is appended by Omnia.
-
-**Default values**: ``node``"
 "**pxe_mapping_file_path**
 
 ``string``

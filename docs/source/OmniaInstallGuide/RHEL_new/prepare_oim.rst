@@ -44,7 +44,9 @@ A sample of the ``network_spec.yml`` where nodes are discovered using a **mappin
              nic_name: "eno1"
              netmask_bits: "16"
              primary_oim_admin_ip: "10.5.255.254"
+             primary_oim_bmc_ip: ""
              dynamic_range: "10.5.1.1-10.5.1.200"
+             dns: []
           
      
 2. ``provision_config.yml``
