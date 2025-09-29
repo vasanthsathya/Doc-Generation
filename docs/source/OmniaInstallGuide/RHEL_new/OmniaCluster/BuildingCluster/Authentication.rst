@@ -13,7 +13,7 @@ Set up OpenLDAP to allow or deny access to the user(s).
 
 * Run ``local_repo.yml`` to create offline repositories of OpenLDAP. For more information, `click here <../../CreateLocalRepo/index.html>`_.
 
-* Run  ``build_image.yml`` to build the images that contain login node image.
+* Run  ``build_image.yml`` to build the images with OpenLDAP packages on the login node, slurm node, and slurm control node image.
 
 
 Create a new user on OpenLDAP
