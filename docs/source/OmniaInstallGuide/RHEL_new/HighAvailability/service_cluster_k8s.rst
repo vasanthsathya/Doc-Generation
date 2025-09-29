@@ -41,11 +41,11 @@ Prerequisites
 * To use NFS for service Kubernetes cluster, ensure the following prerequisites are met:
 
   * The NFS share has 755 permissions and ``no_root_squash`` is enabled on the mounted NFS share. 
-  * Edit the ``/etc/exports`` file on the NFS server to include the ``no_root_squash`` option for the exported path.
+  * Edit the ``/etc/exports`` file on the NFS server to include the ``no_root_squash`` option for the ``server_share_path``.
     
     ::
         
-        /<your_exported_path>  *(rw,sync,no_root_squash,no_subtree_check)
+        /<your_server_share_path>  *(rw,sync,no_root_squash,no_subtree_check)
 
 * Ensure that the following ``kube_control_planes`` hostname prerequisites are met.
 

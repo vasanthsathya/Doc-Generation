@@ -27,8 +27,6 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
     "repo_config": "always",
     "softwares": [
         {"name": "default_packages", "arch": ["x86_64","aarch64"]},
-        {"name": "cuda", "version": "13.0.1", "arch": ["x86_64","aarch64"]},
-        {"name": "ofed", "version": "24.10-3.2.5.0", "arch": ["x86_64"]},
         {"name": "openldap", "arch": ["x86_64"]},
         {"name": "nfs", "arch": ["x86_64","aarch64"]},
         {"name": "service_k8s","version": "1.31.4", "arch": ["x86_64"]},
@@ -66,8 +64,6 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
             "repo_config": "always",
             "softwares": [
                 {"name": "default_packages", "arch": ["x86_64","aarch64"]},
-                {"name": "cuda", "version": "13.0.1", "arch": ["x86_64","aarch64"]},
-                {"name": "ofed", "version": "24.10-3.2.5.0", "arch": ["x86_64"]},
                 {"name": "openldap", "arch": ["x86_64"]},
                 {"name": "nfs", "arch": ["x86_64","aarch64"]},
                 {"name": "slurm_custom", "arch": ["x86_64","aarch64"]},
