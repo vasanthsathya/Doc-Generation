@@ -40,6 +40,6 @@ Slurm PAM restricts SSH access to compute nodes for non-root users. You can log 
 On login node: Switch to the LDAP user:
 ::
       ssh <ldap_user>@<login_node_hostname>
-      Run the job
+      sbatch job.sh
 
 While the job is running, ssh as ``<ldap_user>`` to the slurm node where the job is running. After the job is completed, ``<ldap_user>`` is logged out.

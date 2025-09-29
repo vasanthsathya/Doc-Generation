@@ -11,6 +11,5 @@ This topic highlights the common known issues related to:
     Provision
     Network
     Kubernetes
-    Security
     Storage
     HA
