@@ -29,6 +29,8 @@ On slurm controller node
           systemctl status mariadb
 
     * Verify the node status with sinfo:
+
+    .. image:: ../../../images/sinfo.png
    
         * Ensure that the worker nodes are listed and the node state should be idle.
 
