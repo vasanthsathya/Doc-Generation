@@ -7,11 +7,3 @@ Centralized authentication
 
 **Resolution**: Remove the whitespaces and re-run the LDIF file.
 
-
-⦾ **Why does the user login fail for an OpenLDAP user?**
-
-**Potential Cause**: Incorrect OpenLDAP service is running on the authentication server.
-
-**Resolution**: Ensure that ``slapd-ltb.service`` is running on the authentication server. Use the following command to check if the service running: ::
-
-    systemctl status slapd-ltb.service
