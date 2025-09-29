@@ -37,6 +37,25 @@ Steps
     cd telemetry
     ansible-playbook telemetry.yml -i inventory
 
+    **Sample inventory**
+
+    [kube_control_plane]
+    192.168.10.151 bmc_ip=172.10.5.73
+    192.168.10.152 bmc_ip=172.10.5.74
+    192.168.10.153 bmc_ip=172.10.5.75
+
+    [etcd]
+    192.168.10.151
+    192.168.10.152
+    192.168.10.153
+    
+    [kube_node]
+    192.168.10.1
+    192.168.10.2
+
+    .. note:: For all nodes in ``kube_control_plane``, ensure that BMC IP address is specified for with the variable bmc_ip along with the admin IP address.
+
+
 Result
 =======
 
@@ -77,7 +96,7 @@ After ``telemetry.yml`` has been executed for the service cluster, you can check
         
         kubectl get pods -n telemetry -l app=idrac-telemetry
 
-    .. note:: The ``idrac-telemetry-0`` pod will always be responsible for collecting the telemetry data of the management nodes (``oim_ha``, ``service_kube_control_plane``, ``login_node``, ``compiler_node``, etc.).
+    .. note:: The ``idrac-telemetry-0`` pod will always be responsible for collecting the telemetry data of the management nodes (``oim``, ``service_kube_control_plane``, ``login_node``, ``compiler_node``, etc.).
 
     2. Execute the following command: ::
 
