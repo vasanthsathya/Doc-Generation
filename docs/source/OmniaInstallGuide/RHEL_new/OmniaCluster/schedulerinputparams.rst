@@ -20,7 +20,6 @@ The ``service_k8s_cluster.yml`` playbook is dependent on the inputs provided to 
       :header-rows: 1
       :keepspace:
 
-
 ::
 
    service_k8s_cluster:
