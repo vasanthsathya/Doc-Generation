@@ -30,6 +30,7 @@ Prerequisites
     }
  
 
+* If you want to install CSI PowerScale driver, ensure that you provide the required values. Click `here <../../AdvancedConfigurations/PowerScale_CSI.html>`_ for more information.
 * Ensure that there are a minimum of  three ``kube_control_planes``.
 * Ensure that the ``kube_control_planes`` has a full-featured RHEL operating system (OS) installed. 
 * The ``kube_control_planes`` has internet access to download necessary packages for cluster deployment and configuration.
@@ -151,12 +152,6 @@ After deploying Kubernetes, the following additional packages are installed on t
     Click `here <https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner>`_ for more information.
 
 
-2. **CSI-driver-for-PowerScale**
-
-    The CSI Driver for Dell PowerScale (formerly known as Isilon) is a Container Storage Interface (CSI) plugin that enables Kubernetes to provision and manage persistent storage using PowerScale.
-    It enables Kubernetes clusters to dynamically provision, bind, expand, snapshot, and manage volumes on a PowerScale node.
-    
-    Click `here <../../AdvancedConfigurations/PowerScale_CSI.html>`_ for more information.
 
 Next step
 ===========
