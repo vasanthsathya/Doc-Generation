@@ -1,9 +1,9 @@
 Step 1: Deploy Omnia core container
 =========================================
 
-The Omnia Core Container is deployed on the Omnia Infrastructure Manager (OIM) and it is managed as a Systemd service (``omnia_core.service``). 
+The Omnia core container is deployed on the Omnia Infrastructure Manager (OIM) and it is managed as a Systemd service (``omnia_core.service``). 
 As part of cluster setup, Omnia integrates with OpenCHAMI that provides the capabilities for node discovery and provisioning.
-You can use the ``omnia.sh`` script to install, uninstall, and view help on the actions that you can perform on the Omnia Core Container. 
+You can use the ``omnia.sh`` script to install, uninstall, and view help on the actions that you can perform on the Omnia core container. 
 
 Prerequisites for deploying the Omnia core container
 -----------------------------------------------------
@@ -30,7 +30,7 @@ Prerequisites for deploying the Omnia core container
 Install Omnia core container
 ------------------------------
 
-The ``omnia.sh --install`` command is used to deploy the Omnia Core Container on the OIM.
+The ``omnia.sh --install`` command is used to deploy the Omnia core container on the OIM.
 
 1. Download the ``omnia.sh`` script from the Dell Omnia GitHub repository. To download, run the following command::
 
@@ -44,7 +44,7 @@ The ``omnia.sh --install`` command is used to deploy the Omnia Core Container on
    ./omnia.sh --install
 
 3. When promted for the shared path, enter the path for the Omnia shared directory. This can be a local file path or an NFS share path.
-4. When prompted for the password, enter a secure alphanumeric password for accessing the OMNIA Core Container.
+4. When prompted for the password, enter a secure alphanumeric password for accessing the OMNIA core container.
    
 .. caution:: The password must not contain special characters such as \ , | , & , ; , ` , < > , * , ? , ! , $ , ( ) , { } , [ ] . 
   
@@ -75,21 +75,21 @@ The ``omnia.sh`` script performs the following tasks:
         ./omnia.sh --uninstall
 
 
-Access the Omnia Core Container
+Access the Omnia core container
 ----------------------------------------
 
-You can access the Omnia Core Container using either of the following methods:
+You can access the Omnia core container using either of the following methods:
 
-1. **Podman**: To access the Omnia Core Container using Podman, run the following command::
+1. **Podman**: To access the Omnia core container using Podman, run the following command::
 
        podman exec -it -u root omnia_core bash
 
-2. **SSH**: To access the Omnia Core Container using SSH, run the following command::
+2. **SSH**: To access the Omnia core container using SSH, run the following command::
 
        ssh omnia_core
 
 
-Uninstall Omnia Core Container
+Uninstall Omnia core container
 -------------------------------
 
 The ``omnia.sh --uninstall`` command removes the ``omnia_core`` container and its associated Systemd service 
@@ -104,22 +104,22 @@ user-generated files such as inventory and mapping files.
       cd /omnia/utils
       ansible-playbook oim_cleanup.yml
 
-To uninstall the Omnia Core Container, on the Omnia Infrastructure Manager (OIM), run the following script::
+To uninstall the Omnia core container, on the OIM, run the following script::
 
    ./omnia.sh --uninstall
 
 View usage instructions for Omnia Core Container
 -------------------------------------------------
 
-The ``omnia.sh --help`` command provides usage instructions for managing the Omnia Core Container. 
+The ``omnia.sh --help`` command provides usage instructions for managing the Omnia core container. 
 The help menu lists the supported actions you can perform, such as installing and uninstalling the Omnia Core Container.
 
-To view the usage instructions, on the Omnia Infrastructure Manager (OIM), run the following command::
+To view the usage instructions, on the OIM, run the following command::
 
   ./omnia.sh --help
 
 The help menu includes:
 
-  * ``--install``: Deploy the ``omnia_core`` container and configure it as a Systemd service.
-  * ``--uninstall``: Stop and remove the ``omnia_core`` Container and its associated service.
+  * ``--install``: Deploys the ``omnia_core`` container and configures it as a Systemd service.
+  * ``--uninstall``: Stops and removes the ``omnia_core`` container and its associated service.
   * ``--help``: Display usage information.

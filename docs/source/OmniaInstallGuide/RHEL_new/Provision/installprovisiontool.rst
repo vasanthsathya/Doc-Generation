@@ -56,5 +56,5 @@ To deploy the Omnia provision tool, execute the following commands: ::
 
 **Next steps**:
 
-* After successfully running the ``discovery.yml`` playbook, you can either manually PXE boot the nodes or use the ``set_pxe_boot.yml`` playbook. PXE booting allows the nodes to load diskless images from the Omnia Infrastructure Manager (OIM). For detailed steps on using ``set_pxe_boot.yml``, see :doc:`Set PXE Boot Order <../docs/source/OmniaInstallGuide/samplefiles.rst>`.
+* After successfully running the ``discovery.yml`` playbook, you can either manually PXE boot the nodes or use the ``set_pxe_boot.yml`` playbook. PXE booting allows the nodes to load diskless images from the Omnia Infrastructure Manager (OIM). For detailed steps on using ``set_pxe_boot.yml``, see :doc:`Set PXE Boot Order <..docs/source/Utils/set_pxe_boot_order>`.
 * Execute ``telemetry.yml`` to start the telmetry collection.
