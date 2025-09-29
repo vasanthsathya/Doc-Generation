@@ -13,6 +13,7 @@ A sample format is shown below:
 
 .. note::
     * The header fields mentioned above are case sensitive.
+    * The IP address provided in the mapping file are not validated by Omnia. Ensure that the correct IP addresses are provided. Incorrect IP address can cause unexpected failures.
     * The service tags provided in the mapping file are not validated by Omnia. Ensure that correct service tags are provided. Incorrect service tags can cause unexpected failures.
     * The hostnames provided should not contain the domain name of the nodes.
     * All fields mentioned in the mapping file are mandatory.
