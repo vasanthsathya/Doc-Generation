@@ -18,9 +18,11 @@ Step 10: Set up Slurm on nodes
 
 After booting the nodes, verify the following to ensure slurm is deployed successfully: 
 On slurm controller node
+
     * Verify if the required services are running. Run the following commands and confirm that each service is active (running):
     
     ::
+
           systemctl status munge
           systemctl status slurmctld
           systemctl status slurmdbd
