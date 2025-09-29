@@ -193,6 +193,8 @@ If user wants to create a custom storage class, they can do so by following the 
       Isipath: <isipath configured in powerscale > #sample: /ifs/data/csi/
       RootClientEnabled: "true"
       csi.storage.k8s.io/fstype: "nfs"
+    
+    
 
 .. note::
 
@@ -211,52 +213,48 @@ Once the storage class is created, the same can be used to create PVC.
 
 *Sample deployment with PVC*: ::
 
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: pvc-powerscale
-    spec:
-      accessModes:
-        - ReadWriteMany
-      resources:
-        requests:
-          storage: 1Gi
-      storageClassName: ps01
-    ---
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: deploy-busybox-01
-    spec:
-      strategy:
-        type: Recreate
-      replicas: 1
-      selector:
-        matchLabels:
-          app: deploy-busybox-01
-      template:
-        metadata:
-          labels:
-            app: deploy-busybox-01
-        spec:
-          containers:
-            - name: busybox
-              image: registry.k8s.io/busybox
-              command: ["sh", "-c"]
-              args: ["while true; do touch /data/datafile; rm -f /data/datafile; done"]
-              volumeMounts:
-                - name: data
-                  mountPath: /data
-              env:
-                - name: http_proxy
-                  value: "http://<OIM IP>:3128"
-                - name: https_proxy
-                  value: "http://<OIM IP>:3128"
-          volumes:
-            - name: data
-              persistentVolumeClaim:
-                claimName: pvc-powerscale
 
+     apiVersion: v1
+     kind: PersistentVolumeClaim
+     metadata:
+     name: pvc-powerscale
+     spec:
+     accessModes:
+     - ReadWriteMany
+         resources:
+         requests:
+         storage: 1Gi
+         storageClassName: ps01
+     --- 
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+      name: deploy-busybox-01
+      spec:
+        strategy:
+        type: Recreate
+        replicas: 1
+        selector:
+          matchLabels:
+           app: deploy-busybox-01
+            template:
+             metadata:
+              labels:
+        app: deploy-busybox-01
+    spec:
+      containers:
+        - name: busybox
+          image: docker.io/library/busybox:1.36
+          command: ["sh", "-c"]
+          args: ["while true; do touch /data/datafile; rm -f /data/datafile; done"]
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pvc-powerscale
+ 
 **Apply the deployment manifest along with PVC**
 
 Use the following command to apply the manifest: ::
@@ -269,11 +267,11 @@ Use the following command to apply the manifest: ::
 
     root@node001:/opt/omnia/csi-driver-powerscale/csi-powerscale/dell-csi-helm-installer# kubectl get pvc -A
     NAMESPACE   NAME                STATUS   VOLUME           CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
-    default     pvc-powerscale      Bound    csivol-853       1Gi        RWX            ps01           <unset>                 27h
+    default     pvc-powerscale      Bound    csivol-98d3e7631d       1Gi        RWX            ps01           <unset>                 27h
 
-* User can also verify the same information from the OneFS portal. In the sample image below, it is mapped with the ``VOLUME`` entry from the above example: ``csivol-853``:
+* User can also verify the same information from the OneFS portal. In the sample image below, it is mapped with the ``VOLUME`` entry from the above example: ``csivol-98d3e7631d``:
 
-.. image:: ../../images/CSI_OneFS.png
+.. image:: ../../images/CSI_OneFS.jpg
 
 Removal
 --------
