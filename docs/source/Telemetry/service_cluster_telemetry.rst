@@ -37,7 +37,7 @@ Steps
     cd telemetry
     ansible-playbook telemetry.yml -i inventory
 
-    **Sample inventory**
+**Sample telemetry inventory**
 
     [kube_control_plane]
     192.168.10.151 bmc_ip=172.10.5.73
