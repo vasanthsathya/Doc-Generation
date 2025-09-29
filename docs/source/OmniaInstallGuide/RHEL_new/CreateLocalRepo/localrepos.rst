@@ -94,7 +94,7 @@ Configuring specific local repositories
 
     To install OpenMPI, include the following line under ``softwares`` in ``software_config.json``: ::
 
-            {"name": "openmpi", "version":"4.1.6","arch": ["x86_64"]},
+            {"name": "openmpi", "version":"5.0.8","arch": ["x86_64"]},
 
     OpenMPI is deployed on the cluster when the above configurations are complete and `omnia.yml <../OmniaCluster/BuildingCluster/installscheduler.html>`_ playbook is executed.
 
@@ -107,7 +107,7 @@ Configuring specific local repositories
 
     To install UCX, include the following line under ``softwares`` in ``software_config.json``: ::
 
-            {"name": "ucx", "version":"1.15.0", "arch": ["x86_64"]},
+            {"name": "ucx", "version":"1.19.0", "arch": ["x86_64"]},
 
     UCX is deployed on the cluster when ``local_repo.yml`` playbook is executed, followed by the execution of `omnia.yml <../OmniaCluster/BuildingCluster/installscheduler.html>`_.
 

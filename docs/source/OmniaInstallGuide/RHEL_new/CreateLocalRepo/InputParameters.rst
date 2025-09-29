@@ -72,8 +72,8 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
                 {"name": "nfs", "arch": ["x86_64","aarch64"]},
                 {"name": "slurm_custom", "arch": ["x86_64","aarch64"]},
                 {"name": "service_k8s", "version": "1.31.4", "arch": ["x86_64"]},
-                {"name": "ucx", "version": "1.15.0", "arch": ["x86_64"]},
-                {"name": "openmpi", "version": "4.1.6", "arch": ["x86_64"]}
+                {"name": "ucx", "version": "1.19.0", "arch": ["x86_64"]},
+                {"name": "openmpi", "version": "5.0.8", "arch": ["x86_64"]}
             ],
             "slurm_custom": [
                 {"name": "slurm_control_node"},

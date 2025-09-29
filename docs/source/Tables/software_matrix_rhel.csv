@@ -120,11 +120,11 @@ squid,Apache License 2.0,http proxy server,6.6
 jq,MIT License,Software for verifying syntax of json files,1.6
 urllib3,MIT License,"urllib3 is a powerful, user-friendly HTTP client for python",1.26.5
 pyarrow,"Apache Software License (Apache License, Version 2.0)",Apache Arrow is a multi-language toolbox for accelerated data interchange and in-memory processing,19.0.0
-ucx,BSD 3 Clause License,Unified Communication X ,1.15.0
+ucx,BSD 3 Clause License,Unified Communication X ,1.19.0
 gcc-c++,GPL-3.0,"This package adds C++ support to the GNU Compiler Collection. It includes support for most of the current C++ specification, including templates and exception handling.
 ",11.5.0
 clang,Apache-2.0 WITH LLVM-exception OR NCSA,"The goal of the Clang project is to create a new C, C++, Objective C and Objective C++ front-end for the LLVM compiler.",19.1.7
-openmpi, 3-clause BSD license,Open MPI main development repository,4.1.6
+openmpi, 3-clause BSD license,Open MPI main development repository,5.0.8
 nfs-subdir-external-provisioner,Apache License 2.0,Dynamic sub-dir volume provisioner on a remote NFS server.,4.0.18
 mysql,MIT license,MySQL is an open-source relational database management system.,9.3
 commented.configparser,MIT license,Custom ConfigParser class that preserves comments in file when writing,2.1.0

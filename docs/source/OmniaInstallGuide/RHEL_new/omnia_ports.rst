@@ -17,7 +17,7 @@ Omnia creates containers on the OIM to ensure a smooth and dependency free deplo
     +-------------------------+-----------------------------------------------+
 
 
-OpenChami ports
+OpenCHAMI ports
 ----------------
 
         +---------------+----------+--------------+

@@ -51,3 +51,4 @@ A sample of the ``/opt/omnia/input/project_default/network_spec.yml`` where node
             primary_oim_admin_ip: "10.5.255.254"
             primary_oim_bmc_ip: ""
             dynamic_range: "10.5.1.1-10.5.1.200"
+            dns: []

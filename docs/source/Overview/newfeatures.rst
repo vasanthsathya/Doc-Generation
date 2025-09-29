@@ -4,12 +4,10 @@ New Features
 * Omnia containerization using Podman containers
 * Local repository creation using Pulp container
 * Service cluster configuration 
-* High availability for OIM, service Kubernetes cluster, compute Kubernetes cluster
-* Composable roles and groups for nodes
-* Inventory generation for cluster layout
-* iDRAC Telemetry and visualization on OIM using Podman containers
-* Support for RHEL 9.6 OS
-* Support for multiple Kubernetes versions
+* High availability for service Kubernetes cluster.
+* Composable functional groups for nodes
+* iDRAC Telemetry on service Kubernetes cluster.
+* Support for RHEL 10.0 (diskless OS) using OpenCHAMI.
 * Input validator
 * Input credentials stored in encrypted format
-* Additional software installation for specific roles and groups
+* Support image creation based on functional groups (Slurm and K8s)

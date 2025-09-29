@@ -63,6 +63,7 @@ For a better understanding of what Omnia does, check out our `docs <https://omni
     Troubleshooting/index
     SecurityConfigGuide/index
     limitations
+    Contributing/index
     appendix
 
 .. |Omnia version| image:: https://img.shields.io/github/v/release/dell/omnia?include_prereleases

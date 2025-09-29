@@ -9,7 +9,11 @@ Set up OpenLDAP to allow or deny access to the user(s).
 
     {"name": "openldap", "arch": ["x86_64"]}
 
+* Run ``prepare_oim.yml`` to start the Omnia Auth container.
+
 * Run ``local_repo.yml`` to create offline repositories of OpenLDAP. For more information, `click here <../../CreateLocalRepo/index.html>`_.
+
+* Run  ``build_image.yml`` to build the images that contain login node image.
 
 
 Create a new user on OpenLDAP
@@ -53,39 +57,17 @@ Below is a sample file: ::
 3. To set up a password for this account, use the command ``ldappasswd -D <enter admin binddn > -w < bind_password > -S <user_dn>``. The value of ``user_dn`` is the distinguished name that indicates where the user was created. (In this example, ``uid=ldapuser,ou=People,dc=omnia,dc=test``)
 
 
-Configure Passwordless SSH for the OpenLDAP/FreeIPA users
------------------------------------------------------------
+Configure OpenLDAP connection type
+--------------------------------------
 
-Once user accounts are created, admins can enable passwordless SSH for users to run HPC jobs on the cluster nodes.
-
-.. note:: Once user accounts are created on the auth server, use the accounts to login to the cluster nodes to reset the password and create a corresponding home directory.
-
-To customize your setup of passwordless ssh, input custom parameters in ``/opt/omnia/input/project_default/passwordless_ssh_config.yml``:
-
-+-----------------------+--------------------------------------------------------------------------------------------------------------------+
-| Parameter             | Details                                                                                                            |
-+=======================+====================================================================================================================+
-| user_name             | The list of users that requires password-less SSH. Separate the list of users using a comma.                       |
-|      ``string``       |  Eg: ``user1,user2,user3``                                                                                         |
-|      Required         |                                                                                                                    |
-+-----------------------+--------------------------------------------------------------------------------------------------------------------+
-| authentication_type   | Indicates whether LDAP or FreeIPA is in use on the cluster.                                                        |
-|      ``string``       |                                                                                                                    |
-|      Required         |      Choices:                                                                                                      |
-|                       |                                                                                                                    |
-|                       |      * ``freeipa``                                                                                                 |
-|                       |                                                                                                                    |
-|                       |      * ``ldap``   <- Default                                                                                       |
-+-----------------------+--------------------------------------------------------------------------------------------------------------------+
+Omnia authenticates users against OpenLDAP using TLS-only connection. The connection type is predefined to TLS in the ``security_config.yml`` available at ``/opt/omnia/input/project_default/`` directory.
 
 
-Use the below command to enable passwordless SSH: ::
+.. csv-table:: Parameters for Authentication
+   :file: ../../../../Tables/security_config_ldap.csv
+   :header-rows: 1
+   :keepspace:
 
-    ansible-playbook user_passwordless_ssh.yml -i inventory
-
-Where inventory follows the format defined under inventory file in the provided `sample files. <../../../sample files.html>`_ The inventory file is case-sensitive. Follow the format provided in the sample file link.
-
-.. caution:: Do not run ssh-keygen commands after passwordless SSH is set up on the nodes.
 
 Configure OpenLDAP as a proxy server
 --------------------------------------
@@ -96,11 +78,9 @@ Omnia allows the internal OpenLDAP server to be configured as a proxy, where it 
 
 Perform the following steps to configure OpenLDAP as a proxy server:
 
-1. Go to ``/opt/omnia/auth/slapd.conf``, replace the ``slapd.conf`` with the updated ``slapd.conf`` file, and run the following command to restart the ``omnia_auth`` container.::
+1. Locate the config file present in ``/opt/omnia/auth/``.
 
-		podman restart omnia_auth
-
-2. Now, locate the ``slapd.conf`` config file present in ``/opt/omnia/auth/`` and modify the file to add the new LDAP configurations. Add the following lines to the config file based on the operating system running on the cluster:
+2. Add the following lines to the ``slapd.conf`` file based on the operating system running on the cluster:
 
     For RHEL: ::
 
@@ -136,7 +116,7 @@ Perform the following steps to configure OpenLDAP as a proxy server:
          mode=none
         TLSCACertificateFile    /etc/openldap/certs/ldapserver.crt
         TLSCertificateFile      /etc/openldap/certs/ldapserver.crt
-        TLSCertificateKeyFile   /etc/pki/tls/certs/ldapserver.key
+        TLSCertificateKeyFile   /etc/openldap/certs/ldapserver.key
 
 Change the **<parameter>** values in the config file, as described below:
 
@@ -179,13 +159,8 @@ Change the **<parameter>** values in the config file, as described below:
              flags=override
              mode=none
 
-3. Once the new configurations are present in the ``slapd.conf`` file, restart the ``omnia_auth`` container: ::
+3. Once the new configurations are present in the ``slapd.conf`` file, restart the ``omnia_auth`` service: ::
 
-    podman restart omnia_auth
-
-5. Restart the internal OpenLDAP server to seal in the configurations. Execute the following command to restart the server: ::
-
-    systemctl restart slapd-ltb.service
-
+    sudo systemctl restart omnia_auth.service
 
 Once these configurations are applied on the internal OpenLDAP server, it sets up the external LDAP server as an authentication server. The internal OpenLDAP server doesn't store any kind of user data and no users can be created/modified from here.
