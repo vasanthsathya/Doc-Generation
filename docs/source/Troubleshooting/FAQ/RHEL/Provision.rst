@@ -1,11 +1,8 @@
 Provision
 ==========
 
-⦾ **Why does the provisioning status of RHEL remote servers remain stuck at ‘installing’ in** ``cluster.nodeinfo`` **table (omniadb)?**
+⦾ **Why does the provisioning status of RHEL remote servers remain stuck
 
-.. image:: ../../../images/InstallingStuckDB.png
-
-.. image:: ../../../images/InstallCorruptISO.png
 
 .. csv-table::
    :file: ../../../Tables/FAQ_provision.csv

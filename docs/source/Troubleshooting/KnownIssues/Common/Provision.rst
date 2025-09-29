@@ -1,24 +1,6 @@
 Provision
 ==========
 
-⦾ **Why doesn't my newly discovered server list a MAC ID in the** ``cluster.nodeinfo`` **table?**
-
-.. image:: ../../../images/MACConflict.png
-
-**Potential Cause**: Due to internal MAC ID conflicts on the target nodes, the MAC address will be listed against the target node using this format ``MAC ADDRESS 1 | MAC ADDRESS 2! *NOIP*`` in the xCAT node object.
-
-**Resolution**: Follow the below steps to resolve this issue:
-
-    1. Establish a SSH connection to the ``omnia_core`` container using the following command: ::
-
-        ssh omnia_core
-
-    2. Establish a SSH connection to the ``omnia_provision`` container from inside the ``omnia_core`` container using the following command: ::
-
-        ssh omnia_provision
-
-    3. Execute the ``lsdef`` command from the ``omnia_provision`` container.
-
 
 ⦾ **Why are some target servers not reachable after PXE booting them?**
 
@@ -41,7 +23,7 @@ Provision
 
 * RAID is configured on the server.
 
-* Two or more servers in the same network have xCAT services running.
+* Two or more servers in the same network.
 
 * The target cluster node does not have a configured PXE device with an active NIC.
 
@@ -49,41 +31,11 @@ Provision
 
 * Create a Non-RAID or virtual disk on the server.
 
-* Check if other systems except for the OIM have ``xcatd`` running. If yes, then stop the xCAT service using the following commands: ``systemctl stop xcatd``.
-
 * On the server, go to **BIOS Setup -> Network Settings -> PXE Device**. For each listed device (typically 4), configure an active NIC under ``PXE device settings``
 
 
-⦾ **The** ``discovery_provision.yml`` **playbook fails to check for duplicate** ``disk_partition`` **values in** ``input/provision_config.yml`` **.**
+⦾ **Why does the** ``discovery.yml`` **playbook execution fail at task:** ``prepare_oim needs to be executed`` **?**
 
-**Resolution**: User needs to ensure that there are no duplicate entries for the same partition in provision_config.yml.
+**Potential Cause**: The OpenCHAMI container is not up and running.
 
-
-⦾ **After executing** ``disocvery_provision.yml`` **, why is the node status in OmniaDB being displayed as** ``standingby`` **?**
-
-**Resolution**: For any discovery mechanism other than switch-based, do the following:
-
-    1. Establish a SSH connection to the ``omnia_core`` container using the following command: ::
-
-        ssh omnia_core
-
-    2. Establish a SSH connection to the ``omnia_provision`` container from inside the ``omnia_core`` container using the following command: ::
-
-        ssh omnia_provision
-    
-    3. Execute the following command: ::
-
-        chdef <node> status=””
-
-    4. Then run: ::
-
-        rinstall <node>
-
-    *Where ``<node>`` refers to the node column in the OmniaDB, which has a ``standingby`` status.*
-
-
-⦾ **Why does the** ``discovery_provision.yml`` **playbook execution fail at task:** ``prepare_oim needs to be executed`` **?**
-
-**Potential Cause**: The ``omnia_provision`` container is not up and running.
-
-**Resolution**: Perform a cleanup using ``oim_cleanup.yml`` and re-run the ``prepare_oim.yml`` playbook to bring up the ``omnia_provision`` container. After ``prepare_oim.yml`` playbook has been executed successfully, re-deploy the cluster using the steps mentioned in the `Omnia deployment guide <../../../OmniaInstallGuide/RHEL_new/index.html>`.
+**Resolution**: Perform a cleanup using ``oim_cleanup.yml`` and re-run the ``prepare_oim.yml`` playbook to bring up the OpenCHAMI containers. After ``prepare_oim.yml`` playbook has been executed successfully, re-deploy the cluster using the steps mentioned in the `Omnia deployment guide <../../../OmniaInstallGuide/RHEL_new/index.html>`_.
