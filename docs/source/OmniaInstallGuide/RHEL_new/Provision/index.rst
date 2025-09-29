@@ -7,6 +7,6 @@ The ``discovery.yml`` playbook is used to discover the potential cluster nodes, 
     :maxdepth: 2
 
     provisionprereqs
-    provisionparams
     discover_mechanism_mappingfile
+    provisionparams
     installprovisiontool   
