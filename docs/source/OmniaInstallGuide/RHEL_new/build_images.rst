@@ -1,7 +1,7 @@
 Step 11: Build cluster node images
 ============================
 
-The ``build_image.yml`` playbook is used to build diskless images for cluster nodes. 
+The ``build_image_x86_64.yml`` and ``build_image_aarch64.yml`` playbooks are used to build diskless images for ``x86_64`` and ``aarch64`` cluster nodes, respectively. 
 Each image is created based on the functional groups defined in the 
 ``functional_groups_config.yml`` file. 
 
@@ -27,9 +27,15 @@ To build images for the nodes present in each functional group, do the following
 
        cd /omnia/build_image
 
-2. To build the image, run the following playbook::
+2. To build the image, run the appropriate playbook based on the node architecture:
 
-       ansible-playbook build_image.yml
+   * For x86_64 nodes::
+
+         ansible-playbook build_image_x86_64.yml
+
+   * For aarch64 nodes::
+
+         ansible-playbook build_image_aarch64.yml
 
 3. To verify that images are created for each functional group defined in ``functional_groups_config.yml``, run the following command::
 

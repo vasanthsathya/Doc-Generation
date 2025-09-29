@@ -29,6 +29,7 @@ its dependent services are running correctly.
       ● │ └─NetworkManager-wait-online.service
       ● ├─omnia_kubespray_<version>.service
       ● ├─pulp.service
+      ● ├─omnia_auth.service
       ● └─openchami.target
       ●   ├─acme-deploy.service
       ●   ├─acme-register.service
@@ -50,6 +51,9 @@ its dependent services are running correctly.
    * A **green circle** indicates that the service is running.
    * A **grey circle** indicates that the service is not running.
    * A **circle with a cross** indicates that the service failed to start.
+
+   .. note::  The ``omnia_auth.service`` runs only when OpenLDAP is specifed in the ``software_config.json``.
+    
 
 View usage instructions for OpenCHAMI Containers
 --------------------------------------------------
