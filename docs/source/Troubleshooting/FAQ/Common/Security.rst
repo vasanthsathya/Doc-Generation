@@ -8,20 +8,6 @@ Centralized authentication
 **Resolution**: Remove the whitespaces and re-run the LDIF file.
 
 
-⦾ **Why does the** ``TASK [hostname_validation : Verify the domain name is not blank in hostname]`` **fail?**
-
-**Potential Cause**: Hostname is not configured properly with the domain name, on the target node.
-
-**Resolution**: Use the following commands to configure the hostname properly: ::
-
-
-        sysctl kernel.hostname=node001.omnia.test
-        hostnamectl set-hostname node001.omnia.test
-
-
-.. note:: ``node001.omnia.test`` is an acceptable sample hostname.
-
-
 ⦾ **Why does the user login fail for an OpenLDAP user?**
 
 **Potential Cause**: Incorrect OpenLDAP service is running on the authentication server.
