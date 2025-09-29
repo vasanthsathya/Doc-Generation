@@ -30,7 +30,7 @@ On slurm controller node
 
     * Verify the node status with sinfo:
 
-          .. image:: ../../../images/sinfo.png
+          .. image:: ../../../../images/sinfo.png
    
           * Ensure that the worker nodes are listed and the node state should be idle.
 
