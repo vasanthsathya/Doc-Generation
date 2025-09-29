@@ -23,6 +23,11 @@ Configurations made by the ``discovery.yml`` playbook
 Playbook execution
 ----------------------
 
+**Prerequisites**
+Before running the ``discovery.yml`` playbook, ensure that the images are created for each functional group defined in ``functional_groups_config.yml``. To verify that the images are created, run the following command::
+
+    s3cmd ls -Hr s3://boot-images
+
 To deploy the Omnia provision tool, execute the following commands: ::
 
     ssh omnia_core
@@ -30,8 +35,6 @@ To deploy the Omnia provision tool, execute the following commands: ::
     ansible-playbook discovery.yml
 
 .. note::
-
-    * If the ``/opt/omnia/input/project_default/software_config.json`` has OFED and NVIDIA CUDA drivers mentioned, the OFED network drivers and NVIDIA accelerator drivers are installed on the nodes post provisioning.
 
     * After executing ``discovery.yml`` playbook, you can check the log files available at ``/opt/omnia/log`` for more information.
 

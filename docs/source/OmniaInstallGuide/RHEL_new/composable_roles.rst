@@ -62,21 +62,21 @@ The following table lists the functional groups along with the recommended softw
 +----------------------------------+--------------------------------------------------------------------------------------+
 | Functional Group Name            | Recommended Software                                                                 |
 +==================================+======================================================================================+
-| service_kube_node_x86_64         | service_k8s.json, nfs.json, openldap.json, ofed.json                                 |
+| service_kube_node_x86_64         | service_k8s.json, nfs.json, openldap.json                                            |
 +----------------------------------+--------------------------------------------------------------------------------------+
-| slurm_control_node_x86_64        | slurm_custom.json, nfs.json, openldap.json, ofed.json                                |
+| slurm_control_node_x86_64        | slurm_custom.json, nfs.json, openldap.json                                           |
 +----------------------------------+--------------------------------------------------------------------------------------+
-| slurm_node_x86_64                | slurm_custom.json, nfs.json, openldap.json, ofed.json                                |                                               
+| slurm_node_x86_64                | slurm_custom.json, nfs.json, openldap.json                                           |                                               
 +----------------------------------+--------------------------------------------------------------------------------------+
-| slurm_node_aarch64               | slurm_custom.json, nfs.json, openldap.json, ofed.json                                |
+| slurm_node_aarch64               | slurm_custom.json, nfs.json, openldap.json                                           |
 +----------------------------------+--------------------------------------------------------------------------------------+
-| login_node_x86_64                | slurm_custom.json, nfs.json, openldap.json, ofed.json                                |
+| login_node_x86_64                | slurm_custom.json, nfs.json, openldap.json                                           |
 +----------------------------------+--------------------------------------------------------------------------------------+
-| login_node_aarch64               | slurm_custom.json, nfs.json, openldap.json, ofed.json                                |
+| login_node_aarch64               | slurm_custom.json, nfs.json, openldap.json                                           |
 +----------------------------------+--------------------------------------------------------------------------------------+
-| login_compiler_node_x86_64       | slurm_custom.json, nfs.json, openldap.json, ofed.json, ucx.json, openmpi.json        |
+| login_compiler_node_x86_64       | slurm_custom.json, nfs.json, openldap.json, ucx.json, openmpi.json                   |
 +----------------------------------+--------------------------------------------------------------------------------------+
-| login_compiler_node_aarch64      | slurm_custom.json, nfs.json, openldap.json, ofed.json, ucx.json, openmpi.json        |                                                                               
+| login_compiler_node_aarch64      | slurm_custom.json, nfs.json, openldap.json, ucx.json, openmpi.json                   |                                                                               
 +----------------------------------+--------------------------------------------------------------------------------------+
 
 Sample

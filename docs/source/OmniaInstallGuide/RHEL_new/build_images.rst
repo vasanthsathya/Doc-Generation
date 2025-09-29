@@ -9,7 +9,6 @@ Each image is created based on the functional groups defined in the
 
    * Ensure that the ``functional_groups_config.yml`` file defines the functional groups required for your environment. For more information on functional groups, see :doc:`composable_roles`.
    * Ensure that the local_repo.yml playbook is run and the images are downloaded into the Pulp container.
-   * Ensure the ISO provided has downloaded seamlessly (No corruption). Verify the SHA checksum or download size of the ISO file before provisioning to avoid failures. 
    * Ensure that OIMs running RHEL have an active subscription or are configured to access local repositories.
    * Note the compatibility between cluster OS and OIM OS below:
 
