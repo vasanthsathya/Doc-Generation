@@ -1,12 +1,15 @@
 
-Provisioning and Preparing aarch64 Node
-========================================
+Preparing aarch64 Node
+========================
 
-To provision aarch64 node, you need to install RHEL 10 OS and optionally build OpenCHAMI image for aarch64 node.
+To prepare aarch64 node, you need to install RHEL 10 OS.
 
 
 Install RHEL 10 on aarch64 bare-metal node
 --------------------------------------------
+
+**Prerequisites:** Ensure that a disk is available to the aarch64 node for OS installation.
+
 1. Manually install the RHEL 10 OS on one of the aarch64 nodes with the root password enabled.
 
   .. note:: 
@@ -14,7 +17,7 @@ Install RHEL 10 on aarch64 bare-metal node
       * During RHEL installation on an aarch64 node, ensure that the password set during installation is supplied as ``provision_password`` when running ``discovery.yml``.
 
 2. Use the **host IP address** of the node in the ``admin_aarch64`` inventory file. 
- 
+
    **Sample aarch64 inventory:**
 
    ::
@@ -22,33 +25,4 @@ Install RHEL 10 on aarch64 bare-metal node
       [admin_aarch64]
       <host IP address>
 
-Build OpenCHAMI image for aarch64 [Optional]
----------------------------------------------
 
-Perform the following steps to build the OpenCHAMI aarch64 image:
-
-1. Clone the https://github.com/OpenCHAMI/image-builder.git repository using the following command: 
-
-   .. code-block:: bash
-
-      git clone https://github.com/OpenCHAMI/image-builder.git
-
-2. Run the following command to navigate to the ``image-builder`` directory:
-
-   .. code-block:: bash
-
-      cd image-builder
-
-3. Run the following command to build the arch64 container image:
-
-   .. code-block:: bash
-
-      podman build -f dockerfiles/dnf/Dockerfile -t localhost/ochami-arm64
-
-4. Run the following command to verify that the aarch64 image is created:
-
-   .. code-block:: bash
-
-      podman images
-
-Ensure that **localhost/ochami-arm64** appears in the output to confirm that the image was successfully built.
