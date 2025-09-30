@@ -5,10 +5,13 @@ The ``build_image_x86_64.yml`` and ``build_image_aarch64.yml`` playbooks are use
 Each image is created based on the functional groups defined in the 
 ``functional_groups_config.yml`` file. 
 
+Alternately, to build images for aarch64 cluster nodes, perform the steps provided in :doc:`../AdvancedConfigurations/build_arm_ochami_image`.
+
 **Prerequisites**: 
 
    * Ensure that the ``functional_groups_config.yml`` file defines the functional groups required for your environment. For more information on functional groups, see :doc:`composable_roles`.
-   * Ensure that the local_repo.yml playbook is run and the images are downloaded into the Pulp container.
+   * Make sure the ``local_repo.yml`` is executed with software packages matching the target architecture. If the build is for ``x86_64``, include software defined with ``x86_64``. If the build is for ``aarch64``, include software with ``aarch64``.
+     If the build needs to support both architectures, ensure ``local_repo.yml`` is executed with ``software_config.json`` that include both ``x86_64`` and ``aarch64``.
    * Ensure that OIMs running RHEL have an active subscription or are configured to access local repositories.
    * Note the compatibility between cluster OS and OIM OS below:
 
@@ -42,8 +45,6 @@ To build images for the nodes present in each functional group, do the following
 
 Build images for aarch64 cluster nodes
 ------------------------------------------
-
-If you have aarch64 cluster nodes to be provisioned, perform the steps provided in :doc:`../AdvancedConfigurations/build_arm_ochami_image`.
 
 To build images for the nodes present in each functional group, do the following.
 
