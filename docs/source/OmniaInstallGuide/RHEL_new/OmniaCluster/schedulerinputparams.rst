@@ -88,3 +88,5 @@ Click here for more information on `OpenLDAP, FreeIPA <BuildingCluster/Authentic
         :file: ../../../Tables/service_k8s_high_availability.csv
         :header-rows: 1
         :keepspace:
+
+.. caution:: Ensure that the external NFS is accessible by all the nodes intended to be booted and is reachable by the admin network. 
