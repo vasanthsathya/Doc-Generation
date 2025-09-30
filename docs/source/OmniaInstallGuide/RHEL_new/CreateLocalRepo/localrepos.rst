@@ -1,57 +1,6 @@
 Configuring specific local repositories
 -----------------------------------------
 
-**CUDA**
-
-    To install CUDA, include the following line under ``softwares`` in ``software_config.json``: ::
-
-            {"name": "cuda", "version": "12.8.0", "arch":["x86_64","aarch64"]},
-
-    For a list of repositories (and their types) configured for CUDA, view the ``/opt/omnia/input/project_default/config/<cluster_os_type>/<cluster_os_version>/cuda.json`` file. To customize your CUDA installation, update the ``url`` parameter with your desired CUDA version URL. URLs for different versions can be found `here <https://developer.nvidia.com/cuda-downloads>`_. ::
-
-        {
-          "cuda": {
-            "cluster": [
-              { "package": "cuda",
-                "type": "iso",
-                "url": "https://developer.download.nvidia.com/compute/cuda/12.8.0/local_installers/cuda-repo-rhel9-12-8-local-12.8.0_570.86.10-1.x86_64.rpm",
-                "path": ""
-              },
-              { "package": "dkms",
-                "type": "rpm",
-                "repo_name": "epel"
-              }
-            ]
-          }
-        }
-
-.. note::
-    * If the package version is customized, ensure that the same ``version`` value is also updated in the ``software_config.json``.
-    * If the target cluster runs on RHEL, ensure that the "dkms" package is also included in ``/opt/omnia/input/project_default/config/<arch>/<cluster_os_type>/10.0/cuda.json``, as shown above.
-
-**OFED**
-
-    To install OFED, include the following line under ``softwares`` in ``software_config.json``: ::
-
-            {"name": "ofed", "version": "24.10-3.2.5.0", "arch": ["x86_64"]},
-
-    For a list of repositories (and their types) configured for OFED, view the ``/opt/omnia/input/project_default/config/<arch>/<cluster_os_type>/<cluster_os_version>/ofed.json`` file. To customize your OFED installation, update the ``url`` parameter with your desired OFED version URL. ::
-
-        {
-          "ofed": {
-            "cluster": [
-              { "package": "ofed",
-                "type": "iso",
-                "url": "https://content.mellanox.com/ofed/MLNX_OFED-24.10-3.2.5.0/MLNX_OFED_LINUX-24.10-3.2.5.0-rhel9.6-x86_64.iso",
-                "path": ""
-              }
-            ]
-          }
-        }
-
-.. note:: If the package version is customized, ensure that the same ``version`` value is also updated in the ``software_config.json``.
-
-
 **NFS**
 
     To install NFS, include the following line under ``softwares`` in ``software_config.json``: ::
