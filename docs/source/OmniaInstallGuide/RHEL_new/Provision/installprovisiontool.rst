@@ -38,6 +38,10 @@ To deploy the Omnia provision tool, execute the following commands: ::
 
     * After executing ``discovery.yml`` playbook, you can check the log files available at ``/opt/omnia/log`` for more information.
 
+    * To identify any issues on the node booted, check the ``/var/log/cloud-init-output.log``.
+
+    * Omnia does not track the OS installation on the target node. User has verify the installation status manually.
+
     * Ansible playbooks by default run concurrently on 5 nodes. To change this, update the ``forks`` value in ``ansible.cfg`` present in the respective playbook directory.
 
     * While the ``admin_nic`` on cluster nodes is configured by Omnia to be static, the public NIC IP address should be configured by user.
