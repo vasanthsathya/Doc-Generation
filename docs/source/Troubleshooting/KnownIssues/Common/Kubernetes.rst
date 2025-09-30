@@ -100,4 +100,10 @@ Kubernetes
 
         * Post deletion, the pod will be restarted and it will come to running state.
 
+⦾ **
 
+
+**Potential Cause**:
+
+
+**Resolution**:
