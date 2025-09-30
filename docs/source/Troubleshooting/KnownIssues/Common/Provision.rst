@@ -41,13 +41,6 @@ Provision
 **Resolution**: Perform a cleanup using ``oim_cleanup.yml`` and re-run the ``prepare_oim.yml`` playbook to bring up the OpenCHAMI containers. After ``prepare_oim.yml`` playbook has been executed successfully, re-deploy the cluster using the steps mentioned in the `Omnia deployment guide <../../../OmniaInstallGuide/RHEL_new/index.html>`_.
 
 
-⦾ **Why boot params are not set properly when functional groups are modified in mapping file?**
-
-**Potential Causes**: Node Deletion is currently not supported by Omnia. There might be old boot param entries which are not automatically cleaned up by Omnia. This can cause conflict in boot params.
-
-**Resolution**: Manually clean up the existing boot params before executing ``discovery.yml`` playbook.
-
-
 ⦾ **Why ochami smd commands fail with certificate error?**
 
 .. image:: ../../../images/ochami.jpg
