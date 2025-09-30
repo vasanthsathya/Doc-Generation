@@ -38,8 +38,7 @@ cffi,MIT License,Foreign Function Interface for Python calling C code.,1.17.1
 nfs-utils,MIT and GPLv2 and GPLv2+ and BSD,NFS utilities and supporting clients and daemons for the kernel NFS server,2.8.2
 tcpdump,BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND ISC AND NTP,A network traffic monitoring tool,4.99.4
 traceroute,GPL-2.0-or-later,Traces the route taken by packets over an IPv4/IPv6 network,2.1.6
-vim,"Vim AND LGPL-2.1-or-later AND MIT AND GPL-1.0-only AND (GPL-2.0-only OR Vim) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND
-             : GPL-2.0-or-later AND GPL-3.0-or-later AND OPUBL-1.0",A version of the VIM editor which includes recent enhancements,9.1.083
+vim,Vim AND LGPL-2.1-or-later AND MIT AND GPL-1.0-only AND (GPL-2.0-only OR Vim) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND : GPL-2.0-or-later AND GPL-3.0-or-later AND OPUBL-1.0,A version of the VIM editor which includes recent enhancements,9.1.083
 conntrack-tools,GPL-2.0,Manipulate netfilter connection tracking table and run High Availability,1.4.8
 python3,PSF license,The Python programming language,3.12
 python3-pip,MIT license,The Python package installer,25.1.1
@@ -88,8 +87,7 @@ csm-authorization-sidecar, Apache-2.0 license,CSM Authorization provides multi-
 csm metadata retriever, Apache-2.0 license,Dell csi-metadata-retriever controller to retrieve various metadata from the cluster using kubeapi.,1.11.0
 snapshot controller, Apache-2.0 license,"The snapshot-controller in Kubernetes manages the creation and management of volume snapshots, enabling point-in-time copies of your data for CSI drivers",8.2.1
 xilinx-device-plugin,Apache License 2.0,The AMD-Xilinx device plugin for Kubernetes is a Daemonset deployed on the Kubernetes(k8s) cluster,1.2.0
-OpenLDAP,"The OpenLDAP Public License
-  Version 2.8","OpenLDAP is a free, open-source implementation of the Lightweight Directory Access Protocol (LDAP) developed by the OpenLDAP Project",2.6.0
+OpenLDAP,The OpenLDAP Public License Version 2.8,"OpenLDAP is a free, open-source implementation of the Lightweight Directory Access Protocol (LDAP) developed by the OpenLDAP Project",2.6.0
 LDAP ToolBox,GNU General Public License v3.0 ,OpenLDAP server installation,commit :a8e5b8fdbf3e5885f4c412945c8fe51d03dd01c9
 libsodium,ISC License,"A modern, portable, easy to use crypto library.",1.0.18
 OpenMPI (RHEL 9.6), 3-clause BSD license,Open MPI main development repository,5.0.8
@@ -119,14 +117,13 @@ jq,MIT License,Software for verifying syntax of json files,1.6
 urllib3,MIT License,"urllib3 is a powerful, user-friendly HTTP client for python",1.26.5
 pyarrow,"Apache Software License (Apache License, Version 2.0)",Apache Arrow is a multi-language toolbox for accelerated data interchange and in-memory processing,19.0.0
 ucx,BSD 3 Clause License,Unified Communication X ,1.19.0
-gcc-c++,GPL-3.0,"This package adds C++ support to the GNU Compiler Collection. It includes support for most of the current C++ specification, including templates and exception handling.
-",11.5.0
+gcc-c++,GPL-3.0,"This package adds C++ support to the GNU Compiler Collection. It includes support for most of the current C++ specification, including templates and exception handling.",11.5.0
 clang,Apache-2.0 WITH LLVM-exception OR NCSA,"The goal of the Clang project is to create a new C, C++, Objective C and Objective C++ front-end for the LLVM compiler.",19.1.7
 openmpi, 3-clause BSD license,Open MPI main development repository,5.0.8
 nfs-subdir-external-provisioner,Apache License 2.0,Dynamic sub-dir volume provisioner on a remote NFS server.,4.0.2
 pyyaml,MIT license,Canonical source repository for PyYAML,6.0.2
 PyMySQL,MIT license,MySQL client library for Python,1.1.1
-which,GPL-3.0," The which command shows the full pathname of a specified program, if the specified program is in your PATH.",2.21
+which,GPL-3.0,"The which command shows the full pathname of a specified program, if the specified program is in your PATH.",2.21
 openssh-clients,BSD licence,An open source SSH client applications,9.0p1
 Pulp container,GNU General Public License v2,Pulp 3 pulpcore package,3.80.0
 pulp-cli,GNU GENERAL PUBLIC LICENSE Version 2,Command line interface to talk to pulpcore's REST API.,0.29.2
@@ -161,7 +158,7 @@ elfutils-libelf-devel,GNU GENERAL PUBLIC LICENSE Version 3,The elfutils-libelf-d
 bind,Apache License 2.0,"BIND (Berkeley Internet Name Domain) is a complete, highly portable implementation of the Domain Name System (DNS) protocol",9.16.23
 initscripts,GPL-2.0 license,Basic support for legacy System V init scripts,10.11.8
 gcc-gfortran,GPL-3.0 license,gfortran is a new compiler,11.5.0
-kafka, Apache-2.0 license,"An open-source distributed data streaming engine that thousands of companies use to build streaming data pipelines and applications, powering mission-critical operational and analytics use cases",3.9.0
+kafka,Apache-2.0 license,"An open-source distributed data streaming engine that thousands of companies use to build streaming data pipelines and applications, powering mission-critical operational and analytics use cases",3.9.0
 ochami,Apache-2.0 license,Open Composable Heterogeneous Adaptable Management Infrastructure,0.5.3
 magellan,MIT license,Redfish-based BMC discovery tool written in Go,0.3.1
 SMD,MIT license,"The State Management Database (SMD) is a robust service designed for monitoring, tracking, and managing hardware components in high-performance computing (HPC) environments.",2.18.0
