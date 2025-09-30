@@ -12,6 +12,4 @@ Switches
 
     * Omnia requires OS10 to be installed on ethernet switches.
 
-    * Omnia requires MLNX-OS to be installed on Infiniband switches.
-
     * Ethernet switches running SONiC OS will have to be configured manually by users.
