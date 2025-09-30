@@ -1,7 +1,7 @@
 General Query
 ==============
 
-⦾ **What to do if any playbook execution fails because of compute, network, and storage failures?**
+⦾ **What to do if any playbook execution fails because of hardware, network, and storage failures?**
 
 **Resolution**: Re-run the failed playbook once the issue is resolved.
 
