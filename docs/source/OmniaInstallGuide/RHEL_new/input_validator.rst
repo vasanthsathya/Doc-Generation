@@ -45,7 +45,6 @@ Additional values you must provide:
    * ``csi_powerscale_driver_values_file_path`` – Powerscale driver values file
 
 
-
 Input Validator
 =================
 
