@@ -9,10 +9,17 @@ Install RHEL 10 on aarch64 bare-metal node
 --------------------------------------------
 1. Manually install the RHEL 10 OS on one of the aarch64 nodes with the root password enabled.
 
-  .. note:: The root password must be at least 8 characters long, contain alphanumeric characters, and must not include commas (,), hyphens (-), single quotes ('), double quotes ("), or backslashes (\).
+  .. note:: 
+      * The root password must be at least 8 characters long, contain alphanumeric characters, and must not include commas (,), hyphens (-), single quotes ('), double quotes ("), or backslashes (\).
+      * During RHEL installation on an aarch64 node, ensure that the password set during installation is supplied as ``provision_password`` when running ``discovery.yml``.
 
-2. During RHEL installation on an aarch64 node, ensure that the password 
-   set during installation is supplied as ``provision_password`` when running ``discovery.yml``.
+3. Use the **host IP address** of the node in the inventory file ``admin_aarch64``.
+
+   **Sample aarch64 inventory**::
+   -------------------------------
+      [admin_aarch64]
+      <host IP address> 
+
 
 Build OpenCHAMI image for aarch64 [Optional]
 ---------------------------------------------
