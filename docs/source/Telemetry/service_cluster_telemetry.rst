@@ -14,7 +14,7 @@ Prerequisites
 * Datacenter license must be installed on the nodes.
 * Ensure that the correct node service tags are being displayed on the iDRAC interface. Otherwise, telemetry data cannot be collected by the ``idrac_telemetry_receiver`` container.
 * For telemetry collection on service cluster, all BMC (iDRAC) IPs must be reachable from the service cluster nodes.
-* Ensure that the ``omnia.yml`` playbook has been executed successfully and Kubernetes on the service K8s controller node is up and running. For a step-by-step guide, `click here <../OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/Kubernetes/service_cluster_k8s.html>`_.
+* Ensure that the ``service_k8s_cluster.yml`` playbook has been executed successfully and Kubernetes on the service K8s controller node is up and running. For a step-by-step guide, `click here <../OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/Kubernetes/service_cluster_k8s.html>`_.
 * Ensure that ``discovery.yml`` playbook has been executed successfully with ``secvice_kube_node_x86_64`` in the ``functional_groups_config.yml``, and the ``bmc_group_data.csv`` file has been generated.
 * Before running the ``telemetry.yml`` playbook for the service cluster, ensure that all the service K8s compute node are reachable and booted and have been configured in the service K8s cluster.
 
@@ -88,7 +88,7 @@ After ``telemetry.yml`` has been executed for the service cluster, you can check
         
         kubectl get pods -n telemetry -l app=idrac-telemetry
 
-    .. note:: The ``idrac-telemetry-0`` pod will always be responsible for collecting the telemetry data of the management nodes (``oim``, ``service_kube_control_plane``, ``login_node``, ``compiler_node``, etc.).
+    .. note:: The ``idrac-telemetry-0`` pod will always be responsible for collecting the telemetry data of the management nodes (``oim``, ``service_kube_control_plane``, ``service_kube_node_x86_64``, ``login_node_x86_64``, etc.).
 
     2. Execute the following command: ::
 
