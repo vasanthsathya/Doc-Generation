@@ -5,6 +5,8 @@ The ``build_image_x86_64.yml`` and ``build_image_aarch64.yml`` playbooks are use
 Each image is created based on the functional groups defined in the 
 ``functional_groups_config.yml`` file. 
 
+To build OpenCHAMI image for arch64, see :doc:`../AdvancedConfigurations/build_arm_ochami_image`.
+
 **Prerequisites**: 
 
    * Ensure that the ``functional_groups_config.yml`` file defines the functional groups required for your environment. For more information on functional groups, see :doc:`composable_roles`.
