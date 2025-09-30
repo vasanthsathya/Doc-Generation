@@ -21,17 +21,17 @@ Provision
 
 **Potential Causes**:
 
-* RAID is configured on the server.
-
 * Two or more servers in the same network.
 
 * The target cluster node does not have a configured PXE device with an active NIC.
 
+* Additional NIC connected might cause network issues.
+
 **Resolution**:
 
-* Create a Non-RAID or virtual disk on the server.
+* On the server, go to **BIOS Setup -> Network Settings -> PXE Device**. For each listed device (typically 4), configure an active NIC under ``PXE device settings``.
 
-* On the server, go to **BIOS Setup -> Network Settings -> PXE Device**. For each listed device (typically 4), configure an active NIC under ``PXE device settings``
+* Remove the Additional NIC and connect the NIC after the node is booted.
 
 
 ⦾ **Why does the** ``discovery.yml`` **playbook execution fail at task:** ``prepare_oim needs to be executed`` **?**

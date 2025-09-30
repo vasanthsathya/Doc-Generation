@@ -122,8 +122,15 @@ Playbook execution
 
 Once all the required input files are filled up, use the below commands to set up Kubernetes on the service cluster: ::
 
-    cd scheduler
+    ssh omnia_core
+    ansible-playbook omnia.yml - i <inv>
+    
+    OR,
+
+    cd /omnia/scheduler
     ansible-playbook service_k8s_cluster.yml - i <inv>
+
+    
 
     Sample for inv:
      
