@@ -1,7 +1,7 @@
 General Query
 ==============
 
-⦾ **What to do if any playbook execution fails due to external (network, hardware etc) failure?**
+⦾ **What to do if any playbook execution fails due to external (network, hardware, and so on) failure?**
 
 **Resolution**: Re-run the failed playbook once the issue is resolved.
 
