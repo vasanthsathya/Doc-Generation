@@ -43,19 +43,31 @@ Provision
 
 ⦾ **Why boot params are not set properly when functional groups are modified in mapping file?**
 
-**Potential Causes**: There might be old boot param entries which are not automatically cleaned up by Omnia. This can cause conflict in boot params.
+**Potential Causes**: Node Deletion is currently not supported by Omnia. There might be old boot param entries which are not automatically cleaned up by Omnia. This can cause conflict in boot params.
 
-**Resolution**: User needs to manually clean up the existing boot params before executing discovery.yml playbook.
+**Resolution**: Manually clean up the existing boot params before executing ``discovery.yml`` playbook.
 
 
 ⦾ **Why ochami smd commands fail with certificate error?**
 
 .. image:: ../../../images/ochami.jpg
 
-**Potential Causes**: This issue is due to Access Token getting expired after sometime.
+**Potential Causes**: This issue is because of Openchami certificate expiration. After sometime, the certificate expires and loses the validity because of which ochami commands do not run.
 
-**Resolution**: User needs to manually renew the access token by running below command on OIM: ::
+**Resolution**: As part of ``discovery.yml`` execution, certificate updation is being taken care. However, if user still faces this issue, they can update the Openchami certificate manually by running the following command on OIM: ::
         
+        sudo openchami-certificate-update update <OIM_hostname>. <Domain_Name>
+        sudo systemctl restart openchami.target
+
+
+⦾ **Why ochami commands fail with token error?**
+
+.. image:: ../../../images/ochami_command.jpg
+
+**Potential Causes**: This issue is because of Access Token getting expired after sometime.
+
+**Resolution**: Manually renew the access token by running below command on OIM: ::
+
         export <OIM_hostname>_ACCESS_TOKEN=$(sudo bash -lc 'gen_access_token')
 
 
