@@ -50,6 +50,10 @@ To deploy the Omnia provision tool, execute the following commands: ::
 
 .. caution::
 
+    * In case of any IP route conflict between Admin network and additional NIC (for example: Internet NIC), delete the Admin route or configure the IP route priotity based on your cluster requirements.
+
+    * If the internet connection is required on the target node, configure it after the node is booted. 
+    
     * To avoid breaking the password-less SSH channel on the OIM, do not run ``ssh-keygen`` commands post execution of ``discovery.yml`` to create a new key.
 
     * Do not delete the Omnia shared path or the NFS directory.
