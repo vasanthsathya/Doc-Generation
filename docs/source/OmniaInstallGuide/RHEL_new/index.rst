@@ -21,3 +21,4 @@ Follow the below steps to deploy the Omnia container on RHEL-based platforms:
     OmniaCluster/BuildingCluster/install_slurm
     build_images
     Provision/index    
+    verify_slurm_kub
