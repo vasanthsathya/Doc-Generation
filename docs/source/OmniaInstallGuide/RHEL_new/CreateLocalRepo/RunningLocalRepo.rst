@@ -82,5 +82,3 @@ Command format
    ansible-playbook local_repo.yml 
 
 
-**[Optional]** `Update all local repositories <update_local_repo.html>`_
-===========================================================================
