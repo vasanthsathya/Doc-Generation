@@ -81,7 +81,6 @@ Kubernetes
 
 **Resolution**:
 
-    * Ensure that ``storage.yml`` is executed on the same inventory which is being used for ``omnia.yml``.
     * Ensure that ``server_share_path`` mentioned in ``storage_config.yml`` for ``k8s_share: true`` has an active nfs_server running on it.
 
 ⦾ **If the Nfs-client provisioner is in** ``ContainerCreating`` **or** ``CrashLoopBackOff`` **state, why does the** ``kubectl describe <pod_name>`` **command show the following output?**
