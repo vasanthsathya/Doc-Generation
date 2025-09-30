@@ -13,13 +13,13 @@ Install RHEL 10 on aarch64 bare-metal node
       * The root password must be at least 8 characters long, contain alphanumeric characters, and must not include commas (,), hyphens (-), single quotes ('), double quotes ("), or backslashes (\).
       * During RHEL installation on an aarch64 node, ensure that the password set during installation is supplied as ``provision_password`` when running ``discovery.yml``.
 
-3. Use the **host IP address** of the node in the inventory file ``admin_aarch64``.
+2. Use the **host IP address** of the node in the ``admin_aarch64`` inventory file.  
+   **Sample aarch64 inventory:**
 
-   **Sample aarch64 inventory**::
-   -------------------------------
+   ::
+
       [admin_aarch64]
-      <host IP address> 
-
+      <host IP address>
 
 Build OpenCHAMI image for aarch64 [Optional]
 ---------------------------------------------
