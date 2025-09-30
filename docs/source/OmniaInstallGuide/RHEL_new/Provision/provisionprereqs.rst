@@ -5,7 +5,7 @@ Prerequisites
 
 * The UEFI boot setting should be configured in the BIOS settings before initiating PXE boot on the nodes.
 
-* Admin and BMC network switches should be configured before running the provision tool. For more information on configuring the switches, `click here <../AdvancedConfigurationsRHEL/ConfiguringSwitches/index.html>`_.
+* Manually configure the Admin and BMC network switches before running the provision tool. 
 
 * Set the IP address of the OIM. The OIM NIC connected to remote servers (through the switch) should be configured with two IPs (BMC IP and admin IP) in a shared LOM or hybrid set up. In the case dedicated network topology, a single IP (admin IP) is required.
 
