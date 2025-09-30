@@ -1,6 +1,8 @@
 Telemetry
 ===================================
 
+⦾ **Why telemetry playbook is failing at Kafka pod deployment?** 
+
 .. image:: ../../../images/telemetry.png
 
 **Potential Cause**: No kube nodes are available in the service cluster for pod deployments.
