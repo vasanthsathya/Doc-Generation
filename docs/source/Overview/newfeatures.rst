@@ -46,6 +46,9 @@ Functional Groups for Cluster Deployment
 Platform and Security Updates
 -----------------------------
 
+- **Support for x86_64 and aarch64 architectures**
+   x86_64 and aarch64 platforms are now enabled.
+
 - **Support for RHEL 10.0 (diskless OS) using OpenCHAMI**  
    Diskless provisioning is now available using OpenCHAMI workflows.
 
@@ -57,3 +60,5 @@ Platform and Security Updates
 
 - **Encrypted storage of input credentials**  
    Sensitive credentials are now stored securely using encrypted formats.
+
+

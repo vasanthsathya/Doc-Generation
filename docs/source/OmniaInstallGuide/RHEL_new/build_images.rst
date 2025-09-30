@@ -7,6 +7,8 @@ Each image is created based on the functional groups defined in the
 
 Alternately, to build images for aarch64 cluster nodes, perform the steps provided in :doc:`../AdvancedConfigurations/build_arm_ochami_image`.
 
+.. caution:: Limited validation has been performed on aarch64 platform.
+
 **Prerequisites**: 
 
    * Ensure that the ``functional_groups_config.yml`` file defines the functional groups required for your environment. For more information on functional groups, see :doc:`composable_roles`.
