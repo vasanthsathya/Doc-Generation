@@ -80,5 +80,6 @@ Example: ::
 
 
 Troubleshooting logs
+=================================================================
 
-For more information, see `Logs <logging/oim_logs.html>`_.
+For more information, see `Logs <../logging/oim_logs.html>`_.
