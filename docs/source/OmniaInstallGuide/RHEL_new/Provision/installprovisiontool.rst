@@ -13,7 +13,7 @@ The ``discovery.yml`` playbook discovers the probable bare-metal cluster nodes. 
         :width: 600px
 
 Configurations made by the ``discovery.yml`` playbook
------------------------------------------------------------------
+------------------------------------------------------
 
 * Discovers all target servers.
 * Configures the boot script based on the functional groups.

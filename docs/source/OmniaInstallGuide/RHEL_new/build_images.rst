@@ -5,9 +5,6 @@ The ``build_image_x86_64.yml`` and ``build_image_aarch64.yml`` playbooks are use
 Each image is created based on the functional groups defined in the 
 ``functional_groups_config.yml`` file. 
 
-If you have aarch64 cluster nodes to be booted, then to build OpenCHAMI image for aarch64, perform the steps provided in :doc:`../AdvancedConfigurations/build_arm_ochami_image`.
-
-
 **Prerequisites**: 
 
    * Ensure that the ``functional_groups_config.yml`` file defines the functional groups required for your environment. For more information on functional groups, see :doc:`composable_roles`.
@@ -46,6 +43,8 @@ To build images for the nodes present in each functional group, do the following
 Build images for aarch64 cluster nodes
 ------------------------------------------
 
+If you have aarch64 cluster nodes to be provisioned, perform the steps provided in :doc:`../AdvancedConfigurations/build_arm_ochami_image`.
+
 To build images for the nodes present in each functional group, do the following.
 
 1. Navigate to the image build directory::
@@ -57,7 +56,7 @@ To build images for the nodes present in each functional group, do the following
        ansible-playbook build_image_aarch64.yml -i inventory
 
 **Sample aarch64 inventory**::
------------------
+-------------------------------
     [admin_aarch64]
     10.0.0.1
 
