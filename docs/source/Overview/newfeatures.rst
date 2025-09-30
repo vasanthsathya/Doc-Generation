@@ -17,7 +17,7 @@ Containerization and Repository Management
   distribution without external dependencies.
 
 Service Cluster Enhancements
-----------------------------
+-----------------------------
 
 - **Service cluster configuration**  
   Automated configuration workflows for establishing dedicated service clusters.
@@ -57,4 +57,3 @@ Platform and Security Updates
 
 - **Encrypted storage of input credentials**  
   Sensitive credentials are now stored securely using encrypted formats.
-  
