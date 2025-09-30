@@ -7,7 +7,7 @@ The local repository playbook (``local_repo.yml``) downloads and saves the softw
 Configurations made by the playbook
 =======================================
 
-    * With ``repo_config`` set to ``always`` in ``/opt/omnia/input/project_default/config/software_config.json``, all images and artifacts will be downloaded to the Pulp container present on the NFS share.
+    * With ``repo_config`` set to ``always`` in ``/opt/omnia/input/project_default/software_config.json``, all images and artifacts will be downloaded to the Pulp container present on the NFS share.
 
     * If  ``repo_config`` is set to ``always``, the OIM serves as the default Pulp registry.
 
