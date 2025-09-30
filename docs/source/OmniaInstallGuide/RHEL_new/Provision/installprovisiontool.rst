@@ -13,7 +13,7 @@ The ``discovery.yml`` playbook discovers the probable bare-metal cluster nodes. 
         :width: 600px
 
 Configurations made by the ``discovery.yml`` playbook
------------------------------------------------------------------
+------------------------------------------------------
 
 * Discovers all target servers.
 * Configures the boot script based on the functional groups.
@@ -50,7 +50,7 @@ To deploy the Omnia provision tool, execute the following commands: ::
 
 .. caution::
 
-    * In case of any IP route conflict between Admin network and additional NIC (for example: Internet NIC), delete the Admin route or configure the IP route priotity based on your cluster requirements.
+    * In case of any IP route conflict between Admin network and additional NIC (for example: Internet NIC), delete the Admin route or configure the IP route priority based on your cluster requirements.
 
     * If the internet connection is required on the target node, configure it after the node is booted. 
     
