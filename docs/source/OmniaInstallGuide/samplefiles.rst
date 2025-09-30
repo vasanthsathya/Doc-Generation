@@ -41,7 +41,6 @@ software_config.json for RHEL
     "repo_config": "always",
     "softwares": [
         {"name": "default_packages", "arch": ["x86_64","aarch64"]},
-        {"name": "ofed", "version": "24.10-3.2.5.0", "arch": ["x86_64"]},
         {"name": "openldap", "arch": ["x86_64"]},
         {"name": "nfs", "arch": ["x86_64","aarch64"]},
         {"name": "slurm_custom", "arch": ["x86_64","aarch64"]},
