@@ -1,11 +1,12 @@
 Step 11: Build cluster node images
-============================
+====================================
 
 The ``build_image_x86_64.yml`` and ``build_image_aarch64.yml`` playbooks are used to build diskless images for ``x86_64`` and ``aarch64`` cluster nodes, respectively. 
 Each image is created based on the functional groups defined in the 
 ``functional_groups_config.yml`` file. 
 
-To build OpenCHAMI image for arch64, see :doc:`../AdvancedConfigurations/build_arm_ochami_image`.
+If you have aarch64 cluster nodes to be booted, then to build OpenCHAMI image for aarch64, perform the steps provided in :doc:`../AdvancedConfigurations/build_arm_ochami_image`.
+
 
 **Prerequisites**: 
 
@@ -51,12 +52,20 @@ To build images for the nodes present in each functional group, do the following
 
        cd /omnia/build_image_aarch64
 
-2. To build the image, run the appropriate playbook based on the node architecture:
+2. To build the image, run the appropriate playbook based on the node architecture::
 
-       ansible-playbook build_image_aarch64.yml
+       ansible-playbook build_image_aarch64.yml -i inventory
+
+**Sample aarch64 inventory**::
+-----------------
+    [admin_aarch64]
+    10.0.0.1
+
+.. note:: The IP address in the inventory must be 
 
 3. To verify that images are created for each functional group defined in ``functional_groups_config.yml``, run the following command::
 
        s3cmd ls -Hr s3://boot-images
 
    The images created for each functional group are listed in the boot-images directory.
+

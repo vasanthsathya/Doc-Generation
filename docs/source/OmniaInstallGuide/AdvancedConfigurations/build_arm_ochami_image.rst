@@ -1,5 +1,16 @@
-Build OpenCHAMI image for arch64
-=================================
+
+Install RHEL 10 on aarch64 bare-metal server
+---------------------------------------------
+1. 
+
+
+
+
+
+
+
+Build OpenCHAMI image for aarch64
+----------------------------------
 
 Perform the following steps to build the OpenCHAMI aarch64 image:
 
