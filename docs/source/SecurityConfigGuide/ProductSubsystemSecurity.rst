@@ -19,12 +19,6 @@ To perform these configurations and installations, a secure SSH channel is estab
 
 * ``slurm_node``
 
-* ``kube_control_plane``
-
-* ``kube_node``
-
-* ``auth_server``
-
 * ``login_node``
 
 Authentication
