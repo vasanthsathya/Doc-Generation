@@ -273,10 +273,10 @@ Use the following command to apply the manifest: ::
 
 .. image:: ../../images/CSI_OneFS.jpg
 
-Removal
---------
+Uninstallation
+----------------
 
-To remove the PowerScale driver manually, do the following:
+To uninstall the PowerScale CSI driver manually, do the following:
 
 1. Login to the ``kube_control_plane``.
 
