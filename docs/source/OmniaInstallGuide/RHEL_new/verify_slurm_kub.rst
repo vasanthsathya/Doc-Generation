@@ -37,7 +37,7 @@ While the job is running, ssh as ``<ldap_user>`` to the slurm node where the job
 
 **Kubernetes on the service cluster**
 
-Run the following commands: 
+Run the following commands on Kubernetes controller node: 
 
 :: 
 
