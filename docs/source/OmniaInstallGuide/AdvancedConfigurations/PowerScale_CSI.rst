@@ -1,7 +1,7 @@
 Deploy CSI drivers for Dell PowerScale storage solutions
 ===========================================================
 
-Dell PowerScale is a flexible and secure scale-out NAS (network attached storage) solution designed to simplify storage requirements for AI and HPC workloads. To enable the PowerScale storage solution on the Kubernetes clusters, Omnia installs the Dell CSI PowerScale driver (version 2.13.0) on the nodes using helm charts. Once the PowerScale CSI driver is installed, the PowerScale nodes can be connected to the Kubernetes clusters for storage requirements.
+Dell PowerScale is a flexible and secure scale-out NAS (network attached storage) solution designed to simplify storage requirements for AI and HPC workloads. To enable the PowerScale storage solution on the Kubernetes clusters, Omnia installs the Dell CSI PowerScale driver (version 2.14.0) on the nodes using helm charts. Once the PowerScale CSI driver is installed, the PowerScale nodes can be connected to the Kubernetes clusters for storage requirements.
 To know more about the CSI PowerScale driver, `click here <https://dell.github.io/csm-docs/docs/getting-started/installation/kubernetes/powerscale/helm/>`_.
 
 .. note:: Omnia doesn't configure any PowerScale device via OneFS (operating system for PowerScale). Omnia configures the deployed Kubernetes cluster to interact with the PowerScale storage.
@@ -16,22 +16,25 @@ PowerScale SmartConnect [Optional]
         - admin_network:
             nic_name: <network name>
             netmask_bits: "16"
-            static_range: <static ip range>
+            primary_oim_admin_ip: "10.5.255.254"
+            primary_oim_bmc_ip: ""
             dynamic_range: <dynamic ip range>
-            correlation_to_admin: true
-            admin_uncorrelated_node_start_ip: ""
-            network_gateway: ""
-            DNS: <upstream DNS server>
-            MTU: "1500"
+            DNS: <upstream DNS server>           
 
 * If you did not specify the upstream DNS server during the provisioning process and wish to utilize PowerScale SmartConnect afterwards, first add the upstream DNS server IP to the ``DNS`` entry in ``/opt/omnia/input/project_default/network_spec.yml``  and then run the ``discovery-provision.yml`` playbook again.
 
 Prerequisites
 --------------
 
-1. Download the ``secret.yaml`` file template from this `link <https://github.com/dell/csi-powerscale/blob/release/v2.14.0/samples/secret/secret.yaml>`_.
+1. On the storage network, make sure DHCP is enabled, but the gateway IP for storage must not be assigned by the DHCP server.
 
-2. Update the following parameters in the ``secret.yaml`` file as per your cluster details and keep the rest as default values. For example:
+2. Upstream DNS resolution must be available from both the admin (PXE) and storage networks.
+
+3. Verify that the PowerScale system is operational.
+
+4. Download the ``secret.yaml`` file template from this `link <https://github.com/dell/csi-powerscale/blob/release/v2.14.0/samples/secret/secret.yaml>`_.
+
+5. Update the following parameters in the ``secret.yaml`` file as per your cluster details and keep the rest as default values. For example:
 
     *	clusterName: <desired cluster name>
     *	endpoint: <endpoint_IP>
@@ -43,11 +46,11 @@ Prerequisites
 
    .. image:: ../../images/csi_powerscale_1.png
 
-3. Download the ``values.yaml`` files template using the following command: ::
+6. Download the ``values.yaml`` files template using the following command: ::
 
     wget https://raw.githubusercontent.com/dell/helm-charts/csi-isilon-2.14.0/charts/csi-isilon/values.yaml
 
-4. Update the following parameters in the ``values.yaml`` file and keep the rest as default values. Refer the below sample values:
+7. Update the following parameters in the ``values.yaml`` file and keep the rest as default values. Refer the below sample values:
 
     * controllerCount: 1
 
@@ -75,9 +78,9 @@ Prerequisites
 
     * isiPath: /ifs/data/csi
 
-5. Ensure that ``get_config_credentials.yml`` playbook has been executed and the ``omnia_config_credentials`` file has been generated. Once that's done, add the values for ``csi_username`` and ``csi_password`` to that file.
+8. Ensure that ``get_config_credentials.yml`` playbook has been executed and the ``omnia_config_credentials`` file has been generated. Once that's done, add the values for ``csi_username`` and ``csi_password`` to that file.
 
-6. Enable ``auth_basic`` for the PowerScale devices: Omnia authenticates and connects with PowerScale devices using basic authentication. To check and enable basic authentication from PowerScale's end, do the following:
+9. Enable ``auth_basic`` for the PowerScale devices: Omnia authenticates and connects with PowerScale devices using basic authentication. To check and enable basic authentication from PowerScale's end, do the following:
 
     i. Establish an SSH connection with the PowerScale node.
     ii. Execute the following command: 
@@ -190,6 +193,8 @@ If user wants to create a custom storage class, they can do so by following the 
       Isipath: <isipath configured in powerscale > #sample: /ifs/data/csi/
       RootClientEnabled: "true"
       csi.storage.k8s.io/fstype: "nfs"
+    
+    
 
 .. note::
 
@@ -208,52 +213,48 @@ Once the storage class is created, the same can be used to create PVC.
 
 *Sample deployment with PVC*: ::
 
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: pvc-powerscale
-    spec:
-      accessModes:
-        - ReadWriteMany
-      resources:
-        requests:
-          storage: 1Gi
-      storageClassName: ps01
-    ---
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: deploy-busybox-01
-    spec:
-      strategy:
-        type: Recreate
-      replicas: 1
-      selector:
-        matchLabels:
-          app: deploy-busybox-01
-      template:
-        metadata:
-          labels:
-            app: deploy-busybox-01
-        spec:
-          containers:
-            - name: busybox
-              image: registry.k8s.io/busybox
-              command: ["sh", "-c"]
-              args: ["while true; do touch /data/datafile; rm -f /data/datafile; done"]
-              volumeMounts:
-                - name: data
-                  mountPath: /data
-              env:
-                - name: http_proxy
-                  value: "http://<OIM IP>:3128"
-                - name: https_proxy
-                  value: "http://<OIM IP>:3128"
-          volumes:
-            - name: data
-              persistentVolumeClaim:
-                claimName: pvc-powerscale
 
+     apiVersion: v1
+     kind: PersistentVolumeClaim
+     metadata:
+     name: pvc-powerscale
+     spec:
+     accessModes:
+     - ReadWriteMany
+         resources:
+         requests:
+         storage: 1Gi
+         storageClassName: ps01
+     --- 
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+      name: deploy-busybox-01
+      spec:
+        strategy:
+        type: Recreate
+        replicas: 1
+        selector:
+          matchLabels:
+           app: deploy-busybox-01
+            template:
+             metadata:
+              labels:
+        app: deploy-busybox-01
+    spec:
+      containers:
+        - name: busybox
+          image: docker.io/library/busybox:1.36
+          command: ["sh", "-c"]
+          args: ["while true; do touch /data/datafile; rm -f /data/datafile; done"]
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pvc-powerscale
+ 
 **Apply the deployment manifest along with PVC**
 
 Use the following command to apply the manifest: ::
@@ -266,16 +267,16 @@ Use the following command to apply the manifest: ::
 
     root@node001:/opt/omnia/csi-driver-powerscale/csi-powerscale/dell-csi-helm-installer# kubectl get pvc -A
     NAMESPACE   NAME                STATUS   VOLUME           CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
-    default     pvc-powerscale      Bound    csivol-853       1Gi        RWX            ps01           <unset>                 27h
+    default     pvc-powerscale      Bound    csivol-98d3e7631d       1Gi        RWX            ps01           <unset>                 27h
 
-* User can also verify the same information from the OneFS portal. In the sample image below, it is mapped with the ``VOLUME`` entry from the above example: ``csivol-853``:
+* User can also verify the same information from the OneFS portal. In the sample image below, it is mapped with the ``VOLUME`` entry from the above example: ``csivol-98d3e7631d``:
 
-.. image:: ../../images/CSI_OneFS.png
+.. image:: ../../images/CSI_OneFS.jpg
 
-Removal
---------
+Uninstallation
+----------------
 
-To remove the PowerScale driver manually, do the following:
+To uninstall the PowerScale CSI driver manually, do the following:
 
 1. Login to the ``kube_control_plane``.
 

@@ -1,105 +1,29 @@
 Re-provisioning the cluster
 =============================
 
-In the event that an existing Omnia cluster needs a different OS version or a fresh installation, the cluster can be re-provisioned.
-
-**Prerequisite**
-
-* Run the `delete node playbook <deletenode.html#delete-provisioned-node>`_ for every target node.
-
-.. note:: If a re-deployment with no modifications is required, execute the following commands:
-    ::
-        cd omnia
-        ansible-playbook discovery_provision.yml
-
-**Setting up the cluster**
-
-* Insert the new IPs in the existing inventory file as shown below:
-
-*Existing kubernetes inventory*
-
-::
-
-    [kube_control_plane]
-    10.5.0.101
-
-    [kube_node]
-    10.5.0.102
-    10.5.0.103
-
-    [auth_server]
-    10.5.0.101
-
-    [etcd]
-    10.5.0.110
+In the event that an existing Omnia cluster needs a fresh installation, the cluster can be re-provisioned.
 
 
+Re-provision existing nodes without any modifications
+------------------------------------------------------
 
-*Updated kubernetes inventory with the new node information*
+To re-provision the existing nodes without any modifications, PXE boot the required nodes to be reprovisioned.
 
-::
-
-    [kube_control_plane]
-    10.5.0.101
-
-    [kube_node]
-    10.5.0.102
-    10.5.0.103
-    10.5.0.105
-    10.5.0.106
-
-    [auth_server]
-    10.5.0.101
-
-    [etcd]
-    10.5.0.110
-
-*Existing Slurm inventory*
-
-::
-
-    [slurm_control_node]
-    10.5.0.101
-
-    [slurm_node]
-    10.5.0.102
-    10.5.0.103
-
-    [login_node]
-    10.5.0.104
-
-    [auth_server]
-    10.5.0.101
+The OS is automatically installed on every PXE boot if there are no modification in the cluster.
 
 
-*Updated Slurm inventory with the new node information*
+Re-provision the nodes with modifications
+------------------------------------------
 
-::
+1. Update the mapping file, ``functional_group_config.yml`` and ``software_config.json`` as required.
+2. In the event of any modification to the ``functional_group_config.yml`` or ``software_config.json``, run the ``local_repo.yml`` playbook, and then run the ``build_image_x86_64.yml`` or ``build_image_aarch64.yml`` to build the new images. For more information, see :doc:`../RHEL_new/CreateLocalRepo/RunningLocalRepo`.
+3. After the images are created, run the ``discovery.yml`` playbook. For more information, see :doc:`../RHEL_new/Provision/installprovisiontool`.
+4. PXE boot the required nodes to be reprovisioned.
 
-    [slurm_control_node]
-    10.5.0.101
 
-    [slurm_node]
-    10.5.0.102
-    10.5.0.103
-    10.5.0.105
-    10.5.0.106
+      
 
-    [login_node]
-    10.5.0.104
 
-    [auth_server]
-    10.5.0.101
-
-In the above examples, nodes 10.5.0.105 and 10.5.0.106 have been added to the cluster as compute nodes.
-
-.. note::
-    * Do not change the ``kube_control_plane``, ``slurm_control_node`` and/or ``auth_server`` in the existing inventory file. Add only the new node information in the ``kube_node`` and/or ``slurm_node`` groups.
-    * When re-running ``omnia.yml`` to add a new node, ensure that the ``input/security_config.yml`` and ``input/omnia_config.yml`` are not edited between runs.
-
-* To install security, job scheduler, and storage tools (NFS, BeeGFS) on the node, run ``omnia.yml``: ::
-
-    ansible-playbook omnia.yml -i inventory
 
 
 

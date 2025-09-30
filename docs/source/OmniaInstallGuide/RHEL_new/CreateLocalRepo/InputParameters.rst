@@ -27,8 +27,6 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
     "repo_config": "always",
     "softwares": [
         {"name": "default_packages", "arch": ["x86_64","aarch64"]},
-        {"name": "cuda", "version": "13.0.1", "arch": ["x86_64","aarch64"]},
-        {"name": "ofed", "version": "24.10-3.2.5.0", "arch": ["x86_64"]},
         {"name": "openldap", "arch": ["x86_64"]},
         {"name": "nfs", "arch": ["x86_64","aarch64"]},
         {"name": "service_k8s","version": "1.31.4", "arch": ["x86_64"]},
@@ -66,14 +64,12 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
             "repo_config": "always",
             "softwares": [
                 {"name": "default_packages", "arch": ["x86_64","aarch64"]},
-                {"name": "cuda", "version": "13.0.1", "arch": ["x86_64","aarch64"]},
-                {"name": "ofed", "version": "24.10-3.2.5.0", "arch": ["x86_64"]},
                 {"name": "openldap", "arch": ["x86_64"]},
                 {"name": "nfs", "arch": ["x86_64","aarch64"]},
                 {"name": "slurm_custom", "arch": ["x86_64","aarch64"]},
                 {"name": "service_k8s", "version": "1.31.4", "arch": ["x86_64"]},
-                {"name": "ucx", "version": "1.15.0", "arch": ["x86_64"]},
-                {"name": "openmpi", "version": "4.1.6", "arch": ["x86_64"]}
+                {"name": "ucx", "version": "1.19.0", "arch": ["x86_64"]},
+                {"name": "openmpi", "version": "5.0.8", "arch": ["x86_64"]}
             ],
             "slurm_custom": [
                 {"name": "slurm_control_node"},
@@ -93,9 +89,9 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
 
 .. note::
 
-    * For a list of accepted ``softwares``, go to the ``/opt/omnia/input/project_default/config/<cluster_os_type>/<cluster_os_version>`` and view the list of JSON files available. The filenames present in this location are the list of accepted softwares. For a cluster running RHEL 10.0, go to ``/opt/omnia/input/project_default/config/rhel/9.6/`` and view the file list for accepted softwares.
+    * For a list of accepted ``softwares``, go to the ``/opt/omnia/input/project_default/<cluster_os_type>/<cluster_os_version>`` and view the list of JSON files available. The filenames present in this location are the list of accepted softwares. For a cluster running RHEL 10.0, go to ``/opt/omnia/input/project_default/rhel/9.6/`` and view the file list for accepted softwares.
     * Omnia supports a single version of any software packages in the ``software_config.json`` file. Ensure that multiple versions of the same package is not mentioned.
-    * For software packages that do not have a pre-defined json file in ``/opt/omnia/input/project_default/config/<cluster_os_type>/<cluster_os_version>``, you need to create a ``custom.json`` file with the package details. For more information, `click here <../../AdvancedConfigurations/CustomLocalRepo.html>`_.
+    * For software packages that do not have a pre-defined json file in ``/opt/omnia/input/project_default/<cluster_os_type>/<cluster_os_version>``, you need to create a ``custom.json`` file with the package details. For more information, `click here <../../AdvancedConfigurations/CustomLocalRepo.html>`_.
 
 ``/opt/omnia/input/project_default/local_repo_config.yml``
 -----------------------------------------------------------
@@ -108,4 +104,4 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
 
 .. note::
 
-    * For systems with RedHat subscription, subscription URLs ``override rhel_os_urls`` and are processed automatically by the ``local_repo.yml`` playbook.
+    * For systems with RedHat subscription, subscription URLs override ``rhel_os_urls`` and are processed automatically by the ``local_repo.yml`` playbook.

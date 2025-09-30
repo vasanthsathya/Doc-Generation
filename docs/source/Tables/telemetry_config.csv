@@ -7,11 +7,6 @@
 * **Default value**: ``false``
 
 .. note:: If ``idrac_telemetry_support`` is set to ``true``, ``mysqldb_user``, ``mysqldb_password``, and ``mysqldb_root_password`` parameters in the ``omnia_config_credentials.yml`` file becomes mandatory. "
-``idrac_telemetry_collection_type``,Mandatory,"* **Type**: String
-* Specifies the tool that collects the iDRAC telemetry data. This parameter is mandatory if ``idrac_telemetry_support`` is set to ``true``.
-* If ``idrac_telemetry_support`` is set to ``true`` and ``idrac_telemetry_collection_type`` is ``kafka``, then the ``kafka`` and ``kafka_pump`` containers are deployed during the execution of the ``prepare_oim.yml`` playbook.
-* **Accepted value**: ``kafka``
-* **Sample**: ``idrac_telemetry_collection_type: ""kafka""``"
 kafka_configurations > ``persistence_size``,Conditional Mandatory,"* **Type**: Integer
 * The amount of storage allocated for Kafka's persistent volume.
 * **Accepted values**: a number followed by Ki, Mi, Gi, Ti, Pi, or Ei.

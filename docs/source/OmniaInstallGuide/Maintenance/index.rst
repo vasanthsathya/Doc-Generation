@@ -4,5 +4,7 @@ Maintenance
 .. toctree::
     :maxdepth: 2
   
-    cleanup
+    add_node
     reprovision
+    cleanup
+    

@@ -1,57 +1,6 @@
 Configuring specific local repositories
 -----------------------------------------
 
-**CUDA**
-
-    To install CUDA, include the following line under ``softwares`` in ``software_config.json``: ::
-
-            {"name": "cuda", "version": "12.8.0", "arch":["x86_64","aarch64"]},
-
-    For a list of repositories (and their types) configured for CUDA, view the ``/opt/omnia/input/project_default/config/<cluster_os_type>/<cluster_os_version>/cuda.json`` file. To customize your CUDA installation, update the ``url`` parameter with your desired CUDA version URL. URLs for different versions can be found `here <https://developer.nvidia.com/cuda-downloads>`_. ::
-
-        {
-          "cuda": {
-            "cluster": [
-              { "package": "cuda",
-                "type": "iso",
-                "url": "https://developer.download.nvidia.com/compute/cuda/12.8.0/local_installers/cuda-repo-rhel9-12-8-local-12.8.0_570.86.10-1.x86_64.rpm",
-                "path": ""
-              },
-              { "package": "dkms",
-                "type": "rpm",
-                "repo_name": "epel"
-              }
-            ]
-          }
-        }
-
-.. note::
-    * If the package version is customized, ensure that the same ``version`` value is also updated in the ``software_config.json``.
-    * If the target cluster runs on RHEL, ensure that the "dkms" package is also included in ``/opt/omnia/input/project_default/config/<arch>/<cluster_os_type>/10.0/cuda.json``, as shown above.
-
-**OFED**
-
-    To install OFED, include the following line under ``softwares`` in ``software_config.json``: ::
-
-            {"name": "ofed", "version": "24.10-3.2.5.0", "arch": ["x86_64"]},
-
-    For a list of repositories (and their types) configured for OFED, view the ``/opt/omnia/input/project_default/config/<arch>/<cluster_os_type>/<cluster_os_version>/ofed.json`` file. To customize your OFED installation, update the ``url`` parameter with your desired OFED version URL. ::
-
-        {
-          "ofed": {
-            "cluster": [
-              { "package": "ofed",
-                "type": "iso",
-                "url": "https://content.mellanox.com/ofed/MLNX_OFED-24.10-3.2.5.0/MLNX_OFED_LINUX-24.10-3.2.5.0-rhel9.6-x86_64.iso",
-                "path": ""
-              }
-            ]
-          }
-        }
-
-.. note:: If the package version is customized, ensure that the same ``version`` value is also updated in the ``software_config.json``.
-
-
 **NFS**
 
     To install NFS, include the following line under ``softwares`` in ``software_config.json``: ::
@@ -68,17 +17,17 @@ Configuring specific local repositories
 
     For more information about installing Kubernetes, `click here <../OmniaCluster/BuildingCluster/install_kubernetes.html>`_.
 
-.. note:: The version of ``k8s`` provided above is the only version of the package that Omnia supports.
+.. note:: The version of ``service_k8s`` provided above is the only version of the package that Omnia supports.
 
 **Slurm**
 
     To install Slurm, include the following line under ``softwares`` in ``software_config.json``: ::
 
-            {"name": "slurm", "arch": ["x86_64","aarch64"]},
+            {"name": "slurm_custom", "arch": ["x86_64","aarch64"]},
 
     For more information about installing Slurm, `click here <../OmniaCluster/BuildingCluster/install_slurm.html>`_.
 
-.. note:: Omnia recommends installing Slurm with ``repo_config`` variable set to ``always``  in ``software_config.json``. This is due to intermittent connectivity issues with the EPEL8 repositories.
+.. note:: If ``slurm_custom`` is defined in ``software_config.json``, provide the corresponding repository information in the ``user_repo_url_<arch>`` field of ``local_repo-config.yml``.
 
 
 **OpenLDAP**
@@ -94,7 +43,7 @@ Configuring specific local repositories
 
     To install OpenMPI, include the following line under ``softwares`` in ``software_config.json``: ::
 
-            {"name": "openmpi", "version":"4.1.6","arch": ["x86_64"]},
+            {"name": "openmpi", "version":"5.0.8","arch": ["x86_64"]},
 
     OpenMPI is deployed on the cluster when the above configurations are complete and `omnia.yml <../OmniaCluster/BuildingCluster/installscheduler.html>`_ playbook is executed.
 
@@ -107,7 +56,7 @@ Configuring specific local repositories
 
     To install UCX, include the following line under ``softwares`` in ``software_config.json``: ::
 
-            {"name": "ucx", "version":"1.15.0", "arch": ["x86_64"]},
+            {"name": "ucx", "version":"1.19.0", "arch": ["x86_64"]},
 
     UCX is deployed on the cluster when ``local_repo.yml`` playbook is executed, followed by the execution of `omnia.yml <../OmniaCluster/BuildingCluster/installscheduler.html>`_.
 
@@ -121,4 +70,4 @@ Configuring specific local repositories
 
                 {"name": "additional_software"},
 
-    Create an ``additional_software.json`` file in the following directory: ``/opt/omnia/input/project_default/config/<arch>/<cluster_os_type>/<cluster_os_version>`` and add your choice of additional software. For a cluster running RHEL 10.0, go to ``/opt/omnia/input/project_default/config/<arch>/rhel/10.0/`` and create the file there. For more information, `click here <../../../Utils/software_update.html>`_.
+    Create an ``additional_software.json`` file in the following directory: ``/opt/omnia/input/project_default/<arch>/<cluster_os_type>/<cluster_os_version>`` and add your choice of additional software. For a cluster running RHEL 10.0, go to ``/opt/omnia/input/project_default/<arch>/rhel/10.0/`` and create the file there. For more information, `click here <../../../Utils/software_update.html>`_.

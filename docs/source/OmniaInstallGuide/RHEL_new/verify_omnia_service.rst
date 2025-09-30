@@ -1,7 +1,7 @@
-Step 6: Verify the status of Omnia container services
+Step 7: Verify the status of Omnia container services
 ======================================================
 
-After successfully running the ``prepare.oim.yml``, you can verify if the omnia.target and
+After successfully running the ``prepare.oim.yml``, you can verify if the ``omnia.target`` and
 its dependent services are running correctly.
 
 1. Run the following command to check the status of the OMNIA Core service:
@@ -29,6 +29,7 @@ its dependent services are running correctly.
       ● │ └─NetworkManager-wait-online.service
       ● ├─omnia_kubespray_<version>.service
       ● ├─pulp.service
+      ● ├─omnia_auth.service
       ● └─openchami.target
       ●   ├─acme-deploy.service
       ●   ├─acme-register.service
@@ -51,7 +52,10 @@ its dependent services are running correctly.
    * A **grey circle** indicates that the service is not running.
    * A **circle with a cross** indicates that the service failed to start.
 
-View usage instructions for OpenCHAMI Containers
+   .. note::  The ``omnia_auth.service`` runs only when OpenLDAP is specifed in the ``software_config.json``.
+    
+
+View usage instructions for OpenCHAMI containers
 --------------------------------------------------
 
 The ``ochami --help`` command provides usage instructions for interacting with **OpenCHAMI services**.  

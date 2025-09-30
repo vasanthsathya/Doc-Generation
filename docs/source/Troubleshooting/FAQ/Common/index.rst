@@ -7,3 +7,4 @@ Common FAQs
     LocalRepo
     Provision
     Security
+    Telemetry

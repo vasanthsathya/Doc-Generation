@@ -1,51 +1,19 @@
-Set up Slurm
+Step 10: Set up Slurm on nodes
 ==============
 
 **Prerequisites**
 
-* Ensure that ``slurm`` entry is present in the ``softwares`` list in ``software_config.json``, as mentioned below:
-  
-  ::
-    
-    "softwares": [
-                    {"name": "slurm" },
-                 ]
-    
-    OR,
-
-  ::
-
-    "softwares": [
-                    {"name": "slurm_custom" },
-                 ]
-    
-Ensure that you provide the ``slurm_custom.json`` by adding the user_repo_url: slurm-repo data in ``local_repo_config.yml``.
-
-* Ensure that the following sub-group entry is also present in the ``software_config.json`` file: ::
-
-            "slurm": [
-                    {"name": "slurm_control_node"},
-                    {"name": "slurm_node"},
-                    {"name": "login_node"}
-                ]
-
-* Ensure to run ``local_repo.yml`` with the ``slurm/slurm_custom`` entry present in ``software_config.json`` to download all required slurm packages.
-
-* Once all the required parameters in `omnia_config.yml <../schedulerinputparams.html#id13>`_ are filled in, ``discovery.yml`` can be used to set up Slurm.
-
-* ``slurm installation_type`` is configless by default. Ensure that ``slurm_share`` is set to ``true`` in `storage_config.yml <../schedulerinputparams.html#id17>`_, for one of the entries in ``nfs_client_params``.
+* Provide the Slurm 25.05.2 user repository.
+* Fill the mandatory parameters in ``omnia_config.yml``: `Input parameters for the cluster <../schedulerinputparams.html#id13>`_
+* Fill the parameters in ``storage_config.yml``: `Input parameters for the cluster <../schedulerinputparams.html#id13>`_
+* Add ``slurm_custom`` to ``software_config.json`` and add ``slurm_custom`` subgroups.
+* Add ``slurm_custom`` repository URL to ``user_repo_url_x86_64`` or ``user_repo_url_aarch64`` in ``local_repo_config.yml``.
 
 
+**Setup Slurm:**
 
+1. To download the artifacts required to set up Slurm on the nodes, run the ``local_repo.yml`` playbook.
+2. Provide the slurm cluster information in the ``functional_groups_config.yml``: `Create groups and assign functional roles to the nodes <../../composable_roles.html>`_
+3. To build diskless images for cluster nodes, run the ``build.image.yml`` playbook: `Build cluster node images <../../build_images.html>`_
+4. To discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups, run  the ``discovery.yml`` playbook: `Discover cluster nodes <../../Provision/index.html>`_
 
-**Install Slurm**
-
-Run the following command:
-
-     ::
-
-           cd /omnia/discovery
-           ansible-playbook discovery.yml
-
-    
-    

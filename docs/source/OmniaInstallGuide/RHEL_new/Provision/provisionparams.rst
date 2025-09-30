@@ -1,7 +1,7 @@
 Update the input parameters for discovering the nodes
 ========================================================
 
-Fill in all required parameters in ``/opt/omnia/input/project_default/provision_config.yml``, ``/opt/omnia/input/project_default/omnia_config_credentials.yml``, ``/opt/omnia/input/project_default/software_config.json``, and ``/opt/omnia/input/project_default/network_spec.yml``.
+Fill in all required parameters in ``/opt/omnia/input/project_default/provision_config.yml``, ``/opt/omnia/input/project_default/omnia_config_credentials.yml``, ``/opt/omnia/input/project_default/software_config.json``, ``/opt/omnia/input/project_default/storage_config.yml``, ``/opt/omnia/input/project_default/omnia_config.yml`` and ``/opt/omnia/input/project_default/network_spec.yml``.
 
 .. caution:: Do not remove or comment any lines in the above mentioned ``.yml`` files.
 
@@ -14,7 +14,7 @@ Fill in all required parameters in ``/opt/omnia/input/project_default/provision_
 
 .. note::
 
-    The ``/opt/omnia/input/project_default/omnia_config_credentials.yml`` file is encrypted on the first execution of the ``discovery_provision.yml`` or ``local_repo.yml`` playbooks.
+    The ``/opt/omnia/input/project_default/omnia_config_credentials.yml`` file is encrypted on the first execution of the ``discovery.yml`` or ``local_repo.yml`` playbooks.
 
       * To view the encrypted parameters: ::
 
@@ -27,6 +27,19 @@ Fill in all required parameters in ``/opt/omnia/input/project_default/provision_
 
 .. csv-table:: software_config.json
    :file: ../../../Tables/software_config_rhel.csv
+   :header-rows: 1
+   :keepspace:
+
+
+
+.. csv-table:: storage_config.yml
+   :file: ../../../Tables/storage_config.csv
+   :header-rows: 1
+   :keepspace:
+
+
+.. csv-table:: omnia_config.yml
+   :file: ../../../Tables/scheduler_slurm.csv
    :header-rows: 1
    :keepspace:
 
@@ -51,3 +64,4 @@ A sample of the ``/opt/omnia/input/project_default/network_spec.yml`` where node
             primary_oim_admin_ip: "10.5.255.254"
             primary_oim_bmc_ip: ""
             dynamic_range: "10.5.1.1-10.5.1.200"
+            dns: []

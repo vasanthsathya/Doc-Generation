@@ -9,8 +9,5 @@ This topic highlights the common known issues related to:
     Login
     LocalRepo
     Provision
-    Network
     Kubernetes
-    Security
     Storage
-    HA

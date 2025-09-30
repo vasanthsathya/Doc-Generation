@@ -7,25 +7,15 @@ Centralized authentication
 
 **Resolution**: Remove the whitespaces and re-run the LDIF file.
 
+⦾ **What to do if openLDAP user login fails when accessing a cluster node?**
 
-⦾ **Why does the** ``TASK [hostname_validation : Verify the domain name is not blank in hostname]`` **fail?**
+.. image:: ../../../images/UserLoginError.png
 
-**Potential Cause**: Hostname is not configured properly with the domain name, on the target node.
+**Potential Cause**: 
+    * SSH key on the OIM may be outdated.
+    
 
-**Resolution**: Use the following commands to configure the hostname properly: ::
+**Resolution**:
 
-
-        sysctl kernel.hostname=node001.omnia.test
-        hostnamectl set-hostname node001.omnia.test
-
-
-.. note:: ``node001.omnia.test`` is an acceptable sample hostname.
-
-
-⦾ **Why does the user login fail for an OpenLDAP user?**
-
-**Potential Cause**: Incorrect OpenLDAP service is running on the authentication server.
-
-**Resolution**: Ensure that ``slapd-ltb.service`` is running on the authentication server. Use the following command to check if the service running: ::
-
-    systemctl status slapd-ltb.service
+   * Refresh the key using ``ssh-keygen -R <hostname/server IP>``.
+   * Retry login.

@@ -7,7 +7,7 @@ Kubernetes
 
 **Resolution**:
 
-    * Ensure that the ``docker_username`` and ``docker_password`` are provided in ``input/provision_config_credentials.yml``.
+    * Ensure that the ``docker_username`` and ``docker_password`` are provided in ``/opt/omnia/input/project_default/omnia_config_credentials.yml``.
 
     * During ``omnia.yml`` execution, a kubernetes secret Docker ``regcred`` will be created in default namespace and patched to the Docker service account. To avoid ``ErrImagePull`` issue, you need to patch this secret to your namespace while deploying custom applications and use this secret as ``ImagePullSecrets`` in the yaml file . `Click here for more info. <https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry>`_
 
@@ -39,7 +39,7 @@ Kubernetes
 
 2. If the pod(s) are not in ``Running`` state, delete it using the command: ``kubectl delete pods <name of pod>``
 
-3. Re-run the ``omnia.yml``or ``scheduler.yml`` playbook to bring up Kubernetes on the previously failed pods.
+3. Re-run the ``omnia.yml`` playbook to bring up Kubernetes on the previously failed pods.
 
 
 ⦾ **If the DNS servers are unresponsive, the Kubernetes pods stop communicating with the servers.**
@@ -81,7 +81,6 @@ Kubernetes
 
 **Resolution**:
 
-    * Ensure that ``storage.yml`` is executed on the same inventory which is being used for ``scheduler.yml``.
     * Ensure that ``server_share_path`` mentioned in ``storage_config.yml`` for ``k8s_share: true`` has an active nfs_server running on it.
 
 ⦾ **If the Nfs-client provisioner is in** ``ContainerCreating`` **or** ``CrashLoopBackOff`` **state, why does the** ``kubectl describe <pod_name>`` **command show the following output?**
@@ -101,23 +100,3 @@ Kubernetes
 
         * Post deletion, the pod will be restarted and it will come to running state.
 
-
-⦾ **Why does the nvidia-device-plugin pods in** ``ContainerCreating`` **status fail with a** ``no runtime for "nvidia" is configured`` **error?**
-
-.. image:: ../../../images/nvidia_noruntime.png
-
-**Potential Cause**: nvidia-container-toolkit is not installed on GPU nodes.
-
-**Resolution**: Install Kubernetes, download nvidia-container-toolkit, and perform the necessary configurations based on the OS running on the cluster.
-
-⦾ **After running the** ``reset_cluster_configuration.yml`` **playbook on a Kubernetes cluster, which should ideally delete all Kubernetes services and files, it is observed that some Kubernetes logs and configuration files are still present on the** ``kube_control_plane``. **However, these left-over files do not cause any issues for Kubernetes re-installation on the cluster. The files are present under the following directories:**
-
-* ``/var/log/containers/``
-* ``/sys/fs/cgroup/``
-* ``etc/system``
-* ``/run/systemd/transient/``
-* ``/tmp/releases``
-
-**Potential Cause**: When ``reset_cluster_configuration.yml`` is executed on a Kubernetes cluster, it triggers the Kubespray playbook ``kubernetes_sigs.kubespray.reset`` internally, which is responsible for removing Kubernetes configuration and services from the cluster. However, this Kubespray playbook doesn't delete all Kubernetes services and files, resulting in some files being left behind on the ``kube_control_plane``.
-
-**Workaround**: After running the ``reset_cluster_configuration.yml`` playbook on a Kubernetes cluster, users can choose to remove the files from the directories mentioned above if they wish to do so.

@@ -13,7 +13,7 @@ The ``discovery.yml`` playbook discovers the probable bare-metal cluster nodes. 
         :width: 600px
 
 Configurations made by the ``discovery.yml`` playbook
------------------------------------------------------------------
+------------------------------------------------------
 
 * Discovers all target servers.
 * Configures the boot script based on the functional groups.
@@ -23,6 +23,11 @@ Configurations made by the ``discovery.yml`` playbook
 Playbook execution
 ----------------------
 
+**Prerequisites**
+Before running the ``discovery.yml`` playbook, ensure that the images are created for each functional group defined in ``functional_groups_config.yml``. To verify that the images are created, run the following command::
+
+    s3cmd ls -Hr s3://boot-images
+
 To deploy the Omnia provision tool, execute the following commands: ::
 
     ssh omnia_core
@@ -31,9 +36,11 @@ To deploy the Omnia provision tool, execute the following commands: ::
 
 .. note::
 
-    * If the ``/opt/omnia/input/project_default/software_config.json`` has OFED and NVIDIA CUDA drivers mentioned, the OFED network drivers and NVIDIA accelerator drivers are installed on the nodes post provisioning.
-
     * After executing ``discovery.yml`` playbook, you can check the log files available at ``/opt/omnia/log`` for more information.
+
+    * To identify any issues on the node booted, check the ``/var/log/cloud-init-output.log``.
+
+    * Omnia does not track the OS installation on the target node. User has verify the installation status manually.
 
     * Ansible playbooks by default run concurrently on 5 nodes. To change this, update the ``forks`` value in ``ansible.cfg`` present in the respective playbook directory.
 
@@ -47,11 +54,15 @@ To deploy the Omnia provision tool, execute the following commands: ::
 
 .. caution::
 
+    * In case of any IP route conflict between Admin network and additional NIC (for example: Internet NIC), delete the Admin route or configure the IP route priority based on your cluster requirements.
+
+    * If the internet connection is required on the target node, configure it after the node is booted. 
+    
     * To avoid breaking the password-less SSH channel on the OIM, do not run ``ssh-keygen`` commands post execution of ``discovery.yml`` to create a new key.
 
     * Do not delete the Omnia shared path or the NFS directory.
 
 **Next steps**:
 
-* After successfully running the ``discovery.yml`` playbook, you can either manually PXE boot the nodes or use the ``set_pxe_boot.yml`` playbook. PXE booting allows the nodes to load diskless images from the Omnia Infrastructure Manager (OIM). For detailed steps on using ``set_pxe_boot.yml``, see :doc:`Set PXE Boot Order <../docs/source/OmniaInstallGuide/samplefiles.rst>`.
+* After successfully running the ``discovery.yml`` playbook, you can either manually PXE boot the nodes or use the ``set_pxe_boot.yml`` playbook. PXE booting allows the nodes to load diskless images from the Omnia Infrastructure Manager (OIM). For detailed steps on using ``set_pxe_boot.yml``, see :ref:`set-pxe-boot-order`.
 * Execute ``telemetry.yml`` to start the telmetry collection.

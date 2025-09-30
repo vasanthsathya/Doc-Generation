@@ -30,6 +30,7 @@ Prerequisites
     }
  
 
+* If you want to install CSI PowerScale driver, ensure that you provide the required values. Click `here <../../AdvancedConfigurations/PowerScale_CSI.html>`_ for more information.
 * Ensure that there are a minimum of  three ``kube_control_planes``.
 * Ensure that the ``kube_control_planes`` has a full-featured RHEL operating system (OS) installed. 
 * The ``kube_control_planes`` has internet access to download necessary packages for cluster deployment and configuration.
@@ -41,13 +42,13 @@ Prerequisites
 * To use NFS for service Kubernetes cluster, ensure the following prerequisites are met:
 
   * The NFS share has 755 permissions and ``no_root_squash`` is enabled on the mounted NFS share. 
-  * Edit the ``/etc/exports`` file on the NFS server to include the ``no_root_squash`` option for the exported path.
+  * Edit the ``/etc/exports`` file on the NFS server to include the ``no_root_squash`` option for the ``server_share_path``.
     
     ::
         
-        /<your_exported_path>  *(rw,sync,no_root_squash,no_subtree_check)
+        /<your_server_share_path>  *(rw,sync,no_root_squash,no_subtree_check)
 
-* Ensure that the following ``kube_control_planes`` hostname prerequisites are met.
+* Ensure that the following ``kube_control_planes`` hostname prerequisites are met. See `Prerequisites <https://omnia-devel.readthedocs.io/en/latest/OmniaInstallGuide/RHEL_new/Provision/provisionprereqs.html>`_.
 
     .. include:: ../../Appendices/hostnamereqs.rst
 
@@ -56,7 +57,7 @@ Steps
 
 1. Run ``local_repo.yml`` playbook to download the artifacts required to set up Kubernetes on the service cluster nodes.
 
-2. Fill in the service cluster details in the ``functional_groups_config.yml``.
+2. Fill in the service cluster details in the ``functional_groups_config.yml``: `Create groups and assign functional roles to the nodes <../composable_roles.html>`_.
 
 .. csv-table:: functional_groups_config.yml
    :file: ../../../../../Tables/service_k8s_roles.csv
@@ -64,7 +65,7 @@ Steps
    :keepspace:
 
 3. Fill  the ``omnia_config.yml``,  ``high_availability_config.yml`` (for `service cluster HA <../HighAvailability/service_cluster_ha.html>`_), and ``storage_config.yml``. The nfs_name mentioned in ``storage_config.yml`` should match the ``nfs_storage_name`` of the entries for the ``service_k8s_cluster`` in ``omnia_config.yml`` where deployment is set to true.
-   See the following sample:
+   See `Input parameters for the cluster <../OmniaCluster/schedulerinputparams.html>`_. See the following sample:
 
     ::
 
@@ -75,7 +76,7 @@ Steps
            server_share_path: "", # Provide server share path of the NFS Server
            client_share_path: /opt/omnia,,
            client_mount_options: "nosuid,rw,sync,hard,intr",
-           nfs_server: false,
+           nfs_name: nfs_k8s
         }
        
 
@@ -104,14 +105,16 @@ Steps
 
 5. Run ``ansible-playbook service_k8s_cluster.yml -i <inv>``. 
     
-    This playbook deploys the service_k8s cluster with diskfull kube controller nodes and also extracts the configuration required for diskless kube nodes. It generates the kubeadm token and cloud-init vars for diskless kube node.  The token expires after 24 hours. The step 5 and step 6 need to be executed within 24 hours and pxe boot also needs to be completed. If the token gets expired , use the script ``<ansible-playbook scheduler/generate_token_and_pod_status.yml  --tags kubeadm_token>`` to generate the new token and run ``discovery.yml`` again and pxe boot the nodes. After all the diskless nodes are pxebooted, use the utility to check the status of service cluster nodes and pods: ``ansible-playbook scheduler/generate_token_and_pod_status.yml  --tags pod_status``
+    This playbook deploys the service_k8s cluster with diskfull kube controller nodes and also extracts the configuration required for diskless kube nodes. It generates the kubeadm token and cloud-init vars for diskless kube node.  The token expires after 24 hours. The step 5 and step 6 need to be executed within 24 hours and pxe boot also needs to be completed. If the token gets expired , use the script ``ansible-playbook scheduler/generate_token_and_pod_status.yml -i <inv>  --tags kubeadm_token`` to generate the new token and run ``discovery.yml`` again and pxe boot the nodes. 
 
 
-6. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. 
+6. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. See `Build cluster node images <../build_images.html>`_.
 
-7. Run ``discovery.yml`` playbook to discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups.
+7. Run ``discovery.yml`` playbook to discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups. See `Discover cluster nodes <../Provision/index.html>`_
     
     After successfully running the ``discovery.yml`` playbook, you can either manually PXE boot the nodes or use the ``set_pxe_boot.yml`` playbook. PXE booting allows the nodes to load diskless images from the Omnia Infrastructure Manager (OIM). For detailed steps on using ``set_pxe_boot.yml``, see Set PXE Boot Order.
+
+8. After all the diskless nodes are pxebooted, use the utility to check the status of service cluster nodes and pods: ``ansible-playbook scheduler/generate_token_and_pod_status.yml -i <inv>  --tags pod_status``
 
 
 Playbook execution
@@ -119,8 +122,15 @@ Playbook execution
 
 Once all the required input files are filled up, use the below commands to set up Kubernetes on the service cluster: ::
 
-    cd scheduler
+    ssh omnia_core
+    ansible-playbook omnia.yml - i <inv>
+    
+    OR,
+
+    cd /omnia/scheduler
     ansible-playbook service_k8s_cluster.yml - i <inv>
+
+    
 
     Sample for inv:
      
@@ -149,12 +159,6 @@ After deploying Kubernetes, the following additional packages are installed on t
     Click `here <https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner>`_ for more information.
 
 
-2. **CSI-driver-for-PowerScale**
-
-    The CSI Driver for Dell PowerScale (formerly known as Isilon) is a Container Storage Interface (CSI) plugin that enables Kubernetes to provision and manage persistent storage using PowerScale.
-    It enables Kubernetes clusters to dynamically provision, bind, expand, snapshot, and manage volumes on a PowerScale node.
-    
-    Click `here <../../../../AdvancedConfigurations/PowerScale_CSI.html>`_ for more information.
 
 Next step
 ===========

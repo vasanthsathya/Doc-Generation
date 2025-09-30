@@ -1,24 +1,6 @@
 Provision
 ==========
 
-⦾ **Why doesn't my newly discovered server list a MAC ID in the** ``cluster.nodeinfo`` **table?**
-
-.. image:: ../../../images/MACConflict.png
-
-**Potential Cause**: Due to internal MAC ID conflicts on the target nodes, the MAC address will be listed against the target node using this format ``MAC ADDRESS 1 | MAC ADDRESS 2! *NOIP*`` in the xCAT node object.
-
-**Resolution**: Follow the below steps to resolve this issue:
-
-    1. Establish a SSH connection to the ``omnia_core`` container using the following command: ::
-
-        ssh omnia_core
-
-    2. Establish a SSH connection to the ``omnia_provision`` container from inside the ``omnia_core`` container using the following command: ::
-
-        ssh omnia_provision
-
-    3. Execute the ``lsdef`` command from the ``omnia_provision`` container.
-
 
 ⦾ **Why are some target servers not reachable after PXE booting them?**
 
@@ -39,51 +21,64 @@ Provision
 
 **Potential Causes**:
 
-* RAID is configured on the server.
-
-* Two or more servers in the same network have xCAT services running.
+* Two or more servers in the same network.
 
 * The target cluster node does not have a configured PXE device with an active NIC.
 
+* Additional NIC connected might cause network issues.
+
 **Resolution**:
 
-* Create a Non-RAID or virtual disk on the server.
+* On the server, go to **BIOS Setup -> Network Settings -> PXE Device**. For each listed device (typically 4), configure an active NIC under ``PXE device settings``.
 
-* Check if other systems except for the OIM have ``xcatd`` running. If yes, then stop the xCAT service using the following commands: ``systemctl stop xcatd``.
-
-* On the server, go to **BIOS Setup -> Network Settings -> PXE Device**. For each listed device (typically 4), configure an active NIC under ``PXE device settings``
+* Remove the Additional NIC and connect the NIC after the node is booted.
 
 
-⦾ **The** ``discovery_provision.yml`` **playbook fails to check for duplicate** ``disk_partition`` **values in** ``input/provision_config.yml`` **.**
+⦾ **Why does the** ``discovery.yml`` **playbook execution fail at task:** ``prepare_oim needs to be executed`` **?**
 
-**Resolution**: User needs to ensure that there are no duplicate entries for the same partition in provision_config.yml.
+**Potential Cause**: The OpenCHAMI container is not up and running.
 
-
-⦾ **After executing** ``disocvery_provision.yml`` **, why is the node status in OmniaDB being displayed as** ``standingby`` **?**
-
-**Resolution**: For any discovery mechanism other than switch-based, do the following:
-
-    1. Establish a SSH connection to the ``omnia_core`` container using the following command: ::
-
-        ssh omnia_core
-
-    2. Establish a SSH connection to the ``omnia_provision`` container from inside the ``omnia_core`` container using the following command: ::
-
-        ssh omnia_provision
-    
-    3. Execute the following command: ::
-
-        chdef <node> status=””
-
-    4. Then run: ::
-
-        rinstall <node>
-
-    *Where ``<node>`` refers to the node column in the OmniaDB, which has a ``standingby`` status.*
+**Resolution**: Perform a cleanup using ``oim_cleanup.yml`` and re-run the ``prepare_oim.yml`` playbook to bring up the OpenCHAMI containers. After ``prepare_oim.yml`` playbook has been executed successfully, re-deploy the cluster using the steps mentioned in the `Omnia deployment guide <../../../OmniaInstallGuide/RHEL_new/index.html>`_.
 
 
-⦾ **Why does the** ``discovery_provision.yml`` **playbook execution fail at task:** ``prepare_oim needs to be executed`` **?**
+⦾ **Why ochami smd commands fail with certificate error?**
 
-**Potential Cause**: The ``omnia_provision`` container is not up and running.
+.. image:: ../../../images/ochami.jpg
 
-**Resolution**: Perform a cleanup using ``oim_cleanup.yml`` and re-run the ``prepare_oim.yml`` playbook to bring up the ``omnia_provision`` container. After ``prepare_oim.yml`` playbook has been executed successfully, re-deploy the cluster using the steps mentioned in the `Omnia deployment guide <../../../OmniaInstallGuide/RHEL_new/index.html>`.
+**Potential Causes**: This issue is because of Openchami certificate expiration. After sometime, the certificate expires and loses the validity because of which ochami commands do not run.
+
+**Resolution**: As part of ``discovery.yml`` execution, certificate updation is being taken care. However, if user still faces this issue, they can update the Openchami certificate manually by running the following command on OIM: ::
+        
+        sudo openchami-certificate-update update <OIM_hostname>. <Domain_Name>
+        sudo systemctl restart openchami.target
+
+
+⦾ **Why ochami commands fail with token error?**
+
+.. image:: ../../../images/ochami_command.jpg
+
+**Potential Causes**: This issue is because of Access Token getting expired after sometime.
+
+**Resolution**: Manually renew the access token by running below command on OIM: ::
+
+        export <OIM_hostname>_ACCESS_TOKEN=$(sudo bash -lc 'gen_access_token')
+
+
+⦾ **Why am I unable to do ssh to the booted nodes via omnia_core container?**
+
+.. image:: ../../../images/provision_issue.jpg
+
+**Potential Causes**: This issue is due to SSH host key mismatch issues.
+
+**Resolution**: User needs to manually run the below command inside omnia_core container: ::
+
+        ssh-keygen -R <node_admin_ip> 
+
+    This removes all SSH entries for that IP from your ``local ~/.ssh/known_hosts`` file.
+
+
+⦾ **Why are the hostname and root password not configured on the nodes after boot?**
+
+**Potential Causes**: Cloud-init is not properly loaded on the target servers during provisioning. For more information, see `Inconsistent cloud-init behavior with multiple node group configurations <https://github.com/OpenCHAMI/cloud-init/issues/89>`_.
+
+**Resolution**: Wait for 5 minutes and retry provisioning the node. If the issue persists, redeploy the cluster after running the ``oim_cleanup.yml`` playbook.

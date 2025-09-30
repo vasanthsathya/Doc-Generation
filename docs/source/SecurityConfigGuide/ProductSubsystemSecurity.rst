@@ -4,31 +4,18 @@ Product and Subsystem Security
 Security controls map
 ----------------------
 
-.. image:: ../images/SecurityControlMap.jpg
-
 Omnia performs bare metal configuration to enable AI/HPC workloads. It uses Ansible playbooks to perform installations and configurations. iDRAC is supported for provisioning bare metal servers. Omnia installs xCAT to enable provisioning of clusters via PXE in different ways:
 
-    - Mapping file **[optional]**: To dictate IP address/MAC mapping, a host mapping file can be provided.
+    - Mapping file **[Mandatory]**: To dictate IP address/MAC mapping, a host mapping file can be provided.
 
-    - BMC discovery **[optional]**: To discover the cluster via BMC (iDRAC), IPMI must be enabled on remote servers. Discovery happens over IPMI. For security best practices when using this method, `click here! <https://www.dell.com/support/manuals/en-us/idrac9-lifecycle-controller-v5.x-series/idrac9_security_configuration_guide/ipmi-security-best-practices?guid=guid-5d99c30c-294f-4f03-b584-596b43d79089&lang=en-us>`_
-
-    - Switch **[default]**: To discovery the cluster by routing communication through particular switch ports over SNMPv3, non-admin switch credentials must be provided.
-
-.. note:: IPMI is not required on the OIM. However, compute nodes (iDRACs in the cluster/private network) require IPMI to be enabled for BMC discovery.
-
-Omnia can be installed via CLI only. Slurm and Kubernetes are deployed and configured on the cluster. FreeIPA or OpenLDAP is installed for providing authentication.
+  
+Omnia can be installed via CLI only. Slurm and Kubernetes are deployed and configured on the cluster. OpenLDAP is installed for providing authentication.
 
 To perform these configurations and installations, a secure SSH channel is established between the management node and the following entities:
 
 * ``slurm_control_node``
 
 * ``slurm_node``
-
-* ``kube_control_plane``
-
-* ``kube_node``
-
-* ``auth_server``
 
 * ``login_node``
 
@@ -42,7 +29,7 @@ Omnia does not have its own authentication mechanism because bare metal installa
 Cluster authentication tool
 ----------------------------
 
-In order to enable authentication to the cluster, Omnia installs FreeIPA: an open source tool providing integrated identity and authentication for Linux networked environments. As part of the HPC cluster, the login node is responsible for configuring users and managing a limited number of administrative tasks. Access to the manager/head node is restricted to cluster administrators only. Omnia installs either FreeIPA or OpenLDAP based on user's preference.
+In order to enable authentication to the cluster, Omnia installs OpenLDAP: an open source tool providing integrated identity and authentication for Linux networked environments. As part of the HPC cluster, the login node is responsible for configuring users and managing a limited number of administrative tasks. Access to the manager/head node is restricted to cluster administrators only.
 
 .. note::  Omnia does not configure OpenLDAP users or groups.
 
@@ -61,49 +48,29 @@ Login security settings
 
 User needs to provide the following credentials during cluster configuration. Once these credentials are provided, Omnia stores them in an encrypted Ansible Vault in ``input/omnia_config_credentials.yml``. They are hidden from external visibility and access.
 
-    1. iDRAC (Username/ Password)
+    1. iDRAC/BMC (Username/ Password)
 
-    2. Ethernet Switch (Username/ Password)
+    2. Provisioning OS (Password)
 
-    3. Infiniband Switch (Username/ Password)
+    3. slurmdb_password (Password)
 
-    4. PowerVault ME4/ME5 (Username/ Password)
+    4. DockerHub (Username/Password)
 
-    5. Provisioning OS (Password)
+    5. OpenLDAP (``openldap_db_username``, ``openldap_db_password``, ``openldap_config_username``, ``openldap_config_password``, ``openldap_monitor_password``)
 
-    6. SNMPv3 PXE switch (Non-admin username/ Password)
+    6. Telemetry (``mysql_user``, ``mysql_password``, ``mysql_root_password``)
 
-    7. postgresDB (Password)
+    7. Minio s3 bucket (Password)
 
-    8. slurmdb_password (Password)
+    8. Pulp (Password)
 
-    9. DockerHub (Username/Password)
-
-    10. FreeIPA (``directory_manager_password``, ``kerberos_admin_password``)
-
-    11. OpenLDAP (``openldap_db_username``, ``openldap_db_password``, ``openldap_config_username``, ``openldap_config_password``, ``openldap_monitor_password``)
-
-    12. Telemetry (``mysql_user``, ``mysql_password``, ``mysql_root_password``)
-
-    13. Visualization (``grafana_username``, ``grafana_password``)
-
+    
 Authentication to external systems
 ==================================
 
 Third party software installed by Omnia are responsible for supporting and maintaining manufactured-unique or installation-unique secrets.
 
-Configuring remote connections
--------------------------------
-
-When setting up BeeGFS client services on the cluster, a connection authentication file is used to maintain the security of the communications between server and client.
-
-    1. 	Generate the connection authentication file (connAuth) and use it to set up BeeGFS meta, server and storage services.
-    2. 	Copy the connAuth file to the OIM and note the file path.
-    3. 	Populate the value of ``beegfs_secret_storage_filepath`` in ``input/storage_config.yml`` with the file path from the previous step.
-
-Omnia will configure the BeeGFS clients on th cluster using the provided file. BeeGFS is responsible for maintaining and securing connAuthFile. For more information, `click here <https://doc.beegfs.io/latest/advanced_topics/authentication.html>`_.
-
-
+  
 Network security
 ================
 
@@ -129,15 +96,9 @@ Omnia configures the following ports for use by third-party tools installed by O
         +============+==========+========================+
         | 2222       | TCP      | omnia_core             |
         +------------+----------+------------------------+
-        | 2223       | TCP      | omnia_provision        |
+        | 2226       | TCP      | omnia_kubespray        |
         +------------+----------+------------------------+
         | 2225       | TCP      | pulp                   |
-        +------------+----------+------------------------+
-        | 3128       | TCP      | squid proxy            |
-        +------------+----------+------------------------+
-        | 5404-5405  | UDP      | PCS                    |
-        +------------+----------+------------------------+
-        | 3121, 2224 | TCP      | PCS                    |
         +------------+----------+------------------------+
         | 5001       | TCP      | Omnia nerdctl registry |
         +------------+----------+------------------------+
@@ -194,147 +155,6 @@ Omnia configures the following ports for use by third-party tools installed by O
         | 6819 | TCP/UDP | Slurmdbd Port  | Manager       |
         +------+---------+----------------+---------------+
 
-**BeeGFS port requirements**
-
-        +------+-----------------------------------+
-        | Port | Service                           |
-        +======+===================================+
-        | 8008 | Management service (beegfs-mgmtd) |
-        +------+-----------------------------------+
-        | 8003 | Storage service (beegfs-storage)  |
-        +------+-----------------------------------+
-        | 8004 | Client service (beegfs-client)    |
-        +------+-----------------------------------+
-        | 8005 | Metadata service (beegfs-meta)    |
-        +------+-----------------------------------+
-        | 8006 | Helper service (beegfs-helperd)   |
-        +------+-----------------------------------+
-
-**xCAT port requirements**
-
-
-        +---------------+----------+--------------+
-        | Port number   | Protocol | Service Name |
-        +===============+==========+==============+
-        | 3001          | tcp      | xcatdport    |
-        +---------------+----------+--------------+
-        | 3001          | udp      | xcatdport    |
-        +---------------+----------+--------------+
-        | 3002          | tcp      | xcatiport    |
-        +---------------+----------+--------------+
-        | 3002          | udp      | xcatiport    |
-        +---------------+----------+--------------+
-        | 3003(default) | tcp      | xcatlport    |
-        +---------------+----------+--------------+
-        | 7             | udp      | echo-udp     |
-        +---------------+----------+--------------+
-        | 22            | tcp      | ssh-tcp      |
-        +---------------+----------+--------------+
-        | 22            | udp      | ssh-udp      |
-        +---------------+----------+--------------+
-        | 873           | tcp      | rsync        |
-        +---------------+----------+--------------+
-        | 873           | udp      | rsync        |
-        +---------------+----------+--------------+
-        | 53            | tcp      | domain-tcp   |
-        +---------------+----------+--------------+
-        | 53            | udp      | domain-udp   |
-        +---------------+----------+--------------+
-        | 67            | udp      | bootps       |
-        +---------------+----------+--------------+
-        | 67            | tcp      | dhcp         |
-        +---------------+----------+--------------+
-        | 68            | tcp      | dhcpc        |
-        +---------------+----------+--------------+
-        | 68            | udp      | bootpc       |
-        +---------------+----------+--------------+
-        | 69            | tcp      | tftp-tcp     |
-        +---------------+----------+--------------+
-        | 69            | udp      | tftp-udp     |
-        +---------------+----------+--------------+
-        | 80            | tcp      | www-tcp      |
-        +---------------+----------+--------------+
-        | 80            | udp      | www-udp      |
-        +---------------+----------+--------------+
-        | 88            | tcp      | kerberos     |
-        +---------------+----------+--------------+
-        | 88            | udp      | kerberos     |
-        +---------------+----------+--------------+
-        | 111           | udp      | sunrpc-udp   |
-        +---------------+----------+--------------+
-        | 443           | udp      | HTTPS        |
-        +---------------+----------+--------------+
-        | 443           | tcp      | HTTPS        |
-        +---------------+----------+--------------+
-        | 514           | tcp      | shell        |
-        +---------------+----------+--------------+
-        | 514           | tcp      | rsyslogd     |
-        +---------------+----------+--------------+
-        | 514           | udp      | rsyslogd     |
-        +---------------+----------+--------------+
-        | 544           | tcp      | kshell       |
-        +---------------+----------+--------------+
-        | 657           | tcp      | rmc-tcp      |
-        +---------------+----------+--------------+
-        | 657           | udp      | rmc-udp      |
-        +---------------+----------+--------------+
-        | 782           | tcp      | conserver    |
-        +---------------+----------+--------------+
-        | 1058          | tcp      | nim          |
-        +---------------+----------+--------------+
-        | 2049          | tcp      | nfsd-tcp     |
-        +---------------+----------+--------------+
-        | 2049          | udp      | nfsd-udp     |
-        +---------------+----------+--------------+
-        | 2240          | tcp      | xcat service |
-        +---------------+----------+--------------+
-        | 4011          | tcp      | pxe          |
-        +---------------+----------+--------------+
-        | 300           | tcp      | awk          |
-        +---------------+----------+--------------+
-        | 623           | tcp      | ipmi         |
-        +---------------+----------+--------------+
-        | 623           | udp      | ipmi         |
-        +---------------+----------+--------------+
-        | 161           | tcp      | snmp         |
-        +---------------+----------+--------------+
-        | 161           | udp      | snmp         |
-        +---------------+----------+--------------+
-        | 162           | tcp      | snmptrap     |
-        +---------------+----------+--------------+
-        | 162           | udp      | snmptrap     |
-        +---------------+----------+--------------+
-        | 5432          | tcp      | postgresDB   |
-        +---------------+----------+--------------+
-        | 5432          | udp      | postgresDB   |
-        +---------------+----------+--------------+
-
-.. note:: For more information, check out the `xCAT website. <https://xcat-docs.readthedocs.io/en/stable/advanced/ports/xcat_ports.html>`_
-
-**FreeIPA port requirements**
-
-        +---------------+---------+----------------------+----------------------+
-        | Port   Number | Layer 4 | Purpose              | Node                 |
-        +===============+=========+======================+======================+
-        | 80            | TCP     | HTTP/HTTPS           | Manager/ Login_Node  |
-        +---------------+---------+----------------------+----------------------+
-        | 443           | TCP     | HTTP/HTTPS           | Manager/ Login_Node  |
-        +---------------+---------+----------------------+----------------------+
-        | 389           | TCP     | LDAP/LDAPS           | Manager/ Login_Node  |
-        +---------------+---------+----------------------+----------------------+
-        | 636           | TCP     | LDAP/LDAPS           | Manager/ Login_Node  |
-        +---------------+---------+----------------------+----------------------+
-        | 88            | TCP/UDP | Kerberos             | Manager/ Login_Node  |
-        +---------------+---------+----------------------+----------------------+
-        | 464           | TCP/UDP | Kerberos             | Manager/ Login_Node  |
-        +---------------+---------+----------------------+----------------------+
-        | 53            | TCP/UDP | DNS                  | Manager/ Login_Node  |
-        +---------------+---------+----------------------+----------------------+
-        | 7389          | TCP     | Dogtag's LDAP server | Manager/ Login_Node  |
-        +---------------+---------+----------------------+----------------------+
-        | 123           | UDP     | NTP                  | Manager/ Login_Node  |
-        +---------------+---------+----------------------+----------------------+
-
 **OpenLDAP port requirements**
 
         +---------------+---------+----------------------+----------------------+
@@ -349,29 +169,52 @@ Omnia configures the following ports for use by third-party tools installed by O
         | 636           | TCP     | LDAP/LDAPS           | Manager/ Login_Node  |
         +---------------+---------+----------------------+----------------------+
 
-.. note:: To avoid security vulnerabilities, protocols can be restricted on the network using the parameters ``restrict_program_support`` and ``restrict_softwares`` in ``input/login_node_security_config.yml``. However, certain protocols are essential to Omnia's functioning and cannot be disabled. These protocols are: ftp, smbd, nmbd, automount, portmap.
-
-**Telemetry and Visualization ports**
+**Telemetry ports**
 
         +---------------+---------+-------------------------+
         | Port Number   | Protocol| Service                 |
         +===============+=========+=========================+
-        | 5000          | TCP     | Grafana plugin          |
-        +---------------+---------+-------------------------+
         | 8161          | TCP     | Activemq console        |
         +---------------+---------+-------------------------+
         | 61613         | TCP     | Activemq message broker |
         +---------------+---------+-------------------------+
         | 3306, 33060   | TCP     | Mysql                   |
         +---------------+---------+-------------------------+
-        | 3100          | TCP     | Loki                    |
-        +---------------+---------+-------------------------+
-        | 3000-3001     | TCP     | Grafana                 |
+        | 9092-9093     | TCP     | Kafka                   |
         +---------------+---------+-------------------------+
         | 2112          | TCP     | Prometheus exporter     |
         +---------------+---------+-------------------------+
         | 9090          | TCP     | Prometheus server       |
         +---------------+---------+-------------------------+
+
+**OpenCHAMI ports**
+
+        +---------------+----------+--------------+
+        | Port number   | Protocol | Service Name |
+        +===============+==========+==============+
+        | 9000, 9001    | tcp      | minio-server |
+        +---------------+----------+--------------+
+        | 5000          | tcp      | registry     |
+        +---------------+----------+--------------+
+        | 9000          | tcp      | step-ca      |
+        +---------------+----------+--------------+
+        | 5432          | tcp      | postgres     |
+        +---------------+----------+--------------+
+        | 27779         | tcp      | smd          |
+        +---------------+----------+--------------+
+        | 27778         | tcp      | bss          |
+        +---------------+----------+--------------+
+        | 80, 443       | tcp      | haproxy      |
+        +---------------+----------+--------------+
+        | 22            | udp      | ssh-udp      |
+        +---------------+----------+--------------+
+        | 67            | udp      | dhcp-udp     |
+        +---------------+----------+--------------+
+        | 68            | udp      | bootpc       |
+        +---------------+----------+--------------+
+        | 69            | udp      | tftp-udp     |
+        +---------------+----------+--------------+
+       
        
 
 Data security
@@ -391,13 +234,39 @@ Auditing and logging
 
 Omnia creates and stores log files related to containers at ``<nfs_share_path>/omnia/log/``. The events during the installation of Omnia are captured as logs. For different roles called by Omnia, separate log files are created as listed below:
 
-    * monitor.log
-    * network.log
-    * provision.log
-    * scheduler.log
-    * security.log
-    * storage.log
-    * utils.log
++------------------------------------------------------------------------+---------------------------------------------+
+| Location                                                               | Purpose                                     |
++========================================================================+=============================================+
+| /opt/omnia/log/core/playbooks/discovery.log                            | Discovery logs                              |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/local_repo.log                           | Local Repository logs                       |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/prepare_oim.log                          | Prepare OIM Logs                            |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/provision.log                            | Provision Logs                              |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/scheduler.log                            | Scheduler Logs                              |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/telemetry.log                            | Telemetry logs                              |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/utils.log                                | Utility logs                                |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/credential_utility.log                   | Credential utility logs                     |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/openchami/*log                                          | OpenCHAMI playbook logs                     |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/pulp/*log                                               | Pulp container logs                         |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/local_repo/*log                                         | Local repo logs                             |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/kubespray/*log                                          | Kubespray logs                              |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/container/*log                                     | Core container logs                         |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/validation_omnia_project_default.log     | Omnia input validation report logs          |
++------------------------------------------------------------------------+---------------------------------------------+
+| /opt/omnia/log/core/playbooks/input_validation.log                     | Omnia input validation playbook logs        |
++------------------------------------------------------------------------+---------------------------------------------+
 
 Additionally, an aggregate of the events taking place during storage, scheduler and network role installation called ``omnia.log`` is created in ``/var/log``.
 
