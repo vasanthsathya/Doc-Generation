@@ -7,3 +7,15 @@ Centralized authentication
 
 **Resolution**: Remove the whitespaces and re-run the LDIF file.
 
+⦾ **What to do if openLDAP user login fails when accessing a cluster node?**
+
+.. image:: ../../../images/UserLoginError.png
+
+**Potential Cause**: 
+    * SSH key on the OIM may be outdated.
+    
+
+**Resolution**:
+
+   * Refresh the key using ``ssh-keygen -R <hostname/server IP>``.
+   * Retry login.

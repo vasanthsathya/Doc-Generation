@@ -8,7 +8,7 @@ Checking and updating encrypted parameters
 
 1. Move to the file path where the parameters are saved (as an example, we will be using ``omnia_config_credentials.yml``): ::
 
-        cd /input
+        cd /opt/omnia/input/project_default/
 
 2. To view the encrypted parameters: ::
 
@@ -77,3 +77,9 @@ Example: ::
         /opt/omnia/log/local_repo/x86_64/nfs/logs/package_status_41422.log
 
 .. image:: ../images/troubleshoot_local_repo_4.png
+
+
+Troubleshooting logs
+=================================================================
+
+For more information, see `Logs <../Logging/OIM_logs.html>`_.
