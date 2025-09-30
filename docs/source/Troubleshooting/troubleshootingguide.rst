@@ -84,9 +84,3 @@ Troubleshooting logs
 
 For more information, see `Logs <../Logging/OIM_logs.html>`_.
 
-Telemetry playbook failing at Kafka pod deplyment 
-======================================================================================
-
-.. image:: ../images/telemetry.png
-
-If this issue occurs during telemerty execution, check if the service kube nodes are booted and added to the service ``kube_control_plane``.
