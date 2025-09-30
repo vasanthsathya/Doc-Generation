@@ -23,6 +23,7 @@ You can use the provided input templates to simplify deployment. Choose the temp
 * **x86_64 Slurm controller node with ARM-based Slurm nodes without telemetry**: Use the templates available at: :file:`omnia/examples/input_template/bare_metal_slurm/aarch64/without_service_k8s`
 
 Default values assumed in these templates (change if needed):
+---------------------------------------------------------------
 
 * Virtual address for Kubernetes cluster: ``172.16.0.1``
 * OIM PXE NIC IP address: ``172.16.0.254``
@@ -33,6 +34,7 @@ Default values assumed in these templates (change if needed):
   IP addsress: ``172.16.0.252``, Path: ``/mnt/share/omnia_k8s``
 
 Additional values you must provide:
+------------------------------------
 
 * **Local repository configuration:**  
    * ``rhel_os_url_x86_64`` – BaseOS, AppStream, and CRB repository details for x86_64 node provisioning  
