@@ -1,4 +1,5 @@
 Step 13: Verify Slurm cluster and Kubernetes on the service cluster
+============================================================================================================
 
 **Slurm cluster**
 
@@ -17,7 +18,7 @@ On slurm controller node
 
     * Verify the node status with sinfo:
 
-          .. image:: ../../../../images/sinfo.jpg
+          .. image:: ../../images/sinfo.jpg
    
           * Ensure that the worker nodes are listed and the node state should be idle.
 
