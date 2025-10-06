@@ -1,6 +1,8 @@
 Blogs about Omnia
 ===================
 
+* `Dell Joins the OpenCHAMI Project <https://www.dell.com/en-us/blog/dell-joins-the-openchami-project/>`_
+
 * `Introduction to Omnia <https://infohub.delltechnologies.com/p/omnia-open-source-deployment-of-high-performance-clusters-to-run-simulation-ai-and-data-analytics-workloads/>`_
 
 * `Taming the Accelerator Cambrian Explosion with Omnia <https://infohub.delltechnologies.com/p/taming-the-accelerator-cambrian-explosion-with-omnia/>`_
