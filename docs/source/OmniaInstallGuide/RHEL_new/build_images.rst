@@ -58,12 +58,10 @@ To build images for the nodes present in each functional group, do the following
 
        ansible-playbook build_image_aarch64.yml -i inventory
 
-**Sample aarch64 inventory**::
--------------------------------
-    [admin_aarch64]
-    10.0.0.1
+   **Sample aarch64 inventory**::
 
-.. note:: The IP address in the inventory must be 
+       [admin_aarch64]
+       10.0.0.1
 
 3. To verify that images are created for each functional group defined in ``functional_groups_config.yml``, run the following command::
 

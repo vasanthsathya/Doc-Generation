@@ -4,6 +4,8 @@ Product and Subsystem Security
 Security controls map
 ----------------------
 
+.. image:: ../images/SecurityControlMap.jpg
+
 Omnia performs bare metal configuration to enable AI/HPC workloads. It uses Ansible playbooks to perform installations and configurations. iDRAC is supported for provisioning bare metal servers. Omnia installs xCAT to enable provisioning of clusters via PXE in different ways:
 
     - Mapping file **[Mandatory]**: To dictate IP address/MAC mapping, a host mapping file can be provided.

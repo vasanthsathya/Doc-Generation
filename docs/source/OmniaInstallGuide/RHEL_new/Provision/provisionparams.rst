@@ -56,7 +56,7 @@ Fill in all required parameters in ``/opt/omnia/input/project_default/provision_
 
 A sample of the ``/opt/omnia/input/project_default/network_spec.yml`` where nodes are discovered using a mapping file is provided below: ::
 
-    ---
+    
          Networks:
          - admin_network:
             oim_nic_name: "eno1"

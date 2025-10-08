@@ -29,7 +29,7 @@ containerd,Apache-2.0,An open and reliable container runtime,2.0.5
 metallb,Apache-2.0,A network load-balancer implementation for Kubernetes using standard routing protocols,0.13.9
 kube-vip,Apache-2.0 license,Kubernetes Control Plane Virtual IP and Load-Balancer,0.8.9
 kubespray collection,Apache License 2.0,Deploy a Production Ready Kubernetes Cluster,2.28
-cryptography,Apache-2.0 OR BSD-3-Clause, cryptography is a package which provides cryptographic recipes and primitives to Python developers.,"45.0.7, 44.0.2"
+cryptography,Apache-2.0 OR BSD-3-Clause,cryptography is a package which provides cryptographic recipes and primitives to Python developers.,"45.0.7, 44.0.2"
 setuptools,MIT License,Official project repository for the Setuptools build system,80.9.0
 wheel,MIT License,The official binary distribution format for Python,0.45.1
 jmespath,MIT License,JMESPath is a query language for JSON.,1.0.1
@@ -52,7 +52,7 @@ openssl,Apache-2.0 license,TLS/SSL and crypto library,3.0.8
 createrepo,"GPL-2.0, LGPL-2.1 licenses found","This program generates a repodata dir and xml files for a repository of 
 rpm packages.",0.20.1
 yum-utils,GPL 2.0,Yum-utils CLI compatibility layer,4.3.0
-wget,GPL-3.0 license," It is a systems management and monitoring application that provides a comprehensive view of the Dell EMC servers, chassis, storage, and network switches on the enterprise network","1.21.1, 1.21.3"
+wget,GPL-3.0 license,"It is a systems management and monitoring application that provides a comprehensive view of the Dell EMC servers, chassis, storage, and network switches on the enterprise network","1.21.1, 1.21.3"
 unzip,BSD License (BSD License),A utility for unpacking zip files,6
 dnf-plugins-core,GPL 2.0,Core Plugins for DNF,4.3.0
 rsync,GPL-3.0 license,A program for synchronizing files over a network,3.2.7
@@ -68,7 +68,7 @@ community.grafana,GPL-3.0 license,Ansible Community General Collection,2.1.0
 community.mysql,GPL-3.0 license,MySQL is an open-source relational database management system.,3.10.3
 community.postgresql,GPL-3.0 license,Manage PostgreSQL with Ansible,3.10.2
 dellemc.os10,GNU-General Public License v3.0,It provides networking hardware abstraction through a common set of APIs,1.1.1
-dellemc.openmanage,GNU-General Public License v3.0," It is a systems management and monitoring application that provides a comprehensive view of the Dell EMC servers, chassis, storage, and network switches on the enterprise network",9.6.0
+dellemc.openmanage,GNU-General Public License v3.0,"It is a systems management and monitoring application that provides a comprehensive view of the Dell EMC servers, chassis, storage, and network switches on the enterprise network",9.6.0
 kubernetes.core,GNU-General Public License v3.0,"The collection includes a variety of Ansible content to help automate the management of applications in Kubernetes and OpenShift clusters, as well as the provisioning and maintenance of clusters themselves.","5.2.0, 5.0.0"
 community.kubernetes,GPL-3.0-or-later,Kubernetes collection for ansible,2.0.1
 csi powerscale driver ,Apache-2.0 license,CSI Driver for Dell PowerScale,2.14.0
