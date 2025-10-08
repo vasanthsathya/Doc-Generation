@@ -68,7 +68,7 @@ After applying the ``telemetry.yml`` configuration using the Kafka collection ty
 
         kubectl exec <kafka-pod> -it  -n telemetry -- bash
 
-    3. To read the telemetry logs from the Kafka pod, run the following Kafka console consumer script. For details on using the Kafka consumer, see the Kafka console consumer documentation:  
+    3. To read the telemetry logs from the Kafka pod, run the following Kafka console consumer script. For details on using the Kafka consumer, see the:  
        `Kafka console consumer documentation <https://docs.confluent.io/kafka/operations-tools/kafka-tools.html#kafka-console-consumer-sh>`_ ::
 
         kafka-console-consumer.sh
