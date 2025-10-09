@@ -35,10 +35,10 @@ Prerequisites
 * Ensure that the ``kube_control_planes`` has a full-featured RHEL operating system (OS) installed. 
 * The ``kube_control_planes`` has internet access to download necessary packages for cluster deployment and configuration.
 * Ensure that the nfs server is reachable on all the diskless and diskfull nodes.
-* The ``kube_control_planes`` must have two active Network Interface Cards (NICs):  
+* The ``kube_control_planes`` must  be equipped with two active Network Interface Cards (NICs):  
 
-  * One connected to the public network.  
-  * One dedicated to internal cluster communication. 
+  * One connected to the public network.  It is used for accessing the internet.
+  * One dedicated to internal cluster communication. It is used for internal cluster communication, Kubernetes deployment activities, and for accessing the Pulp repositories hosted on the OIM. The Admin interface must be assigned an IP address from the admin network range and must be reachable from the OIM.
 * To use NFS for service Kubernetes cluster, ensure the following prerequisites are met:
 
   * The NFS share has 755 permissions and ``no_root_squash`` is enabled on the mounted NFS share. 
@@ -92,8 +92,9 @@ Steps
 
 4. Run ``ansible-playbook utils/connect_external_server.yml -i <inv>``. 
     
-    This playbook is used to set up passwordless SSH to the ``kube_control_planes`` and updating the repositories and plup repository certificates. See the following sample:
+    This playbook is used to set up passwordless SSH to the ``kube_control_planes`` and updating the repositories and plup repository certificates. The Ansible inventory must be created using the Admin network IPs of the control plane nodes because these IPs are used for Kubernetes deployment. See the following sample:
    
+
    Sample for inv:
 
     ::
@@ -130,7 +131,6 @@ Once all the required input files are filled up, use the below commands to set u
     cd /omnia/scheduler
     ansible-playbook service_k8s_cluster.yml - i <inv>
 
-    
 
     Sample for inv:
      
