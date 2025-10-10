@@ -99,8 +99,8 @@ Prerequisites
 
 .. note:: Once the PowerScale CSI driver has been deployed, the parameters in the ``values.yaml`` can't be changed. If the user wants to modify the ``values.yaml`` file, they must first uninstall the PowerScale CSI driver from the cluster and then re-install with the updated parameters.
 
-Installation Process
----------------------
+Configuration guidelines for Powerscale
+--------------------------------------------
 
 1. Once ``secret.yaml`` and ``values.yaml`` is filled up with the necessary details, copy both files to any directory on the ``oim_core`` container. For example, ``/tmp/secret.yaml`` and ``/tmp/values.yaml``.
 
@@ -117,19 +117,7 @@ Installation Process
 
 4. Add the filepath of the ``secret.yaml`` and ``values.yaml`` file to the ``csi_powerscale_driver_secret_file_path`` and ``csi_powerscale_driver_values_file_path`` variables respectively, present in the ``/opt/omnia/input/project_default/omnia_config.yml`` file.
 
-6. Execute the ``omnia.yml`` or ``scheduler.yml`` playbook to install the PowerScale CSI driver on the ``compute_k8s_cluster`` and ``service_cluster_k8s.yml`` to install the driver on the ``service_k8s_cluster``:
-
-  .. dropdown:: Compute Kubernetes cluster
-
-    ::
-
-      cd omnia
-      ansible-playbook omnia.yml -i <inventory_filepath>
-
-    ::
-
-      cd scheduler
-      ansible-playbook scheduler.yml -i <inventory_filepath>
+5. Execute the ``omnia.yml`` or ``scheduler.yml`` playbook to install the PowerScale CSI driver on the ``compute_k8s_cluster`` and ``service_cluster_k8s.yml`` to install the driver on the ``service_k8s_cluster``. See `High Availability <../RHEL_new/HighAvailability/index.html>`_.
 
   .. dropdown:: Service Kubernetes cluster
 
