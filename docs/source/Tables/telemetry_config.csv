@@ -1,8 +1,7 @@
 "Parameter	",Mandatory/Optional,Details
 ``idrac_telemetry_support``,Mandatory,"* **Type**: Boolean
-* If you want iDRAC telemetry support on your service cluster, set this variable to ``true`` before executing ``prepare_oim.yml`` or ``service_k8s_cluster.yml`` playbook.              
-* Omnia deploys the ``idrac_telemetry_receiver``, ``mysqldb``, ``kafka_pump`` and ``activemq`` containers on the ``service_kube_node`` during the execution of the ``prepare_oim.yml`` playbook.
-             
+* If you want iDRAC telemetry support on your service cluster, set this variable to ``true`` before executing  the ``service_k8s_cluster.yml`` playbook.              
+            
 * **Accepted values**: ``true`` or ``false``
 * **Default value**: ``false``
 

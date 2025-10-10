@@ -21,7 +21,7 @@ Prerequisites
 Steps
 ======
 
-1. In the ``functional_groups_config.yml`` file, specify the service tag of the service nodes as the parent for the slurm nodes.
+1. In the ``functional_groups_config.yml`` file, specify the service tag of the service kube node as the parent for the slurm nodes.
 2. Fill up the ``omnia_config.yml`` and ``telemetry_config.yml``:
 
     .. csv-table:: omnia_config.yml
