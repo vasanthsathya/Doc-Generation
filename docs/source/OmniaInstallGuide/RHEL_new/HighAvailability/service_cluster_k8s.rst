@@ -29,7 +29,7 @@ Prerequisites
 
     }
  
-
+* Omnia supports only Kubernetes version 1.31.4.
 * If you want to install CSI PowerScale driver, ensure that you provide the required values. Click `here <../../AdvancedConfigurations/PowerScale_CSI.html>`_ for more information.
 * Ensure that there are a minimum of  three ``kube_control_planes``.
 * Ensure that the ``kube_control_planes`` has a full-featured RHEL operating system (OS) installed. 
@@ -48,7 +48,7 @@ Prerequisites
         
         /<your_server_share_path>  *(rw,sync,no_root_squash,no_subtree_check)
 
-* Ensure that the following ``kube_control_planes`` hostname prerequisites are met. See `Prerequisites <https://omnia-devel.readthedocs.io/en/latest/OmniaInstallGuide/RHEL_new/Provision/provisionprereqs.html>`_.
+* Ensure that the following ``kube_control_planes`` hostname prerequisites are met. See `Prerequisites <https://omnia-devel.readthedocs.io/en/latest/Appendices/hostnamereqs.html>`_.
 
     .. include:: ../../Appendices/hostnamereqs.rst
 
@@ -163,4 +163,4 @@ After deploying Kubernetes, the following additional packages are installed on t
 Next step
 ===========
 
-To know how to deploy the iDRAC telemetry containers on the service cluster, `click here <../../../../../Telemetry/service_cluster_telemetry.html>`_.
+To know how to deploy the iDRAC telemetry containers on the service cluster, `click here <../../../../Telemetry/service_cluster_telemetry.html>`_.

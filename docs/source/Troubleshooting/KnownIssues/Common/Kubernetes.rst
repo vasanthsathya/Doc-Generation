@@ -100,3 +100,69 @@ Kubernetes
 
         * Post deletion, the pod will be restarted and it will come to running state.
 
+⦾ **Kubernetes workloads are unable to resolve the PowerScale SmartConnect hostname (e.g., management.ps.com) from within the cluster.**
+
+**Potential Cause**: The SmartConnect hostname is not resolvable by the Kubernetes cluster’s internal DNS (CoreDNS).
+This typically happens when:
+- CoreDNS is unaware of the external DNS zone used by PowerScale.
+- The SmartConnect service IP or hostname is not defined in CoreDNS or the upstream DNS servers.
+
+**Resolution**:
+    Step 1 — Identify the SmartConnect Hostname and IP
+    
+        1. In the PowerScale UI, go to:
+            Cluster Management → Network Configuration → Subnets → <Your Subnet Name>
+        2. Note the following details:
+            - SmartConnect Service Name: e.g., management.ps.com
+            - SmartConnect IP Address: e.g., 10.x.x.x
+
+    Step 2 — Update the CoreDNS ConfigMap
+
+        1. On a control-plane node, edit the CoreDNS ConfigMap:
+             kubectl -n kube-system edit configmap coredns
+
+        2. Locate the Corefile: section and add a hosts block before the forward or proxy section.
+        Example:
+
+        ::  
+
+                hosts {
+                10.x.x.x management.ps.com
+                fallthrough
+                }
+        Replace 10.x.x.x with your actual PowerScale DNS IP.
+        You can find the DNS IP inside the file:
+        ``/opt/omnia/input/project_default/network_spec.yml → under [dns] field.``
+
+    Step 3 — Restart CoreDNS Pods
+
+        Apply the changes by restarting CoreDNS:
+
+        ::
+            
+              kubectl -n kube-system rollout restart deployment coredns
+
+        Verify the CoreDNS pods are running:
+
+           ::
+                
+                 kubectl -n kube-system get pods -l k8s-app=kube-dns
+
+    Step 4 — Validate DNS Resolution
+
+        Launch a temporary pod to test name resolution:
+
+           ::    
+            
+                kubectl run -it dns-test --image=busybox --restart=Never -- sh
+
+        Inside the pod shell, test DNS:
+        
+            ::
+
+                nslookup management.ps.com
+
+        Expected Output:
+        Server:    10.x.x.x
+        Address 1: management.ps.com
+
