@@ -8,17 +8,17 @@
 
 ``string``
 
-Mandatory",The name of the NIC on which the administrative network is accessible to the OIM.
+Mandatory",The name of the NIC on which the administrative network is accessible to the OIM. **Default value**: ``eno1``
 ,"**netmask_bits**
 
 ``integer``
 
-Mandatory",The 32-bit “mask” used to divide an IP address into subnets and specify the network’s available hosts.
+Mandatory",The 32-bit “mask” used to divide an IP address into subnets and specify the network’s available hosts. **Default value**: ``24``
 ,"**primary_oim_admin_ip**
 
 ``IP address``
 
-Mandatory",The admin IP address of the OIM server
+Mandatory",The admin IP address of the OIM server. **Default value**: ``172.16.107.254``
 ,"**primary_oim_bmc_ip**
 
 ``IP address``
@@ -30,7 +30,7 @@ Conditional mandatory","* The iDRAC  IP address of the OIM server
 
 ``IP address range``
 
-Mandatory",The dynamic range of IPs to be provisioned on target nodes.
+Mandatory",The dynamic range of IPs to be provisioned on target nodes. **Default value**: ``172.16.107.201-172.16.107.250``
 ,"**dns**
 
 ``IP address``
