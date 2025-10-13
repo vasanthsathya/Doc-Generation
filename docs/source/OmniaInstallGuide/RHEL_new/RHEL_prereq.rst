@@ -8,7 +8,7 @@ NFS configuration, OIM setup, and service Kubernetes cluster preparation.
 NFS Server Prerequisites
 ----------------------------
 
-* Choose an NFS server located outside your cluster and ensure the following requirements are met:
+* Choose an NFS server located outside your cluster.
 * The NFS share has **755 permissions** and ``no_root_squash`` is enabled during mount.
 * To enable ``no_root_squash``, edit the ``/etc/exports`` file on the NFS server and include the option for the exported path, run the following command:
 
@@ -23,16 +23,11 @@ NFS Server Prerequisites
 OIM (Omnia Infrastructure Manager) Prerequisites
 -------------------------------------------------
 
-Follow the steps below to configure the Omnia Infrastructure Manager (OIM):
-
-* Choose a **server outside of your intended cluster** that meets the required
- `storage requirements <RHELSpace.html>`_ to function as the Omnia Infrastructure Manager (OIM).
-* Ensure that the OIM has a **full-featured RHEL operating system (OS)** installed.
-     For a complete list of supported RHEL versions, see the
-     `Support Matrix <../../Overview/SupportMatrix/OperatingSystems/index.html>`_.
+* Choose a **server outside of your intended cluster** that meets the required `storage requirements <RHELSpace.html>`_ to function as the Omnia Infrastructure Manager (OIM).
+* Ensure that the OIM has a full-featured RHEL operating system (OS) installed. For a complete list of supported RHEL versions, see the `Support Matrix <../../Overview/SupportMatrix/OperatingSystems/index.html>`_.
 * Ensure that **Podman** container engine is installed on the OIM.
 * The OIM must have **two active Network Interface Cards (NICs)**:
-     * One connected to the **public network** (for downloading and storing packages/images).
+     * One connected to the **public network** (for downloading and storing packages and images).
      * One dedicated to **internal cluster communication**.
 * Ensure that the OIM has **internet access**.
 * Verify that **Git** is installed. If not, install it using:
@@ -42,8 +37,7 @@ Follow the steps below to configure the Omnia Infrastructure Manager (OIM):
         dnf install git -y
 
 * All target bare-metal servers (cluster nodes) must be **reachable from the OIM**.
-* Clone the `Omnia artifacts repository <https://github.com/dell/omnia-artifactory/tree/omnia-container>`_
-     and build the container images as shown below:
+* Clone the `Omnia artifacts repository <https://github.com/dell/omnia-artifactory/tree/omnia-container>`_  and build the container images as shown below:
 
      .. code-block:: bash
 
@@ -54,7 +48,8 @@ Follow the steps below to configure the Omnia Infrastructure Manager (OIM):
    * For detailed build instructions, refer to the
      `Omnia Artifacts README <https://github.com/dell/omnia-artifactory/blob/omnia-container/README.md>`_.
 
-* Make sure that ports are open on OIM node for cluster deployment. For detailed information on required ports, refer to the :doc:`Omnia Ports <OmniaInstallGuide/RHEL_new/omnia_ports>`.
+* Make sure that the required ports are open on the OIM node for cluster deployment. For detailed information on the required ports, refer to the :doc:`Omnia Ports <omnia_ports>`.
+
 
 Repository Configuration
 ---------------------------
