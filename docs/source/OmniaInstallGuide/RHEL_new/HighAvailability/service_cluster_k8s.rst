@@ -163,4 +163,4 @@ After deploying Kubernetes, the following additional packages are installed on t
 Next step
 ===========
 
-To know how to deploy the iDRAC telemetry containers on the service cluster, `click here <../../../../Telemetry/service_cluster_telemetry.html>`_.
+To know how to deploy the iDRAC telemetry containers on the service cluster, `click here <../../../Telemetry/service_cluster_telemetry.html>`_.
