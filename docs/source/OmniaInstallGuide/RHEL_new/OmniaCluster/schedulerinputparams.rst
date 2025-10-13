@@ -64,12 +64,6 @@ See the following sample:
    :header-rows: 1
    :keepspace:
 
-.. csv-table:: Parameters for FreeIPA configuration
-   :file: ../../../Tables/security_config_freeipa.csv
-   :header-rows: 1
-   :keepspace:
-
-
 ``/opt/omnia/input/project_default/storage_config.yml``
 ----------------------------------------------------------
 
