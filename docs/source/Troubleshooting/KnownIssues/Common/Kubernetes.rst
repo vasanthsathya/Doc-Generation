@@ -153,6 +153,7 @@ This typically happens when:
                 kubectl run -it dns-test --image=busybox --restart=Never -- sh
 
         Inside the pod shell, test DNS:
+        
             ::
 
                 nslookup management.ps.com

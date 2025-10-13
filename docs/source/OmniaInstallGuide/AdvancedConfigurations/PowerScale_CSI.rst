@@ -301,3 +301,11 @@ To uninstall the PowerScale CSI driver manually, do the following:
     4. Create the new secret from the updated ``secret.yaml`` file by executing the following command: ::
 
         kubectl create secret generic isilon-creds -n isilon --from-file=config=<updated secret.yaml filepath>
+
+6. Delete the snapshot controller deployment:
+
+    :: 
+            kubectl delete deployments snapshot-controller -n kube-system
+
+
+
