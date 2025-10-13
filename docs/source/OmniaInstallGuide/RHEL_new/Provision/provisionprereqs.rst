@@ -9,8 +9,6 @@ Prerequisites
 
 * Ensure that the external NFS is accessible by all the nodes intended to be booted and is reachable by admin network. 
 
-* On the target node, Omnia recommends to have only one active NIC (admin network) during the PXE boot.
-
 * Set the IP address of the OIM. The OIM NIC connected to remote servers (through the switch) should be configured with two IPs (BMC IP and admin IP) in a shared LOM or hybrid set up. In the case dedicated network topology, a single IP (admin IP) is required.
 
     .. figure:: ../../../images/ControlPlaneNic.png
