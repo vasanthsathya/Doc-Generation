@@ -1,13 +1,14 @@
 ﻿Parameter,Details
 ``cluster_name``,"* **Type**: String
-* Captures the name of the service cluster on which HA will be set up."
+* Captures the name of the service cluster on which HA will be set up. **Default value**: ``service_cluster``"
 ``enable_k8s_ha``,"* **Type**: Boolean
 * **Possible values**: ``true``
 * **Default value**: ``true``
 * Indicates whether to enable HA for the Kubernetes (K8s) service node or not. Set to ``true`` to enable."
 ``virtual_ip_address``,"* **Type**: String
 * This is a mandatory and user-configurable parameter.
-* Captures the virtual IP address for the K8s service node HA setup. Ensure that the ``virtual_ip_address`` does not belong to the ``dynamic_range`` or ``static_range`` mentioned in the `network_spec.yml <../Provision/provisionparams.html#id6>`_."
+* Captures the virtual IP address for the K8s service node HA setup. Ensure that the ``virtual_ip_address`` does not belong to the ``dynamic_range`` or ``static_range`` mentioned in the `network_spec.yml <../Provision/provisionparams.html#id6>`_.
+* **Default value**: ``172.16.107.1``"
 ``external_loadbalancer_ip``,"* **Type**: IP address
 * Specify this to use an external load balancer instead of the kube-vip loadbalancer."
 ``loadbalancer_port``,"* **Type**: Port number
