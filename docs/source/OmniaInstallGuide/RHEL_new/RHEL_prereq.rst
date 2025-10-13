@@ -27,8 +27,8 @@ OIM (Omnia Infrastructure Manager) Prerequisites
 * Ensure that the OIM has a full-featured RHEL operating system (OS) installed. For a complete list of supported RHEL versions, see the `Support Matrix <../../Overview/SupportMatrix/OperatingSystems/index.html>`_.
 * Ensure that **Podman** container engine is installed on the OIM.
 * The OIM must have **two active Network Interface Cards (NICs)**:
-     * One connected to the **public network** (for downloading and storing packages and images).
-     * One dedicated to **internal cluster communication**.
+   * One connected to the **public network** (for downloading and storing packages and images).
+   * One dedicated to **internal cluster communication**.
 * Ensure that the OIM has **internet access**.
 * Verify that **Git** is installed. If not, install it using:
 
