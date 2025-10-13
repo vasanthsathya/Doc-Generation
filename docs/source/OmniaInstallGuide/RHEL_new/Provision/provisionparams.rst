@@ -37,9 +37,17 @@ Fill in all required parameters in ``/opt/omnia/input/project_default/provision_
    :header-rows: 1
    :keepspace:
 
+The following table lists the parameters that must be configured in ``omnia_config.yml`` for slurm cluster.
 
 .. csv-table:: omnia_config.yml
    :file: ../../../Tables/scheduler_slurm.csv
+   :header-rows: 1
+   :keepspace:
+
+The following table lists the parameters that must be configured in ``omnia_config.yml`` for service Kubernetes cluster.
+
+.. csv-table:: omnia_config.yml
+   :file: ../Tables/omnia_config_service_cluster.csv
    :header-rows: 1
    :keepspace:
 
