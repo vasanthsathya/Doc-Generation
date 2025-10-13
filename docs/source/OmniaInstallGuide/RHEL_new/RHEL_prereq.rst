@@ -51,7 +51,7 @@ OIM (Omnia Infrastructure Manager) Prerequisites
 * Make sure that the required ports are open on the OIM node for cluster deployment. For detailed information on the required ports, refer to the :doc:`Omnia Ports <omnia_ports>`.
 
 
-Repository CPrerequisites
+Repository Prerequisites
 ---------------------------
 
 * Enable the **AppStream** and **BaseOS** repositories via the RHEL subscription manager.
