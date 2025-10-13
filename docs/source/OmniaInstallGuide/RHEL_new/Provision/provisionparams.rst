@@ -69,7 +69,7 @@ A sample of the ``/opt/omnia/input/project_default/network_spec.yml`` where node
    - admin_network:
       oim_nic_name: "eno1"
       netmask_bits: "24"
-      primary_oim_admin_ip: "172.16.107.67"
+      primary_oim_admin_ip: "172.16.107.254"
       primary_oim_bmc_ip: "" 
-      dynamic_range: "172.16.107.200-172.16.107.250"
+      dynamic_range: "172.16.107.201-172.16.107.250"
       dns: []
