@@ -14,14 +14,16 @@ PowerScale SmartConnect [Optional]
     ---
         Networks:
         - admin_network:
-            nic_name: <network name>
+            oim_nic_name: <network name>
             netmask_bits: "16"
             primary_oim_admin_ip: "10.5.255.254"
             primary_oim_bmc_ip: ""
             dynamic_range: <dynamic ip range>
-            DNS: <upstream DNS server>           
+            dns: [<'upstream DNS server'>]          
+    
+    Example: dns: ["10.x.x.x", "11.x.x.x"]
 
-* If you did not specify the upstream DNS server during the provisioning process and wish to utilize PowerScale SmartConnect afterwards, first add the upstream DNS server IP to the ``DNS`` entry in ``/opt/omnia/input/project_default/network_spec.yml``  and then run the ``discovery-provision.yml`` playbook again.
+* If you did not specify the upstream DNS server during the provisioning process and wish to utilize PowerScale SmartConnect afterwards, first add the upstream DNS server IP to the ``DNS`` entry in ``/opt/omnia/input/project_default/network_spec.yml``  and then run the ``discovery.yml`` playbook again.
 
 Prerequisites
 --------------

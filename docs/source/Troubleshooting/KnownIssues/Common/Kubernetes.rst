@@ -109,6 +109,7 @@ This typically happens when:
 
 **Resolution**:
     Step 1 — Identify the SmartConnect Hostname and IP
+    
         1. In the PowerScale UI, go to:
             Cluster Management → Network Configuration → Subnets → <Your Subnet Name>
         2. Note the following details:
@@ -116,6 +117,7 @@ This typically happens when:
             - SmartConnect IP Address: e.g., 10.x.x.x
 
     Step 2 — Update the CoreDNS ConfigMap
+
         1. On a control-plane node, edit the CoreDNS ConfigMap:
              kubectl -n kube-system edit configmap coredns
 
@@ -133,6 +135,7 @@ This typically happens when:
         ``/opt/omnia/input/project_default/network_spec.yml → under [dns] field.``
 
     Step 3 — Restart CoreDNS Pods
+
         Apply the changes by restarting CoreDNS:
 
         ::
@@ -146,6 +149,7 @@ This typically happens when:
                  kubectl -n kube-system get pods -l k8s-app=kube-dns
 
     Step 4 — Validate DNS Resolution
+
         Launch a temporary pod to test name resolution:
 
            ::    
