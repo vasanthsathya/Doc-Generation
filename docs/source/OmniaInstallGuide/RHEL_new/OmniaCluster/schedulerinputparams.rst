@@ -73,7 +73,7 @@ See the following sample:
    :keepspace:
 
 
-Click here for more information on `OpenLDAP, FreeIPA <BuildingCluster/Authentication.html>`_, `BeeGFS <BuildingCluster/Storage/BeeGFS.html>`_, or `NFS <BuildingCluster/Storage/NFS.html>`_.
+Click here for more information on `OpenLDAP, `BeeGFS <BuildingCluster/Storage/BeeGFS.html>`_, or `NFS <BuildingCluster/Storage/NFS.html>`_.
 
 ``/opt/omnia/input/project_default/high_availability_config.yml``
 ----------------------------------------------------------
