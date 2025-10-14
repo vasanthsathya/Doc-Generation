@@ -15,10 +15,10 @@ PowerScale SmartConnect [Optional]
         Networks:
         - admin_network:
             oim_nic_name: <network name>
-            netmask_bits: "16"
-            primary_oim_admin_ip: "10.5.255.254"
+            netmask_bits: "24"
+            primary_oim_admin_ip: "172.16.107.254"
             primary_oim_bmc_ip: ""
-            dynamic_range: <dynamic ip range>
+            dynamic_range: "172.16.107.201-172.16.107.250"
             dns: [<'upstream DNS server'>]          
     
     Example: dns: ["10.x.x.x", "11.x.x.x"]
