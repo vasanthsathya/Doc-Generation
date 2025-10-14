@@ -76,7 +76,7 @@ Service Kubernetes Cluster Prerequisites
 
 
 iDRAC Telemetry Metric Collection Prerequisites
----------------------------------------
+-----------------------------------------------
 
 * **Redfish** is enabled in iDRAC.
 * **iDRAC firmware** is updated to the latest version.
@@ -84,4 +84,7 @@ iDRAC Telemetry Metric Collection Prerequisites
 * **Correct node service tags** are displayed on the iDRAC interface.
 * For telemetry collection on the service cluster, ensure all **BMC (iDRAC) IPs** are **reachable** from the service cluster nodes.
 
+LDAP Prerequisites
+------------------------
 
+* Configure the proxy using the ``omnia_auth`` container. After deploying the ``omnia_auth`` container, perform the steps provided in :doc:`Configure OpenLDAP as a Proxy Server <OmniaInstallGuide/RHEL_new/OmniaCluster/OpenLDAP_proxy>`.
