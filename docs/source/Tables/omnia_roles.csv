@@ -39,7 +39,7 @@ Service Cluster Kubernetes worker node - ``service_kube_node_x86_64``,Management
 ::
     functional_groups:
       - name: ""service_kube_node_x86_64""
-        cluster_name: ""slurm_cluster""       
+        cluster_name: ""service_k8s_cluster""       
         group:
           -grp3   "
 Login node - ``login_node_x86_64``,Management,"* This functional group is used to configure nodes for user logins on the x86_64 architecture. The nodes included in this functional group will have the necessary tools and configurations to support user login activities.  
