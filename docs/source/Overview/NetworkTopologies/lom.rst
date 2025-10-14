@@ -3,7 +3,7 @@ Network Topology: Shared LAN on motherboard (LOM) Setup
 
 .. note:: The following diagram is for representational purposes only.
 
-.. image:: ../../images/LOM_2.0.png
+.. image:: ../../images/LOM_2.0_rc2.png
 
 In a **Shared LOM setup**, the Administration and BMC logical networks share the same ethernet segment and physical connection.
 
