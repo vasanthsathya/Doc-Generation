@@ -1,7 +1,7 @@
 ﻿Parameter,Mandatory/Optional,Details
 **pulp_protocol**,Mandatory,"* **Type**: Boolean
-* By default, set to ``true`` to enable secure (HTTP) connection to the Pulp server.
-* Set to ``true`` if you want to connect to the Pulp server using HTTPS."
+* By default, set to ``true`` to enable secure (HTTPS) connection to the Pulp server.
+* Set to ``false`` if you want to connect to the Pulp server using HTTP."
 **user_repo_url_x86_64**,Optional,"* **Type**: JSON list
 * This variable accepts the x86_64 repository urls  from which the software packages/images will be downloaded and accessed by the cluster.
 * Omnia downloads the software packages from the given list of URLs and stores them into a local Pulp container. These packages are then accessed by the cluster nodes from that Pulp container.
