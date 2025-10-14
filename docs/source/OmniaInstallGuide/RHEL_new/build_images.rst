@@ -38,7 +38,7 @@ To build images for the nodes present in each functional group, do the following
 
        ansible-playbook build_image_x86_64.yml
 
-3. To verify that images are created for each functional group defined in ``functional_groups_config.yml``, run the following command::
+3. To verify that images are created for each functional group defined in ``functional_groups_config.yml``, run the following command on OIM::
 
        s3cmd ls -Hr s3://boot-images
 
@@ -63,7 +63,7 @@ To build images for the nodes present in each functional group, do the following
        [admin_aarch64]
        10.0.0.1
 
-3. To verify that images are created for each functional group defined in ``functional_groups_config.yml``, run the following command::
+3. To verify that images are created for each functional group defined in ``functional_groups_config.yml``, run the following command on the OIM::
 
        s3cmd ls -Hr s3://boot-images
 

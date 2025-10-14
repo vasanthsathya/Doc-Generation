@@ -17,7 +17,7 @@ its dependent services are running correctly.
 
    .. code-block:: bash
 
-      systemctl list-dependencies omnia.target --all
+      systemctl list-dependencies omnia.target
 
 3. Review the status of the dependent services in the following tree output. 
 
