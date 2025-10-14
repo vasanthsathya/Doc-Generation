@@ -54,11 +54,6 @@ See the following sample:
 ``/opt/omnia/input/project_default/security_config.yml``
 ----------------------------------------------------------
 
-.. csv-table:: Parameters for Authentication
-   :file: ../../../Tables/security_config.csv
-   :header-rows: 1
-   :keepspace:
-
 .. csv-table:: Parameters for OpenLDAP configuration
    :file: ../../../Tables/security_config_ldap.csv
    :header-rows: 1
