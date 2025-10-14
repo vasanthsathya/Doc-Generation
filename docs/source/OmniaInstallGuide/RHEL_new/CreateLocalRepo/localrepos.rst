@@ -70,4 +70,4 @@ Configuring specific local repositories
 
                 {"name": "additional_software"},
 
-    Create an ``additional_software.json`` file in the following directory: ``/opt/omnia/input/project_default/config/<arch>/<cluster_os_type>/<cluster_os_version>`` and add your choice of additional software. For a cluster running RHEL 10.0, go to ``/opt/omnia/input/project_default/<arch>/rhel/10.0/`` and create the file there. For more information, `click here <../../../Utils/software_update.html>`_.
+    Create an ``additional_software.json`` file in the following directory: ``/opt/omnia/input/project_default/config/<arch>/<cluster_os_type>/<cluster_os_version>`` and add your choice of additional software. For a cluster running RHEL 10.0, go to ``/opt/omnia/input/project_default/config/<arch>/rhel/10.0/`` and create the file there. For more information, `click here <../../../Utils/software_update.html>`_.
