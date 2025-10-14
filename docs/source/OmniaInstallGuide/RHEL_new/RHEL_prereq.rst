@@ -57,6 +57,8 @@ Repository Prerequisites
 * Enable the **AppStream** and **BaseOS** repositories via the RHEL subscription manager.
 * Ensure that RHEL has an **active subscription** or is configured to access **local repositories**.
 * Verify that all **repository URLs** for the software packages are **accessible** — downloads will fail for inaccessible packages.
+* For RHEL systems without a subscription, the repository URLs for ``x86_64_codeready-builder``, ``x86_64_appstream``, and ``x86_64_baseos`` are mandatory.
+* Docker credentials are a mandatory requirement to pull in the essential packages during local repository deployment. 
 
 
 Service Kubernetes Cluster Prerequisites
