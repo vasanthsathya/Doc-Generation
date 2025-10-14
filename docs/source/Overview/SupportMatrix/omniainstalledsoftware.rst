@@ -8,11 +8,3 @@ Software Installed by Omnia
       :header-rows: 1
       :keepspace:
       :class: longtable
-
-.. dropdown:: Unsupported packages
-
-   .. csv-table::
-      :file: ../../Tables/unsupported_packages.csv
-      :header-rows: 1
-      :keepspace:
-      :class: longtable
