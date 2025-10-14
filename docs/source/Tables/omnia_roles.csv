@@ -11,7 +11,7 @@ Slurm control plane - ``slurm_control_node_x86_64``,Management,"* Nodes with ``s
          group:
            - grp0       "
 Slurm worker node - ``slurm_node_x86_64``,Compute,"* This functional group is used to configure nodes as Slurm workers on the x86_64 architecture. The nodes included in this functional group will have the necessary tools and configurations to run Slurm workloads.  
-* Nodes in this functional group can be used as Slurm worker nodes for aarch64 clusters.
+* Nodes in this functional group can be used as Slurm worker nodes for x86_64 clusters.
 
 **Example**:
 ::

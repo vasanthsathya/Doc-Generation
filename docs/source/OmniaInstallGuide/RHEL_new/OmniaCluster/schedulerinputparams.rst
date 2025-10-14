@@ -54,21 +54,10 @@ See the following sample:
 ``/opt/omnia/input/project_default/security_config.yml``
 ----------------------------------------------------------
 
-.. csv-table:: Parameters for Authentication
-   :file: ../../../Tables/security_config.csv
-   :header-rows: 1
-   :keepspace:
-
 .. csv-table:: Parameters for OpenLDAP configuration
    :file: ../../../Tables/security_config_ldap.csv
    :header-rows: 1
    :keepspace:
-
-.. csv-table:: Parameters for FreeIPA configuration
-   :file: ../../../Tables/security_config_freeipa.csv
-   :header-rows: 1
-   :keepspace:
-
 
 ``/opt/omnia/input/project_default/storage_config.yml``
 ----------------------------------------------------------
@@ -79,7 +68,7 @@ See the following sample:
    :keepspace:
 
 
-Click here for more information on `OpenLDAP, FreeIPA <BuildingCluster/Authentication.html>`_, `BeeGFS <BuildingCluster/Storage/BeeGFS.html>`_, or `NFS <BuildingCluster/Storage/NFS.html>`_.
+Click here for more information on `OpenLDAP, `BeeGFS <BuildingCluster/Storage/BeeGFS.html>`_, or `NFS <BuildingCluster/Storage/NFS.html>`_.
 
 ``/opt/omnia/input/project_default/high_availability_config.yml``
 ----------------------------------------------------------

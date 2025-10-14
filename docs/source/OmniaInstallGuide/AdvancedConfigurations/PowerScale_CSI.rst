@@ -14,14 +14,16 @@ PowerScale SmartConnect [Optional]
     ---
         Networks:
         - admin_network:
-            nic_name: <network name>
-            netmask_bits: "16"
-            primary_oim_admin_ip: "10.5.255.254"
+            oim_nic_name: <network name>
+            netmask_bits: "24"
+            primary_oim_admin_ip: "172.16.107.254"
             primary_oim_bmc_ip: ""
-            dynamic_range: <dynamic ip range>
-            DNS: <upstream DNS server>           
+            dynamic_range: "172.16.107.201-172.16.107.250"
+            dns: [<'upstream DNS server'>]          
+    
+    Example: dns: ["10.x.x.x", "11.x.x.x"]
 
-* If you did not specify the upstream DNS server during the provisioning process and wish to utilize PowerScale SmartConnect afterwards, first add the upstream DNS server IP to the ``DNS`` entry in ``/opt/omnia/input/project_default/network_spec.yml``  and then run the ``discovery-provision.yml`` playbook again.
+* If you did not specify the upstream DNS server during the provisioning process and wish to utilize PowerScale SmartConnect afterwards, first add the upstream DNS server IP to the ``DNS`` entry in ``/opt/omnia/input/project_default/network_spec.yml``  and then run the ``discovery.yml`` playbook again.
 
 Prerequisites
 --------------
@@ -99,8 +101,8 @@ Prerequisites
 
 .. note:: Once the PowerScale CSI driver has been deployed, the parameters in the ``values.yaml`` can't be changed. If the user wants to modify the ``values.yaml`` file, they must first uninstall the PowerScale CSI driver from the cluster and then re-install with the updated parameters.
 
-Installation Process
----------------------
+Configuration guidelines for Powerscale
+--------------------------------------------
 
 1. Once ``secret.yaml`` and ``values.yaml`` is filled up with the necessary details, copy both files to any directory on the ``oim_core`` container. For example, ``/tmp/secret.yaml`` and ``/tmp/values.yaml``.
 
@@ -117,19 +119,7 @@ Installation Process
 
 4. Add the filepath of the ``secret.yaml`` and ``values.yaml`` file to the ``csi_powerscale_driver_secret_file_path`` and ``csi_powerscale_driver_values_file_path`` variables respectively, present in the ``/opt/omnia/input/project_default/omnia_config.yml`` file.
 
-6. Execute the ``omnia.yml`` or ``scheduler.yml`` playbook to install the PowerScale CSI driver on the ``compute_k8s_cluster`` and ``service_cluster_k8s.yml`` to install the driver on the ``service_k8s_cluster``:
-
-  .. dropdown:: Compute Kubernetes cluster
-
-    ::
-
-      cd omnia
-      ansible-playbook omnia.yml -i <inventory_filepath>
-
-    ::
-
-      cd scheduler
-      ansible-playbook scheduler.yml -i <inventory_filepath>
+5. Execute the ``omnia.yml`` or ``scheduler.yml`` playbook to install the PowerScale CSI driver on the ``compute_k8s_cluster`` and ``service_cluster_k8s.yml`` to install the driver on the ``service_k8s_cluster``. See `High Availability <../RHEL_new/HighAvailability/index.html>`_.
 
   .. dropdown:: Service Kubernetes cluster
 
@@ -313,3 +303,11 @@ To uninstall the PowerScale CSI driver manually, do the following:
     4. Create the new secret from the updated ``secret.yaml`` file by executing the following command: ::
 
         kubectl create secret generic isilon-creds -n isilon --from-file=config=<updated secret.yaml filepath>
+
+6. Delete the snapshot controller deployment:
+
+    :: 
+            kubectl delete deployments snapshot-controller -n kube-system
+
+
+

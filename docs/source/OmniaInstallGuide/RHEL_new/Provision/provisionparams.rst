@@ -37,9 +37,17 @@ Fill in all required parameters in ``/opt/omnia/input/project_default/provision_
    :header-rows: 1
    :keepspace:
 
+The following table lists the parameters that must be configured in ``omnia_config.yml`` for slurm cluster.
 
 .. csv-table:: omnia_config.yml
    :file: ../../../Tables/scheduler_slurm.csv
+   :header-rows: 1
+   :keepspace:
+
+The following table lists the parameters that must be configured in ``omnia_config.yml`` for service Kubernetes cluster.
+
+.. csv-table:: omnia_config.yml
+   :file: ../../../Tables/omnia_config_service_cluster.csv
    :header-rows: 1
    :keepspace:
 
@@ -57,11 +65,11 @@ Fill in all required parameters in ``/opt/omnia/input/project_default/provision_
 A sample of the ``/opt/omnia/input/project_default/network_spec.yml`` where nodes are discovered using a mapping file is provided below: ::
 
     
-         Networks:
-         - admin_network:
-            oim_nic_name: "eno1"
-            netmask_bits: "16"
-            primary_oim_admin_ip: "10.5.255.254"
-            primary_oim_bmc_ip: ""
-            dynamic_range: "10.5.1.1-10.5.1.200"
-            dns: []
+   Networks:
+   - admin_network:
+      oim_nic_name: "eno1"
+      netmask_bits: "24"
+      primary_oim_admin_ip: "172.16.107.254"
+      primary_oim_bmc_ip: "" 
+      dynamic_range: "172.16.107.201-172.16.107.250"
+      dns: []

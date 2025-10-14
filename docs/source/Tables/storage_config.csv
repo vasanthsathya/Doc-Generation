@@ -4,14 +4,13 @@
      ``JSON List``
 
      Required    ","* This JSON list contains all parameters required to set up NFS.
-* The default value for the ``nfs_name``  is the ``nfs_storage_default``. Type: string.
-* See the following parameters: 
+* server_ip—Provide the IP of the NFS server which is accessible to all the diskful and diskless nodes. **Default value**: ``172.16.107.168``
+* server_share_path—Provide server share path of the NFS Server. **Default value**: ``/mnt/share/omnia``
+* client_share_path—Path where nfs server contents needs to be mounted. The default value is /opt/omnia. **Default value**: ``/share_omnia``
+* client_mount_options—Provide the mount options. **Possible values are**: ``nosuid``, ``rw``, ``sync``, ``hard``, ``intr``
+* nfs_name—Provide the name of the NFS share. **Default value**: ``nfs_slurm``. **Type**: ``string``   
 
-    * Server_ip—Provide the IP of the NFS server which is accessible to all the diskful and diskless nodes.
-    * Server_share_path—Provide server share path of the NFS Server.
-    * Client_share_path—Path where nfs server contents needs to be mounted. The default value is /opt/omnia.
-   
-* See the following sample::
+**Sample**::
 
           nfs_client_params:
                 {
