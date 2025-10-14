@@ -87,4 +87,4 @@ iDRAC Telemetry Metric Collection Prerequisites
 LDAP Prerequisites
 ------------------------
 
-* Configure the proxy using the ``omnia_auth`` container. After deploying the ``omnia_auth`` container, perform the steps provided in :doc:`Configure OpenLDAP as a Proxy Server <OmniaInstallGuide/RHEL_new/OmniaCluster/OpenLDAP_proxy>`.
+* Configure the proxy using the ``omnia_auth`` container. After deploying the ``omnia_auth`` container, perform the steps provided in :doc:`Configure OpenLDAP as a Proxy Server <OmniaCluster/OpenLDAP_proxy>`.
