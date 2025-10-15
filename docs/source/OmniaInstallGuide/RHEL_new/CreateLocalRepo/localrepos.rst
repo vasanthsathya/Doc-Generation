@@ -15,7 +15,7 @@ Configuring specific local repositories
 
             {"name": "service_k8s", "version":"1.31.4", "arch": ["x86_64"]},
 
-    For more information about installing Kubernetes, `click here <../OmniaCluster/BuildingCluster/install_kubernetes.html>`_.
+    For more information about installing Kubernetes, `click here <../HighAvailability/service_cluster_k8s.html>`_.
 
 .. note:: The version of ``service_k8s`` provided above is the only version of the package that Omnia supports.
 
@@ -60,7 +60,7 @@ Configuring specific local repositories
 
     UCX is deployed on the cluster when ``local_repo.yml`` playbook is executed, followed by the execution of `omnia.yml <../OmniaCluster/BuildingCluster/installscheduler.html>`_.
 
-    For more information on UCX configurations, `click here <../../AdvancedConfigurations/install_ucx_openmpi.html>`_.
+    
 
 
 
