@@ -7,6 +7,5 @@ Configuring the cluster
     AMD_ROCm
     Authentication
     Storage/index
-    HighAvailability/service_k8s_cluster
+    ../../HighAvailability/index
     install_slurm
-    installscheduler
