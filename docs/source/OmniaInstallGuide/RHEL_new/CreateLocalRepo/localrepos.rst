@@ -61,13 +61,3 @@ Configuring specific local repositories
     UCX is deployed on the cluster when ``local_repo.yml`` playbook is executed, followed by the execution of `omnia.yml <../OmniaCluster/BuildingCluster/installscheduler.html>`_.
 
     
-
-
-
-**Custom packages**
-
-    Include the following line under ``softwares`` in ``software_config.json``: ::
-
-                {"name": "additional_software"},
-
-    Create an ``additional_software.json`` file in the following directory: ``/opt/omnia/input/project_default/config/<arch>/<cluster_os_type>/<cluster_os_version>`` and add your choice of additional software. For a cluster running RHEL 10.0, go to ``/opt/omnia/input/project_default/config/<arch>/rhel/10.0/`` and create the file there. For more information, `click here <../../../Utils/software_update.html>`_.
