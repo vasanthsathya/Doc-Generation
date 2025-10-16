@@ -3,7 +3,7 @@ NFS
 
 Network File System (NFS) is a networking protocol for distributed file sharing. A file system defines the way data in the form of files is stored and retrieved from storage devices, such as hard disk drives, solid-state drives and tape drives. NFS is a network file sharing protocol that defines the way files are stored and retrieved from storage devices across networks.
 
-.. note:: NFS is a mandatory feature for all clusters set up by Omnia. Omnia sets up the NFS server and mounts the NFS client when ``nfs_server`` value is true.
+.. note:: NFS is a mandatory feature for all clusters set up by Omnia. Omnia mounts the NFS server and mounts the NFS client when ``nfs_server`` value is true.
 
 **Prerequisites**
 
