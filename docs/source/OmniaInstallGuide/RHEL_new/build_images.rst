@@ -34,7 +34,7 @@ To build images for the nodes present in each functional group, do the following
 
        cd /omnia/build_image_x86_64
 
-2. To build the image, run the following playbook:
+2. To build the image, run the following playbook::
 
        ansible-playbook build_image_x86_64.yml
 

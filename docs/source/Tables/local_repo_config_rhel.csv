@@ -1,7 +1,7 @@
 ﻿Parameter,Mandatory/Optional,Details
 **pulp_protocol**,Mandatory,"* **Type**: Boolean
-* By default, set to ``false`` to enable secure (HTTP) connection to the Pulp server.
-* Set to ``true`` if you want to connect to the Pulp server using HTTPS."
+* By default, set to ``true`` to enable secure (HTTPS) connection to the Pulp server.
+* Set to ``false`` if you want to connect to the Pulp server using HTTP."
 **user_repo_url_x86_64**,Optional,"* **Type**: JSON list
 * This variable accepts the x86_64 repository urls  from which the software packages/images will be downloaded and accessed by the cluster.
 * Omnia downloads the software packages from the given list of URLs and stores them into a local Pulp container. These packages are then accessed by the cluster nodes from that Pulp container.
@@ -94,8 +94,7 @@
 * **Default value**: 
     - { url: ""https://download.docker.com/linux/centos/10/x86_64/stable/"", gpgkey: ""https://download.docker.com/linux/centos/gpg"", name: ""docker-ce-repo""}
     - { url: ""https://dl.fedoraproject.org/pub/epel/10/Everything/x86_64/"", gpgkey: ""https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-9"", name: ""epel""}
-    - { url: ""https://yum.repos.intel.com/oneapi/"", gpgkey: ""https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB"", name: ""oneapi""}
-    - { url: ""https://nvidia.github.io/libnvidia-container/stable/rpm/x86_64/"", gpgkey: ""https://nvidia.github.io/libnvidia-container/gpgkey"", name: ""nvidia-repo""}
+ 
 .. note::
       * These inputs are not validated by Omnia. Incorrect values provided to this variable can lead to unexpected failures during Omnia's deployment.
       * Ensure that all the listed URLs are reachable from the OIM."
@@ -108,7 +107,7 @@
 * **Default value**: 
     - { url: ""https://download.docker.com/linux/centos/10/aarch64/stable/"", gpgkey: ""https://download.docker.com/linux/centos/gpg"", name: ""docker-ce""}
     - { url: ""https://dl.fedoraproject.org/pub/epel/10/Everything/aarch64/"", gpgkey: ""https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-9"", name: ""epel""}
-    - { url: ""https://nvidia.github.io/libnvidia-container/stable/rpm/aarch64/"", gpgkey: ""https://nvidia.github.io/libnvidia-container/gpgkey"", name: ""nvidia-repo""}
+ 
 
 .. note::
       * These inputs are not validated by Omnia. Incorrect values provided to this variable can lead to unexpected failures during Omnia's deployment.

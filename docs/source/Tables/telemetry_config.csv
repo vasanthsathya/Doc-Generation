@@ -1,6 +1,6 @@
 "Parameter	",Mandatory/Optional,Details
 ``idrac_telemetry_support``,Mandatory,"* **Type**: Boolean
-* If you want iDRAC telemetry support on your service cluster, set this variable to ``true`` before executing  ``telemetry.yml`` and  ``service_k8s_cluster.yml`` playbooks.              
+* If you want iDRAC telemetry support on your service cluster, set this variable to ``true`` before executing  ``telemetry.yml`` or  ``service_k8s_cluster.yml`` playbooks.              
             
 * **Accepted values**: ``true`` or ``false``
 * **Default value**: ``false``
@@ -23,3 +23,7 @@ kafka_configurations > ``topic_partitions``,Conditional Mandatory,"* **Type**: I
 * The number of partitions for each Kafka topic.
 * Increasing this can improve throughput but also increases storage or overhead.
 * **Default value**:  1"
+,,
+,,
+,,
+,,

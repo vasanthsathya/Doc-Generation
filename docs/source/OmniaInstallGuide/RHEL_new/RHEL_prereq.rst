@@ -57,6 +57,8 @@ Repository Prerequisites
 * Enable the **AppStream** and **BaseOS** repositories via the RHEL subscription manager.
 * Ensure that RHEL has an **active subscription** or is configured to access **local repositories**.
 * Verify that all **repository URLs** for the software packages are **accessible** — downloads will fail for inaccessible packages.
+* For RHEL systems without a subscription, the repository URLs for ``x86_64_codeready-builder``, ``x86_64_appstream``, and ``x86_64_baseos`` are mandatory.
+* Docker credentials are a mandatory requirement to pull in the essential packages during local repository deployment. 
 
 
 Service Kubernetes Cluster Prerequisites
@@ -87,7 +89,7 @@ iDRAC Telemetry Metric Collection Prerequisites
 LDAP Prerequisites
 ------------------------
 
-* Configure the proxy on the OIM node using the ``omnia_auth`` container. After deploying the ``omnia_auth`` container, perform the steps described in `Configure OpenLDAP as a Proxy Server <OmniaCluster/BuildingCluster/Authentication.html>`_.
+* Configure the proxy on the OIM node using the ``omnia_auth`` container. To configure the proxy, after deploying the ``omnia_auth`` container, perform the steps described in `Configure OpenLDAP as a Proxy Server <OmniaCluster/BuildingCluster/Authentication.html>`_.
 
 
 

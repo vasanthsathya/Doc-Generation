@@ -3,7 +3,7 @@ Network Topology: Dedicated Setup
 
 .. note:: The following diagram is for representational purposes only.
 
-.. image:: ../../images/Dedicated_2.0.png
+.. image:: ../../images/Dedicated_2.0_rc2.png
 
 In a **Dedicated Setup**, all the cluster nodes (Head, Compute, and Login [optional]) have dedicated iDRAC connection.
 
@@ -19,6 +19,6 @@ In a **Dedicated Setup**, all the cluster nodes (Head, Compute, and Login [optio
 
 **Recommended discovery mechanism**
 
-* `mapping <../../OmniaInstallGuide/RHEL_new/Provision/DiscoveryMechanisms/mappingfile.html>`_
+* `Discovery Mechanism and Mapping File <../../OmniaInstallGuide/RHEL_new/Provision/discover_mechanism_mappingfile.html>`_.
 
 

@@ -3,7 +3,7 @@ Network Topology: Shared LAN on motherboard (LOM) Setup
 
 .. note:: The following diagram is for representational purposes only.
 
-.. image:: ../../images/LOM_2.0.png
+.. image:: ../../images/LOM_2.0_rc2.png
 
 In a **Shared LOM setup**, the Administration and BMC logical networks share the same ethernet segment and physical connection.
 
@@ -16,6 +16,6 @@ In a **Shared LOM setup**, the Administration and BMC logical networks share the
 .. note:: Omnia supports classless IP addressing, which allows the Admin network, BMC network, Public network, and the Additional network to be assigned different subnets.
 **Recommended discovery mechanism**
 
-* `mapping <../../OmniaInstallGuide/RHEL_new/Provision/DiscoveryMechanisms/mappingfile.html>`_
+* `Discovery Mechanism and Mapping File <../../OmniaInstallGuide/RHEL_new/Provision/discover_mechanism_mappingfile.html>`_.
 
 

@@ -24,7 +24,6 @@ Create Groups
 
 Nodes that are located in the same place or similar hardware can be grouped together. To do so, update the ``functional_groups_config.yml`` input file in the ``/opt/omnia/input/project_default`` directory which includes all necessary attributes for the nodes, based on their role within the cluster. Each group will have following attributes as indicated in the table below:
 
-.. note:: Groups associated with the ``service_kube_control_plane``, ``service_etcd``, ``service_kube_node``, and ``oim_ha_node`` roles should not be used to fulfill any other roles.
 
 .. csv-table:: Group attributes
    :file: ../../Tables/group_attributes.csv
@@ -62,7 +61,7 @@ The following table lists the functional groups along with the recommended softw
 +----------------------------------+--------------------------------------------------------------------------------------+
 | Functional Group Name            | Recommended Software                                                                 |
 +==================================+======================================================================================+
-| service_kube_node_x86_64         | service_k8s.json, nfs.json, openldap.json                                            |
+| service_kube_node_x86_64         | service_k8s.json, nfs.json,                                                          |
 +----------------------------------+--------------------------------------------------------------------------------------+
 | slurm_control_node_x86_64        | slurm_custom.json, nfs.json, openldap.json                                           |
 +----------------------------------+--------------------------------------------------------------------------------------+

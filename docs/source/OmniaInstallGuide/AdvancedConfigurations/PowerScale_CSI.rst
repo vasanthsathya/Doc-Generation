@@ -119,7 +119,7 @@ Configuration guidelines for Powerscale
 
 4. Add the filepath of the ``secret.yaml`` and ``values.yaml`` file to the ``csi_powerscale_driver_secret_file_path`` and ``csi_powerscale_driver_values_file_path`` variables respectively, present in the ``/opt/omnia/input/project_default/omnia_config.yml`` file.
 
-5. Execute the ``omnia.yml`` or ``scheduler.yml`` playbook to install the PowerScale CSI driver on the ``compute_k8s_cluster`` and ``service_cluster_k8s.yml`` to install the driver on the ``service_k8s_cluster``. See `High Availability <../RHEL_new/HighAvailability/index.html>`_.
+5. Execute the ``omnia.yml`` or ``scheduler.yml`` playbook to install the PowerScale CSI driver on the ``service_cluster_k8s.yml`` to install the driver on the ``service_k8s_cluster``. See `High Availability <../RHEL_new/HighAvailability/index.html>`_.
 
   .. dropdown:: Service Kubernetes cluster
 
@@ -307,6 +307,7 @@ To uninstall the PowerScale CSI driver manually, do the following:
 6. Delete the snapshot controller deployment:
 
     :: 
+           
             kubectl delete deployments snapshot-controller -n kube-system
 
 
