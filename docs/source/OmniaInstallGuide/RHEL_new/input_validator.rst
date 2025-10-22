@@ -38,7 +38,9 @@ Additional values you must provide:
 
 * **Local repository configuration:**  
    * ``rhel_os_url_x86_64`` – BaseOS, AppStream, and CRB repository details for x86_64 node provisioning  
-   * ``rhel_os_url_aarch64`` – BaseOS, AppStream, and CRB repository details for aarch64 node provisioning
+   *  – BaseOS, AppStream, and CRB repository details for aarch64 node provisioning
+
+.. note:: If the RHEL subscription on the OIM is not enabled, the ``rhel_os_url_x86_64`` and ``rhel_os_url_aarch64`` parameters are mandotory. 
 
 * **Telemetry configuration (if enabled):**  
    * ``csi_powerscale_driver_secret_file_path`` – Powerscale driver secret file  
