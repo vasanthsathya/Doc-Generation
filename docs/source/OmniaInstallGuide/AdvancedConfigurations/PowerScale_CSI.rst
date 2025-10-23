@@ -101,14 +101,14 @@ Prerequisites
 
 .. note:: Once the PowerScale CSI driver has been deployed, the parameters in the ``values.yaml`` can't be changed. If the user wants to modify the ``values.yaml`` file, they must first uninstall the PowerScale CSI driver from the cluster and then re-install with the updated parameters.
 
-Configuration guidelines for Powerscale
+Steps
 --------------------------------------------
 
 1. Once ``secret.yaml`` and ``values.yaml`` is filled up with the necessary details, copy both files to any directory on the ``oim_core`` container. For example, ``/tmp/secret.yaml`` and ``/tmp/values.yaml``.
 
 2. Add the ``csi_driver_powerscale`` entry along with the driver version to the ``/opt/omnia/input/project_default/software_config.json`` file: ::
 
-    {"name": "csi_driver_powerscale", "version":"v2.14.0"}
+    {"name": "csi_driver_powerscale", "version":"v2.14.0", "arch": ["x86_64"]}
 
  .. note:: By default, the ``csi_driver_powerscale`` entry is not present in the ``software_config.json``.
 
