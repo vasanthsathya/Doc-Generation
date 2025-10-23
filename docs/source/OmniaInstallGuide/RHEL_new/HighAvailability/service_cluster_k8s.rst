@@ -30,7 +30,7 @@ Prerequisites
     }
  
 * Omnia supports only Kubernetes version 1.31.4.
-* If you want to install CSI PowerScale driver, ensure that you provide the required values. Click `here <../../AdvancedConfigurations/PowerScale_CSI.html>`_ for more information.
+* If you want to install CSI PowerScale driver, ensure that you provide the required values. Click `Deploy CSI drivers for Dell PowerScale storage solutions <../../AdvancedConfigurations/PowerScale_CSI.html>`_ for more information.
 * Ensure that there are a minimum of  three ``kube_control_planes``.
 * Ensure that the ``kube_control_planes`` has a full-featured RHEL operating system (OS) installed. 
 * The ``kube_control_planes`` has internet access to download necessary packages for cluster deployment and configuration.
