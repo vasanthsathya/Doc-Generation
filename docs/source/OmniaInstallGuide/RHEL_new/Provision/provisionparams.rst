@@ -56,6 +56,7 @@ The following table lists the parameters that must be configured in ``omnia_conf
    :file: ../../../Tables/network_spec.csv
    :header-rows: 1
    :keepspace:
+   
 
 .. csv-table:: telemetry_config.yml
    :file: ../Tables/telemetry_config.csv
