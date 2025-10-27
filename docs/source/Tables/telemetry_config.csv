@@ -7,10 +7,7 @@
 
 .. note:: If ``idrac_telemetry_support`` is set to ``true``, ``mysqldb_user``, ``mysqldb_password``, and ``mysqldb_root_password`` parameters in the ``omnia_config_credentials.yml`` file becomes mandatory. "
 ``idrac_telemetry_collection_type``,Mandatory,"* Decides the iDRAC telemetry collection type.
-* **Accepted values**:
- * ``victoria`` 
-		 * ``kafka``
-		 *  ``victoria, kafka``: To configure both VictoriaMetrics and Kafka, enter ``victoria`` and ``kafka`` as a comma-separated value.
+* **Accepted values**: ``victoria``,  ``kafka``, or ``victoria, kafka``.  * To configure both VictoriaMetrics and Kafka, enter ``victoria`` and ``kafka`` as a comma-separated value.
 * **Default value**: ``victoria``
 "
 victoria_configurations > ``persistence_size``,Conditional Mandatory,"* **Type**: Integer
