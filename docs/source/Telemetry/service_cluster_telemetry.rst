@@ -33,6 +33,7 @@ Steps
         :file: ../Tables/telemetry_config.csv
         :header-rows: 1
         :keepspace:
+        
 3. Execute the ``telemetry.yml`` playbook. ::
 
     cd telemetry

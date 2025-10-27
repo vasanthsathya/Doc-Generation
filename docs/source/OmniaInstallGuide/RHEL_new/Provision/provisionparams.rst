@@ -57,6 +57,11 @@ The following table lists the parameters that must be configured in ``omnia_conf
    :header-rows: 1
    :keepspace:
 
+.. csv-table:: telemetry_config.yml
+   :file: ../Tables/telemetry_config.csv
+   :header-rows: 1
+   :keepspace:
+
 
 .. caution::
     * All provided network ranges and NIC IP addresses should be distinct with no overlap in the ``/opt/omnia/input/project_default/network_spec.yml``.
