@@ -91,25 +91,25 @@ collection type, follow these steps to verify and view the collected telemetry:
 
         kubectl get pods -n telemetry -o wide -l app=victoriametrics
 
-        .. image:: ../images/victoria_metrics_pod.png
+         .. image:: ../images/victoria_metrics_pod.png
 
     2. Run the following command to verify that the VictoriaMetrics service is running::
 
         kubectl get service -n telemetry -o wide -l app=victoriametrics
 
-        .. image:: ../images/victoria_metrics_service.png
+         .. image:: ../images/victoria_metrics_service.png
 
     3. Note the **External IP** and **port number** of the VictoriaMetrics service. The **External IP** and **port number** will be used to access the VictoriaMetrics UI (VMUI).
 
-4. Access the VictoriaMetrics UI in a web browser using::
+    4. Access the VictoriaMetrics UI in a web browser using::
 
         http://<VictoriaMetrics service External-IP>:<VictoriaMetrics service port number>/vmui
 
-5. Filter and view telemetry metrics using queries in **VMUI**. For example, the following query displays detailed temperature readings for each hardware component::
+    5. Filter and view telemetry metrics using queries in **VMUI**. For example, the following query displays detailed temperature readings for each hardware component::
 
        {name="PowerEdge_TemperatureReading", FQDD!=""}
 
-       .. image:: ../images/victoria_metrics_vmui.png
+        .. image:: ../images/victoria_metrics_vmui.png
 
 
 
