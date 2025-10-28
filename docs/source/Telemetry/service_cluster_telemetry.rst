@@ -15,7 +15,7 @@ Prerequisites
 * Ensure that the correct node service tags are being displayed on the iDRAC interface. Otherwise, telemetry data cannot be collected by the ``idrac_telemetry_receiver`` container.
 * For telemetry collection on service cluster, all BMC (iDRAC) IPs must be reachable from the service cluster nodes.
 * Ensure that the ``service_k8s_cluster.yml`` playbook has been executed successfully and Kubernetes on the service K8s controller node is up and running.
-* Ensure that ``discovery.yml`` playbook has been executed successfully with ``secvice_kube_node_x86_64`` in the ``functional_groups_config.yml``, and the ``bmc_group_data.csv`` file has been generated.
+* Ensure that ``discovery.yml`` playbook has been executed successfully with ``service_kube_node_x86_64`` in the ``functional_groups_config.yml``, and the ``bmc_group_data.csv`` file has been generated.
 * Before running the ``telemetry.yml`` playbook for the service cluster, ensure that all the service K8s compute node are reachable and booted and have been configured in the service K8s cluster.
 
 Steps
@@ -98,20 +98,20 @@ After applying the ``telemetry.yml`` configuration using the VictoriaMetrics col
 
    .. image:: ../images/victoria_metrics_service.png
 
-3. Note the **External IP** and **port number** of the VictoriaMetrics service. The **External IP** and port number will be used to access the VictoriaMetrics UI (VMUI).
+3. Note the **External IP** and **port number** of the VictoriaMetrics service. The external IP and port number will be used to access the VictoriaMetrics UI (VMUI).
 
-4. Access the VictoriaMetrics UI in a web browser using::
+4. Access the VictoriaMetrics VMUI in a web browser using::
 
-       http://<VictoriaMetrics service External-IP>:<VictoriaMetrics service port number>/vmui
+       http://<external IP>:8428/vmui
 
-5. Filter and view telemetry metrics using queries in **VMUI**.
+5. Filter and view telemetry metrics using queries in VMUI.
    For example, the following query displays detailed temperature
    readings for each hardware component::
 
        {name="PowerEdge_TemperatureReading", FQDD!=""}
 
    .. image:: ../images/victoria_metrics_vmui.png
-    
+
 
 Accessing the ``mysqldb`` database
 ====================================
