@@ -100,7 +100,7 @@ After applying the ``telemetry.yml`` configuration using the VictoriaMetrics col
 
 3. Note the **External IP** and **port number** of the VictoriaMetrics service. The external IP and port number will be used to access the VictoriaMetrics UI (VMUI).
 
-4. Access the VictoriaMetrics VMUI in a web browser using::
+4. Access the VMUI in a web browser using::
 
        http://<external IP>:8428/vmui
 
