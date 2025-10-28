@@ -33,7 +33,7 @@ Steps
         :file: ../Tables/telemetry_config.csv
         :header-rows: 1
         :keepspace:
-        
+
 3. Execute the ``telemetry.yml`` playbook. ::
 
     cd telemetry
@@ -79,6 +79,39 @@ After applying the ``telemetry.yml`` configuration using the Kafka collection ty
          --consumer.config /tmp/client.properties
 
     .. note:: Metrics visualization using Grafana is not supported for iDRAC telemetry metrics on service cluster.
+
+
+View iDRAC telemetry collected by VictoriaMetrics
+====================================================
+
+After applying the ``telemetry.yml`` configuration using the VictoriaMetrics
+collection type, follow these steps to verify and view the collected telemetry:
+
+    1. Run the following command to verify that the VictoriaMetrics pod is running::
+
+        kubectl get pods -n telemetry -o wide -l app=victoriametrics
+
+        .. image:: ../images/victoria_metrics_pod.png
+
+    2. Run the following command to verify that the VictoriaMetrics service is running::
+
+        kubectl get service -n telemetry -o wide -l app=victoriametrics
+
+        .. image:: ../images/victoria_metrics_service.png
+
+    3. Note the **External IP** and **port number** of the VictoriaMetrics service. The **External IP** and **port number** will be used to access the VictoriaMetrics UI (VMUI).
+
+4. Access the VictoriaMetrics UI in a web browser using::
+
+        http://<VictoriaMetrics service External-IP>:<VictoriaMetrics service port number>/vmui
+
+5. Filter and view telemetry metrics using queries in **VMUI**. For example, the following query displays detailed temperature readings for each hardware component::
+
+       {name="PowerEdge_TemperatureReading", FQDD!=""}
+
+       .. image:: ../images/victoria_metrics_vmui.png
+
+
 
 Accessing the ``mysqldb`` database
 ====================================
