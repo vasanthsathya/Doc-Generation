@@ -34,8 +34,10 @@ service_kube_control_plane_first_x86_64,Management,"* This ``functional_group`` 
 
 * The nodes included in this functional_group will have the necessary tools and configurations to configure Kubernetes control plane on service cluster.
 
+**Example**:
 ::
-        -name: ""service_kube_control_plane_first_x86_64""
+    functional_groups:
+      - name: ""service_kube_control_plane_first_x86_64""
         cluster_name: ""service_cluster""
          group:
             - grp3"
@@ -43,10 +45,12 @@ service_kube_control_plane_x86_64,Management,"* This functional_group is used to
 
 * The nodes included in this functional_group will have the necessary tools and configurations to configure additional Kubernetes control plane  to provide HA on service cluster.
 
+**Example**:
 ::
-     -name: ""service_kube_control_plane_x86_64""
-         cluster_name: ""service_cluster""
-          group:
+    functional_groups:
+       - name: ""service_kube_control_plane_x86_64""
+       cluster_name: ""service_cluster""
+        group:
             - grp4"
 Service Cluster Kubernetes worker node - ``service_kube_node_x86_64``,Management,"* * ``service_kube_node``  functional group: Service Cluster Kubernetes worker node groups can be provided in this  functional group.
 * This  functional group is used to configure the Kubernetes worker nodes on service cluster.
