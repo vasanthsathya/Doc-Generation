@@ -18,6 +18,7 @@ Configurations made by the ``discovery.yml`` playbook
 * Discovers all target servers.
 * Configures the boot script based on the functional groups.
 * Configures the cloud-init based on the functional groups.
+* Deploys iDRAC telemetry service on the service cluster.
 
 
 Playbook execution
