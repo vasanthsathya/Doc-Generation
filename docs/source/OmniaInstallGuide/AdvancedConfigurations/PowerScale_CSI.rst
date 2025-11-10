@@ -1,7 +1,7 @@
 Deploy CSI drivers for Dell PowerScale storage solutions
 ===========================================================
 
-Dell PowerScale is a flexible and secure scale-out NAS (network attached storage) solution designed to simplify storage requirements for AI and HPC workloads. To enable the PowerScale storage solution on the Kubernetes clusters, Omnia installs the Dell CSI PowerScale driver (version 2.14.0) on the nodes using helm charts. Once the PowerScale CSI driver is installed, the PowerScale nodes can be connected to the Kubernetes clusters for storage requirements.
+Dell PowerScale is a flexible and secure scale-out NAS (network attached storage) solution designed to simplify storage requirements for AI and HPC workloads. To enable the PowerScale storage solution on the Kubernetes clusters, Omnia installs the Dell CSI PowerScale driver (version 2.15.0) on the nodes using helm charts. Once the PowerScale CSI driver is installed, the PowerScale nodes can be connected to the Kubernetes clusters for storage requirements.
 To know more about the CSI PowerScale driver, `click here <https://dell.github.io/csm-docs/docs/getting-started/installation/kubernetes/powerscale/helm/>`_.
 
 .. note:: Omnia doesn't configure any PowerScale device via OneFS (operating system for PowerScale). Omnia configures the deployed Kubernetes cluster to interact with the PowerScale storage.
@@ -34,7 +34,7 @@ Prerequisites
 
 3. Verify that the PowerScale system is operational.
 
-4. Download the ``secret.yaml`` file template from this `link <https://github.com/dell/csi-powerscale/blob/release/v2.14.0/samples/secret/secret.yaml>`_.
+4. Download the ``secret.yaml`` file template from this `link <https://github.com/dell/csi-powerscale/blob/release/v2.15.0/samples/secret/secret.yaml.html>`_.
 
 5. Update the following parameters in the ``secret.yaml`` file as per your cluster details and keep the rest as default values. For example:
 
@@ -50,7 +50,7 @@ Prerequisites
 
 6. Download the ``values.yaml`` files template using the following command: ::
 
-    wget https://raw.githubusercontent.com/dell/helm-charts/csi-isilon-2.14.0/charts/csi-isilon/values.yaml
+    wget https://raw.githubusercontent.com/dell/helm-charts/csi-isilon-2.15.0/charts/csi-isilon/values.yaml
 
 7. Update the following parameters in the ``values.yaml`` file and keep the rest as default values. Refer the below sample values:
 
@@ -104,11 +104,11 @@ Prerequisites
 Steps
 --------------------------------------------
 
-1. Once ``secret.yaml`` and ``values.yaml`` is filled up with the necessary details, copy both files to any directory on the ``oim_core`` container. For example, ``/tmp/secret.yaml`` and ``/tmp/values.yaml``.
+1. Once ``secret.yaml`` and ``values.yaml`` is filled up with the necessary details, run the dicovery.yml to configure  the cluster with k8s and CSI in diskless mode.
 
 2. Add the ``csi_driver_powerscale`` entry along with the driver version to the ``/opt/omnia/input/project_default/software_config.json`` file: ::
 
-    {"name": "csi_driver_powerscale", "version":"v2.14.0", "arch": ["x86_64"]}
+    {"name": "csi_driver_powerscale", "version":"v2.15.0", "arch": ["x86_64"]}
 
  .. note:: By default, the ``csi_driver_powerscale`` entry is not present in the ``software_config.json``.
 
@@ -119,27 +119,20 @@ Steps
 
 4. Add the filepath of the ``secret.yaml`` and ``values.yaml`` file to the ``csi_powerscale_driver_secret_file_path`` and ``csi_powerscale_driver_values_file_path`` variables respectively, present in the ``/opt/omnia/input/project_default/omnia_config.yml`` file.
 
-5. Execute the ``omnia.yml`` or ``scheduler.yml`` playbook to install the PowerScale CSI driver on the ``service_cluster_k8s.yml`` to install the driver on the ``service_k8s_cluster``. See `High Availability <../RHEL_new/HighAvailability/index.html>`_.
+5. Execute the ``discovery.yml`` playbook to install the PowerScale CSI driver on the ``service_k8s_cluster``s. See `High Availability <../RHEL_new/HighAvailability/index.html>`_.  To check the prerequisites for ``discovery.yml``, see
 
   .. dropdown:: Service Kubernetes cluster
 
     ::
 
-      cd scheduler
-      ansible-playbook service_k8s_cluster.yml
+      cd discovery
+      ansible-playbook discovery.yml
 
-.. note:: After running ``omnia.yml`` playbook, the ``secret.yaml`` file will be encrypted. User can use below command to decrypt and edit it if required: 
-  ::
-
-    cd omnia
-    ansible-vault edit <secret.yaml filepath> --vault-password-file /opt/omnia/input/project_default/.csi_powerscale_secret_vault
-
-.. caution:: Do not delete the vault key file ``.csi_powerscale_secret_vault``, otherwise users will not be able to decrypt the ``secret.yaml`` file anymore.
 
 Expected Results
 ------------------
 
-* After the successful execution of the ``omnia.yml`` playbook, the PowerScale CSI driver is deployed in the isilon namespace.
+* After the successful execution of the ``discovery.yml`` playbook, the PowerScale CSI driver is deployed in the isilon namespace.
 * Along with PowerScale driver installation a storage class named **ps01** is also created. The details of the storage class are as follows: ::
 
     apiVersion: storage.k8s.io/v1
@@ -154,10 +147,12 @@ Expected Results
       AccessZone: < access zone mentioned in values.yaml file >
       Isipath: < isipath mentioned in values.yaml file >
       RootClientEnabled: "true"
+      AzServiceIP: <Powerscale endpoint mentioned in the ``secret.yml`` file without HTTP/ and HTTPS/>
       csi.storage.k8s.io/fstype: "nfs"
+      
 
-* If there are errors during CSI driver installation, the whole ``omnia.yml`` playbook execution does not stop or fail. It pauses for 30 seconds with CSI driver installation failure error message and then proceeds with rest of the playbook execution.
-* For an unsuccessful driver installation scenario, the user first needs to follow the manual removal steps mentioned below from the ``kube_control_plane``, and then re-run the ``omnia.yml`` playbook for CSI driver installation.
+* If there are errors during CSI driver installation, the whole ``discovery.yml`` playbook execution fails. Ensure that the prerequisites are met and rerun the ``disvoery.yml``.
+* For an unsuccessful driver installation scenario, the user first needs to follow the manual removal steps mentioned below from the ``kube_control_plane``, and then re-run the ``discovery.yml`` playbook for CSI driver installation.
 
 Post installation
 -------------------
@@ -268,7 +263,7 @@ Uninstallation
 
 To uninstall the PowerScale CSI driver manually, do the following:
 
-1. Login to the ``kube_control_plane``.
+1. Login to the ``service_kube_control_plane_first``.
 
 2. Execute the following command to switch to the ``dell-csi-helm-installer`` directory: ::
 
