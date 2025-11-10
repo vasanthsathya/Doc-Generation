@@ -22,18 +22,16 @@ Prerequisites
             ],
 
          "service_k8s": [
+                {"name": "service_kube_control_plane_first"},
                 {"name": "service_kube_control_plane"},
-                {"name": "service_etcd"},
                 {"name": "service_kube_node"}
         ]
 
     }
  
-* Omnia supports only Kubernetes version 1.31.4.
+* Omnia supports only Kubernetes version 1.34.1.
 * If you want to install CSI PowerScale driver, ensure that you provide the required values. Click `Deploy CSI drivers for Dell PowerScale storage solutions <../../AdvancedConfigurations/PowerScale_CSI.html>`_ for more information.
 * Ensure that there are a minimum of  three ``kube_control_planes``.
-* Ensure that the ``kube_control_planes`` has a full-featured RHEL operating system (OS) installed. 
-* The ``kube_control_planes`` has internet access to download necessary packages for cluster deployment and configuration.
 * Ensure that the nfs server is reachable on all the diskless and diskfull nodes.
 * The ``kube_control_planes`` must  be equipped with two active Network Interface Cards (NICs):  
 
@@ -48,9 +46,6 @@ Prerequisites
         
         /<your_server_share_path>  *(rw,sync,no_root_squash,no_subtree_check)
 
-* Ensure that the following ``kube_control_planes`` hostname prerequisites are met. See `Prerequisites <https://omnia-devel.readthedocs.io/en/latest/Appendices/hostnamereqs.html>`_.
-
-    .. include:: ../../Appendices/hostnamereqs.rst
 
 Steps
 =======
@@ -90,55 +85,14 @@ Steps
    :header-rows: 1
    :keepspace:
 
-4. Run ``ansible-playbook utils/connect_external_server.yml -i <inv>``. 
-    
-    This playbook is used to set up passwordless SSH to the ``kube_control_planes`` and updating the repositories and plup repository certificates. The Ansible inventory must be created using the Admin network IPs of the control plane nodes because these IPs are used for Kubernetes deployment. See the following sample:
-   
 
-   Sample for inv:
+4. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. See `Build cluster node images <../build_images.html>`_.
 
-    ::
-
-        [kube_control_plane]
-        10.5.0.211  ansible_user=root ansible_ssh_pass=****
-        10.5.0.212  ansible_user=root ansible_ssh_pass=****
-        10.5.0.213  ansible_user=root ansible_ssh_pass=****        
-
-5. Run ``ansible-playbook service_k8s_cluster.yml -i <inv>``. 
-    
-    This playbook deploys the service_k8s cluster with diskfull kube controller nodes and also extracts the configuration required for diskless kube nodes. It generates the kubeadm token and cloud-init vars for diskless kube node.  The token expires after 24 hours. The step 5 and step 6 need to be executed within 24 hours and pxe boot also needs to be completed. If the token gets expired , use the script ``ansible-playbook scheduler/generate_token_and_pod_status.yml -i <inv>  --tags kubeadm_token`` to generate the new token and run ``discovery.yml`` again and pxe boot the nodes. 
-
-Once all the required input files are filled up, use the below commands to set up Kubernetes on the service cluster: ::
-
-    ssh omnia_core
-    ansible-playbook omnia.yml - i <inv>
-    
-    OR,
-
-    cd /omnia/scheduler
-    ansible-playbook service_k8s_cluster.yml - i <inv>
-
-
-    Sample for inv:
-     
-
-        [kube_control_plane]
-        10.5.0.211
-        10.5.0.212
-        10.5.0.213 
-        [etcd]
-        10.5.0.211
-        10.5.0.212
-        10.5.0.213
-
-
-6. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. See `Build cluster node images <../build_images.html>`_.
-
-7. Run ``discovery.yml`` playbook to discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups. See `Discover cluster nodes <../Provision/index.html>`_
+5. Run ``discovery.yml`` playbook to discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups. See `Discover cluster nodes <../Provision/index.html>`_
     
     After successfully running the ``discovery.yml`` playbook, you can either manually PXE boot the nodes or use the ``set_pxe_boot.yml`` playbook. PXE booting allows the nodes to load diskless images from the Omnia Infrastructure Manager (OIM). For detailed steps on using ``set_pxe_boot.yml``, see :ref:`set-pxe-boot-order`.
 
-8. After all the diskless nodes are pxebooted, use the utility to check the status of service cluster nodes and pods: ``ansible-playbook scheduler/generate_token_and_pod_status.yml -i <inv>  --tags pod_status``
+6. After all the diskless nodes are pxebooted, use the utility to check the status of service cluster nodes and pods: ``ansible-playbook scheduler/generate_token_and_pod_status.yml -i <inv>  --tags pod_status``
 
 
 
@@ -157,6 +111,17 @@ After deploying Kubernetes, the following additional packages are installed on t
     Click `here <https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner>`_ for more information.
 
 
+2. **whereabouts-cni-plugin**
+
+Whereabouts is an IP address management (IPAM) CNI plugin that assigns dynamic IP addresses cluster-wide in Kubernetes, ensuring no IP address collisions across nodes. It uses a range of IPs and tracks assignments with backends like etcd or Kubernetes Custom Resources. The details of the plugin is present in the ``omnia/input/config/x86_64/<cluster os>/<os version>/service_k8s.json`` file.
+
+Click `here <https://github.com/k8snetworkplumbingwg/whereabouts>`_ for more information.
+
+3. **multus-cni-plugin**
+
+Multus is a Kubernetes CNI (Container Network Interface) plugin that enables pods to have multiple network interfaces. It acts as a meta-plugin, allowing the use of multiple CNI plugins (for example, Flannel, Calico, Macvlan) within the same cluster. Omnia installs the multus plugin as part of omnia.yml or scheduler.yml execution. The details of the plugin is present in the omnia/input/config/<cluster os>/<os version>/k8s.json file.
+
+Click `here <https://github.com/k8snetworkplumbingwg/multus-cni>`_ for more information.
 
 Next step
 ===========
