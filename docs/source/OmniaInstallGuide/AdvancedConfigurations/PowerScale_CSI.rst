@@ -119,7 +119,7 @@ Steps
 
 4. Add the filepath of the ``secret.yaml`` and ``values.yaml`` file to the ``csi_powerscale_driver_secret_file_path`` and ``csi_powerscale_driver_values_file_path`` variables respectively, present in the ``/opt/omnia/input/project_default/omnia_config.yml`` file.
 
-5. Execute the ``discovery.yml`` playbook to install the PowerScale CSI driver on the ``service_k8s_clusters``. See `High Availability <../RHEL_new/HighAvailability/index.html>`_.  To check the prerequisites for ``discovery.yml``, see 
+5. Execute the ``discovery.yml`` playbook to install the PowerScale CSI driver on the ``service_k8s_clusters``. See `High Availability <../RHEL_new/HighAvailability/index.html>`_.  To check the prerequisites for ``discovery.yml``, see `Discovery <../RHEL_new/Provision/index.html>`_ and `Prerequisites <../RHEL_new/Provision/provisionprereqs.html>`_
 
   .. dropdown:: Service Kubernetes cluster
 
