@@ -34,7 +34,7 @@ Prerequisites
 
 3. Verify that the PowerScale system is operational.
 
-4. Download the ``secret.yaml`` file template from this `link <https://github.com/dell/csi-powerscale/blob/release/v2.15.0/samples/secret/secret.yaml.html>`_.
+4. Download the ``secret.yaml`` file template from this `link <https://github.com/dell/csi-powerscale/blob/release/v2.15.0/samples/secret/secret.yaml>`_.
 
 5. Update the following parameters in the ``secret.yaml`` file as per your cluster details and keep the rest as default values. For example:
 
