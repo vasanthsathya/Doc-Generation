@@ -104,7 +104,7 @@ Prerequisites
 Steps
 --------------------------------------------
 
-1. Once ``secret.yaml`` and ``values.yaml`` is filled up with the necessary details, run the dicovery.yml to configure  the cluster with k8s and CSI in diskless mode.
+1. Once ``secret.yaml`` and ``values.yaml`` are filled up with the necessary details, run the ``discovery.yml`` to configure the cluster with k8s and CSI in diskless mode.
 
 2. Add the ``csi_driver_powerscale`` entry along with the driver version to the ``/opt/omnia/input/project_default/software_config.json`` file: ::
 
