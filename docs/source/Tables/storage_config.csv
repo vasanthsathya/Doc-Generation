@@ -1,4 +1,4 @@
-﻿Variables,Details
+﻿Variables,Details,s
 "**nfs_client_params**
 
      ``JSON List``
@@ -8,15 +8,15 @@
 * server_share_path—Provide server share path of the NFS Server. **Default value**: ``/mnt/share/omnia``
 * client_share_path—Path where nfs server contents needs to be mounted. The default value is /opt/omnia. **Default value**: ``/share_omnia``
 * client_mount_options—Provide the mount options. **Possible values are**: ``nosuid``, ``rw``, ``sync``, ``hard``, ``intr``
-* nfs_name—Provide the name of the NFS share. **Default value**: ``nfs_slurm``. **Type**: ``string``   
+* nfs_name—Provide the name of the NFS share. **Default value**: ``nfs_slurm`` or ``nfs_k8s``. **Type**: ``string``   
 
 **Sample**::
 
           nfs_client_params:
                 {
-                      nfs_name: ""nfs_storage_default""
+                      nfs_name: ""nfs_k8s or nfs_slurm""
                       server_ip: """", # Provide the IP of the NFS server
                       server_share_path: """", # Provide server share path of the NFS Server
                       client_share_path: /opt/omnia,
                       client_mount_options: ""nosuid,rw,sync,hard,intr"",
-               }"
+               }",

@@ -10,6 +10,8 @@ In Omnia, nodes are organized based on their assigned **groups** and **functiona
 * A **functional group** defines what a node does in the system. It is a way to categorize nodes based on their functionality. Functional groups help group nodes that perform similar tasks, making it easier to manage and assign resources.
   For example, a node could belong to a functional group such as:
 
+  - **Service Kube Control Plane First** 
+  - **Service Kube Control Plane** 
   - **Service Kube Node** 
   - **Login Node** 
   - **Login Compiler Node** 
