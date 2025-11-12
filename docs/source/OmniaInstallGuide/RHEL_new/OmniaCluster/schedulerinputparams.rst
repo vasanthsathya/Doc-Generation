@@ -21,21 +21,18 @@ The ``service_k8s_cluster.yml`` playbook is dependent on the inputs provided to 
       :keepspace:
 
 ::
-
-   service_k8s_cluster:
-     - cluster_name: service_cluster
-       deployment: true
-       k8s_cni: "calico"
-       pod_external_ip_range: ""
-       k8s_service_addresses: "10.233.0.0/18"
-       k8s_pod_network_cidr: "10.233.64.0/18"
-       topology_manager_policy: "none"
-       topology_manager_scope: "container"
-       k8s_offline_install: true
-       csi_powerscale_driver_secret_file_path: ""
-       csi_powerscale_driver_values_file_path: ""
-       nfs_storage_name: ""
  
+   service_k8s_cluster:
+      - cluster_name: service_cluster
+         deployment: true
+         k8s_cni: "calico"
+         pod_external_ip_range: ""
+         k8s_service_addresses: "10.233.0.0/18"
+         k8s_pod_network_cidr: "10.233.64.0/18"
+         nfs_storage_name: "nfs_k8s"
+         csi_powerscale_driver_secret_file_path: ""
+         csi_powerscale_driver_values_file_path: "
+
 
 .. csv-table:: Parameters for slurm setup
    :file: ../../../Tables/scheduler_slurm.csv
@@ -71,6 +68,15 @@ See the following sample:
 
 ``/opt/omnia/input/project_default/high_availability_config.yml``
 ----------------------------------------------------------
+
+See the following sample:
+::
+
+      service_k8s_cluster_ha:
+        - cluster_name: service_cluster
+          enable_k8s_ha: true
+          virtual_ip_address: "172.16.107.1"
+
 
 .. csv-table:: Parameters for Service Cluster HA
         :file: ../../../Tables/service_k8s_high_availability.csv

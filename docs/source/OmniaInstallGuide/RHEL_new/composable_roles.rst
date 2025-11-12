@@ -10,6 +10,8 @@ In Omnia, nodes are organized based on their assigned **groups** and **functiona
 * A **functional group** defines what a node does in the system. It is a way to categorize nodes based on their functionality. Functional groups help group nodes that perform similar tasks, making it easier to manage and assign resources.
   For example, a node could belong to a functional group such as:
 
+  - **Service Kube Control Plane First** 
+  - **Service Kube Control Plane** 
   - **Service Kube Node** 
   - **Login Node** 
   - **Login Compiler Node** 
@@ -58,25 +60,29 @@ The following table lists the functional groups along with the recommended softw
 .. caution:: Ensure that the ``software_config.json`` file contains all required inputs for the software to be deployed on each functional group.  For more information, see `Input parameters for Local Repositories <https://omnia-devel.readthedocs.io/en/latest/OmniaInstallGuide/RHEL_new/CreateLocalRepo/InputParameters.html>`_.
 
 
-+----------------------------------+--------------------------------------------------------------------------------------+
-| Functional Group Name            | Recommended Software                                                                 |
-+==================================+======================================================================================+
-| service_kube_node_x86_64         | service_k8s.json, nfs.json,                                                          |
-+----------------------------------+--------------------------------------------------------------------------------------+
-| slurm_control_node_x86_64        | slurm_custom.json, nfs.json, openldap.json                                           |
-+----------------------------------+--------------------------------------------------------------------------------------+
-| slurm_node_x86_64                | slurm_custom.json, nfs.json, openldap.json                                           |                                               
-+----------------------------------+--------------------------------------------------------------------------------------+
-| slurm_node_aarch64               | slurm_custom.json, nfs.json, openldap.json                                           |
-+----------------------------------+--------------------------------------------------------------------------------------+
-| login_node_x86_64                | slurm_custom.json, nfs.json, openldap.json                                           |
-+----------------------------------+--------------------------------------------------------------------------------------+
-| login_node_aarch64               | slurm_custom.json, nfs.json, openldap.json                                           |
-+----------------------------------+--------------------------------------------------------------------------------------+
-| login_compiler_node_x86_64       | slurm_custom.json, nfs.json, openldap.json, ucx.json, openmpi.json                   |
-+----------------------------------+--------------------------------------------------------------------------------------+
-| login_compiler_node_aarch64      | slurm_custom.json, nfs.json, openldap.json, ucx.json, openmpi.json                   |                                                                               
-+----------------------------------+--------------------------------------------------------------------------------------+
++-----------------------------------------+--------------------------------------------------------------------------------------+
+| Functional Group Name                   | Recommended Software                                                                 |
++=========================================+======================================================================================+
+| service_kube_control_plane_first_x86_64 | service_k8s.json and nfs.json                                                        |
++-----------------------------------------+--------------------------------------------------------------------------------------+
+| service_kube_control_plane_x86_64       | service_k8s.json and nfs.json                                                       |
++-----------------------------------------+--------------------------------------------------------------------------------------+
+| service_kube_node_x86_64                | service_k8s.json, nfs.json                                                           |
++-----------------------------------------+--------------------------------------------------------------------------------------+
+| slurm_control_node_x86_64               | slurm_custom.json, nfs.json, openldap.json                                           |
++-----------------------------------------+--------------------------------------------------------------------------------------+
+| slurm_node_x86_64                       | slurm_custom.json, nfs.json, openldap.json                                           |                                               
++-----------------------------------------+--------------------------------------------------------------------------------------+
+| slurm_node_aarch64                      | slurm_custom.json, nfs.json, openldap.json                                           |
++-----------------------------------------+--------------------------------------------------------------------------------------+
+| login_node_x86_64                       | slurm_custom.json, nfs.json, openldap.json                                           |
++-----------------------------------------+--------------------------------------------------------------------------------------+
+| login_node_aarch64                      | slurm_custom.json, nfs.json, openldap.json                                           |
++-----------------------------------------+--------------------------------------------------------------------------------------+
+| login_compiler_node_x86_64              | slurm_custom.json, nfs.json, openldap.json, ucx.json, openmpi.json                   |
++-----------------------------------------+--------------------------------------------------------------------------------------+
+| login_compiler_node_aarch64             | slurm_custom.json, nfs.json, openldap.json, ucx.json, openmpi.json                   |                                                                               
++-----------------------------------------+--------------------------------------------------------------------------------------+
 
 Sample
 -------
