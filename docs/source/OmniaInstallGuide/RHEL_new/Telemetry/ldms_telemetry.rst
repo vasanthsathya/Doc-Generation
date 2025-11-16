@@ -1,5 +1,5 @@
 ================================================
-Deploy LDMS Telemetry 
+Configure deployment required for LDMS Telemetry 
 ================================================
 
 Using Omnia, you can deploy Lightweight Distributed Metric Service (LDMS) to collect in-band telemetry from Slurm clusters. The deployment includes installing LDMS producers on Slurm nodes, deploying LDMS aggregator and store components on Service Kubernetes nodes, and integrating LDMS with Kafka for downstream telemetry processing.

@@ -1,5 +1,5 @@
 =======================================================
-Deploy iDRAC telemetry service on the service cluster
+Configure deployment required for iDRAC telemetry service
 =======================================================
 
 To deploy telemetry service on the service cluster and collect iDRAC telemetry data using Kafka, refer to the following guide.
