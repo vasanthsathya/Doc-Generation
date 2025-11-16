@@ -64,12 +64,10 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
             "repo_config": "always",
             "softwares": [
                 {"name": "default_packages", "arch": ["x86_64","aarch64"]},
-                {"name": "openldap", "arch": ["x86_64"]},
-                {"name": "nfs", "arch": ["x86_64","aarch64"]},
+                {"name": "openldap", "arch": ["x86_64","aarch64"]},
+                {"name": "service_k8s","version": "1.34.1", "arch": ["x86_64"]},
                 {"name": "slurm_custom", "arch": ["x86_64","aarch64"]},
-                {"name": "service_k8s", "version": "1.31.4", "arch": ["x86_64"]},
-                {"name": "ucx", "version": "1.19.0", "arch": ["x86_64"]},
-                {"name": "openmpi", "version": "5.0.8", "arch": ["x86_64"]}
+                {"name": "ldms", "arch": ["x86_64","aarch64"]}
             ],
             "slurm_custom": [
                 {"name": "slurm_control_node"},
@@ -78,12 +76,13 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
                 {"name": "login_compiler_node"}
             ],
             "service_k8s": [
+                {"name": "service_kube_control_plane_first"},
                 {"name": "service_kube_control_plane"},
-                {"name": "service_etcd"},
                 {"name": "service_kube_node"}
             ]
+
         }
- 
+        
 
     * For additional_software support, update the input/config/{arch}/rhel/10.0/additional_software.json file with the required {arch} data, where {arch} can either be x86_64 or aarch64, or a combination of both.
 

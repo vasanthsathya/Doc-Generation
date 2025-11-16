@@ -14,6 +14,9 @@ victoria_configurations > ``persistence_size``,Conditional Mandatory,"* **Type**
 * The amount of storage allocated for VictoriaMetrics persistent volume.
 * **Accepted values**: a number followed by Ki, Mi, Gi, Ti, Pi, or Ei.
 * **Default value**: 8Gi"
+victoria_configurations > ``retention_period`,Conditional Mandatory,"* **Type**: Integer
+* The number of hours to retain Victoria logs before they are deleted.
+* **Default value**:  168 (7 days)"
 kafka_configurations > ``persistence_size``,Conditional Mandatory,"* **Type**: Integer
 * The amount of storage allocated for Kafka's persistent volume.
 * **Accepted values**: a number followed by Ki, Mi, Gi, Ti, Pi, or Ei.
@@ -31,3 +34,60 @@ kafka_configurations > ``topic_partitions``,Conditional Mandatory,"* **Type**: I
 * The number of partitions for each Kafka topic.
 * Increasing this can improve throughput but also increases storage or overhead.
 * **Default value**:  1"
+LDMS port configurations > ``ldms_agg_port``,Conditional Mandatory,"* **Type**: Integer
+* Base TCP port for LDMS aggregator daemons. The default port is 6001.
+* Ports for additional aggregators increment sequentially from 6001, 6002, 6003
+* **Default value**:  6001"
+LDMS port configurations > ``ldms_store_port``,Conditional Mandatory,"* **Type**: Integer
+* TCP port used by all LDMS store daemons. The default port is 6001.
+* All stores use the port 6001, isolated by pod.
+* **Default value**:  6001"
+LDMS port configurations > ``ldms_sampler_port``,Conditional Mandatory,"* **Type**: Integer
+* Port on Slurm compute, login, controller nodes where LDMS samplers (producers) listen. The default port is 10001.
+* Aggregators connect to this port to pull metrics.
+* **Default value**:  10001"
+ldms_sampler_configurations > meminfo,Mandatory,"* Collects memory usage metrics.
+* **plugin_name:** ``meminfo``
+* **config_parameters** ``""""``
+*  ``interval=1000000``  indicates memory data metrics collected every 1 second.
+* **activation_parameters** ``interval=1000000``
+"
+ldms_sampler_configurations > procstat2,Mandatory,"* Collects CPU and kernel scheduler metrics.
+* **plugin_name:** ``procstat2``
+* **config_parameters** ``""""``
+*  ``interval=1000000``  indicates CPU data metrics collected every 1 second.
+* **activation_parameters** ``interval=1000000``
+"
+ldms_sampler_configurations > vmstat,Mandatory,"* Collects virtual memory and system activity metrics.
+* **plugin_name:** ``vmstat``
+* **config_parameters** ``""""``
+*  ``interval=1000000``  indicates virtual memory and system activity  metrics collected every 1 second.
+* **activation_parameters** ``interval=1000000``
+"
+ldms_sampler_configurations > loadavg,Mandatory,"* Collects CPU load averages metrics.
+* **plugin_name:** ``loadavg``
+* **config_parameters** ``""""``
+*  ``interval=1000000``  indicates CPU load averages metrics collected every 1 second.
+* **activation_parameters** ``interval=1000000``
+"
+ldms_sampler_configurations > slurm_sampler,Mandatory,"* Collects Slurm job and task metrics.
+* **plugin_name:** ``loadavg``
+* component_id=2, stream=slurm, job_count=8, task_count=8
+* component_id=2, if not specified default value is 0
+* stream=slurm indicates the data stream type
+* job_count=8 if not specified, the default value is 8
+* task_count=8 specify the number of jobs and tasks to monitor 
+* **config_parameters** ``""component_id=2 stream=slurm job_count=8 task_count=8""``
+* ``offset=0``: indicates the time offset for data collection
+*  ``interval=1000000``:  indicates Slurm job and task metrics metrics collected every 1 second.
+* **activation_parameters** ``interval=1000000``
+"
+ldms_sampler_configurations > procnetdev2,Mandatory,"* Collects network interface metrics
+* **plugin_name:** ``loadavg``
+* ifaces=eth0,eth1
+* ifaces=eth0,eth1 specifies the network interfaces to monitor
+* if not specified, all interfaces will be monitored **config_parameters:**:``""""``
+* ``offset=0``: indicates the time offset for data collection.
+* ``interval=1000000``:  indicates network interface metrics collected every 1 second.
+* **activation_parameters** ``interval=1000000``
+"
