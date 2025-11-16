@@ -1,4 +1,4 @@
-Omnia Common Prerequisites
+Omnia common prerequisites
 ==========================
 
 This section outlines the key prerequisites for setting up Omnia components, including

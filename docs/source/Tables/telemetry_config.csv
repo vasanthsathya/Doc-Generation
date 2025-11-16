@@ -71,7 +71,7 @@ ldms_sampler_configurations > loadavg,Mandatory,"* Collects CPU load averages me
 * **activation_parameters** ``interval=1000000``
 "
 ldms_sampler_configurations > slurm_sampler,Mandatory,"* Collects Slurm job and task metrics.
-* **plugin_name:** ``loadavg``
+* **plugin_name:** ``slurm_sampler``
 * component_id=2, stream=slurm, job_count=8, task_count=8
 * component_id=2, if not specified default value is 0
 * stream=slurm indicates the data stream type
@@ -83,7 +83,7 @@ ldms_sampler_configurations > slurm_sampler,Mandatory,"* Collects Slurm job and 
 * **activation_parameters** ``interval=1000000``
 "
 ldms_sampler_configurations > procnetdev2,Mandatory,"* Collects network interface metrics
-* **plugin_name:** ``loadavg``
+* **plugin_name:** ``procnetdev2``
 * ifaces=eth0,eth1
 * ifaces=eth0,eth1 specifies the network interfaces to monitor
 * if not specified, all interfaces will be monitored **config_parameters:**:``""""``
