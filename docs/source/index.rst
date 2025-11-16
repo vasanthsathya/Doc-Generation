@@ -60,7 +60,6 @@ For a better understanding of what Omnia does, check out the following:
     bestpractices
     OmniaInstallGuide/index
     Utils/index
-    Telemetry/index
     Logging/index
     Troubleshooting/index
     SecurityConfigGuide/index
