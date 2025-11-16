@@ -1,4 +1,4 @@
-Prepare Telemetry requirements
+Step 12: Prepare Telemetry requirements
 ================================
 Omnia enables stateless telemetry collection using both iDRAC Telemetry and LDMS (Lightweight Distributed Metric Service) in HPC environments. This approach ensures that telemetry components are dynamically provisioned without requiring modifications to the base image, providing flexible deployment and simplified lifecycle management.
 
