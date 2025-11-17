@@ -1,4 +1,4 @@
-Step 9: High Availability
+Step 10: High Availability
 ============================
 
 .. toctree::

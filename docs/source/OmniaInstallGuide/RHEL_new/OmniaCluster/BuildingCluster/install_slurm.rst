@@ -1,4 +1,4 @@
-Step 10: Set up Slurm on nodes
+Step 11: Set up Slurm on nodes
 ==============
 
 **Prerequisites**
