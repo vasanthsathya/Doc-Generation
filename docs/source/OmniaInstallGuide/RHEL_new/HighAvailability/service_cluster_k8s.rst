@@ -62,7 +62,6 @@ Steps
 
 3. Fill  the ``omnia_config.yml``,  ``high_availability_config.yml`` (for `service cluster HA <../HighAvailability/service_cluster_ha.html>`_), and ``storage_config.yml``. The nfs_name mentioned in ``storage_config.yml`` should match the ``nfs_storage_name`` of the entries for the ``service_k8s_cluster`` in ``omnia_config.yml`` where deployment is set to true.
    See `Input parameters for the cluster <../OmniaCluster/schedulerinputparams.html>`_. The NFS share is utilized by the Kubernetes cluster to mount necessary resources. See the following sample:
-.. note:: In case of CSI support, ensure that the ``server_share_path`` must be the same as the isiPath value in ``values.yml`` file and the ``server_ip`` should be the Powerscale NFS server IP.
     
     ::
 
@@ -75,7 +74,8 @@ Steps
            nfs_name: nfs_k8s
         }
        
-
+.. note:: In case of CSI support, ensure that the ``server_share_path`` must be the same as the isiPath value in ``values.yml`` file and the ``server_ip`` should be the Powerscale NFS server IP.
+    
 .. csv-table:: omnia_config.yml
    :file: ../../../../Tables/scheduler_k8s_rhel.csv
    :header-rows: 1
