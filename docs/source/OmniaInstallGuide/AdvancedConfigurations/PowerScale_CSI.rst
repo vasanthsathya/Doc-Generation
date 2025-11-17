@@ -106,8 +106,11 @@ Prerequisites
         2. kubectl create secret generic isilon-creds -n isilon --from-file=config="/opt/omnia/csi-driver-powerscale/secret.yaml"
         
         3. kubectl apply -f /opt/omnia/csi-driver-powerscale/empty_isilon-certs.yaml
+        
         4. cd csi-powerscale/external-snapshotter/
+
             kubectl apply -f client/config/crd/
+
             kubectl apply -f deploy/kubernetes/snapshot-controller/
         
         5. ./csi-install.sh --namespace isilon --values /opt/omnia/csi-driver-powerscale/values.yaml
