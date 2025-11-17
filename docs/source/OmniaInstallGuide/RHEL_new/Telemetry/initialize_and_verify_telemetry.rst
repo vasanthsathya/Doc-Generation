@@ -22,7 +22,7 @@ To verify that the iDRAC Telemetry, Kafka, LDMS, and VictoriaMetrics pods are ru
     * LDMS aggregator and store pods
     * VictoriaMetrics and vmagent pods
 
-The following is the sample output file::
+The following is the sample output file:
 
 +-----------------------------------------------+---------+-----------+-------------+-------+
 | NAME                                          | READY   | STATUS    | RESTARTS    | AGE   |
@@ -82,7 +82,7 @@ To verify kubernetis telmetry services attached to the iDRAC Telemetry, Kafka, L
     * nersc-ldms-store
     * victoria-loadbalancer
 
-The following is the sample output file::
+The following is the sample output file:
 
 +-------------------------------------------+---------------+----------------+----------------+----------------------------------------------+-------+
 | NAME                                      | TYPE          | CLUSTER-IP     | EXTERNAL-IP    | PORT(S)                                      | AGE   |
