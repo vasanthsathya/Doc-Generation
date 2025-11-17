@@ -28,7 +28,7 @@ PowerScale SmartConnect [Optional]
 Prerequisites
 --------------
 
-1. On the storage network, make sure DHCP is enabled, but the gateway IP for storage must not be assigned by the DHCP server.
+1. Ensure that the storage and data networks are configured correctly via DHCP. 
 
 2. Upstream DNS resolution must be available from both the admin (PXE) and storage networks.
 
@@ -40,7 +40,7 @@ Prerequisites
 
     *	clusterName: <desired cluster name>
     *	endpoint: <endpoint_IP>
-    .. note:: If PowerScale SmartConnect hostname is configured, user can provide the PowerScale hostname for ``endpoint``. Otherwise user can provide PowerScale IP address as well.
+    .. note:: If PowerScale SmartConnect hostname is configured, user can provide the PowerScale hostname for ``endpoint``. Otherwise user can provide PowerScale IP address as well. Ensure that the Powerscale hostname is reachable from OIM.
     *	endpointPort: <endpoint_port>
     *	isDefault: true
 
@@ -99,7 +99,21 @@ Prerequisites
     * Snapshot: true
     * skipCertificateValidation: true
 
-.. note:: Once the PowerScale CSI driver has been deployed, the parameters in the ``values.yaml`` can't be changed. If the user wants to modify the ``values.yaml`` file, they must first uninstall the PowerScale CSI driver from the cluster and then re-install with the updated parameters.
+.. note:: Once the PowerScale CSI driver has been deployed, the parameters in the ``values.yaml`` can't be changed. If the user wants to modify the ``values.yaml`` file, they must first uninstall the PowerScale CSI driver from the steps mentioned in the Uninstallation section and then manually re-install the Powerscale with the following commands::
+
+        1. kubectl create namespace isilon
+ 
+        2. kubectl create secret generic isilon-creds -n isilon --from-file=config="/opt/omnia/csi-driver-powerscale/secret.yaml"
+        
+        3. kubectl apply -f /opt/omnia/csi-driver-powerscale/empty_isilon-certs.yaml
+        4. cd csi-powerscale/external-snapshotter/
+            kubectl apply -f client/config/crd/
+            kubectl apply -f deploy/kubernetes/snapshot-controller/
+        
+        5. ./csi-install.sh --namespace isilon --values /opt/omnia/csi-driver-powerscale/values.yaml
+        
+        6. kubectl apply -f /opt/omnia/csi-driver-powerscale/ps_storage_class.yml
+ 
 
 Steps
 --------------------------------------------
@@ -151,8 +165,21 @@ Expected Results
       csi.storage.k8s.io/fstype: "nfs"
       
 
-* If there are errors during CSI driver installation, the whole ``discovery.yml`` playbook execution fails. Ensure that the prerequisites are met and rerun the ``disvoery.yml``.
-* For an unsuccessful driver installation scenario, the user first needs to follow the manual removal steps mentioned below from the ``kube_control_plane``, and then re-run the ``discovery.yml`` playbook for CSI driver installation.
+* If there are errors during CSI driver installation, uninstall the CSI driver first as per the steps mentioned in the Uninstallation section. Ensure that the prerequisites are met. Manually re-install the Powerscale with the following commands::
+
+        1. kubectl create namespace isilon
+ 
+        2. kubectl create secret generic isilon-creds -n isilon --from-file=config="/opt/omnia/csi-driver-powerscale/secret.yaml"
+        
+        3. kubectl apply -f /opt/omnia/csi-driver-powerscale/empty_isilon-certs.yaml
+        4. cd csi-powerscale/external-snapshotter/
+            kubectl apply -f client/config/crd/
+            kubectl apply -f deploy/kubernetes/snapshot-controller/
+        
+        5. ./csi-install.sh --namespace isilon --values /opt/omnia/csi-driver-powerscale/values.yaml
+        
+        6. kubectl apply -f /opt/omnia/csi-driver-powerscale/ps_storage_class.yml
+
 
 Post installation
 -------------------

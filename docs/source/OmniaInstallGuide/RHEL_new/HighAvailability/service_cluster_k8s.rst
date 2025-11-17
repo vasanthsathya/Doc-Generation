@@ -35,8 +35,9 @@ Prerequisites
 * Ensure that the nfs server is reachable on all the diskless nodes.
 * The nodes must be equipped with two active Network Interface Cards (NICs):  
 
-  * One connected to the public network.  It is used for accessing the internet.
-  * One dedicated to internal cluster communication. It is used for internal cluster communication, Kubernetes deployment activities, and for accessing the Pulp repositories hosted on the OIM. The Admin interface must be assigned an IP address from the admin network range and must be reachable from the OIM.
+    * One dedicated to internal cluster communication. It is used for internal cluster communication, Kubernetes deployment activities, and for accessing the Pulp repositories hosted on the OIM. The Admin interface must be assigned an IP address from the admin network range and must be reachable from the OIM.
+    * If you want to install a CSI driver, ensure that the storage and data networks are configured correctly via DHCP. 
+  
 * To use NFS for service Kubernetes cluster, ensure the following prerequisites are met:
 
   * The NFS share has 755 permissions and ``rw,sync,no_root_squash,no_subtree_check`` are enabled on the mounted NFS share. 
@@ -60,8 +61,8 @@ Steps
    :keepspace:
 
 3. Fill  the ``omnia_config.yml``,  ``high_availability_config.yml`` (for `service cluster HA <../HighAvailability/service_cluster_ha.html>`_), and ``storage_config.yml``. The nfs_name mentioned in ``storage_config.yml`` should match the ``nfs_storage_name`` of the entries for the ``service_k8s_cluster`` in ``omnia_config.yml`` where deployment is set to true.
-   See `Input parameters for the cluster <../OmniaCluster/schedulerinputparams.html>`_. See the following sample:
-
+   See `Input parameters for the cluster <../OmniaCluster/schedulerinputparams.html>`_. The NFS share is utilized by the Kubernetes cluster to mount necessary resources. See the following sample:
+.. note:: In case of CSI support, ensure that the ``server_share_path`` must be the same as the isiPath value in ``values.yml`` file and the ``server_ip`` should be the Powerscale NFS server IP.
     ::
 
         nfs_client_params:
