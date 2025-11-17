@@ -7,7 +7,7 @@ To initiate the telemetry on the service cluster, run the ``telemetry.yml`` play
     ansible-playbook telemetry.yml -i inventory
 
 Verify Telemetry-Related Pods Are Running
-==========================================
+-------------------------------------------
 
 To verify that the iDRAC Telemetry, Kafka, LDMS, and VictoriaMetrics pods are running, do the following:::
 
@@ -22,7 +22,7 @@ To verify that the iDRAC Telemetry, Kafka, LDMS, and VictoriaMetrics pods are ru
     * LDMS aggregator and store pods
     * VictoriaMetrics and vmagent pods
 
-The following is the sample output file:
+The following is the sample output file::
 
 +-----------------------------------------------+---------+-----------+-------------+-------+
 | NAME | READY | STATUS | RESTARTS | AGE |
@@ -81,7 +81,7 @@ To verify kubernetis telmetry services attached to the iDRAC Telemetry, Kafka, L
     * nersc-ldms-store
     * victoria-loadbalancer
 
-The following is the sample output file:
+The following is the sample output file::
 
 +-------------------------------------------+---------------+----------------+----------------+----------------------------------------------+-------+
 | NAME | TYPE | CLUSTER-IP | EXTERNAL-IP | PORT(S) | AGE |
@@ -138,7 +138,7 @@ To verify that iDRAC telemetry data is being successfully published to the `idra
     curl -X GET http://10.11.0.100:8080/consumers/idrac-consumer-group/instances/idrac-consumer-1/records \
       -H 'accept: application/vnd.kafka.json.v2+json' | jq '.'
 
-    If telemetry is flowing correctly, the output contains JSON-formatted iDRAC telemetry records.
+If telemetry is flowing correctly, the output contains JSON-formatted iDRAC telemetry records.
 
 Verify LDMS Messages in Kafka
 -----------------------------
@@ -167,7 +167,7 @@ To verify that LDMS telemetry data is being successfully published to the ``ldms
     curl -X GET http://10.11.0.100:8080/consumers/ldms-consumer-group/instances/ldms-consumer-1/records \
       -H 'accept: application/vnd.kafka.json.v2+json' | jq '.'
 
-    If telemetry is flowing correctly, the output contains JSON-formatted LDMS telemetry records.
+If telemetry is flowing correctly, the output contains JSON-formatted LDMS telemetry records.
 
 
 Verify Kafka TLS Connectivity
@@ -198,7 +198,7 @@ After the job completes, check the logs to confirm that the TLS connection is su
 
 
 View LDMS telemetry collected by Kafka
-=========================================
+-----------------------------------------
 
 After applying the ``telemetry.yml`` configuration using the Kafka collection type, iDRAC telemetry logs are published to a Kafka topic on the broker. To view the logs, do the following:
 
@@ -235,13 +235,13 @@ After applying the ``telemetry.yml`` configuration using the VictoriaMetrics col
 
        kubectl get pods -n telemetry -o wide -l app=victoriametrics
 
-   .. image:: ../images/victoria_metrics_pod.png
+   .. image:: ../../../images/victoria_metrics_pod.png
 
 2. Run the following command to verify that the VictoriaMetrics service is running::
 
        kubectl get service -n telemetry -o wide -l app=victoriametrics
 
-   .. image:: ../images/victoria_metrics_service.png
+   .. image:: ../../../images/victoria_metrics_service.png
 
 3. Note the **External IP** and **port number** of the VictoriaMetrics service. The external IP and port number will be used to access the VictoriaMetrics UI (VMUI).
 
@@ -255,11 +255,11 @@ After applying the ``telemetry.yml`` configuration using the VictoriaMetrics col
 
        {name="PowerEdge_TemperatureReading", FQDD!=""}
 
-   .. image:: ../images/victoria_metrics_vmui.png
+   .. image:: ../../../images/victoria_metrics_vmui.png
 
 
 Accessing the ``mysqldb`` database
-====================================
+------------------------------------
 
 After ``telemetry.yml`` has been executed for the service cluster, you can check the mysqldb database inside the ``mysqldb`` container. To view these logs, do the following:
 
