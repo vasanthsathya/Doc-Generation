@@ -44,9 +44,12 @@ See the following sample:
 
       slurm_cluster:
       - cluster_name: slurm_cluster
-        installation_type: "configless"
-        restart_slurm_services: true
         nfs_storage_name: nfs_slurm
+        config_sources:
+          slurm: "/path/to/custom_slurm.conf"
+          cgroup:
+            CgroupPlugin: autodetect
+            AllowedRAMSpace: 100
 
 ``/opt/omnia/input/project_default/security_config.yml``
 ----------------------------------------------------------
