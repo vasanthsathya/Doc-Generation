@@ -1,4 +1,4 @@
-Verify Telmetry Services deployed on the cluster
+Step 14: Verify Telmetry Services deployed on the cluster
 =================================================
 
 This section provides steps to verify telemetry services and related components, including pod status, message flow, TLS connectivity, and
