@@ -1,5 +1,5 @@
 ﻿Variables,Details
-"** config_sources**
+"**config_sources**
 
     ``dict``
 
@@ -7,6 +7,7 @@
     Optional","* Indicates how the Slurm configuration files are provided to the cluster.
 * <conf name> : <filepath> or <dict>
 * Each entry can be specified in one of two ways:
+
     * <filepath>: Either provide an absolute path to an existing configuration file on the system.
     * <dict>: Supply the configuration values directly as a key–value map.
 "
