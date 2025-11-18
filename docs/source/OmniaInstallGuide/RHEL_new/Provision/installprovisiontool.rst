@@ -19,6 +19,7 @@ Configurations made by the ``discovery.yml`` playbook
 * Configures the boot script based on the functional groups.
 * Configures the cloud-init based on the functional groups.
 * Deploys iDRAC telemetry service on the service cluster.
+* Deploys LMDS on the service cluster.
 
 
 Playbook execution

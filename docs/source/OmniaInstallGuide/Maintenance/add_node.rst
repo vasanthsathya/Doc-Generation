@@ -25,4 +25,4 @@ Add node to the cluster with new functional groups in mapping file
 5. After the images are created, run the discovery.yml playbook. For more information, see :doc:`../RHEL_new/Provision/installprovisiontool`.
 6. PXE boot the newly added nodes.
 
-..Note:: The entire cluster needs to be reprovisioned, if you want to reprovision Slurm Control node and Kube Control Plane.
+.. Note:: If you need to reprovision the Slurm Control Node and the Kube Control Plane, you must reprovision the entire cluster.

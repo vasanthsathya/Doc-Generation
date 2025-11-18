@@ -91,7 +91,7 @@ Nodes with similar functional roles or functionalities can be grouped together. 
 .. note:: 
     
     * At least one functional group is mandatory, and you must not change the name of functional groups.
-    * Each **group name** must be unique across all functional groups in the mapping file.
+    * Ensure that the group nodes intended for a specific role must be associated with the corresponding functional group and must not be associated under multiple functional groups.
     * The functional groups are case-sensitive.
     * Omnia supports HA functionality for the ``service_cluster``. For more information, `click here <HighAvailability/index.html>`_.
     * To set up a service cluster, the ``service_kube_node`` must be present in the mapping file.
