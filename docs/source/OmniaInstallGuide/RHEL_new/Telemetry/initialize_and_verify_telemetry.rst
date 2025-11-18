@@ -1,4 +1,4 @@
-Step 14: Initialize telemetry and verify telemetry
+Step 15: Initialize telemetry and verify telemetry
 ============================================
 
 To initiate the iDRAC telemetry service on the the service cluster, run the ``telemetry.yml`` playbook.::
