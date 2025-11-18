@@ -1,23 +1,14 @@
 ﻿Variables,Details
-"**installation_type**
+"** config_sources**
 
-     ``string``
+    ``dict``
 
-     Optional      ","* Indicates the slurm installation supports configless.
-     Choices:
 
-     * ``configless``  <- default         
-
-.. note:: ``nfs_share`` mode is not implemented.                              "
-"**restart_slurm_services**
-
-     ``boolean``
-
-     Optional   ","
-
-* **Accepted value**: ``true``
-* Starts the slurm services after every OS deployment.
-
+    Optional","* Indicates how the Slurm configuration files are provided to the cluster.
+* <conf name> : <filepath> or <dict>
+* Each entry can be specified in one of two ways:
+    * <filepath>: Either provide an absolute path to an existing configuration file on the system.
+    * <dict>: Supply the configuration values directly as a key–value map.
 "
 "**cluster_name**
 
