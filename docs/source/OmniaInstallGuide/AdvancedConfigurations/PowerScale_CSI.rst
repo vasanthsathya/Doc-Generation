@@ -152,21 +152,22 @@ Expected Results
 * After the successful execution of the ``discovery.yml`` playbook, the PowerScale CSI driver is deployed in the isilon namespace.
 * Along with PowerScale driver installation a storage class named **ps01** is also created. The details of the storage class are as follows: ::
 
-    apiVersion: storage.k8s.io/v1
-    kind: StorageClass
-    metadata:
-      name: ps01
-    provisioner: csi-isilon.dellemc.com
-    reclaimPolicy: Delete
-    allowVolumeExpansion: true
-    volumeBindingMode: Immediate
-    parameters:
-      AccessZone: < access zone mentioned in values.yaml file >
-      Isipath: < isipath mentioned in values.yaml file >
-      RootClientEnabled: "true"
-      AzServiceIP: <Powerscale endpoint mentioned in the ``secret.yml`` file without HTTP/ and HTTPS/>
-      csi.storage.k8s.io/fstype: "nfs"
-      
+        apiVersion: storage.k8s.io/v1
+        kind: StorageClass
+        metadata :
+            name: <storage class name>
+        provisioner: csi-isilon.dellemc.com
+        reclaimPolicy: Retain
+        allowVolumeExpansion: true
+        volumeBindingMode: Immediate
+        parameters :
+            clusterName: <powerscale cluster name > #optional
+            AccessZone: System
+            AzServiceIP: <PowerScale SmartConnect hostname or PowerScale IP> #optional
+            Isipath: <isipath configured in powerscale > #sample: /ifs/data/csi/
+            RootClientEnabled: "true"
+            csi.storage.k8s.io/fstype: "nfs"
+            
 
 * If there are errors during CSI driver installation, uninstall the CSI driver first as per the steps mentioned in the Uninstallation section. Ensure that the prerequisites are met. Manually re-install the Powerscale with the following commands::
 
@@ -196,18 +197,18 @@ If user wants to create a custom storage class, they can do so by following the 
     apiVersion: storage.k8s.io/v1
     kind: StorageClass
     metadata :
-      name: <storage class name>
+        name: <storage class name>
     provisioner: csi-isilon.dellemc.com
-    reclaimPolicy: Delete
+    reclaimPolicy: Retain
     allowVolumeExpansion: true
     volumeBindingMode: Immediate
     parameters :
-      clusterName: <powerscale cluster name > #optional
-      AccessZone: System
-      AzServiceIP: <PowerScale SmartConnect hostname or PowerScale IP> #optional
-      Isipath: <isipath configured in powerscale > #sample: /ifs/data/csi/
-      RootClientEnabled: "true"
-      csi.storage.k8s.io/fstype: "nfs"
+        clusterName: <powerscale cluster name > #optional
+        AccessZone: System
+        AzServiceIP: <PowerScale SmartConnect hostname or PowerScale IP> #optional
+        Isipath: <isipath configured in powerscale > #sample: /ifs/data/csi/
+        RootClientEnabled: "true"
+        csi.storage.k8s.io/fstype: "nfs"
     
     
 
@@ -229,33 +230,33 @@ Once the storage class is created, the same can be used to create PVC.
 *Sample deployment with PVC*: ::
 
 
-     apiVersion: v1
-     kind: PersistentVolumeClaim
-     metadata:
-     name: pvc-powerscale
-     spec:
-     accessModes:
-     - ReadWriteMany
-         resources:
-         requests:
-         storage: 1Gi
-         storageClassName: ps01
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+        name: pvc-powerscale
+    spec:
+        accessModes:
+            - ReadWriteMany
+        resources:
+            requests:
+                storage: 1Gi
+        storageClassName: ps01
      --- 
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
       name: deploy-busybox-01
-      spec:
+    spec:
         strategy:
-        type: Recreate
+            type: Recreate
         replicas: 1
         selector:
           matchLabels:
            app: deploy-busybox-01
-            template:
-             metadata:
+        template:
+            metadata:
               labels:
-        app: deploy-busybox-01
+                app: deploy-busybox-01
     spec:
       containers:
         - name: busybox
