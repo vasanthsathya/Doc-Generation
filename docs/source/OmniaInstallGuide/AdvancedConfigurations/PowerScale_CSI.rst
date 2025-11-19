@@ -195,20 +195,20 @@ If user wants to create a custom storage class, they can do so by following the 
 *Sample storageclass template*: ::
 
     apiVersion: storage.k8s.io/v1
-        kind: StorageClass
-        metadata :
-            name: <storage class name>
-        provisioner: csi-isilon.dellemc.com
-        reclaimPolicy: Retain
-        allowVolumeExpansion: true
-        volumeBindingMode: Immediate
-        parameters :
-            clusterName: <powerscale cluster name > #optional
-            AccessZone: System
-            AzServiceIP: <PowerScale SmartConnect hostname or PowerScale IP> #optional
-            Isipath: <isipath configured in powerscale > #sample: /ifs/data/csi/
-            RootClientEnabled: "true"
-            csi.storage.k8s.io/fstype: "nfs"
+    kind: StorageClass
+     metadata :
+        name: <storage class name>
+    provisioner: csi-isilon.dellemc.com
+    reclaimPolicy: Retain
+    allowVolumeExpansion: true
+    volumeBindingMode: Immediate
+    parameters :
+        clusterName: <powerscale cluster name > #optional
+        AccessZone: System
+        AzServiceIP: <PowerScale SmartConnect hostname or PowerScale IP> #optional
+        Isipath: <isipath configured in powerscale > #sample: /ifs/data/csi/
+        RootClientEnabled: "true"
+        csi.storage.k8s.io/fstype: "nfs"
     
     
 
