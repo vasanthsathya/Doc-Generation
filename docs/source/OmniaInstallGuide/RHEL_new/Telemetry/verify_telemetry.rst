@@ -1,5 +1,5 @@
 Step 16: Verify Telmetry Services deployed on the cluster
-=================================================
+=========================================================
 
 This section outlines the steps to validate telemetry services and their components, including checking pod status, 
 verifying message flow, confirming TLS connectivity, and reviewing collected telemetry data.
@@ -71,7 +71,7 @@ To verify that iDRAC telemetry data is being successfully published to the `idra
 
     curl -X POST http://10.11.0.100:8080/consumers/idrac-consumer-group/instances/idrac-consumer-1/subscription \
       -H 'content-type: application/vnd.kafka.v2+json' \
-      -d '{"topics": ["idrac_telemetry"]}'
+      -d '{"topics": ["idrac"]}'
 
 3. Consume messages from the topic using the following command::
   
