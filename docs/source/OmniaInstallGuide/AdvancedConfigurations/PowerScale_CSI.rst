@@ -196,7 +196,7 @@ If user wants to create a custom storage class, they can do so by following the 
 
     apiVersion: storage.k8s.io/v1
     kind: StorageClass
-     metadata :
+    metadata :
         name: <storage class name>
     provisioner: csi-isilon.dellemc.com
     reclaimPolicy: Retain
