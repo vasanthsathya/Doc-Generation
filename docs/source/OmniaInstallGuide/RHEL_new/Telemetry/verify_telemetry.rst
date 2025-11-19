@@ -23,7 +23,7 @@ To verify that the iDRAC Telemetry, Kafka, LDMS, and VictoriaMetrics pods are ru
 
 The following is the sample output file:
 
-.. image:: ../../../images/victoria_verify_telemetry_pods.png
+.. image:: ../../../images/verify_telemetry_pods.png
 
 Verify Kubernetes Telemetry Services attached to telemetry 
 ----------------------------------------------------------

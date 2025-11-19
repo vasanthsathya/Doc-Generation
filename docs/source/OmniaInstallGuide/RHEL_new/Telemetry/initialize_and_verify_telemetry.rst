@@ -13,7 +13,7 @@ Collect telemetry on external nodes
 
 To collect telemetry from the external nodes, do the following:
 
-1. Update ``<BMC_IP>,,`` in the ``/opt/omnia/telemetry/bmc_group_data.csv``.  
+1. Update the BMC IP of the external nodes in the ``/opt/omnia/telemetry/bmc_group_data.csv``.  
    The ``GROUP_NAME`` and ``PARENT`` fields must be left blank.
 
 2. Run the ``telemetry.yml`` playbook using the following command::
