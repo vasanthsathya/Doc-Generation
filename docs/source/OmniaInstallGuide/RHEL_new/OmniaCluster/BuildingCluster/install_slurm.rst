@@ -17,3 +17,11 @@ Step 11: Set up Slurm on nodes
 3. To build diskless images for cluster nodes, run the ``build.image.yml`` playbook: `Build cluster node images <../../build_images.html>`_
 4. To discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups, run  the ``discovery.yml`` playbook: `Discover cluster nodes <../../Provision/index.html>`_
 
+
+**Slurm with GPU:**
+
+**Prerequisites**
+
+* You must have the ``user_repo`` which is compiled with nvml and cgroup-v2. If slum-nodes have GPU then you must provide atleast one ``login_compiler_node``.
+
+

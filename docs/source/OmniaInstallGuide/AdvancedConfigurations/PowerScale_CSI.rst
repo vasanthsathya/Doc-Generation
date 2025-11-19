@@ -241,7 +241,7 @@ Once the storage class is created, the same can be used to create PVC.
             requests:
                 storage: 1Gi
         storageClassName: ps01
-     --- 
+    --- 
     apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -257,19 +257,19 @@ Once the storage class is created, the same can be used to create PVC.
             metadata:
               labels:
                 app: deploy-busybox-01
-    spec:
-      containers:
-        - name: busybox
-          image: docker.io/library/busybox:1.36
-          command: ["sh", "-c"]
-          args: ["while true; do touch /data/datafile; rm -f /data/datafile; done"]
-          volumeMounts:
+        spec:
+            containers:
+             - name: busybox
+                image: docker.io/library/busybox:1.36
+                command: ["sh", "-c"]
+                args: ["while true; do touch /data/datafile; rm -f /data/datafile; done"]
+                volumeMounts:
+                 - name: data
+                    mountPath: /data
+        volumes:
             - name: data
-              mountPath: /data
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: pvc-powerscale
+               persistentVolumeClaim:
+               claimName: pvc-powerscale
  
 **Apply the deployment manifest along with PVC**
 
