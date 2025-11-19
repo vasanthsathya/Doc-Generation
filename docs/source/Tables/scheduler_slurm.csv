@@ -23,6 +23,8 @@
 * <conf name> : <filepath> or <dict>
 * Each entry can be specified in one of two ways:
 
-    * <filepath>: Either provide an absolute path to an existing configuration file on the system.
+    * <filepath>: Either provide an absolute path to an existing configuration file on omnia_core.
+
+         .. Warning:: Ensure that all the values are provided including the node and partition details. Also, the cluster name is overwritten using the name in this file for slurm.
     * <dict>: Supply the configuration values directly as a key–value map.
 "
