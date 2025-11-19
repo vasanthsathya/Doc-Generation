@@ -1,10 +1,10 @@
 Step 8: Configure Telemetry Requirements
 ========================================
 
-Omnia enables stateless telemetry collection using both iDRAC Telemetry and LDMS
+Omnia enables telemetry collection using both iDRAC Telemetry and LDMS
 (Lightweight Distributed Metric Service) in HPC environments. This design ensures that
-telemetry components are dynamically provisioned without requiring modifications to the
-base image, providing flexible deployment and simplified lifecycle management.
+telemetry components are dynamically provisioned with stateless provisioning tool, 
+providing flexible deployment and simplified lifecycle management.
 
 * **iDRAC Telemetry** provides out-of-band system metrics from Dell servers, including
   power, thermal, and hardware health information. The iDRAC Telemetry data can be collected
