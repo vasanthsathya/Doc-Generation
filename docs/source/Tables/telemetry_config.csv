@@ -33,20 +33,23 @@ kafka_configurations > ``topic_partitions``,Conditional Mandatory,"* Specify the
    * idrac
    * ldms
    * ome
-* Default partition counts: idrac=1, ldms=2, ome=1
+
+* Default partition counts: ``idrac=1``, ``ldms=2``, ``ome=1``
+
 * Example::
+
        topic_partitions:
-          - name: ""idrac""
-             partitions: 1
-          - name: ""ldms""
-             partitions: 2
-          - name: ""ome""
-             partitions: 1"
+         - name: ""idrac""
+           partitions: 1
+         - name: ""ldms""
+           partitions: 2
+         - name: ""ome""
+           partitions: 1"
 LDMS port configurations > ``ldms_agg_port``,Conditional Mandatory,"*  Specify the aggregator port to be used the service k8s cluster
 * **Valid range**: 6001-6100
 * ** Default**: 6001"
 LDMS port configurations > ``ldms_store_port``,Conditional Mandatory,"*  Specify the store daemon port to be used on the service k8s cluster
-* The port can be the same as LDMS aggreator port specified for ``ldms_agg_port`'
+* The port can be the same as LDMS aggreator port specified for ``ldms_agg_port``
 * **Valid range**: 6001-6100
 * **Default**: 6001"
 LDMS port configurations > ``ldms_sampler_port``,Conditional Mandatory,"* Specify the sampler port to be used on the compute nodes.
@@ -58,7 +61,7 @@ ldms_sampler_configurations > meminfo,Mandatory,"* Collects memory usage statist
 *  **activation_parameters**:``interval=1000000``  indicates memory data metrics collected every 1 second.
 * The interval unit is micro seconds
 "
-ldms_sampler_configurations > procstat2,Mandatory,"* Collecgts process statistics (CPU, memory, I/O per process)
+ldms_sampler_configurations > procstat2,Mandatory,"* Collects process statistics (CPU, memory, I/O per process)
 * **plugin_name:** ``procstat2``
 * **config_parameters** ``""""``
 * **activation_parameters:** ``interval=1000000``
@@ -76,21 +79,21 @@ ldms_sampler_configurations > loadavg,Mandatory,"* Collects system load average 
 * **activation_parameters** ``interval=1000000``
 * The interval unit is micro seconds
 "
-ldms_sampler_configurations > slurm_sampler,Mandatory," * Collects slurm job and task monitoring (HPC workload telemetry)
- * Config parameters:
+ldms_sampler_configurations > slurm_sampler,Mandatory,"* Collects slurm job and task monitoring (HPC workload telemetry)
+* The possible config parameters are:
        * component_id=2: Component identifier (default: 0)
        * stream=slurm: Data stream type
        * job_count=8: Number of jobs to monitor (default: 8)
        * task_count=8: Number of tasks to monitor per job (default: 8)
-  * **plugin_name**: slurm_sampler
-  * **config_parameters**: ""component_id=2 stream=slurm job_count=8 task_count=8""
-   * ** activation_parameters**: ""interval=1000000 offset=0""  # interval=1000000 microseconds, offset=0
-* * The interval unit is micro seconds"
+* **plugin_name**: slurm_sampler
+* **config_parameters**: ``component_id=2 stream=slurm job_count=8 task_count=8``
+* ** activation_parameters**: ""interval=1000000 offset=0""  # interval=1000000 microseconds, offset=0
+* The interval unit is micro seconds"
 ldms_sampler_configurations > procnetdev2,Mandatory,"* Collects network interface statistics (bytes, packets, errors, drops per interface)
-* Config parameters (optional):
+* The possible config parameters are:
         * ifaces=eth0,eth1: Specific interfaces to monitor
         * If not specified, all network interfaces will be monitored
 * **plugin_name**: procnetdev2
 * **config_parameters**: """"  
-* **activation_parameters**: ""interval=1000000 offset=0""  # interval=1000000 microseconds, offset=0
-* * The interval unit is micro seconds"
+* **activation_parameters**: ``interval=1000000 offset=0``
+* The interval unit is micro seconds"
