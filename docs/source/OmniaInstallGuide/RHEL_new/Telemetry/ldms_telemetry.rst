@@ -70,7 +70,7 @@ Steps
         :header-rows: 1
         :keepspace: 
 
-6. Ensure that the ``telemetry_config.yml`` has the entries specific LDMS and Kafka deployment.
+6. Ensure that the ``telemetry_config.yml`` has the entries specific for LDMS and Kafka deployment.
 
     .. csv-table:: telemetry_config.yml
         :file: ../../../Tables/telemetry_config.csv
