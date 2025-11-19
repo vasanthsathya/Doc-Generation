@@ -1,4 +1,4 @@
-Step 16: Verify Telmetry Services deployed on the cluster
+Step 16: Verify Telemetry Services deployed on the cluster
 =========================================================
 
 This section outlines the steps to validate telemetry services and their components, including checking pod status, 
