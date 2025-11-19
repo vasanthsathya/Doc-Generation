@@ -12,11 +12,15 @@ Collect telemetry on external nodes
 ------------------------------------
 
 To collect telemetry from the external nodes, do the following:
-1. Open the ``bmc_group_data.csv`` available at the location ``/opt/omnia/telemetry/``.
-2. Add the BMC IP address for the external nodes from which you need to collect telemetry. Use the following format ``<BMC_IP>,,``. The group name and parent name must be left blank.
-3. Run the ``telemetry.yml`` playbook.
+
+1. Update the BMC IP of the external nodes in the ``/opt/omnia/telemetry/bmc_group_data.csv``.  
+   The ``GROUP_NAME`` and ``PARENT`` fields must be left blank.
+
+2. Run the ``telemetry.yml`` playbook using the following command::
+
+       ansible-playbook telemetry.yml
 
 Sample::
 
-    BMC_IP, GROUP_NAME, PARENT
-    <IP ADRESS>,,
+    BMC_IP,GROUP_NAME,PARENT
+    <IP Address>,,
