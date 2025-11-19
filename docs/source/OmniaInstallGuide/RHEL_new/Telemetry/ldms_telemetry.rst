@@ -17,19 +17,9 @@ During deployment, Omnia attaches LDMS aggregator and store pods to the admin ne
 Prerequisites
 ---------------
 
-* Redfish must be enabled in iDRAC.
 * If the internet connection is required on the service Kube node, configure it after the node is booted. 
 * All service cluster nodes should have access to the Internet.
-* iDRAC firmware must be updated to the latest version. 
-* Datacenter license must be installed on the nodes.
-* Ensure that the correct node service tags are being displayed on the iDRAC interface. Otherwise, telemetry data cannot be collected by the ``idrac_telemetry_receiver`` container.
-* For telemetry collection on service cluster, all BMC (iDRAC) IPs must be reachable from the service cluster nodes.
-* Ensure that ``discovery.yml`` playbook has been executed successfully with ``service_kube_node_x86_64`` in the mapping file, and the ``bmc_group_data.csv`` file has been generated.
-* Before running the ``telemetry.yml`` playbook for the service cluster, ensure that all the service K8s compute node are reachable and booted and have been configured in the service K8s cluster.
-* Ensure that LDMS network ports are open: ``10001`` for the producer, and ``60001`` for the
-  aggregator and storage services.
-* Updload LDMS aggregator and LDMS store container images in the Dell DockerHub registry.
-
+* Ensure that ``discovery.yml`` playbook has been executed successfully with ``service_kube_node`` and ``service_kube_node`` in the mapping file.
 
 Steps
 -------

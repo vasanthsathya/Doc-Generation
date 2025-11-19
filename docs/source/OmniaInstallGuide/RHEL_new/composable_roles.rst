@@ -61,17 +61,6 @@ The following is the sample format of a mapping file.
     * Target servers should be configured to boot in PXE mode with the appropriate NIC as the first boot device.
 
 
-+---------------------------------------------------------+------------------------------------------------------+
-| Pros                                                    | Cons                                                 |
-+=========================================================+======================================================+
-| Easily customizable if the user maintains a list of     | The user needs to be aware of the MAC/IP mapping     |
-| MAC addresses.                                          | required in the network.                             |
-+---------------------------------------------------------+------------------------------------------------------+
-|                                                         | Servers require a manual PXE boot if iDRAC IPs are   |
-|                                                         | not configured.                                      |
-+---------------------------------------------------------+------------------------------------------------------+
-
-
 Groups
 ------
 

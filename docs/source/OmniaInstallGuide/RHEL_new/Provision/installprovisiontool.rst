@@ -1,10 +1,9 @@
 Discover the cluster nodes
 ============================
 
-The ``discovery.yml`` playbook discovers the probable bare-metal cluster nodes. This playbook is dependent on inputs from the following input files:
+The ``discovery.yml`` playbook discovers the probable bare-metal cluster nodes. This playbook is dependent on inputs from the mapping file and the following input files:
 
 * ``/opt/omnia/input/project_default/provision_config.yml``
-* ``/opt/omnia/input/project_default/functional_groups_config.yml``
 * ``/opt/omnia/input/project_default/network_spec.yml``
 
 .. note:: The first PXE device on target nodes should be the designated active NIC for PXE booting.
