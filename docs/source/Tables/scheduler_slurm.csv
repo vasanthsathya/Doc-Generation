@@ -22,7 +22,7 @@
     Optional","* Indicates how the slurm configuration files are provided to the cluster.
 * <conf name> :  <dict>
 
-    The conf files supported by slurm are slurm, cgroup, gres, mpi, helpers, job_container, acct_gather, oci, plugstack, and topology.
+    * The conf files supported by slurm are slurm, cgroup, gres, mpi, helpers, job_container, acct_gather, oci, plugstack, and topology.
 
     * <dict>: Supply the configuration values directly as a key–value map. For slurm, Nodeset and Partition configurations are not supported.
 "
