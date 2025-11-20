@@ -24,5 +24,6 @@
 
     * The conf files supported by slurm are slurm, cgroup, gres, mpi, helpers, job_container, acct_gather, oci, plugstack, and topology.
 
-    * <dict>: Supply the configuration values directly as a key–value map. For slurm, Nodeset and Partition configurations are not supported.
+    * <dict>: Supply the configuration values directly as a key–value map.
+.. note::  For slurm, Nodeset and Partition configurations are not supported.
 "
