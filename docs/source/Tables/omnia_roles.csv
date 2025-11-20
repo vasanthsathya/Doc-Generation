@@ -15,7 +15,7 @@ First service cluster kubernetes control plane - ``service_kube_control_plane_fi
 Service cluster kubernetes control plane- ``service_kube_control_plane_x86_64``,Management,"* This functional_group is used to configure the additional kubernetes control plane nodes on service cluster.
 
 * The nodes included in this functional_group will have the necessary tools and configurations to configure additional Kubernetes control plane  to provide HA on service cluster."
-Service Cluster Kubernetes worker node - ``service_kube_node_x86_64``,Management,"* * ``service_kube_node``  functional group: Service Cluster Kubernetes worker node groups can be provided in this  functional group.
+Service Cluster Kubernetes worker node - ``service_kube_node_x86_64``,Management,"* ``service_kube_node``  functional group: Service Cluster Kubernetes worker node groups can be provided in this  functional group.
 * This  functional group is used to configure the Kubernetes worker nodes on service cluster.
 * The nodes included in this  functional group will have the necessary tools and configurations to configure and run Kubernetes worker on service cluster."
 Login node - ``login_node_x86_64``,Management,"* This functional group is used to configure nodes for user logins on the x86_64 architecture. The nodes included in this functional group will have the necessary tools and configurations to support user login activities.  
