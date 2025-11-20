@@ -95,10 +95,9 @@ Nodes with similar functional roles or functionalities can be grouped together. 
 Recommended Software by functional groups
 ------------------------------------------
 
-The following table lists the functional groups along with the recommended software to be deployed on each group.  
-
 .. caution:: Ensure that the ``software_config.json`` file contains all required inputs for the software to be deployed on each functional group.  For more information, see `Input parameters for Local Repositories <https://omnia-devel.readthedocs.io/en/latest/OmniaInstallGuide/RHEL_new/CreateLocalRepo/InputParameters.html>`_.
 
+The following table lists the functional groups along with the recommended software to be deployed on each group.  
 
     +-----------------------------------------+--------------------------------------------------------------------------------------+
     | Functional Group Name                   | Recommended Software                                                                 |
