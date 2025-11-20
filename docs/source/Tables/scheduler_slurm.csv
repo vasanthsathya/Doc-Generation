@@ -20,13 +20,9 @@
 
 
     Optional","* Indicates how the slurm configuration files are provided to the cluster.
-* <conf name> : <filepath> or <dict>
+* <conf name> :  <dict>
 
     The conf files supported by slurm are slurm, cgroup, gres, mpi, helpers, job_container, acct_gather, oci, plugstack, and topology.
-* Each entry can be specified in one of two ways:
 
-    * <filepath>: Either provide an absolute path to an existing configuration file on omnia_core.
-
-         .. Warning:: Ensure that all the values are provided including the node and partition details. Also, the cluster name is overwritten using the name in this file for slurm.
-    * <dict>: Supply the configuration values directly as a key–value map.
+    * <dict>: Supply the configuration values directly as a key–value map. For slurm, Nodeset and Partition configurations are not supported.
 "
