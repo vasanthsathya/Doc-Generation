@@ -15,7 +15,7 @@ To initiate the iDRAC telemetry service on the the service cluster, run the ``te
     ansible-playbook telemetry.yml 
 
 
-.. caution:: The ``telemetry.yml`` playbook will fail if you run it before executing the "discovery.yml playbook"
+.. caution:: The ``telemetry.yml`` playbook will fail if you run it before executing the "discovery.yml`` playbook.
 
 .. note::
    Metadata automatically captures the service cluster kube control plane virtual IP.
