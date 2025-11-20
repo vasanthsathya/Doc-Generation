@@ -99,7 +99,7 @@ Recommended Software by functional groups
 
 The following table lists the functional groups along with the recommended software to be deployed on each group.  
 
-    +=========================================+--------------------------------------------------------------------------------------+
+    +=========================================+======================================================================================+
     | Functional Group Name                   | Recommended Software                                                                 |
     +=========================================+======================================================================================+
     | service_kube_control_plane_first_x86_64 | service_k8s.json and nfs.json                                                        |
