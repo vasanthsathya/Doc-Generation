@@ -19,7 +19,7 @@
     ``dict``
 
 
-    Optional","* Indicates how the slurm configuration files are provided to the cluster.
+    Optional","* Indicates how the slurm configuration values are provided to the cluster.
 * <conf name> :  <dict>
 
     * The conf files supported by slurm are slurm, cgroup, gres, mpi, helpers, job_container, acct_gather, oci, plugstack, and topology.
