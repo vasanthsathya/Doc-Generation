@@ -1,7 +1,7 @@
 Deploy CSI drivers for Dell PowerScale storage solutions
 ===========================================================
 
-Dell PowerScale is a flexible and secure scale-out NAS (network attached storage) solution designed to simplify storage requirements for AI and HPC workloads. To enable the PowerScale storage solution on the Kubernetes clusters, Omnia installs the Dell CSI PowerScale driver (version 2.14.0) on the nodes using helm charts. Once the PowerScale CSI driver is installed, the PowerScale nodes can be connected to the Kubernetes clusters for storage requirements.
+Dell PowerScale is a flexible and secure scale-out NAS (network attached storage) solution designed to simplify storage requirements for AI and HPC workloads. To enable the PowerScale storage solution on the Kubernetes clusters, Omnia installs the Dell CSI PowerScale driver (version 2.15.0) on the nodes using helm charts. Once the PowerScale CSI driver is installed, the PowerScale nodes can be connected to the Kubernetes clusters for storage requirements.
 To know more about the CSI PowerScale driver, `click here <https://dell.github.io/csm-docs/docs/getting-started/installation/kubernetes/powerscale/helm/>`_.
 
 .. note:: Omnia doesn't configure any PowerScale device via OneFS (operating system for PowerScale). Omnia configures the deployed Kubernetes cluster to interact with the PowerScale storage.
@@ -28,19 +28,19 @@ PowerScale SmartConnect [Optional]
 Prerequisites
 --------------
 
-1. On the storage network, make sure DHCP is enabled, but the gateway IP for storage must not be assigned by the DHCP server.
+1. Ensure that the storage and data networks are configured correctly via DHCP. 
 
 2. Upstream DNS resolution must be available from both the admin (PXE) and storage networks.
 
 3. Verify that the PowerScale system is operational.
 
-4. Download the ``secret.yaml`` file template from this `link <https://github.com/dell/csi-powerscale/blob/release/v2.14.0/samples/secret/secret.yaml>`_.
+4. Download the ``secret.yaml`` file template from this `link <https://github.com/dell/csi-powerscale/blob/release/v2.15.0/samples/secret/secret.yaml>`_.
 
 5. Update the following parameters in the ``secret.yaml`` file as per your cluster details and keep the rest as default values. For example:
 
     *	clusterName: <desired cluster name>
     *	endpoint: <endpoint_IP>
-    .. note:: If PowerScale SmartConnect hostname is configured, user can provide the PowerScale hostname for ``endpoint``. Otherwise user can provide PowerScale IP address as well.
+    .. note:: If PowerScale SmartConnect hostname is configured, user can provide the PowerScale hostname for ``endpoint``. Otherwise user can provide PowerScale IP address as well. Ensure that the Powerscale hostname is reachable from OIM.
     *	endpointPort: <endpoint_port>
     *	isDefault: true
 
@@ -50,7 +50,7 @@ Prerequisites
 
 6. Download the ``values.yaml`` files template using the following command: ::
 
-    wget https://raw.githubusercontent.com/dell/helm-charts/csi-isilon-2.14.0/charts/csi-isilon/values.yaml
+    wget https://raw.githubusercontent.com/dell/helm-charts/csi-isilon-2.15.0/charts/csi-isilon/values.yaml
 
 7. Update the following parameters in the ``values.yaml`` file and keep the rest as default values. Refer the below sample values:
 
@@ -99,16 +99,33 @@ Prerequisites
     * Snapshot: true
     * skipCertificateValidation: true
 
-.. note:: Once the PowerScale CSI driver has been deployed, the parameters in the ``values.yaml`` can't be changed. If the user wants to modify the ``values.yaml`` file, they must first uninstall the PowerScale CSI driver from the cluster and then re-install with the updated parameters.
+.. note:: Once the PowerScale CSI driver has been deployed, the parameters in the ``values.yaml`` can't be changed. If the user wants to modify the ``values.yaml`` file, they must first uninstall the PowerScale CSI driver from the steps mentioned in the Uninstallation section and then manually re-install the Powerscale with the following commands::
+
+        1. kubectl create namespace isilon
+ 
+        2. kubectl create secret generic isilon-creds -n isilon --from-file=config="/opt/omnia/csi-driver-powerscale/secret.yaml"
+        
+        3. kubectl apply -f /opt/omnia/csi-driver-powerscale/empty_isilon-certs.yaml
+        
+        4. cd csi-powerscale/external-snapshotter/
+
+            kubectl apply -f client/config/crd/
+
+            kubectl apply -f deploy/kubernetes/snapshot-controller/
+        
+        5. ./csi-install.sh --namespace isilon --values /opt/omnia/csi-driver-powerscale/values.yaml
+        
+        6. kubectl apply -f /opt/omnia/csi-driver-powerscale/ps_storage_class.yml
+ 
 
 Steps
 --------------------------------------------
 
-1. Once ``secret.yaml`` and ``values.yaml`` is filled up with the necessary details, copy both files to any directory on the ``oim_core`` container. For example, ``/tmp/secret.yaml`` and ``/tmp/values.yaml``.
+1. Once ``secret.yaml`` and ``values.yaml`` are filled up with the necessary details, run the ``discovery.yml`` to configure the cluster with k8s and CSI in diskless mode.
 
 2. Add the ``csi_driver_powerscale`` entry along with the driver version to the ``/opt/omnia/input/project_default/software_config.json`` file: ::
 
-    {"name": "csi_driver_powerscale", "version":"v2.14.0", "arch": ["x86_64"]}
+    {"name": "csi_driver_powerscale", "version":"v2.15.0", "arch": ["x86_64"]}
 
  .. note:: By default, the ``csi_driver_powerscale`` entry is not present in the ``software_config.json``.
 
@@ -119,45 +136,54 @@ Steps
 
 4. Add the filepath of the ``secret.yaml`` and ``values.yaml`` file to the ``csi_powerscale_driver_secret_file_path`` and ``csi_powerscale_driver_values_file_path`` variables respectively, present in the ``/opt/omnia/input/project_default/omnia_config.yml`` file.
 
-5. Execute the ``omnia.yml`` or ``scheduler.yml`` playbook to install the PowerScale CSI driver on the ``service_cluster_k8s.yml`` to install the driver on the ``service_k8s_cluster``. See `High Availability <../RHEL_new/HighAvailability/index.html>`_.
+5. Execute the ``discovery.yml`` playbook to install the PowerScale CSI driver on the ``service_k8s_clusters``. See `High Availability <../RHEL_new/HighAvailability/index.html>`_.  To check the prerequisites for ``discovery.yml``, see `Discovery <../RHEL_new/Provision/index.html>`_ and `Prerequisites <../RHEL_new/Provision/provisionprereqs.html>`_
 
   .. dropdown:: Service Kubernetes cluster
 
     ::
 
-      cd scheduler
-      ansible-playbook service_k8s_cluster.yml
+      cd discovery
+      ansible-playbook discovery.yml
 
-.. note:: After running ``omnia.yml`` playbook, the ``secret.yaml`` file will be encrypted. User can use below command to decrypt and edit it if required: 
-  ::
-
-    cd omnia
-    ansible-vault edit <secret.yaml filepath> --vault-password-file /opt/omnia/input/project_default/.csi_powerscale_secret_vault
-
-.. caution:: Do not delete the vault key file ``.csi_powerscale_secret_vault``, otherwise users will not be able to decrypt the ``secret.yaml`` file anymore.
 
 Expected Results
 ------------------
 
-* After the successful execution of the ``omnia.yml`` playbook, the PowerScale CSI driver is deployed in the isilon namespace.
+* After the successful execution of the ``discovery.yml`` playbook, the PowerScale CSI driver is deployed in the isilon namespace.
 * Along with PowerScale driver installation a storage class named **ps01** is also created. The details of the storage class are as follows: ::
 
-    apiVersion: storage.k8s.io/v1
-    kind: StorageClass
-    metadata:
-      name: ps01
-    provisioner: csi-isilon.dellemc.com
-    reclaimPolicy: Delete
-    allowVolumeExpansion: true
-    volumeBindingMode: Immediate
-    parameters:
-      AccessZone: < access zone mentioned in values.yaml file >
-      Isipath: < isipath mentioned in values.yaml file >
-      RootClientEnabled: "true"
-      csi.storage.k8s.io/fstype: "nfs"
+        apiVersion: storage.k8s.io/v1
+        kind: StorageClass
+        metadata :
+            name: <storage class name>
+        provisioner: csi-isilon.dellemc.com
+        reclaimPolicy: Retain
+        allowVolumeExpansion: true
+        volumeBindingMode: Immediate
+        parameters :
+            clusterName: <powerscale cluster name > #optional
+            AccessZone: System
+            AzServiceIP: <PowerScale SmartConnect hostname or PowerScale IP> #optional
+            Isipath: <isipath configured in powerscale > #sample: /ifs/data/csi/
+            RootClientEnabled: "true"
+            csi.storage.k8s.io/fstype: "nfs"
+            
 
-* If there are errors during CSI driver installation, the whole ``omnia.yml`` playbook execution does not stop or fail. It pauses for 30 seconds with CSI driver installation failure error message and then proceeds with rest of the playbook execution.
-* For an unsuccessful driver installation scenario, the user first needs to follow the manual removal steps mentioned below from the ``kube_control_plane``, and then re-run the ``omnia.yml`` playbook for CSI driver installation.
+* If there are errors during CSI driver installation, uninstall the CSI driver first as per the steps mentioned in the Uninstallation section. Ensure that the prerequisites are met. Manually re-install the Powerscale with the following commands::
+
+        1. kubectl create namespace isilon
+ 
+        2. kubectl create secret generic isilon-creds -n isilon --from-file=config="/opt/omnia/csi-driver-powerscale/secret.yaml"
+        
+        3. kubectl apply -f /opt/omnia/csi-driver-powerscale/empty_isilon-certs.yaml
+        4. cd csi-powerscale/external-snapshotter/
+            kubectl apply -f client/config/crd/
+            kubectl apply -f deploy/kubernetes/snapshot-controller/
+        
+        5. ./csi-install.sh --namespace isilon --values /opt/omnia/csi-driver-powerscale/values.yaml
+        
+        6. kubectl apply -f /opt/omnia/csi-driver-powerscale/ps_storage_class.yml
+
 
 Post installation
 -------------------
@@ -171,18 +197,18 @@ If user wants to create a custom storage class, they can do so by following the 
     apiVersion: storage.k8s.io/v1
     kind: StorageClass
     metadata :
-      name: <storage class name>
+        name: <storage class name>
     provisioner: csi-isilon.dellemc.com
-    reclaimPolicy: Delete
+    reclaimPolicy: Retain
     allowVolumeExpansion: true
     volumeBindingMode: Immediate
     parameters :
-      clusterName: <powerscale cluster name > #optional
-      AccessZone: System
-      AzServiceIP: <PowerScale SmartConnect hostname or PowerScale IP> #optional
-      Isipath: <isipath configured in powerscale > #sample: /ifs/data/csi/
-      RootClientEnabled: "true"
-      csi.storage.k8s.io/fstype: "nfs"
+        clusterName: <powerscale cluster name > #optional
+        AccessZone: System
+        AzServiceIP: <PowerScale SmartConnect hostname or PowerScale IP> #optional
+        Isipath: <isipath configured in powerscale > #sample: /ifs/data/csi/
+        RootClientEnabled: "true"
+        csi.storage.k8s.io/fstype: "nfs"
     
     
 
@@ -204,46 +230,46 @@ Once the storage class is created, the same can be used to create PVC.
 *Sample deployment with PVC*: ::
 
 
-     apiVersion: v1
-     kind: PersistentVolumeClaim
-     metadata:
-     name: pvc-powerscale
-     spec:
-     accessModes:
-     - ReadWriteMany
-         resources:
-         requests:
-         storage: 1Gi
-         storageClassName: ps01
-     --- 
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+        name: pvc-powerscale
+    spec:
+        accessModes:
+            - ReadWriteMany
+        resources:
+            requests:
+                storage: 1Gi
+        storageClassName: ps01
+    --- 
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
       name: deploy-busybox-01
-      spec:
+    spec:
         strategy:
-        type: Recreate
+            type: Recreate
         replicas: 1
         selector:
           matchLabels:
            app: deploy-busybox-01
-            template:
-             metadata:
+        template:
+            metadata:
               labels:
-        app: deploy-busybox-01
-    spec:
-      containers:
-        - name: busybox
-          image: docker.io/library/busybox:1.36
-          command: ["sh", "-c"]
-          args: ["while true; do touch /data/datafile; rm -f /data/datafile; done"]
-          volumeMounts:
+                app: deploy-busybox-01
+        spec:
+            containers:
+             - name: busybox
+                image: docker.io/library/busybox:1.36
+                command: ["sh", "-c"]
+                args: ["while true; do touch /data/datafile; rm -f /data/datafile; done"]
+                volumeMounts:
+                 - name: data
+                    mountPath: /data
+        volumes:
             - name: data
-              mountPath: /data
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: pvc-powerscale
+               persistentVolumeClaim:
+               claimName: pvc-powerscale
  
 **Apply the deployment manifest along with PVC**
 
@@ -268,7 +294,7 @@ Uninstallation
 
 To uninstall the PowerScale CSI driver manually, do the following:
 
-1. Login to the ``kube_control_plane``.
+1. Login to the ``service_kube_control_plane_first``.
 
 2. Execute the following command to switch to the ``dell-csi-helm-installer`` directory: ::
 

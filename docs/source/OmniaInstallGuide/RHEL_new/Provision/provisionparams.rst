@@ -1,7 +1,14 @@
 Update the input parameters for discovering the nodes
 ========================================================
 
-Fill in all required parameters in ``/opt/omnia/input/project_default/provision_config.yml``, ``/opt/omnia/input/project_default/omnia_config_credentials.yml``, ``/opt/omnia/input/project_default/software_config.json``, ``/opt/omnia/input/project_default/storage_config.yml``, ``/opt/omnia/input/project_default/omnia_config.yml`` and ``/opt/omnia/input/project_default/network_spec.yml``.
+Specify the required parameters in the following input files: 
+
+ * ``/opt/omnia/input/project_default/provision_config.yml``
+ * ``/opt/omnia/input/project_default/omnia_config_credentials.yml``
+ * ``/opt/omnia/input/project_default/software_config.json``
+ * ``/opt/omnia/input/project_default/storage_config.yml``
+ * ``/opt/omnia/input/project_default/omnia_config.yml``
+ * ``/opt/omnia/input/project_default/telemetry_config.yml``
 
 .. caution:: Do not remove or comment any lines in the above mentioned ``.yml`` files.
 
@@ -54,6 +61,12 @@ The following table lists the parameters that must be configured in ``omnia_conf
 
 .. csv-table:: network_spec.yml
    :file: ../../../Tables/network_spec.csv
+   :header-rows: 1
+   :keepspace:
+
+
+.. csv-table:: telemetry_config.yml
+   :file: ../../../Tables/telemetry_config.csv
    :header-rows: 1
    :keepspace:
 

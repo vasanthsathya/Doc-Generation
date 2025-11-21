@@ -1,9 +1,8 @@
-Step 11: Build cluster node images
+Step 12: Build cluster node images
 ====================================
 
 The ``build_image_x86_64.yml`` and ``build_image_aarch64.yml`` playbooks are used to build diskless images for ``x86_64`` and ``aarch64`` cluster nodes, respectively. 
-Each image is created based on the functional groups defined in the 
-``functional_groups_config.yml`` file. 
+Each image is created based on the functional groups defined in the mapping file. 
 
 Alternately, to build images for aarch64 cluster nodes, perform the steps provided in :doc:`../AdvancedConfigurations/build_arm_ochami_image`.
 
@@ -11,7 +10,7 @@ Alternately, to build images for aarch64 cluster nodes, perform the steps provid
 
 **Prerequisites**: 
 
-   * Ensure that the ``functional_groups_config.yml`` file defines the functional groups required for your environment. For more information on functional groups, see :doc:`composable_roles`.
+   * Ensure that the mapping file contains nodes with the functional groups required for your environment. For more information on functional groups, see :doc:`composable_roles`.
    * Make sure the ``local_repo.yml`` is executed with software packages matching the target architecture. If the build is for ``x86_64``, include software defined with ``x86_64``. If the build is for ``aarch64``, include software with ``aarch64``.
      If the build needs to support both architectures, ensure ``local_repo.yml`` is executed with ``software_config.json`` that include both ``x86_64`` and ``aarch64``.
    * Ensure that OIMs running RHEL have an active subscription or are configured to access local repositories.
@@ -38,7 +37,7 @@ To build images for the nodes present in each functional group, do the following
 
        ansible-playbook build_image_x86_64.yml
 
-3. To verify that images are created for each functional group defined in ``functional_groups_config.yml``, run the following command on OIM::
+3. To verify that images are created for each functional group defined in the mapping file, run the following command on OIM::
 
        s3cmd ls -Hr s3://boot-images
 
@@ -63,7 +62,7 @@ To build images for the nodes present in each functional group, do the following
        [admin_aarch64]
        10.0.0.1
 
-3. To verify that images are created for each functional group defined in ``functional_groups_config.yml``, run the following command on the OIM::
+3. To verify that images are created for each functional group defined in the mapping file, run the following command on the OIM::
 
        s3cmd ls -Hr s3://boot-images
 

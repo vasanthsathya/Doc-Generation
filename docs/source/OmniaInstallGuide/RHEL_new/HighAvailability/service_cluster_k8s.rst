@@ -18,39 +18,35 @@ Prerequisites
            "repo_config": "always",
            "softwares": [
                 {"name": "nfs", "arch": ["x86_64","aarch64"]},
-                {"name": "service_k8s","version": "1.31.4", "arch": ["x86_64"]}
+                {"name": "service_k8s","version": "1.34.1", "arch": ["x86_64"]}
             ],
 
          "service_k8s": [
+                {"name": "service_kube_control_plane_first"},
                 {"name": "service_kube_control_plane"},
-                {"name": "service_etcd"},
                 {"name": "service_kube_node"}
         ]
 
     }
  
-* Omnia supports only Kubernetes version 1.31.4.
+* Omnia supports only Kubernetes version 1.34.1.
 * If you want to install CSI PowerScale driver, ensure that you provide the required values. Click `Deploy CSI drivers for Dell PowerScale storage solutions <../../AdvancedConfigurations/PowerScale_CSI.html>`_ for more information.
-* Ensure that there are a minimum of  three ``kube_control_planes``.
-* Ensure that the ``kube_control_planes`` has a full-featured RHEL operating system (OS) installed. 
-* The ``kube_control_planes`` has internet access to download necessary packages for cluster deployment and configuration.
-* Ensure that the nfs server is reachable on all the diskless and diskfull nodes.
-* The ``kube_control_planes`` must  be equipped with two active Network Interface Cards (NICs):  
+* Ensure that there are a minimum of one ``service_kube_control_plane_first``, two ``service_kube_control_plane``, and one ``service_kube_node``.
+* Ensure that the nfs server is reachable on all the diskless nodes.
+* The nodes must be equipped with two active Network Interface Cards (NICs):  
 
-  * One connected to the public network.  It is used for accessing the internet.
-  * One dedicated to internal cluster communication. It is used for internal cluster communication, Kubernetes deployment activities, and for accessing the Pulp repositories hosted on the OIM. The Admin interface must be assigned an IP address from the admin network range and must be reachable from the OIM.
+    * One dedicated to internal cluster communication. It is used for internal cluster communication, Kubernetes deployment activities, and for accessing the Pulp repositories hosted on the OIM. The Admin interface must be assigned an IP address from the admin network range and must be reachable from the OIM.
+    * If you want to install a CSI driver, ensure that the storage and data networks are configured correctly via DHCP. 
+  
 * To use NFS for service Kubernetes cluster, ensure the following prerequisites are met:
 
-  * The NFS share has 755 permissions and ``no_root_squash`` is enabled on the mounted NFS share. 
-  * Edit the ``/etc/exports`` file on the NFS server to include the ``no_root_squash`` option for the ``server_share_path``.
+  * The NFS share has 755 permissions and ``rw,sync,no_root_squash,no_subtree_check`` are enabled on the mounted NFS share. 
+  * Edit the ``/etc/exports`` file on the NFS server to include the ``rw,sync,no_root_squash,no_subtree_check`` option for the ``server_share_path``.
     
     ::
         
         /<your_server_share_path>  *(rw,sync,no_root_squash,no_subtree_check)
 
-* Ensure that the following ``kube_control_planes`` hostname prerequisites are met. See `Prerequisites <https://omnia-devel.readthedocs.io/en/latest/Appendices/hostnamereqs.html>`_.
-
-    .. include:: ../../Appendices/hostnamereqs.rst
 
 Steps
 =======
@@ -65,13 +61,12 @@ Steps
    :keepspace:
 
 3. Fill  the ``omnia_config.yml``,  ``high_availability_config.yml`` (for `service cluster HA <../HighAvailability/service_cluster_ha.html>`_), and ``storage_config.yml``. The nfs_name mentioned in ``storage_config.yml`` should match the ``nfs_storage_name`` of the entries for the ``service_k8s_cluster`` in ``omnia_config.yml`` where deployment is set to true.
-   See `Input parameters for the cluster <../OmniaCluster/schedulerinputparams.html>`_. See the following sample:
-
+   See `Input parameters for the cluster <../OmniaCluster/schedulerinputparams.html>`_. The NFS share is utilized by the Kubernetes cluster to mount necessary resources. See the following sample:
+    
     ::
 
         nfs_client_params:
         -{
-           nfs_name: "nfs_storage_default"
            server_ip: "", # Provide the IP of the NFS server
            server_share_path: "", # Provide server share path of the NFS Server
            client_share_path: /opt/omnia,,
@@ -79,7 +74,8 @@ Steps
            nfs_name: nfs_k8s
         }
        
-
+.. note:: In case of CSI support, ensure that the ``server_share_path`` must be the same as the isiPath value in ``values.yml`` file and the ``server_ip`` should be the Powerscale NFS server IP.
+    
 .. csv-table:: omnia_config.yml
    :file: ../../../../Tables/scheduler_k8s_rhel.csv
    :header-rows: 1
@@ -90,55 +86,13 @@ Steps
    :header-rows: 1
    :keepspace:
 
-4. Run ``ansible-playbook utils/connect_external_server.yml -i <inv>``. 
-    
-    This playbook is used to set up passwordless SSH to the ``kube_control_planes`` and updating the repositories and plup repository certificates. The Ansible inventory must be created using the Admin network IPs of the control plane nodes because these IPs are used for Kubernetes deployment. See the following sample:
-   
 
-   Sample for inv:
+4. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. See `Build cluster node images <../build_images.html>`_.
 
-    ::
-
-        [kube_control_plane]
-        10.5.0.211  ansible_user=root ansible_ssh_pass=****
-        10.5.0.212  ansible_user=root ansible_ssh_pass=****
-        10.5.0.213  ansible_user=root ansible_ssh_pass=****        
-
-5. Run ``ansible-playbook service_k8s_cluster.yml -i <inv>``. 
-    
-    This playbook deploys the service_k8s cluster with diskfull kube controller nodes and also extracts the configuration required for diskless kube nodes. It generates the kubeadm token and cloud-init vars for diskless kube node.  The token expires after 24 hours. The step 5 and step 6 need to be executed within 24 hours and pxe boot also needs to be completed. If the token gets expired , use the script ``ansible-playbook scheduler/generate_token_and_pod_status.yml -i <inv>  --tags kubeadm_token`` to generate the new token and run ``discovery.yml`` again and pxe boot the nodes. 
-
-Once all the required input files are filled up, use the below commands to set up Kubernetes on the service cluster: ::
-
-    ssh omnia_core
-    ansible-playbook omnia.yml - i <inv>
-    
-    OR,
-
-    cd /omnia/scheduler
-    ansible-playbook service_k8s_cluster.yml - i <inv>
-
-
-    Sample for inv:
-     
-
-        [kube_control_plane]
-        10.5.0.211
-        10.5.0.212
-        10.5.0.213 
-        [etcd]
-        10.5.0.211
-        10.5.0.212
-        10.5.0.213
-
-
-6. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. See `Build cluster node images <../build_images.html>`_.
-
-7. Run ``discovery.yml`` playbook to discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups. See `Discover cluster nodes <../Provision/index.html>`_
+5. Run ``discovery.yml`` playbook to discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups. See `Discover cluster nodes <../Provision/index.html>`_
     
     After successfully running the ``discovery.yml`` playbook, you can either manually PXE boot the nodes or use the ``set_pxe_boot.yml`` playbook. PXE booting allows the nodes to load diskless images from the Omnia Infrastructure Manager (OIM). For detailed steps on using ``set_pxe_boot.yml``, see :ref:`set-pxe-boot-order`.
 
-8. After all the diskless nodes are pxebooted, use the utility to check the status of service cluster nodes and pods: ``ansible-playbook scheduler/generate_token_and_pod_status.yml -i <inv>  --tags pod_status``
 
 
 
@@ -157,6 +111,17 @@ After deploying Kubernetes, the following additional packages are installed on t
     Click `here <https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner>`_ for more information.
 
 
+2. **whereabouts-cni-plugin**
+
+Whereabouts is an IP address management (IPAM) CNI plugin that assigns dynamic IP addresses cluster-wide in Kubernetes, ensuring no IP address collisions across nodes. It uses a range of IPs and tracks assignments with backends like etcd or Kubernetes Custom Resources. The details of the plugin is present in the ``omnia/input/config/x86_64/<cluster os>/<os version>/service_k8s.json`` file.
+
+Click `here <https://github.com/k8snetworkplumbingwg/whereabouts>`_ for more information.
+
+3. **multus-cni-plugin**
+
+Multus is a Kubernetes CNI (Container Network Interface) plugin that enables pods to have multiple network interfaces. It acts as a meta-plugin, allowing the use of multiple CNI plugins (for example, Flannel, Calico, Macvlan) within the same cluster. The details of the plugin is present in the ``omnia/input/config/<cluster os>/<os version>/service_k8s.json`` file.
+
+Click `here <https://github.com/k8snetworkplumbingwg/multus-cni>`_ for more information.
 
 Next step
 ===========
