@@ -3,7 +3,7 @@ Collect Telemetry Data from External Nodes
 ===========================================
 
 This section describes how to create a Kafka topic in the Omnia Service Kubernetes cluster
-and configure an external telemetry producer to stream metrics securely into the Kafka cluster using mutual TLS (mTLS).
+and configure an external telemetry producer to stream metrics securely into the Service Clusters using mutual TLS (mTLS).
 
 This procedure assumes that Kafka is deployed using Strimzi inside the telemetry namespace of the service cluster.
 
@@ -17,7 +17,7 @@ Ensure the following prerequisites are met before proceeding:
 * mTLS authentication is configured and a KafkaUser identity (``kafkapump``) exists.
 * A Kafka Pump is available outside the Kubernetes cluster, running on Podman or Docker.
 
--
+
 Create a Kafka Topic
 -------------------------
 
@@ -122,7 +122,7 @@ Produce and Verify Telemetry Data
        hello world
       
 
-2. In a new terminal, verify the messages ::
+2. In a new terminal, verify if the messages are recieved::
 
        /opt/kafka/bin/kafka-console-consumer.sh \
          --bootstrap-server ${KAFKA_LB_IP}:9094 \
@@ -131,5 +131,5 @@ Produce and Verify Telemetry Data
          --group <kafka topic>-consumer-group \
          --from-beginning
 
-   You should see the messages that were produced in the JSON format.
+   You can view the messages in JSON format.
 
