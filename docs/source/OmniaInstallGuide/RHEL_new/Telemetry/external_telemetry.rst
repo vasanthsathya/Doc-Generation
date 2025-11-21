@@ -85,6 +85,9 @@ Establish Secure Connection
          -srckeystore kafkapump.p12 -srcstoretype PKCS12 -srcstorepass changeit \
          -destkeystore kafka.keystore.jks -deststorepass changeit -noprompt
 
+.. note::  The steps for converting certificates into JKS format are required **only for Java-based Kafka clients**. If your client does not use a Java keystore (JKS), these conversion steps are not necessary.
+
+
 5. Create the client SSL configuration file::
 
        cat > producer-mtls.properties << 'EOF'
