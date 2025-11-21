@@ -46,7 +46,9 @@ See the following sample:
       - cluster_name: slurm_cluster
         nfs_storage_name: nfs_slurm
         config_sources:
-          slurm: "/path/to/custom_slurm.conf"
+          slurm:
+            SlurmctldTimeout: 60
+            SlurmdTimeout: 150
           cgroup:
             CgroupPlugin: autodetect
             AllowedRAMSpace: 100
