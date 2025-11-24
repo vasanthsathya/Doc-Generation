@@ -9,7 +9,7 @@ LDMS collects system metrics such as CPU, memory, network, I/O, and Slurm job st
 - **LDMS producer (collector):** Collects local system metrics and runs on Slurm controller, compute, and login nodes.
 - **LDMS aggregator:** Receives and aggregates metrics from producers. Runs as a Kubernetes pod.
 - **LDMS store:** Buffers and stores metric batches reliably. Runs as a Kubernetes pod.
-- **Kafka broker:** Handles telemetry streaming for consumption by downstream systems.
+- **Kafka broker:** Handles telemetry streaming for consumption by downstream systems..
 
 For more details on LDMS, see `Lightweight Distributed Metric Service <https://github.com/ovis-hpc/ldms>`_
 
