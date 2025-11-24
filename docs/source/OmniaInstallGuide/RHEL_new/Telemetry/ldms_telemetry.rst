@@ -11,6 +11,8 @@ LDMS collects system metrics such as CPU, memory, network, I/O, and Slurm job st
 - **LDMS store:** Buffers and stores metric batches reliably. Runs as a Kubernetes pod.
 - **Kafka broker:** Handles telemetry streaming for consumption by downstream systems.
 
+For more details on LDMS, see `Lightweight Distributed Metric Service <https://github.com/ovis-hpc/ldms>`_
+
 
 During deployment, Omnia attaches LDMS aggregator and store pods to the admin network using an ipvLAN interface created through Multus CNI. This configuration improves throughput between Slurm nodes and the Kubernetes cluster.
 
