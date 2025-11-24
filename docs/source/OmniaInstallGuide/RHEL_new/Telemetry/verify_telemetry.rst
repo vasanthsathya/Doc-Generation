@@ -36,6 +36,8 @@ To verify kubernetes telmetry services attached to the iDRAC Telemetry, Kafka, L
 
 2. Ensure the following services entries exist:
 
+    * bridge-bridge-lb
+    * bridge-bridge-service
     * idrac-telemetry-service
     * kafka-broker-0
     * kafka-broker-1
@@ -55,7 +57,7 @@ The following is the sample output file:
 Verify iDRAC Telemetry Messages in Kafka
 -------------------------------------------
 
-To verify that iDRAC telemetry data is being successfully published to the `idrac_telemetry`` Kafka topic, do the following:
+To verify that iDRAC telemetry data is being successfully published to the ``idrac`` Kafka topic, do the following:
 
 1. Create a Kafka consumer using the following command::
 
@@ -176,7 +178,7 @@ After ``telemetry.yml`` has been executed for the service cluster, you can check
         
         kubectl get pods -n telemetry -l app=idrac-telemetry
 
-    .. note:: The ``idrac-telemetry-0`` pod will always be responsible for collecting the telemetry data of the management nodes (``oim``, ``service_kube_control_plane``, ``service_kube_node_x86_64``, ``login_node_x86_64``, etc.).
+    .. note:: The ``idrac-telemetry-0`` pod will always be responsible for collecting the telemetry data of the management nodes (``oim``, ``service_kube_control_plane_x86_64``, ``service_kube_node_x86_64``, ``login_node_x86_64``, etc.).
 
     2. Execute the following command: ::
 
