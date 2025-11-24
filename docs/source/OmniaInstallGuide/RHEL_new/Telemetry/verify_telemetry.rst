@@ -8,9 +8,9 @@ verifying message flow, confirming TLS connectivity, and reviewing collected tel
 Verify Telemetry-Related Pods Are Running
 -------------------------------------------
 
-To verify that the iDRAC Telemetry, Kafka, LDMS, and VictoriaMetrics pods are running, do the following:::
+To verify that the iDRAC Telemetry, Kafka, LDMS, and VictoriaMetrics pods are running, do the following::
 
-1. Run the following command:::
+1. Run the following command::
 
     kubectl get pods -n telemetry
 

@@ -5,7 +5,7 @@ This section describes how to create a Kafka topic in the Omnia Service Kubernet
 and configure an external telemetry producer to stream metrics securely into the Service Clusters using mutual TLS (mTLS).
 
 This procedure assumes that Kafka is deployed using Strimzi inside the telemetry namespace of the service cluster. For more details, see
-`Strimzi Kafka Operator Documentation <https://strimzi.io/docs/operators/latest/overview>`_
+`Strimzi Kafka Operator Documentation <https://strimzi.io/docs/operators/latest/overview>`_.
 
 
 Prerequisites
