@@ -1,9 +1,9 @@
-Collect Telemetry Data from external client nodes
+Collect telemetry data from external client nodes
 ==================================================
 This section describes how to create a Kafka topic in the Omnia Service Kubernetes cluster
 and configure an external telemetry producer to stream metrics securely into the Service Kubernetes Clusters using mutual TLS (mTLS).
 
-This procedure assumes that Kafka is deployed using Strimzi inside the telemetry namespace of the service cluster. For more details, see
+This procedure assumes that Kafka is deployed using Strimzi inside the telemetry namespace of the Service Kubernetes Clusters. For more details, see
 `Strimzi Kafka Operator Documentation <https://strimzi.io/docs/operators/latest/overview>`_.
 
 
@@ -48,12 +48,10 @@ Replace ``topic_name`` with the desired Kafka topic name.
        kubectl get kafkatopics -n telemetry
 
 
- 
-
 Extract certificates
 --------------------
 
-On the Service Kubernetes cluster, do the following:
+To extract the certificates, on the Service Kubernetes cluster, do the following:
 
 1. Retrieve the Kafka LoadBalancer external IP using the following command::
 
@@ -64,20 +62,20 @@ On the Service Kubernetes cluster, do the following:
    .. image:: ../../../images/external_ip_loadbalances.png
 
    .. note::
-      Not the Kafka Loadbalancer external IP. This external IP will be used by the external client to connect to Kafka.
+      Note the Kafka Loadbalancer external IP. This external IP will be used by the external client node to connect to Kafka.
 
-2. Extract the required certificates for mTLS authentication::
+2. Extract the required certificates for mTLS authentication using the following commands::
 
        kubectl get secret kafka-cluster-ca-cert -n telemetry -o jsonpath='{.data.ca\.crt}' | base64 -d > ca.crt
        kubectl get secret kafkapump -n telemetry -o jsonpath='{.data.user\.crt}' | base64 -d > user.crt
        kubectl get secret kafkapump -n telemetry -o jsonpath='{.data.user\.key}' | base64 -d > user.key
 
-3. On the external client node (Kafka Pump host), create a working directory and set permissions::
+3. On the external client node (Kafka Pump host), create a working directory using the following command and set appropriate permissions::
 
        mkdir -p ~/kafka-mtls-test
        cd ~/kafka-mtls-test
 
-4. From the Service Kubernetes cluster, copy the extracted certificates to the external node::
+4. From the Service Kubernetes cluster, copy the extracted certificates to the external node using the following command::
 
        scp ca.crt user.crt user.key <username>@<external_node_ip>:~/kafka-mtls-test
 
@@ -136,7 +134,7 @@ Establish Secure Connection between external client node and service kubernetes 
 Produce and Verify Telemetry Data
 ----------------------------------------
 
-1. To verify the available Kafka topics, run the following command:
+1. To verify the available Kafka topics, run the following command::
 
        /opt/kafka/bin/kafka-topics.sh \
        --bootstrap-server <Kafka Loadbalancer External IP>:9094 \
