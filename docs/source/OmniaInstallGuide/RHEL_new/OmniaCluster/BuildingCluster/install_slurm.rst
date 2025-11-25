@@ -16,7 +16,7 @@ Step 11: Set up Slurm on nodes
 2. Provide the slurm cluster information in the ``functional_groups_config.yml``: `Create groups and assign functional roles to the nodes <../../composable_roles.html>`_
 3. To build diskless images for cluster nodes, run the ``build.image.yml`` playbook: `Build cluster node images <../../build_images.html>`_
 4. To discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups, run  the ``discovery.yml`` playbook: `Discover cluster nodes <../../Provision/index.html>`_
-
+5. After successfully executing the ``discovery.yml`` playbook, PXE boot the nodes strictly in following sequence: first the Slurm controller node and followed by the Slurm compute nodes (simultaneous booting is not supported).
 
 **Slurm with GPU:**
 
