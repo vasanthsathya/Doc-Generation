@@ -14,14 +14,13 @@ LDMS collects system metrics such as CPU, memory, network, I/O, and Slurm job st
 For more details on LDMS, see `Lightweight Distributed Metric Service <https://github.com/ovis-hpc/ldms>`_
 
 
-During deployment, Omnia attaches LDMS aggregator and store pods to the admin network using an ipvLAN interface created through Multus CNI. This configuration improves throughput between Slurm nodes and the Kubernetes cluster.
+During deployment, Omnia attaches LDMS aggregator and store pods to the admin network. This configuration improves throughput between Slurm nodes and the Kubernetes cluster.
 
 Prerequisites
 ---------------
 
-* If the internet connection is required on the service Kube node, configure it after the node is booted. 
-* All service cluster nodes should have access to the Internet.
-* Ensure that ``discovery.yml`` playbook has been executed successfully with ``service_kube_node`` and ``service_kube_node`` in the mapping file.
+* * All service cluster nodes should have access to the Internet.
+* Ensure that ``discovery.yml`` playbook has been executed successfully with ``service_kuibe_control_plane`` and ``service_kube_node`` in the mapping file.
 
 Steps
 -------
