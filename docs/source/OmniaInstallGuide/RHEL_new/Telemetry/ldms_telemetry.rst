@@ -27,10 +27,8 @@ Steps
 -------
 
 1. Build RPM packages for LDMS producer for RHEL 10.
-2. Specify the following entries in the ``software_config.json``. If any entry is missing, Omnia skips LDMS deployment and logs an informational message.
-For more information, see :doc:`../OmniaInstallGuide/RHEL_new/CreateLocalRepo/InputParameters`
-
-docs\source\OmniaInstallGuide\RHEL_new\CreateLocalRepo\InputParameters.rst
+2. Specify the following entries in the ``software_config.json``. If any entry is missing, Omnia skips LDMS deployment and logs an informational message. 
+   For more information, see :doc:`../CreateLocalRepo/InputParameters`
 
 .. code-block:: json
 
