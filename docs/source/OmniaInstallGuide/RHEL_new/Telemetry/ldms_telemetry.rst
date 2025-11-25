@@ -30,11 +30,13 @@ Steps
 2. Specify the following entries in the ``software_config.json``. If any entry is missing, Omnia skips LDMS deployment and logs an informational message.
 For more information, see :doc:`../OmniaInstallGuide/RHEL_new/CreateLocalRepo/InputParameters`
 
+docs\source\OmniaInstallGuide\RHEL_new\CreateLocalRepo\InputParameters.rst
+
 .. code-block:: json
 
-{"name": "slurm_custom", "arch": ["x86_64","aarch64"]},
-{"name": "service_k8s", "version": "1.34.1", "arch": ["x86_64"]},
-{"name": "ldms", "arch": ["x86_64", "aarch64"]}
+    {"name": "slurm_custom", "arch": ["x86_64","aarch64"]},
+    {"name": "service_k8s", "version": "1.34.1", "arch": ["x86_64"]},
+    {"name": "ldms", "arch": ["x86_64", "aarch64"]}
 
 3. Ensure the ``ldms.json`` file contains the following entries. 
 
