@@ -1,8 +1,7 @@
-Collect Telemetry Data from External Nodes
-===========================================
-
+Collect Telemetry Data from external client nodes
+==================================================
 This section describes how to create a Kafka topic in the Omnia Service Kubernetes cluster
-and configure an external telemetry producer to stream metrics securely into the Service Clusters using mutual TLS (mTLS).
+and configure an external telemetry producer to stream metrics securely into the Service Kubernetes Clusters using mutual TLS (mTLS).
 
 This procedure assumes that Kafka is deployed using Strimzi inside the telemetry namespace of the service cluster. For more details, see
 `Strimzi Kafka Operator Documentation <https://strimzi.io/docs/operators/latest/overview>`_.
@@ -13,9 +12,9 @@ Prerequisites
 
 Ensure the following prerequisites are met before proceeding:
 
-* Have a running Kubernetes service cluster with Kafka deployed via Strimzi in namespace telemetry.
+* A Service Kubernetes Cluster is running with Kafka deployed via Strimzi in the ``telemetry`` namespace.
 * External access to Kafka is available through a LoadBalancer on port ``9094``.
-* A Kafka Pump is available outside the Service Kubernetes cluster, deployed as a container on a Kubernetes cluster, Podman or Docker.
+* A Kafka Pump is available outside the Service Kubernetes cluster, deployed as a container using Kubernetes, Podman, or Docker.
 
 
 Create a Kafka Topic
@@ -23,7 +22,7 @@ Create a Kafka Topic
 
 On the Service Kubernetes cluster, do the following:
 
-1. Create a file named ``kafka.topic_name.yaml`` with the parameters such as topic name, number of partitions, 
+1. Create a file named ``kafka.topic_name.yaml`` that includes parameters such as topic name, number of partitions, 
 replication factor, and retention policies::
 
        apiVersion: kafka.strimzi.io/v1beta2
@@ -40,7 +39,7 @@ replication factor, and retention policies::
 
 Replace ``topic_name`` with the desired Kafka topic name.
 
-2. On the Service Kube Control plane, run::
+2. Use the following command to apply the topic configuration file on the Service Kube Control Plane node::
 
        kubectl apply -f kafka.topic_name.yaml
 
@@ -49,38 +48,53 @@ Replace ``topic_name`` with the desired Kafka topic name.
        kubectl get kafkatopics -n telemetry
 
 
+ 
+
 Extract certificates
----------------------
+--------------------
 
 On the Service Kubernetes cluster, do the following:
 
-1. Retrieve and note the Kafka LoadBalancer external IP using the following command::
+1. Retrieve the Kafka LoadBalancer external IP using the following command::
 
        kubectl get svc -n telemetry kafka-kafka-external-bootstrap -o wide
 
-       <Add output screenshot.>
+   Sample output:
 
-2. Run the following commands to extract certificates required for mTLS::
+   .. image:: ../../../images/external_ip_loadbalances.png
+
+   .. note::
+      Not the Kafka Loadbalancer external IP. This external IP will be used by the external client to connect to Kafka.
+
+2. Extract the required certificates for mTLS authentication::
 
        kubectl get secret kafka-cluster-ca-cert -n telemetry -o jsonpath='{.data.ca\.crt}' | base64 -d > ca.crt
        kubectl get secret kafkapump -n telemetry -o jsonpath='{.data.user\.crt}' | base64 -d > user.crt
        kubectl get secret kafkapump -n telemetry -o jsonpath='{.data.user\.key}' | base64 -d > user.key
 
-3. On the target external node, ensure that you have created a working directory with appropriate permissions. Use the following command:
+3. On the external client node (Kafka Pump host), create a working directory and set permissions::
 
        mkdir -p ~/kafka-mtls-test
        cd ~/kafka-mtls-test
 
-4. From the service kubernetes cluster, copy the extracted certificates to the external working directory created in Step 3.
+4. From the Service Kubernetes cluster, copy the extracted certificates to the external node::
 
-       scp ca.crt user.crt user.key root@<external_node_ip>: ~/kafka-mtls-test
+       scp ca.crt user.crt user.key <username>@<external_node_ip>:~/kafka-mtls-test
 
 
 
-Establish Secure Connection between external client and service kubernetes cluster
------------------------------------------------------------------------------------
+Establish Secure Connection between external client node and service kubernetes cluster
+---------------------------------------------------------------------------------------
 
-1. On the external node, navigate to the target directory.
+1. On the external client node, navigate to the target directory::
+
+       cd ~/kafka-mtls-test
+
+   Make sure the following files are present in the directory::
+
+       ca.crt 
+       user.crt
+       user.key 
 
 2. (Optional) Run the following commands to create Java truststore and keystore::
 
@@ -97,9 +111,9 @@ Establish Secure Connection between external client and service kubernetes clust
 .. note::  The steps for converting certificates into JKS format are required **only for Java-based Kafka clients**. If your client does not use a Java keystore (JKS), these conversion steps are not necessary.
 
 
-3. Create the client SSL configuration file::
+3. Create the Kafka client SSL configuration file::
 
-   Sample SSL congiguration file:
+   Sample SSL congiguration file::
 
        cat > producer-mtls.properties << 'EOF'
        security.protocol=SSL
@@ -122,7 +136,7 @@ Establish Secure Connection between external client and service kubernetes clust
 Produce and Verify Telemetry Data
 ----------------------------------------
 
-1. To verify the available Kafka topics use the following command:
+1. To verify the available Kafka topics, run the following command:
 
        /opt/kafka/bin/kafka-topics.sh \
        --bootstrap-server <Kafka Loadbalancer External IP>:9094 \
@@ -136,7 +150,7 @@ Produce and Verify Telemetry Data
        --topic <kafka topic> \
        --producer.config /certs/producer-mtls.properties
 
-   Sample data 
+   Sample data::
 
        Type messages (press Enter after each):
        {"device_id": "xyz-001", "metric": "power", "value": 250, "timestamp": "2024-11-18T10:25:00Z"}
