@@ -20,7 +20,8 @@ Re-provision the nodes with modifications
 3. After the images are created, run the ``discovery.yml`` playbook. For more information, see :doc:`../RHEL_new/Provision/installprovisiontool`.
 4. PXE boot the required nodes to be reprovisioned.
    
-..Note:: The entire cluster needs to be reprovisioned, if you want to reprovision Slurm Control node and Kube Control Plane.
+.. note:: The entire cluster needs to be reprovisioned if you want to reprovision the Slurm Control node and Kube Control Plane.
+
 
       
 

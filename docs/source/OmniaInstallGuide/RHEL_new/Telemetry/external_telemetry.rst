@@ -1,0 +1,170 @@
+Collect telemetry data from external client nodes
+==================================================
+This section describes how to create a Kafka topic in the Omnia Service Kubernetes cluster
+and configure an external telemetry producer to stream metrics securely into the Service Kubernetes Clusters using mutual TLS (mTLS).
+
+This procedure assumes that Kafka is deployed using Strimzi inside the telemetry namespace of the Service Kubernetes Clusters. For more details, see
+`Strimzi Kafka Operator Documentation <https://strimzi.io/docs/operators/latest/overview>`_.
+
+
+Prerequisites
+---------------
+
+Ensure the following prerequisites are met before proceeding:
+
+* A Service Kubernetes Cluster is running with Kafka deployed via Strimzi in the ``telemetry`` namespace.
+* External access to Kafka is available through a LoadBalancer on port ``9094``.
+* A Kafka Pump is available outside the Service Kubernetes cluster, deployed as a container using Kubernetes, Podman, or Docker.
+
+
+Create a Kafka Topic
+-------------------------
+
+On the Service Kubernetes cluster, do the following:
+
+1. Create a file named ``kafka.topic_name.yaml`` that includes parameters such as topic name, number of partitions, 
+replication factor, and retention policies::
+
+       apiVersion: kafka.strimzi.io/v1beta2
+       kind: KafkaTopic
+       metadata:
+        name: my-new-topic
+        namespace: telemetry
+        labels:
+         strimzi.io/cluster: kafka
+       spec:
+        partitions: 3
+        replicas: 3
+        topicName: my-new-topic
+
+Replace ``topic_name`` with the desired Kafka topic name.
+
+2. Use the following command to apply the topic configuration file on the Service Kube Control Plane node::
+
+       kubectl apply -f kafka.topic_name.yaml
+
+3. To verify that the topic was created, run the following command::
+
+       kubectl get kafkatopics -n telemetry
+
+
+Extract certificates
+--------------------
+
+To extract the certificates, on the Service Kubernetes cluster, do the following:
+
+1. Retrieve the Kafka LoadBalancer external IP using the following command::
+
+       kubectl get svc -n telemetry kafka-kafka-external-bootstrap -o wide
+
+   Sample output:
+
+   .. image:: ../../../images/external_ip_loadbalances.png
+
+   .. note::
+      Note the Kafka Loadbalancer external IP. This external IP will be used by the external client node to connect to Kafka.
+
+2. Extract the required certificates for mTLS authentication using the following commands::
+
+       kubectl get secret kafka-cluster-ca-cert -n telemetry -o jsonpath='{.data.ca\.crt}' | base64 -d > ca.crt
+       kubectl get secret kafkapump -n telemetry -o jsonpath='{.data.user\.crt}' | base64 -d > user.crt
+       kubectl get secret kafkapump -n telemetry -o jsonpath='{.data.user\.key}' | base64 -d > user.key
+
+3. On the external client node (Kafka Pump host), create a working directory using the following command and set appropriate permissions::
+
+       mkdir -p ~/kafka-mtls-test
+       cd ~/kafka-mtls-test
+
+4. From the Service Kubernetes cluster, copy the extracted certificates to the directory created on the external client node using the following command::
+
+       scp ca.crt user.crt user.key <username>@<external_node_ip>:~/kafka-mtls-test
+
+
+
+Establish secure connection between external client node and Service Kubernetes Cluster
+---------------------------------------------------------------------------------------
+
+1. On the external client node, navigate to the target directory::
+
+       cd ~/kafka-mtls-test
+
+   Make sure the following files are present in the directory::
+
+       ca.crt 
+       user.crt
+       user.key 
+
+2. (Optional) Run the following commands to create Java truststore and keystore::
+
+       keytool -import -trustcacerts -alias kafka-ca -file ca.crt \
+       -keystore kafka.truststore.jks -storepass changeit -noprompt
+
+       openssl pkcs12 -export -in user.crt -inkey user.key \
+       -out kafkapump.p12 -name kafkapump -password pass:changeit
+
+       keytool -importkeystore \
+       -srckeystore kafkapump.p12 -srcstoretype PKCS12 -srcstorepass changeit \
+       -destkeystore kafka.keystore.jks -deststorepass changeit -noprompt
+
+.. note::  The steps for converting certificates into JKS format are required **only for Java-based Kafka clients**. If your client does not use a Java keystore (JKS), these conversion steps are not necessary.
+
+
+3. Create the Kafka client SSL configuration file::
+
+   Sample SSL configuration file::
+
+       cat > producer-mtls.properties << 'EOF'
+       security.protocol=SSL
+       ssl.truststore.location=/certs/kafka.truststore.jks
+       ssl.truststore.password=changeit
+       ssl.keystore.location=/certs/kafka.keystore.jks
+       ssl.keystore.password=changeit
+       ssl.key.password=changeit
+       ssl.endpoint.identification.algorithm=
+       EOF
+
+4. Run a Kafka tools container with certificates mounted::
+
+       podman run -it --rm \
+       --name kafka-mtls-producer \
+       -v ~/kafka-mtls-test:/certs:Z \
+       apache/kafka:4.1.0 bash
+
+
+Produce and verify telemetry Data
+----------------------------------------
+
+1. To verify the available Kafka topics, run the following command::
+
+       /opt/kafka/bin/kafka-topics.sh \
+       --bootstrap-server <Kafka Loadbalancer External IP>:9094 \
+       --command-config /certs/producer-mtls.properties \
+       --list
+
+2. Inside the Kafka tools container container, produce test data to the Kafka topic that you have created::
+
+       /opt/kafka/bin/kafka-console-producer.sh \
+       --bootstrap-server <Kafka Loadbalancer External IP>:9094 \
+       --topic <kafka topic> \
+       --producer.config /certs/producer-mtls.properties
+
+   Sample data::
+
+       Type messages (press Enter after each):
+       {"device_id": "xyz-001", "metric": "power", "value": 250, "timestamp": "2024-11-18T10:25:00Z"}
+       {"device_id": "xyz-002", "metric": "temperature", "value": 25.5, "timestamp": "2024-11-18T10:25:10Z"}
+       {"device_id": "xyz-003", "metric": "fan_speed", "value": 4500, "timestamp": "2024-11-18T10:25:20Z"}
+       
+       Press Ctrl+D to exit
+
+3. In a new terminal, verify if the messages are recieved::
+
+       /opt/kafka/bin/kafka-console-consumer.sh \
+       --bootstrap-server <Kafka Loadbalancer External IP>:9094 \
+       --consumer.config /certs/producer-mtls.properties \
+       --topic <kafka topic> \
+       --group <kafka topic>-consumer-group \
+       --from-beginning
+
+You can view the messages in JSON format.
+

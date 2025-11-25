@@ -1,38 +1,61 @@
 "Parameter	",Mandatory/Optional,Details
 ``idrac_telemetry_support``,Mandatory,"* **Type**: Boolean
-* If you want iDRAC telemetry support on your service cluster, set this variable to ``true`` before executing  ``telemetry.yml`` and  ``discovery.yml`` playbooks.              
+* If you want iDRAC telemetry support on your service cluster, set this variable  to ``true`` before 
+executing  ``telemetry.yml`` and  ``discovery.yml`` playbooks.              
             
 * **Accepted values**: ``true`` or ``false``
 * **Default value**: ``true``
 
-.. note:: If ``idrac_telemetry_support`` is set to ``true``, ``mysqldb_user``, ``mysqldb_password``, and ``mysqldb_root_password`` parameters in the ``omnia_config_credentials.yml`` file becomes mandatory. "
+.. note:: If ``idrac_telemetry_support`` is set to ``true``, ``mysqldb_user``, 
+``mysqldb_password``, and ``mysqldb_root_password`` parameters in 
+the ``omnia_config_credentials.yml`` file becomes mandatory. "
 ``idrac_telemetry_collection_type``,Mandatory,"*  Specify where to store iDRAC telemetry data.
-*  **Supported values:**
+* **Supported values:**
     * ``victoria``: Store in VictoriaMetrics only
     *  ``Kafka``: Store in Kafka only
     *  ``victoria,kafka`` : Store in both (recommended)
 * **Default:** ``victoria,kafka``"
-victoria_configurations > ``persistence_size``,Conditional Mandatory," * The amount of storage allocated for victoria's persistent volume.
- *  **Accepted values**: in the form of ""X[Ki|Mi|Gi|Ti|Pi|Ei]""
- * **Default**: 8Gi"
-victoria_configurations > ``retention_period`,Conditional Mandatory,"  * Specify the number of hours to retain victoria logs before they are deleted.
-  * **Default**: 168 (7 days)"
-kafka_configurations > ``persistence_size``,Conditional Mandatory,"*  The amount of storage allocated for Kafka's persistent volume.
-* This storage will be divided among 6 pods, comprising 3 Kafka brokers and 3 Kafka controllers.
- * **Accepted values**: in the form of ""X[Ki|Mi|Gi|Ti|Pi|Ei]""
- * ** Default**: 48Gi"
-kafka_configurations > ``log_retention_hours``,Conditional Mandatory,"
- *  Specify the number of hours to retain Kafka logs before they are deleted.
- *  **Default**: 168 (7 days)"
-kafka_configurations > ``log_retention_bytes``,Conditional Mandatory," * Specify the maximum size of Kafka logs (in bytes) before they are deleted.
- * **Default**: -1 (unlimited)"
+victoria_configurations > ``deployment_mode``,Mandatory,"* **Supported values:**
+    * ``single-node``: Simple deployment (1 pod, suitable for dev/test)
+    * ``cluster``: High-availability deployment (7 pods, recommended for production)
+* **Default:** ``cluster``
+* **Cluster Mode Benefits:**
+    * High availability (no single point of failure)
+    * Horizontal scalability (scale components independently)
+    * Better performance (4x ingestion, 2x query speed)  
+    * Production-ready architecture
+*  **Single-Node Benefits:**
+    * Simple setup (fewer resources)
+    * Suitable for small deployments (<10 nodes)
+    * Lower resource usage (~4Gi memory vs ~10Gi for cluster)"
+victoria_configurations > ``persistence_size``,Conditional Mandatory,"
+* The amount of storage allocated for **each** VictoriaMetrics persistent volume.
+* **Important: Total VictoriaMetrics storage depends on deployment mode:**
+    * ``Single-node mode``: Total storage = ``persistence_size * 1 pod``
+    * ``Cluster mode``: Total storage = ``persistence_size * 3 vmstorage pods``
+* **Example (cluster):** ``8Gi *  3 = 24Gi`` total VictoriaMetrics storage
+* **Accepted values:** Must be specified in the form of ``X[Ki|Mi|Gi|Ti|Pi|Ei]``
+* **Default value:** ``8Gi`` (results in **24Gi total storage** for cluster mode)"
+victoria_configurations > ``retention_period``,Conditional Mandatory,"* Specify the number of hours to retain victoria logs before they are deleted.
+* **Default**: 168 (7 days)"
+kafka_configurations > ``persistence_size``,Conditional Mandatory,"* The amount of storage allocated for **each** Kafka persistent volume.
+* **Important: Total Kafka storage =** ``persistence_size * 6 pods``
+  * 3 Kafka brokers (each gets ``persistence_size`` storage)
+  * 3 Kafka controllers (each gets ``persistence_size`` storage)
+*  **Example:** ``8Gi * 6 = 48Gi`` total Kafka storage
+* **Accepted values:** Must be specified in the form of ``X[Ki|Mi|Gi|Ti|Pi|Ei]``
+* **Default value:** ``8Gi`` (results in **48Gi total storage**)"
+kafka_configurations > ``log_retention_hours``,Conditional Mandatory,"*  Specify the number of hours to retain Kafka logs before they are deleted.
+*  **Default**: 168 (7 days)"
+kafka_configurations > ``log_retention_bytes``,Conditional Mandatory,"* Specify the maximum size of Kafka logs (in bytes) before they are deleted.
+* **Default**: -1 (unlimited)"
 kafka_configurations > ``log_segment_bytes``,Conditional Mandatory,"
-  * Specify the maximum size of Kafka log segments (in bytes) before they are deleted.
-  * **Default**: 1073741824 (1 GB)"
+* Specify the maximum size of Kafka log segments (in bytes) before they are deleted.
+* **Default**: 1073741824 (1 GB)"
 kafka_configurations > ``topic_partitions``,Conditional Mandatory,"* Specify the partition counts for the following topics:
-   * idrac
-   * ldms
-   * ome
+  * idrac
+  * ldms
+  * ome
 
 * Default partition counts: ``idrac=1``, ``ldms=2``, ``ome=1``
 
@@ -47,7 +70,7 @@ kafka_configurations > ``topic_partitions``,Conditional Mandatory,"* Specify the
            partitions: 1"
 LDMS port configurations > ``ldms_agg_port``,Conditional Mandatory,"*  Specify the aggregator port to be used the service k8s cluster
 * **Valid range**: 6001-6100
-* ** Default**: 6001"
+* **Default**: 6001"
 LDMS port configurations > ``ldms_store_port``,Conditional Mandatory,"*  Specify the store daemon port to be used on the service k8s cluster
 * The port can be the same as LDMS aggreator port specified for ``ldms_agg_port``
 * **Valid range**: 6001-6100
@@ -55,44 +78,44 @@ LDMS port configurations > ``ldms_store_port``,Conditional Mandatory,"*  Specify
 LDMS port configurations > ``ldms_sampler_port``,Conditional Mandatory,"* Specify the sampler port to be used on the compute nodes.
 * **Valid range**: 10001-10100
 * **Default**: 10001"
-ldms_sampler_configurations > meminfo,Mandatory,"* Collects memory usage statistics (free, used, buffers, cached, etc.)
+ldms_sampler_configurations > ``meminfo``,Mandatory,"* Collects memory usage statistics (free, used, buffers, cached, etc.)
 * **plugin_name:** ``meminfo``
 * **config_parameters** ``""""``
-*  **activation_parameters**:``interval=1000000``  indicates memory data metrics collected every 1 second.
+*  **activation_parameters**:``interval=1000000``  indicates memory data  metrics collected every 1 second.
 * The interval unit is micro seconds
 "
-ldms_sampler_configurations > procstat2,Mandatory,"* Collects process statistics (CPU, memory, I/O per process)
+ldms_sampler_configurations > ``procstat2``,Mandatory,"* Collects process statistics (CPU, memory, I/O per process)
 * **plugin_name:** ``procstat2``
 * **config_parameters** ``""""``
 * **activation_parameters:** ``interval=1000000``
 * The interval unit is micro seconds
 "
-ldms_sampler_configurations > vmstat,Mandatory,"* Collects virtual memory statistics (paging, swapping, memory pressure)
+ldms_sampler_configurations > ``vmstat``,Mandatory,"* Collects virtual memory statistics (paging, swapping, memory pressure)
 * **plugin_name:** ``vmstat``
 * **config_parameters** ``""""``
 * **activation_parameters:** ``interval=1000000``
 * The interval unit is micro seconds
 "
-ldms_sampler_configurations > loadavg,Mandatory,"* Collects system load average (1, 5, and 15 minute averages)
+ldms_sampler_configurations > ``loadavg``,Mandatory,"* Collects system load average (1, 5, and 15 minute averages)
 * **plugin_name:** ``loadavg``
 * **config_parameters:** ``""""``
 * **activation_parameters** ``interval=1000000``
 * The interval unit is micro seconds
 "
-ldms_sampler_configurations > slurm_sampler,Mandatory,"* Collects slurm job and task monitoring (HPC workload telemetry)
+ldms_sampler_configurations > ``slurm_sampler``,Mandatory,"* Collects slurm job and task monitoring (HPC workload telemetry)
 * The possible config parameters are:
-       * component_id=2: Component identifier (default: 0)
-       * stream=slurm: Data stream type
-       * job_count=8: Number of jobs to monitor (default: 8)
-       * task_count=8: Number of tasks to monitor per job (default: 8)
+    * component_id=2: Component identifier (default: 0)
+    * stream=slurm: Data stream type
+    * job_count=8: Number of jobs to monitor (default: 8)
+    * task_count=8: Number of tasks to monitor per job (default: 8)
 * **plugin_name**: slurm_sampler
 * **config_parameters**: ``component_id=2 stream=slurm job_count=8 task_count=8``
-* ** activation_parameters**: ""interval=1000000 offset=0""  # interval=1000000 microseconds, offset=0
+*  **activation_parameters**: ""interval=1000000 offset=0""   # interval=1000000 microseconds, offset=0
 * The interval unit is micro seconds"
-ldms_sampler_configurations > procnetdev2,Mandatory,"* Collects network interface statistics (bytes, packets, errors, drops per interface)
+ldms_sampler_configurations > ``procnetdev2``,Mandatory,"* Collects network interface statistics (bytes, packets, errors, drops per interface)
 * The possible config parameters are:
-        * ifaces=eth0,eth1: Specific interfaces to monitor
-        * If not specified, all network interfaces will be monitored
+    * ifaces=eth0,eth1: Specific interfaces to monitor
+    * If not specified, all network interfaces will be monitored
 * **plugin_name**: procnetdev2
 * **config_parameters**: """"  
 * **activation_parameters**: ``interval=1000000 offset=0``
