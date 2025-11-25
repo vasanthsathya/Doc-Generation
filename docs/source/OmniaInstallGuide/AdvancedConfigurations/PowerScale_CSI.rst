@@ -254,23 +254,23 @@ Once the storage class is created, the same can be used to create PVC.
       matchLabels:
        app: deploy-busybox-01
     template:
-     metadata:
-      labels:
-        app: deploy-busybox-01
-     spec:
-       containers:
-         - name: busybox
-           image: docker.io/library/busybox:1.36
-           command: ["sh", "-c"]
-           args: ["while true; do touch /data/datafile; rm -f /data/datafile; done"]
-           volumeMounts:
-             - name: data
-               mountPath: /data
-       volumes:
-         - name: data
-           persistentVolumeClaim:
-             claimName: pvc-powerscale
-             
+      metadata:
+        labels:
+          app: deploy-busybox-01
+      spec:
+        containers:
+          - name: busybox
+            image: docker.io/library/busybox:1.36
+            command: ["sh", "-c"]
+            args: ["while true; do touch /data/datafile; rm -f /data/datafile; done"]
+            volumeMounts:
+              - name: data
+                mountPath: /data
+        volumes:
+          - name: data
+            persistentVolumeClaim:
+              claimName: pvc-powerscale
+
 
 **Apply the deployment manifest along with PVC**
 
