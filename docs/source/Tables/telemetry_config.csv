@@ -10,29 +10,29 @@ executing  ``telemetry.yml`` and  ``discovery.yml`` playbooks.
 ``mysqldb_password``, and ``mysqldb_root_password`` parameters in 
 the ``omnia_config_credentials.yml`` file becomes mandatory. "
 ``idrac_telemetry_collection_type``,Mandatory,"*  Specify where to store iDRAC telemetry data.
-*  **Supported values:**
-    * ``victoria``: Store in VictoriaMetrics only
-    *  ``Kafka``: Store in Kafka only
-    *  ``victoria,kafka`` : Store in both (recommended)
+* **Supported values:**
+  * ``victoria``: Store in VictoriaMetrics only
+  *  ``Kafka``: Store in Kafka only
+  *  ``victoria,kafka`` : Store in both (recommended)
 * **Default:** ``victoria,kafka``"
-victoria_configurations > ``deployment_mode``,Mandatory,"*  **Supported values:**
-    * ``single-node``: Simple deployment (1 pod, suitable for dev/test)
-    * ``cluster``: High-availability deployment (7 pods, recommended for production)
+victoria_configurations > ``deployment_mode``,Mandatory,"* **Supported values:**
+  * ``single-node``: Simple deployment (1 pod, suitable for dev/test)
+  * ``cluster``: High-availability deployment (7 pods, recommended for production)
 * **Default:** ``cluster``
-*  **Cluster Mode Benefits:**
-    * High availability (no single point of failure)
-    * Horizontal scalability (scale components independently)
-    * Better performance (4x ingestion, 2x query speed)  
-    * Production-ready architecture
+* **Cluster Mode Benefits:**
+  * High availability (no single point of failure)
+  * Horizontal scalability (scale components independently)
+  * Better performance (4x ingestion, 2x query speed)  
+  * Production-ready architecture
 *  **Single-Node Benefits:**
-    * Simple setup (fewer resources)
-    * Suitable for small deployments (<10 nodes)
-    * Lower resource usage (~4Gi memory vs ~10Gi for cluster)"
+  * Simple setup (fewer resources)
+  * Suitable for small deployments (<10 nodes)
+  * Lower resource usage (~4Gi memory vs ~10Gi for cluster)"
 victoria_configurations > ``persistence_size``,Conditional Mandatory,"
 * The amount of storage allocated for **each** VictoriaMetrics persistent volume.
 * **Important: Total VictoriaMetrics storage depends on deployment mode:**
-   * ``Single-node mode``: Total storage = ``persistence_size * 1 pod``
-   * ``Cluster mode``: Total storage = ``persistence_size * 3 vmstorage pods``
+  * ``Single-node mode``: Total storage = ``persistence_size * 1 pod``
+  * ``Cluster mode``: Total storage = ``persistence_size * 3 vmstorage pods``
 * **Example (cluster):** ``8Gi *  3 = 24Gi`` total VictoriaMetrics storage
 * **Accepted values:** Must be specified in the form of ``X[Ki|Mi|Gi|Ti|Pi|Ei]``
 * **Default value:** ``8Gi`` (results in **24Gi total storage** for cluster mode)"
@@ -53,9 +53,9 @@ kafka_configurations > ``log_segment_bytes``,Conditional Mandatory,"
 * Specify the maximum size of Kafka log segments (in bytes) before they are deleted.
 * **Default**: 1073741824 (1 GB)"
 kafka_configurations > ``topic_partitions``,Conditional Mandatory,"* Specify the partition counts for the following topics:
-   * idrac
-   * ldms
-   * ome
+  * idrac
+  * ldms
+  * ome
 
 * Default partition counts: ``idrac=1``, ``ldms=2``, ``ome=1``
 
@@ -81,8 +81,7 @@ LDMS port configurations > ``ldms_sampler_port``,Conditional Mandatory,"* Specif
 ldms_sampler_configurations > ``meminfo``,Mandatory,"* Collects memory usage statistics (free, used, buffers, cached, etc.)
 * **plugin_name:** ``meminfo``
 * **config_parameters** ``""""``
-*  **activation_parameters**:``interval=1000000``  indicates 
-        memory data  metrics collected every 1 second.
+*  **activation_parameters**:``interval=1000000``  indicates memory data  metrics collected every 1 second.
 * The interval unit is micro seconds
 "
 ldms_sampler_configurations > ``procstat2``,Mandatory,"* Collects process statistics (CPU, memory, I/O per process)
@@ -105,19 +104,18 @@ ldms_sampler_configurations > ``loadavg``,Mandatory,"* Collects system load aver
 "
 ldms_sampler_configurations > ``slurm_sampler``,Mandatory,"* Collects slurm job and task monitoring (HPC workload telemetry)
 * The possible config parameters are:
-       * component_id=2: Component identifier (default: 0)
-       * stream=slurm: Data stream type
-       * job_count=8: Number of jobs to monitor (default: 8)
-       * task_count=8: Number of tasks to monitor per job (default: 8)
+    * component_id=2: Component identifier (default: 0)
+    * stream=slurm: Data stream type
+    * job_count=8: Number of jobs to monitor (default: 8)
+    * task_count=8: Number of tasks to monitor per job (default: 8)
 * **plugin_name**: slurm_sampler
 * **config_parameters**: ``component_id=2 stream=slurm job_count=8 task_count=8``
-*  **activation_parameters**: ""interval=1000000 offset=0"" 
-        # interval=1000000 microseconds, offset=0
+*  **activation_parameters**: ""interval=1000000 offset=0""   # interval=1000000 microseconds, offset=0
 * The interval unit is micro seconds"
 ldms_sampler_configurations > ``procnetdev2``,Mandatory,"* Collects network interface statistics (bytes, packets, errors, drops per interface)
 * The possible config parameters are:
-        * ifaces=eth0,eth1: Specific interfaces to monitor
-        * If not specified, all network interfaces will be monitored
+    * ifaces=eth0,eth1: Specific interfaces to monitor
+    * If not specified, all network interfaces will be monitored
 * **plugin_name**: procnetdev2
 * **config_parameters**: """"  
 * **activation_parameters**: ``interval=1000000 offset=0``
