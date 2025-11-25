@@ -75,13 +75,13 @@ To extract the certificates, on the Service Kubernetes cluster, do the following
        mkdir -p ~/kafka-mtls-test
        cd ~/kafka-mtls-test
 
-4. From the Service Kubernetes cluster, copy the extracted certificates to the external node using the following command::
+4. From the Service Kubernetes cluster, copy the extracted certificates to the directory created on the external client node using the following command::
 
        scp ca.crt user.crt user.key <username>@<external_node_ip>:~/kafka-mtls-test
 
 
 
-Establish Secure Connection between external client node and service kubernetes cluster
+Establish secure connection between external client node and Service Kubernetes Cluster
 ---------------------------------------------------------------------------------------
 
 1. On the external client node, navigate to the target directory::
@@ -111,7 +111,7 @@ Establish Secure Connection between external client node and service kubernetes 
 
 3. Create the Kafka client SSL configuration file::
 
-   Sample SSL congiguration file::
+   Sample SSL configuration file::
 
        cat > producer-mtls.properties << 'EOF'
        security.protocol=SSL
@@ -131,7 +131,7 @@ Establish Secure Connection between external client node and service kubernetes 
        apache/kafka:4.1.0 bash
 
 
-Produce and Verify Telemetry Data
+Produce and verify telemetry Data
 ----------------------------------------
 
 1. To verify the available Kafka topics, run the following command::
