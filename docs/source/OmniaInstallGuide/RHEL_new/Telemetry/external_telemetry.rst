@@ -127,7 +127,7 @@ Establish secure connection between external client node and Service Kubernetes 
 
        podman run -it --rm \
        --name kafka-mtls-producer \
-       -v ~/kafka-mtls-test:/certs:ro \
+       -v ~/kafka-mtls-test:/certs:Z \
        apache/kafka:4.1.0 bash
 
 
