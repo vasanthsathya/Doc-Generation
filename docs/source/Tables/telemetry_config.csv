@@ -1,6 +1,7 @@
 "Parameter	",Mandatory/Optional,Details
 ``idrac_telemetry_support``,Mandatory,"* **Type**: Boolean
-* If you want iDRAC telemetry support on your service cluster, set this variable to ``true`` before executing  ``telemetry.yml`` and  ``discovery.yml`` playbooks.              
+* If you want iDRAC telemetry support on your service cluster, set this variable 
+to ``true`` before executing  ``telemetry.yml`` and  ``discovery.yml`` playbooks.              
             
 * **Accepted values**: ``true`` or ``false``
 * **Default value**: ``true``
@@ -108,7 +109,7 @@ ldms_sampler_configurations > ``slurm_sampler``,Mandatory,"* Collects slurm job 
        * task_count=8: Number of tasks to monitor per job (default: 8)
 * **plugin_name**: slurm_sampler
 * **config_parameters**: ``component_id=2 stream=slurm job_count=8 task_count=8``
-*  ** activation_parameters**: ""interval=1000000 offset=0""  # interval=1000000 microseconds, offset=0
+*  **activation_parameters**: ""interval=1000000 offset=0""  # interval=1000000 microseconds, offset=0
 * The interval unit is micro seconds"
 ldms_sampler_configurations > ``procnetdev2``,Mandatory,"* Collects network interface statistics (bytes, packets, errors, drops per interface)
 * The possible config parameters are:
