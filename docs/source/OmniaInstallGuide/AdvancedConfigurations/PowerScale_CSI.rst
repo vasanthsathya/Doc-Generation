@@ -235,49 +235,6 @@ Once the storage class is created, the same can be used to create PVC.
     metadata:
       name: pvc-powerscale
     spec:
-     accessModes:
-      - ReadWriteMany
-     resources:
-      requests:
-       storage: 1Gi
-     storageClassName: ps01
-    --- 
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-     name: deploy-busybox-01
-    spec:
-     strategy:
-      type: Recreate
-     replicas: 1
-     selector:
-      matchLabels:
-       app: deploy-busybox-01
-    template:
-      metadata:
-        labels:
-          app: deploy-busybox-01
-      spec:
-        containers:
-          - name: busybox
-            image: docker.io/library/busybox:1.36
-            command: ["sh", "-c"]
-            args: ["while true; do touch /data/datafile; rm -f /data/datafile; done"]
-            volumeMounts:
-              - name: data
-                mountPath: /data
-        volumes:
-          - name: data
-            persistentVolumeClaim:
-              claimName: pvc-powerscale
-
-
-
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: pvc-powerscale
-    spec:
       accessModes:
         - ReadWriteMany
       resources:
