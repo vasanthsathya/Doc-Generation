@@ -1,24 +1,5 @@
 Sample Files
-=============
-
-Inventory file for service K8s cluster
-------------------------------------------
-
-.. caution:: All the file contents mentioned below are case sensitive.
-
-::
-
-             
-
-        #AI Scheduler: Kubernetes
-
-        [kube_control_plane]
-
-        10.5.0.201
-        10.5.0.202
-        10.5.0.203 
-
-        
+=============      
 
 
 Inventory file for PXE boot order
