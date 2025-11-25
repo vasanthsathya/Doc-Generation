@@ -59,7 +59,6 @@ The following ``ldms.json`` sample is for ``x86_64``. For ``aarch64`` architectu
     .. csv-table:: omnia_config.yml
         :file: ../../../Tables/omnia_config_service_cluster.csv
         :header-rows: 1
-        :widths: 25,25,50
         :keepspace: 
 
 6. Ensure that the ``telemetry_config.yml`` has the entries specific for LDMS and Kafka deployment.
