@@ -1,22 +1,21 @@
 ﻿Variables,Details,s
 "**nfs_client_params**
 
-     ``JSON List``
+     ``List (dict)``
 
-     Required    ","* This JSON list contains all parameters required to set up NFS.
-* server_ip—Provide the IP of the NFS server which is accessible to all the diskful and diskless nodes. **Default value**: ``172.16.107.168``
-* server_share_path—Provide server share path of the NFS Server. **Default value**: ``/mnt/share/omnia``
-* client_share_path—Path where nfs server contents needs to be mounted. The default value is /opt/omnia. **Default value**: ``/share_omnia``
-* client_mount_options—Provide the mount options. **Possible values are**: ``nosuid``, ``rw``, ``sync``, ``hard``, ``intr``
-* nfs_name—Provide the name of the NFS share. **Default value**: ``nfs_slurm`` or ``nfs_k8s``. **Type**: ``string``   
+     Required    ","* This is a list of dictionaries.
+* nfs_name—Provide the name of the NFS share which is referred by slurm and service kubernetes. **Default value**: ``nfs_slurm`` or ``nfs_k8s``. 
+* server_ip—Provide the IP or hostname of the NFS server which is accessible to all the diskful and diskless nodes. 
+* server_share_path—Provide the full path of the directory in the NFS Server. 
+* client_share_path—Provide the full path where nfs server contents needs to be mounted. The default value is /opt/omnia. 
+* client_mount_options—Provide the mount options as a comma separated value. **Possible values are**: ``nosuid``, ``rw``, ``sync``, ``hard``, ``intr``
+
 
 **Sample**::
 
           nfs_client_params:
-                {
-                      nfs_name: ""nfs_k8s or nfs_slurm""
-                      server_ip: """", # Provide the IP of the NFS server
+                   -  nfs_name: ""nfs_k8s, nfs_slurm""
+                      server_ip: ""172.16.107.168"", # Provide the IP of the NFS server
                       server_share_path: """", # Provide server share path of the NFS Server
                       client_share_path: /opt/omnia,
-                      client_mount_options: ""nosuid,rw,sync,hard,intr"",
-               }",
+                      client_mount_options: ""nosuid,rw,sync,hard,intr"",",
