@@ -17,7 +17,7 @@ Prerequisites
           "cluster_os_version": "10.0",
            "repo_config": "always",
            "softwares": [
-                {"name": "nfs", "arch": ["x86_64","aarch64"]},
+
                 {"name": "service_k8s","version": "1.34.1", "arch": ["x86_64"]}
             ],
 
@@ -75,7 +75,8 @@ Steps
         }
        
 .. note:: In case of CSI support, ensure that the ``server_share_path`` must be the same as the isiPath value in ``values.yml`` file and the ``server_ip`` should be the Powerscale NFS server IP.
-    
+.. note:: Ensure that the ``server_share_path`` and ``client_share_path`` do not have any content before you deploy Kubernetes. To delete the content, go to ``server_share_path`` on NFS server and remove the content available in the path.
+
 .. csv-table:: omnia_config.yml
    :file: ../../../../Tables/scheduler_k8s_rhel.csv
    :header-rows: 1
@@ -110,18 +111,6 @@ After deploying Kubernetes, the following additional packages are installed on t
 
     Click `here <https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner>`_ for more information.
 
-
-2. **whereabouts-cni-plugin**
-
-Whereabouts is an IP address management (IPAM) CNI plugin that assigns dynamic IP addresses cluster-wide in Kubernetes, ensuring no IP address collisions across nodes. It uses a range of IPs and tracks assignments with backends like etcd or Kubernetes Custom Resources. The details of the plugin is present in the ``omnia/input/config/x86_64/<cluster os>/<os version>/service_k8s.json`` file.
-
-Click `here <https://github.com/k8snetworkplumbingwg/whereabouts>`_ for more information.
-
-3. **multus-cni-plugin**
-
-Multus is a Kubernetes CNI (Container Network Interface) plugin that enables pods to have multiple network interfaces. It acts as a meta-plugin, allowing the use of multiple CNI plugins (for example, Flannel, Calico, Macvlan) within the same cluster. The details of the plugin is present in the ``omnia/input/config/<cluster os>/<os version>/service_k8s.json`` file.
-
-Click `here <https://github.com/k8snetworkplumbingwg/multus-cni>`_ for more information.
 
 Next step
 ===========

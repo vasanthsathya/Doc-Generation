@@ -8,9 +8,9 @@ Slurm worker node - ``slurm_node_aarch64``,Compute,"* This functional group is u
 * Nodes in this functional group can be used as Slurm worker nodes for aarch64 clusters.
 
 "
-Service cluster kubernetes control plane- ``service_kube_control_plane_x86_64``,Management,"* This functional_group is used to configure the additional kubernetes control plane nodes on service cluster.
+Service cluster kubernetes control plane- ``service_kube_control_plane_x86_64``,Management,"* This functional_group is used to configure the kubernetes control plane nodes on service cluster.
 
-* The nodes included in this functional_group will have the necessary tools and configurations to configure additional Kubernetes control plane  to provide HA on service cluster."
+* The nodes included in this functional_group will have the necessary tools and configurations to configure Kubernetes control plane  to provide HA on service cluster."
 Service Cluster Kubernetes worker node - ``service_kube_node_x86_64``,Management,"* ``service_kube_node``  functional group: Service Cluster Kubernetes worker node groups can be provided in this  functional group.
 * This  functional group is used to configure the Kubernetes worker nodes on service cluster.
 * The nodes included in this  functional group will have the necessary tools and configurations to configure and run Kubernetes worker on service cluster."
