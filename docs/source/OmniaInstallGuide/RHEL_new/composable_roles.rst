@@ -25,13 +25,9 @@ Each node listed in the mapping file must be assigned with the following values:
 ``FUNCTIONAL_GROUP_NAME``, ``GROUP_NAME``, ``SERVICE_TAG``, ``PARENT_SERVICE_TAG``, ``HOSTNAME``, ``ADMIN_MAC``, 
 ``ADMIN_IP``, ``BMC_MAC``, and ``BMC_IP``.
 
-Refer to the `Group Attributes`_ table to assign the appropriate ``GROUP_NAME`` and the 
-`Types of Functional Groups`_ table to assign the correct ``FUNCTIONAL_GROUP_NAME`` 
-for each node in the mapping file.
-
-.. _Group Attributes: ../../Tables/group_attributes.csv
-.. _Types of Functional Groups: ../../Tables/omnia_roles.csv
-
+Refer to the :ref:`Group Attributes <group-attributes-section>` table to assign the appropriate
+``GROUP_NAME`` and the :ref:`Types of Functional Groups <functional-groups-section>` table to
+assign the correct ``FUNCTIONAL_GROUP_NAME`` for each node in the mapping file.
 
 The following is the sample format of a mapping file::
 
@@ -58,6 +54,8 @@ The following is the sample format of a mapping file::
     * Target servers should be configured to boot in PXE mode with the appropriate NIC as the first boot device.
 
 
+.. _group-attributes-section:
+
 Groups
 ------
 
@@ -69,6 +67,7 @@ Nodes that are located in the same place or similar hardware can be grouped toge
    :header-rows: 1
    :keepspace:
 
+.. _functional-groups-section:
 
 Functional groups
 ------------------------
