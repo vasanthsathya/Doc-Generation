@@ -33,6 +33,8 @@ For more information, `click here <https://github.com/xcat2/xcat-core/issues/737
 
 ⦾ **After executing discovery.yml playbook for Slurm cluster deployment, why do I get the following messages on the slurm node?**
 
+.. image:: ../../../images/faq_provision.jpg
+
 **Potential Cause**: This issue occurs when cluster nodes are booted before the Slurm controller is fully up. Because ``slurmctld`` is not yet running when the Slurm nodes start, a connectoin cannot be established with the controller, resulting in “unable to contact” or “not responding” messages.
 
 **Resolution**: 
@@ -47,4 +49,3 @@ For more information, `click here <https://github.com/xcat2/xcat-core/issues/737
  
 Finally, verify the output of sinfo command to check if node has successfully joined the slurm cluster.
 
-.. image:: ../../../images/faq_provision.jpg
