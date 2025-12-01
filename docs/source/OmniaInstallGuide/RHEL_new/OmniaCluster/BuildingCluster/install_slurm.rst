@@ -18,8 +18,8 @@ Step 11: Set up Slurm on nodes
 4. To discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups, run  the ``discovery.yml`` playbook: `Discover cluster nodes <../../Provision/index.html>`_
 5. After successfully executing the ``discovery.yml`` playbook, PXE boot the nodes in the following sequence:
 
-   1. Boot the ``service_kube_control_plane`` node first, before booting any other nodes in the cluster.
-   2. Once the ``service_kube_control_plane`` node is up and running, you may simultaneously boot the ``service_kube_node``, ``login node``, and ``login_compiler_node`` nodes.
+   1. Boot the  **slurm controller node** first, before booting any other nodes in the cluster.
+   2. Once the **slurm controller node** is up and running, you may simultaneously boot the **slurm nodes**, **login** and **login compiler** nodes.
 
 
 **Slurm with GPU:**
