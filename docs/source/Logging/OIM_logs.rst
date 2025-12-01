@@ -3,9 +3,7 @@ OIM logs
 
 .. caution:: It is not recommended to delete the below log files or the directories they reside in.
 
-.. note::
-    * Log files are rotated periodically as a storage consideration. To customize how often logs are rotated, edit the ``/etc/logrotate.conf`` file on the node.
-    * If you want log files for specific playbook execution, ensure to use the ``cd`` command to move into the specific directory before executing the playbook. For example, if you want local repo logs, ensure to enter ``cd local_repo`` before executing the playbook. If the directory is not changed, all the playbook execution log files will be consolidated and provided as part of omnia logs located in ``/var/log/omnia.log``.
+.. note:: If you want log files for specific playbook execution, ensure to use the ``cd`` command to move into the specific directory before executing the playbook. For example, if you want local repo logs, ensure to enter ``cd local_repo`` before executing the playbook. If the directory is not changed, all the playbook execution log files will be consolidated and provided as part of omnia logs located in ``/opt/omnia/log/core/playbooks``.
 
 
 
@@ -38,8 +36,6 @@ The following table provides an overview of the various Omnia log files, their l
 | /opt/omnia/log/pulp/*log                                               | Pulp container logs                         |
 +------------------------------------------------------------------------+---------------------------------------------+
 | /opt/omnia/log/local_repo/*log                                         | Local repo logs                             |
-+------------------------------------------------------------------------+---------------------------------------------+
-| /opt/omnia/log/kubespray/*log                                          | Kubespray logs                              |
 +------------------------------------------------------------------------+---------------------------------------------+
 | /opt/omnia/log/core/container/*log                                     | Core container logs                         |
 +------------------------------------------------------------------------+---------------------------------------------+

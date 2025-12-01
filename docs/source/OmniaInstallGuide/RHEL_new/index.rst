@@ -25,5 +25,6 @@ Follow the below steps to deploy the Omnia container on RHEL-based platforms:
     verify_slurm_kub
     Telemetry/initialize_and_verify_telemetry
     Telemetry/verify_telemetry
-    Telemetry/external_telemetry
+    Telemetry/external_kafka
+    Telemetry/external_victoria
 
