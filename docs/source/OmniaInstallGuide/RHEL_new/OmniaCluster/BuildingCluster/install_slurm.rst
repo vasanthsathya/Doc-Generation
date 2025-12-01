@@ -19,7 +19,7 @@ Step 11: Set up Slurm on nodes
 5. After successfully executing the ``discovery.yml`` playbook, PXE boot the nodes in the following sequence:
 
    1. Boot the  **slurm controller node** first, before booting any other nodes in the cluster.
-   2. Once the **slurm controller node** node is up and running, you may simultaneously boot the **slurm nodes**, **login** and **login compiler** nodes.
+   2. Once the **slurm controller node** is up and running, you may simultaneously boot the **slurm nodes**, **login** and **login compiler** nodes.
 
 
 **Slurm with GPU:**
