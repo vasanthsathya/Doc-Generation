@@ -157,7 +157,7 @@ successfully in a single-mode VictoriaMetrics deployment. For more details, see
 
 4. Access the VMUI in a web browser using::
 
-    http://<external victoria metrics loadbalancer IP>:8428/vmui
+    http://<external victoria metrics loadbalancer IP>:8443/vmui
 
 5. Filter and view telemetry metrics using queries in VMUI.
 For example, the following query displays detailed temperature
