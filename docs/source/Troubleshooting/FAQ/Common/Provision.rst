@@ -31,3 +31,17 @@ For more information, `click here <https://github.com/xcat2/xcat-core/issues/737
 * Verify that the LC is in a ready state for all servers using: ``racadm getremoteservicesstatus``
 * PXE boot the target server.
 
+⦾ **After executing discovery.yml playbook for Slurm cluster deployment, why do I get the following messages on the slurm node?**
+
+**Potential Cause**: This issue occurs when cluster nodes are booted before the Slurm controller is fully up. Because ``slurmctld`` is not yet running when the Slurm nodes start, a connectoin cannot be established with the controller, resulting in “unable to contact” or “not responding” messages.
+
+**Resolution**: 
+1. ssh to the slurm controller node, run the following command::
+    
+    scontrol reconfigure
+ 
+2. ssh to the slurm node and restart the slurmd service using following command::
+    
+    systemctl restart slurmd
+ 
+Finally, verify the output of sinfo command to check if node has successfully joined the slurm cluster.
