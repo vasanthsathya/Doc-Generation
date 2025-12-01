@@ -46,3 +46,5 @@ For more information, `click here <https://github.com/xcat2/xcat-core/issues/737
     systemctl restart slurmd
  
 Finally, verify the output of sinfo command to check if node has successfully joined the slurm cluster.
+
+.. image:: ../../../images/faq_provision.png
