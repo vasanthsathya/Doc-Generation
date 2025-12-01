@@ -14,7 +14,7 @@
 **Sample**::
 
           nfs_client_params:
-                   -  nfs_name: ""nfs_k8s or nfs_slurm""
+                   -  nfs_name: ""nfs_k8s, nfs_slurm""
                       server_ip: ""172.16.107.168"", # Provide the IP of the NFS server
                       server_share_path: """", # Provide server share path of the NFS Server
                       client_share_path: /opt/omnia,
