@@ -61,8 +61,7 @@ To extract the server and client certificates, on the Service Kubernetes cluster
 
    .. image:: ../../../images/external_ip_loadbalances.png
 
-   .. note::
-      Note the Kafka Loadbalancer external IP. This external IP will be used by the external client node to connect to Kafka.
+.. note:: Note the Kafka Loadbalancer external IP. This external IP will be used by the external client node to connect to Kafka.
 
 2. Extract the required server certificate for mTLS authentication using the following commands::
 
@@ -102,7 +101,7 @@ Establish secure connection between external client node and Service Kubernetes 
 
        openssl pkcs12 -export -out user.pfx -inkey user.key -in user.crt
 
-.. note:: For OpenManage Enterprise kafka client, the client certificate must be in .pfx format.
+.. note:: For OpenManage Enterprise Kafka client, the client certificate must be in .pfx format.
 
 2. (Optional) Run the following commands to create Java truststore and keystore::
 
