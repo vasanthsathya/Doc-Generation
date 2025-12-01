@@ -32,13 +32,13 @@ cffi,MIT License,Foreign Function Interface for Python calling C code.,1.17.1
 nfs-utils,MIT and GPLv2 and GPLv2+ and BSD,NFS utilities and supporting clients and daemons for the kernel NFS server,2.8.2
 tcpdump,BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND ISC AND NTP,A network traffic monitoring tool,4.99.4
 traceroute,GPL-2.0-or-later,Traces the route taken by packets over an IPv4/IPv6 network,2.1.6
-vim,"""Vim AND LGPL-2.1-or-later AND MIT AND GPL-1.0-only AND (GPL-2.0-only OR Vim) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND : GPL-2.0-or-later AND GPL-3.0-or-later AND OPUBL-1.0""",VIM editor,9.1.083
-vim-enhanced,"""Vim AND LGPL-2.1-or-later AND MIT AND GPL-1.0-only AND (GPL-2.0-only OR Vim) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND : GPL-2.0-or-later AND GPL-3.0-or-later AND OPUBL-1.0""",A version of the VIM editor which includes recent enhancements,9.1.083
+vim,Vim AND LGPL-2.1-or-later AND MIT AND GPL-1.0-only AND (GPL-2.0-only OR Vim) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND  : GPL-2.0-or-later AND GPL-3.0-or-later AND OPUBL-1.0,VIM editor,9.1.083
+vim-enhanced,Vim AND LGPL-2.1-or-later AND MIT AND GPL-1.0-only AND (GPL-2.0-only OR Vim) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND  : GPL-2.0-or-later AND GPL-3.0-or-later AND OPUBL-1.0,A version of the VIM editor which includes recent enhancements,9.1.083
 python3,PSF license,The Python programming language,3.12
 python3-pip,MIT license,The Python package installer,25.1.1
 git,GPL 3.0,"Git is a fast, scalable, distributed revision control system with an unusually rich command set that provides both high-level operations and full access to internals",2.47.0
 git-lfs,MIT License,Git extension for versioning large files,3.3.0
-iproute,GPL-2.0 license,"The iproute package contains networking utilities (ip and rtmon, for example) which are designed to use the advanced networking capabilities of the Linux kernel.",6.11.0
+iproute, GPL-2.0 license,"The iproute package contains networking utilities (ip and rtmon, for example) which are designed to use the advanced networking capabilities of the Linux kernel.",6.11.0
 systemd-udev,GPL-2.0 license,The systemd System and Service Manager,257
 systemd,GPL-2.0 license,The systemd System and Service Manager,257
 curl,MIT License,"A command line tool and library for transferring data with URL syntax, supporting DICT, FILE, FTP, FTPS, GOPHER, GOPHERS, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, MQTT, POP3, POP3S, RTMP, RTMPS, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET, TFTP, WS and WSS. libcurl offers a myriad of powerful features",8.17.0
@@ -66,17 +66,17 @@ community.kubernetes,GPL-3.0-or-later,Kubernetes collection for ansible,2.0.1
 csi powerscale driver ,Apache-2.0 license,CSI Driver for Dell PowerScale,2.15.0
 CSI provisioner,Apache-2.0 license,Sidecar container that watches Kubernetes PersistentVolumeClaim objects and triggers CreateVolume/DeleteVolume against a CSI endpoint,5.3.0
 CSI snapshotter,Apache-2.0 license,Sidecar container that watches Kubernetes Snapshot CRD objects and triggers CreateSnapshot/DeleteSnapshot against a CSI endpoint.,8.3.0
-CSI resizer,Apache-2.0 license,Sidecar container that watches Kubernetes PersistentVolumeClaims objects and triggers controller side expansion operation against a CSI endpoint,1.14.0
-CSI node driver registrar,Apache-2.0 license,Sidecar container that registers a CSI driver with the kubelet using the kubelet plugin registration mechanism.,2.14.0
-CSI external health monitor controller,Apache-2.0 license,This repo contains sidecar controller and agent for volume health monitoring.,0.15.0
-CSI replicator,Apache-2.0 license,Dell Container Storage Modules (CSM) for Replication aims at extending native Kubernetes functionality to support Disaster Recovery workflows by utilizing storage array based replication.,1.13.0
-podmon,Apache-2.0 license,A Kubernetes pod monitor for safely terminating pods with persistent volumes in case of node failures,1.14.0
-csm-authorization-sidecar,Apache-2.0 license,CSM Authorization provides multi-tenancy for organizations/service providers that segregates storage usage across customers or business units,2.3.0
-csm metadata retriever,Apache-2.0 license,Dell csi-metadata-retriever controller to retrieve various metadata from the cluster using kubeapi.,1.12.0
-csm-encryption,Apache-2.0 license,"Part of Dell Container Storage Modules (CSM) for Kubernetes, providing encryption capabilities for data-at-rest and secure storage operations integrated with Dell CSI drivers.",0.6.0
-snapshot controller,Apache-2.0 license,"The snapshot-controller in Kubernetes manages the creation and management of volume snapshots, enabling point-in-time copies of your data for CSI drivers",8.3.0
+CSI resizer, Apache-2.0 license,Sidecar container that watches Kubernetes PersistentVolumeClaims objects and triggers controller side expansion operation against a CSI endpoint,1.14.0
+CSI node driver registrar, Apache-2.0 license,Sidecar container that registers a CSI driver with the kubelet using the kubelet plugin registration mechanism.,2.14.0
+CSI external health monitor controller, Apache-2.0 license,This repo contains sidecar controller and agent for volume health monitoring.,0.15.0
+CSI replicator, Apache-2.0 license,Dell Container Storage Modules (CSM) for Replication aims at extending native Kubernetes functionality to support Disaster Recovery workflows by utilizing storage array based replication.,1.13.0
+podmon, Apache-2.0 license,A Kubernetes pod monitor for safely terminating pods with persistent volumes in case of node failures,1.14.0
+csm-authorization-sidecar, Apache-2.0 license,CSM Authorization provides multi-tenancy for organizations/service providers that segregates storage usage across customers or business units,2.3.0
+csm metadata retriever, Apache-2.0 license,Dell csi-metadata-retriever controller to retrieve various metadata from the cluster using kubeapi.,1.12.0
+csm-encryption, Apache-2.0 license,"Part of Dell Container Storage Modules (CSM) for Kubernetes, providing encryption capabilities for data-at-rest and secure storage operations integrated with Dell CSI drivers.",0.6.0
+snapshot controller, Apache-2.0 license,"The snapshot-controller in Kubernetes manages the creation and management of volume snapshots, enabling point-in-time copies of your data for CSI drivers",8.3.0
 OpenLDAP,The OpenLDAP Public License Version 2.8,"OpenLDAP is a free, open-source implementation of the Lightweight Directory Access Protocol (LDAP) developed by the OpenLDAP Project",2.6.8
-OpenMPI,3-clause BSD license,Open MPI main development repository,5.0.8
+OpenMPI, 3-clause BSD license,Open MPI main development repository,5.0.8
 helm,Apache-2.0,Kubernetes Package Manager,3.19.0
 omsdk,Apache-2.0,DellEMC OpenManage Python SDK (OMSDK) is a python library that helps developers and customers to automate the lifecycle management of PowerEdge Servers,1.2.518
 pysnmp,BSD-3-Clause License,Python SNMP library,7.1.20
@@ -190,7 +190,7 @@ opaal,MIT License,OPAAL (OpenCHAMI Platform Abstraction and Automation Layer) is
 minio,GNU Affero General Public License v3.0 (AGPLv3),MinIO is a high-performance object storage system compatible with the Amazon S3 API.,latest
 postgres,MIT License,PostgreSQL is a powerful open-source relational database known for reliability and advanced features.,11.5-alpine
 registry,Apache-2.0 license,Docker Registry is the official image registry service for storing and distributing Docker images.,latest
-libcurl,curl,command line tool and library for transferring data with URLs,8.9.1
+libcurl,curl,Command line too and library for transferring data with URLs,8.9.1
 pmix-devel,BSD-3-Clause,PMIx is an application programming interface standard that provides libraries and programming models with portable and well-defined access to commonly needed services in distributed and parallel computing systems.,4.2.8
 pmix,BSD-3-Clause,PMIx is an application programming interface standard that provides libraries and programming models with portable and well-defined access to commonly needed services in distributed and parallel computing systems.,4.2.8
 LDMS,GPL-2.0,"OVIS/LDMS High Performance Computing monitoring, analysis, and visualization project.",4.5.1
@@ -220,21 +220,54 @@ Omnia Core,Apache License 2.0,"The omnia_core image is the foundational containe
 idrac-telemetry-receiver,Apache License 2.0,The idrac_telemetry_receiver image is part of Dell’s Telemetry Reference Tools for PowerEdge servers. It is designed to collect and stream telemetry data from Dell iDRAC (Integrated Dell Remote Access Controller) interfaces to external analytics platforms for monitoring and visualization.,1.0.0
 victoriapump,Apache License 2.0,"The victoriapump image is part of Dell’s Omnia telemetry pipeline and is designed to push telemetry metrics into VictoriaMetrics, a high-performance time-series database optimized for large-scale monitoring and observability.",1.0.0
 Kafkapump,Apache License 2.0,"The kafkapump image is part of Dell’s Omnia telemetry pipeline and is designed to consume telemetry data from Kafka topics and forward it to downstream systems such as time-series databases (e.g., VictoriaMetrics) or analytics platforms.",1.0.0
-click,,,8.2.1
-colorama,,,0.4.6
-durationpy,,,0.10.0
-filelock,,,3.18.0
-future,,,1.0.0
-gitdb,,,4.0.12
-google-auth,,,2.40.3
-idna,,,3.10.0
-importlib-metadata,,,8.7.0
-ipaddress,,,1.0.23
-jinja2,,,3.1.6
-jsonschema,,,4.24.0
-jsonschema-specifications,,,2025.4.1
-macholib,,,1.16.3
-markupsafe,,,3.0.2
-,,,
-,,,
-,,,
+click,BSD-3-Clause,A Python package for creating command-line interfaces with composable commands and options.,8.2.1
+colorama,BSD License (BSD License),"Cross-platform colored terminal text for Python (Windows, Linux, macOS).",0.4.6
+durationpy,MIT license,Parses and formats duration strings in Python (ISO 8601-like).,0.10.0
+filelock,MIT license,Provides a platform-independent file locking mechanism for Python.,3.18.0
+future,MIT license,Compatibility layer for writing Python code that runs on both Python 2 and 3.,1.0.0
+gitdb,BSD License (BSD License),Implements a pure-Python Git object database.,4.0.12
+google-auth,Apache License 2.0,Authentication library for Google APIs and OAuth 2.0.,2.40.3
+idna,BSD License (BSD License),Implements Internationalized Domain Names in Applications (IDNA) protocol.,3.10.0
+importlib-metadata,Apache License 2.0,Accesses Python package metadata using the importlib interface.,8.7.0
+ipaddress,PSF,"Provides IPv4 and IPv6 address manipulation capabilities in Python, including subnet calculations and address validation.",1.0.23
+jinja2,BSD License (BSD License),"Templating engine for Python, widely used in web frameworks and configuration tools.",3.1.6
+jsonschema,MIT license,Validate JSON data against schemas.,4.24.0
+jsonschema-specifications,MIT license,Provides official JSON Schema meta-schemas and vocabularies.,2025.4.1
+macholib,MIT license,Analyze and modify Mach-O binaries on macOS,1.16.3
+markupsafe,BSD License (BSD License),Provides a string type for safe HTML/XML escaping.,3.0.2
+multidict,Apache License 2.0,"Implements multidict (dictionary with multiple values per key), used in aiohttp.",6.4.4
+numpy,BSD License (BSD License),Fundamental package for scientific computing with arrays and matrices.,2.3.0
+oauthlib,BSD License (BSD License),Implements OAuth1 and OAuth2 for Python.,3.3.0
+packaging,Apache License 2.0,Provides utilities for version parsing and dependency handling.,25.0.0
+pathspec,MPL-2.0,Implements gitignore-style pattern matching.,0.12.1
+pefile,MIT license,Parse and analyze Windows PE files.,2023.2.7
+paltformdirs,MIT license,"Determines platform-specific directories for config, cache, and data.",4.3.8
+ptyprocess,ISC,Launch and control processes in pseudo-terminals.,0.7.0
+pyasn1,BSD License (BSD License),ASN.1 data structures and codecs for Python.,0.6.1
+pyasn1-modules,BSD License (BSD License),ASN.1 modules for protocols like SNMP and LDAP.,0.4.2
+pycparser,BSD License (BSD License),C parser in Python for analyzing C code.,2.22
+pycurl,LGPL-2.1,Python interface to libcurl.,7.45.6
+pygments,BSD License (BSD License),Syntax highlighting for code in many languages.,2.19.1
+pysnmp-mibs,BSD License (BSD License),SNMP MIBs for PySNMP.,0.1.6
+python-dateutils,BSD License (BSD License),Extensions to Python’s datetime module.,2.9.0.post0
+pytz,MIT license,World timezone definitions for Python.,2025.2
+pywin32-ctypes,MIT license,Windows API access via ctypes.,0.2.3
+referencing,MIT license,JSON Schema referencing implementation.,0.36.2
+requests-oauthlib,ISC,OAuth support for Python Requests.,2.0.0
+resolvelib,MIT license,Dependency resolution library for Python packaging.,1.0.1
+rpds-py,MIT license,Rust-based persistent data structures for Python.,0.25.1
+rsa,Apache License 2.0,Pure-Python RSA implementation.,4.9.1
+ruamel-yaml,MIT license,YAML parser/emitter for Python.,0.18.14
+ruamel-yaml-clib,MIT license,C-based speedups for ruamel.yaml.,0.2.12
+schema,MIT license,Data validation library for Python.,0.7.7
+six,MIT license,Compatibility library for Python 2 and 3.,1.17.0
+smmap,BSD License (BSD License),Memory map manager for Git object storage.,5.0.2
+subprocess-tee,MIT license,Run subprocesses and capture stdout/stderr simultaneously.,0.4.2
+tomli-w,MIT license,Write TOML files in Python.,1.2.0
+typing-extensions,PSF,Backport of new typing features to older Python versions.,4.14.0
+tzdata,MIT license,Time zone database for Python.,2025.2
+wcmatch,MIT license,Advanced globbing and matching for Python.,10.0.0
+wcwidth,MIT license,Measures the width of Unicode characters for terminal display.,0.2.23
+websocket-client,BSD License (BSD License),WebSocket client for Python.,1.8.0
+yamllint,GPL-3.0-or-later,YAML linter for syntax and style checks.,1.37.1
+zipp,MIT license,Backport of pathlib-compatible zipfile features.,3.23.0
