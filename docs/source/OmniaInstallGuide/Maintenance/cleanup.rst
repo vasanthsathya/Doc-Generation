@@ -22,7 +22,7 @@ Use the below command to execute the playbook: ::
     ansible-playbook oim_cleanup.yml
 
 
-.. note:: After running the ``oim_cleanup.yml`` playbook, ensure to reboot the OIM node.
+.. note:: After running the ``oim_cleanup.yml`` playbook, ensure to reboot the OIM node. OIM cleanup does not delete the content of the ``server_share_path`` corresponding to the service Kubernetes cluster and slurm cluster.
 
 .. caution::
     * After a clean-up, when re-provisioning your cluster by re-running the ``discovery_provision.yml`` playbook, ensure to use a different ``admin_nic_subnet`` in ``input/provision_config.yml`` to avoid a conflict with newly assigned servers. Alternatively, disable any OS available in the ``Boot Option Enable/Disable`` section of your BIOS settings (``BIOS Settings`` > ``Boot Settings`` > ``UEFI Boot Settings``) on all target nodes.
