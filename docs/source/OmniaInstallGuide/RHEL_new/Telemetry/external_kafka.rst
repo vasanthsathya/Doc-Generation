@@ -63,7 +63,7 @@ To extract the server and client certificates, on the Service Kubernetes cluster
 
 .. note:: Note the Kafka Loadbalancer external IP. This external IP will be used by the external client node to connect to Kafka.
 
-2. Extract the required server certificate for mTLS authentication using the following commands::
+2. Extract the required server certificate for mTLS authentication using the following command::
 
        kubectl get secret kafka-cluster-ca-cert -n telemetry -o jsonpath='{.data.ca\.crt}' | base64 -d > ca.crt
 

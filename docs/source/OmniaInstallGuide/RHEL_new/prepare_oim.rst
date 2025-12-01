@@ -4,7 +4,6 @@ Step 6:  Prepare the OIM
 The ``prepare_oim.yml`` playbook is used to prepare the Omnia Infrastructure Manager (OIM). The playbook performs the following on the OIM:
 
 * Sets up the OpenCHAMI containers.
-* Sets up the Kubespray container (if ``service_k8s`` entry is present in ``/opt/omnia/input/project_default/software_config.json``): ``omnia_kubespray_<version>``
 * Sets up the Omnia Auth container if ``"name": "openldap", "arch": ["x86_64"]`` entry is present in ``/opt/omnia/input/project_default/software_config.json``.
 * Sets up the Pulp container: ``pulp``
 

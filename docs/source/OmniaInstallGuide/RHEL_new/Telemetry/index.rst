@@ -1,4 +1,4 @@
-Step 8: Configure Telemetry Requirements
+Step 8: Configure telemetry requirements
 ========================================
 
 Omnia enables telemetry collection using both iDRAC Telemetry and LDMS
