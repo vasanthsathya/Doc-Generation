@@ -25,6 +25,7 @@ On slurm controller node
 It is recommended to store job output and error files in NFS-mounted directories (``/var/log/slurm/``) so that job logs are persisted.
 
 **Slurm cluster with GPU**
+
 * On Slurm nodes that have GPUs, it may take some time for Slurmd to start because of the GPU driver installation. To view the logs during this process, you can run: ::
       
       tail -f /var/log/cloud-init-output.log
