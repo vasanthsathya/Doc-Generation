@@ -36,7 +36,7 @@ Prerequisites
 * The nodes must be equipped with two active Network Interface Cards (NICs):  
 
     * One dedicated to internal cluster communication. It is used for internal cluster communication, Kubernetes deployment activities, and for accessing the Pulp repositories hosted on the OIM. The Admin interface must be assigned an IP address from the admin network range and must be reachable from the OIM.
-    * If you want to install a CSI driver, ensure that the storage and data networks are configured correctly via DHCP. 
+    * One dedicated to Internet. If you want to install a CSI driver, ensure that the storage network must be accessible through the Internet-facing NIC. This NIC must be configured via DHCP.
   
 * To use NFS for service Kubernetes cluster, ensure the following prerequisites are met:
 
@@ -53,14 +53,7 @@ Steps
 
 1. Run ``local_repo.yml`` playbook to download the artifacts required to set up Kubernetes on the service cluster nodes.
 
-2. Fill in the service cluster details in the ``functional_groups_config.yml``: `Create groups and assign functional roles to the nodes <../composable_roles.html>`_.
-
-.. csv-table:: functional_groups_config.yml
-   :file: ../../../../../Tables/service_k8s_roles.csv
-   :header-rows: 1
-   :keepspace:
-
-3. Fill  the ``omnia_config.yml``,  ``high_availability_config.yml`` (for `service cluster HA <../HighAvailability/service_cluster_ha.html>`_), and ``storage_config.yml``. The nfs_name mentioned in ``storage_config.yml`` should match the ``nfs_storage_name`` of the entries for the ``service_k8s_cluster`` in ``omnia_config.yml`` where deployment is set to true.
+2. Fill  the ``omnia_config.yml``,  ``high_availability_config.yml`` (for `service cluster HA <../HighAvailability/service_cluster_ha.html>`_), and ``storage_config.yml``. The nfs_name mentioned in ``storage_config.yml`` should match the ``nfs_storage_name`` of the entries for the ``service_k8s_cluster`` in ``omnia_config.yml`` where deployment is set to true.
    See `Input parameters for the cluster <../OmniaCluster/schedulerinputparams.html>`_. The NFS share is utilized by the Kubernetes cluster to mount necessary resources. See the following sample:
     
     ::
@@ -88,9 +81,9 @@ Steps
    :keepspace:
 
 
-4. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. See `Build cluster node images <../build_images.html>`_.
+3. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. See `Build cluster node images <../build_images.html>`_.
 
-5. Run ``discovery.yml`` playbook to discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups. See `Discover cluster nodes <../Provision/index.html>`_
+4. Run ``discovery.yml`` playbook to discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups. See `Discover cluster nodes <../Provision/index.html>`_
     
     After successfully running the ``discovery.yml`` playbook, you can either manually PXE boot the nodes or use the ``set_pxe_boot.yml`` playbook. PXE booting allows the nodes to load diskless images from the Omnia Infrastructure Manager (OIM). For detailed steps on using ``set_pxe_boot.yml``, see :ref:`set-pxe-boot-order`.
 
