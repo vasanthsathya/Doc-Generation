@@ -51,7 +51,7 @@ Push sample metrics from Omnia core container in the OIM
     -H "Content-Type: text/plain" \
     -d "test_metric{source=\"external\"} 42"
 
-4. Push the sample test metrics to Victoria DB using the following command:
+4. Push the sample test metrics to Victoria DB using the following command::
 
     curl --cacert ca.crt -X POST   "https://vminsert.telemetry.svc.cluster.local:8480/insert/0/prometheus/api/v1/import/prometheus"   -H "Content-Type: text/plain"   -d 'cpu_usage{host="server1",job="new"} 75.5
     memory_usage{host="server1",job="new"} 1024
