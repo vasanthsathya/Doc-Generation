@@ -1,5 +1,5 @@
-Collect telemetry data from external client nodes
-==================================================
+Collect telemetry data from external client nodes to Kafka
+===========================================================
 This section describes how to create a Kafka topic in the Omnia Service Kubernetes cluster
 and configure an external telemetry producer to stream metrics securely into the Service Kubernetes Clusters using mutual TLS (mTLS).
 
@@ -17,7 +17,7 @@ Ensure the following prerequisites are met before proceeding:
 * A Kafka Pump is available outside the Service Kubernetes cluster, deployed as a container using Kubernetes, Podman, or Docker.
 
 
-Create a Kafka Topic
+(Optional) Create a Kafka Topic
 -------------------------
 
 On the Service Kubernetes cluster, do the following:
@@ -48,10 +48,10 @@ Replace ``topic_name`` with the desired Kafka topic name.
        kubectl get kafkatopics -n telemetry
 
 
-Extract certificates
---------------------
+Extract server and client certificates from Service Kubernetes cluster
+----------------------------------------------------------------------
 
-To extract the certificates, on the Service Kubernetes cluster, do the following:
+To extract the server and client certificates, on the Service Kubernetes cluster, do the following:
 
 1. Retrieve the Kafka LoadBalancer external IP using the following command::
 
@@ -61,27 +61,30 @@ To extract the certificates, on the Service Kubernetes cluster, do the following
 
    .. image:: ../../../images/external_ip_loadbalances.png
 
-   .. note::
-      Note the Kafka Loadbalancer external IP. This external IP will be used by the external client node to connect to Kafka.
+.. note:: Note the Kafka Loadbalancer external IP. This external IP will be used by the external client node to connect to Kafka.
 
-2. Extract the required certificates for mTLS authentication using the following commands::
+2. Extract the required server certificate for mTLS authentication using the following command::
 
        kubectl get secret kafka-cluster-ca-cert -n telemetry -o jsonpath='{.data.ca\.crt}' | base64 -d > ca.crt
+
+.. note:: For OpenManage Enterprise kafka client, the ca.crt certificate can be directly used.
+     
+3. Extract the required client certificate for mTLS authentication using the following commands::
+
        kubectl get secret kafkapump -n telemetry -o jsonpath='{.data.user\.crt}' | base64 -d > user.crt
        kubectl get secret kafkapump -n telemetry -o jsonpath='{.data.user\.key}' | base64 -d > user.key
 
-3. On the external client node (Kafka Pump host), create a working directory using the following command and set appropriate permissions::
+4. On the external client node (Kafka Pump host), create a working directory using the following command and set appropriate permissions::
 
        mkdir -p ~/kafka-mtls-test
        cd ~/kafka-mtls-test
 
-4. From the Service Kubernetes cluster, copy the extracted certificates to the directory created on the external client node using the following command::
+5. From the Service Kubernetes cluster, copy the extracted certificates to the directory created on the external client node using the following command::
 
        scp ca.crt user.crt user.key <username>@<external_node_ip>:~/kafka-mtls-test
 
 
-
-Establish secure connection between external client node and Service Kubernetes Cluster
+Establish secure connection between external client node and Service Kubernetes cluster
 ---------------------------------------------------------------------------------------
 
 1. On the external client node, navigate to the target directory::
@@ -93,6 +96,12 @@ Establish secure connection between external client node and Service Kubernetes 
        ca.crt 
        user.crt
        user.key 
+
+2. Run the following command to create certificate in .pfx format and provide the password when prompted::
+
+       openssl pkcs12 -export -out user.pfx -inkey user.key -in user.crt
+
+.. note:: For OpenManage Enterprise Kafka client, the client certificate must be in .pfx format.
 
 2. (Optional) Run the following commands to create Java truststore and keystore::
 
