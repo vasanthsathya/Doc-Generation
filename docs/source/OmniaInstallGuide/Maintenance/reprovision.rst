@@ -3,16 +3,16 @@ Re-provisioning the cluster
 
 In the event that an existing Omnia cluster needs a fresh installation, the cluster can be re-provisioned.
 
-If you deploy the service Kubernetes cluster or slurm cluster freshly, consider the following regarding ``server_share_path`` and ``client_share_path`` in your ``storage_config.yml``:
+If you deploy the service kubernetes cluster or slurm cluster freshly, ensure that the NFS server share path used by slurm or service kubernetes cluster is cleared manually. The NFS details are available in ``storage_config.yml``.
 
-•	If you want to reuse the same ``server_share_path`` and ``client_share_path``, do the following:
+•	To reuse the same ``server_share_path`` and ``client_share_path``, do the following:
 
         1.	Power off all servers except the OIM.
         2.	From the OIM, go to the ``client_share_path`` and delete all contents in the respective client share path.
         3.  Run the ``discovery.yml`` playbook. 
         4.  PXE boot the required nodes to be reprovisioned.
 
-•	If you want to use the new ``server_share_path`` and ``client_share_path``, do the following:
+•	To use the new ``server_share_path`` and ``client_share_path``, do the following:
 
         1.  Run the ``discovery.yml`` playbook. 
         2.  PXE boot the required nodes to be reprovisioned.
