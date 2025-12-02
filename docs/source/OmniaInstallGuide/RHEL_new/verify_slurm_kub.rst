@@ -22,6 +22,16 @@ On slurm controller node
    
           * Ensure that the worker nodes are listed and the node state should be idle.
 
+It is recommended to store job output and error files in NFS-mounted directories (``/var/log/slurm/``) so that job logs are persisted.
+
+**Slurm cluster with GPU**
+* On Slurm nodes that have GPUs, it may take some time for Slurmd to start because of the GPU driver installation. To view the logs during this process, you can run: ::
+      
+      tail -f /var/log/cloud-init-output.log
+
+* The CUDA installation path on the OIM and nodes must be ``client_share_path}/slurm``. 
+* The ``client_share_path`` is the same as mentioned in ``storage config.yml`` for ``nfs_slurm``. 
+
 
 **PAM Feature for Slurm**
 
