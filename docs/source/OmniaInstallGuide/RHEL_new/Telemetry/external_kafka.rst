@@ -67,7 +67,7 @@ To extract the server and client certificates, on the Service Kubernetes cluster
 
        kubectl get secret kafka-cluster-ca-cert -n telemetry -o jsonpath='{.data.ca\.crt}' | base64 -d > ca.crt
 
-.. note:: For OpenManage Enterprise kafka client, the ca.crt certificate can be directly used. To know more about OpenManage Enterprise, see <https://www.dell.com/en-in/lp/dt/open-manage-enterprise>`_.
+.. note:: For OpenManage Enterprise kafka client, the ca.crt certificate can be directly used. To know more about OpenManage Enterprise, refer OpenManage Enterprise <https://www.dell.com/en-in/lp/dt/open-manage-enterprise>`_.
      
 3. Extract the required client certificate for mTLS authentication using the following commands::
 
@@ -101,7 +101,7 @@ Establish secure connection between external client node and Service Kubernetes 
 
        openssl pkcs12 -export -out user.pfx -inkey user.key -in user.crt
 
-.. note:: For OpenManage Enterprise Kafka client, the client certificate must be in .pfx format. To know more about OpenManage Enterprise, see <https://www.dell.com/en-in/lp/dt/open-manage-enterprise>`_.
+.. note:: For OpenManage Enterprise Kafka client, the client certificate must be in .pfx format. To know more about OpenManage Enterprise, refer OpenManage Enterprise <https://www.dell.com/en-in/lp/dt/open-manage-enterprise>`_.
 
 2. (Optional) Run the following commands to create Java truststore and keystore::
 

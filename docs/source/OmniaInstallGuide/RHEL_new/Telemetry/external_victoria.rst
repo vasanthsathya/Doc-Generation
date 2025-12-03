@@ -51,7 +51,7 @@ Push sample metrics from Omnia core container in the OIM
     -H "Content-Type: text/plain" \
     -d "test_metric{source=\"external\"} 42"
 
-.. note:: Use ``https://vminsert.telemetry.svc.cluster.local:8480//insert/0/prometheus/api/v1/write`` to push the metrics from external client, such as SmartFabric Manager (SFM). To know more about SFM, see the `VictoriaMetrics Cluster Mode documentation <https://www.dell.com/en-in/shop/ipovw/smartfabric-manager-for-sonic>`_.
+.. note:: Use ``https://vminsert.telemetry.svc.cluster.local:8480//insert/0/prometheus/api/v1/write`` to push the metrics from external client, such as SmartFabric Manager (SFM). To know more about SFM, refer 'SFM <https://www.dell.com/en-in/shop/ipovw/smartfabric-manager-for-sonic>`_.
 
 4. Push the sample test metrics to Victoria DB using the following command::
 
