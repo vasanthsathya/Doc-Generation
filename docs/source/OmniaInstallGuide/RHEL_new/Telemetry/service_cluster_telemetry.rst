@@ -9,7 +9,7 @@ Prerequisites
 
 * Redfish must be enabled in iDRAC.
 * If the internet connection is required on the service Kube node, configure it after the node is booted. 
-* All service cluster nodes should have access to the Internet.
+* All service cluster nodes have access to the Internet (optional).
 * iDRAC firmware must be updated to the latest version. 
 * Datacenter license must be installed on the nodes.
 * Ensure that the correct node service tags are being displayed on the iDRAC interface. Otherwise, telemetry data cannot be collected by the ``idrac_telemetry_receiver`` container.

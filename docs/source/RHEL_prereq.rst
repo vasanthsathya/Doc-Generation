@@ -66,7 +66,6 @@ Service Kubernetes Cluster Prerequisites
 
 * A minimum of **three Kubernetes controller nodes** are available.
 * Each controller node must have a **full-featured RHEL operating system** installed.
-* The OIM and all three controller nodes must have **internet access**.
 * Each controller node must have **two active NICs**:
 
   * One connected to the **public network** (for downloading and storing packages/images).
