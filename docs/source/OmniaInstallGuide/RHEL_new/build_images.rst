@@ -49,11 +49,13 @@ Build images for aarch64 cluster nodes
 
 To build images for the nodes present in each functional group, do the following.
 
-1. Navigate to the image build directory::
+1. Prepare aarch64 cluster nodes using the steps provided in :doc:`../AdvancedConfigurations/build_arm_ochami_image`.
+
+2. Navigate to the image build directory::
 
        cd /omnia/build_image_aarch64
 
-2. To build the image, run the appropriate playbook based on the node architecture::
+3. To build the image, run the appropriate playbook based on the node architecture::
 
        ansible-playbook build_image_aarch64.yml -i inventory
 
@@ -62,7 +64,7 @@ To build images for the nodes present in each functional group, do the following
        [admin_aarch64]
        10.0.0.1
 
-3. To verify that images are created for each functional group defined in the mapping file, run the following command on the OIM::
+4. To verify that images are created for each functional group defined in the mapping file, run the following command on the OIM::
 
        s3cmd ls -Hr s3://boot-images
 

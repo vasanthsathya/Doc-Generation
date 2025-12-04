@@ -16,7 +16,7 @@ providing flexible deployment and simplified lifecycle management.
 
 .. note::
 
-   The ``idrac_telemetry_support`` should be set to ``false`` if the Service Kubernetes cluster is not part of the deployment and the ``service_k8s`` entry is not included in the ``software_config.json`` file.
+   Ensure that the ``service_k8s`` entry is mentioned in the ``software_config.json`` file when ``idrac_telemetry_support`` is set to ``true`` in the ``telemetry_config.yml`` file.
 
 
 .. toctree::
