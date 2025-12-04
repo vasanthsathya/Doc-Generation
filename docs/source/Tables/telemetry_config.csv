@@ -12,7 +12,8 @@ executing  ``telemetry.yml`` and  ``discovery.yml`` playbooks.
 
 .. note::
    If you want to deploy only Slurm clusters (``slurm_cluster``), ``idrac_telemetry_support`` must
-be set to ``false``. The ``idrac_telemetry_support`` should be set to ``true`` only when the Service Kubernetes cluster  (``service_k8s``)  is included in the ``software_config.json`` file."
+  be set to ``false``. The ``idrac_telemetry_support`` should be set to ``true`` only when theService Kubernetes cluster  (``service_k8s``)  is included in
+  the ``software_config.json`` file."
 ``idrac_telemetry_collection_type``,Mandatory,"*  Specify where to store iDRAC telemetry data.
 * **Supported values:**
     * ``victoria``: Store in VictoriaMetrics only
