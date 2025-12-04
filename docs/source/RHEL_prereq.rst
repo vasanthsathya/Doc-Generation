@@ -23,8 +23,9 @@ NFS Server Prerequisites
 OIM (Omnia Infrastructure Manager) Prerequisites
 -------------------------------------------------
 
-* Choose a **server outside of your intended cluster** that meets the required `storage requirements <RHELSpace.html>`_ to function as the Omnia Infrastructure Manager (OIM).
-* Ensure that the OIM has a full-featured RHEL operating system (OS) installed. For a complete list of supported RHEL versions, see the `Support Matrix <../../Overview/SupportMatrix/OperatingSystems/index.html>`_.
+* Choose a **server outside of your intended cluster** that meets the required See :doc:`Storage Requirements <OmniaInstallGuide/RHEL_new/RHELSpace>`.
+ to function as the Omnia Infrastructure Manager (OIM).
+* Ensure that the OIM has a full-featured RHEL operating system (OS) installed. For a complete list of supported RHEL versions, see the See :doc:`Support Matrix <Overview/SupportMatrix>`.
 * Ensure that **Podman** container engine is installed on the OIM.
 * The OIM must have **two active Network Interface Cards (NICs)**:
    * One connected to the **public network** (for downloading and storing packages and images).
@@ -73,7 +74,8 @@ Service Kubernetes Cluster Prerequisites
 
     *Refer to supported network topologies in the Omnia documentation.*
 
-* Verify that all **hostname prerequisites** are met on the Kubernetes controller nodes.
+* Verify that all **hostname prerequisites** are met on the Kubernetes controller nodes. For more information, see :doc:`Prerequisites for deploying the Omnia core container <OmniaInstallGuide/RHEL_new/omnia_startup>`.
+
 
 
 iDRAC Telemetry Metric Collection Prerequisites
@@ -88,7 +90,7 @@ iDRAC Telemetry Metric Collection Prerequisites
 LDAP Prerequisites
 ------------------------
 
-* Configure the proxy on the OIM node using the ``omnia_auth`` container. To configure the proxy, after deploying the ``omnia_auth`` container, perform the steps described in `Configure OpenLDAP as a Proxy Server <Authentication/OpenLDAP.html>`_.
+* Configure the proxy on the OIM node using the ``omnia_auth`` container. To configure the proxy, after deploying the ``omnia_auth`` container, perform the steps described in See :doc:`Configure OpenLDAP as a proxy server <OmniaInstallGuide/RHEL_new/Authentication/OpenLDAP>`.
 
 
 
