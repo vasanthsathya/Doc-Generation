@@ -25,7 +25,8 @@ Prerequisites
 Steps
 -------
 
-1. Build RPM packages for LDMS producer for RHEL 10.
+1. Build RPM packages for LDMS producer (RHEL 10) by using the steps in `Building LDMS PRODUCER RPM Package <https://github.com/dell/omnia-artifactory?tab=readme-ov-file#building-ldms-producer-rpm-package>`_.
+
 2. Specify the following entries in the ``software_config.json``. If any entry is missing, Omnia skips LDMS deployment and logs an informational message. 
    For more information, see :doc:`../CreateLocalRepo/InputParameters`.
 
