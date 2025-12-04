@@ -11,7 +11,7 @@ executing  ``telemetry.yml`` and  ``discovery.yml`` playbooks.
    the ``omnia_config_credentials.yml`` file becomes mandatory. 
 
 .. note::
-   If you want to deploy only Slurm clusters (``slurm_cluster``),  ``idrac_telemetry_support`` must be set to ``false``."
+   If you want to deploy only Slurm clusters (``slurm_custom``),  ``idrac_telemetry_support`` must be set to ``false``."
 ``idrac_telemetry_collection_type``,Mandatory,"*  Specify where to store iDRAC telemetry data.
 * **Supported values:**
     * ``victoria``: Store in VictoriaMetrics only
