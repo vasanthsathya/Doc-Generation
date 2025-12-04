@@ -4,8 +4,6 @@ Step 12: Build cluster node images
 The ``build_image_x86_64.yml`` and ``build_image_aarch64.yml`` playbooks are used to build diskless images for ``x86_64`` and ``aarch64`` cluster nodes, respectively. 
 Each image is created based on the functional groups defined in the mapping file. 
 
-Alternately, to build images for aarch64 cluster nodes, perform the steps provided in :doc:`../AdvancedConfigurations/build_arm_ochami_image`.
-
 .. caution:: Limited validation has been performed on aarch64 platform.
 
 **Prerequisites**: 
@@ -49,7 +47,7 @@ Build images for aarch64 cluster nodes
 
 To build images for the nodes present in each functional group, do the following.
 
-1. Prepare aarch64 cluster nodes using the steps provided in :doc:`../AdvancedConfigurations/build_arm_ochami_image`.
+1. Prepare the aarch64 cluster nodes by following the steps provided in :doc:`../AdvancedConfigurations/build_arm_ochami_image`.
 
 2. Navigate to the image build directory::
 
