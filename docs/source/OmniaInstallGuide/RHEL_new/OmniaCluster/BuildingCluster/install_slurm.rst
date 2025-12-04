@@ -20,6 +20,7 @@ Step 11: Set up Slurm on nodes
    1. Boot the  **slurm controller node** first, before booting any other nodes in the cluster.
    2. Once the **slurm controller node** is up and running, you may simultaneously boot the **slurm nodes**, **login** and **login compiler** nodes.
 
+.. note:: If you want to deploy only Slurm clusters (``slurm_cluster``), ``idrac_telemetry_support`` must be set to ``false``. The ``idrac_telemetry_support`` should be set to ``true`` only when the Service Kubernetes cluster (``service_k8s``) is included in the ``software_config.json`` file.
 
 **Slurm with GPU:**
 
