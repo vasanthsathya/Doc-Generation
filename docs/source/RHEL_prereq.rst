@@ -23,8 +23,7 @@ NFS Server Prerequisites
 OIM (Omnia Infrastructure Manager) Prerequisites
 -------------------------------------------------
 
-* Choose a **server outside of your intended cluster** that meets the required See :doc:`Storage Requirements <OmniaInstallGuide/RHEL_new/RHELSpace>`.
- to function as the Omnia Infrastructure Manager (OIM).
+* Choose a **server outside of your intended cluster** that meets the required :doc:`Storage Requirements <OmniaInstallGuide/RHEL_new/RHELSpace>` to function as the Omnia Infrastructure Manager (OIM).
 * Ensure that the OIM has a full-featured RHEL operating system (OS) installed. For a complete list of supported RHEL versions, see the See :doc:`Support Matrix <Overview/SupportMatrix>`.
 * Ensure that **Podman** container engine is installed on the OIM.
 * The OIM must have **two active Network Interface Cards (NICs)**:
