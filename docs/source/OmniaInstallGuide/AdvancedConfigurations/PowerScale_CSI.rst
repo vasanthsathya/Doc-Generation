@@ -72,6 +72,8 @@ Prerequisites
 
         enabled: false
 
+    * dnsPolicy: Default
+
     * endpointPort:8080
 
     * skipCertificateValidation: true
