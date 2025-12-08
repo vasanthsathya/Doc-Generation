@@ -19,7 +19,6 @@ During deployment, Omnia attaches LDMS aggregator and store pods to the admin ne
 Prerequisites
 ---------------
 
-* All service cluster nodes have access to the Internet (optional).
 * Ensure that ``discovery.yml`` playbook has been executed successfully with ``service_kube_control_plane`` and ``service_kube_node`` in the mapping file.
 
 Steps
