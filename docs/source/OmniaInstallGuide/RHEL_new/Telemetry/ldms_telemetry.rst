@@ -24,9 +24,7 @@ Prerequisites
 Steps
 -------
 
-1. Build RPM packages for LDMS producer (RHEL 10) by using the steps in `Building LDMS PRODUCER RPM Package <https://github.com/dell/omnia-artifactory?tab=readme-ov-file#building-ldms-producer-rpm-package>`_.
-
-2. Specify the following entries in the ``software_config.json``. If any entry is missing, Omnia skips LDMS deployment and logs an informational message. 
+1. Specify the following entries in the ``software_config.json``. If any entry is missing, Omnia skips LDMS deployment and logs an informational message. 
    For more information, see :doc:`../CreateLocalRepo/InputParameters`.
 
 .. code-block:: json
@@ -35,7 +33,10 @@ Steps
     {"name": "service_k8s", "version": "1.34.1", "arch": ["x86_64"]},
     {"name": "ldms", "arch": ["x86_64", "aarch64"]}
 
-3. Ensure the ``ldms.json`` file contains the following entries. 
+3. Ensure the ``ldms.json`` file contains the following entries.
+
+ .. note:: If the LDMS RPM is not available, refer to  `Building LDMS PRODUCER RPM Package <https://github.com/dell/omnia-artifactory?tab=readme-ov-file#building-ldms-producer-rpm-package>`_ for instructions on building LDMS RPMs. 
+
 
 The following ``ldms.json`` sample is for ``x86_64``. For ``aarch64`` architecture, update the repo name accordingly in the ``ldms.json`` file.
 
