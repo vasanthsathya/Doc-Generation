@@ -44,7 +44,7 @@ OIM (Omnia Infrastructure Manager) Prerequisites
 
         git clone https://github.com/dell/omnia-artifactory.git
         cd omnia-artifactory
-        ./build_images.sh all
+        ./build_images.sh all omnia_branch=<branch_name/tag name>
 
    * For detailed build instructions, refer to the
      `Omnia Artifacts README <https://github.com/dell/omnia-artifactory/blob/omnia-container/README.md>`_.
@@ -87,6 +87,7 @@ Lightweight Distributed Metric Service (LDMS) Prerequisites
 * The LDMS RPM must be available in the user repository, and the ``ldms.json`` file should be updated accordingly. 
   If the LDMS RPM is not available, refer to  `Building LDMS PRODUCER RPM Package <https://github.com/dell/omnia-artifactory?tab=readme-ov-file#building-ldms-producer-rpm-package>`_ for instructions on building LDMS RPMs. 
 
-
-
+Slurm Prerequisites
+--------------------
+* The Slurm RPM must be available in the user repository. If the Slurm RPM is not available, refer to `Slurm Quick Start Administrator Guide <https://slurm.schedmd.com/quickstart_admin.html>`_ for instructions on building Slurm RPMs.
 

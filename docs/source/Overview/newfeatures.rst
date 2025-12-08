@@ -19,12 +19,6 @@ Containerization and Repository Management
 - **Containerized LDAP Server**
    LDAP server is now containerized for simplified authentication and directory services.
 
-- **Containerized iDRAC Telemetry Receiver**
-   Supports air-gapped/offline telemetry collection for secure environments.
-
-- **Containerized KafkaPump and VictoriaPump**
-   KafkaPump and VictoriaPump services are now containerized for better scalability and easier deployment.
-
 
 Service Cluster Enhancements
 -----------------------------
@@ -49,6 +43,9 @@ Telemetry and Metrics
 
 - **Enabled support for two iDRAC telemetry collectors** 
    Kafka-based flow and VictoriaPump flow, with VictoriaPump storing telemetry metrics efficiently in VictoriaMetrics DB.
+
+- **Containerized iDRAC Telemetry Receiver**
+   Supports air-gapped/offline telemetry collection for secure environments.
 
 
 Functional Groups for Cluster Deployment
