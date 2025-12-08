@@ -25,7 +25,7 @@ Playbook execution
 ----------------------
 
 **Prerequisites**
-Before running the ``discovery.yml`` playbook, ensure that the images are created for functional group defined in mapping file. To verify that the images are created, run the following command on the OIM::
+Before running the ``discovery.yml`` playbook, ensure that the images are created for each functional group defined in the mapping file. To verify that the images are created, run the following command on the OIM::
 
     s3cmd ls -Hr s3://boot-images
 
