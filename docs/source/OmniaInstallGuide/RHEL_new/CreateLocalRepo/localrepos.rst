@@ -1,13 +1,6 @@
 Configuring specific local repositories
 -----------------------------------------
 
-**NFS**
-
-    To install NFS, include the following line under ``softwares`` in ``software_config.json``: ::
-
-            {"name": "nfs", "arch": ["x86_64","aarch64"]},
-
-    For information on deploying NFS after setting up the cluster, `click here <../OmniaCluster/BuildingCluster/Storage/NFS.html>`_.
 
 **Kubernetes**
 
