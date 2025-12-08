@@ -10,8 +10,6 @@ Prerequisites
 
 * Ensure that the passive service nodes have ``service_node`` role assigned to them in the ``/opt/omnia/input/project_default/roles_config.yml`` input file. For more information, `click here <../composable_roles.html>`_.
 
-* Ensure that all the service nodes (active/passive) are connected to the Internet.
-
 * Ensure that the ``local_repo.yml`` playbook has been run successfully at least once. Before running it, verify that the ``opt/omnia/input/project_default/software_config.json`` file contains ``{"name": "service_node"}`` in the ``softwares`` list.
 
 * To enable and configure the HA for Service nodes, fill up the necessary parameters in the ``high_availability_config.yml`` config file present in the ``/opt/omnia/input/project_default/`` directory. Once the config file is updated, run the ``prepare_oim.yml`` playbook.

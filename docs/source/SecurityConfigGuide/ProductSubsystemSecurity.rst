@@ -6,9 +6,8 @@ Security controls map
 
 .. image:: ../images/SecurityControlMap.jpg
 
-Omnia performs bare metal configuration to enable AI/HPC workloads. It uses Ansible playbooks to perform installations and configurations. iDRAC is supported for provisioning bare metal servers. Omnia installs xCAT to enable provisioning of clusters via PXE in different ways:
-
-    - Mapping file **[Mandatory]**: To dictate IP address/MAC mapping, a host mapping file can be provided.
+Omnia performs bare metal configuration to enable AI/HPC workloads. It uses Ansible playbooks to perform installations and configurations. iDRAC is supported for provisioning bare metal servers. Omnia enables provisioning 
+of clusters via PXE using Mapping file **[Mandatory]** to dictate IP address/MAC mapping.
 
   
 Omnia can be installed via CLI only. Slurm and Kubernetes are deployed and configured on the cluster. OpenLDAP is installed for providing authentication.
@@ -20,6 +19,11 @@ To perform these configurations and installations, a secure SSH channel is estab
 * ``slurm_node``
 
 * ``login_node``
+
+* ``service_kube_control_node``
+
+* ``service_kube_node``
+
 
 Authentication
 ---------------
@@ -66,6 +70,10 @@ User needs to provide the following credentials during cluster configuration. On
 
     8. Pulp (Password)
 
+    9. CSI PowerScale credentials (Username/Password)
+
+    10. LDMS Sampler (Password)
+
     
 Authentication to external systems
 ==================================
@@ -101,6 +109,8 @@ Omnia configures the following ports for use by third-party tools installed by O
         | 2225       | TCP      | pulp                   |
         +------------+----------+------------------------+
         | 5001       | TCP      | Omnia nerdctl registry |
+        +------------+----------+------------------------+
+        | 636, 389   | TCP      | omnia_auth             |
         +------------+----------+------------------------+
 
 **Kubernetes ports requirements**
@@ -171,22 +181,33 @@ Omnia configures the following ports for use by third-party tools installed by O
 
 **Telemetry ports**
 
-        +---------------+---------+-------------------------+
-        | Port Number   | Protocol| Service                 |
-        +===============+=========+=========================+
-        | 8161          | TCP     | Activemq console        |
-        +---------------+---------+-------------------------+
-        | 61613         | TCP     | Activemq message broker |
-        +---------------+---------+-------------------------+
-        | 3306, 33060   | TCP     | Mysql                   |
-        +---------------+---------+-------------------------+
-        | 9092-9093     | TCP     | Kafka                   |
-        +---------------+---------+-------------------------+
-        | 2112          | TCP     | Prometheus exporter     |
-        +---------------+---------+-------------------------+
-        | 9090          | TCP     | Prometheus server       |
-        +---------------+---------+-------------------------+
+        +------------------+----------+-----------------------------------------------+
+        | Port Number      | Protocol | Service                                       |
+        +==================+==========+===============================================+
+        | 8161             | TCP      | Activemq console                              |
+        +------------------+----------+-----------------------------------------------+
+        | 61613            | TCP      | Activemq message broker                       |
+        +------------------+----------+-----------------------------------------------+
+        | 3306, 33060      | TCP      | MySQL                                         |
+        +------------------+----------+-----------------------------------------------+
+        | 9092 - 9093      | TCP      | Kafka                                         |
+        +------------------+----------+-----------------------------------------------+
+        | 9094             | TCP      | Kafka LoadBalancer                            |
+        +------------------+----------+-----------------------------------------------+
+        | 8443             | TCP      | VictoriaMetrics service                       |
+        +------------------+----------+-----------------------------------------------+
+        | 8480             | TCP      | VictoriaMetrics LoadBalancer Insert service   |
+        +------------------+----------+-----------------------------------------------+
+        | 8481             | TCP      | VictoriaMetrics LoadBalancer Query service    |
+        +------------------+----------+-----------------------------------------------+
+        | 6001 - 6100      | TCP      | LDMS aggregator                               |
+        +------------------+----------+-----------------------------------------------+
+        | 6001 - 6100      | TCP      | LDMS store daemon port                        |
+        +------------------+----------+-----------------------------------------------+
+        | 10001 - 10100    | TCP      | LDMS sampler port                             |
+        +------------------+----------+-----------------------------------------------+
 
+  
 **OpenCHAMI ports**
 
         +---------------+----------+--------------+
@@ -326,4 +347,4 @@ The format is described in the following table.
 Network vulnerability scanning
 ------------------------------
 
-Omnia performs network security scans on all modules of the product. Omnia additionally performs Blackduck scans on the open source softwares, which are installed by Omnia at runtime. However, Omnia is not responsible for the third-party software installed using Omnia. Review all third party software before using Omnia to install it.
+Omnia performs network and application security scans on all modules of the product. Omnia additionally performs Blackduck scans on the open source softwares, which are installed by Omnia at runtime. However, Omnia is not responsible for the third-party software installed using Omnia. Review all third party software before using Omnia to install it.

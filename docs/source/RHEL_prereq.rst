@@ -23,8 +23,8 @@ NFS Server Prerequisites
 OIM (Omnia Infrastructure Manager) Prerequisites
 -------------------------------------------------
 
-* Choose a **server outside of your intended cluster** that meets the required `storage requirements <RHELSpace.html>`_ to function as the Omnia Infrastructure Manager (OIM).
-* Ensure that the OIM has a full-featured RHEL operating system (OS) installed. For a complete list of supported RHEL versions, see the `Support Matrix <../../Overview/SupportMatrix/OperatingSystems/index.html>`_.
+* Choose a **server outside of your intended cluster** that meets the required :doc:`Storage Requirements <OmniaInstallGuide/RHEL_new/RHELSpace>` to function as the Omnia Infrastructure Manager (OIM).
+* Ensure that the OIM has a full-featured RHEL operating system (OS) installed. For a complete list of supported RHEL versions, see the See :doc:`Support Matrix <Overview/SupportMatrix>`.
 * Ensure that **Podman** container engine is installed on the OIM.
 * The OIM must have **two active Network Interface Cards (NICs)**:
    * One connected to the **public network** (for downloading and storing packages and images).
@@ -43,7 +43,7 @@ OIM (Omnia Infrastructure Manager) Prerequisites
 
         git clone https://github.com/dell/omnia-artifactory.git
         cd omnia-artifactory
-        ./build_images.sh all
+        ./build_images.sh all omnia_branch=<branch_name/tag name>
 
    * For detailed build instructions, refer to the
      `Omnia Artifacts README <https://github.com/dell/omnia-artifactory/blob/omnia-container/README.md>`_.
@@ -65,17 +65,6 @@ Service Kubernetes Cluster Prerequisites
 -------------------------------------
 
 * A minimum of **three Kubernetes controller nodes** are available.
-* Each controller node must have a **full-featured RHEL operating system** installed.
-* The OIM and all three controller nodes must have **internet access**.
-* Each controller node must have **two active NICs**:
-
-  * One connected to the **public network** (for downloading and storing packages/images).
-  * One dedicated to **internal cluster communication**.
-
-    *Refer to supported network topologies in the Omnia documentation.*
-
-* Verify that all **hostname prerequisites** are met on the Kubernetes controller nodes.
-
 
 iDRAC Telemetry Metric Collection Prerequisites
 -----------------------------------------------
@@ -86,10 +75,18 @@ iDRAC Telemetry Metric Collection Prerequisites
 * **Correct node service tags** are displayed on the iDRAC interface.
 * For telemetry collection on the service cluster, ensure all **BMC (iDRAC) IPs** are **reachable** from the service cluster nodes.
 
-LDAP Prerequisites
-------------------------
+Lightweight Directory Access Protocol (LDAP) Prerequisites
+-----------------------------------------------------------
 
-* Configure the proxy on the OIM node using the ``omnia_auth`` container. To configure the proxy, after deploying the ``omnia_auth`` container, perform the steps described in `Configure OpenLDAP as a Proxy Server <Authentication/OpenLDAP.html>`_.
+* LDAP server details required to configure the ``omnia_auth`` container as a proxy. The LDAP server details are required to configure OpenLDAP as a proxy server. See :doc:`Configure OpenLDAP as a proxy server <OmniaInstallGuide/RHEL_new/Authentication/OpenLDAP>`.
 
+Lightweight Distributed Metric Service (LDMS) Prerequisites
+-------------------------------------------------------------
 
+* The LDMS RPM must be available in the user repository, and the ``ldms.json`` file should be updated accordingly. 
+  If the LDMS RPM is not available, refer to  `Building LDMS PRODUCER RPM Package <https://github.com/dell/omnia-artifactory?tab=readme-ov-file#building-ldms-producer-rpm-package>`_ for instructions on building LDMS RPMs. 
+
+Slurm Prerequisites
+--------------------
+* The Slurm RPM must be available in the user repository. If the Slurm RPM is not available, refer to `Slurm Quick Start Administrator Guide <https://slurm.schedmd.com/quickstart_admin.html>`_ for instructions on building Slurm RPMs.
 

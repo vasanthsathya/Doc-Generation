@@ -14,7 +14,9 @@ providing flexible deployment and simplified lifecycle management.
   network, and I/O statistics from compute nodes. The LDMS Telemetry data can be collected
   and streamed to **Kafka**.
 
+.. note::
 
+   Ensure that the ``service_k8s`` entry is mentioned in the ``software_config.json`` file when ``idrac_telemetry_support`` is set to ``true`` in the ``telemetry_config.yml`` file.
 
 
 .. toctree::

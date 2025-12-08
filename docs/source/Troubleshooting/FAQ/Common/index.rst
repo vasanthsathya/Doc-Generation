@@ -8,3 +8,4 @@ Common FAQs
     Provision
     Security
     Telemetry
+    Slurm

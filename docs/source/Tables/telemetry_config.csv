@@ -7,8 +7,11 @@ executing  ``telemetry.yml`` and  ``discovery.yml`` playbooks.
 * **Default value**: ``true``
 
 .. note:: If ``idrac_telemetry_support`` is set to ``true``, ``mysqldb_user``, 
-``mysqldb_password``, and ``mysqldb_root_password`` parameters in 
-the ``omnia_config_credentials.yml`` file becomes mandatory. "
+   ``mysqldb_password``, and ``mysqldb_root_password`` parameters in 
+   the ``omnia_config_credentials.yml`` file becomes mandatory. 
+
+.. note::
+   If you want to deploy only Slurm clusters (``slurm_custom``),  ``idrac_telemetry_support`` must be set to ``false``."
 ``idrac_telemetry_collection_type``,Mandatory,"*  Specify where to store iDRAC telemetry data.
 * **Supported values:**
     * ``victoria``: Store in VictoriaMetrics only
@@ -68,7 +71,7 @@ kafka_configurations > ``topic_partitions``,Conditional Mandatory,"* Specify the
            partitions: 2
          - name: ""ome""
            partitions: 1"
-LDMS port configurations > ``ldms_agg_port``,Conditional Mandatory,"*  Specify the aggregator port to be used the service k8s cluster
+LDMS port configurations > ``ldms_agg_port``,Conditional Mandatory,"*  Specify the aggregator port to be used the service k8s cluster.
 * **Valid range**: 6001-6100
 * **Default**: 6001"
 LDMS port configurations > ``ldms_store_port``,Conditional Mandatory,"*  Specify the store daemon port to be used on the service k8s cluster

@@ -3,7 +3,7 @@ Network Topology: Dedicated Setup
 
 .. note:: The following diagram is for representational purposes only.
 
-.. image:: ../../images/Dedicated_2.0_rc2.png
+.. image:: ../../images/Dedicated_RC3.png
 
 In a **Dedicated Setup**, all the cluster nodes (Head, Compute, and Login [optional]) have dedicated iDRAC connection.
 
