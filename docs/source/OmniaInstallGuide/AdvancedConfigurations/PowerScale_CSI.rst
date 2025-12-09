@@ -74,6 +74,8 @@ Prerequisites
 
     * dnsPolicy: Default
 
+    * enableQuota: false
+
     * endpointPort:8080
 
     * skipCertificateValidation: true
