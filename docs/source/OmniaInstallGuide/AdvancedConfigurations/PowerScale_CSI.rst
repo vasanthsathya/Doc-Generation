@@ -214,6 +214,7 @@ If user wants to create a custom storage class, they can do so by following the 
         Isipath: <isipath configured in powerscale > #sample: /ifs/data/csi/
         RootClientEnabled: "true"
         csi.storage.k8s.io/fstype: "nfs"
+        mountOptions: "nolock"
     
     
 
