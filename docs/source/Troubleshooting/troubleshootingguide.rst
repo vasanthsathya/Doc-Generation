@@ -165,7 +165,7 @@ When the LDMS metrics is not avilable in the Kafka bus, do the following:
 
                 /opt/ovis-ldms/sbin/ldms_ls -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p 10001 -h localhost
 
-        .. image:: ../images/troubleshoot_ldms_3.png
+.. image:: ../images/troubleshoot_ldms_3.png
 
 4. If ldms plugins are loaded, check each of plugin metrics through the following command: 
 
