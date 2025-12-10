@@ -9,7 +9,7 @@ Kubernetes
 
     * Ensure that the ``docker_username`` and ``docker_password`` are provided in ``/opt/omnia/input/project_default/omnia_config_credentials.yml``.
 
-    * During ``omnia.yml`` execution, a kubernetes secret Docker ``regcred`` will be created in default namespace and patched to the Docker service account. To avoid ``ErrImagePull`` issue, you need to patch this secret to your namespace while deploying custom applications and use this secret as ``ImagePullSecrets`` in the yaml file . `Click here for more info. <https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry>`_
+    * For ``ErrImagePull`` and `ImagePullBackOff`` issue, ensure that local_repo.yml playbook is executed successfully without any failures for packages. Check the local_repo logs for more details. `Click here for more info. <https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry>`_
 
 .. note:: If the playbook is already executed and the pods are in **ImagePullBackOff** state, run ``kubeadm reset -f`` on all the nodes before re-executing the playbook with the Docker credentials.
 
@@ -39,7 +39,6 @@ Kubernetes
 
 2. If the pod(s) are not in ``Running`` state, delete it using the command: ``kubectl delete pods <name of pod>``
 
-3. Re-run the ``omnia.yml`` playbook to bring up Kubernetes on the previously failed pods.
 
 
 ⦾ **If the DNS servers are unresponsive, the Kubernetes pods stop communicating with the servers.**
@@ -52,7 +51,7 @@ Kubernetes
 
 2. On the management node, edit the ``omnia_config.yml`` file to change the Kubernetes Pod Network CIDR. The suggested IP range is 192.168.0.0/16. Ensure that the IP provided is not in use on your host network.
 
-3. List ``k8s`` in ``input/software_config.json`` and re-run ``omnia.yml``.
+3. List ``k8s`` in ``input/software_config.json`` and re-run ``discovery.yml``.
 
 
 ⦾ **Why does the** ``TASK: Initialize Kubeadm`` fail with ``nnode.Registration.name: Invalid value: "<Host name>"`` **error?**
@@ -64,11 +63,6 @@ Kubernetes
     .. include:: ../../../Appendices/hostnamereqs.rst
 
 
-⦾ **What to do if** ``omnia.yml`` **playbook execution fails with MetalLB, a load-balancer for bare metal Kubernetes cluster?**
-
-**Potential Cause**: This failure is caused due to an issue with Kubespray, a third-party software. For more information about this issue, `click here <https://github.com/kubernetes-sigs/kubespray/issues/11847>`_.
-
-**Resolution**: If your ``omnia.yml`` playbook execution fails while waiting for the MetalLB controller to be up and running, you need to wait for the MetalLB pods to come to running state and then re-run ``omnia.yml/scheduler.yml``.
 
 
 ⦾ **Why does the NFS-client provisioner go to a** ``ContainerCreating`` **or** ``CrashLoopBackOff`` **state?**
@@ -165,4 +159,28 @@ This typically happens when:
         Expected Output:
         Server:    10.x.x.x
         Address 1: management.ps.com
+
+
+⦾ **Why does kubeadm join --control-plane is unsuccessful withthe following messages: 
+* Failed to pull required certs
+* Secret "kubeadm-certs" was not found in kube-system
+* certificate key expired**
+
+**Potential Cause**: During kubeadm init, encrypted control-plane certificates are uploaded to the cluster. These certificates require a certificate key, which expires after approximately two hours. If a control-plane node attempts to join after this window, it cannot download or decrypt certificates, resulting in join failure.
+
+**Resolution**:
+
+1. On any existing and healthy control-plane node (not the affected node), run the script located on the shared NFS mount: ::
+      
+        {{ k8s_client_mount_path }}/generate-control-plane-join.sh
+
+``k8s_client_mount_path`` is the local directory on every Kubernetes node where the NFS share is mounted, allowing all nodes to access and use shared resources automatically.
+This script uploads fresh control-plane certificates to the cluster and automatically generates a refreshed control-plane join command. It saves it to ``{{ k8s_client_mount_path }}/control-plane-join-command.sh``
+
+2. On the control-plane node where the join previously failed reboot the node.
+3. After reboot, the node automatically reads the refreshed join command from the shared NFS path and successfully adds itself to the cluster. No manual join command execution is required.
+
+.. image:: ../../../images/kub_known_issue.png
+
+
 
