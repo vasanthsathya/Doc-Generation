@@ -147,3 +147,37 @@ When the cluster is successfully deployed using the discovery YAML files and a n
 
 These actions ensure that any components affected by the warm reboot are recreated properly and resume normal operation.
 
+
+Troubleshooting LDMS on the slurm nodes
+=============================================
+
+
+When the LDMS metrics is not avilable in the Kafka bus, do the following:
+
+.. image:: ../images/troubleshoot_ldms_1.png
+
+1. Ssh to the slurm node from where the LDMS metrics are not retrieved.
+2. Run ``sudo systemctl status ldmsd.sampler.service`` and check ldmsd service is running on the slurm nodes.
+
+.. image:: ../images/troubleshoot_ldms_2.png
+
+3. If the ldmsd daemon is running, check whether supported plugins are loaded through the following command: ::
+
+        /opt/ovis-ldms/sbin/ldms_ls -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p 10001 -h localhost
+
+        .. image:: ../images/troubleshoot_ldms_3.png
+
+4. If ldms plugins are loaded, check each of plugin metrics through the following command: 
+
+        .. image:: ../images/troubleshoot_ldms_4.png
+
+        Get the ldsm_port from the file /opt/ovis-ldms/etc/ldms/ldmsd.sampler.env and run the following command: ::
+
+                ldms_ls -l -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p <ldms_port> -h localhost $(hostname)/<plugin_name>
+        
+        Example: ldms_ls -l -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p 10001 -h localhost $(hostname)/meminfo
+
+        .. image:: ../images/troubleshoot_ldms_5.png
+        
+
+
