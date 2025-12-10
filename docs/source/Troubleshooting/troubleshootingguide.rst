@@ -124,6 +124,62 @@ Ensure that the CoreDNS pods are in the 'Running' state.
 5. Ensure that you rerun the playbook.
 
 
+Troubleshooting Powerscale isilon pods after node reboot
+=================================================================
 
+When the cluster is successfully deployed using the discovery YAML files and a node undergoes a warm reboot, the following issue might be obeserved. To resolve this, execute the following commands. These will restart the affected pods, allowing Kubernetes to recreate them in a healthy state.
+
+.. image:: ../images/troubleshoot_powerscale.png
+
+**Resolution**: Do the following:
+
+1. Inspect recent logs from the controller deployment: ::
+
+        kubectl logs deploy/isilon-controller -n isilon --all-containers=true | tail -n 60
+
+2. Restart the Isilon controller deployment: ::
+
+        kubectl rollout restart deployment isilon-controller -n isilon
+
+3. Restart the Isilon node daemonset: ::
+
+        kubectl rollout restart daemonset isilon-node -n isilon
+
+These actions ensure that any components affected by the warm reboot are recreated properly and resume normal operation.
+
+
+Troubleshooting LDMS on the slurm nodes
+=============================================
+
+
+When the LDMS metrics is not avilable in the Kafka bus, do the following:
+
+.. image:: ../images/troubleshoot_ldms_1.png
+
+1. Ssh to the slurm node from where the LDMS metrics are not retrieved.
+2. Run ``sudo systemctl status ldmsd.sampler.service`` and check ldmsd service is running on the slurm nodes.
+
+.. image:: ../images/troubleshoot_ldms_2.png
+
+3. If the ldmsd daemon is running, check whether supported plugins are loaded through the following command: ::
+
+        /opt/ovis-ldms/sbin/ldms_ls -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p 10001 -h localhost
+
+        .. image:: ../images/troubleshoot_ldms_3.png
+
+4. If ldms plugins are loaded, check each of plugin metrics through the following command: 
+
+        .. image:: ../images/troubleshoot_ldms_4.png
+
+        Get the ldsm_port from the file /opt/ovis-ldms/etc/ldms/ldmsd.sampler.env and run the following command: ::
+
+                ldms_ls -l -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p <ldms_port> -h localhost $(hostname)/<plugin_name>
+        
+        Example: ::
+                
+                ldms_ls -l -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p 10001 -h localhost $(hostname)/meminfo
+
+        .. image:: ../images/troubleshoot_ldms_5.png
+        
 
 

@@ -9,7 +9,7 @@ Kubernetes
 
     * Ensure that the ``docker_username`` and ``docker_password`` are provided in ``/opt/omnia/input/project_default/omnia_config_credentials.yml``.
 
-    * During ``omnia.yml`` execution, a kubernetes secret Docker ``regcred`` will be created in default namespace and patched to the Docker service account. To avoid ``ErrImagePull`` issue, you need to patch this secret to your namespace while deploying custom applications and use this secret as ``ImagePullSecrets`` in the yaml file . `Click here for more info. <https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry>`_
+    * For ``ErrImagePull`` and `ImagePullBackOff`` issue, ensure that local_repo.yml playbook is executed successfully without any failures for packages. Check the local_repo logs for more details. `Click here for more info. <https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry>`_
 
 .. note:: If the playbook is already executed and the pods are in **ImagePullBackOff** state, run ``kubeadm reset -f`` on all the nodes before re-executing the playbook with the Docker credentials.
 
@@ -39,7 +39,6 @@ Kubernetes
 
 2. If the pod(s) are not in ``Running`` state, delete it using the command: ``kubectl delete pods <name of pod>``
 
-3. Re-run the ``omnia.yml`` playbook to bring up Kubernetes on the previously failed pods.
 
 
 ⦾ **If the DNS servers are unresponsive, the Kubernetes pods stop communicating with the servers.**
@@ -52,7 +51,7 @@ Kubernetes
 
 2. On the management node, edit the ``omnia_config.yml`` file to change the Kubernetes Pod Network CIDR. The suggested IP range is 192.168.0.0/16. Ensure that the IP provided is not in use on your host network.
 
-3. List ``k8s`` in ``input/software_config.json`` and re-run ``omnia.yml``.
+3. List ``k8s`` in ``input/software_config.json`` and re-run ``discovery.yml``.
 
 
 ⦾ **Why does the** ``TASK: Initialize Kubeadm`` fail with ``nnode.Registration.name: Invalid value: "<Host name>"`` **error?**
@@ -64,11 +63,6 @@ Kubernetes
     .. include:: ../../../Appendices/hostnamereqs.rst
 
 
-⦾ **What to do if** ``omnia.yml`` **playbook execution fails with MetalLB, a load-balancer for bare metal Kubernetes cluster?**
-
-**Potential Cause**: This failure is caused due to an issue with Kubespray, a third-party software. For more information about this issue, `click here <https://github.com/kubernetes-sigs/kubespray/issues/11847>`_.
-
-**Resolution**: If your ``omnia.yml`` playbook execution fails while waiting for the MetalLB controller to be up and running, you need to wait for the MetalLB pods to come to running state and then re-run ``omnia.yml/scheduler.yml``.
 
 
 ⦾ **Why does the NFS-client provisioner go to a** ``ContainerCreating`` **or** ``CrashLoopBackOff`` **state?**
