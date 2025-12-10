@@ -160,3 +160,27 @@ This typically happens when:
         Server:    10.x.x.x
         Address 1: management.ps.com
 
+
+⦾ **Why does kubeadm join --control-plane is unsuccessful withthe following messages: 
+* Failed to pull required certs
+* Secret "kubeadm-certs" was not found in kube-system
+* certificate key expired**
+
+**Potential Cause**: During kubeadm init, encrypted control-plane certificates are uploaded to the cluster. These certificates require a certificate key, which expires after approximately two hours. If a control-plane node attempts to join after this window, it cannot download or decrypt certificates, resulting in join failure.
+
+**Resolution**:
+
+1. On any existing and healthy control-plane node (not the affected node), run the script located on the shared NFS mount: ::
+      
+        {{ k8s_client_mount_path }}/generate-control-plane-join.sh
+
+``k8s_client_mount_path`` is the local directory on every Kubernetes node where the NFS share is mounted, allowing all nodes to access and use shared resources automatically.
+This script uploads fresh control-plane certificates to the cluster and automatically generates a refreshed control-plane join command. It saves it to ``{{ k8s_client_mount_path }}/control-plane-join-command.sh``
+
+2. On the control-plane node where the join previously failed reboot the node.
+3. After reboot, the node automatically reads the refreshed join command from the shared NFS path and successfully adds itself to the cluster. No manual join command execution is required.
+
+.. image:: ../../../images/kub_known_issue.png
+
+
+
