@@ -124,6 +124,26 @@ Ensure that the CoreDNS pods are in the 'Running' state.
 5. Ensure that you rerun the playbook.
 
 
+Troubleshooting Powerscale isilon pods after node reboot
+=================================================================
 
+When the cluster is successfully deployed using the discovery YAML files and a node undergoes a warm reboot, the following issue might be obeserved. To resolve this, execute the following commands. These will restart the affected pods, allowing Kubernetes to recreate them in a healthy state.
 
+.. image:: ../images/troubleshoot_powerscale.png
+
+**Resolution**: Do the following:
+
+1. Inspect recent logs from the controller deployment: ::
+
+        kubectl logs deploy/isilon-controller -n isilon --all-containers=true | tail -n 60
+
+2. Restart the Isilon controller deployment: ::
+
+        kubectl rollout restart deployment isilon-controller -n isilon
+
+3. Restart the Isilon node daemonset: ::
+
+        kubectl rollout restart daemonset isilon-node -n isilon
+
+These actions ensure that any components affected by the warm reboot are recreated properly and resume normal operation.
 
