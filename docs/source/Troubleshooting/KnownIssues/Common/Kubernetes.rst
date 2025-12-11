@@ -161,10 +161,7 @@ This typically happens when:
         Address 1: management.ps.com
 
 
-⦾ **Why does** ``kubeadm join --control-plane`` **is unsuccessful withthe following messages: 
-* Failed to pull required certs
-* Secret "kubeadm-certs" was not found in kube-system
-* certificate key expired**
+⦾ **Why does** ``kubeadm join --control-plane`` **is unsuccessful with the following messages: Failed to pull required certs, secret "kubeadm-certs" was not found in kube-system, and certificate key expired**
 
 **Potential Cause**: During kubeadm init, encrypted control-plane certificates are uploaded to the cluster. These certificates require a certificate key, which expires after approximately two hours. If a control-plane node attempts to join after this window, it cannot download or decrypt certificates, resulting in join failure.
 
