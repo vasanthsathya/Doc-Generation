@@ -161,7 +161,7 @@ This typically happens when:
         Address 1: management.ps.com
 
 
-⦾ **Why does ``kubeadm join --control-plane`` is unsuccessful withthe following messages: 
+⦾ **Why does** ``kubeadm join --control-plane`` **is unsuccessful withthe following messages: 
 * Failed to pull required certs
 * Secret "kubeadm-certs" was not found in kube-system
 * certificate key expired**
