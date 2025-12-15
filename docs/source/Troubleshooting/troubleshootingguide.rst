@@ -155,22 +155,27 @@ Troubleshooting LDMS on the slurm nodes
 =============================================
 
 
-When the LDMS metrics is not avilable in the Kafka bus, do the following:
+Check the ldms aggregator and ldms store logs and then do the following:
 
 .. image:: ../images/troubleshoot_ldms_1.png
 
-1. Ssh to the slurm node from where the LDMS metrics are not retrieved.
-2. Run ``sudo systemctl status ldmsd.sampler.service`` and check ldmsd service is running on the slurm nodes.
+1. Check the k8s pod logs on the k8s control plane. ::
+
+        kubectl logs -n telemetry nersc-ldms-aggr-0
+        kubectl logs -n telemetry nersc-ldms-store-slurm-cluster-0
+
+2. Ssh to the slurm node from where the LDMS metrics are not retrieved.
+3. Run ``sudo systemctl status ldmsd.sampler.service`` and check ldmsd service is running on the slurm nodes.
 
 .. image:: ../images/troubleshoot_ldms_2.png
 
-3. If the ldmsd daemon is running, check whether supported plugins are loaded through the following command: ::
+4. If the ldmsd daemon is running, check whether supported plugins are loaded through the following command: ::
 
                 /opt/ovis-ldms/sbin/ldms_ls -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p 10001 -h localhost
 
 .. image:: ../images/troubleshoot_ldms_3.png
 
-4. If ldms plugins are loaded, check each of plugin metrics through the following command: 
+5. If ldms plugins are loaded, check each of plugin metrics through the following command: 
 
 .. image:: ../images/troubleshoot_ldms_4.png
 
@@ -184,10 +189,6 @@ When the LDMS metrics is not avilable in the Kafka bus, do the following:
 
 .. image:: ../images/troubleshoot_ldms_5.png
         
-5. Check the k8s pod logs on the k8s control plane. ::
-
-        kubectl logs -n telemetry nersc-ldms-aggr-0
-        kubectl logs -n telemetry nersc-ldms-store-slurm-cluster-0
 
 
 
