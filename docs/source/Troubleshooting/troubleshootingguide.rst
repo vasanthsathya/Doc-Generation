@@ -171,7 +171,7 @@ When the LDMS metrics is not avilable in the Kafka bus, do the following:
 
 4. If ldms plugins are loaded, check each of plugin metrics through the following command: 
 
-        .. image:: ../images/troubleshoot_ldms_4.png
+.. image:: ../images/troubleshoot_ldms_4.png
 
         Get the ldsm_port from the file /opt/ovis-ldms/etc/ldms/ldmsd.sampler.env and run the following command: ::
 
@@ -181,7 +181,7 @@ When the LDMS metrics is not avilable in the Kafka bus, do the following:
                 
                 ldms_ls -l -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p 10001 -h localhost $(hostname)/meminfo
 
-        .. image:: ../images/troubleshoot_ldms_5.png
+.. image:: ../images/troubleshoot_ldms_5.png
         
 5. Check the k8s pod logs on the k8s control plane. ::
 
