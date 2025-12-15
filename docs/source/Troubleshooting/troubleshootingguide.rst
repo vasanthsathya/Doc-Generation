@@ -85,49 +85,11 @@ Troubleshooting logs
 For more information, see `Logs <../Logging/OIM_logs.html>`_.
 
 
-Troubleshooting CoreDNS pod in pending state
-=================================================================
 
-When you run the ``discovery.yml`` files, sometimes one of the CoreDNS pods remains in the pending state after the Kubernetes installation. This issue is caused by the dns-autoscaler adjusting the CoreDNS replica counts based on the total number of CPU cores across all the cluster nodes. In some environments, this scaling calculation can lead to an unsupported replica count, resulting in pending pods.
-
-**Resolution**: Do the following:
-
-1. Retrieve all the deployments using the following command:
-
-::
-
-        kubectl get deployments -A
-
-2. Delete the dns-autoscaler deployment:
-
-::
-
-        kubectl delete deployment dns-autoscaler -n kube-system
-
-3. Identify and edit the CoreDNS deployment name from the list of deployments retrieved in step 1:
-
-::
-
-        kubectl edit deployment <coredns-deployment-name> -n kube-system:
-
-1. Locate the ‘replicas’ field in the editor and change the value to the number of kube controller nodes.
-2. Save the changes. Kubernetes automatically restarts the CoreDNS deployment.
-
-4. Wait a few minutes for the pods to restart and verify the CoreDNS status:
-
-::
-
-        kubectl get pods -A
-
-Ensure that the CoreDNS pods are in the 'Running' state.
-
-5. Ensure that you rerun the playbook.
-
-
-Why is the PowerScale (Isilon) CSI controller pod in CrashLoopBackOff after a node reboot, and how can it be resolved?
+Troubleshooting Powerscale isilon pods after node reboot
 ========================================================================================================================
 
-When the cluster is successfully deployed using the discovery YAML files and a node undergoes a warm reboot, the following issue might be obeserved. To resolve this, execute the following commands. These will restart the affected pods, allowing Kubernetes to recreate them in a healthy state.
+Why is the PowerScale (Isilon) CSI controller pod in CrashLoopBackOff after a node reboot, and how can it be resolved?
 
 .. image:: ../images/troubleshoot_powerscale_1.png
 
