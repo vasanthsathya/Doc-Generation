@@ -11,8 +11,6 @@ Kubernetes
 
     * For ``ErrImagePull`` and `ImagePullBackOff`` issue, ensure that local_repo.yml playbook is executed successfully without any failures for packages. Check the local_repo logs for more details. `Click here for more info. <https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry>`_
 
-.. note:: If the playbook is already executed and the pods are in **ImagePullBackOff** state, run ``kubeadm reset -f`` on all the nodes before re-executing the playbook with the Docker credentials.
-
 
 ⦾ **What to do if the nodes in a Kubernetes cluster reboot?**
 
@@ -31,7 +29,7 @@ Kubernetes
     kubectl cluster-info 
 
 
-⦾ **What to do when the Kubernetes services are not in** ``Running`` **state?**
+⦾ **What to do when the Kubernetes pods are not in** ``Running`` **state?**
 
 **Resolution**:
 

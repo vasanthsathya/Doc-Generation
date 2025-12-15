@@ -155,11 +155,9 @@ Troubleshooting LDMS on the slurm nodes
 =============================================
 
 
-Check the ldms aggregator and ldms store logs and then do the following:
-
 .. image:: ../images/troubleshoot_ldms_1.png
 
-1. Check the k8s pod logs on the k8s control plane. ::
+1. Check the ldms aggregator and ldms store logs. ::
 
         kubectl logs -n telemetry nersc-ldms-aggr-0
         kubectl logs -n telemetry nersc-ldms-store-slurm-cluster-0
