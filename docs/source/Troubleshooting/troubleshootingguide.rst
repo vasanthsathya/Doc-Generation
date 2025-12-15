@@ -129,9 +129,10 @@ Troubleshooting Powerscale isilon pods after node reboot
 
 When the cluster is successfully deployed using the discovery YAML files and a node undergoes a warm reboot, the following issue might be obeserved. To resolve this, execute the following commands. These will restart the affected pods, allowing Kubernetes to recreate them in a healthy state.
 
+.. image:: ../images/troubleshoot_powerscale_1.png
+
 .. image:: ../images/troubleshoot_powerscale.jpg
 
-.. image:: ../images/troubleshoot_powerscale_1.png
 
 **Resolution**: Do the following:
 
