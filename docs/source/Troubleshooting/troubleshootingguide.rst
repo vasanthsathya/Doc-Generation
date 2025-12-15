@@ -129,7 +129,9 @@ Troubleshooting Powerscale isilon pods after node reboot
 
 When the cluster is successfully deployed using the discovery YAML files and a node undergoes a warm reboot, the following issue might be obeserved. To resolve this, execute the following commands. These will restart the affected pods, allowing Kubernetes to recreate them in a healthy state.
 
-.. image:: ../images/troubleshoot_powerscale.png
+.. image:: ../images/troubleshoot_powerscale.jpg
+
+.. image:: ../images/troubleshoot_powerscale_1.png
 
 **Resolution**: Do the following:
 
@@ -181,6 +183,10 @@ When the LDMS metrics is not avilable in the Kafka bus, do the following:
 
         .. image:: ../images/troubleshoot_ldms_5.png
         
+5. Check the k8s pod logs on the k8s control plane. ::
+
+        kubectl logs -n telemetry nersc-ldms-aggr-0
+        kubectl logs -n telemetry nersc-ldms-store-slurm-cluster-0
 
 
 
