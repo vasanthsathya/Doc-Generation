@@ -11,8 +11,6 @@ Kubernetes
 
     * For ``ErrImagePull`` and `ImagePullBackOff`` issue, ensure that local_repo.yml playbook is executed successfully without any failures for packages. Check the local_repo logs for more details. `Click here for more info. <https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry>`_
 
-.. note:: If the playbook is already executed and the pods are in **ImagePullBackOff** state, run ``kubeadm reset -f`` on all the nodes before re-executing the playbook with the Docker credentials.
-
 
 ⦾ **What to do if the nodes in a Kubernetes cluster reboot?**
 
@@ -31,7 +29,7 @@ Kubernetes
     kubectl cluster-info 
 
 
-⦾ **What to do when the Kubernetes services are not in** ``Running`` **state?**
+⦾ **What to do when the Kubernetes pods are not in** ``Running`` **state?**
 
 **Resolution**:
 
@@ -47,21 +45,8 @@ Kubernetes
 
 **Resolution**:
 
-1. In your Kubernetes cluster, run ``kubeadm reset -f`` on all the nodes.
-
-2. On the management node, edit the ``omnia_config.yml`` file to change the Kubernetes Pod Network CIDR. The suggested IP range is 192.168.0.0/16. Ensure that the IP provided is not in use on your host network.
-
-3. List ``k8s`` in ``input/software_config.json`` and re-run ``discovery.yml``.
-
-
-⦾ **Why does the** ``TASK: Initialize Kubeadm`` fail with ``nnode.Registration.name: Invalid value: "<Host name>"`` **error?**
-
-**Potential Cause**: The OIM does not support hostnames with an underscore in it, such as 'mgmt_station'.
-
-**Resolution**: Ensure that the OIM hostname meets the below mentioned requirements:
-
-    .. include:: ../../../Appendices/hostnamereqs.rst
-
+1. In your Kubernetes cluster, run ``kubectl rollout restart deployments coredns -n kube-system`` on any of the ``kube_control_plane``.
+2. Wait till the coredns pods are in the running state.
 
 
 
@@ -71,11 +56,11 @@ Kubernetes
 
 .. image:: ../../../images/NFS_crash_loop_back_off_error.png
 
-**Potential Cause**: This issue usually occurs when ``server_share_path`` given in ``storage_config.yml`` for ``k8s_share`` does not have an NFS server running.
+**Potential Cause**: This issue usually occurs when ``server_share_path`` given in ``storage_config.yml`` for ``nfs_name`` does not have an NFS server running.
 
 **Resolution**:
 
-    * Ensure that ``server_share_path`` mentioned in ``storage_config.yml`` for ``k8s_share: true`` has an active nfs_server running on it.
+    * Ensure that ``server_share_path`` mentioned in ``storage_config.yml`` for ``nfs_name: nfs_k8s`` has an active nfs_server running on it.
 
 ⦾ **If the Nfs-client provisioner is in** ``ContainerCreating`` **or** ``CrashLoopBackOff`` **state, why does the** ``kubectl describe <pod_name>`` **command show the following output?**
 
@@ -159,4 +144,27 @@ This typically happens when:
         Expected Output:
         Server:    10.x.x.x
         Address 1: management.ps.com
+
+
+⦾ **Why does** ``kubeadm join --control-plane`` **is unsuccessful with the following messages: Failed to pull required certs, secret** ``kubeadm-certs`` **was not found in kube-system, or certificate key expired**
+
+.. image:: ../../../images/kub_known_issue.png
+    
+**Potential Cause**: During kubeadm init, encrypted control-plane certificates are uploaded to the cluster. These certificates require a certificate key, which expires after approximately two hours. If a control-plane node attempts to join after this window, it cannot download or decrypt certificates, resulting in join failure.
+
+**Resolution**:
+
+1. On any existing and healthy control-plane node (not the affected node), run the script located on the shared NFS mount: ::
+      
+        {{ k8s_client_mount_path }}/generate-control-plane-join.sh
+
+``k8s_client_mount_path`` is the local directory on every Kubernetes node where the NFS share is mounted, allowing all nodes to access and use shared resources automatically.
+This script uploads fresh control-plane certificates to the cluster and automatically generates a refreshed control-plane join command. It saves it to ``{{ k8s_client_mount_path }}/control-plane-join-command.sh``
+
+2. On the control-plane node where the join previously failed reboot the node.
+3. After reboot, the node automatically reads the refreshed join command from the shared NFS path and successfully adds itself to the cluster. No manual join command execution is required.
+
+
+
+
 

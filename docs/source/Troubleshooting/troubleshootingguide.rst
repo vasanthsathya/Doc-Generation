@@ -85,51 +85,16 @@ Troubleshooting logs
 For more information, see `Logs <../Logging/OIM_logs.html>`_.
 
 
-Troubleshooting CoreDNS pod in pending state
-=================================================================
-
-When you run the ``discovery.yml`` files, sometimes one of the CoreDNS pods remains in the pending state after the Kubernetes installation. This issue is caused by the dns-autoscaler adjusting the CoreDNS replica counts based on the total number of CPU cores across all the cluster nodes. In some environments, this scaling calculation can lead to an unsupported replica count, resulting in pending pods.
-
-**Resolution**: Do the following:
-
-1. Retrieve all the deployments using the following command:
-
-::
-
-        kubectl get deployments -A
-
-2. Delete the dns-autoscaler deployment:
-
-::
-
-        kubectl delete deployment dns-autoscaler -n kube-system
-
-3. Identify and edit the CoreDNS deployment name from the list of deployments retrieved in step 1:
-
-::
-
-        kubectl edit deployment <coredns-deployment-name> -n kube-system:
-
-1. Locate the ‘replicas’ field in the editor and change the value to the number of kube controller nodes.
-2. Save the changes. Kubernetes automatically restarts the CoreDNS deployment.
-
-4. Wait a few minutes for the pods to restart and verify the CoreDNS status:
-
-::
-
-        kubectl get pods -A
-
-Ensure that the CoreDNS pods are in the 'Running' state.
-
-5. Ensure that you rerun the playbook.
-
 
 Troubleshooting Powerscale isilon pods after node reboot
-=================================================================
+========================================================================================================================
 
-When the cluster is successfully deployed using the discovery YAML files and a node undergoes a warm reboot, the following issue might be obeserved. To resolve this, execute the following commands. These will restart the affected pods, allowing Kubernetes to recreate them in a healthy state.
+Why is the PowerScale (Isilon) CSI controller pod in CrashLoopBackOff after a node reboot, and how can it be resolved?
 
-.. image:: ../images/troubleshoot_powerscale.png
+.. image:: ../images/troubleshoot_powerscale_1.png
+
+.. image:: ../images/troubleshoot_powerscale.jpg
+
 
 **Resolution**: Do the following:
 
@@ -145,31 +110,34 @@ When the cluster is successfully deployed using the discovery YAML files and a n
 
         kubectl rollout restart daemonset isilon-node -n isilon
 
-These actions ensure that any components affected by the warm reboot are recreated properly and resume normal operation.
+These actions ensure that any components affected by the reboot are recreated properly and resume normal operation.
 
 
 Troubleshooting LDMS on the slurm nodes
 =============================================
 
 
-When the LDMS metrics is not avilable in the Kafka bus, do the following:
-
 .. image:: ../images/troubleshoot_ldms_1.png
 
-1. Ssh to the slurm node from where the LDMS metrics are not retrieved.
-2. Run ``sudo systemctl status ldmsd.sampler.service`` and check ldmsd service is running on the slurm nodes.
+1. Check the ldms aggregator and ldms store logs. ::
+
+        kubectl logs -n telemetry nersc-ldms-aggr-0
+        kubectl logs -n telemetry nersc-ldms-store-slurm-cluster-0
+
+2. Ssh to the slurm node from where the LDMS metrics are not retrieved.
+3. Run ``sudo systemctl status ldmsd.sampler.service`` and check ldmsd service is running on the slurm nodes.
 
 .. image:: ../images/troubleshoot_ldms_2.png
 
-3. If the ldmsd daemon is running, check whether supported plugins are loaded through the following command: ::
+4. If the ldmsd daemon is running, check whether supported plugins are loaded through the following command: ::
 
-        /opt/ovis-ldms/sbin/ldms_ls -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p 10001 -h localhost
+                /opt/ovis-ldms/sbin/ldms_ls -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p 10001 -h localhost
 
-        .. image:: ../images/troubleshoot_ldms_3.png
+.. image:: ../images/troubleshoot_ldms_3.png
 
-4. If ldms plugins are loaded, check each of plugin metrics through the following command: 
+5. If ldms plugins are loaded, check each of plugin metrics through the following command: 
 
-        .. image:: ../images/troubleshoot_ldms_4.png
+.. image:: ../images/troubleshoot_ldms_4.png
 
         Get the ldsm_port from the file /opt/ovis-ldms/etc/ldms/ldmsd.sampler.env and run the following command: ::
 
@@ -179,7 +147,8 @@ When the LDMS metrics is not avilable in the Kafka bus, do the following:
                 
                 ldms_ls -l -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p 10001 -h localhost $(hostname)/meminfo
 
-        .. image:: ../images/troubleshoot_ldms_5.png
+.. image:: ../images/troubleshoot_ldms_5.png
         
+
 
 

@@ -1,11 +1,8 @@
 ﻿Parameter,Mandatory/Optional,Details
-**pulp_protocol**,Mandatory,"* **Type**: Boolean
-* By default, set to ``true`` to enable secure (HTTPS) connection to the Pulp server.
-* Set to ``false`` if you want to connect to the Pulp server using HTTP."
 **user_repo_url_x86_64**,Optional,"* **Type**: JSON list
 * This variable accepts the x86_64 repository urls  from which the software packages/images will be downloaded and accessed by the cluster.
 * Omnia downloads the software packages from the given list of URLs and stores them into a local Pulp container. These packages are then accessed by the cluster nodes from that Pulp container.
-* ``url`` defines the baseurl for the repository.
+* ``url`` The URL defines the base URL for the repository, and it should always point to the ``repodata`` directory of the repository.
 * ``gpgkey`` defines gpgkey for the repository. If ``gpgkey`` is omitted then ``gpgcheck=0`` is set for that repository.
 * ``name`` defines the name of the software ``.rpm`` package.
 * If you are using SSL certificates for encryption, include the ``sslcacert``, ``sslclientkey``, and ``sslclientcert`` fields, and ensure each is populated with the correct certificate or key data. Omit these fields entirely if SSL is not in use.
@@ -17,7 +14,7 @@
 **user_repo_url_aarch64**,Optional,"* **Type**: JSON list
 * This variable accepts the aarch64 repository urls from which the software packages/images will be downloaded and accessed by the cluster.
 * Omnia downloads the software packages from the given list of URLs and stores them into a local Pulp container. These packages are then accessed by the cluster nodes from that Pulp container.
-* ``url`` defines the baseurl for the repository.
+* ``url`` The URL defines the base URL for the repository, and it should always point to the ``repodata`` directory of the repository.
 * ``gpgkey`` defines gpgkey for the repository. If ``gpgkey`` is omitted then ``gpgcheck=0`` is set for that repository.
 * ``name`` defines the name of the software ``.rpm`` package.
 * If you are using SSL certificates for encryption, include the ``sslcacert``, ``sslclientkey``, and ``sslclientcert`` fields, and ensure each is populated with the correct certificate or key data. Omit these fields entirely if SSL is not in use.
