@@ -171,7 +171,6 @@ Expected Results
             Isipath: <isipath configured in powerscale > #sample: /ifs/data/csi/
             RootClientEnabled: "true"
             csi.storage.k8s.io/fstype: "nfs"
-            mountOptions: "nolock"
             
 
 * If there are errors during CSI driver installation, uninstall the CSI driver first as per the steps mentioned in the Uninstallation section. Ensure that the prerequisites are met. Manually re-install the Powerscale with the following commands::
@@ -214,7 +213,6 @@ If user wants to create a custom storage class, they can do so by following the 
         Isipath: <isipath configured in powerscale > #sample: /ifs/data/csi/
         RootClientEnabled: "true"
         csi.storage.k8s.io/fstype: "nfs"
-        mountOptions: "nolock"
     
     
 
