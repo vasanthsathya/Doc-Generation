@@ -44,6 +44,8 @@ Prerequisites
     *	endpointPort: <endpoint_port>
     *	isDefault: true
 
+    .. note:: In secret.yaml file, do not update or change the values for the username and password field. It is being read from the ``omnia_config_credentials.yml`` file.
+
    *Reference values from OneFS portal:*
 
    .. image:: ../../images/csi_powerscale_1.png
