@@ -45,21 +45,8 @@ Kubernetes
 
 **Resolution**:
 
-1. In your Kubernetes cluster, run ``kubeadm reset -f`` on all the nodes.
-
-2. On the management node, edit the ``omnia_config.yml`` file to change the Kubernetes Pod Network CIDR. The suggested IP range is 192.168.0.0/16. Ensure that the IP provided is not in use on your host network.
-
-3. List ``k8s`` in ``input/software_config.json`` and re-run ``discovery.yml``.
-
-
-⦾ **Why does the** ``TASK: Initialize Kubeadm`` fail with ``nnode.Registration.name: Invalid value: "<Host name>"`` **error?**
-
-**Potential Cause**: The OIM does not support hostnames with an underscore in it, such as 'mgmt_station'.
-
-**Resolution**: Ensure that the OIM hostname meets the below mentioned requirements:
-
-    .. include:: ../../../Appendices/hostnamereqs.rst
-
+1. In your Kubernetes cluster, run ``kubectl rollout restart deployments coredns -n kube-system`` on any of the ``kube_control_plane``.
+2. Wait till the coredns pods are in the running state.
 
 
 
@@ -69,11 +56,11 @@ Kubernetes
 
 .. image:: ../../../images/NFS_crash_loop_back_off_error.png
 
-**Potential Cause**: This issue usually occurs when ``server_share_path`` given in ``storage_config.yml`` for ``k8s_share`` does not have an NFS server running.
+**Potential Cause**: This issue usually occurs when ``server_share_path`` given in ``storage_config.yml`` for ``nfs_name`` does not have an NFS server running.
 
 **Resolution**:
 
-    * Ensure that ``server_share_path`` mentioned in ``storage_config.yml`` for ``k8s_share: true`` has an active nfs_server running on it.
+    * Ensure that ``server_share_path`` mentioned in ``storage_config.yml`` for ``nfs_name: nfs_k8s`` has an active nfs_server running on it.
 
 ⦾ **If the Nfs-client provisioner is in** ``ContainerCreating`` **or** ``CrashLoopBackOff`` **state, why does the** ``kubectl describe <pod_name>`` **command show the following output?**
 
