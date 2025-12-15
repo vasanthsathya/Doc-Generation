@@ -154,13 +154,13 @@ Pulp Repository Sync and Publication Failures
 ===============================================
 
 
-1. No Space Left on NFS Share (where Pulp is mounted)
+1. No Space Left on NFS Share (where Pulp is mounted).
 
 **Observation**:  Pulp storage runs out of disk space during sync or publish. In this case , Pulp logs show the error "No space left on device." Check the available storage space on the NFS share.
 
 **Resolution**:  Increase the size of the NFS share where Pulp is mounted to free up space.
 
-2. Incorrect URL in ``local_repo_config.yml``
+2. Incorrect URL in ``local_repo_config.yml``.
 
 **Observation**: The repository URLs in the ``local_repo_config.yml`` file may be incorrect . The URL must point to the repository root (where the repodata directory exists) and be reachable.
 
