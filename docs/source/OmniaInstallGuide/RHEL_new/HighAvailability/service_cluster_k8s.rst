@@ -31,7 +31,8 @@ Prerequisites
  
 * Omnia supports only Kubernetes version 1.34.1.
 * If you want to install CSI PowerScale driver, ensure that you provide the required values. Click `Deploy CSI drivers for Dell PowerScale storage solutions <../../AdvancedConfigurations/PowerScale_CSI.html>`_ for more information.
-* Ensure that there are a minimum of three ``service_kube_control_planes`` and one ``service_kube_node``.
+* Ensure that there are a minimum of three ``service_kube_control_planes`` and one ``service_kube_node``. 
+.. note:: The above requirement is the minimum needed to deploy the service Kubernetes cluster. High availability applies only to the control plane. For workload and pod failover, it is recommended to have at least two ``service_kube_node`` nodes, so that pods can be rescheduled automatically if one worker node fails.
 * Ensure that the nfs server is reachable on all the diskless nodes.
 * The nodes must be equipped with two active Network Interface Cards (NICs):  
 
