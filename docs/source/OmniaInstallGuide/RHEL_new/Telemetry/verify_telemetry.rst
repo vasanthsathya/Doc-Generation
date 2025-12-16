@@ -28,7 +28,7 @@ The following is the sample output file:
 Verify Kubernetes Telemetry Services Attached to Telemetry 
 ----------------------------------------------------------
 
-To verify Jubernetes telemetry services attached to the iDRAC Telemetry, Kafka, LDMS, and VictoriaMetrics pods, do the following:
+To verify Kubernetes telemetry services attached to the iDRAC Telemetry, Kafka, LDMS, and VictoriaMetrics pods, do the following:
 
 1. Run the following command::
 
@@ -227,4 +227,4 @@ After ``telemetry.yml`` has been executed for the service cluster, you can check
 
     5. To access the services table: ::
         
-        Select *FROM services;
+        Select * FROM services;
