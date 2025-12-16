@@ -18,7 +18,7 @@ To initiate the iDRAC telemetry service on the service cluster, run the ``teleme
 .. caution:: The ``telemetry.yml`` playbook will fail if you run it before executing the ``discovery.yml`` playbook.
 
 .. note::
-   Metadata automatically captures the service cluster kube control plane virtual IP.
+   Service cluster metadata automatically captures the service cluster kube control plane virtual IP.
    As a result, the ``telemetry.yml`` playbook is executed against the VIP rather than an
    individual control plane node.
 
