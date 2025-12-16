@@ -195,7 +195,7 @@ LDMS,GPL-2.0,"OVIS/LDMS High Performance Computing monitoring, analysis, and vis
 NERSC-LDMS,BSD-3-Clause,"Helm Chart, Image Build, and Dashboards for the Light Weight Distributed Metric Service",commit 1f46921
 Strimzi-Kafka,Apache-2.0 license,Apache Kafka® running on Kubernetes,0.48.0-kafka-4.1.0
 Strimzi Kafka Operator,Apache-2.0 license,Deploy and manage Apache Kafka clusters on Kubernetes/OpenShift,0.48.0
-Strimzi Kafka Operator Helm Chart ,Apache-2.0 license,Deploy Strimzi Kafka Operator on Kubernetes using Helm 3,0.48.1
+Strimzi Kafka Operator Helm Chart ,Apache-2.0 license,Deploy Strimzi Kafka Operator on Kubernetes using Helm 3,0.48.0
 Strimzi Kafka Bridge,Apache-2.0 license,"Provides an HTTP-based API for Apache Kafka, enabling REST clients to produce and consume messages without using Kafka protocol directly.",0.33.1
 CUDA,NVIDIA Software License,"The NVIDIA® CUDA® Toolkit provides a development environment for creating high-performance, GPU-accelerated applications.",13.0.2
 VictoriaMetrics,Apache-2.0 license,"VictoriaMetrics: fast, cost-effective monitoring solution and time series database",1.128.0
@@ -214,9 +214,9 @@ vmselect,Apache License 2.0,vmselect handles query execution in VictoriaMetrics 
 LDMS Aggregator image,Apache License 2.0 and GPL-2.0-or-later,Ubuntu-based container with LDMS tools for telemetry and metric collection in HPC/AI environments.,1.0.0
 Omnia Auth,Apache License 2.0,"The omnia_auth image is part of Dell’s Omnia toolkit and is responsible for authentication services within HPC, AI, and data analytics clusters. It primarily manages centralized user authentication and integrates with OpenLDAP to provide secure access control across the cluster.",1.0.0
 Omnia Core,Apache License 2.0,"The omnia_core image is the foundational container for Dell’s Omnia solution, which is an open-source toolkit designed to deploy and manage high-performance computing (HPC), AI, and data analytics clusters. This container runs on the Omnia Infrastructure Manager (OIM) and acts as the central service for cluster orchestration.",1.0.0
-idrac-telemetry-receiver,Apache License 2.0,The idrac_telemetry_receiver image is part of Dell’s Telemetry Reference Tools for PowerEdge servers. It is designed to collect and stream telemetry data from Dell iDRAC (Integrated Dell Remote Access Controller) interfaces to external analytics platforms for monitoring and visualization.,1.0.0
-victoriapump,Apache License 2.0,"The victoriapump image is part of Dell’s Omnia telemetry pipeline and is designed to push telemetry metrics into VictoriaMetrics, a high-performance time-series database optimized for large-scale monitoring and observability.",1.0.0
-Kafkapump,Apache License 2.0,"The kafkapump image is part of Dell’s Omnia telemetry pipeline and is designed to consume telemetry data from Kafka topics and forward it to downstream systems such as time-series databases (e.g., VictoriaMetrics) or analytics platforms.",1.0.0
+idrac-telemetry-receiver,Apache License 2.0,The idrac_telemetry_receiver image is part of Dell’s Telemetry Reference Tools for PowerEdge servers. It is designed to collect and stream telemetry data from Dell iDRAC (Integrated Dell Remote Access Controller) interfaces to external analytics platforms for monitoring and visualization.,1.0
+victoriapump,Apache License 2.0,"The victoriapump image is part of Dell’s Omnia telemetry pipeline and is designed to push telemetry metrics into VictoriaMetrics, a high-performance time-series database optimized for large-scale monitoring and observability.",1.0
+Kafkapump,Apache License 2.0,"The kafkapump image is part of Dell’s Omnia telemetry pipeline and is designed to consume telemetry data from Kafka topics and forward it to downstream systems such as time-series databases (e.g., VictoriaMetrics) or analytics platforms.",1.0
 click,BSD-3-Clause,A Python package for creating command-line interfaces with composable commands and options.,8.2.1
 colorama,BSD License (BSD License),"Cross-platform colored terminal text for Python (Windows, Linux, macOS).",0.4.6
 durationpy,MIT license,Parses and formats duration strings in Python (ISO 8601-like).,0.10.0
