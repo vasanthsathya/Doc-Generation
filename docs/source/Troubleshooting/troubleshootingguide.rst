@@ -172,7 +172,8 @@ Pulp Repository Sync and Publication Failures
 
 **Resolution**: Reduce ``PULP_SYNC_CONCURRENCY`` and ``PULP_PUBLISH_CONCURRENCY`` to 1 in ``config.py``.
 
-**Location**: 
+**Location**: ::
+        
 vi  common/library/module_utils/local_repo/config.py
 PULP_SYNC_CONCURRENCY =  1
 PULP_PUBLISH_CONCURRENCY = 1
