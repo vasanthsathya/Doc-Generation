@@ -8,7 +8,7 @@ Contributions to Omnia are made through `Pull Requests (PRs) <https://help.githu
 Create an issue
 ----------------
 
-`Create an issue <https://help.github.com/en/github/managing-your-work-on-github/creating-an-issue>`_ and describe what you are trying to solve. It does not matter whether it is a new feature, a bug fix, or an improvement. All pull requests must be associated to an issue. When creating an issue, be sure to use the appropriate issue template (bug fix or feature request) and complete all of the required fields. If your issue does not fit in either a bug fix or feature request, then create a blank issue and be sure to including the following information:
+`Create an issue <https://help.github.com/en/github/managing-your-work-on-github/creating-an-issue>`_ and describe what you are trying to solve. If your issue is neither a bug fix nor a feature request, then create a blank issue and be sure to include the following information:
 
     * **Problem description:** Describe what you believe needs to be addressed
     * **Problem location:** In which file and at what line does this issue occur?
