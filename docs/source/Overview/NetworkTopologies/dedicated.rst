@@ -13,8 +13,6 @@ In a **Dedicated Setup**, all the cluster nodes (Head, Compute, and Login [optio
 
 * **Admin Network (Green line)**: This indicates the admin network used by Omnia to provision the cluster nodes. NIC1 of all the nodes are connected to the private switch.
 
-* **IB / Additional Ethernet Network (Yellow line)**: IB / Additional Ethernet Network (Yellow line): This indicates the InfiniBand (IB) or the additional Ethernet network used by applications on the cluster nodes to communicate among each other, using a Mellanox or high-speed Ethernet switch. OIM connectivity is optional for this switch.
-
 .. note:: Omnia supports classless IP addressing, which allows the Admin network, BMC network, Public network, and the Additional network to be assigned different subnets.
 
 **Recommended discovery mechanism**

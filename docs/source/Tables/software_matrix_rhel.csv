@@ -6,11 +6,9 @@ Munge,GPL 3.0,MUNGE (MUNGE Uid 'N' Gid Emporium) is an authentication service fo
 python3-PyMySQL,MIT License,Pure-Python MySQL client library,1.1.2
 firewalld,GPL-2.0 license,Stateful zone based firewall daemon with D-Bus interface,2.3.0
 python3-firewall,GPL-2.0 license,Python3 bindings for firewalld,2.3.0
-multus,Apache-2.0,A CNI meta-plugin for multi-homed pods in Kubernetes,v4.2.2
-whereabouts,Apache-2.0,A CNI IPAM plugin that assigns IP addresses cluster-wide,v0.9.2
 kubectl,Apache-2.0,Command line tool for Kubernetes,1.34.1
 kubelet,Apache-2.0,"Provides external, versioned ComponentConfig API types for configuring the kubelet",1.34.1
-kubeadm,Apache-2.0,"""fast paths"" for creating Kubernetes clusters",1.34.1
+kubeadm,Apache-2.0,Fast paths for creating Kubernetes clusters,1.34.1
 calico,Apache-2.0,Cloud native networking and network,3.30.3
 cri-o,Apache-2.0,CLI and validation tools for Kubelet Container Runtime Interface (CRI),1.34.1
 etcd,Apache-2.0,Relational database used by Kubernetes,3.6.4
@@ -19,7 +17,7 @@ Kubernetes Controller manager,Apache-2.0,Kube Controller Management Container,1.
 kube scheduler,Apache-2.0,Kubernetes scheduler is a control plane process which assigns Pods to Nodes,1.34.1
 kube proxy,Apache-2.0,Kubernetes network proxy,1.34.1
 pause,Apache-2.0,kubernetes pause container,3.10.1
-coreDNS,Apache-2.0,DNS server that chains plugins,1.21.1
+coreDNS,Apache-2.0,DNS server that chains plugins,1.12.1
 kube-apiserver,Apache-2.0,"The Kubernetes API server validates and configures data for the api objects which include pods, services, replicationcontrollers, and others",1.34.1
 whearabouts,Apache-2.0,A CNI IPAM plugin that assigns IP addresses cluster-wide,0.8.0
 metallb,Apache-2.0,A network load-balancer implementation for Kubernetes using standard routing protocols,v0.15.2
@@ -38,7 +36,7 @@ python3,PSF license,The Python programming language,3.12
 python3-pip,MIT license,The Python package installer,25.1.1
 git,GPL 3.0,"Git is a fast, scalable, distributed revision control system with an unusually rich command set that provides both high-level operations and full access to internals",2.47.0
 git-lfs,MIT License,Git extension for versioning large files,3.3.0
-iproute, GPL-2.0 license,"The iproute package contains networking utilities (ip and rtmon, for example) which are designed to use the advanced networking capabilities of the Linux kernel.",6.11.0
+iproute,GPL-2.0 license,"The iproute package contains networking utilities (ip and rtmon, for example) which are designed to use the advanced networking capabilities of the Linux kernel.",6.11.0
 systemd-udev,GPL-2.0 license,The systemd System and Service Manager,257
 systemd,GPL-2.0 license,The systemd System and Service Manager,257
 curl,MIT License,"A command line tool and library for transferring data with URL syntax, supporting DICT, FILE, FTP, FTPS, GOPHER, GOPHERS, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, MQTT, POP3, POP3S, RTMP, RTMPS, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET, TFTP, WS and WSS. libcurl offers a myriad of powerful features",8.17.0
@@ -66,17 +64,17 @@ community.kubernetes,GPL-3.0-or-later,Kubernetes collection for ansible,2.0.1
 csi powerscale driver ,Apache-2.0 license,CSI Driver for Dell PowerScale,2.15.0
 CSI provisioner,Apache-2.0 license,Sidecar container that watches Kubernetes PersistentVolumeClaim objects and triggers CreateVolume/DeleteVolume against a CSI endpoint,5.3.0
 CSI snapshotter,Apache-2.0 license,Sidecar container that watches Kubernetes Snapshot CRD objects and triggers CreateSnapshot/DeleteSnapshot against a CSI endpoint.,8.3.0
-CSI resizer, Apache-2.0 license,Sidecar container that watches Kubernetes PersistentVolumeClaims objects and triggers controller side expansion operation against a CSI endpoint,1.14.0
-CSI node driver registrar, Apache-2.0 license,Sidecar container that registers a CSI driver with the kubelet using the kubelet plugin registration mechanism.,2.14.0
-CSI external health monitor controller, Apache-2.0 license,This repo contains sidecar controller and agent for volume health monitoring.,0.15.0
-CSI replicator, Apache-2.0 license,Dell Container Storage Modules (CSM) for Replication aims at extending native Kubernetes functionality to support Disaster Recovery workflows by utilizing storage array based replication.,1.13.0
-podmon, Apache-2.0 license,A Kubernetes pod monitor for safely terminating pods with persistent volumes in case of node failures,1.14.0
-csm-authorization-sidecar, Apache-2.0 license,CSM Authorization provides multi-tenancy for organizations/service providers that segregates storage usage across customers or business units,2.3.0
-csm metadata retriever, Apache-2.0 license,Dell csi-metadata-retriever controller to retrieve various metadata from the cluster using kubeapi.,1.12.0
-csm-encryption, Apache-2.0 license,"Part of Dell Container Storage Modules (CSM) for Kubernetes, providing encryption capabilities for data-at-rest and secure storage operations integrated with Dell CSI drivers.",0.6.0
-snapshot controller, Apache-2.0 license,"The snapshot-controller in Kubernetes manages the creation and management of volume snapshots, enabling point-in-time copies of your data for CSI drivers",8.3.0
+CSI resizer,Apache-2.0 license,Sidecar container that watches Kubernetes PersistentVolumeClaims objects and triggers controller side expansion operation against a CSI endpoint,1.14.0
+CSI node driver registrar,Apache-2.0 license,Sidecar container that registers a CSI driver with the kubelet using the kubelet plugin registration mechanism.,2.14.0
+CSI external health monitor controller,Apache-2.0 license,This repo contains sidecar controller and agent for volume health monitoring.,0.15.0
+CSI replicator,Apache-2.0 license,Dell Container Storage Modules (CSM) for Replication aims at extending native Kubernetes functionality to support Disaster Recovery workflows by utilizing storage array based replication.,1.13.0
+podmon,Apache-2.0 license,A Kubernetes pod monitor for safely terminating pods with persistent volumes in case of node failures,1.14.0
+csm-authorization-sidecar,Apache-2.0 license,CSM Authorization provides multi-tenancy for organizations/service providers that segregates storage usage across customers or business units,2.3.0
+csm metadata retriever,Apache-2.0 license,Dell csi-metadata-retriever controller to retrieve various metadata from the cluster using kubeapi.,1.12.0
+csm-encryption,Apache-2.0 license,"Part of Dell Container Storage Modules (CSM) for Kubernetes, providing encryption capabilities for data-at-rest and secure storage operations integrated with Dell CSI drivers.",0.6.0
+snapshot controller,Apache-2.0 license,"The snapshot-controller in Kubernetes manages the creation and management of volume snapshots, enabling point-in-time copies of your data for CSI drivers",8.3.0
 OpenLDAP,The OpenLDAP Public License Version 2.8,"OpenLDAP is a free, open-source implementation of the Lightweight Directory Access Protocol (LDAP) developed by the OpenLDAP Project",2.6.8
-OpenMPI, 3-clause BSD license,Open MPI main development repository,5.0.8
+OpenMPI,3-clause BSD license,Open MPI main development repository,5.0.8
 helm,Apache-2.0,Kubernetes Package Manager,3.19.0
 omsdk,Apache-2.0,DellEMC OpenManage Python SDK (OMSDK) is a python library that helps developers and customers to automate the lifecycle management of PowerEdge Servers,1.2.518
 pysnmp,BSD-3-Clause License,Python SNMP library,7.1.20
@@ -190,7 +188,7 @@ opaal,MIT License,OPAAL (OpenCHAMI Platform Abstraction and Automation Layer) is
 minio,GNU Affero General Public License v3.0 (AGPLv3),MinIO is a high-performance object storage system compatible with the Amazon S3 API.,latest
 postgres,MIT License,PostgreSQL is a powerful open-source relational database known for reliability and advanced features.,11.5-alpine
 registry,Apache-2.0 license,Docker Registry is the official image registry service for storing and distributing Docker images.,latest
-libcurl,curl,Command line too and library for transferring data with URLs,8.9.1
+libcurl,MIT License,Command line too and library for transferring data with URLs,8.9.1
 pmix-devel,BSD-3-Clause,PMIx is an application programming interface standard that provides libraries and programming models with portable and well-defined access to commonly needed services in distributed and parallel computing systems.,4.2.8
 pmix,BSD-3-Clause,PMIx is an application programming interface standard that provides libraries and programming models with portable and well-defined access to commonly needed services in distributed and parallel computing systems.,4.2.8
 LDMS,GPL-2.0,"OVIS/LDMS High Performance Computing monitoring, analysis, and visualization project.",4.5.1
@@ -206,7 +204,6 @@ Dell helm-charts,Apache-2.0 license,The source for Dell Helm charts,csi-isilon-2
 CSI-attacher,Apache-2.0 license,Sidecar container that watches Kubernetes VolumeAttachment objects and triggers ControllerPublish/Unpublish against a CSI endpoint,4.9.0
 Busybox base image.,Apache-2.0 license,BusyBox combines tiny versions of many common UNIX utilities into a single small executable,1.36
 Multus CNI image,Apache-2.0 license,Multus CNI enables attaching multiple network interfaces to pods in Kubernetes.,snapshot-thick
-Whereabout image,Apache-2.0 license,An IP Address Management (IPAM) CNI plugin that assigns IP addresses cluster-wide.,latest
 fuse-overlayfs,GPL-3.0-or-later,FUSE implementation for overlayfs,1.14
 podman,Apache License 2.0,Podman: A tool for managing OCI containers and pods.,5.4.0
 container-selinux,GPL-2.0-only,SELinux policy files for Container Runtimes,2.235.0
@@ -241,7 +238,7 @@ oauthlib,BSD License (BSD License),Implements OAuth1 and OAuth2 for Python.,3.3.
 packaging,Apache License 2.0,Provides utilities for version parsing and dependency handling.,25.0.0
 pathspec,MPL-2.0,Implements gitignore-style pattern matching.,0.12.1
 pefile,MIT license,Parse and analyze Windows PE files.,2023.2.7
-paltformdirs,MIT license,"Determines platform-specific directories for config, cache, and data.",4.3.8
+platformdirs,MIT license,"Determines platform-specific directories for config, cache, and data.",4.3.8
 ptyprocess,ISC,Launch and control processes in pseudo-terminals.,0.7.0
 pyasn1,BSD License (BSD License),ASN.1 data structures and codecs for Python.,0.6.1
 pyasn1-modules,BSD License (BSD License),ASN.1 modules for protocols like SNMP and LDAP.,0.4.2
@@ -249,7 +246,7 @@ pycparser,BSD License (BSD License),C parser in Python for analyzing C code.,2.2
 pycurl,LGPL-2.1,Python interface to libcurl.,7.45.6
 pygments,BSD License (BSD License),Syntax highlighting for code in many languages.,2.19.1
 pysnmp-mibs,BSD License (BSD License),SNMP MIBs for PySNMP.,0.1.6
-python-dateutils,BSD License (BSD License),Extensions to Python’s datetime module.,2.9.0.post0
+python-dateutil,BSD License (BSD License),Extensions to Python’s datetime module.,2.9.0.post0
 pytz,MIT license,World timezone definitions for Python.,2025.2
 pywin32-ctypes,MIT license,Windows API access via ctypes.,0.2.3
 referencing,MIT license,JSON Schema referencing implementation.,0.36.2
