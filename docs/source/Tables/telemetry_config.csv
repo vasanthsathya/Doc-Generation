@@ -105,16 +105,6 @@ ldms_sampler_configurations > ``loadavg``,Mandatory,"* Collects system load aver
 * **activation_parameters** ``interval=1000000``
 * The interval unit is micro seconds
 "
-ldms_sampler_configurations > ``slurm_sampler``,Mandatory,"* Collects slurm job and task monitoring (HPC workload telemetry)
-* The possible config parameters are:
-    * component_id=2: Component identifier (default: 0)
-    * stream=slurm: Data stream type
-    * job_count=8: Number of jobs to monitor (default: 8)
-    * task_count=8: Number of tasks to monitor per job (default: 8)
-* **plugin_name**: slurm_sampler
-* **config_parameters**: ``component_id=2 stream=slurm job_count=8 task_count=8``
-*  **activation_parameters**: ""interval=1000000 offset=0""   # interval=1000000 microseconds, offset=0
-* The interval unit is micro seconds"
 ldms_sampler_configurations > ``procnetdev2``,Mandatory,"* Collects network interface statistics (bytes, packets, errors, drops per interface)
 * The possible config parameters are:
     * ifaces=eth0,eth1: Specific interfaces to monitor
