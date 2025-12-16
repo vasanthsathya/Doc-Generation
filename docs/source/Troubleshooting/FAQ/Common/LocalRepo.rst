@@ -14,7 +14,7 @@ Local Repository
 **Resolution**: Re-run the ``local_repo.yml`` playbook while ensuring the following:
 
     * URL to download the software packages mentioned in ``<arch>/<cluster_os_type>/<cluster_os_version>/<software>.json`` is correct, and the repository is reachable.
-    * Docker credentials provided in ``input/omnia_config_credentials,yml`` are correct.
+    * Docker credentials provided in ``input/omnia_config_credentials.yml`` are correct.
     * Sufficient disk space is available while downloading the package. For disk space considerations, see the `Omnia installation guide <../../../OmniaInstallGuide/RHEL_new/RHELSpace.html>`_.
 
 If the ``local_repo.yml`` is executed successfully without any package download failures, a ``Successful`` message is displayed as shown below:

@@ -43,7 +43,7 @@ Provision
 
 ⦾ **Why do OpenCHAMI smd commands fail with certificate error?**
 
-.. image:: ../../../images/ochami.jpg
+.. image:: ../../../images/ochami.png
 
 **Potential Causes**: This issue is because of OpenCHAMI certificate expiration. After sometime, the certificate expires and loses the validity because of which OpenCHAMI commands do not run.
 
