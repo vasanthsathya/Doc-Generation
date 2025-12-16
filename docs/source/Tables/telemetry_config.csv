@@ -81,25 +81,25 @@ LDMS port configurations > ``ldms_store_port``,Conditional Mandatory,"*  Specify
 LDMS port configurations > ``ldms_sampler_port``,Conditional Mandatory,"* Specify the sampler port to be used on the compute nodes.
 * **Valid range**: 10001-10100
 * **Default**: 10001"
-ldms_sampler_configurations > ``meminfo``,Mandatory,"* Collects memory usage statistics (free, used, buffers, cached, etc.)
+ldms_sampler_configurations > ``meminfo``,Mandatory,"* Collects memory usage statistics (free, used, buffers, cached, etc.).
 * **plugin_name:** ``meminfo``
 * **config_parameters** ``""""``
 *  **activation_parameters**:``interval=1000000``  indicates memory data  metrics collected every 1 second.
 * The interval unit is micro seconds
 "
-ldms_sampler_configurations > ``procstat2``,Mandatory,"* Collects process statistics (CPU, memory, I/O per process)
+ldms_sampler_configurations > ``procstat2``,Mandatory,"* Collects process statistics (CPU, memory, I/O per process).
 * **plugin_name:** ``procstat2``
 * **config_parameters** ``""""``
 * **activation_parameters:** ``interval=1000000``
 * The interval unit is micro seconds
 "
-ldms_sampler_configurations > ``vmstat``,Mandatory,"* Collects virtual memory statistics (paging, swapping, memory pressure)
+ldms_sampler_configurations > ``vmstat``,Mandatory,"* Collects virtual memory statistics (paging, swapping, memory pressure).
 * **plugin_name:** ``vmstat``
 * **config_parameters** ``""""``
 * **activation_parameters:** ``interval=1000000``
 * The interval unit is micro seconds
 "
-ldms_sampler_configurations > ``loadavg``,Mandatory,"* Collects system load average (1, 5, and 15 minute averages)
+ldms_sampler_configurations > ``loadavg``,Mandatory,"* Collects system load average (1, 5, and 15 minute averages).
 * **plugin_name:** ``loadavg``
 * **config_parameters:** ``""""``
 * **activation_parameters** ``interval=1000000``
