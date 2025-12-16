@@ -26,7 +26,7 @@ Local Repositories
 
 1. Check if the Epel repository link mentioned in ``omnia_repo_url_rhel`` is accessible.
 
-2. Verify the required software listed in ``software_config.json``, by examining the corresponding ``<software>.json`` files located in the ``input/config/rhel/`` directory. User can do either of the following, based on the findings:
+2. Verify the required software listed in ``software_config.json``, by examining the corresponding ``<software>.json`` files located in the ``input/config/rhel/`` directory. Users can do either of the following, based on the findings:
 
     - If none of the packages are dependent on the Epel repository, users can remove the Epel repository URL from ``omnia_repo_url_rhel``.
 
@@ -37,4 +37,4 @@ Local Repositories
 
 **Potential cause**: This occurs due to resource saturation on the Pulp container.
 
-**Resolution**: If you're running ``local_repo.yml`` playbook multiple times and encounter a failure at the task ``Process URL mirrors from local_repo config``, it is recommended to let the system remain idle for approximately one hour before re-running the ``local_repo.yml`` playbook.
+**Resolution**: If you are running ``local_repo.yml`` playbook multiple times and encounter a failure at the task ``Process URL mirrors from local_repo_config``, it is recommended to let the system remain idle for approximately one hour before re-running the ``local_repo.yml`` playbook.

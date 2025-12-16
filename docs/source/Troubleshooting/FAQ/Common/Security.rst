@@ -7,7 +7,7 @@ Centralized authentication
 
 **Resolution**: Remove the whitespaces and re-run the LDIF file.
 
-⦾ **What to do if openLDAP user login fails when accessing a cluster node?**
+⦾ **What to do if OpenLDAP user login fails when accessing a cluster node?**
 
 .. image:: ../../../images/UserLoginError.png
 

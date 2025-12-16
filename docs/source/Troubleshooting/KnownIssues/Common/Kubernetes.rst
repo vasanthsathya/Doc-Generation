@@ -9,7 +9,7 @@ Kubernetes
 
     * Ensure that the ``docker_username`` and ``docker_password`` are provided in ``/opt/omnia/input/project_default/omnia_config_credentials.yml``.
 
-    * For ``ErrImagePull`` and `ImagePullBackOff`` issue, ensure that local_repo.yml playbook is executed successfully without any failures for packages. Check the local_repo logs for more details. `Click here for more info. <https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry>`_
+    * For ``ErrImagePull`` and ``ImagePullBackOff`` issue, ensure that local_repo.yml playbook is executed successfully without any failures for packages. Check the local_repo logs for more details. `Click here for more info. <https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry>`_
 
 
 ⦾ **What to do if the nodes in a Kubernetes cluster reboot?**
@@ -20,26 +20,26 @@ Kubernetes
     
     kubectl get nodes
 
-2. To check which the pods are in the **Running** state, run: ::
+2. To check which pods are in the **Running** state, run: ::
     
-    kubectl get pods  all-namespaces 
+    kubectl get pods all-namespaces 
 
-3. To verify that both the kubernetes master and kubeDNS are in **Running** state, run: ::
+3. To verify that both the kubernetes master and kubeDNS are in the **Running** state, run: ::
     
     kubectl cluster-info 
 
 
-⦾ **What to do when the Kubernetes pods are not in** ``Running`` **state?**
+⦾ **What to do when the Kubernetes pods are not in the** ``Running`` **state?**
 
 **Resolution**:
 
-1. Run ``kubectl get pods  all-namespaces`` to get the status of all the pods.
+1. Run ``kubectl get pods all-namespaces`` to get the status of all the pods.
 
 2. If the pod(s) are not in ``Running`` state, delete it using the command: ``kubectl delete pods <name of pod>``
 
 
 
-⦾ **If the DNS servers are unresponsive, the Kubernetes pods stop communicating with the servers.**
+⦾ **When the DNS servers are unresponsive, the Kubernetes pods stop communicating with the servers.**
 
 **Potential Cause**: The host network is faulty causing DNS to be unresponsive.
 
@@ -62,7 +62,7 @@ Kubernetes
 
     * Ensure that ``server_share_path`` mentioned in ``storage_config.yml`` for ``nfs_name: nfs_k8s`` has an active nfs_server running on it.
 
-⦾ **If the Nfs-client provisioner is in** ``ContainerCreating`` **or** ``CrashLoopBackOff`` **state, why does the** ``kubectl describe <pod_name>`` **command show the following output?**
+⦾ **If the NFS-client provisioner is in** ``ContainerCreating`` **or** ``CrashLoopBackOff`` **state, why does the** ``kubectl describe <pod_name>`` **command show the following output?**
 
 .. image:: ../../../images/NFS_helm_23743.png
 
@@ -79,7 +79,7 @@ Kubernetes
 
         * Post deletion, the pod will be restarted and it will come to running state.
 
-⦾ **Kubernetes workloads are unable to resolve the PowerScale SmartConnect hostname (e.g., management.ps.com) from within the cluster.**
+⦾ **Why do Kubernetes workloads fail to resolve the PowerScale SmartConnect hostname (e.g., management.ps.com) within the cluster.**
 
 **Potential Cause**: The SmartConnect hostname is not resolvable by the Kubernetes cluster’s internal DNS (CoreDNS).
 This typically happens when:
@@ -146,7 +146,7 @@ This typically happens when:
         Address 1: management.ps.com
 
 
-⦾ **Why does** ``kubeadm join --control-plane`` **is unsuccessful with the following messages: Failed to pull required certs, secret** ``kubeadm-certs`` **was not found in kube-system, or certificate key expired**
+⦾ **Why is** ``kubeadm join --control-plane`` **is unsuccessful with the following messages: Failed to pull required certs, secret** ``kubeadm-certs`` **was not found in kube-system, or certificate key expired**
 
 .. image:: ../../../images/kub_known_issue.png
     

@@ -24,7 +24,7 @@ Checking podman container status from the OIM
 ===============================================
    
    * Use this command to get a list of all running podman conatiners: ``podman ps``
-   * Check the status of any specific podman conatiner: ``podman ps -f name=<container_name>``
+   * Check the status of any specific podman containers: ``podman ps -f name=<container_name>``
 
 
 Packages download issues during ``local_repo.yml`` playbook execution
@@ -34,7 +34,7 @@ Packages download issues during ``local_repo.yml`` playbook execution
 
 .. image:: ../images/troubleshoot_local_repo.png
 
-2. To view the overall download status of all softwares in the .csv format, run the following command:
+2. To view the overall download status of all software in the .csv format, run the following command:
 
 ::
 
@@ -86,7 +86,7 @@ For more information, see `Logs <../Logging/OIM_logs.html>`_.
 
 
 
-Troubleshooting Powerscale isilon pods after node reboot
+Troubleshooting PowerScale isilon pods after node reboot
 ========================================================================================================================
 
 Why is the PowerScale (Isilon) CSI controller pod in CrashLoopBackOff after a node reboot, and how can it be resolved?
@@ -124,18 +124,18 @@ Troubleshooting LDMS on the slurm nodes
         kubectl logs -n telemetry nersc-ldms-aggr-0
         kubectl logs -n telemetry nersc-ldms-store-slurm-cluster-0
 
-2. Ssh to the slurm node from where the LDMS metrics are not retrieved.
+2. SSH to the slurm node from where the LDMS metrics are not retrieved.
 3. Run ``sudo systemctl status ldmsd.sampler.service`` and check ldmsd service is running on the slurm nodes.
 
 .. image:: ../images/troubleshoot_ldms_2.png
 
-4. If the ldmsd daemon is running, check whether supported plugins are loaded through the following command: ::
+4. If the ldmsd daemon is running, check whether supported plugins are loaded using the following command: ::
 
                 /opt/ovis-ldms/sbin/ldms_ls -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p 10001 -h localhost
 
 .. image:: ../images/troubleshoot_ldms_3.png
 
-5. If ldms plugins are loaded, check each of plugin metrics through the following command: 
+5. If ldms plugins are loaded, check the metrics of each plugin using the following command: 
 
 .. image:: ../images/troubleshoot_ldms_4.png
 
