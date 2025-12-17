@@ -7,7 +7,6 @@ General Issues
 
 **Resolution**: Ensure that the Admin NIC on the OIM is configured with ``autoconnect=yes`` so it automatically reconnects after reboot. If you changed this configuration, reboot your OIM once to nullify any cache-related or stale configuration issues.
 
-⦾ **When you PXE boot the devices after discovery, the following devices may not boot as expected:
+⦾ **After successful discovery, PowerEdge R7615 and R6615 nodes might fail to complete PXE boot or become unresponsive during the provisioning process:
 
-    * R7615
-    * R6615
+ **Resolution**: Not available.
