@@ -28,7 +28,7 @@ Choices:
 
 Required","Language to be used during OS provisioning.
 
-**Default value**: ``en-US``"
+**Default value**: ``en_US.UTF-8``"
 "**default_lease_time**
 
 ``integer``

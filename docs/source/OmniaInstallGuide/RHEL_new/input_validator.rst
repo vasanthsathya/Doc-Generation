@@ -7,7 +7,7 @@ Before moving on to the next step, which is running the ``prepare_oim.yml`` play
 
 Here's an example of the input files present in the ``project_default`` directory:
 
-.. image:: ../../images/input_project_default.png
+.. image:: ../../images/input_project_default.jpg
 
 Input Templates for Deployment
 ===============================
