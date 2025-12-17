@@ -10,7 +10,7 @@ Omnia Logs
 -----------
 
   .. csv-table:: Podman Logs
-        :file: ../../Tables/podman_logs.csv
+        :file: ../Tables/podman_logs.csv
         :header-rows: 1
         :keepspace:
 
