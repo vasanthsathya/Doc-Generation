@@ -46,24 +46,24 @@ The following table provides an overview of the various Omnia log files, their l
 
 Logs of Individual Podman Containers in OIM
 ------------------------------------------------
-   1. To view the containers running on OIM, run the following command:
+1. To view the containers running on OIM, run the following command:
 
-     ``podman ps -a``
+   ``podman ps -a``
 
-      The following table shows the status of Omnia containers running on the OIM:
+   The following table shows the status of Omnia containers running on the OIM:
 
-       .. csv-table:: Podman Logs
+     .. csv-table:: Podman Logs
         :file: ../Tables/podman_logs.csv
         :header-rows: 1
-        :keepspace:
+        :keepspace:  
 
-   2. To view the logs from a specific container, run the following command:
+2. To view the logs from a specific container, run the following command:
 
-     ``podman logs <container name>``
+   ``podman logs <container name>``
      
-   3. Alternatively, if the container is managed as a systemd service, you can view the logs using the following command:
+3. Alternatively, if the container is managed as a systemd service, you can view the logs using the following command:
 
-     ``journalctl -xeu <container name>``
+   ``journalctl -xeu <container name>``
 
 
 Logs of Individual K8s Containers on Service Cluster

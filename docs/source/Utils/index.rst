@@ -1,4 +1,4 @@
-Utilities provided by Omnia
+Utilities Provided by Omnia
 ==============================
 
 Omnia provides utilities as separate playbooks. Using these playbooks, you can perform the following:
