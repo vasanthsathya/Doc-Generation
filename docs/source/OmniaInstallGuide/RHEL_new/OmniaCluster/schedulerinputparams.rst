@@ -1,7 +1,7 @@
 Input parameters for the cluster
 ===================================
 
-The ``service_k8s_cluster.yml`` playbook depends on the inputs provided in the following files:
+The ``service_k8s_cluster`` depends on the inputs provided in the following files:
 
 * ``/opt/omnia/input/project_default/omnia_config.yml``
 * ``/opt/omnia/input/project_default/security_config.yml``
