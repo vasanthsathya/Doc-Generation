@@ -1,5 +1,5 @@
 ================================
-Execute the local repo playbook
+Execute the Local Repo Playbook
 ================================
 
 The local repository playbook (``local_repo.yml``) downloads and saves the software packages/images to the **Pulp container**, which all the cluster nodes can access.
@@ -11,7 +11,7 @@ Configurations made by the playbook
 
     * If  ``repo_config`` is set to ``always``, the OIM serves as the default Pulp registry.
 
-Playbook execution
+Playbook Execution
 =====================
 
 To create local repositories on the Pulp container, execute the ``local_repo.yml`` playbook using the following command: ::
@@ -74,7 +74,7 @@ Updating Local Repositories after Modifying JSON Files
 After the execution of the ``local_repo.yml`` playbook is complete, any modifications made to a ``<software_name>.json`` file (for example, ``service_k8s.json``, ``slurm_custom.json``, ``additional_software.json``) will **not** be reflected in the local repositories automatically.
 To apply the changes, you must **re-run the** ``local_repo.yml`` **playbook**.
 
-Command format
+Command Format
 --------------
 
 ::
