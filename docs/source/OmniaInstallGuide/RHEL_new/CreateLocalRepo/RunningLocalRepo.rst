@@ -2,7 +2,7 @@
 Execute the Local Repo Playbook
 ================================
 
-The local repository playbook (``local_repo.yml``) downloads and saves the software packages/images to the **Pulp container**, which all the cluster nodes can access.
+The local repository playbook (``local_repo.yml``) downloads and saves the software packages/images to the **Pulp container**, which all cluster nodes can access.
 
 Configurations made by the playbook
 =======================================
@@ -62,7 +62,7 @@ The ``local_repo.yml`` playbook generates and provides two types of log files as
 
 2. **Package based logs**: Each package download initiated by the ``local_repo.yml`` playbook comes with its own log file. These log files can be accessed from ``/opt/omnia/log/local_repo``.
 
-.. note:: To view the log files in ``.csv`` format, navigate to ``/opt/omnia/log/local_repo//<arch_type>/<sw_name>/status.csv``.
+.. note:: To view the log files in ``.csv`` format, navigate to ``/opt/omnia/log/local_repo/<arch_type>/<sw_name>/status.csv``.
 
 Here's an example of how the log files are organized in the ``/opt/omnia/log/local_repo`` directory:
 

@@ -31,16 +31,16 @@ Default Values Assumed in these Templates (change if needed):
 * External NFS share for all Omnia workflows:  
   IP address: ``172.16.0.253``, Path: ``/mnt/share/omnia``
 * NFS share for HA on service Kubernetes cluster:  
-  IP addsress: ``172.16.0.252``, Path: ``/mnt/share/omnia_k8s``
+  IP addresses: ``172.16.0.252``, Path: ``/mnt/share/omnia_k8s``
 
 Additional values you must provide:
 ------------------------------------
 
 * **Local repository configuration:**  
    * ``rhel_os_url_x86_64`` – BaseOS, AppStream, and CRB repository details for x86_64 node provisioning  
-   *  – BaseOS, AppStream, and CRB repository details for aarch64 node provisioning
+   * ``rhel_os_url_aarch64`` – BaseOS, AppStream, and CRB repository details for aarch64 node provisioning
 
-.. note:: If the RHEL subscription on the OIM is not enabled, the ``rhel_os_url_x86_64`` and ``rhel_os_url_aarch64`` parameters are mandotory. 
+.. note:: If the RHEL subscription on the OIM is not enabled, the ``rhel_os_url_x86_64`` and ``rhel_os_url_aarch64`` parameters are mandatory. 
 
 * **Telemetry configuration (if enabled):**  
    * ``csi_powerscale_driver_secret_file_path`` – Powerscale driver secret file  
