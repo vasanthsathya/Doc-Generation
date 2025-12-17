@@ -68,14 +68,12 @@ kafka_configurations > ``topic_partitions``,Conditional Mandatory,"* Specify the
          - name: ""idrac""
            partitions: 1
          - name: ""ldms""
-           partitions: 2
-         - name: ""ome""
-           partitions: 1"
+           partitions: 2        "
 LDMS port configurations > ``ldms_agg_port``,Conditional Mandatory,"*  Specify the aggregator port to be used the service k8s cluster.
 * **Valid range**: 6001-6100
 * **Default**: 6001"
 LDMS port configurations > ``ldms_store_port``,Conditional Mandatory,"*  Specify the store daemon port to be used on the service k8s cluster
-* The port can be the same as LDMS aggreator port specified for ``ldms_agg_port``
+* The port can be the same as LDMS aggregator port specified for ``ldms_agg_port``
 * **Valid range**: 6001-6100
 * **Default**: 6001"
 LDMS port configurations > ``ldms_sampler_port``,Conditional Mandatory,"* Specify the sampler port to be used on the compute nodes.
@@ -85,25 +83,25 @@ ldms_sampler_configurations > ``meminfo``,Mandatory,"* Collects memory usage sta
 * **plugin_name:** ``meminfo``
 * **config_parameters** ``""""``
 *  **activation_parameters**:``interval=1000000``  indicates memory data  metrics collected every 1 second.
-* The interval unit is micro seconds
+* The interval unit is microseconds
 "
 ldms_sampler_configurations > ``procstat2``,Mandatory,"* Collects process statistics (CPU, memory, I/O per process).
 * **plugin_name:** ``procstat2``
 * **config_parameters** ``""""``
 * **activation_parameters:** ``interval=1000000``
-* The interval unit is micro seconds
+* The interval unit is microseconds
 "
 ldms_sampler_configurations > ``vmstat``,Mandatory,"* Collects virtual memory statistics (paging, swapping, memory pressure).
 * **plugin_name:** ``vmstat``
 * **config_parameters** ``""""``
 * **activation_parameters:** ``interval=1000000``
-* The interval unit is micro seconds
+* The interval unit is microseconds
 "
 ldms_sampler_configurations > ``loadavg``,Mandatory,"* Collects system load average (1, 5, and 15 minute averages).
 * **plugin_name:** ``loadavg``
 * **config_parameters:** ``""""``
 * **activation_parameters** ``interval=1000000``
-* The interval unit is micro seconds
+* The interval unit is microseconds
 "
 ldms_sampler_configurations > ``procnetdev2``,Mandatory,"* Collects network interface statistics (bytes, packets, errors, drops per interface)
 * The possible config parameters are:
@@ -112,4 +110,4 @@ ldms_sampler_configurations > ``procnetdev2``,Mandatory,"* Collects network inte
 * **plugin_name**: procnetdev2
 * **config_parameters**: """"  
 * **activation_parameters**: ``interval=1000000 offset=0``
-* The interval unit is micro seconds"
+* The interval unit is microseconds"
