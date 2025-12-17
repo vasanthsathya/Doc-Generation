@@ -30,13 +30,13 @@ It is recommended to store job output and error files in NFS-mounted directories
       
       tail -f /var/log/cloud-init-output.log
 
-* The CUDA installation path on the OIM and nodes must be ``client_share_path}/slurm``. 
-* The ``client_share_path`` is the same as mentioned in ``storage config.yml`` for ``nfs_slurm``. 
+* The CUDA installation path on the OIM and nodes must be ``{client_share_path}/slurm/cuda``. 
+* The ``client_share_path`` is the same as mentioned in ``storage_config.yml`` for ``nfs_slurm``. 
 
 
 **PAM Feature for Slurm**
 
-Slurm PAM restricts SSH access to compute nodes for non-root users. You can log in only while their job is actively running on the node. After the job is completed, you are is automatically logged out.  
+Slurm PAM restricts SSH access to compute nodes for non-root users. You can log in only while their job is actively running on the node. After the job is completed, you are automatically logged out.  
 
 On login node: Switch to the LDAP user:
 ::

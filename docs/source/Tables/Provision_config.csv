@@ -4,11 +4,10 @@
 ``string``
 
 Optional","* Enter the path where user has placed the PXE mapping CSV file that contains the node details for provisioning. 
-* The file must follow the format: FUNCTIONAL_GROUP_NAME, GROUP_NAME, SERVICE_TAG, HOSTNAME, ADMIN_MAC, ADMIN_IP, BMC_MAC, BMC_IP
+* The file must follow the format: FUNCTIONAL_GROUP_NAME, GROUP_NAME, SERVICE_TAG, PARENT_SERVICE_TAG, HOSTNAME, ADMIN_MAC, ADMIN_IP, BMC_MAC, BMC_IP 
 * This variable is required to discover nodes using a mapping file.
-* Ensure that the admin IP addresses provided are within the ``admin_static_ranges``.
-* The headers of the ``.csv`` file are ``SERVICE_TAG``, ``ADMIN_MAC``, ``HOSTNAME``, ``ADMIN_IP``, and ``BMC_IP``
-* A sample file is provided here: ``omnia/examples/pxe_mapping_file.csv``"
+* The headers of the ``.csv`` file are are FUNCTIONAL_GROUP_NAME, GROUP_NAME, SERVICE_TAG, PARENT_SERVICE_TAG, HOSTNAME, ADMIN_MAC, ADMIN_IP, BMC_MAC, BMC_IP 
+* A sample file is provided here: ``/omnia/examples/pxe_mapping_file.csv``"
 "**timezone**
 
 ``string``
@@ -29,7 +28,7 @@ Choices:
 
 Required","Language to be used during OS provisioning.
 
-**Default value**: ``en-US``"
+**Default value**: ``en_US.UTF-8``"
 "**default_lease_time**
 
 ``integer``

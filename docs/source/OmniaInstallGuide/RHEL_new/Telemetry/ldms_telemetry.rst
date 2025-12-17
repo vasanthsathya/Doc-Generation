@@ -9,7 +9,7 @@ LDMS collects system metrics such as CPU, memory, network, I/O, and Slurm job st
 - **LDMS producer (collector):** Collects local system metrics and runs on Slurm controller, compute, and login nodes.
 - **LDMS aggregator:** Receives and aggregates metrics from producers. Runs as a Kubernetes pod.
 - **LDMS store:** Buffers and stores metric batches reliably. Runs as a Kubernetes pod.
-- **Kafka broker:** Handles telemetry streaming for consumption by downstream systems..
+- **Kafka broker:** Handles telemetry streaming for consumption by downstream systems.
 
 For more details on LDMS, see `Lightweight Distributed Metric Service <https://github.com/ovis-hpc/ldms>`_
 
@@ -19,7 +19,7 @@ During deployment, Omnia attaches LDMS aggregator and store pods to the admin ne
 Prerequisites
 ---------------
 
-* Ensure that ``discovery.yml`` playbook has been executed successfully with ``service_kube_control_plane`` and ``service_kube_node`` in the mapping file.
+* Ensure that the ``discovery.yml`` playbook has been executed successfully with ``service_kube_control_plane`` and ``service_kube_node`` in the mapping file.
 
 Steps
 -------
@@ -35,7 +35,7 @@ Steps
 
 3. Ensure the ``ldms.json`` file contains the following entries.
 
- .. note:: If the LDMS RPM is not available, refer to  `Building LDMS PRODUCER RPM Package <https://github.com/dell/omnia-artifactory?tab=readme-ov-file#building-ldms-producer-rpm-package>`_ for instructions on building LDMS RPMs. 
+ .. note:: If the LDMS RPM is not available, refer to  `Building LDMS Producer RPM Package <https://github.com/dell/omnia-artifactory?tab=readme-ov-file#building-ldms-producer-rpm-package>`_ for instructions on building LDMS RPMs. 
 
 
 The following ``ldms.json`` sample is for ``x86_64``. For ``aarch64`` architecture, update the repo name accordingly in the ``ldms.json`` file.
@@ -55,7 +55,7 @@ The following ``ldms.json`` sample is for ``x86_64``. For ``aarch64`` architectu
     
 4. In ``local_repo_config.yml``, specify the paths for the ``ovis-ldms`` RPMs accordingly for the ``user_repo_url_x86_64`` and ``user_repo_url_aarch64``.
 
-5. Fill up the ``omnia_config.yml``:
+5. Configure the ``omnia_config.yml``:
 
     .. csv-table:: omnia_config.yml
         :file: ../../../Tables/omnia_config_service_cluster.csv
@@ -64,6 +64,8 @@ The following ``ldms.json`` sample is for ``x86_64``. For ``aarch64`` architectu
         :keepspace: 
 
 6. Ensure that the ``telemetry_config.yml`` has the entries specific for LDMS and Kafka deployment.
+
+    .. note:: For LDMS telemetry configuration, at least one sampler plugin is mandatory to collect system metrics.
 
     .. csv-table:: telemetry_config.yml
         :file: ../../../Tables/telemetry_config.csv

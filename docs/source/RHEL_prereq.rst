@@ -64,7 +64,7 @@ Repository Prerequisites
 Service Kubernetes Cluster Prerequisites
 -------------------------------------
 
-* A minimum of **three Kubernetes controller nodes** are available.
+* A minimum of **three Kubernetes controller nodes** must be available.
 
 iDRAC Telemetry Metric Collection Prerequisites
 -----------------------------------------------

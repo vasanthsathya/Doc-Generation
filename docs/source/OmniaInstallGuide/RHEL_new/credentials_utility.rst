@@ -1,7 +1,7 @@
 Step 3: Provide Required Credentials for Omnia
 ================================================
 
-Omnia provides an additional utility playbook called ``get_config_credentials.yml``. This playbook upon execution creates an input file called ``omnia_config_credentials.yml`` in the ``/opt/omnia/input/project_default`` folder.
+Omnia provides an additional utility playbook called ``get_config_credentials.yml``. When executed, this playbook creates an input file called ``omnia_config_credentials.yml`` in the ``/opt/omnia/input/project_default`` folder.
 In this input file, you can preemptively provide all types of mandatory and optional credentials required by Omnia during its execution. Otherwise, you'll be prompted to enter them during playbook execution.
 
 Prerequisites
@@ -28,8 +28,8 @@ Things to Keep in Mind
 ------------------------
 
 * While executing any Omnia playbook which requires certain credentials, you'll now see a prompt to enter them during playbook execution.
-* Credential fields which have the tag ``mandatory`` cannot be left empty. If the ``mandatory`` passwords are not provided or incorrect, the playbook execution will stop and exit while encrypting the credentials file in the background.
-* Credential fields which have the tag ``optional`` can be skipped. Even if no input is provided, playbook execution will continue.
+* Credential fields with the ``mandatory`` tag cannot be left empty. If the ``mandatory`` passwords are not provided or incorrect, the playbook execution will stop and exit while encrypting the credentials file in the background.
+* Credential fields with the ``optional`` tag can be skipped. Even if no input is provided, playbook execution will continue.
 * Passwords provided by you will be hidden. You must enter the password for a second time to confirm.
 * This utility also supports using tags to provide credentials for specific features or packages. For example, you can use ``--tags provision`` while executing the playbook to only bring up the credentials required to provision the cluster nodes.
 

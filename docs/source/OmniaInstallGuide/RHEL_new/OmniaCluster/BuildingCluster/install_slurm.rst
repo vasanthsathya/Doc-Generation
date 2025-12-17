@@ -13,7 +13,7 @@ Step 11: Set up Slurm on nodes
 **Setup Slurm:**
 
 1. To download the artifacts required to set up Slurm on the nodes, run the ``local_repo.yml`` playbook.
-2. To build diskless images for cluster nodes, run the ``build.image.yml`` playbook: `Build cluster node images <../../build_images.html>`_
+2. To build diskless images for cluster nodes, run build_image_x86_64.yml or build_image_aarch64.yml: `Build cluster node images <../../build_images.html>`_
 3. To discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups, run  the ``discovery.yml`` playbook: `Discover cluster nodes <../../Provision/index.html>`_
 4. After successfully executing the ``discovery.yml`` playbook, you can PXE boot the slurm node, login node, and login compiler node simultaneously.
 
@@ -23,6 +23,7 @@ Step 11: Set up Slurm on nodes
 
 **Prerequisites**
 
-* You must have the ``user_repo`` which is compiled with nvml and cgroup-v2. If slum-nodes have GPU then you must provide atleast one ``login_compiler_node``.
+* You must have the ``user_repo`` which is compiled with nvml and cgroup-v2. If slurm-nodes have GPU then you must provide at least one ``login_compiler_node``.
 
 
+.. note:: If the iDRAC of a Slurm node is not accessible through OIM—because of issues such as an incorrect iDRAC port configuration or invalid credentials—the node configuration specified in ``/etc/slurm/slurm.conf`` for ``NodeName`` will default to: ``Sockets=1 CoresPerSocket=1 ThreadsPerCore=1 RealMemory=3774873``. Update ``slurm.conf`` with the correct hardware values and run ``scontrol reconfigure`` to apply the changes.

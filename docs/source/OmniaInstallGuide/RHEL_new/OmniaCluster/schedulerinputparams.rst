@@ -24,15 +24,15 @@ The ``service_k8s_cluster`` depends on the inputs provided in the following file
  
    service_k8s_cluster:
       - cluster_name: service_cluster
-         deployment: true
-         k8s_cni: "calico"
-         pod_external_ip_range: ""
-         k8s_service_addresses: "10.233.0.0/18"
-         k8s_pod_network_cidr: "10.233.64.0/18"
-         nfs_storage_name: "nfs_k8s"
-         csi_powerscale_driver_secret_file_path: ""
-         csi_powerscale_driver_values_file_path: "
-         k8s_crio_storage_size: "20G"
+        deployment: true
+        k8s_cni: "calico"
+        pod_external_ip_range: ""
+        k8s_service_addresses: "10.233.0.0/18"
+        k8s_pod_network_cidr: "10.233.64.0/18"
+        nfs_storage_name: "nfs_k8s"
+        csi_powerscale_driver_secret_file_path: ""
+        csi_powerscale_driver_values_file_path: "
+        k8s_crio_storage_size: "20G"
 
 
 .. csv-table:: Parameters for slurm setup
