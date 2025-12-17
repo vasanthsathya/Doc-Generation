@@ -5,15 +5,16 @@ OIM logs
 
 .. note:: If you want log files for specific playbook execution, ensure to use the ``cd`` command to move into the specific directory before executing the playbook. For example, if you want local repo logs, ensure to enter ``cd local_repo`` before executing the playbook. If the directory is not changed, all the playbook execution log files will be consolidated and provided as part of omnia logs located in ``/opt/omnia/log/core/playbooks``.
 
-     .. csv-table:: Podman Logs
-        :file: ../../../Tables/podman_logs.csv
-        :header-rows: 1
-        :keepspace:
-
+   
 Omnia Logs
 -----------
 
 The following table provides an overview of the various Omnia log files, their locations, and their purposes for monitoring.
+
+  .. csv-table:: Podman Logs
+        :file: ../../../Tables/podman_logs.csv
+        :header-rows: 1
+        :keepspace:
 
 +------------------------------------------------------------------------+---------------------------------------------+
 | Location                                                               | Purpose                                     |
@@ -87,7 +88,7 @@ Logs of individual Podman containers in OIM
 +--------------+-------------------------------------------+----------------------+-------------+-------------+---------------------------------------------------+-------------------+
 | b08dc56c006f | ghcr.io/openchami/coredhcp:v0.3.0         | /coredhcp            | 2 hours ago | Up 2 hours  |                                                   | coresmd           |
 +--------------+-------------------------------------------+----------------------+-------------+-------------+---------------------------------------------------+-------------------+
-| 28d98bc5d18c | docker.io/pulb/pulp:3.80                  | /init                | 2 hours ago | Up 2 hours  | 0.0.0.0:2225->2225/tcp, 80/tcp                    | pulp              |
+| 28d98bc5d18c | docker.io/pulb/pulp:3.80                  | /init                | 2 hours ago | Up 2 hours  | 0.0.0.0:2225->2225/tcp, 80/tcp                  | pulp              |
 +--------------+-------------------------------------------+----------------------+-------------+-------------+---------------------------------------------------+-------------------+
 
    2. To view the logs from a specific container, run the following command:
