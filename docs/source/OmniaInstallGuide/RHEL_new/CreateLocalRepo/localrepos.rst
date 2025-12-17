@@ -20,7 +20,7 @@ Configuring Specific Local Repositories
 
     For more information about installing Slurm, `click here <../OmniaCluster/BuildingCluster/install_slurm.html>`_.
 
-.. note:: If ``slurm_custom`` is defined in ``software_config.json``, provide the corresponding repository information in the ``user_repo_url_<arch>`` field of ``local_repo-config.yml``.
+.. note:: If ``slurm_custom`` is defined in ``software_config.json``, provide the corresponding repository information in the ``user_repo_url_<arch>`` field of ``local_repo_config.yml``.
 
 
 **OpenLDAP**

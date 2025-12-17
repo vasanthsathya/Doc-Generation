@@ -69,7 +69,7 @@ kafka_configurations > ``topic_partitions``,Conditional Mandatory,"* Specify the
            partitions: 1
          - name: ""ldms""
            partitions: 2        "
-LDMS port configurations > ``ldms_agg_port``,Conditional Mandatory,"*  Specify the aggregator port to be used the service k8s cluster.
+LDMS port configurations > ``ldms_agg_port``,Conditional Mandatory,"*  Specify the aggregator port to be used on the service k8s cluster.
 * **Valid range**: 6001-6100
 * **Default**: 6001"
 LDMS port configurations > ``ldms_store_port``,Conditional Mandatory,"*  Specify the store daemon port to be used on the service k8s cluster
