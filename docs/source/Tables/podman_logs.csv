@@ -13,3 +13,4 @@ eea83cdfaf93,ghcr.io/openchami/opaal:v0.3.10,/opaal/opaal logi...,2 hours ago,Up
 5d32b95a8083,ghcr.io/openchami/cloud-init:v1.2.3,/bin/sh -c /usr/l...,2 hours ago,Up 2 hours,,cloud-init-server
 3ad8781f4d1d,cgr.dev/chainguard/haproxy:latest,haproxy -f /usr/l...,2 hours ago,Up 2 hours,"0.0.0.0:8081->80/tcp, 0.0.0.0:8443->443/tcp",haproxy
 b08dc56c006f,ghcr.io/openchami/coredhcp:v0.3.0,/coredhcp,2 hours ago,Up 2 hours,,coresmd
+28d98bc5d18c,docker .io/pulp/pulp:3.80,,2 hours ago,Up 2 hours,"0.0.0.0:2225 -> 2225/tcp, 80.tcp",pulp
