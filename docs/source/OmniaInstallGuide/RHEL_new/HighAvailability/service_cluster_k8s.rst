@@ -15,7 +15,7 @@ Prerequisites
 
          "cluster_os_type": "rhel",
           "cluster_os_version": "10.0",
-           "repo_config": "always",
+           "repo_config": "partial",
            "softwares": [
 
                 {"name": "service_k8s","version": "1.34.1", "arch": ["x86_64"]}
@@ -31,7 +31,7 @@ Prerequisites
  
 * Omnia supports only Kubernetes version 1.34.1.
 * If you want to install CSI PowerScale driver, ensure that you provide the required values. Click `Deploy CSI drivers for Dell PowerScale storage solutions <../../AdvancedConfigurations/PowerScale_CSI.html>`_ for more information.
-* Ensure that there are a minimum of three ``service_kube_control_planes`` and one ``service_kube_node``. 
+* Ensure that there are at least three ``service_kube_control_plane`` entries and one ``service_kube_node`` entry in the ``pxe_mapping_file.csv`` for the Kubernetes controller HA scenario. 
 .. note:: The above requirement is the minimum needed to deploy the service Kubernetes cluster. High availability applies only to the control plane. For workload and pod failover, it is recommended to have at least two ``service_kube_node`` nodes, so that pods can be rescheduled automatically if one worker node fails.
 * Ensure that the nfs server is reachable on all the diskless nodes.
 * The nodes must be equipped with two active Network Interface Cards (NICs):  
@@ -82,7 +82,7 @@ Steps
    :keepspace:
 
 
-3. Run ``build.image.yml`` playbook to build diskless images for cluster nodes. See `Build cluster node images <../build_images.html>`_.
+3. Run ``build_image_x86_64.yml`` playbook to build diskless images for cluster nodes. See `Build cluster node images <../build_images.html>`_.
 
 4. Run ``discovery.yml`` playbook to discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups. See `Discover cluster nodes <../Provision/index.html>`_
     

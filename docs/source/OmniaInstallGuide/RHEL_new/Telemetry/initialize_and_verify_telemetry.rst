@@ -1,15 +1,15 @@
-Step 15: Initialize telemetry and verify telemetry
+Step 15: Initialize and Verify telemetry
 ==================================================
 
 Prerequisites
 ---------------
 
-* Ensure that ``discovery.yml`` playbook has been executed successfully with ``service_kube_control_plane`` and ``service_kube_node`` in the mapping file.
+* Ensure that the ``discovery.yml`` playbook has been executed successfully with ``service_kube_control_plane`` and ``service_kube_node`` in the mapping file.
 
 Steps
 ------
 
-To initiate the iDRAC telemetry service on the the service cluster, run the ``telemetry.yml`` playbook.::
+To initiate the iDRAC telemetry service on the service cluster, run the ``telemetry.yml`` playbook::
 
     cd telemetry
     ansible-playbook telemetry.yml 
@@ -18,13 +18,13 @@ To initiate the iDRAC telemetry service on the the service cluster, run the ``te
 .. caution:: The ``telemetry.yml`` playbook will fail if you run it before executing the ``discovery.yml`` playbook.
 
 .. note::
-   Metadata automatically captures the service cluster kube control plane virtual IP.
+   Service cluster metadata automatically captures the service cluster kube control plane virtual IP.
    As a result, the ``telemetry.yml`` playbook is executed against the VIP rather than an
    individual control plane node.
 
 .. note:: You do not need to run ``telemetry.yml`` if the service cluster is configured only for LDMS. By default, LDMS begins collecting data after ``discovery.yml`` is executed.
 
-Collect telemetry on external nodes
+Collect telemetry from external nodes
 ------------------------------------
 
 To collect telemetry from the external nodes, do the following:

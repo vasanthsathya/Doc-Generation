@@ -24,7 +24,7 @@ Checking podman container status from the OIM
 ===============================================
    
    * Use this command to get a list of all running podman conatiners: ``podman ps``
-   * Check the status of any specific podman conatiner: ``podman ps -f name=<container_name>``
+   * Check the status of any specific podman containers: ``podman ps -f name=<container_name>``
 
 
 Packages download issues during ``local_repo.yml`` playbook execution
@@ -34,7 +34,7 @@ Packages download issues during ``local_repo.yml`` playbook execution
 
 .. image:: ../images/troubleshoot_local_repo.png
 
-2. To view the overall download status of all softwares in the .csv format, run the following command:
+2. To view the overall download status of all software in the .csv format, run the following command:
 
 ::
 
@@ -86,7 +86,7 @@ For more information, see `Logs <../Logging/OIM_logs.html>`_.
 
 
 
-Troubleshooting Powerscale isilon pods after node reboot
+Troubleshooting PowerScale isilon pods after node reboot
 ========================================================================================================================
 
 Why is the PowerScale (Isilon) CSI controller pod in CrashLoopBackOff after a node reboot, and how can it be resolved?
@@ -124,18 +124,18 @@ Troubleshooting LDMS on the slurm nodes
         kubectl logs -n telemetry nersc-ldms-aggr-0
         kubectl logs -n telemetry nersc-ldms-store-slurm-cluster-0
 
-2. Ssh to the slurm node from where the LDMS metrics are not retrieved.
+2. SSH to the slurm node from where the LDMS metrics are not retrieved.
 3. Run ``sudo systemctl status ldmsd.sampler.service`` and check ldmsd service is running on the slurm nodes.
 
 .. image:: ../images/troubleshoot_ldms_2.png
 
-4. If the ldmsd daemon is running, check whether supported plugins are loaded through the following command: ::
+4. If the ldmsd daemon is running, check whether supported plugins are loaded using the following command: ::
 
                 /opt/ovis-ldms/sbin/ldms_ls -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p 10001 -h localhost
 
 .. image:: ../images/troubleshoot_ldms_3.png
 
-5. If ldms plugins are loaded, check each of plugin metrics through the following command: 
+5. If ldms plugins are loaded, check the metrics of each plugin using the following command: 
 
 .. image:: ../images/troubleshoot_ldms_4.png
 
@@ -150,5 +150,33 @@ Troubleshooting LDMS on the slurm nodes
 .. image:: ../images/troubleshoot_ldms_5.png
         
 
+Pulp Repository Sync and Publication Failures
+===============================================
 
 
+1. No Space Left on NFS Share (where Pulp is mounted).
+
+**Observation**:  Pulp storage runs out of disk space during sync or publish. In this case , Pulp logs show the error "No space left on device." Check the available storage space on the NFS share.
+
+**Resolution**:  Increase the size of the NFS share where Pulp is mounted to free up space.
+
+2. Incorrect URL in ``local_repo_config.yml``.
+
+**Observation**: The repository URLs in the ``local_repo_config.yml`` file may be incorrect . The URL must point to the repository root (where the repodata directory exists) and be reachable.
+
+**Resolution**: Verify and update the URLs in the local_repo_config.yml file to ensure they are correct and accessible.
+
+3. NFS storage configuration or performance
+
+**Observation**: If Pulp is mounted on NFS, network delays can impact performance, potentially causing sync or publication issues.
+
+**Resolution**: Reduce ``PULP_SYNC_CONCURRENCY`` and ``PULP_PUBLISH_CONCURRENCY`` to 1 in ``config.py``.
+
+**Location**: ::
+
+                vi  common/library/module_utils/local_repo/config.py
+                PULP_SYNC_CONCURRENCY =  1
+                PULP_PUBLISH_CONCURRENCY = 1
+
+Re-run Failed Operations: After making the changes, re-run the Ansible playbook to retry the failed operations:
+``ansible-playbook local_repo.yml``.

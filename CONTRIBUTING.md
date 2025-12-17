@@ -1,7 +1,7 @@
 # CONTRIBUTE
 
 ## Introduction
-We encourage everyone to help us improve Omnia by contributing to the project. Contributions can be as small as documentation updates or adding example use cases, to adding commenting or properly styling code segments, to full feature contributions. We ask that contributors follow our established guidelines for contributing to the project.
+We encourage everyone to help us improve Omnia by contributing to the project. Contributions can be as small as documentation updates or adding example use cases, and can extend to adding comments and properly styling code segments,all the way up to full feature contributions. We ask that contributors follow our established guidelines for contributing to the project.
 
 These guidelines are based on the [pravega project](https://github.com/pravega/pravega/).
 
@@ -10,7 +10,7 @@ This document will evolve as the project matures. Please be sure to regularly re
 ## How to Contribute to Omnia
 Contributions to Omnia are made through [Pull Requests (PRs)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests). To make a pull request against Omnia, use the following steps:
 
-1. **Create an issue:** [Create an issue](https://help.github.com/en/github/managing-your-work-on-github/creating-an-issue) and describe what you are trying to solve. It does not matter whether it is a new feature, a bug fix, or an improvement. All pull requests need to be associated to an issue. When creating an issue, be sure to use the appropriate issue template (bug fix or feature request) and complete all of the required fields. If your issue does not fit in either a bug fix or feature request, then create a blank issue and be sure to including the following information:
+1. **Create an issue:** [Create an issue](https://help.github.com/en/github/managing-your-work-on-github/creating-an-issue) and describe what you are trying to solve. It does not matter whether it is a new feature, a bug fix, or an improvement. All pull requests need to be associated with an issue. When creating an issue, be sure to use the appropriate issue template (bug fix or feature request) and complete all of the required fields. If your issue is neither a bug fix nor a feature request, then create a blank issue and be sure to include the following information:
    * **Problem description:** Describe what you believe needs to be addressed
    * **Problem location:** In which file and at what line does this issue occur?
    * **Suggested resolution:** How do you intend to resolve the problem?
@@ -23,7 +23,7 @@ Contributions to Omnia are made through [Pull Requests (PRs)](https://help.githu
    git commit --signoff
    git commit -s
    ```
-   Ensure you have your user name and e-mail set. The `--signoff | -s` option will use the configured user name and e-mail, so it is important to configure it before the first time you commit. Check the following references:
+   Ensure you have your username and email set. The `--signoff | -s` option will use the configured user name and e-mail, so it is important to configure it before the first time you commit. Check the following references:
 
       * [Setting up your github user name](https://help.github.com/articles/setting-your-username-in-git/)
       * [Setting up your e-mail address](https://help.github.com/articles/setting-your-commit-email-address-in-git/)
@@ -38,7 +38,7 @@ Contributions to Omnia are made through [Pull Requests (PRs)](https://help.githu
    * **PR Description:** Be sure to fully describe the pull request. Ideally, your PR description will contain:
       1. A description of the main point (_e.g., why was this PR made?_),
       2. Linking text to the related issue (_e.g., This PR closes issue #<issue_number>_),
-      3. How the changes solves the problem, and
+      3. How the changes solve the problem, and
       4. How to verify that the changes work correctly.
    
 ## Omnia Branches and Contribution Flow

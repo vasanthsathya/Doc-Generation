@@ -14,13 +14,13 @@ Provision
 
    * Refresh the key using ``ssh-keygen -R <hostname/server IP>``.
    * Retry login.
-   * If cloud-init is not be rendered, retry the cluster node reprovision.
+   * If cloud-init is not rendered, retry the cluster node reprovision.
 
-⦾ **How is the gracefull shutdown of an Omnia cluster is achieved?**
+⦾ **How is the gracefull shutdown of an Omnia cluster achieved?**
 
 **Potential Cause**: Manage OIM reboot/shutdown scenario.
 
-**Resolution**: In the case of a planned shutdown, ensure that the OIM is shut down after the compute nodes. When powering back up, the OIM should be powered on and OpenCHAMI resumed before bringing up the compute nodes. In short, have the OIM as the first node up and the last node down.
+**Resolution**: In the case of a planned shutdown, ensure that the OIM is shut down after the compute nodes. When powering back up, the OIM should be powered on and OpenCHAMI is resumed before bringing up the compute nodes. In short, have the OIM as the first node up and the last node down.
 
 For more information, `click here <https://github.com/xcat2/xcat-core/issues/7374>`_
 

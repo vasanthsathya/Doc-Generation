@@ -4,15 +4,15 @@ Slurm
 
 .. image:: ../../../images/faq_provision.jpg
 
-**Potential Cause**: This issue occurs when cluster nodes are booted before the Slurm controller is fully up. Because ``slurmctld`` is not yet running when the Slurm nodes start, a connectoin cannot be established with the controller, resulting in “unable to contact” or “not responding” messages.
+**Potential Cause**: This issue occurs when cluster nodes are booted before the Slurm controller is fully up. Because ``slurmctld`` is not yet running when the Slurm nodes start, a connection cannot be established with the controller, resulting in “unable to contact” or “not responding” messages.
 
 **Resolution**: 
 
-1. ssh to the slurm controller node, run the following command::
+1. SSH to the Slurm controller node, run the following command::
     
     scontrol reconfigure
  
-2. ssh to the slurm node and restart the slurmd service using following command::
+2. SSH to the Slurm node and restart the slurmd service using following command::
     
     systemctl restart slurmd
  

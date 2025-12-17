@@ -1,4 +1,4 @@
-Step 16: Verify Telemetry Services deployed on the cluster
+Step 16: Verify Telemetry Services Deployed on the Cluster
 ===========================================================
 
 This section outlines the steps to validate telemetry services and their components, including checking pod status, 
@@ -14,7 +14,7 @@ To verify that the iDRAC Telemetry, Kafka, LDMS, and VictoriaMetrics pods are ru
 
     kubectl get pods -n telemetry
 
-2. Ensure that the following pods are in the running state in the output:
+2. Ensure that the following pods are in a running state in the output:
 
     * iDRAC Telemetry pods
     * Kafka broker, controller, and operator pods
@@ -25,16 +25,16 @@ The following is the sample output file:
 
 .. image:: ../../../images/verify_telemetry_pods.png
 
-Verify Kubernetes Telemetry Services attached to telemetry 
+Verify Kubernetes Telemetry Services Attached to Telemetry 
 ----------------------------------------------------------
 
-To verify kubernetes telmetry services attached to the iDRAC Telemetry, Kafka, LDMS, and VictoriaMetrics pods, do the following:
+To verify Kubernetes telemetry services attached to the iDRAC Telemetry, Kafka, LDMS, and VictoriaMetrics pods, do the following:
 
 1. Run the following command::
 
     kubectl get svc -n telemetry
 
-2. Ensure the following services entries exist:
+2. Ensure the following service entries exist:
 
     * iDRAC Telemetry service
     * Kafka broker, controller, and bridge services
@@ -53,7 +53,7 @@ To verify that iDRAC telemetry data is being successfully published to the ``idr
 
 1. Create a Kafka consumer using the following command::
 
-    curl -X POST http://<<external loadbalancer IP of the bridge-bridge-lb service>>:8080/consumers/idrac-consumer-group \
+    curl -X POST http://<external load balancer IP of the bridge-bridge-lb service>>:8080/consumers/idrac-consumer-group \
     -H 'content-type: application/vnd.kafka.v2+json' \
     -d '{
             "name": "idrac-consumer-1",
@@ -131,7 +131,7 @@ After the job completes, check the logs to confirm that the TLS connection is su
     kubectl logs victoria-tls-test-xxx -n telemetry    
 
 
-View collected iDRAC telemetry data using Victoria Metrics UI (VMUI) - Single Mode Deployment
+View Collected iDRAC Telemetry Data using VictoriaMetrics UI (VMUI) - Single Mode Deployment
 ----------------------------------------------------------------------------------------------
 
 After applying the ``telemetry.yml`` configuration using the VictoriaMetrics deployment mode as ``single-node``, 
@@ -169,7 +169,7 @@ readings for each hardware component::
 
 
 
-View collected iDRAC telemetry data using Victoria Metrics UI (VMUI) - Cluster Mode Deployment
+View Collected iDRAC Telemetry Data using VictoriaMetrics UI (VMUI) - Cluster Mode Deployment
 ----------------------------------------------------------------------------------------------
 
 After applying the ``telemetry.yml`` configuration using the VictoriaMetrics deployment mode as ``cluster``, 
@@ -204,7 +204,7 @@ For example, the following query displays detailed PowerEdge metrics for each ha
     
 
 
-Accessing the ``mysqldb`` database
+Accessing the MySQL Database
 ------------------------------------
 
 After ``telemetry.yml`` has been executed for the service cluster, you can check the mysqldb database inside the ``mysqldb`` container. To view these logs, do the following:
@@ -227,4 +227,4 @@ After ``telemetry.yml`` has been executed for the service cluster, you can check
 
     5. To access the services table: ::
         
-        Select * from services;
+        Select * FROM services;

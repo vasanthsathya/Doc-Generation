@@ -24,7 +24,7 @@ OIM (Omnia Infrastructure Manager) Prerequisites
 -------------------------------------------------
 
 * Choose a **server outside of your intended cluster** that meets the required :doc:`Storage Requirements <OmniaInstallGuide/RHEL_new/RHELSpace>` to function as the Omnia Infrastructure Manager (OIM).
-* Ensure that the OIM has the RHEL operating system installed with the **Server with GUI** Base Environment. For a complete list of supported RHEL versions, see the See See :doc:`supported operating systems <Overview/SupportMatrix/OperatingSystems/index>`.
+* Ensure that the OIM has the RHEL operating system installed with the **Server with GUI** Base Environment. For a complete list of supported RHEL versions, see the :doc:`supported operating systems <Overview/SupportMatrix/OperatingSystems/index>`.
 * Ensure that **Podman** container engine is installed on the OIM.
 * The OIM must have **two active Network Interface Cards (NICs)**:
    * One connected to the **public network** (for downloading and storing packages and images).
@@ -78,7 +78,7 @@ iDRAC Telemetry Metric Collection Prerequisites
 Lightweight Directory Access Protocol (LDAP) Prerequisites
 -----------------------------------------------------------
 
-* LDAP server details required to configure the ``omnia_auth`` container as a proxy. The LDAP server details are required to configure OpenLDAP as a proxy server. See :doc:`Configure OpenLDAP as a proxy server <OmniaInstallGuide/RHEL_new/Authentication/OpenLDAP>`.
+* The LDAP server details are required to configure the ``omnia_auth`` container and OpenLDAP as a proxy server. See :doc:`Configure OpenLDAP as a proxy server <OmniaInstallGuide/RHEL_new/Authentication/OpenLDAP>`.
 
 Lightweight Distributed Metric Service (LDMS) Prerequisites
 -------------------------------------------------------------

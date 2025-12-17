@@ -41,15 +41,15 @@ Provision
 **Resolution**: Perform a cleanup using ``oim_cleanup.yml`` and re-run the ``prepare_oim.yml`` playbook to bring up the OpenCHAMI containers. After ``prepare_oim.yml`` playbook has been executed successfully, re-deploy the cluster using the steps mentioned in the `Omnia deployment guide <../../../OmniaInstallGuide/RHEL_new/index.html>`_.
 
 
-⦾ **Why ochami smd commands fail with certificate error?**
+⦾ **Why do OpenCHAMI smd commands fail with certificate error?**
 
-.. image:: ../../../images/ochami.jpg
+.. image:: ../../../images/ochami.png
 
-**Potential Causes**: This issue is because of Openchami certificate expiration. After sometime, the certificate expires and loses the validity because of which ochami commands do not run.
+**Potential Causes**: This issue is because of OpenCHAMI certificate expiration. After sometime, the certificate expires and loses the validity because of which OpenCHAMI commands do not run.
 
-**Resolution**: As part of ``discovery.yml`` execution, certificate updation is being taken care. However, if user still faces this issue, they can update the Openchami certificate manually by running the following command on OIM: ::
+**Resolution**: As part of ``discovery.yml`` execution, certificate updation is being taken care. However, if user still faces this issue, they can update the OpenCHAMI certificate manually by running the following command on OIM: ::
         
-        sudo openchami-certificate-update update <OIM_hostname>. <Domain_Name>
+        sudo openchami-certificate-update update <OIM_hostname>.<Domain_Name>
         sudo systemctl restart openchami.target
 
 
@@ -59,7 +59,7 @@ Provision
 
 **Potential Causes**: This issue is because of Access Token getting expired after sometime.
 
-**Resolution**: Manually renew the access token by running below command on OIM: ::
+**Resolution**: Manually renew the access token by running the below command on OIM: ::
 
         export <OIM_hostname>_ACCESS_TOKEN=$(sudo bash -lc 'gen_access_token')
 
@@ -68,13 +68,13 @@ Provision
 
 .. image:: ../../../images/provision_issue.jpg
 
-**Potential Causes**: This issue is due to SSH host key mismatch issues.
+**Potential Causes**: This issue is due to SSH host key mismatch.
 
 **Resolution**: User needs to manually run the below command inside omnia_core container: ::
 
-        ssh-keygen -R <node_admin_ip> 
+        ssh-keygen -R  <node_admin_ip> 
 
-    This removes all SSH entries for that IP from your ``local ~/.ssh/known_hosts`` file.
+This removes all SSH entries for that IP from your ``local ~/.ssh/known_hosts`` file.
 
 
 ⦾ **Why are the hostname and root password not configured on the nodes after boot?**
