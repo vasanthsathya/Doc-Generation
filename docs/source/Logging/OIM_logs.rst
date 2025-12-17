@@ -5,7 +5,10 @@ OIM logs
 
 .. note:: If you want log files for specific playbook execution, ensure to use the ``cd`` command to move into the specific directory before executing the playbook. For example, if you want local repo logs, ensure to enter ``cd local_repo`` before executing the playbook. If the directory is not changed, all the playbook execution log files will be consolidated and provided as part of omnia logs located in ``/opt/omnia/log/core/playbooks``.
 
-
+     .. csv-table:: Podman Logs
+        :file: ../../../Tables/podman_logs.csv
+        :header-rows: 1
+        :keepspace:
 
 Omnia Logs
 -----------
