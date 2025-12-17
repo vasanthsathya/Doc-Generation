@@ -32,6 +32,7 @@ The ``service_k8s_cluster`` depends on the inputs provided in the following file
          nfs_storage_name: "nfs_k8s"
          csi_powerscale_driver_secret_file_path: ""
          csi_powerscale_driver_values_file_path: "
+         k8s_crio_storage_size: "20G"
 
 
 .. csv-table:: Parameters for slurm setup
