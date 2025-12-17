@@ -1,4 +1,4 @@
-OIM logs
+OIM Logs
 ----------
 
 .. caution:: It is not recommended to delete the below log files or the directories they reside in.
@@ -44,7 +44,7 @@ The following table provides an overview of the various Omnia log files, their l
 +------------------------------------------------------------------------+---------------------------------------------+
 
 
-Logs of individual Podman containers in OIM
+Logs of Individual Podman Containers in OIM
 ------------------------------------------------
    1. To view the containers running on OIM, run the following command:
 
@@ -66,7 +66,7 @@ Logs of individual Podman containers in OIM
      ``journalctl -xeu <container name>``
 
 
-Logs of individual K8s containers on service cluster
+Logs of Individual K8s Containers on Service Cluster
 -----------------------------------------------------
    1. A list of namespaces and their corresponding pods can be obtained using:
 

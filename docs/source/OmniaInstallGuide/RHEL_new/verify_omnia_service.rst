@@ -1,5 +1,5 @@
-Step 7: Verify the status of Omnia container services
-======================================================
+Step 7: Verify the Status of Omnia Core Container Services
+===========================================================
 
 After successfully running the ``prepare.oim.yml``, you can verify if the ``omnia.target`` and
 its dependent services are running correctly.
@@ -55,7 +55,7 @@ its dependent services are running correctly.
    .. note::  The ``omnia_auth.service`` runs only when OpenLDAP is specifed in the ``software_config.json``.
     
 
-View usage instructions for OpenCHAMI containers
+View Usage Instructions for OpenCHAMI Containers
 --------------------------------------------------
 
 The ``ochami --help`` command provides usage instructions for interacting with **OpenCHAMI services**.  

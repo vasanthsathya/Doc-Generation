@@ -1,5 +1,5 @@
 ===========================================================================
-Step 5: Provide inputs to the files in the ``project_default`` directory
+Step 5: Provide Inputs to the Files in the ``project_default`` Directory
 ===========================================================================
 
 Omnia is now deployed using a project-based approach. Once the ``omnia_core`` container is deployed, all the input files needed for the cluster will be available in the ``/opt/omnia/input/project_default`` directory on the NFS share.
@@ -9,7 +9,7 @@ Here's an example of the input files present in the ``project_default`` director
 
 .. image:: ../../images/input_project_default.png
 
-Input Templates for deployment
+Input Templates for Deployment
 ===============================
 
 You can use the provided input templates to simplify deployment. Choose the template that matches your cluster architecture and telemetry requirements:
@@ -22,7 +22,7 @@ You can use the provided input templates to simplify deployment. Choose the temp
 
 * **x86_64 Slurm controller node with ARM-based Slurm nodes without telemetry**: Use the templates available at: :file:`omnia/examples/input_template/bare_metal_slurm/aarch64/without_service_k8s`
 
-Default values assumed in these templates (change if needed):
+Default Values Assumed in these Templates (change if needed):
 ---------------------------------------------------------------
 
 * Virtual address for Kubernetes cluster: ``172.16.0.1``

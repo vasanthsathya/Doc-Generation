@@ -1,5 +1,5 @@
 =======================================================
-Configure deployment required for iDRAC telemetry service
+Configure Deployment Required for iDRAC Telemetry Service
 =======================================================
 
 To deploy iDRAC telemetry service on the service cluster, do the following:

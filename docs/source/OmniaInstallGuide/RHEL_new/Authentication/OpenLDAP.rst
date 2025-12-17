@@ -1,4 +1,4 @@
-Step 4: Setup OpenLDAP for centralized authentication 
+Step 4: Setup OpenLDAP for Centralized Authentication 
 ======================================================
 
 Set up OpenLDAP to allow or deny access to the user(s).
@@ -16,7 +16,7 @@ Set up OpenLDAP to allow or deny access to the user(s).
 * Run  ``build_image_x86_64.yml``/ ``build_image_aarch64.yml`` to build the images with OpenLDAP packages on the login node, slurm node, and slurm control node image.
 
 
-Create a new user on OpenLDAP
+Create a New User on OpenLDAP
 -----------------------------
 
 1. Create an LDIF file (eg: ``create_user.ldif``) on the auth server containing the following information:
@@ -57,7 +57,7 @@ Below is a sample file: ::
 3. To set up a password for this account, use the command ``ldappasswd -D <enter admin binddn > -w < bind_password > -S <user_dn>``. The value of ``user_dn`` is the distinguished name that indicates where the user was created. (In this example, ``uid=ldapuser,ou=People,dc=omnia,dc=test``)
 
 
-Configure OpenLDAP connection type
+Configure OpenLDAP Connection Type
 --------------------------------------
 
 Omnia authenticates users against OpenLDAP using TLS-only connection. The connection type is predefined to TLS in the ``security_config.yml`` available at ``/opt/omnia/input/project_default/`` directory.
@@ -69,7 +69,7 @@ Omnia authenticates users against OpenLDAP using TLS-only connection. The connec
    :keepspace:
 
 
-Configure OpenLDAP as a proxy server
+Configure OpenLDAP as a Proxy Server
 --------------------------------------
 
 Omnia allows the internal OpenLDAP server to be configured as a proxy, where it utilizes the external LDAP servers as a backend database to store user data and acts as an authentication entity to allow/deny them access to the cluster. OpenLDAP client will be configured through the proxy server which means that there won't be any direct communication between OpenLDAP client and the external LDAP server.

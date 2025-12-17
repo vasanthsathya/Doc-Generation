@@ -1,4 +1,4 @@
-Input parameters for the cluster
+Input Parameters for the Cluster
 ===================================
 
 The ``service_k8s_cluster`` depends on the inputs provided in the following files:

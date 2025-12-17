@@ -1,4 +1,4 @@
-Discover the cluster nodes
+Discover the Cluster Nodes
 ============================
 
 The ``discovery.yml`` playbook discovers the probable bare-metal cluster nodes. This playbook is dependent on inputs from the mapping file and the following input files:

@@ -1,4 +1,4 @@
-Ports used by the OIM
+Ports Used by the OIM
 =======================
 
 Container ports
@@ -15,7 +15,7 @@ Omnia creates containers on the OIM to ensure a smooth and dependency free deplo
     +-------------------------+-----------------------------------------------+
 
 
-OpenCHAMI ports
+OpenCHAMI Ports
 ----------------
 
         +---------------+----------+--------------+
@@ -44,7 +44,7 @@ OpenCHAMI ports
         | 69            | udp      | tftp-udp     |
         +---------------+----------+--------------+
        
-Telemetry ports
+Telemetry Ports
 ----------------
 
     +--------------------------------------------------------------+----------------------+

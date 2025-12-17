@@ -1,4 +1,4 @@
-Step 15: Initialize and Verify telemetry
+Step 15: Initialize and Verify Telemetry
 ==================================================
 
 Prerequisites
@@ -24,7 +24,7 @@ To initiate the iDRAC telemetry service on the service cluster, run the ``teleme
 
 .. note:: You do not need to run ``telemetry.yml`` if the service cluster is configured only for LDMS. By default, LDMS begins collecting data after ``discovery.yml`` is executed.
 
-Collect telemetry from external nodes
+Collect Telemetry from External Nodes
 ------------------------------------
 
 To collect telemetry from the external nodes, do the following:

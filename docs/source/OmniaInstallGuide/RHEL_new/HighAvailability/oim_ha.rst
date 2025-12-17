@@ -31,7 +31,7 @@ Prerequisites
 
 .. note:: The virtual IP addresses specified in the ``high_availability_config.yml`` file must be within the same subnet as the admin network.
 
-Playbook execution
+Playbook Execution
 --------------------
 
 Once the details have been provided to the input files and the ``prepare_oim.yml`` playbook is executed, passive OIM nodes can be discovered during the cluster discovery and provision process.

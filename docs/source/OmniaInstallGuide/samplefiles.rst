@@ -2,7 +2,7 @@ Sample Files
 =============      
 
 
-Inventory file for PXE boot order
+Inventory file for PXE Boot Order
 ---------------------------------
 
 ::

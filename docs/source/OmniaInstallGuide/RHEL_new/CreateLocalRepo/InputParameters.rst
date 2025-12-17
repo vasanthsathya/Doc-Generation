@@ -1,4 +1,4 @@
-Input parameters for Local Repositories
+Input Parameters for Local Repositories
 ==========================================
 
 The ``local_repo.yml`` playbook is dependent on the inputs provided to the following input files:

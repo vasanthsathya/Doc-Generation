@@ -1,4 +1,4 @@
-Collect telemetry data from external client nodes to Victoria DB (Cluster Mode)
+Collect Telemetry Data from External Client Nodes to Victoria DB (Cluster Mode)
 ===============================================================================
 
 This section describes how to create a new metric in VictoriaMetrics and configure an external telemetry producer to stream metrics 
@@ -20,7 +20,7 @@ Ensure the following prerequisites are met:
   * LoadBalancer port ``8481`` for querying data.
 
 
-Retrieve the Victoria Select and Insert LoadBalancer IP addresses
+Retrieve the Victoria Select and Insert LoadBalancer IP Addresses
 ------------------------------------------------------------------
 
 On the Service Kubernetes cluster, run the following command to retrieve the LoadBalancer IP addresses 
@@ -33,7 +33,7 @@ Sample output:
 .. image:: ../../../images/victoria_loadbalancer_ip.png
 
 
-Push sample metrics from Omnia core container in the OIM
+Push Sample metrics from Omnia Core Container in the OIM
 ---------------------------------------------------------------
 1. Log in to Omnia core container and navigate to ``/opt/omnia/telemetry/victoria-certs/``::
 

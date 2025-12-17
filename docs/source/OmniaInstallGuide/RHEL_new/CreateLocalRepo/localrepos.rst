@@ -1,4 +1,4 @@
-Configuring specific local repositories
+Configuring Specific Local Repositories
 -----------------------------------------
 
 

@@ -1,4 +1,4 @@
-Centralized authentication
+Centralized Authentication
 =============================
 
 ⦾ **Why am I unable to login using LDAP credentials after successfully creating a user account?**

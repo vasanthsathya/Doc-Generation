@@ -1,4 +1,4 @@
-Step 2: Create mapping file with node information
+Step 2: Create Mapping File with Node Information
 ===================================================
 
 In Omnia, nodes are discovered and provisioned based on the  **groups** and **functional groups** defined in the mapping file. By combining both groups and functional groups, Omnia offers a powerful and flexible approach to manage large-scale node infrastructures, ensuring both logical organization and physical optimization of resources.
@@ -18,7 +18,7 @@ In Omnia, nodes are discovered and provisioned based on the  **groups** and **fu
   - **Slurm Node**
 
 
-Create mapping file
+Create Mapping File
 -----------------------
 Manually collect PXE NIC information of the nodes to be provisioned and manually define them to Omnia using the **pxe_mapping_file.csv** file. Provide the file path to the ``pxe_mapping_file`` variable in ``/opt/omnia/input/project_default/provision_config.yml``.
 Each node listed in the mapping file must be assigned with the following values: 
@@ -69,7 +69,7 @@ Nodes that are located in the same place or similar hardware can be grouped toge
 
 .. _functional-groups-section:
 
-Functional groups
+Functional Groups
 ------------------------
 
 Nodes with similar functional roles or functionalities can be grouped together. The following table lists the functional groups available in Omnia.
@@ -88,7 +88,7 @@ Nodes with similar functional roles or functionalities can be grouped together. 
    :keepspace:
 
   
-Recommended Software by functional groups
+Recommended Software by Functional Groups
 ------------------------------------------
 
 .. caution:: Ensure that the ``software_config.json`` file contains all required inputs for the software to be deployed on each functional group.  For more information, see `Input parameters for Local Repositories <https://omnia-devel.readthedocs.io/en/latest/OmniaInstallGuide/RHEL_new/CreateLocalRepo/InputParameters.html>`_.

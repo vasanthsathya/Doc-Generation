@@ -1,11 +1,11 @@
-Step 1: Deploy Omnia core container
+Step 1: Deploy Omnia Core Container
 =========================================
 
 The Omnia core container is deployed on the Omnia Infrastructure Manager (OIM) and it is managed as a Systemd service (``omnia_core.service``). 
 As part of cluster setup, Omnia integrates with OpenCHAMI that provides the capabilities for node discovery and provisioning.
 You can use the ``omnia.sh`` script to install, uninstall, and view help on the actions that you can perform on the Omnia core container. 
 
-Prerequisites for deploying the Omnia core container
+Prerequisites for Deploying the Omnia Core Container
 -----------------------------------------------------
 
 * The OIM has internet access to download necessary packages for cluster deployment and configuration.
@@ -27,7 +27,7 @@ Prerequisites for deploying the Omnia core container
 
     .. include:: ../../Appendices/hostnamereqs.rst
 
-Install Omnia core container
+Install Omnia Core Container
 ------------------------------
 
 The ``omnia.sh --install`` command is used to deploy the Omnia core container on the OIM.
@@ -75,7 +75,7 @@ The ``omnia.sh`` script performs the following tasks:
         ./omnia.sh --uninstall
 
 
-Access the Omnia core container
+Access the Omnia Core Container
 ----------------------------------------
 
 You can access the Omnia core container using either of the following methods:
@@ -89,7 +89,7 @@ You can access the Omnia core container using either of the following methods:
        ssh omnia_core
 
 
-Uninstall Omnia core container
+Uninstall Omnia Core Container
 -------------------------------
 
 The ``omnia.sh --uninstall`` command removes the ``omnia_core`` container and its associated Systemd service 
@@ -108,7 +108,7 @@ To uninstall the Omnia core container, on the OIM, run the following script::
 
    ./omnia.sh --uninstall
 
-View usage instructions for Omnia Core Container
+View Usage Instructions for Omnia Core Container
 -------------------------------------------------
 
 The ``omnia.sh --help`` command provides usage instructions for managing the Omnia core container. 

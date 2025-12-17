@@ -1,5 +1,5 @@
 ==========================================
-Set up High Availability (HA) Kubernetes on the service cluster
+Set up High Availability (HA) Kubernetes on the Service Cluster
 ==========================================
 
 With Omnia, you can deploy a service Kubernetes cluster on the designated service nodes to efficiently distribute workload and manage resources for telemetry data collection. 
@@ -92,7 +92,7 @@ Steps
 
 
 
-Additional installations
+Additional Installations
 =========================
 
 After deploying Kubernetes, the following additional packages are installed on top of the Kubernetes stack on the service cluster:
@@ -106,7 +106,7 @@ After deploying Kubernetes, the following additional packages are installed on t
     Click `here <https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner>`_ for more information.
 
 
-Next step
+Next Step
 ===========
 
 To know how to deploy the iDRAC telemetry containers on the service cluster, `click here <../Telemetry/initialize_and_verify_telemetry.html>`_.

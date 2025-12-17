@@ -1,4 +1,4 @@
-Update the input parameters for discovering the nodes
+Update the Input Parameters for Discovering the Nodes
 ========================================================
 
 Specify the required parameters in the following input files: 

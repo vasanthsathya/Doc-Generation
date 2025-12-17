@@ -1,4 +1,4 @@
-Space requirements for the OIM
+Space Requirements for the OIM
 ===================================
 
 * For all available software packages that Omnia supports: 15GB

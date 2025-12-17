@@ -20,7 +20,7 @@ To create local repositories on the Pulp container, execute the ``local_repo.yml
     cd /omnia/local_repo
     ansible-playbook local_repo.yml
 
-Metadata report
+Metadata Report
 ===================
 
 After a successful execution of the ``local_repo.yml`` playbook, a metadata file called ``localrepo_metadata.yml`` is created under the ``/opt/omnia/offline_repo/.data/`` directory. 
@@ -34,7 +34,7 @@ If the ``local_repo.yml`` playbook is re-run, it compares the current repository
 
     * If there is no change in policy, the playbook execution proceeds without prompting. The metadata file remains unchanged.
          
-Check status of the packages
+Check Status of the Packages
 ===============================
 
 After ``local_repo.yml`` has been executed, a status report is displayed containing the status for each downloaded package along with the complete playbook execution time. Here's an example of what that might look like:
@@ -53,7 +53,7 @@ After ``local_repo.yml`` has been executed, a status report is displayed contain
 
     * To download additional software packages after the playbook has been executed, simply update the ``/opt/omnia/input/project_default/software_config.json`` with the new software information and re-run the ``local_repo.yml`` playbook.
 
-Log files
+Log Files
 ===========
 
 The ``local_repo.yml`` playbook generates and provides two types of log files as part of its execution:
@@ -68,7 +68,7 @@ Here's an example of how the log files are organized in the ``/opt/omnia/log/loc
 
 .. image:: ../../../images/local_repo_log.png
 
-Updating local repositories after modifying JSON files
+Updating Local Repositories after Modifying JSON Files
 ==========================================================
 
 After the execution of the ``local_repo.yml`` playbook is complete, any modifications made to a ``<software_name>.json`` file (for example, ``service_k8s.json``, ``slurm_custom.json``, ``additional_software.json``) will **not** be reflected in the local repositories automatically.

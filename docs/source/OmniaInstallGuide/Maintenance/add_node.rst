@@ -1,4 +1,4 @@
-Add node to the cluster
+Add Node to the Cluster
 ==========================
 
 Omnia supports adding new nodes to the cluster. 
@@ -15,7 +15,7 @@ Add node to the cluster without any new functional groups in mapping file
 3. PXE boot the newly added nodes.
 
 
-Add node to the cluster with new functional groups in mapping file
+Add Node to the Cluster with new Functional Groups in Mapping File
 -------------------------------------------------------------------
 
 1. Update the mapping file with the new entries. 

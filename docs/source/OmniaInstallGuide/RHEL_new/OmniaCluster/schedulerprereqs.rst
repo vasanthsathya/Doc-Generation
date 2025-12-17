@@ -1,4 +1,4 @@
-Before you build clusters
+Before you Build Clusters
 --------------------------
 
 * `Ensure that all cluster nodes are up and running <../Provision/ViewingDB.html>`_.
