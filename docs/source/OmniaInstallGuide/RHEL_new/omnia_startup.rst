@@ -43,8 +43,8 @@ The ``omnia.sh --install`` command is used to deploy the Omnia core container on
 
    ./omnia.sh --install
 
-3. When promted for the shared path, enter the path for the Omnia shared directory. This can be a local file path or an NFS share path.
-4. When prompted for the password, enter a secure alphanumeric password for accessing the OMNIA core container.
+3. When prompted for the shared path, enter the path for the Omnia shared directory. This can be a local file path or an NFS share path.
+4. When prompted for the password, enter a secure alphanumeric password for accessing the Omnia core container.
    
 .. caution:: The password must not contain special characters such as \ , | , & , ; , ` , < > , * , ? , ! , $ , ( ) , { } , [ ] . 
   
@@ -57,7 +57,7 @@ The ``omnia.sh`` script performs the following tasks:
 
   ``/opt/omnia``:  Shared directory that is mapped to the Omnia shared path used by OIM.  
 
-  ``/opt/omnia/input``: Contains the input files for the playbooks.  
+  ``/opt/omnia/input/project_default``: Contains the input files for the playbooks.  
 
   ``/omnia``:  Contains the Omnia source code.  
 

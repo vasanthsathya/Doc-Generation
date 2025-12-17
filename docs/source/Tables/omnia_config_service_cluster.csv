@@ -27,3 +27,5 @@
 * If you want to deploy the CSI driver for PowerScale on your service cluster, add the file path of the ``values.yaml`` file to this variable."
 ``nfs_storage_name``,Mandatory,"* **Type**: String
 * Use same name as mentioned in each of the ``nfs_name``  available in ``storage_config.yml``."
+``k8s_crio_storage_size``,Mandatory,"* **Type**: String
+* Specifies the disk size allocated for CRI-O container storage."
