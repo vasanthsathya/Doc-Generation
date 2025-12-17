@@ -30,7 +30,7 @@ It is recommended to store job output and error files in NFS-mounted directories
       
       tail -f /var/log/cloud-init-output.log
 
-* The CUDA installation path on the OIM and nodes must be ``{client_share_path}/slurm``. 
+* The CUDA installation path on the OIM and nodes must be ``{client_share_path}/slurm/cuda``. 
 * The ``client_share_path`` is the same as mentioned in ``storage_config.yml`` for ``nfs_slurm``. 
 
 
