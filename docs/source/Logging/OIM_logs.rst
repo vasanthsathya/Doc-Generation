@@ -9,12 +9,12 @@ OIM logs
 Omnia Logs
 -----------
 
-The following table provides an overview of the various Omnia log files, their locations, and their purposes for monitoring.
-
   .. csv-table:: Podman Logs
         :file: ../../../Tables/podman_logs.csv
         :header-rows: 1
         :keepspace:
+
+The following table provides an overview of the various Omnia log files, their locations, and their purposes for monitoring.
 
 +------------------------------------------------------------------------+---------------------------------------------+
 | Location                                                               | Purpose                                     |
