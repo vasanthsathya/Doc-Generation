@@ -1,4 +1,4 @@
-Step 14: Verify Slurm cluster and Kubernetes on the service cluster
+Step 14: Verify Slurm Cluster and Kubernetes on the Service Cluster
 ============================================================================================================
 
 **Slurm cluster**

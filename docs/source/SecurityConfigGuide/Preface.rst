@@ -5,17 +5,17 @@ The security configuration guide of Omnia provides Dell customers an overview an
 
 .. image:: ../images/Architecture.png
 
-Legal disclaimers
+Legal Disclaimers
 ------------------
 
 THE INFORMATION IN THIS PUBLICATION IS PROVIDED "AS-IS." DELL MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND WITH RESPECT TO THE INFORMATION IN THIS PUBLICATION, AND SPECIFICALLY DISCLAIMS IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. In no event shall Dell Technologies, its affiliates or suppliers, be liable for any damages whatsoever arising from or related to the information contained herein or actions that you decide to take based thereon, including any direct, indirect, incidental, consequential, loss of business profits or special damages, even if Dell Technologies, its affiliates or suppliers have been advised of the possibility of such damages. The Security Configuration Guide intends to be a reference. The guidance is provided based on a diverse set of installed systems and may not represent the actual risk/guidance to your local installation and individual environment. It is recommended that all users determine the applicability of this information to their individual environments and take appropriate actions. All aspects of this Security Configuration Guide are subject to change without notice and on a case-by-case basis. Your use of the information contained in this document or materials linked herein is at your own risk. Dell reserves the right to change or update this document in its sole discretion and without notice at any time.
 
-Scope of the document
+Scope of the Document
 ----------------------
 
 This document covers the security features supported by Omnia 2.0.
 
-Document references
+Document References
 --------------------
 
 In addition to this guide, more information on Omnia can be found using the below links:
@@ -23,7 +23,7 @@ In addition to this guide, more information on Omnia can be found using the belo
 * `Omnia: Read Me <https://github.com/dell/omnia#readme>`_
 * `Omnia: Deployment Guide <https://omnia.readthedocs.io/en/latest/OmniaInstallGuide/index.html>`_
 
-Reporting security vulnerabilities
+Reporting Security Vulnerabilities
 ----------------------------------
 
 Dell takes reports of potential security vulnerabilities in our products very seriously. If you discover a security vulnerability, you are encouraged to report it to Dell immediately. For the latest instructions on how to report a security issue to Dell, see the `Dell Vulnerability Response Policy <https://www.dell.com/support/contents/en-in/article/product-support/self-support-knowledgebase/security-antivirus/alerts-vulnerabilities/dell-vulnerability-response-policy>`_ on the Dell.com site.

@@ -1,4 +1,4 @@
-How to replicate OpenLDAP server
+How to Replicate OpenLDAP Server
 ---------------------------------
 .. note:: This is a manual and optional configuration that the user can perform.
 

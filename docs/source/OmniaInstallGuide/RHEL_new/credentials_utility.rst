@@ -1,4 +1,4 @@
-Step 3: Provide required credentials for Omnia
+Step 3: Provide Required Credentials for Omnia
 ================================================
 
 Omnia provides an additional utility playbook called ``get_config_credentials.yml``. This playbook upon execution creates an input file called ``omnia_config_credentials.yml`` in the ``/opt/omnia/input/project_default`` folder.
@@ -10,12 +10,12 @@ Prerequisites
 * Ensure that the ``omnia_core`` container is up and running.
 * Ensure that the ``/opt/omnia/input/project_default/software_config.json`` file is updated with the packages that you want on your cluster.
 
-Task performed by the playbook
+Task Performed by the Playbook
 ---------------------------------
 
 Creates an input file called ``omnia_config_credentials.yml`` in the ``/opt/omnia/input/project_default`` folder.
 
-Execute the playbook
+Execute the Playbook
 ----------------------
 
 To execute the playbook, run the following command: ::
@@ -24,7 +24,7 @@ To execute the playbook, run the following command: ::
     cd /omnia/utils/credential_utility
     ansible-playbook get_config_credentials.yml
 
-Things to keep in mind
+Things to Keep in Mind
 ------------------------
 
 * While executing any Omnia playbook which requires certain credentials, you'll now see a prompt to enter them during playbook execution.
@@ -33,7 +33,7 @@ Things to keep in mind
 * Passwords provided by you will be hidden. You must enter the password for a second time to confirm.
 * This utility also supports using tags to provide credentials for specific features or packages. For example, you can use ``--tags provision`` while executing the playbook to only bring up the credentials required to provision the cluster nodes.
 
-Post execution
+Post Execution
 ----------------
 
 After the playbook has been executed, verify if the ``omnia_config_credentials.yml`` input file is present in the ``/opt/omnia/input/project_default`` folder.

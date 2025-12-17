@@ -7,7 +7,7 @@ Licensing
 Omnia is licensed under the Apache License 2.0. A permissive license whose main conditions require preservation of copyright and license notices. Contributors provide an express grant of patent rights. Licensed works, modifications, and larger works may be distributed under different terms and without source code.
 
 
-Protect authenticity
+Protect Authenticity
 ---------------------
 
 Every GitHub push requires a sign-off and a moderator is required to approve pull requests. All contributions have to be certified using the Developer Certificate of Origin (DCO):
@@ -55,12 +55,12 @@ Every GitHub push requires a sign-off and a moderator is required to approve pul
         this project or the open source license(s) involved.
 
 
-Ansible security
+Ansible Security
 -----------------
 
 For the security guidelines of Ansible modules, go to `Developing Modules Best Practices: Module Security <https://docs.ansible.com/ansible/latest/dev_guide/developing_modules_best_practices.html#module-security>`_.
 
-Ansible vault
+Ansible Vault
 -------------
 
 Ansible vault enables encryption of variables and files to protect sensitive content such as passwords or keys rather than leaving it visible as plaintext in playbooks or roles. Please refer `Ansible Vault guidelines <https://docs.ansible.com/ansible/latest/vault_guide/index.html>`_ for more information.

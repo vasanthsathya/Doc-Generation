@@ -1,7 +1,7 @@
 Product and Subsystem Security
 ===============================
 
-Security controls map
+Security Controls Map
 ----------------------
 
 .. image:: ../images/SecurityControlMap.jpg
@@ -32,14 +32,14 @@ Omnia adheres to a subset of the specifications of NIST 800-53 and NIST 800-171 
 
 Omnia does not have its own authentication mechanism because bare metal installations and configurations take place using root privileges. Post the execution of Omnia, third-party tools are responsible for authentication to the respective tool.
 
-Cluster authentication tool
+Cluster Authentication Tool
 ----------------------------
 
 In order to enable authentication to the cluster, Omnia installs OpenLDAP: an open source tool providing integrated identity and authentication for Linux networked environments. As part of the HPC cluster, the login node is responsible for configuring users and managing a limited number of administrative tasks. Access to the manager/head node is restricted to cluster administrators only.
 
 .. note::  Omnia does not configure OpenLDAP users or groups.
 
-Authentication types and setup
+Authentication Types and Setup
 ------------------------------
 
 Key-Based authentication
@@ -49,7 +49,7 @@ Key-Based authentication
 
 A password-less channel is created between the management station and compute nodes using SSH authorized keys. This is explained in the `Security Controls Map <#security-controls-map>`_.
 
-Login security settings
+Login Security Settings
 ------------------------
 
 User needs to provide the following credentials during cluster configuration. Once these credentials are provided, Omnia stores them in an encrypted Ansible Vault in ``input/omnia_config_credentials.yml``. They are hidden from external visibility and access.
@@ -75,26 +75,26 @@ User needs to provide the following credentials during cluster configuration. On
     10. LDMS Sampler (Password)
 
     
-Authentication to external systems
+Authentication to External Systems
 ==================================
 
 Third party software installed by Omnia are responsible for supporting and maintaining manufactured-unique or installation-unique secrets.
 
   
-Network security
+Network Security
 ================
 
 Omnia configures the firewall as required by the third-party tools to enhance security by restricting inbound and outbound traffic to the TCP and UDP ports.
 
 
-Network exposure
+Network Exposure
 -----------------
 
 Omnia uses port 22 for SSH connections, same as Ansible.
 
 
 
-Firewall settings
+Firewall Settings
 ------------------
 
 Omnia configures the following ports for use by third-party tools installed by Omnia.
@@ -238,7 +238,7 @@ Omnia configures the following ports for use by third-party tools installed by O
        
        
 
-Data security
+Data Security
 -------------
 
 Omnia does not store data. The passwords Omnia accepts as input to configure the third party tools are validated and then encrypted using Ansible Vault. Run the following commands routinely on the OIM for the latest RHEL security updates.
@@ -250,7 +250,7 @@ Omnia does not store data. The passwords Omnia accepts as input to configure the
 
 For more information on the passwords used by Omnia, see `Login Security Settings <#login-security-settings>`_.
 
-Auditing and logging
+Auditing and Logging
 --------------------
 
 Omnia creates and stores log files related to containers at ``<nfs_share_path>/omnia/log/``. The events during the installation of Omnia are captured as logs. For different roles called by Omnia, separate log files are created as listed below:
@@ -317,7 +317,7 @@ These logs are intended to enable debugging.
 .. note:: The Omnia product recommends that product users apply masking rules on personal identifiable information (PII) in the logs before sending to external monitoring applications or sources.
 
 
-Logging format
+Logging Format
 ---------------
 
 Every log message begins with a timestamp and also carries information on the invoking play and task.

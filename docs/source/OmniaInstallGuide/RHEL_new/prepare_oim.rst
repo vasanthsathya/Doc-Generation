@@ -58,7 +58,7 @@ Add necessary inputs to the ``provision_config.yml`` file for the provisioning o
    :keepspace:
 
 
-Playbook execution
+Playbook Execution
 -------------------
 
 After you have filled in the input files as mentioned above, execute the following commands to trigger the playbook: ::

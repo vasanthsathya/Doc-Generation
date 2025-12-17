@@ -1,5 +1,5 @@
 ===============
-OIM cleanup
+OIM Cleanup
 ===============
 
 The ``oim_cleanup.yml`` playbook can be utilized to roll back any configurations made on the OIM. 
@@ -12,7 +12,7 @@ The ``oim_cleanup.yml`` playbook performs the following tasks:
 * Clean up all containers, log files, and metadata on the OIM node.
 * Rollback the firewall ports on the OIM node to its default setting.
 
-Playbook execution
+Playbook Execution
 =====================
 
 Use the below command to execute the playbook: ::

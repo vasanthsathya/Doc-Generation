@@ -1,4 +1,4 @@
-Log management
+Log Management
 ----------------
 
 Use ``/etc/logrotate.conf`` to customize how often logs are rotated. The default settings for ``logrotate.conf`` are: ::

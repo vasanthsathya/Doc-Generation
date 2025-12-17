@@ -1,4 +1,4 @@
-Create mapping file with the target node information
+Create Mapping File with the Target Node Information
 ========================================================
 
 Target nodes for provisioning can be discovered only using the mapping file.

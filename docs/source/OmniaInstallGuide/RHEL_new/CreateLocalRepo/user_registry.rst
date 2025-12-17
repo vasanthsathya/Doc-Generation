@@ -1,4 +1,4 @@
-User registry
+User Registry
 =================
 
 User registry is an user-defined storehouse to store the software packages locally so that they can be accessed in an air-gapped environment, that is, without connecting to the public network.
@@ -49,7 +49,7 @@ Instructions to pull images from the user registries in the form of a digest:
             subscription-manager repos --enable=rhel-9-for-x86_64-appstream-rpms
             subscription-manager repos --enable=rhel-9-for-x86_64-baseos-rpms
 
-Pull images from the ``user_registry`` or ``Omnia local registry``
+Pull Images from the ``user_registry`` or ``Omnia local registry``
 ----------------------------------------------------------------------
 
 To fetch images from the ``user_registry`` or the Omnia local registry, run the below commands:

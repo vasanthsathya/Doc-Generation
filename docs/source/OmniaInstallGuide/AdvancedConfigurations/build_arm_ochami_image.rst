@@ -5,7 +5,7 @@ Preparing aarch64 Node
 To prepare aarch64 node, you need to install RHEL 10 OS.
 
 
-Install RHEL 10 on aarch64 bare-metal node
+Install RHEL 10 on aarch64 Bare-metal Node
 --------------------------------------------
 
 **Prerequisites:** Ensure that a disk is available to the aarch64 node for OS installation.

@@ -1,7 +1,7 @@
-Input parameters for the cluster
+Input Parameters for the Cluster
 ===================================
 
-The ``service_k8s_cluster.yml`` playbook depends on the inputs provided in the following files:
+The ``service_k8s_cluster`` depends on the inputs provided in the following files:
 
 * ``/opt/omnia/input/project_default/omnia_config.yml``
 * ``/opt/omnia/input/project_default/security_config.yml``
@@ -32,6 +32,7 @@ The ``service_k8s_cluster.yml`` playbook depends on the inputs provided in the f
          nfs_storage_name: "nfs_k8s"
          csi_powerscale_driver_secret_file_path: ""
          csi_powerscale_driver_values_file_path: "
+         k8s_crio_storage_size: "20G"
 
 
 .. csv-table:: Parameters for slurm setup

@@ -1,4 +1,4 @@
-Re-provisioning the cluster
+Re-provisioning the Cluster
 =============================
 
 In the event that an existing Omnia cluster needs a fresh installation, the cluster can be re-provisioned.
@@ -17,7 +17,7 @@ If you deploy the service kubernetes cluster or slurm cluster freshly, ensure th
         1.  Run the ``discovery.yml`` playbook. 
         2.  PXE boot the required nodes to be reprovisioned.
 
-Re-provision existing nodes without any modifications
+Re-provision Existing Nodes without Any Modifications
 ------------------------------------------------------
 
 To re-provision the existing nodes without any modifications, PXE boot the required nodes to be reprovisioned.
@@ -25,7 +25,7 @@ To re-provision the existing nodes without any modifications, PXE boot the requi
 The OS is automatically installed on every PXE boot if there are no modification in the cluster.
 
 
-Re-provision the nodes with modifications
+Re-provision the Nodes with Modifications
 ------------------------------------------
 
 1. Update the mapping file and ``software_config.json`` as required.

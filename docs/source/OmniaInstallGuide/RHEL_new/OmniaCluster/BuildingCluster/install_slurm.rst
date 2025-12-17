@@ -15,12 +15,9 @@ Step 11: Set up Slurm on nodes
 1. To download the artifacts required to set up Slurm on the nodes, run the ``local_repo.yml`` playbook.
 2. To build diskless images for cluster nodes, run the ``build.image.yml`` playbook: `Build cluster node images <../../build_images.html>`_
 3. To discover the potential cluster nodes, configure the boot script, and cloud-init based on the functional groups, run  the ``discovery.yml`` playbook: `Discover cluster nodes <../../Provision/index.html>`_
-4. After successfully executing the ``discovery.yml`` playbook, PXE boot the nodes in the following sequence:
+4. After successfully executing the ``discovery.yml`` playbook, you can PXE boot the slurm node, login node, and login compiler node simultaneously.
 
-   1. Boot the  **slurm controller node** first, before booting any other nodes in the cluster.
-   2. Once the **slurm controller node** is up and running, you may simultaneously boot the **slurm nodes**, **login** and **login compiler** nodes.
-
-.. note:: If you want to deploy only Slurm clusters (``slurm_custom``), the ``idrac_telemetry_support`` parameter must be set to ``false`` in the ``telemetry_config.yml`` file.
+.. note:: If you want to deploy only Slurm clusters (``slurm_custom``), the ``idrac_telemetry_support`` parameter must be set to ``false`` in the ``telemetry_config.yml`` file. Omnia is Validated for Slurm version 25.05. If you use any other version, some functionality like PAM may not work.
 
 **Slurm with GPU:**
 

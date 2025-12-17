@@ -1,7 +1,7 @@
 Configuring Storage
 =======================
 
-Configuring PowerVault storage
+Configuring PowerVault Storage
 --------------------------------
 
 To configure PowerVault ME4 and ME5 storage arrays, follow the below steps:
@@ -106,7 +106,7 @@ Run the playbook: ::
 * ``powervault_username`` and ``powervault_password`` are the credentials used to administrate the array.
 
 
-Configuring NFS server connected to PowerVault
+Configuring NFS Server Connected to PowerVault
 ------------------------------------------------------
 
 To configure an NFS server, enter the following parameters in ``storage/nfs_server_input.yml``

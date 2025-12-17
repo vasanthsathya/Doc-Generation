@@ -29,7 +29,7 @@ Prerequisites
 
 3. To support hierarchical provisioning, all the SNs (active or passive) should be in booted state.
 
-Playbook execution
+Playbook Execution
 -------------------
 
 A complete hierarchical cluster can be provisioned with two consecutive runs of the ``discovery_provision.yml`` playbook. Follow the below steps to set up the management layer (OIM, SN, Login Node, Auth server) first and then the compute nodes.

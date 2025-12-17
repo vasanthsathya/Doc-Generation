@@ -1,4 +1,4 @@
-Step 12: Build cluster node images
+Step 12: Build Cluster Node Images
 ====================================
 
 The ``build_image_x86_64.yml`` and ``build_image_aarch64.yml`` playbooks are used to build diskless images for ``x86_64`` and ``aarch64`` cluster nodes, respectively. 
@@ -22,7 +22,7 @@ Each image is created based on the functional groups defined in the mapping file
         | RHEL                | RHEL               | Yes              |
         +---------------------+--------------------+------------------+
    
-Build images for x86_64 cluster nodes
+Build Images for x86_64 Cluster Nodes
 ----------------------------------------
 
 To build images for the nodes present in each functional group, do the following.
@@ -42,7 +42,7 @@ To build images for the nodes present in each functional group, do the following
    The images created for each functional group are listed in the boot-images directory.
 
 
-Build images for aarch64 cluster nodes
+Build Images for aarch64 Cluster Nodes
 ------------------------------------------
 
 To build images for the nodes present in each functional group, do the following.
