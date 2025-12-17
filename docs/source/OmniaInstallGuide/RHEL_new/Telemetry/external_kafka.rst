@@ -1,9 +1,9 @@
-Collect telemetry data from external client nodes to Kafka
+Collect Telemetry Data from External Client Nodes to Kafka
 ===========================================================
 This section describes how to create a Kafka topic in the Omnia Service Kubernetes cluster
-and configure an external telemetry producer to stream metrics securely into the Service Kubernetes Clusters using mutual TLS (mTLS).
+and configure an external telemetry producer to stream metrics securely into the Service Kubernetes clusters using mutual TLS (mTLS).
 
-This procedure assumes that Kafka is deployed using Strimzi inside the telemetry namespace of the Service Kubernetes Clusters. For more details, see
+This procedure assumes that Kafka is deployed using Strimzi inside the telemetry namespace of the Service Kubernetes clusters. For more details, see
 `Strimzi Kafka Operator Documentation <https://strimzi.io/docs/operators/latest/overview>`_.
 
 
@@ -12,7 +12,7 @@ Prerequisites
 
 Ensure the following prerequisites are met before proceeding:
 
-* A Service Kubernetes Cluster is running with Kafka deployed via Strimzi in the ``telemetry`` namespace.
+* A Service Kubernetes cluster is running with Kafka deployed via Strimzi in the ``telemetry`` namespace.
 * External access to Kafka is available through a LoadBalancer on port ``9094``.
 * A Kafka Pump is available outside the Service Kubernetes cluster, deployed as a container using Kubernetes, Podman, or Docker.
 
@@ -48,7 +48,7 @@ Replace ``topic_name`` with the desired Kafka topic name.
        kubectl get kafkatopics -n telemetry
 
 
-Extract server and client certificates from Service Kubernetes cluster
+Extract Server and Client Certificates from Service Kubernetes Cluster
 ----------------------------------------------------------------------
 
 To extract the server and client certificates, on the Service Kubernetes cluster, do the following:
@@ -61,7 +61,7 @@ To extract the server and client certificates, on the Service Kubernetes cluster
 
    .. image:: ../../../images/external_ip_loadbalances.png
 
-.. note:: Note the Kafka Loadbalancer external IP. This external IP will be used by the external client node to connect to Kafka.
+.. note:: Note the Kafka LoadBalancer external IP. This external IP will be used by the external client node to connect to Kafka.
 
 2. Extract the required server certificate for mTLS authentication using the following command::
 
@@ -84,7 +84,7 @@ To extract the server and client certificates, on the Service Kubernetes cluster
        scp ca.crt user.crt user.key <username>@<external_node_ip>:~/kafka-mtls-test
 
 
-Establish secure connection between external client node and Service Kubernetes cluster
+Establish Secure Connection Between External Client Node and Service Kubernetes cluster
 ---------------------------------------------------------------------------------------
 
 1. On the external client node, navigate to the target directory::
@@ -140,20 +140,20 @@ Establish secure connection between external client node and Service Kubernetes 
        apache/kafka:4.1.0 bash
 
 
-Produce and verify telemetry Data
+Produce and Verify Telemetry Data
 ----------------------------------------
 
 1. To verify the available Kafka topics, run the following command::
 
        /opt/kafka/bin/kafka-topics.sh \
-       --bootstrap-server <Kafka Loadbalancer External IP>:9094 \
+       --bootstrap-server <Kafka LoadBalancer External IP>:9094 \
        --command-config /certs/producer-mtls.properties \
        --list
 
-2. Inside the Kafka tools container container, produce test data to the Kafka topic that you have created::
+2. Inside the Kafka tools container, produce test data to the Kafka topic that you have created::
 
        /opt/kafka/bin/kafka-console-producer.sh \
-       --bootstrap-server <Kafka Loadbalancer External IP>:9094 \
+       --bootstrap-server <Kafka LoadBalancer External IP>:9094 \
        --topic <kafka topic> \
        --producer.config /certs/producer-mtls.properties
 
@@ -166,10 +166,10 @@ Produce and verify telemetry Data
        
        Press Ctrl+D to exit
 
-3. In a new terminal, verify if the messages are recieved::
+3. In a new terminal, verify if the messages are received::
 
        /opt/kafka/bin/kafka-console-consumer.sh \
-       --bootstrap-server <Kafka Loadbalancer External IP>:9094 \
+       --bootstrap-server <Kafka LoadBalancer External IP>:9094 \
        --consumer.config /certs/producer-mtls.properties \
        --topic <kafka topic> \
        --group <kafka topic>-consumer-group \
