@@ -34,7 +34,9 @@ Prerequisites
 
 3. Verify that the PowerScale system is operational.
 
-4. Download the ``secret.yaml`` file template from this `link <https://github.com/dell/csi-powerscale/blob/release/v2.15.0/samples/secret/secret.yaml>`_.
+4. Download the ``secret.yaml`` file template from the following command: ::
+       
+        wget raw.githubusercontent.com/dell/csi-powerscale/refs/heads/release/v2.15.0/samples/secret/secret.yaml
 
 5. Update the following parameters in the ``secret.yaml`` file as per your cluster details and keep the rest as default values. For example:
 
@@ -127,22 +129,20 @@ Prerequisites
 Steps
 --------------------------------------------
 
-1. Once ``secret.yaml`` and ``values.yaml`` are filled up with the necessary details, run the ``discovery.yml`` to configure the cluster with k8s and CSI in diskless mode.
-
-2. Add the ``csi_driver_powerscale`` entry along with the driver version to the ``/opt/omnia/input/project_default/software_config.json`` file: ::
+1. Add the ``csi_driver_powerscale`` entry along with the driver version to the ``/opt/omnia/input/project_default/software_config.json`` file: ::
 
     {"name": "csi_driver_powerscale", "version":"v2.15.0", "arch": ["x86_64"]}
 
  .. note:: By default, the ``csi_driver_powerscale`` entry is not present in the ``software_config.json``.
 
-3. Execute the ``local_repo.yml`` playbook to download the required artifacts to the OIM: ::
+2. Execute the ``local_repo.yml`` playbook to download the required artifacts to the OIM: ::
 
     cd local_repo
     ansible-playbook local_repo.yml
 
-4. Add the filepath of the ``secret.yaml`` and ``values.yaml`` file to the ``csi_powerscale_driver_secret_file_path`` and ``csi_powerscale_driver_values_file_path`` variables respectively, present in the ``/opt/omnia/input/project_default/omnia_config.yml`` file.
+3. Add the filepath of the ``secret.yaml`` and ``values.yaml`` file to the ``csi_powerscale_driver_secret_file_path`` and ``csi_powerscale_driver_values_file_path`` variables respectively, present in the ``/opt/omnia/input/project_default/omnia_config.yml`` file.
 
-5. Execute the ``discovery.yml`` playbook to install the PowerScale CSI driver on the ``service_k8s_clusters``. See `High Availability <../RHEL_new/HighAvailability/index.html>`_.  To check the prerequisites for ``discovery.yml``, see `Discovery <../RHEL_new/Provision/index.html>`_ and `Prerequisites <../RHEL_new/Provision/provisionprereqs.html>`_
+4. Execute the ``discovery.yml`` playbook to install the PowerScale CSI driver on the ``service_k8s_clusters``. See `High Availability <../RHEL_new/HighAvailability/index.html>`_.  To check the prerequisites for ``discovery.yml``, see `Discovery <../RHEL_new/Provision/index.html>`_ and `Prerequisites <../RHEL_new/Provision/provisionprereqs.html>`_
 
   .. dropdown:: Service Kubernetes cluster
 
@@ -300,7 +300,7 @@ Uninstallation
 
 To uninstall the PowerScale CSI driver manually, do the following:
 
-1. Login to the ``service_kube_control_plane_first``.
+1. Login to the ``service_kube_control_plane`` node.
 
 2. Execute the following command to switch to the ``dell-csi-helm-installer`` directory: ::
 
