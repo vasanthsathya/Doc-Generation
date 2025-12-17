@@ -53,6 +53,12 @@ Logs of individual Podman containers in OIM
 
      The following table shows the status of Omnia containers running on the OIM:
 
+
+     .. csv-table:: Podman Logs
+        :file: ../../../Tables/podman_logs.csv
+        :header-rows: 1
+        :keepspace:
+
 +--------------+-------------------------------------------+----------------------+-------------+-------------+---------------------------------------------------+-------------------+
 | CONTAINER ID | IMAGE                                     | COMMAND              | CREATED     | STATUS      | PORTS                                             | NAMES             |
 +==============+===========================================+======================+=============+=============+===================================================+===================+
