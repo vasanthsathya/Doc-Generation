@@ -227,4 +227,4 @@ After ``telemetry.yml`` has been executed for the service cluster, you can check
 
     5. To access the services table: ::
         
-        Select * FROM services;
+        select * from services;

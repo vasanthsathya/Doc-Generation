@@ -84,7 +84,7 @@ To extract the server and client certificates, on the Service Kubernetes cluster
        scp ca.crt user.crt user.key <username>@<external_node_ip>:~/kafka-mtls-test
 
 
-Establish Secure Connection Between External Client Node and Service Kubernetes cluster
+Establish Secure Connection Between External Client Node and Service Kubernetes Cluster
 ---------------------------------------------------------------------------------------
 
 1. On the external client node, navigate to the target directory::
