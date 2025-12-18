@@ -145,15 +145,16 @@ Produce and Verify Telemetry Data
 
 1. To verify the available Kafka topics, run the following command::
 
+       KAFKA_LB_IP=<external load balancer IP of the bridge-bridge-lb service>
        /opt/kafka/bin/kafka-topics.sh \
-       --bootstrap-server <Kafka LoadBalancer External IP>:9094 \
+       --bootstrap-server $KAFKA_LB_IP:9094 \
        --command-config /certs/producer-mtls.properties \
        --list
 
 2. Inside the Kafka tools container, produce test data to the Kafka topic that you have created::
 
        /opt/kafka/bin/kafka-console-producer.sh \
-       --bootstrap-server <Kafka LoadBalancer External IP>:9094 \
+       --bootstrap-server $KAFKA_LB_IP:9094 \
        --topic <kafka topic> \
        --producer.config /certs/producer-mtls.properties
 
@@ -169,7 +170,7 @@ Produce and Verify Telemetry Data
 3. In a new terminal, verify if the messages are received::
 
        /opt/kafka/bin/kafka-console-consumer.sh \
-       --bootstrap-server <Kafka LoadBalancer External IP>:9094 \
+       --bootstrap-server $KAFKA_LB_IP:9094 \
        --consumer.config /certs/producer-mtls.properties \
        --topic <kafka topic> \
        --group <kafka topic>-consumer-group \
