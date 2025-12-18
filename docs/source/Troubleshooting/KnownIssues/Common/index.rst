@@ -11,3 +11,4 @@ This topic highlights the common known issues related to:
     Provision
     Kubernetes
     Storage
+    Telemetry

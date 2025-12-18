@@ -53,7 +53,8 @@ To verify that iDRAC telemetry data is being successfully published to the ``idr
 
 1. Create a Kafka consumer using the following command::
 
-    curl -X POST http://<external load balancer IP of the bridge-bridge-lb service>>:8080/consumers/idrac-consumer-group \
+    KAFKA_LB_IP=<external load balancer IP of the bridge-bridge-lb service>
+    curl -X POST http://$KAFKA_LB_IP:8080/consumers/idrac-consumer-group \
     -H 'content-type: application/vnd.kafka.v2+json' \
     -d '{
             "name": "idrac-consumer-1",
@@ -63,13 +64,13 @@ To verify that iDRAC telemetry data is being successfully published to the ``idr
 
 2. Subscribe the consumer to the telemetry topic using the following command::
 
-    curl -X POST http://<external loadbalancer IP of the bridge-bridge-lb service>:8080/consumers/idrac-consumer-group/instances/idrac-consumer-1/subscription \
+    curl -X POST http://$KAFKA_LB_IP:8080/consumers/idrac-consumer-group/instances/idrac-consumer-1/subscription \
     -H 'content-type: application/vnd.kafka.v2+json' \
     -d '{"topics": ["idrac"]}'
 
 3. Consume messages from the topic using the following command::
 
-    while true; do curl -X GET http://<external loadbalancer IP of the bridge-bridge-lb service>:8080/consumers/idrac-consumer-group/instances/idrac-consumer-1/records \
+    while true; do curl -X GET http://$KAFKA_LB_IP:8080/consumers/idrac-consumer-group/instances/idrac-consumer-1/records \
     -H 'accept: application/vnd.kafka.json.v2+json' | jq '.' ;  sleep 2; done
 
 If telemetry metrics are collected correctly, the output contains JSON-formatted iDRAC telemetry records.
@@ -81,7 +82,8 @@ To verify that LDMS telemetry data is being successfully published to the ``ldms
 
 1. Create a Kafka consumer using the following command::
 
-    curl -X POST http://<external loadbalancer IP of the bridge-bridge-lb service>:8080/consumers/ldms-consumer-group \
+    KAFKA_LB_IP=<external load balancer IP of the bridge-bridge-lb service>
+    curl -X POST http://$KAFKA_LB_IP:8080/consumers/ldms-consumer-group \
     -H 'content-type: application/vnd.kafka.v2+json' \
     -d '{
             "name": "ldms-consumer-1",
@@ -92,13 +94,13 @@ To verify that LDMS telemetry data is being successfully published to the ``ldms
 
 2. Subscribe the consumer to the LDMS topic using the following command::
 
-    curl -X POST http://<external loadbalancer IP of the bridge-bridge-lb service>:8080/consumers/ldms-consumer-group/instances/ldms-consumer-1/subscription \
+    curl -X POST http://$KAFKA_LB_IP:8080/consumers/ldms-consumer-group/instances/ldms-consumer-1/subscription \
     -H 'content-type: application/vnd.kafka.v2+json' \ 
     -d '{"topics": ["ldms"]}'
 
 3. Consume messages from the topic using the following command::
 
-    while true; do curl -X GET http://<external loadbalancer IP of the bridge-bridge-lb service>:8080/consumers/ldms-consumer-group/instances/ldms-consumer-1/records \
+    while true; do curl -X GET http://$KAFKA_LB_IP:8080/consumers/ldms-consumer-group/instances/ldms-consumer-1/records \
     -H 'accept: application/vnd.kafka.json.v2+json' | jq '.' ;  sleep 2; done
 
 If telemetry is flowing correctly, the output contains JSON-formatted LDMS telemetry records.
