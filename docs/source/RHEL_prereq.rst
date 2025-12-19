@@ -39,11 +39,11 @@ OIM (Omnia Infrastructure Manager) Prerequisites
 * All target bare-metal servers (cluster nodes) must be **reachable from the OIM**.
 * Clone the `Omnia artifacts repository <https://github.com/dell/omnia-artifactory/tree/omnia-container>`_  and build the ``omnia_core`` and ``omnia_auth`` container images using the following command:
 
-     .. code-block:: bash
+    .. code-block:: bash
 
-        git clone https://github.com/dell/omnia-artifactory.git
-        cd omnia-artifactory
-        ./build_images.sh omnia_branch=<branch_name/tag name> 
+      git clone https://github.com/dell/omnia-artifactory.git
+      cd omnia-artifactory
+      ./build_images.sh omnia_branch=<branch_name/tag name> 
 
     **For example:** 
     
