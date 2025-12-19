@@ -71,7 +71,7 @@ You can deploy the ``omnia_auth`` and ``omnia_core`` container images on the Omn
 .. caution:: The password must not contain special characters such as \ , | , & , ; , ` , < > , * , ? , ! , $ , ( ) , { } , [ ] . 
 
   
-To deploy the container images from any Omnia branch available at `Omnia Artifactory Repository <https://github.com/dell/omnia-artifactory.git>`_, do the following:
+**To deploy the container images from any Omnia branch**, available at `Omnia Artifactory Repository <https://github.com/dell/omnia-artifactory.git>`_, do the following:
 
   
  1. Clone the Omnia artifacts repository and build the ``omnia_core`` and ``omnia_auth`` container images. Run the following commands:
