@@ -71,7 +71,7 @@ You can deploy the ``omnia_auth`` and ``omnia_core`` container images on the Omn
 .. caution:: The password must not contain special characters such as \ , | , & , ; , ` , < > , * , ? , ! , $ , ( ) , { } , [ ] . 
 
   
-To deploy the container images from any Omnia branch available at `Omnia Artifactory Repository <https://github.com/dell/omnia-artifactory.git>`_,do the following:
+To deploy the container images from any Omnia branch available at `Omnia Artifactory Repository <https://github.com/dell/omnia-artifactory.git>`_, do the following:
 
   
  1. Clone the Omnia artifacts repository and build the ``omnia_core`` and ``omnia_auth`` container images. Run the following commands:
@@ -98,7 +98,7 @@ To deploy the container images from any Omnia branch available at `Omnia Artifac
 
   * For detailed build instructions, refer to the `Omnia Artifacts README <https://github.com/dell/omnia-artifactory/blob/omnia-container/README.md>`_.
 
-2. On the OIM, run the following command:: Execute the script to deploy the core container and configure passwordless SSH::
+2. On the OIM, run the following command to deploy the ``omnia_auth`` and ``omnia_core`` containers and configure passwordless SSH::
 
     ./omnia.sh --install
 
@@ -107,7 +107,10 @@ To deploy the container images from any Omnia branch available at `Omnia Artifac
    
 .. caution:: The password must not contain special characters such as \ , | , & , ; , ` , < > , * , ? , ! , $ , ( ) , { } , [ ] . 
 
-  
+
+Tasks Performed by ``omnia.sh``
+---------------------------------
+
 The ``omnia.sh`` script performs the following tasks:
 
 * Deploys and starts the ``omnia_core`` container as a Systemd service.
