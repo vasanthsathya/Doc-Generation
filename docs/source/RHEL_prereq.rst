@@ -37,7 +37,7 @@ OIM (Omnia Infrastructure Manager) Prerequisites
         dnf install git -y
 
 * All target bare-metal servers (cluster nodes) must be **reachable from the OIM**.
-* Clone the `Omnia artifacts repository <https://github.com/dell/omnia-artifactory/tree/omnia-container>`_  and build the ``omnia_core`` and ``omnia_auth`` container images using the following command::
+* Clone the `Omnia artifacts repository <https://github.com/dell/omnia-artifactory/tree/omnia-container>`_  and build the ``omnia_core`` and ``omnia_auth`` container images using the following command:
 
      .. code-block:: bash
 
