@@ -34,7 +34,7 @@ You can deploy the ``omnia_auth`` and ``omnia_core`` container images on the Omn
 
  * From Docker Hub, available at `Docker Hub <https://hub.docker.com/u/dellhpcomniaaisolution>`_
 
- * From Omnia Artifacts repository: `Omnia Artifacts <https://github.com/dell/omnia-artifactory.git>`_
+ * From Omnia Artifactory repository: `Omnia Artifactory <https://github.com/dell/omnia-artifactory.git>`_
 
 
 **To deploy the container images from DockerHub**, do the following:  
@@ -53,9 +53,9 @@ You can deploy the ``omnia_auth`` and ``omnia_core`` container images on the Omn
     * **Specifc verion:** ``wget https://raw.githubusercontent.com/dell/omnia/refs/heads/main/omnia.sh`` 
     * **Tagged version:** ``wget https://raw.githubusercontent.com/dell/omnia/refs/tags/v2.0.0.0-rc3/omnia.sh``
 
-2. Run the following command to make the script executable:
+2. Run the following command to make the script executable::
 
-   chmod +x omnia.sh
+    chmod +x omnia.sh
 
 3. On the OIM, run the following command to deploy the ``omnia_auth`` and ``omnia_core`` containers and configure passwordless SSH::
 
@@ -71,7 +71,8 @@ You can deploy the ``omnia_auth`` and ``omnia_core`` container images on the Omn
 .. caution:: The password must not contain special characters such as \ , | , & , ; , ` , < > , * , ? , ! , $ , ( ) , { } , [ ] . 
 
   
-**To deploy the container images from any Omnia branch available at: `Omnia Artifacts <https://github.com/dell/omnia-artifactory.git>`_,** do the following:
+To deploy the container images from any Omnia branch available at `Omnia Artifactory Repository <https://github.com/dell/omnia-artifactory.git>`_,do the following:
+
   
  1. Clone the Omnia artifacts repository and build the ``omnia_core`` and ``omnia_auth`` container images. Run the following commands:
 
