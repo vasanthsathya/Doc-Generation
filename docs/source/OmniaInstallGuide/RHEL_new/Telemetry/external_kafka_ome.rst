@@ -21,7 +21,7 @@ Steps
 
    .. note::
 
-      Record the Kafka LoadBalancer external IP. This IP address will be used by the external client node to connect to Kafka.
+      Record the Kafka LoadBalancer external IP. This IP address will be used by the OpenManage Enterprise to connect to Kafka.
 
 2. Extract the required server certificate for mTLS authentication by running the following command::
 
@@ -40,7 +40,7 @@ Steps
 
 6. In the Kafka Connectivity wizard, select the **Enable Kafka Connectivity** check box to turn on Kafka integration.
 
-7. In the **OME Identifier—Enter** field, enter a unique identifier to be used as the topic prefix for publishing OpenManage Enterprise metrics.
+7. In the **OME Identifier** field, enter a unique identifier to be used as the topic prefix for publishing OpenManage Enterprise metrics.
 
 8. In the **Kafka Bootstrap Server** field, enter the external LoadBalancer IP identified in Step 1, along with the port number.
 
@@ -48,7 +48,7 @@ Steps
 
       <Kafka LoadBalancer External IP>:<Port Number>
 
-9. From the **Authentication Mode—Select** list, select **SSL**.
+9. From the **Authentication Mode** list, select **SSL**.
 
 10. Under **Server Certificate Validation**, select the **Enable Server Certificate Validation** check box, and upload the server certificate extracted in Step 2.
 
