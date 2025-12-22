@@ -1,0 +1,970 @@
+﻿OSS Title,OSS Version,License SPDX Name/Version,"Detailed Description of OSS, including its features and functionality"
+Fedora 40:alternatives,0:1.27-1.fc40,GPL-2.0-only,Unknown
+Fedora 40:audit-libs,0:4.0.2-1.fc40,LGPL-2.0-or-later,Unknown
+Fedora 40:audit-libs,0:4.0.3-1.fc40,LGPL-2.0-or-later,Unknown
+Fedora 40:authselect,0:1.5.0-6.fc40,GPL-3.0-or-later,Unknown
+Fedora 40:authselect-libs,0:1.5.0-6.fc40,GPL-3.0-or-later,Unknown
+Fedora 40:basesystem,0:11-20.fc40,Public Domain,Unknown
+Fedora 40:bash,0:5.2.26-3.fc40,GPL-3.0-or-later,Unknown
+Fedora 40:bzip2,0:1.0.8-18.fc40,BSD-4-Clause,Unknown
+Fedora 40:bzip2-libs,0:1.0.8-18.fc40,BSD-4-Clause,Unknown
+Fedora 40:ca-certificates,0:2024.2.69_v8.0.401-1.0.fc40,GPL-2.0-or-later AND MIT,Unknown
+Fedora 40:coreutils,0:9.4-9.fc40,LGPL-2.1-or-later AND LGPL-3.0-or-later AND GPL-3.0-or-later,Unknown
+Fedora 40:coreutils-common,0:9.4-9.fc40,GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later,Unknown
+Fedora 40:cracklib,0:2.9.11-5.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:createrepo_c,0:1.2.0-2.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:createrepo_c-libs,0:1.2.0-2.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:crypto-policies,0:20241011-1.git5930b9a.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:cryptsetup-libs,0:2.7.5-1.fc40,GPL-2.0-only AND LGPL-3.0-only,Unknown
+Fedora 40:curl,0:8.6.0-10.fc40,curl,Unknown
+Fedora 40:cyrus-sasl-lib,0:2.1.28-19.fc40,BSD-2-Clause,Unknown
+Fedora 40:dbus,1:1.14.10-3.fc40,AFL-2.1 AND GPL-2.0-or-later,Unknown
+Fedora 40:dbus-broker,0:36-2.fc40,Apache-2.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later,Unknown
+Fedora 40:dbus-common,1:1.14.10-3.fc40,AFL-2.1 AND GPL-2.0-or-later,Unknown
+Fedora 40:dbus-libs,1:1.14.10-3.fc40,AFL-2.1 AND GPL-2.0-or-later,Unknown
+Fedora 40:device-mapper,0:1.02.199-1.fc40,GPL-2.0-only,Unknown
+Fedora 40:device-mapper-libs,0:1.02.199-1.fc40,LGPL-2.1-only,Unknown
+Fedora 40:diffutils,0:3.10-5.fc40,GPL-3.0-or-later,Unknown
+Fedora 40:dnf,0:4.22.0-1.fc40,GPL-1.0-only AND GPL-2.0-or-later,Unknown
+Fedora 40:dnf,0:4.23.0-1.fc40.1,GPL-2.0-or-later AND GPL-1.0-only,Unknown
+Fedora 40:dnf-data,0:4.22.0-1.fc40,GPL-1.0-only AND GPL-2.0-or-later,Unknown
+Fedora 40:dnf-data,0:4.23.0-1.fc40.1,GPL-1.0-only AND GPL-2.0-or-later,Unknown
+Fedora 40:dnf-plugins-core,0:4.10.1-1.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:dnf-utils,0:4.10.1-1.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:drpm,0:0.5.2-5.fc40,BSD-2-Clause AND LGPL-3.0-only,Unknown
+Fedora 40:elfutils-default-yama-scope,0:0.192-7.fc40,GPL-2.0-or-later AND LGPL-3.0-or-later,Unknown
+Fedora 40:elfutils-default-yama-scope,0:0.192-9.fc40,GPL-2.0-or-later AND LGPL-3.0-or-later,Unknown
+Fedora 40:elfutils-libelf,0:0.192-7.fc40,GPL-2.0-or-later AND LGPL-3.0-or-later,Unknown
+Fedora 40:elfutils-libelf,0:0.192-9.fc40,GPL-2.0-or-later AND LGPL-3.0-or-later,Unknown
+Fedora 40:elfutils-libs,0:0.192-7.fc40,GPL-2.0-or-later AND LGPL-3.0-or-later,Unknown
+Fedora 40:elfutils-libs,0:0.192-9.fc40,GPL-2.0-or-later AND LGPL-3.0-or-later,Unknown
+Fedora 40:expat,0:2.6.3-1.fc40,MIT,Unknown
+Fedora 40:expat,0:2.7.1-1.fc40,MIT,Unknown
+Fedora 40:fedora-gpg-keys,0:40-2,MIT,Unknown
+Fedora 40:fedora-release-common,0:40-40,MIT,Unknown
+Fedora 40:fedora-release-container,0:40-40,MIT,Unknown
+Fedora 40:fedora-release-identity-container,0:40-40,MIT,Unknown
+Fedora 40:fedora-repos,0:40-2,MIT,Unknown
+Fedora 40:file-libs,0:5.45-4.fc40,BSD-2-Clause,Unknown
+Fedora 40:filesystem,0:3.18-8.fc40,GPL-3.0-or-later,Unknown
+Fedora 40:findutils,1:4.9.0-9.fc40,GPL-3.0-or-later,Unknown
+Fedora Fedora 40:gawk,0:5.3.0-3.fc40,GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause,Unknown
+Fedora 40:gdbm,1:1.23-6.fc40,GPL-3.0-or-later,Unknown
+Fedora 40:gdbm-libs,1:1.23-6.fc40,GPL-3.0-or-later,Unknown
+Fedora 40:git,0:2.49.0-1.fc40,LGPL-2.1-or-later AND MIT AND BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later,Unknown
+Fedora 40:git-core,0:2.49.0-1.fc40,BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT,Unknown
+Fedora 40:git-core-doc,0:2.49.0-1.fc40,MIT AND BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later,Unknown
+Fedora 40:glib2,0:2.80.3-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:glib2,0:2.80.5-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:glibc,0:2.39-33.fc40,GFDL-1.1-only AND GFDL-1.1-or-later AND LGPL-2.1-or-later AND MIT AND BSD-3-Clause AND GFDL-1.3-only AND GPL-2.0-or-later AND HPND AND ISC AND LGPL-2.0-or-later AND LGPL-3.0-only AND X11 AND FSFUL AND GPL-1.0-or-later AND GPL-2.0-only AND LGPL-2.1-only AND Unicode-DFS-2015,Unknown
+Fedora 40:glibc,0:2.39-38.fc40,GFDL-1.1-or-later AND GPL-2.0-or-later AND Unicode-DFS-2015 AND X11 AND FSFUL AND ISC AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND GPL-2.0-only AND GFDL-1.3-only AND HPND AND LGPL-3.0-only AND GFDL-1.1-only AND GPL-1.0-or-later AND LGPL-2.1-only AND BSD-3-Clause,Unknown
+Fedora 40:glibc-common,0:2.39-33.fc40,GFDL-1.3-only AND LGPL-2.1-only AND LGPL-3.0-only AND GFDL-1.1-only AND HPND AND LGPL-2.0-or-later AND MIT AND GPL-2.0-or-later AND ISC AND LGPL-2.1-or-later AND Unicode-DFS-2015 AND BSD-3-Clause AND FSFUL AND GFDL-1.1-or-later AND GPL-1.0-or-later AND GPL-2.0-only AND X11,Unknown
+Fedora 40:glibc-common,0:2.39-38.fc40,BSD-3-Clause AND GFDL-1.1-only AND GFDL-1.1-or-later AND GFDL-1.3-only AND LGPL-2.1-only AND FSFUL AND GPL-1.0-or-later AND HPND AND LGPL-2.0-or-later AND MIT AND X11 AND LGPL-2.1-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND ISC AND LGPL-3.0-only AND Unicode-DFS-2015,Unknown
+Fedora 40:glibc-minimal-langpack,0:2.39-33.fc40,GPL-2.0-only AND GPL-2.0-or-later AND BSD-3-Clause AND FSFUL AND GFDL-1.1-only AND GFDL-1.1-or-later AND GPL-1.0-or-later AND HPND AND ISC AND LGPL-2.1-only AND LGPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND Unicode-DFS-2015 AND GFDL-1.3-only AND MIT AND X11,Unknown
+Fedora 40:glibc-minimal-langpack,0:2.39-38.fc40,GFDL-1.3-only AND HPND AND LGPL-3.0-only AND X11 AND BSD-3-Clause AND ISC AND Unicode-DFS-2015 AND FSFUL AND GFDL-1.1-only AND GPL-1.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND GFDL-1.1-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT,Unknown
+Fedora 40:gmp,1:6.2.1-8.fc40,GPL-2.0-or-later AND LGPL-3.0-or-later,Unknown
+Fedora 40:gnupg2,0:2.4.4-1.fc40,LGPL-2.1-or-later AND LGPL-3.0-or-later AND MIT AND BSD-3-Clause AND CC0-1.0 AND CC-BY-4.0 AND GPL-2.0-or-later AND GPL-3.0-or-later,Unknown
+Fedora 40:gnutls,0:3.8.6-1.fc40,GPL-3.0-or-later AND LGPL-2.1-or-later,Unknown
+Fedora 40:gnutls,0:3.8.9-1.fc40,LGPL-2.1-or-later AND GPL-3.0-or-later,Unknown
+Fedora 40:gnutls-dane,0:3.8.9-1.fc40,GPL-3.0-or-later AND LGPL-2.1-or-later,Unknown
+Fedora 40:gpgme,0:1.23.2-3.fc40,MIT AND LGPL-2.1-or-later,Unknown
+Fedora 40:grep,0:3.11-7.fc40,LGPL-3.0-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later,Unknown
+Fedora 40:groff-base,0:1.23.0-6.fc40,BSD-4-Clause-UC AND GFDL-1.3-or-later AND GPL-3.0-or-later AND MIT AND X11,Unknown
+Fedora 40:gzip,0:1.13-1.fc40,GFDL-1.3-only AND GPL-3.0-or-later,Unknown
+Fedora 40:ima-evm-utils,0:1.5-4.fc40,GPL-2.0-only,Unknown
+Fedora 40:ipcalc,0:1.0.3-9.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:iproute,0:6.7.0-2.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:iputils,0:20240117-4.fc40,BSD-4-Clause-UC AND GPL-2.0-or-later,Unknown
+Fedora 40:jq,0:1.7.1-7.fc40,MIT AND CC-BY-3.0 AND ICU,Unknown
+Fedora 40:json-c,0:0.17-3.fc40,MIT,Unknown
+Fedora 40:kbd,0:2.6.4-3.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:kbd-legacy,0:2.6.4-3.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:kbd-misc,0:2.6.4-3.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:keyutils-libs,0:1.6.3-3.fc40,GPL-2.0-or-later AND LGPL-2.1-or-later,Unknown
+Fedora 40:kmod,0:31-5.fc40,LGPL-2.1-or-later AND X11 AND FSFUL AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-only,Unknown
+Fedora 40:kmod-libs,0:31-5.fc40,GPL-3.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND X11 AND FSFUL AND GPL-2.0-or-later,Unknown
+Fedora 40:krb5-libs,0:1.21.3-2.fc40,OLDAP-2.8 AND BSD-3-Clause AND BSD-4-Clause AND ISC AND MIT AND BSD-2-Clause AND GPL-2.0-or-later AND HPND AND MIT-CMU,Unknown
+Fedora 40:krb5-libs,0:1.21.3-3.fc40,BSD-4-Clause AND GPL-2.0-or-later AND HPND AND MIT AND MIT-CMU AND BSD-3-Clause AND ISC AND OLDAP-2.8 AND BSD-2-Clause,Unknown
+Fedora 40:less,0:643-6.fc40,BSD-2-Clause AND GPL-3.0-only,Unknown
+Fedora 40:libacl,0:2.3.2-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:libarchive,0:3.7.2-7.fc40,BSD-2-Clause AND BSD-3-Clause AND FSFUL AND FSFULLR AND GPL-2.0-only,Unknown
+Fedora 40:libassuan,0:2.5.7-1.fc40,GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later,Unknown
+Fedora 40:libattr,0:2.5.2-3.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:libb2,0:0.98.1-11.fc40,Apache-1.0 AND Apache-2.0 AND CC0-1.0,Unknown
+Fedora 40:libblkid,0:2.40.2-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:libbpf,2:1.2.3-1.fc40,BSD-2-Clause AND LGPL-2.1-only,Unknown
+Fedora 40:libbrotli,0:1.1.0-3.fc40,MIT,Unknown
+Fedora 40:libcap,0:2.69-8.fc40,BSD-3-Clause AND GPL-2.0-only,Unknown
+Fedora 40:libcap-ng,0:0.8.4-4.fc40,LGPL-2.0-or-later,Unknown
+Fedora 40:libcbor,0:0.11.0-1.fc40,MIT,Unknown
+Fedora 40:libcom_err,0:1.47.0-5.fc40,MIT,Unknown
+Fedora 40:libcomps,0:0.1.20-5.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:libcurl,0:8.6.0-10.fc40,curl,Unknown
+Fedora 40:libdnf,0:0.73.4-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:libdnf,0:0.74.0-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:libeconf,0:0.6.2-2.fc40,MIT,Unknown
+Fedora 40:libedit,0:3.1-54.20250104cvs.fc40,ISC AND BSD-2-Clause AND BSD-3-Clause,Unknown
+Fedora 40:libevent,0:2.1.12-12.fc40,BSD-3-Clause AND ISC,Unknown
+Fedora 40:libfdisk,0:2.40.2-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:libffi,0:3.4.4-7.fc40,MIT,Unknown
+Fedora 40:libfido2,0:1.14.0-4.fc40,BSD-2-Clause,Unknown
+Fedora 40:libfsverity,0:1.4-12.fc40,BSD-2-Clause,Unknown
+Fedora 40:libgcc,0:14.2.1-3.fc40,GPL-3.0-or-later AND ISC AND LGPL-3.0-only AND Zlib AND BSL-1.0 AND curl AND BSD-Source-Code AND GFDL-1.3-or-later AND BSD-2-Clause AND BSD-4-Clause AND ZPL-2.1 AND MIT AND SMLNJ AND BSD-3-Clause AND GPL-2.0-only AND GPL-3.0-only AND LGPL-3.0-or-later AND Apache-2.0 AND BSD-1-Clause,Unknown
+Fedora 40:libgcrypt,0:1.10.3-3.fc40,BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT,Unknown
+Fedora 40:libgomp,0:14.2.1-3.fc40,BSD-1-Clause AND BSD-2-Clause AND BSD-4-Clause AND GFDL-1.3-or-later AND GPL-3.0-only AND ISC AND BSD-3-Clause AND curl AND GPL-3.0-or-later AND LGPL-3.0-or-later AND ZPL-2.1 AND BSD-Source-Code AND BSL-1.0 AND LGPL-3.0-only AND MIT AND Apache-2.0 AND GPL-2.0-only AND SMLNJ AND Zlib,Unknown
+Fedora 40:libgpg-error,0:1.49-1.fc40,BSD-3-Clause AND FSFULLR AND GPL-2.0-or-later AND LGPL-2.1-or-later,Unknown
+Fedora 40:libidn2,0:2.3.7-1.fc40,GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-3.0-or-later,Unknown
+Fedora 40:libidn2,0:2.3.8-1.fc40,GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-3.0-or-later,Unknown
+Fedora 40:libksba,0:1.6.6-1.fc40,LGPL-2.1-or-later AND LGPL-3.0-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later,Unknown
+Fedora 40:libmnl,0:1.0.5-5.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:libmodulemd,0:2.15.0-12.fc40,MIT,Unknown
+Fedora 40:libmount,0:2.40.2-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:libnghttp2,0:1.59.0-3.fc40,MIT,Unknown
+Fedora 40:libnsl2,0:2.0.1-1.fc40,BSD-2-Clause AND LGPL-3.0-only,Unknown
+Fedora 40:libpsl,0:0.21.5-3.fc40,MIT,Unknown
+Fedora 40:libpwquality,0:1.4.5-9.fc40,BSD-3-Clause AND GPL-2.0-or-later,Unknown
+Fedora 40:librepo,0:1.19.0-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:libseccomp,0:2.5.5-1.fc40,LGPL-2.1-only,Unknown
+Fedora 40:libselinux,0:3.7-5.fc40,Public Domain,Unknown
+Fedora 40:libsemanage,0:3.7-2.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:libsepol,0:3.7-2.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:libsmartcols,0:2.40.2-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:libsolv,0:0.7.31-1.fc40,BSD-3-Clause,Unknown
+Fedora 40:libsolv,0:0.7.32-4.fc40,BSD-3-Clause,Unknown
+Fedora 40:libssh,0:0.10.6-5.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:libssh-config,0:0.10.6-5.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:libstdc++,0:14.2.1-3.fc40,BSD-2-Clause AND BSD-4-Clause AND curl AND SMLNJ AND ZPL-2.1 AND Apache-2.0 AND BSD-1-Clause AND GFDL-1.3-or-later AND GPL-2.0-only AND GPL-3.0-or-later AND ISC AND LGPL-3.0-or-later AND BSD-3-Clause AND BSL-1.0 AND Zlib AND BSD-Source-Code AND GPL-3.0-only AND LGPL-3.0-only AND MIT,Unknown
+Fedora 40:libtasn1,0:4.19.0-6.fc40,GPL-3.0-or-later AND LGPL-2.1-or-later,Unknown
+Fedora 40:libtasn1,0:4.20.0-1.fc40,GPL-3.0-or-later AND LGPL-2.1-or-later,Unknown
+Fedora 40:libtirpc,0:1.3.6-1.rc3.fc40,BSD-3-Clause AND SISSL,Unknown
+Fedora 40:libtool-ltdl,0:2.4.7-10.fc40,LGPL-3.0-only,Unknown
+Fedora 40:libunistring,0:1.1-7.fc40,LGPL-3.0-or-later AND GPL-2.0-or-later,Unknown
+Fedora 40:libutempter,0:1.2.1-13.fc40,BSD-2-Clause AND LGPL-2.1-only AND LGPL-2.1-or-later,Unknown
+Fedora 40:libuuid,0:2.40.2-1.fc40,BSD-3-Clause,Unknown
+Fedora 40:libverto,0:0.3.2-8.fc40,MIT,Unknown
+Fedora 40:libxcrypt,0:4.4.37-4.fc40,BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-or-later AND 0BSD AND BSD-2-Clause AND BSD-2-Clause-Views,Unknown
+Fedora 40:libxcrypt,0:4.4.38-7.fc40,0BSD AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-or-later,Unknown
+Fedora 40:libxkbcommon,0:1.6.0-2.fc40,MIT AND MIT-CMU AND X11,Unknown
+Fedora 40:libxml2,0:2.12.10-1.fc40,ISC AND MIT AND W3C,Unknown
+Fedora 40:libxml2,0:2.12.9-1.fc40,ISC AND MIT AND W3C,Unknown
+Fedora 40:libyaml,0:0.2.5-14.fc40,MIT,Unknown
+Fedora 40:libzstd,0:1.5.6-1.fc40,BSD-3-Clause AND GPL-2.0-only,Unknown
+Fedora 40:libzstd,0:1.5.7-1.fc40,BSD-3-Clause AND GPL-2.0-only,Unknown
+Fedora 40:lua-libs,0:5.4.6-5.fc40,MIT,Unknown
+Fedora 40:lz4-libs,0:1.9.4-6.fc40,BSD-2-Clause AND GPL-2.0-or-later,Unknown
+Fedora 40:mpdecimal,0:2.5.1-9.fc40,BSD-2-Clause,Unknown
+Fedora 40:mpfr,0:4.2.1-4.fc40,LGPL-3.0-or-later,Unknown
+Fedora 40:nano,0:7.2-7.fc40,GPL-3.0-or-later,Unknown
+Fedora 40:ncurses,0:6.4-12.20240127.fc40,MIT,Unknown
+Fedora 40:ncurses-base,0:6.4-12.20240127.fc40,MIT,Unknown
+Fedora 40:ncurses-libs,0:6.4-12.20240127.fc40,MIT,Unknown
+Fedora 40:nettle,0:3.9.1-6.fc40,GPL-2.0-or-later AND LGPL-3.0-or-later,Unknown
+Fedora 40:npth,0:1.7-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:oniguruma,0:6.9.9-3.fc40,BSD-2-Clause,Unknown
+Fedora 40:openldap,0:2.6.8-1.fc40,OLDAP-2.8,Unknown
+Fedora 40:openldap,0:2.6.9-1.fc40,OLDAP-2.8,Unknown
+Fedora 40:openssh,0:9.6p1-2.fc40,BSD-2-Clause AND BSD-3-Clause AND ISC,Unknown
+Fedora 40:openssh-clients,0:9.6p1-2.fc40,BSD-2-Clause AND BSD-3-Clause AND ISC,Unknown
+Fedora 40:openssh-server,0:9.6p1-2.fc40,BSD-2-Clause AND BSD-3-Clause AND ISC,Unknown
+Fedora 40:openssl,1:3.2.4-1.fc40,Apache-2.0,Unknown
+Fedora 40:openssl-libs,1:3.2.2-3.fc40,Apache-2.0,Unknown
+Fedora 40:openssl-libs,1:3.2.4-1.fc40,Apache-2.0,Unknown
+Fedora 40:p11-kit,0:0.25.5-1.fc40,BSD-3-Clause,Unknown
+Fedora 40:p11-kit-trust,0:0.25.5-1.fc40,BSD-3-Clause,Unknown
+Fedora 40:pam,0:1.6.1-5.fc40,GPL-2.0-or-later AND BSD-3-Clause,Unknown
+Fedora 40:pam-libs,0:1.6.1-5.fc40,BSD-3-Clause AND GPL-2.0-or-later,Unknown
+Fedora 40:pcre2,0:10.44-1.fc40,FSFAP AND FSFUL AND FSFULLR AND GPL-2.0-or-later AND GPL-3.0-or-later AND X11 AND BSD-3-Clause,Unknown
+Fedora 40:pcre2-syntax,0:10.44-1.fc40,FSFULLR AND GPL-2.0-or-later AND GPL-3.0-or-later AND X11 AND BSD-3-Clause AND FSFAP AND FSFUL,Unknown
+Fedora 40:perl-AutoLoader,0:5.74-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-B,0:1.88-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Carp,0:1.54-502.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Class-Struct,0:0.68-508.fc40,GPL-1.0-or-later AND Artistic-1.0-Perl,Unknown
+Fedora 40:perl-Data-Dumper,0:2.188-503.fc40,GPL-1.0-or-later AND Artistic-1.0-Perl,Unknown
+Fedora 40:perl-Digest,0:1.20-502.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Digest-MD5,0:2.59-3.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-DynaLoader,0:1.54-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Encode,4:3.21-505.fc40,Artistic-1.0-Perl AND Artistic-2.0 AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Errno,0:1.37-508.fc40,GPL-1.0-or-later AND Artistic-1.0-Perl,Unknown
+Fedora 40:perl-Error,1:0.17029-15.fc40,GPL-1.0-or-later AND X11 AND Artistic-1.0-Perl,Unknown
+Fedora 40:perl-Exporter,0:5.78-3.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Fcntl,0:1.15-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-File-Basename,0:2.86-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-File-Find,0:1.43-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-File-Path,0:2.18-503.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-File-Temp,1:0.231.100-503.fc40,GPL-1.0-or-later AND Artistic-1.0-Perl,Unknown
+Fedora 40:perl-File-stat,0:1.13-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-FileHandle,0:2.05-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Getopt-Long,1:2.57-4.fc40,Artistic-1.0-Perl AND GPL-2.0-or-later,Unknown
+Fedora 40:perl-Getopt-Std,0:1.13-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Git,0:2.49.0-1.fc40,BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT,Unknown
+Fedora 40:perl-HTTP-Tiny,0:0.088-5.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-IO,0:1.52-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-IO-Socket-IP,0:0.42-2.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-IO-Socket-SSL,0:2.085-1.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later AND MPL-2.0,Unknown
+Fedora 40:perl-IPC-Open3,0:1.22-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-MIME-Base64,0:3.16-503.fc40,GPL-1.0-or-later AND Artistic-1.0-Perl,Unknown
+Fedora 40:perl-Mozilla-CA,0:20231213-3.fc40,MPL-2.0,Unknown
+Fedora 40:perl-NDBM_File,0:1.16-508.fc40,GPL-1.0-or-later AND Artistic-1.0-Perl,Unknown
+Fedora 40:perl-Net-SSLeay,0:1.94-3.fc40,Artistic-2.0,Unknown
+Fedora 40:perl-POSIX,0:2.13-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-PathTools,0:3.89-502.fc40,Artistic-1.0-Perl AND BSD-3-Clause AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Pod-Escapes,1:1.07-503.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Pod-Perldoc,0:3.28.01-503.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Pod-Simple,1:3.45-6.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Pod-Usage,4:2.03-504.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Scalar-List-Utils,5:1.63-503.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-SelectSaver,0:1.02-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Socket,4:2.038-1.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Storable,1:3.32-502.fc40,GPL-1.0-or-later AND Artistic-1.0-Perl,Unknown
+Fedora 40:perl-Symbol,0:1.09-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Term-ANSIColor,0:5.01-504.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Term-Cap,0:1.18-503.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-TermReadKey,0:2.38-21.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Text-ParseWords,0:3.31-502.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-Text-Tabs+Wrap,0:2024.001-1.fc40,Artistic-1.0-Perl OR GPL-1.0-or-later,Unknown
+Fedora 40:perl-Time-Local,2:1.350-5.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-URI,0:5.28-1.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-base,0:2.27-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-constant,0:1.33-503.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-if,0:0.61.000-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-interpreter,4:5.38.4-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-lib,0:0.65-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-libnet,0:3.15-503.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-libs,4:5.38.4-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later AND MIT AND Spencer-86,Unknown
+Fedora 40:perl-locale,0:1.10-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-mro,0:1.28-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-overload,0:1.37-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-overloading,0:0.02-508.fc40,GPL-1.0-or-later AND Artistic-1.0-Perl,Unknown
+Fedora 40:perl-parent,1:0.241-502.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-podlators,1:5.01-502.fc40,Artistic-1.0-Perl AND FSFAP AND GPL-1.0-or-later,Unknown
+Fedora 40:perl-vars,0:1.05-508.fc40,Artistic-1.0-Perl AND GPL-1.0-or-later,Unknown
+Fedora 40:popt,0:1.19-6.fc40,MIT,Unknown
+Fedora 40:protobuf-c,0:1.5.0-3.fc40,BSD-2-Clause,Unknown
+Fedora 40:psmisc,0:23.6-6.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:publicsuffix-list-dafsa,0:20240107-3.fc40,MPL-2.0,Unknown
+Fedora 40:publicsuffix-list-dafsa,0:20250116-1.fc40,MPL-2.0,Unknown
+Fedora 40:python-pip-wheel,0:23.3.2-2.fc40,Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND LGPL-2.1-only AND MIT AND MPL-2.0,Unknown
+Fedora 40:python3,0:3.12.10-2.fc40,PSF-2.0,Unknown
+Fedora 40:python3,0:3.12.8-2.fc40,PSF-2.0,Unknown
+Fedora 40:python3-dateutil,1:2.8.2-13.fc40,Apache-2.0 AND BSD-3-Clause,Unknown
+Fedora 40:python3-dbus,0:1.3.2-6.fc40,MIT,Unknown
+Fedora 40:python3-distro,0:1.9.0-3.fc40,Apache-2.0,Unknown
+Fedora 40:python3-dnf,0:4.22.0-1.fc40,GPL-1.0-only AND GPL-2.0-or-later,Unknown
+Fedora 40:python3-dnf,0:4.23.0-1.fc40.1,GPL-1.0-only AND GPL-2.0-or-later,Unknown
+Fedora 40:python3-dnf-plugins-core,0:4.10.1-1.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:python3-hawkey,0:0.73.4-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:python3-hawkey,0:0.74.0-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:python3-libcomps,0:0.1.20-5.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:python3-libdnf,0:0.73.4-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:python3-libdnf,0:0.74.0-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:python3-libs,0:3.12.10-2.fc40,CC0-1.0,Unknown
+Fedora 40:python3-libs,0:3.12.8-2.fc40,CC0-1.0,Unknown
+Fedora 40:python3-pip,0:23.3.2-2.fc40,BSD-3-Clause AND ISC AND LGPL-2.1-only AND MIT AND MPL-2.0 AND Apache-2.0 AND BSD-2-Clause,Unknown
+Fedora 40:python3-rpm,0:4.19.1.1-1.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:python3-six,0:1.16.0-14.fc40,MIT,Unknown
+Fedora 40:python3-systemd,0:235-9.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:qrencode-libs,0:4.1.1-7.fc40,LGPL-3.0-only,Unknown
+Fedora 40:readline,0:8.2-8.fc40,GPL-2.0-or-later AND GPL-3.0-or-later,Unknown
+Fedora 40:rootfiles,0:8.1-36.fc40,Public Domain,Unknown
+Fedora 40:rpm,0:4.19.1.1-1.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:rpm-build-libs,0:4.19.1.1-1.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:rpm-libs,0:4.19.1.1-1.fc40,GPL-2.0-or-later AND LGPL-2.1-or-later,Unknown
+Fedora 40:rpm-sequoia,0:1.7.0-3.fc40,Apache-2.0 AND BSL-1.0 AND LGPL-2.0-or-later AND MIT AND Unicode-DFS-2016 AND Unlicense AND Zlib,Unknown
+Fedora 40:rpm-sequoia,0:1.7.0-5.fc40,MIT AND Unicode-DFS-2016 AND Unlicense AND Zlib AND Apache-2.0 AND BSL-1.0 AND LGPL-2.0-or-later,Unknown
+Fedora 40:rpm-sign-libs,0:4.19.1.1-1.fc40,GPL-2.0-or-later,Unknown
+Fedora 40:rsync,0:3.4.1-1.fc40,GPL-3.0-or-later,Unknown
+Fedora 40:sed,0:4.9-1.fc40,GPL-3.0-or-later,Unknown
+Fedora 40:setup,0:2.14.5-2.fc40,Public Domain,Unknown
+Fedora 40:shadow-utils,2:4.15.1-4.fc40,GPL-2.0-or-later AND BSD-3-Clause,Unknown
+Fedora 40:sqlite-libs,0:3.45.1-2.fc40,Public Domain,Unknown
+Fedora 40:sqlite-libs,0:3.45.1-3.fc40,Public Domain,Unknown
+Fedora 40:sudo,0:1.9.15-2.p5.fc40,ISC,Unknown
+Fedora 40:systemd,0:255.18-1.fc40,GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT,Unknown
+Fedora 40:systemd-libs,0:255.16-1.fc40,LGPL-2.1-or-later AND MIT,Unknown
+Fedora 40:systemd-libs,0:255.18-1.fc40,LGPL-2.1-or-later AND MIT,Unknown
+Fedora 40:systemd-networkd,0:255.18-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:systemd-pam,0:255.18-1.fc40,GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT,Unknown
+Fedora 40:systemd-resolved,0:255.18-1.fc40,GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT,Unknown
+Fedora 40:systemd-udev,0:255.18-1.fc40,LGPL-2.1-or-later,Unknown
+Fedora 40:tar,2:1.35-3.fc40,GPL-3.0-or-later,Unknown
+Fedora 40:tpm2-tss,0:4.1.3-1.fc40,BSD-2-Clause,Unknown
+Fedora 40:tzdata,0:2024b-1.fc40,GPL-2.0-CE,Unknown
+Fedora 40:tzdata,0:2025b-1.fc40,LicenseRef-GPL-2.0-CE,Unknown
+Fedora 40:unbound-anchor,0:1.21.1-11.fc40,BSD-3-Clause,Unknown
+Fedora 40:unbound-libs,0:1.21.1-11.fc40,BSD-3-Clause,Unknown
+Fedora 40:unzip,0:6.0-63.fc40,Info-ZIP,Unknown
+Fedora 40:util-linux,0:2.40.2-1.fc40,GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC,Unknown
+Fedora 40:util-linux-core,0:2.40.2-1.fc40,BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND GPL-2.0-only AND GPL-2.0-or-later,Unknown
+Fedora 40:vim-data,2:9.1.1000-1.fc40,GPL-2.0-or-later AND GPL-3.0-or-later AND Vim AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND GPL-1.0-only AND LGPL-2.1-or-later AND MIT,Unknown
+Fedora 40:vim-data,2:9.1.1275-1.fc40,GPL-3.0-or-later AND MIT AND Vim AND GPL-1.0-only AND GPL-2.0-only AND BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later AND Apache-2.0 AND BSD-2-Clause,Unknown
+Fedora 40:vim-minimal,2:9.1.1000-1.fc40,GPL-1.0-only AND GPL-2.0-only AND LGPL-2.1-or-later AND MIT AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-or-later AND GPL-3.0-or-later AND Vim,Unknown
+Fedora 40:vim-minimal,2:9.1.1275-1.fc40,Vim AND BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-or-later AND GPL-3.0-or-later AND MIT AND Apache-2.0 AND GPL-1.0-only AND GPL-2.0-only AND LGPL-2.1-or-later,Unknown
+Fedora 40:wget2,0:2.2.0-2.fc40,GFDL-1.3-or-later AND GPL-3.0-or-later AND LGPL-3.0-or-later,Unknown
+Fedora 40:wget2-libs,0:2.2.0-2.fc40,GFDL-1.3-or-later AND GPL-3.0-or-later AND LGPL-3.0-or-later,Unknown
+Fedora 40:wget2-wget,0:2.2.0-2.fc40,GFDL-1.3-or-later AND GPL-3.0-or-later AND LGPL-3.0-or-later,Unknown
+Fedora 40:xkeyboard-config,0:2.41-1.fc40,HPND AND MIT AND X11,Unknown
+Fedora 40:xxhash-libs,0:0.8.3-1.fc40,BSD-2-Clause,Unknown
+Fedora 40:xz,1:5.4.6-3.fc40,GPL-2.0-only,Unknown
+Fedora 40:xz,1:5.8.1-2.fc40,0BSD AND GPL-2.0-or-later,Unknown
+Fedora 40:xz-libs,1:5.4.6-3.fc40,0BSD,Unknown
+Fedora 40:xz-libs,1:5.8.1-2.fc40,0BSD,Unknown
+Fedora 40:yum,0:4.22.0-1.fc40,GPL-2.0-or-later AND GPL-1.0-only,Unknown
+Fedora 40:yum,0:4.23.0-1.fc40.1,GPL-2.0-or-later AND GPL-1.0-only,Unknown
+Fedora 40:zchunk-libs,0:1.5.1-1.fc40,BSD-2-Clause AND MIT,Unknown
+Fedora 40:zlib-ng-compat,0:2.1.7-2.fc40,Zlib,Unknown
+Fedora 40:zstd,0:1.5.6-1.fc40,BSD-3-Clause AND GPL-2.0-only,Unknown
+Fedora 40:zstd,0:1.5.7-1.fc40,BSD-3-Clause AND GPL-2.0-only,Unknown
+GitPython,3.1.45,BSD-3-Clause,GitPython is a Python library used to interact with Git repositories GitPython provides object model read and write access to your git repository Access repository information conveniently alter the index directly handle remotes or go down to low level object database access with big files support With the new object database abstraction added in 0 3 its even possible to implement your own storage mechanisms the currently available implementations are cgit and pure python which is the default GitPython is a port of the grit library in Ruby created by Tom Preston Werner and Chris Wanstrath 
+Jinja2,3.1.6,BSD-3-Clause,A very fast and expressive template engine 
+MarkupSafe,3.0.2,BSD-3-Clause,MarkupSafe is a Python module that implements the jinja2 Markup string MarkupSafe implements a unicode subclass that supports HTML strings 
+PyMySQL,1.1.2,MIT,This pure Python MySQL client provides a DB API to a MySQL database by talking directly to the server via the binary client server protocol Example import pymysql conn pymysql connect host 127 0 0 1 unix_socket tmp mysql sock user root passwd None db mysql conn pymysql connect host 127 0 0 1 port 3306 user root passwd None db mysql cur conn cursor cur execute SELECT Host User FROM user print cur description r cur fetchall print r or for r in cur print r cur close conn close 
+PyYAML,6.0.3,MIT,YAML is a data serialization format designed for human readability and interaction with scripting languages PyYAML is a YAML parser and emitter for the Python programming language PyYAML features a complete YAML 1 1 parser In particular PyYAML can parse all examples from the specification The parsing algorithm is simple enough to be a reference for YAML parser implementors Unicode support including UTF 8 UTF 16 input output and u escape sequences low level event based parser and emitter API like SAX high level API for serializing and deserializing native Python objects like DOM or pickle support for all types from the YAML types repository A simple extension API is provided relatively sensible error messages 
+Pygments,2.19.1,BSD-2-Clause AND BSD-3-Clause,Pygments is a fast syntax highlighter written in Python with a special focus on details Can highlight source code in many supported languages Python Ruby PHP HTML etc Outputs arbitrarily styled HTML or LaTeX comes with many builtin styles 
+ansible-compat,25.6.0,MIT,Unknown
+ansible-core,2.16.14rc1,GPL-3.0-only,Ansible is a radically simple configuration management deployment and ad hoc task execution tool It supports a wide variety of distributions requires no software installed on managed machines and users can get going in minutes Extension modules can be written in any language 
+ansible-core,2.18.6,GPL-3.0-only AND MIT AND Apache-2.0,Ansible is a radically simple configuration management deployment and ad hoc task execution tool It supports a wide variety of distributions requires no software installed on managed machines and users can get going in minutes Extension modules can be written in any language 
+ansible-lint,25.6.1,GPL-3.0-only,Best practices checker for Ansible
+attrs,25.3.0,MIT,Python classes and attributes without boilerplate 
+autocommand,2.2.2,LGPL-3.0-only, image https travis ci org Lucretiel autocommand svg branch master target https travis ci org Lucretiel autocommand image https coveralls io repos Lucretiel autocommand badge svg target https coveralls io r Lucretiel autocommand autocommand A library to automatically generate and run simple argparse parsers from function signatures Installation Autocommand is installed via pip pip install autocommand Usage Autocommand turns a function into a command line program It converts the function s parameter signature into command line arguments and automatically runs the function if the module was called as __main__ In effect it lets your create a smart main function code python from autocommand import autocommand This program takes exactly one argument and echos it autocommand __name__ def echo thing print thing python echo py hello hello python echo py h usage echo h thing positional arguments thing optional arguments h help show this help message and exit python echo py hello world too many arguments usage echo py h thing echo py error unrecognized arguments world As you can see autocommand converts the signature of the function into an argument spec When you run the file as a program autocommand collects the command line arguments and turns them into function arguments The function is executed with these arguments and then the program exits with the return value of the function via sys exit Autocommand also automatically creates a usage message which can be invoked with h or help and automatically prints an error message when provided with invalid arguments Types You can use a type annotation to give an argument a type Any type or in fact any callable that returns an object when given a string argument can be used though there are a few special cases that are described later code python autocommand __name__ def net_client host port int Autocommand will catch TypeErrors raised by the type during argument parsing so you can supply a callable and do some basic argument validation as well Trailing Arguments You can add a args parameter to your function to give it trailing arguments The command will collect 0 or more trailing arguments and supply them to args as a tuple If a type annotation is supplied the type is applied to each argument code python Write the contents of each file one by one autocommand __name__ def cat files for filename in files with open filename as file for line in file print line rstrip python cat py h usage ipython h file file positional arguments file optional arguments h help show this help message and exit Options To create option switches just assign a default Autocommand will automatically create long and s hort switches code python autocommand __name__ def do_with_config argument config foo conf pass python example py h usage example py h c CONFIG argument positional arguments argument optional arguments h help show this help message and exit c CONFIG config CONFIG The option s type is automatically deduced from the default unless one is explicitly given in an annotation code python autocommand __name__ def http_connect host port 80 print format host port python http py h usage http py h p PORT host positional arguments host optional arguments h help show this help message and exit p PORT port PORT python http py localhost localhost 80 python http py localhost p 8080 localhost 8080 python http py localhost p blah usage http py h p PORT host http py error argument p port invalid int value blah None If an option is given a default value of None it reads in a value as normal but supplies None if the option isn t provided Switches If an argument is given a default value of True or False or given an explicit bool type it becomes an option switch code python autocommand __name__ def example verbose False quiet False pass python example py h usage example py h v q optional arguments h help show this help message and exit v verbose q quiet Autocommand attempts to do the correct thing in these cases if the default is True then supplying the switch makes the argument False if the type is bool and the default is some other True value then supplying the switch makes the argument False while not supplying the switch makes the argument the default value Autocommand also supports the creation of switch inverters Pass add_nos True to autocommand to enable this code python autocommand __name__ add_nos True def example verbos False pass python example py h usage ipython h v no verbose optional arguments h help show this help message and exit v verbose no verbose Using the no version of a switch will pass the opposite value in as a function argument If multiple switches are present the last one takes precedence Files If the default value is a file object such as sys stdout then autocommand just looks for a string for a file path It doesn t do any special checking on the string though such as checking if the file exists it s better to let the client decide how to handle errors in this case Instead it provides a special context manager called smart_open which behaves exactly like open if a filename or other openable type is provided but also lets you use already open files code python from autocommand import autocommand smart_open import sys Write the contents of stdin or a file to stdout autocommand __name__ def write_out infile sys stdin with smart_open infile as f for line in f print line rstrip If a file was opened it is closed here If it was just stdin it is untouched echo Hello World python write_out py tee hello txt Hello World python write_out py infile hello txt Hello World Descriptions and docstrings The autocommand decorator accepts description and epilog kwargs corresponding to the description https docs python org 3 library argparse html description _ and epilog https docs python org 3 library argparse html epilog _ of the ArgumentParser If no description is given but the decorated function has a docstring then it is taken as the description for the ArgumentParser code python autocommand __name__ epilog Some extra documentation in the epilog def copy infile sys stdin outfile sys stdout Copy an the contents of a file or stdin to another file or stdout with smart_open infile as istr with smart_open outfile w as ostr for line in istr ostr write line python copy py h usage copy py h i INFILE o OUTFILE Copy an the contents of a file or stdin to another file or stdout optional arguments h help show this help message and exit i INFILE infile INFILE o OUTFILE outfile OUTFILE Some extra documentation in the epilog echo Hello World python copy py outfile hello txt python copy py infile hello txt outfile hello2 txt python copy py infile hello2 txt Hello World Parameter descriptions You can also attach description text to individual parameters in the annotation To attach both a type and a description supply them both in any order in a tuple code python autocommand __name__ def copy_net infile The name of the file to send host The host to send the file to port int The port to connect to Copy a file over raw TCP to a remote destination Left as an exercise to the reader Decorators and wrappers Autocommand automatically follows wrapper chains created by functools wraps This means that you can apply other wrapping decorators to your main function and autocommand will still correctly detect the signature code python from functools import wraps from autocommand import autocommand def print_yielded func Convert a generator into a function that prints all yielded elements wraps func def wrapper args kwargs for thing in func args kwargs print thing return wrapper autocommand __name__ description Print all the values from START to STOP inclusive in steps of STEP epilog STOP and STEP default to 1 print_yielded def seq stop start 1 step 1 for i in range start stop 1 step yield i seq py h usage seq py h s START S STEP stop Print all the values from START to STOP inclusive in steps of STEP positional arguments stop optional arguments h help show this help message and exit s START start START S STEP step STEP STOP and STEP default to 1 Even though autocommand is being applied to the wrapper returned by print_yielded it still retreives the signature of the underlying seq function to create the argument parsing Custom Parser While autocommand s automatic parser generator is a powerful convenience it doesn t cover all of the different features that argparse provides If you need these features you can provide your own parser as a kwarg to autocommand code python from argparse import ArgumentParser from autocommand import autocommand parser ArgumentParser autocommand can t do optional positonal parameters parser add_argument arg nargs or mutually exclusive options group parser add_mutually_exclusive_group group add_argument v verbose action store_true group add_argument q quiet action store_true autocommand __name__ parser parser def main arg verbose quiet print arg verbose quiet python parser py h usage write_file py h v q arg positional arguments arg optional arguments h help show this help message and exit v verbose q quiet python parser py None False False python parser py hello hello False False python parser py v None True False python parser py q None False True python parser py vq usage parser py h v q arg parser py error argument q quiet not allowed with argument v verbose Any parser should work fine so long as each of the parser s arguments has a corresponding parameter in the decorated main function The order of parameters doesn t matter as long as they are all present Note that when using a custom parser autocommand doesn t modify the parser or the retrieved arguments This means that no description epilog will be added and the function s type annotations and defaults if present will be ignored Testing and Library use The decorated function is only called and exited from if the first argument to autocommand is __main__ or True If it is neither of these values or no argument is given then a new main function is created by the decorator This function has the signature main argv None and is intended to be called with arguments as if via main sys argv 1 The function has the attributes parser and main which are the generated ArgumentParser and the original main function that was decorated This is to facilitate testing and library use of your main Calling the function triggers a parse_args with the supplied arguments and returns the result of the main function Note that while it returns instead of calling sys exit the parse_args function will raise a SystemExit in the event of a parsing error or h help argument code python autocommand def test_prog arg1 arg2 int quiet False verbose False if not quiet print arg1 arg2 if verbose print LOUD NOISES return 0 print test_prog v hello 80 python test_prog py hello 80 LOUD NOISES 0 If the function is called with no arguments sys argv 1 is used This is to allow the autocommand function to be used as a setuptools entry point Exceptions and limitations There are a few possible exceptions that autocommand can raise All of them derive from autocommand AutocommandError which is a TypeError If an invalid annotation is given that is it isn t a type str type str or str type an AnnotationError is raised If the function has a kwargs parameter a KWargError is raised If somehow the function has a positional only parameter a PositionalArgError is raised This means that the argument doesn t have a name which is currently not possible with a plain def or lambda though many built in functions have this kind of parameter There are a few argparse features that are not supported by autocommand It isn t possible to have an optional positional argument as opposed to a option POSIX thinks this is bad form anyway It isn t possible to have mutually exclusive arguments or options It isn t possible to have subcommands or subparsers though I m working on a few solutions involving classes or nested function definitions to allow this Development Autocommand cannot be important from the project root this is to enforce separation of concerns and prevent accidental importing of setup py or tests To develop install the project in editable mode python setup py develop This will create a link to the source files in the deployment directory so that any source changes are reflected when it is imported 
+backports.tarfile,1.2.0,MIT, image https img shields io pypi v backports tarfile svg target https pypi org project backports tarfile image https img shields io pypi pyversions backports tarfile svg image https github com jaraco backports tarfile actions workflows main yml badge svg target https github com jaraco backports tarfile actions query workflow 3A 22tests 22 alt tests image https img shields io endpoint url https raw githubusercontent com charliermarsh ruff main assets badge v2 json target https github com astral sh ruff alt Ruff image https readthedocs org projects backportstarfile badge version latest target https backportstarfile readthedocs io en latest badge latest image https img shields io badge skeleton 2024 informational target https blog jaraco com skeleton 
+black,25.1.0,MIT,black Build Status Any color you like License MIT Change Log 0 0 name reserved on PyPI first release later this month March 2018 Authors Glued together by Łukasz Langa mailto lukasz langa pl __ Build Status image https travis ci org ambv black svg branch master target https travis ci org ambv black 
+bracex,2.5.post1,MIT, Unix Build Status travis image travis link Coverage codecov image codecov link pypi version pypi image pypi link License license image mit Bracex Bracex is a brace expanding library à la Bash for Python Brace expanding is used to generate arbitrary strings console echo a b c d ad bd cd Bracex adds this ability to Python python bracex expand r file 1 2 3 txt file 1 txt file 2 txt file 3 txt python bracex expand r file 1 2 3 txt file 1 txt file 2 txt file 3 txt python bracex expand r v v v v Nested braces python bracex expand r file a b c d txt file ad txt file bd txt file cd txt Numerical sequences python bracex expand r file 0 3 txt file0 txt file1 txt file2 txt file3 txt python bracex expand r file 0 6 2 txt file0 txt file2 txt file4 txt file6 txt python bracex expand r file 00 10 5 jpg file00 jpg file05 jpg file10 jpg Alphabetic sequences python bracex expand r file A D txt fileA txt fileB txt fileC txt fileD txt python bracex expand r file A G 2 txt fileA txt fileC txt fileE txt fileG txt Allows escaping python bracex expand r file 00 10 5 jpg file 00 10 5 jpg python bracex expand r file 00 10 5 jpg keep_escapes True file 00 10 5 jpg Bracex will not expand braces in the form of python bracex expand r file a b c jpg file a b c jpg Install console pip install bracex API expand python def expand string keep_escapes False expand accepts a string and returns a list of expanded strings It will always return at least a single empty string By default escapes will be resolved and the backslashes reduced accordingly but keep_escapes will process the escapes without stripping them out iexpand python def iexpand string keep_escapes False iexpand is just like expand except it returns a generator License MIT License Copyright c 2018 Isaac Muse Permission is hereby granted free of charge to any person obtaining a copy of this software and associated documentation files the Software to deal in the Software without restriction including without limitation the rights to use copy modify merge publish distribute sublicense and or sell copies of the Software and to permit persons to whom the Software is furnished to do so subject to the following conditions The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software THE SOFTWARE IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND EXPRESS OR IMPLIED INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM DAMAGES OR OTHER LIABILITY WHETHER IN AN ACTION OF CONTRACT TORT OR OTHERWISE ARISING FROM OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE codecov image https img shields io codecov c github facelessuser bracex master svg codecov link https codecov io github facelessuser bracex travis image https img shields io travis facelessuser bracex master svg label Unix 20Build travis link https travis ci org facelessuser bracex pypi image https img shields io pypi v bracex svg pypi link https pypi python org pypi bracex license image mit https img shields io badge license MIT blue svg 
+cachetools,5.5.2,MIT,cachetools This module provides various memoizing collections and decorators including a variant of the Python 3 Standard Library lru_cache _ function decorator code block pycon from cachetools import LRUCache cache LRUCache maxsize 2 cache update first 1 second 2 cache LRUCache second 2 first 1 maxsize 2 currsize 2 cache third 3 cache LRUCache second 2 third 3 maxsize 2 currsize 2 cache second 2 cache fourth 4 cache LRUCache second 2 fourth 4 maxsize 2 currsize 2 For the purpose of this module a cache is a mutable_ mapping_ of a fixed maximum size When the cache is full i e by adding another item the cache would exceed its maximum size the cache must choose which item s to discard based on a suitable cache algorithm _ In general a cache s size is the total size of its items and an item s size is a property or function of its value e g the result of sys getsizeof value For the trivial but common case that each item counts as 1 irrespective of its value a cache s size is equal to the number of its items or len cache This module provides multiple cache implementations based on different cache algorithms as well as decorators for easily memoizing function and method calls Installation Install cachetools using pip pip install cachetools Project Resources image http img shields io pypi v cachetools svg style flat target https pypi python org pypi cachetools alt Latest PyPI version image http img shields io pypi dm cachetools svg style flat target https pypi python org pypi cachetools alt Number of PyPI downloads image http img shields io travis tkem cachetools master svg style flat target https travis ci org tkem cachetools alt Travis CI build status image http img shields io coveralls tkem cachetools master svg style flat target https coveralls io r tkem cachetools alt Test coverage Documentation _ Issue Tracker _ Source Code _ Change Log _ License Copyright c 2014 2015 Thomas Kemmer Licensed under the MIT License _ _ lru_cache http docs python org 3 library functools html functools lru_cache _mutable http docs python org dev glossary html term mutable _mapping http docs python org dev glossary html term mapping _cache algorithm http en wikipedia org wiki Cache_algorithms _Documentation http pythonhosted org cachetools _Issue Tracker https github com tkem cachetools issues _Source Code https github com tkem cachetools _Change Log https github com tkem cachetools blob master CHANGES rst _MIT License http raw github com tkem cachetools master LICENSE
+certifi,2025.6.15,MPL-2.0, Python Distribution A carefully curated collection of Root Certificates for validating the trustworthiness of SSL certificates while verifying the identity of TLS hosts 
+cffi,2.0.0,MIT-0,A Foreign Function Interface package for calling C libraries from Python 
+charset-normalizer,3.4.2,MIT,Python Universal Charset detector 
+click,8.2.1,BSD-3-Clause,Python composable command line utility Click is a Python package for creating beautiful command line interfaces in a composable way with as little code as necessary It s the Command Line Interface Creation Kit It s highly configurable but comes with sensible defaults out of the box It aims to make the process of writing command line tools quick and fun while also preventing any frustration caused by the inability to implement an intended CLI API 
+cryptography,46.0.3,Apache-2.0 AND BSD-3-Clause,cryptography is a package designed to expose cryptographic primitives and recipes to Python developers 
+dbus-python,1.3.2,MIT,Unknown
+distro,1.9.0,Apache-2.0,UNKNOWN
+dnf,4.22.0,GPL-2.0-only,Unknown
+dnf,4.23.0,GPL-2.0-only,Unknown
+durationpy,0.1,MIT,UNKNOWN
+filelock,3.18.0,Unlicense,A platform independent file lock for Python https filelock readthedocs org 
+future,1.0.0,MIT,Clean single source support for Python 3 and 2
+gitdb,4.0.12,BSD-3-Clause,IO of git style object databases
+github.com/dpotapov/go-spnego,0.0.0-20210315154721-298b63a54430,MIT,Unknown
+github.com/git-lfs/git-lfs/v3,(devel),BSD-3-Clause AND BSD-3-Clause-Clear AND MIT,Unknown
+github.com/git-lfs/gitobj/v2,2.1.1,MIT,Unknown
+github.com/git-lfs/go-netrc,0.0.0-20250218165306-ba0029b43d11,MIT,Unknown
+github.com/git-lfs/pktline,0.0.0-20210330133718-06e9096e2825,MIT,Unknown
+github.com/git-lfs/wildmatch/v2,2.0.1,MIT,Unknown
+github.com/golang/go,1.25.3,BSD-3-Clause,Unknown
+github.com/golang/go,1.25.4,BSD-3-Clause,Unknown
+github.com/golang/groupcache,0.0.0-20241129210726-2c02b8208cf8,Apache-2.0,Unknown
+github.com/hashicorp/go-uuid,1.0.2,MPL-2.0,Generates UUID format strings using purely high quality random bytes
+github.com/jcmturner/aescts/v2,2.0.0,Apache-2.0,Unknown
+github.com/jcmturner/dnsutils/v2,2.0.0,Apache-2.0,Unknown
+github.com/jcmturner/gofork,1.0.0,BSD-3-Clause,Unknown
+github.com/jcmturner/goidentity/v6,6.0.1,Apache-2.0,Unknown
+github.com/jcmturner/gokrb5/v8,8.4.2,Apache-2.0,Unknown
+github.com/jcmturner/rpc/v2,2.0.3,Apache-2.0,Unknown
+github.com/jmhodges/clock,1.2.0,MIT,Package clock provides an abstraction for system time that enables testing of time sensitive code 
+github.com/leonelquinteros/gotext,1.5.0,MIT,Go Golang GNU gettext utilities package Features Implements GNU gettext support in native Go Complete support for PO files including Support for multiline strings and headers Support for variables inside translation strings using Go s fmt syntax Support for pluralization rules Support for message contexts Thread safe This package is safe for concurrent use across multiple goroutines It works with UTF 8 encoding as it s the default for Go language Unit tests available Language codes are automatically simplified from the form en_UK to en if the first isn t available Ready to use inside Go templates 
+github.com/mattn/go-isatty,0.0.4,MIT,Unknown
+github.com/olekukonko/ts,0.0.0-20171002115256-78ecb04241c0,MIT,Unknown
+github.com/pkg/errors,0.0.0-20170505043639-c605e284fe17,Mup AND BSD-2-Clause,Unknown
+github.com/rubyist/tracerx,0.0.0-20170927163412-787959303086,MIT,Unknown
+github.com/spf13/cobra,1.7.0,Apache-2.0,A Commander for modern Go CLI interactions
+github.com/spf13/pflag,1.0.5,BSD-3-Clause,Drop in replacement for Go s flag package implementing POSIX GNU style flags pflag is a drop in replacement for Go s flag package implementing POSIX GNU style flags pflag is compatible with the GNU extensions to the POSIX recommendations for command line options http www gnu org software libc manual html_node Argument Syntax html Forked from github com ogier pflag 
+github.com/ssgelm/cookiejarparser,1.0.1,MIT,Unknown
+golang.org/x/crypto,0.36.0,BSD-3-Clause,This repository holds supplementary Go cryptography libraries 
+golang.org/x/crypto,0.43.0,BSD-3-Clause,This repository holds supplementary Go cryptography libraries 
+golang.org/x/net,0.38.0,BSD-3-Clause,Unknown
+golang.org/x/sync,0.12.0,BSD-3-Clause,Unknown
+golang.org/x/sys,0.31.0,BSD-3-Clause,supplemental Go packages for low level interactions with the operating system 
+golang.org/x/text,0.23.0,BSD-3-Clause, mirror Go text processing support
+google-auth,2.40.3,Apache-2.0,Google authentication library for Python 
+http_client,0.1.22,MIT,Unknown
+idna,3.1,BSD-3-Clause,Internationalized Domain Names for Python IDNA 2008 and UTS 46 
+importlib_metadata,8.0.0,Apache-2.0,Library to access metadata for Python packages
+importlib_metadata,8.7.0,Apache-2.0,Library to access metadata for Python packages
+inflect,7.3.1,MIT,inflect py Correctly generate plurals singular nouns ordinals indefinite articles convert numbers to words 
+ipaddress,1.0.23,Python-2.0,Python 3 3 s ipaddress for older Python versions A fast lightweight IPv4 IPv6 manipulation library in Python This library is used to create poke manipulate IPv4 and IPv6 addresses and networks Note that as in Python 3 3 you must use character strings and not byte strings for textual IP address representations 
+jaraco.collections,5.1.0,MIT,jaraco Module for text manipulation
+jaraco.context,5.3.0,MIT,jaraco context 1 2 Adopted functionality from jaraco util context 10 8 
+jaraco.functools,4.0.1,MIT,jaraco functools Additional functools in the spirit of stdlib s functools See the documentation https www pythonhosted org jaraco functools _ for more information 
+jaraco.text,3.12.1,MIT,jaraco text 1 4 Add Stripper class 1 3 Add SeparatedValues class 1 0 Initial implementation adopted from jaraco util string 10 8 
+jmespath,1.0.1,MIT,JMESPath is a query language for JSON 
+jsonschema,4.24.0,MIT,An other implementation of JSON Schema for Python
+jsonschema-specifications,2025.4.1,MIT, jsonschema specifications PyPI Pythons CI ReadTheDocs JSON support files from the JSON Schema Specifications https json schema org specification html _ metaschemas vocabularies etc packaged for runtime access from Python PyPI image https img shields io pypi v jsonschema specifications svg alt PyPI version target https pypi org project jsonschema specifications Pythons image https img shields io pypi pyversions jsonschema specifications svg alt Supported Python versions target https pypi org project jsonschema specifications CI image https github com python jsonschema jsonschema specifications workflows CI badge svg alt Build status target https github com python jsonschema jsonschema specifications actions query workflow 3ACI ReadTheDocs image https readthedocs org projects jsonschema specifications badge version stable style flat alt ReadTheDocs status target https jsonschema specifications readthedocs io en stable 
+kubernetes,32.0.1,Apache-2.0,Python client for talk to a kubernetes cluster 
+libcomps,0.1.20,GPL-2.0-only AND GPL-2.0-or-later,Unknown
+libdnf,0.73.4,LGPL-2.1-or-later,Unknown
+libdnf,0.74.0,LGPL-2.1-or-later,Unknown
+logger,1.4,MIT,Android Logcat Dmesg viewer for devices 
+more-itertools,10.3.0,MIT,More routines for operating on iterables beyond itertools
+multidict,6.4.4,Apache-2.0,The multidict implementation
+my-test-package,1,MIT,Unknown
+mypy_extensions,1.1.0,MIT,Mypy Extensions The mypy_extensions module defines experimental extensions to the standard typing module that are supported by the mypy typechecker 
+netaddr,1.3.0,BSD-3-Clause,A pure Python network address representation and manipulation library netaddr provides a Pythonic way to work with IPv4 and IPv6 addresses and subnets including CIDR notation MAC Media Access Control addresses in multiple presentation formats IEEE EUI 64 OUI and IAB identifiers a user friendly IP glob style format Included are routines for generating sorting and summarizing IP addresses converting IP addresses and ranges between various different formats performing set based operations on groups of IP addresses and subnets arbitrary IP address range calculations and conversions querying IEEE OUI and IAB organisational information querying of IP standards related data from key IANA data sources
+numpy,2.3.0,BSD-3-Clause,NumPy is the fundamental package for scientific computing with Python It contains among other things a powerful N dimensional array object sophisticated broadcasting functions tools for integrating C C and Fortran code useful linear algebra Fourier transform and random number capabilities Besides its obvious scientific uses NumPy can also be used as an efficient multi dimensional container of generic data Arbitrary data types can be defined This allows NumPy to seamlessly and speedily integrate with a wide variety of databases NumPy is licensed under the BSD license enabling reuse with few restrictions 
+oauthlib,3.3.0,BSD-3-Clause,A generic spec compliant thorough implementation of the OAuth request signing logic
+omsdk,1.2.518,Apache-2.0,Dell EMC OpenManage Python SDK Dell EMC OpenManage Python Software Development Kit SDK is a pythonic library for programatically managing Dell EMC Servers and Chassis Using this library a user can perform lifecycle operations on Dell EMC PowerEdge Servers and Blade Enclosure Chassis in Pythonic way The Dell EMC OpenManage Python SDK leverages DMTF s Web Services Management standard WS Man and IETF s Simple Network Management Protocol SNMP for managing and monitoring the Dell EMC PowerEdge branded hardware Dell OpenManage PowerEdge EMC and other trademarks are trademarks of Dell Inc or its subsidiaries Other trademarks may be trademarks of their respective owners Licensed under the GNU General Public License v3 0 the License you may not use this file except in compliance with the License Unless required by applicable law or agreed to in writing software distributed under the License is distributed on an AS IS BASIS WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND either express or implied See the License for the specific language governing permissions and limitations under the License Please note that Dell EMC OpenManage Python SDK is still in development and therefore no support is provided at present However if you want to report any issues or provide any feedback then please send an email to OpenManageAnsibleEval dell com 
+packaging,24.2,Apache-2.0,Core utilities for Python packages
+packaging,25,Apache-2.0 AND BSD-2-Clause,Core utilities for Python packages
+pandas,2.3.3,MIT AND Python-2.0.1 AND TCL AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND jfrog-musl-exception,Flexible and powerful data analysis manipulation library for Python providing labeled data structures similar to R data frame objects statistical functions and much more
+passlib,1.7.4,BSD-2-Clause,password hashing library for python
+pathspec,0.12.1,MPL-2.0, pathspec Path Specification pathspec is a utility library for pattern matching of file paths So far this only includes gitignore _ style pattern matching which itself incorporates POSIX glob _ patterns _ gitignore http git scm com docs gitignore _ glob http man7 org linux man pages man7 glob 7 html Tutorial Say you have a Projects directory and you want to back it up but only certain files and ignore others depending on certain conditions import pathspec The gitignore style patterns for files to select but we re including instead of ignoring spec This is a comment because the line begins with a hash Include several project directories and all descendants relative to the current directory To reference a directory you must end with a slash project a project b project c Patterns can be negated by prefixing with exclamation mark Ignore temporary files beginning or ending with and ending with swp swp These are python projects so ignore compiled python files from testing pyc Ignore the build directories but only directly under the project directories build q We want to use the GitIgnorePattern class to compile our patterns and the PathSpec to provide an iterface around them spec pathspec PathSpec from_lines pathspec GitIgnorePattern spec splitlines That may be a mouthful but it allows for additional patterns to be implemented in the future without them having to deal with anything but matching the paths sent to them GitIgnorePattern is the implementation of the actual pattern which internally gets converted into a regular expression PathSpec is a simple wrapper around a list of compiled patterns To make things simpler we can use the registered name for a pattern class instead of always having to provide a reference to the class itself The GitIgnorePattern class is registered as gitignore spec pathspec PathSpec from_lines gitignore spec splitlines If we wanted to manually compile the patterns we can just do the following patterns map pathspec GitIgnorePattern spec splitlines spec PathSpec patterns PathSpec from_lines is simply a simple class method to do just that If you want to load the patterns from file you can pass the instance directly as well with open patterns list r as fh spec pathspec PathSpec from_lines gitignore fh You can perform matching on a whole directory tree with matches spec iter_tree path to directory Or you can perform matching on a specific set of file paths with matches spec iter_files file_paths License pathspec is licensed under the Mozilla Public License Version 2 0 _ See LICENSE _ or the FAQ _ for more information In summary you may use pathspec with any closed or open source project without affecting the license of the larger work so long as you give credit where credit is due and release any custom changes made to pathspec _ Mozilla Public License Version 2 0 http www mozilla org MPL 2 0 _ LICENSE LICENSE _ FAQ http www mozilla org MPL 2 0 FAQ html Source The source code for pathspec is available from the GitHub repo cpburnz python path specification _ _ cpburnz python path specification https github com cpburnz python path specification Installation pathspec requires the following packages setuptools _ pathspec can be installed from source with python setup py install pathspec is also available for install through PyPI _ pip install pathspec _ setuptools https pypi python org pypi setuptools _ PyPI http pypi python org pypi pathspec image https d2weczhvl823v0 cloudfront net cpburnz python path specification trend png alt Bitdeli badge target https bitdeli com free Change History 0 3 3 2014 11 21 Improved documentation 0 3 2 2014 11 08 Improved documentation Issue 6 Fixed matching Windows paths 0 3 1 2014 09 17 Updated README 0 3 0 2014 09 17 Added registered patterns Issue 3 Fixed trailing slash in gitignore patterns Issue 4 Fixed test for trailing slash in gitignore patterns 0 2 2 2013 12 17 Fixed setup py 0 2 1 2013 12 17 Added tests Fixed comment gitignore patterns Fixed relative path gitignore patterns 0 2 0 2013 12 07 Initial release 
+pexpect,4.9.0,ISC,Pexpect makes Python a better tool for controlling other applications Pexpect is a pure Python module for spawning child applications controlling them and responding to expected patterns in their output Pexpect works like Don Libes Expect Pexpect allows your script to spawn a child application and control it as if a human were typing commands Pexpect can be used for automating interactive applications such as ssh ftp passwd telnet etc It can be used to a automate setup scripts for duplicating software package installations on different servers It can be used for automated software testing Pexpect is in the spirit of Don Libes Expect but Pexpect is pure Python Pexpect does not require TCL or Expect nor does it require C extension 
+pip,23.3.2,MIT,pip installs packages Python packages An easy_install replacement
+pip,25.3,MIT,pip installs packages Python packages An easy_install replacement
+platformdirs,4.2.2,MIT, the problem image https github com platformdirs platformdirs workflows Test badge svg target https github com platformdirs platformdirs actions query workflow 3ATest What directory should your app use for storing user data If running on macOS you should use Library Application Support AppName If on Windows at least English Win XP that should be C Documents and Settings User Application Data Local Settings AppAuthor AppName or possibly C Documents and Settings User Application Data AppAuthor AppName for roaming profiles https docs microsoft com en us previous versions windows it pro windows vista cc766489 v ws 10 _ but that is another story On Linux and other Unices the dir according to the XDG spec https standards freedesktop org basedir spec basedir spec latest html _ is local share AppName platformdirs to the rescue This kind of thing is what the platformdirs module is for platformdirs will help you choose an appropriate user data dir user_data_dir user config dir user_config_dir user cache dir user_cache_dir site data dir site_data_dir site config dir site_config_dir user log dir user_log_dir and also is a single module so other Python packages can include their own private copy is slightly opinionated on the directory names used Look for OPINION in documentation and code for when an opinion is being applied some example output On macOS from platformdirs import appname SuperApp appauthor Acme user_data_dir appname appauthor Users trentm Library Application Support SuperApp site_data_dir appname appauthor Library Application Support SuperApp user_cache_dir appname appauthor Users trentm Library Caches SuperApp user_log_dir appname appauthor Users trentm Library Logs SuperApp On Windows 7 from platformdirs import appname SuperApp appauthor Acme user_data_dir appname appauthor C Users trentm AppData Local Acme SuperApp user_data_dir appname appauthor roaming True C Users trentm AppData Roaming Acme SuperApp user_cache_dir appname appauthor C Users trentm AppData Local Acme SuperApp Cache user_log_dir appname appauthor C Users trentm AppData Local Acme SuperApp Logs On Linux from platformdirs import appname SuperApp appauthor Acme user_data_dir appname appauthor home trentm local share SuperApp site_data_dir appname appauthor usr local share SuperApp site_data_dir appname appauthor multipath True usr local share SuperApp usr share SuperApp user_cache_dir appname appauthor home trentm cache SuperApp user_log_dir appname appauthor home trentm cache SuperApp log user_config_dir appname home trentm config SuperApp site_config_dir appname etc xdg SuperApp os environ XDG_CONFIG_DIRS etc usr local etc site_config_dir appname multipath True etc SuperApp usr local etc SuperApp PlatformDirs for convenience from platformdirs import PlatformDirs dirs PlatformDirs SuperApp Acme dirs user_data_dir Users trentm Library Application Support SuperApp dirs site_data_dir Library Application Support SuperApp dirs user_cache_dir Users trentm Library Caches SuperApp dirs user_log_dir Users trentm Library Logs SuperApp Per version isolation If you have multiple versions of your app in use that you want to be able to run side by side then you may want version isolation for these dirs from platformdirs import PlatformDirs dirs PlatformDirs SuperApp Acme version 1 0 dirs user_data_dir Users trentm Library Application Support SuperApp 1 0 dirs site_data_dir Library Application Support SuperApp 1 0 dirs user_cache_dir Users trentm Library Caches SuperApp 1 0 dirs user_log_dir Users trentm Library Logs SuperApp 1 0 Contributing and About This repository is a friendly fork of the wonderful work started by ActiveState https github com ActiveState appdirs _ who created appdirs this package s ancestor Contributions are most welcome platformdirs Changelog platformdirs 2 0 0 UNRELEASED Name change as part of the friendly fork Add Python 3 7 support Remove support for end of life Pythons 2 6 3 2 and 3 3 appdirs 1 4 4 PR 92 Don t import appdirs from setup py which resolves issue 91 PR 100 Corrects the config directory on OSX macOS which resolves issue 63 Project officially classified as Stable which is important for inclusion in other distros such as ActivePython appdirs 1 4 3 PR 76 Python 3 6 invalid escape sequence deprecation fixes Fix for Python 3 6 support appdirs 1 4 2 PR 84 Allow installing without setuptools PR 86 Fix string delimiters in setup py description Add Python 3 6 support appdirs 1 4 1 issue 38 Fix _winreg import on Windows Py3 issue 55 Make appname optional appdirs 1 4 0 PR 42 AppAuthor is now optional on Windows issue 41 Support Jython on Windows Mac and Unix like platforms Windows support requires JNA https github com twall jna _ PR 44 Fix incorrect behaviour of the site_config_dir method appdirs 1 3 0 Unix issue 16 Conform to XDG standard instead of breaking it for everybody Unix Removes gratuitous case mangling of the case since nix es are usually case sensitive so mangling is not wise Unix Fixes the utterly wrong behaviour in site_data_dir return result based on XDG_DATA_DIRS and make room for respecting the standard which specifies XDG_DATA_DIRS is a multiple value variable Issue 6 Add _config_dir which are distinct on nix es according to XDG specs on Windows and Mac return the corresponding _data_dir appdirs 1 2 0 Unix Put user_log_dir under the cache dir on Unix Seems to be more typical issue 9 Make unicode work on py3k appdirs 1 1 0 issue 4 Add AppDirs user_log_dir Unix issue 2 issue 7 appdirs now conforms to XDG base directory spec https standards freedesktop org basedir spec basedir spec latest html _ Mac issue 5 Fix site_data_dir on Mac Mac Drop use of Carbon module in favour of hardcoded paths supports Python3 now Windows Append Cache to user_cache_dir on Windows by default Use opinion False option to disable this Add appdirs AppDirs convenience class Usage dirs AppDirs SuperApp Acme version 1 0 dirs user_data_dir Users trentm Library Application Support SuperApp 1 0 Windows Cherry pick Komodo s change to downgrade paths to the Windows short paths if there are high bit chars Linux Change default user_cache_dir on Linux to be singular e g superapp cache Windows Add roaming option to user_data_dir for use on Windows only and change the default user_data_dir behaviour to use a non roaming profile dir CSIDL_LOCAL_APPDATA instead of CSIDL_APPDATA Why Because a large roaming profile can cause login speed issues The only syncs on logout behaviour can cause surprises in appdata info appdirs 1 0 1 never released Started this changelog 27 July 2010 Before that this module originated in the Komodo https www activestate com komodo ide _ product as applib py and then as applib location py https github com ActiveState applib blob master applib location py _ used by PyPM https code activestate com pypm _ in ActivePython https www activestate com activepython _ This is basically a fork of applib py 1 0 1 and applib location py 1 0 1 
+platformdirs,4.3.8,MIT, the problem image https github com platformdirs platformdirs workflows Test badge svg target https github com platformdirs platformdirs actions query workflow 3ATest What directory should your app use for storing user data If running on macOS you should use Library Application Support AppName If on Windows at least English Win XP that should be C Documents and Settings User Application Data Local Settings AppAuthor AppName or possibly C Documents and Settings User Application Data AppAuthor AppName for roaming profiles https docs microsoft com en us previous versions windows it pro windows vista cc766489 v ws 10 _ but that is another story On Linux and other Unices the dir according to the XDG spec https standards freedesktop org basedir spec basedir spec latest html _ is local share AppName platformdirs to the rescue This kind of thing is what the platformdirs module is for platformdirs will help you choose an appropriate user data dir user_data_dir user config dir user_config_dir user cache dir user_cache_dir site data dir site_data_dir site config dir site_config_dir user log dir user_log_dir and also is a single module so other Python packages can include their own private copy is slightly opinionated on the directory names used Look for OPINION in documentation and code for when an opinion is being applied some example output On macOS from platformdirs import appname SuperApp appauthor Acme user_data_dir appname appauthor Users trentm Library Application Support SuperApp site_data_dir appname appauthor Library Application Support SuperApp user_cache_dir appname appauthor Users trentm Library Caches SuperApp user_log_dir appname appauthor Users trentm Library Logs SuperApp On Windows 7 from platformdirs import appname SuperApp appauthor Acme user_data_dir appname appauthor C Users trentm AppData Local Acme SuperApp user_data_dir appname appauthor roaming True C Users trentm AppData Roaming Acme SuperApp user_cache_dir appname appauthor C Users trentm AppData Local Acme SuperApp Cache user_log_dir appname appauthor C Users trentm AppData Local Acme SuperApp Logs On Linux from platformdirs import appname SuperApp appauthor Acme user_data_dir appname appauthor home trentm local share SuperApp site_data_dir appname appauthor usr local share SuperApp site_data_dir appname appauthor multipath True usr local share SuperApp usr share SuperApp user_cache_dir appname appauthor home trentm cache SuperApp user_log_dir appname appauthor home trentm cache SuperApp log user_config_dir appname home trentm config SuperApp site_config_dir appname etc xdg SuperApp os environ XDG_CONFIG_DIRS etc usr local etc site_config_dir appname multipath True etc SuperApp usr local etc SuperApp PlatformDirs for convenience from platformdirs import PlatformDirs dirs PlatformDirs SuperApp Acme dirs user_data_dir Users trentm Library Application Support SuperApp dirs site_data_dir Library Application Support SuperApp dirs user_cache_dir Users trentm Library Caches SuperApp dirs user_log_dir Users trentm Library Logs SuperApp Per version isolation If you have multiple versions of your app in use that you want to be able to run side by side then you may want version isolation for these dirs from platformdirs import PlatformDirs dirs PlatformDirs SuperApp Acme version 1 0 dirs user_data_dir Users trentm Library Application Support SuperApp 1 0 dirs site_data_dir Library Application Support SuperApp 1 0 dirs user_cache_dir Users trentm Library Caches SuperApp 1 0 dirs user_log_dir Users trentm Library Logs SuperApp 1 0 Contributing and About This repository is a friendly fork of the wonderful work started by ActiveState https github com ActiveState appdirs _ who created appdirs this package s ancestor Contributions are most welcome platformdirs Changelog platformdirs 2 0 0 UNRELEASED Name change as part of the friendly fork Add Python 3 7 support Remove support for end of life Pythons 2 6 3 2 and 3 3 appdirs 1 4 4 PR 92 Don t import appdirs from setup py which resolves issue 91 PR 100 Corrects the config directory on OSX macOS which resolves issue 63 Project officially classified as Stable which is important for inclusion in other distros such as ActivePython appdirs 1 4 3 PR 76 Python 3 6 invalid escape sequence deprecation fixes Fix for Python 3 6 support appdirs 1 4 2 PR 84 Allow installing without setuptools PR 86 Fix string delimiters in setup py description Add Python 3 6 support appdirs 1 4 1 issue 38 Fix _winreg import on Windows Py3 issue 55 Make appname optional appdirs 1 4 0 PR 42 AppAuthor is now optional on Windows issue 41 Support Jython on Windows Mac and Unix like platforms Windows support requires JNA https github com twall jna _ PR 44 Fix incorrect behaviour of the site_config_dir method appdirs 1 3 0 Unix issue 16 Conform to XDG standard instead of breaking it for everybody Unix Removes gratuitous case mangling of the case since nix es are usually case sensitive so mangling is not wise Unix Fixes the utterly wrong behaviour in site_data_dir return result based on XDG_DATA_DIRS and make room for respecting the standard which specifies XDG_DATA_DIRS is a multiple value variable Issue 6 Add _config_dir which are distinct on nix es according to XDG specs on Windows and Mac return the corresponding _data_dir appdirs 1 2 0 Unix Put user_log_dir under the cache dir on Unix Seems to be more typical issue 9 Make unicode work on py3k appdirs 1 1 0 issue 4 Add AppDirs user_log_dir Unix issue 2 issue 7 appdirs now conforms to XDG base directory spec https standards freedesktop org basedir spec basedir spec latest html _ Mac issue 5 Fix site_data_dir on Mac Mac Drop use of Carbon module in favour of hardcoded paths supports Python3 now Windows Append Cache to user_cache_dir on Windows by default Use opinion False option to disable this Add appdirs AppDirs convenience class Usage dirs AppDirs SuperApp Acme version 1 0 dirs user_data_dir Users trentm Library Application Support SuperApp 1 0 Windows Cherry pick Komodo s change to downgrade paths to the Windows short paths if there are high bit chars Linux Change default user_cache_dir on Linux to be singular e g superapp cache Windows Add roaming option to user_data_dir for use on Windows only and change the default user_data_dir behaviour to use a non roaming profile dir CSIDL_LOCAL_APPDATA instead of CSIDL_APPDATA Why Because a large roaming profile can cause login speed issues The only syncs on logout behaviour can cause surprises in appdata info appdirs 1 0 1 never released Started this changelog 27 July 2010 Before that this module originated in the Komodo https www activestate com komodo ide _ product as applib py and then as applib location py https github com ActiveState applib blob master applib location py _ used by PyPM https code activestate com pypm _ in ActivePython https www activestate com activepython _ This is basically a fork of applib py 1 0 1 and applib location py 1 0 1 
+prettytable,3.14.0,BSD-3-Clause, PrettyTable Jazzband https jazzband co static img badge svg https jazzband co PyPI version https img shields io pypi v prettytable svg logo pypi logoColor FFE873 https pypi org project prettytable Supported Python versions https img shields io pypi pyversions prettytable svg logo python logoColor FFE873 https pypi org project prettytable PyPI downloads https img shields io pypi dm prettytable svg https pypistats org packages prettytable Travis CI Status https img shields io travis jazzband prettytable master label Travis 20CI logo travis https travis ci org jazzband prettytable GitHub Actions status https github com jazzband prettytable workflows Test badge svg https github com jazzband prettytable actions codecov https codecov io gh jazzband prettytable branch master graph badge svg https codecov io gh jazzband prettytable Code style Black https img shields io badge code 20style black 000000 svg https github com psf black Installation Install via pip pip install U prettytable Install latest development version pip install U git https github com jazzband prettytable Or from requirements txt e git github com jazzband prettytable git egg prettytable Tutorial on how to use the PrettyTable API Getting your data into and out of the table Let s suppose you have a shiny new PrettyTable python from prettytable import PrettyTable x PrettyTable and you want to put some data into it You have a few options Row by row You can add data one row at a time To do this you can set the field names first using the field_names attribute and then add the rows one at a time using the add_row method python x field_names City name Area Population Annual Rainfall x add_row Adelaide 1295 1158259 600 5 x add_row Brisbane 5905 1857594 1146 4 x add_row Darwin 112 120900 1714 7 x add_row Hobart 1357 205556 619 5 x add_row Sydney 2058 4336374 1214 8 x add_row Melbourne 1566 3806092 646 9 x add_row Perth 5386 1554769 869 4 Column by column You can add data one column at a time as well To do this you use the add_column method which takes two arguments a string which is the name for the field the column you are adding corresponds to and a list or tuple which contains the column data python x add_column City name Adelaide Brisbane Darwin Hobart Sydney Melbourne Perth x add_column Area 1295 5905 112 1357 2058 1566 5386 x add_column Population 1158259 1857594 120900 205556 4336374 3806092 1554769 x add_column Annual Rainfall 600 5 1146 4 1714 7 619 5 1214 8 646 9 869 4 Mixing and matching If you really want to you can even mix and match add_row and add_column and build some of your table in one way and some of it in the other There s a unit test which makes sure that doing things this way will always work out nicely as if you d done it using just one of the two approaches Tables built this way are kind of confusing for other people to read though so don t do this unless you have a good reason Importing data from a CSV file If you have your table data in a comma separated values file csv you can read this data into a PrettyTable like this python from prettytable import from_csv fp open myfile csv r mytable from_csv fp fp close Importing data from a database cursor If you have your table data in a database which you can access using a library which confirms to the Python DB API e g an SQLite database accessible using the sqlite module then you can build a PrettyTable using a cursor object like this python import sqlite3 from prettytable import from_cursor connection sqlite3 connect mydb db cursor connection cursor cursor execute SELECT field1 field2 field3 FROM my_table mytable from_cursor cursor Getting data out There are three ways to get data out of a PrettyTable in increasing order of completeness The del_row method takes an integer index of a single row to delete The del_column method takes a field name of a single column to delete The clear_rows method takes no arguments and deletes all the rows in the table but keeps the field names as they were so you that you can repopulate it with the same kind of data The clear method takes no arguments and deletes all rows and all field names It s not quite the same as creating a fresh table instance though style related settings discussed later are maintained Displaying your table in ASCII form PrettyTable s main goal is to let you print tables in an attractive ASCII form like this City name Area Population Annual Rainfall Adelaide 1295 1158259 600 5 Brisbane 5905 1857594 1146 4 Darwin 112 120900 1714 7 Hobart 1357 205556 619 5 Melbourne 1566 3806092 646 9 Perth 5386 1554769 869 4 Sydney 2058 4336374 1214 8 You can print tables like this to stdout or get string representations of them Printing To print a table in ASCII form you can just do this python print x in Python 2 x or python print x in Python 3 x The old x printt method from versions 0 5 and earlier has been removed To pass options changing the look of the table use the get_string method documented below python print x get_string Stringing If you don t want to actually print your table in ASCII form but just get a string containing what _would_ be printed if you use print x you can use the get_string method python mystring x get_string This string is guaranteed to look exactly the same as what would be printed by doing print x You can now do all the usual things you can do with a string like write your table to a file or insert it into a GUI Controlling which data gets displayed If you like you can restrict the output of print x or x get_string to only the fields or rows you like The fields argument to these methods takes a list of field names to be printed python print x get_string fields City name Population gives City name Population Adelaide 1158259 Brisbane 1857594 Darwin 120900 Hobart 205556 Melbourne 3806092 Perth 1554769 Sydney 4336374 The start and end arguments take the index of the first and last row to print respectively Note that the indexing works like Python list slicing to print the 2nd 3rd and 4th rows of the table set start to 1 the first row is row 0 so the second is row 1 and set end to 4 the index of the 4th row plus 1 python print x get_string start 1 end 4 prints City name Area Population Annual Rainfall Brisbane 5905 1857594 1146 4 Darwin 112 120900 1714 7 Hobart 1357 205556 619 5 Changing the alignment of columns By default all columns in a table are centre aligned All columns at once You can change the alignment of all the columns in a table at once by assigning a one character string to the align attribute The allowed strings are l r and c for left right and centre alignment respectively python x align r print x gives City name Area Population Annual Rainfall Adelaide 1295 1158259 600 5 Brisbane 5905 1857594 1146 4 Darwin 112 120900 1714 7 Hobart 1357 205556 619 5 Melbourne 1566 3806092 646 9 Perth 5386 1554769 869 4 Sydney 2058 4336374 1214 8 One column at a time You can also change the alignment of individual columns based on the corresponding field name by treating the align attribute as if it were a dictionary python x align City name l x align Area c x align Population r x align Annual Rainfall c print x gives City name Area Population Annual Rainfall Adelaide 1295 1158259 600 5 Brisbane 5905 1857594 1146 4 Darwin 112 120900 1714 7 Hobart 1357 205556 619 5 Melbourne 1566 3806092 646 9 Perth 5386 1554769 869 4 Sydney 2058 4336374 1214 8 Sorting your table by a field You can make sure that your ASCII tables are produced with the data sorted by one particular field by giving get_string a sortby keyword argument which must be a string containing the name of one field For example to print the example table we built earlier of Australian capital city data so that the most populated city comes last we can do this python print x get_string sortby Population to get City name Area Population Annual Rainfall Darwin 112 120900 1714 7 Hobart 1357 205556 619 5 Adelaide 1295 1158259 600 5 Perth 5386 1554769 869 4 Brisbane 5905 1857594 1146 4 Melbourne 1566 3806092 646 9 Sydney 2058 4336374 1214 8 If we want the most populated city to come _first_ we can also give a reversesort True argument If you _always_ want your tables to be sorted in a certain way you can make the setting long term like this python x sortby Population print x print x print x All three tables printed by this code will be sorted by population you could do x reversesort True as well if you wanted The behaviour will persist until you turn it off python x sortby None If you want to specify a custom sorting function you can use the sort_key keyword argument Pass this a function which accepts two lists of values and returns a negative or positive value depending on whether the first list should appeare before or after the second one If your table has n columns each list will have n 1 elements Each list corresponds to one row of the table The first element will be whatever data is in the relevant row in the column specified by the sort_by argument The remaining n elements are the data in each of the table s columns in order including a repeated instance of the data in the sort_by column Changing the appearance of your table the easy way By default PrettyTable produces ASCII tables that look like the ones used in SQL database shells But if can print them in a variety of other formats as well If the format you want to use is common PrettyTable makes this very easy for you to do using the set_style method If you want to produce an uncommon table you ll have to do things slightly harder see later Setting a table style You can set the style for your table using the set_style method before any calls to print or get_string Here s how to print a table in a format which works nicely with Microsoft Word s Convert to table feature python from prettytable import MSWORD_FRIENDLY x set_style MSWORD_FRIENDLY print x In addition to MSWORD_FRIENDLY there are currently two other in built styles you can use for your tables DEFAULT The default look used to undo any style changes you may have made PLAIN_COLUMNS A borderless style that works well with command line programs for columnar data MARKDOWN A style that follows Markdown syntax ORGMODE A table style that fits Org mode https orgmode org syntax Other styles are likely to appear in future releases Changing the appearance of your table the hard way If you want to display your table in a style other than one of the in built styles listed above you ll have to set things up the hard way Don t worry it s not really that hard Style options PrettyTable has a number of style options which control various aspects of how tables are displayed You have the freedom to set each of these options individually to whatever you prefer The set_style method just does this automatically for you The options are these border A boolean option must be True or False Controls whether or not a border is drawn around the table header A boolean option must be True or False Controls whether or not the first row of the table is a header showing the names of all the fields hrules Controls printing of horizontal rules after rows Allowed values FRAME HEADER ALL NONE note that these are variables defined inside the prettytable module so make sure you import them or use prettytable FRAME etc vrules Controls printing of vertical rules between columns Allowed values FRAME ALL NONE int_format A string which controls the way integer data is printed This works like print int_format d data float_format A string which controls the way floating point data is printed This works like print float_format f data padding_width Number of spaces on either side of column data only used if left and right paddings are None left_padding_width Number of spaces on left hand side of column data right_padding_width Number of spaces on right hand side of column data vertical_char Single character string used to draw vertical lines Default is horizontal_char Single character string used to draw horizontal lines Default is junction_char Single character string used to draw line junctions Default is You can set the style options to your own settings in two ways Setting style options for the long term If you want to print your table with a different style several times you can set your option for the long term just by changing the appropriate attributes If you never want your tables to have borders you can do this python x border False print x print x print x Neither of the 3 tables printed by this will have borders even if you do things like add extra rows inbetween them The lack of borders will last until you do python x border True to turn them on again This sort of long term setting is exactly how set_style works set_style just sets a bunch of attributes to pre set values for you Note that if you know what style options you want at the moment you are creating your table you can specify them using keyword arguments to the constructor For example the following two code blocks are equivalent python x PrettyTable x border False x header False x padding_width 5 x PrettyTable border False header False padding_width 5 Changing style options just once If you don t want to make long term style changes by changing an attribute like in the previous section you can make changes that last for just one get_string by giving those methods keyword arguments To print two normal tables with one borderless table between them you could do this python print x print x get_string border False print x Displaying your table in JSON PrettyTable will also print your tables in JSON as a list of fields and an array of rows Just like in ASCII form you can actually get a string representation just use get_json_string Displaying your table in HTML form PrettyTable will also print your tables in HTML form as table s Just like in ASCII form you can actually get a string representation just use get_html_string HTML printing supports the fields start end sortby and reversesort arguments in exactly the same way as ASCII printing Styling HTML tables By default PrettyTable outputs HTML for vanilla tables The HTML code is quite simple It looks like this html table tr th City name th th Area th th Population th th Annual Rainfall th tr tr td Adelaide td td 1295 td td 1158259 td td 600 5 td tr td Brisbane td td 5905 td td 1857594 td td 1146 4 td table If you like you can ask PrettyTable to do its best to mimick the style options that your table has set using inline CSS This is done by giving a format True keyword argument to get_html_string method Note that if you _always_ want to print formatted HTML you can do python x format True and the setting will persist until you turn it off Just like with ASCII tables if you want to change the table s style for just one get_html_string you can pass those methods keyword arguments exactly like print and get_string Setting HTML attributes You can provide a dictionary of HTML attribute name value pairs to the get_html_string method using the attributes keyword argument This lets you specify common HTML attributes like name id and class that can be used for linking to your tables or customising their appearance using CSS For example python print x get_html_string attributes name my_table class red_table will print html table name my_table class red_table tr th City name th th Area th th Population th th Annual Rainfall th tr table Miscellaneous things Copying a table You can call the copy method on a PrettyTable object without arguments to return an identical independent copy of the table If you want a copy of a PrettyTable object with just a subset of the rows you can use list slicing notation python new_table old_table 0 5 Contributing After editing files use the black https github com psf black linter to auto format changed lines sh pip install black black prettytable py 
+psutil,7.1.3,BSD-3-Clause,psutil is a module providing an interface for retrieving information on running processes in a portable way by using Python It currently supports Linux OS X FreeBSD and Windows 
+psycopg2-binary,2.9.11,LGPL-2.1-only AND jfrog-openssl-exception-lgpl3.0plus,PostgreSQL database adapter for the Python programming language
+ptyprocess,0.7.0,ISC,Launch a subprocess in a pseudo terminal pty and interact with both the process and its pty Sometimes piping stdin and stdout is not enough There might be a password prompt that doesn t read from stdin output that changes when it s going to a pipe rather than a terminal or curses style interfaces that rely on a terminal If you need to automate these things running the process in a pseudo terminal pty is the answer 
+pulp-cli,0.33.0,GPL-2.0-only,Unknown
+pulp-glue,0.33.0,GPL-2.0-only, Pulp Glue The version agnostic Pulp 3 client library in python 
+pyarrow,22.0.0,MIT AND Zlib AND BSD-3-Clause AND CC0-1.0 AND jfrog-protobuf AND BSL-1.0 AND CC-BY-3.0 AND WTFPL AND OpenSSL AND Apache-2.0 AND BSD-2-Clause AND LLVM-exception AND NTP,Apache Arrow is a columnar in memory analytics layer designed to accelerate big data It houses a set of canonical in memory representations of flat and hierarchical data along with multiple language bindings for structure manipulation It also provides IPC and common algorithm implementations 
+pyasn1,0.6.1,BSD-2-Clause AND BSD-3-Clause,ASN 1 types and codecs BER CER DER implementation in Python programming language 
+pyasn1_modules,0.4.2,BSD-2-Clause,A collection of ASN 1 modules expressed in form of pyasn1 classes Includes protocols PDUs definition SNMP LDAP etc and various data structures X 509 PKCS etc 
+pycparser,2.22,BSD-3-Clause,C parser and AST generator written in Python pycparser is a parser for the C language written in pure Python It is a module designed to be easily integrated into applications that need to parse C source code 
+pycurl,7.45.6,curl AND LGPL-2.1-only AND LGPL-3.0-only AND MIT,PycURL is a Python interface to libcurl PycURL can be used to fetch objects identified by a URL from a Python program similar to the urllib Python module PycURL is mature very fast and supports a lot of features 
+pysnmp,7.1.22,BSD-2-Clause,SNMP v1 v2c v3 engine written in Python 
+pysnmp-mibs,0.1.6,BSD-2-Clause,A collection of IETF IANA MIBs compiled into PySNMP classes 
+python-dateutil,2.8.2,Apache-2.0,Useful extensions to the standard Python datetime features
+python-dateutil,2.9.0.post0,Apache-2.0,Useful extensions to the standard Python datetime features
+pytz,2025.2,MIT,pytz brings the Olson tz database into Python This library allows accurate and cross platform timezone calculations using Python 2 4 or higher It also solves the issue of ambiguous times at the end of daylight saving time which you can read more about in the Python Library Reference datetime tzinfo Almost all of the Olson timezones are supported 
+referencing,0.36.2,MIT, referencing PyPI Pythons CI pre commit PyPI image https img shields io pypi v referencing svg alt PyPI version target https pypi org project referencing Pythons image https img shields io pypi pyversions referencing svg alt Supported Python versions target https pypi org project referencing CI image https github com python jsonschema referencing workflows CI badge svg alt Build status target https github com python jsonschema referencing actions query workflow 3ACI ReadTheDocs image https readthedocs org projects referencing badge version stable style flat alt ReadTheDocs status target https referencing readthedocs io en stable pre commit image https results pre commit ci badge github python jsonschema referencing main svg alt pre commit ci status target https results pre commit ci latest github python jsonschema referencing main A very early playground for exploring the budding JSON reference specification s https github com json schema org referencing _ currently housed within the JSON Schema organization but intended to be more broadly applicable a newer better integration of reference resolution into jsonschema https pypi org project jsonschema _ likely built on top of the more generic interface which will come out of the above What s here if any of it even functions is highly experimental and will change 
+requests,2.32.5,Apache-2.0,A simple yet elegant HTTP library 
+requests-oauthlib,2.0.0,BSD-3-Clause AND ISC,OAuthlib support for Python Requests 
+resolvelib,1.0.1,0BSD AND ISC, Resolvelib Resolve abstract dependencies into concrete ones 
+rpds-py,0.25.1,MIT, rpds py PyPI Pythons CI PyPI image https img shields io pypi v rpds py svg alt PyPI version target https pypi org project rpds py Pythons image https img shields io pypi pyversions rpds py svg alt Supported Python versions target https pypi org project rpds py CI image https github com crate py rpds workflows CI badge svg alt Build status target https github com crate py rpds actions query workflow 3ACI ReadTheDocs image https readthedocs org projects referencing badge version stable style flat alt ReadTheDocs status target https referencing readthedocs io en stable Python bindings to the Rust rpds crate https docs rs rpds _ for persistent data structures What s here is quite minimal in transparency it was written initially to support replacing pyrsistent in the referencing library https github com python jsonschema referencing _ If you see something missing which is very likely a PR is definitely welcome to add it Installation The distribution on PyPI is named rpds py equivalently rpds py and thus can be installed via e g code sh pip install rpds py Note that if you install rpds py from source you will need a Rust toolchain installed as it is a build time dependency An example of how to do so in a Dockerfile can be found here https github com bowtie json schema bowtie blob e77fd93598cb6e7dc1b8b1f53c00e5aa410c201a implementations python jsonschema Dockerfile L1 L8 _ If you believe you are on a common platform which should have wheels built i e and not need to compile from source feel free to file an issue or pull request modifying the GitHub action used here to build wheels via maturin Usage Methods in general are named similarly to their rpds counterparts rather than pyrsistent s conventions though probably a full drop in pyrsistent compatible wrapper module is a good addition at some point code python from rpds import HashTrieMap HashTrieSet List m HashTrieMap foo bar baz quux m insert spam 37 HashTrieMap foo bar baz quux spam 37 True m remove foo HashTrieMap baz quux True s HashTrieSet foo bar baz quux s insert spam HashTrieSet foo bar baz quux spam True s remove foo HashTrieSet bar baz quux True L List 1 3 5 L push_front 1 List 1 1 3 5 True L rest List 3 5 True 
+rsa,4.9.1,Apache-2.0,Python RSA is a pure Python RSA implementation It supports encryption and decryption signing and verifying signatures and key generation according to PKCS 1 version 1 5 It can be used as a Python library as well as on the commandline The code was mostly written by Sybren A Stüvel 
+ruamel.yaml,0.18.14,MIT,ruamel yaml is a YAML parser emitter that supports roundtrip preservation of comments seq map flow style and map key order
+ruamel.yaml.clib,0.2.12,MIT,ruamel yaml clib ruamel yaml clib is the C based reader scanner and emitter for ruamel yaml version 0 1 0 updated 2019 07 25 documentation http yaml readthedocs io repository https bitbucket org ruamel yaml clib pypi https pypi org project ruamel yaml clib This package was split of from ruamel yaml so that ruamel yaml can be build as a universal wheel Apart from the C code seldom changing and taking a long time to compile for all platforms this allows installation of the so on Linux systems under usr lib64 pythonX Y without a pth file or a ruamel directory and the Python code for ruamel yaml under usr lib pythonX Y image https bestpractices coreinfrastructure org projects 1128 badge target https bestpractices coreinfrastructure org projects 1128 image https bitbucket org ruamel yaml raw default _doc _static license svg target https opensource org licenses MIT 
+schema,0.7.7,MIT,Schema validation just got Pythonic
+setuptools,80.9.0,MIT,Python Distutils Enhancements Extensions to the python distutils for large or complex distributions 
+six,1.16.0,MIT,Six is a Python 2 and 3 compatibility library It provides utility functions for smoothing over the differences between the Python versions with the goal of writing Python code that is compatible on both Python versions See the documentation for more information on what is provided 
+six,1.17.0,MIT,Six is a Python 2 and 3 compatibility library It provides utility functions for smoothing over the differences between the Python versions with the goal of writing Python code that is compatible on both Python versions See the documentation for more information on what is provided 
+smmap,5.0.2,BSD-3-Clause,When reading from many possibly large files in a fashion similar to random access it is usually the fastest and most efficient to use memory maps Although memory maps have many advantages they represent a very limited system resource as every map uses one file descriptor whose amount is limited per process On 32 bit systems the amount of memory you can have mapped at a åtime is naturally limited to theoretical 4GB of memory which may not be enough for some applications The documentation can be found here http smmap readthedocs org
+subprocess-tee,0.4.2,MIT, subprocess tee This package provides an drop in alternative to subprocess run that captures the output while still printing it in real time just the way tee does Printing output in real time while still capturing is important for any tool that executes long running child processes as you may not want to deprive user from getting instant feedback related to what is happening python from subprocess import run from subprocess_tee import run result run echo 123 result stdout 123 n Rich extension This libary also provides an drop in replacement for rich Console class one that is able to rewire both sys stdout and sys stderr and avoid the need too replace bare print calls with console print ones python from rich console import Console from subprocess_tee rich import ConsoleEx console ConsoleEx redirect True record True print 123 assert 123 n console export_text When used in conjuction with our own run this also makes it possible to use rich to process output produced by subprocesses 
+systemd-python,235,LGPL-2.0-or-later,UNKNOWN
+toml,0.10.2,MIT,A tiny module to generate small bits of markup
+tomli,2.0.1,MIT, Build Status https github com hukkinj1 tomli workflows Tests badge svg branch master https github com hukkinj1 tomli actions query workflow 3ATests branch 3Amaster event 3Apush codecov io https codecov io gh hukkinj1 tomli branch master graph badge svg https codecov io gh hukkinj1 tomli PyPI version https img shields io pypi v tomli https pypi org project tomli Tomli A lil TOML parser Tomli is a Python library for parsing TOML https toml io Tomli is fully compatible with TOML v1 0 0 https toml io en v1 0 0 Installation bash pip install tomli Usage Parse a TOML string python import tomli toml_str gretzky 99 kurri jari 17 toml_dict tomli loads toml_str assert toml_dict gretzky 99 kurri jari 17 Parse a TOML file python import tomli with open path_to_file conf toml encoding utf 8 as f toml_dict tomli load f Handle invalid TOML python import tomli try toml_dict tomli loads this is invalid TOML except tomli TOMLDecodeError print Yep definitely not valid Construct decimal Decimal s from TOML floats python from decimal import Decimal import tomli toml_dict tomli loads precision matters 0 982492 parse_float Decimal assert isinstance toml_dict precision matters Decimal FAQ Why this parser it s lil pure Python with zero dependencies fairly fast but pure Python so can t do any miracles there 100 spec compliance passes all tests in a test set https github com toml lang compliance pull 8 soon to be merged to the official compliance tests for TOML https github com toml lang compliance repository 100 test coverage Is comment preserving round trip parsing supported No The tomli loads function returns a plain dict that is populated with builtin types and types from the standard library only list int str datetime datetime etc Preserving comments requires a custom type to be returned so will not be supported at least not by the tomli loads function Is there a dumps write or encode function Not yet and it s possible there never will be Performance The benchmark folder in this repository contains a performance benchmark for comparing the various Python TOML parsers The benchmark can be run with tox e benchmark pypi On May 28 2021 running the benchmark output the following on my notebook computer console foo bar dev tomli tox e benchmark pypi benchmark pypi installed attrs 19 3 0 click 7 1 2 pytomlpp 1 0 2 qtoml 0 3 0 rtoml 0 6 1 toml 0 10 2 tomli 0 2 0 tomlkit 0 7 2 benchmark pypi run test pre PYTHONHASHSEED 305387179 benchmark pypi run test commands 0 python benchmark run py Parsing data toml 5000 times parser exec time performance more is better pytomlpp 1 16 s baseline rtoml 1 17 s 1x baseline tomli 8 94 s 0 13x baseline toml 9 33 s 0 12x baseline qtoml 15 7 s 0 074x baseline tomlkit 70 s 0 017x baseline The parsers are ordered from fastest to slowest using the fastest parser pytomlpp as baseline Tomli performed the best out of all pure Python TOML parsers losing only to pytomlpp wraps C and rtoml wraps Rust 
+tomli_w,1.2.0,MIT, Build Status https github com hukkin tomli w workflows Tests badge svg branch master https github com hukkin tomli w actions query workflow 3ATests branch 3Amaster event 3Apush codecov io https codecov io gh hukkin tomli w branch master graph badge svg https codecov io gh hukkin tomli w PyPI version https img shields io pypi v tomli w https pypi org project tomli w Tomli W A lil TOML writer Table of Contents generated with mdformat toc https github com hukkin mdformat toc mdformat toc start slug github maxlevel 6 minlevel 2 Intro intro Installation installation Usage usage Write to string write to string Write to file write to file FAQ faq Does Tomli W sort the document does tomli w sort the document Does Tomli W support writing documents with comments or custom whitespace does tomli w support writing documents with comments or custom whitespace Why does Tomli W not write a multi line string if the string value contains newlines why does tomli w not write a multi line string if the string value contains newlines Is Tomli W output guaranteed to be valid TOML is tomli w output guaranteed to be valid toml mdformat toc end Intro a name intro a Tomli W is a Python library for writing TOML https toml io It is a write only counterpart to Tomli https github com hukkin tomli which is a read only TOML parser Tomli W is fully compatible with TOML v1 0 0 https toml io en v1 0 0 Installation a name installation a bash pip install tomli w Usage a name usage a Write to string a name write to string a python import tomli_w doc table nested val3 3 val2 2 val1 1 expected_toml val2 2 val1 1 table val3 3 table nested assert tomli_w dumps doc expected_toml Write to file a name write to file a python import tomli_w doc one 1 two 2 pi 3 with open path_to_file conf toml wb as f tomli_w dump doc f FAQ a name faq a Does Tomli W sort the document a name does tomli w sort the document a No but it respects sort order of the input data so one could sort the content of the dict recursively before calling tomli_w dumps Does Tomli W support writing documents with comments or custom whitespace a name does tomli w support writing documents with comments or custom whitespace a No Why does Tomli W not write a multi line string if the string value contains newlines a name why does tomli w not write a multi line string if the string value contains newlines a This default was chosen to achieve lossless parse write round trips TOML strings can contain newlines where exact bytes matter e g toml s here s a newline r n TOML strings also can contain newlines where exact byte representation is not relevant e g toml s here s a newline A parse write round trip that converts the former example to the latter does not preserve the original newline byte sequence This is why Tomli W avoids writing multi line strings A keyword argument is provided for users who do not need newline bytes to be preserved python import tomli_w doc s here s a newline r n expected_toml s here s a newline assert tomli_w dumps doc multiline_strings True expected_toml Is Tomli W output guaranteed to be valid TOML a name is tomli w output guaranteed to be valid toml a No If there s a chance that your input data is bad and you need output validation parse the output string once with tomli loads If the parse is successful does not raise tomli TOMLDecodeError then the string is valid TOML 
+typeguard,4.3.0,MIT, image https travis ci org agronholm typeguard svg branch master target https travis ci org agronholm typeguard alt Build Status image https coveralls io repos agronholm typeguard badge svg branch master service github target https coveralls io github agronholm typeguard branch master alt Code Coverage image https codeclimate com github agronholm typeguard badges gpa svg target https codeclimate com github agronholm typeguard alt Code Climate This library provides run time type checking for functions defined with argument type annotations The typing module introduced in Python 3 5 and available on PyPI for older versions of Python 3 is supported See below for details There are two principal ways to use type checking each with its pros and cons calling check_type_arguments from within the function body debugger friendly but cannot check the type of the return value decorating the function with typechecked can check the type of the return value but adds an extra frame to the call stack for every call to a decorated function If a function is called with incompatible argument types or a typechecked decorated function returns a value incompatible with the declared type a descriptive TypeError exception is raised Type checks can be fairly expensive so it is recommended to run Python in optimized mode python O or setting the PYTHONOPTIMIZE environment variable when running code containing type checks in production The optimized mode will disable the type checks by virtue of removing all assert statements and setting the __debug__ constant to False Using check_type_arguments code block python from typeguard import check_argument_types def some_function a int b float c str args str assert check_argument_types some_function Using typechecked code block python from typeguard import typechecked typechecked def some_function a int b float c str args str bool To enable type checks even in optimized mode code block python typechecked always True def foo a str b int c Union str int bool The following types from the typing package have specialized support Type Notes Dict Keys and values are typechecked List Contents are typechecked Set Contents are typechecked Tuple Contents are typechecked Callable Argument count is checked but types are not yet TypeVar Constraints bound types and co contravariance are supported but custom generic types are not due to type erasure Union Project links Source repository https github com agronholm typeguard _ Issue tracker https github com agronholm typeguard issues _
+typing_extensions,4.12.2,PSF-2.0,Unknown
+typing_extensions,4.14.0,PSF-2.0,Unknown
+tzdata,2025.2,Apache-2.0,The tzdata package provides the timezone data for use with the tz package 
+urllib3,2.5.0,MIT,HighlightsHTTPConnectionPool and HTTPSConnectionPool Thread safe connection pooling and re using filepost File posting Supported implicitly by HTTPConnectionPool post_url Optional Automatically handles redirection and retries New in 0 3 HTTP and HTTPS SSL support For a description of what s new in the latest version visit the Downloads tab What s wrong with urllib and urllib2 There are two critical features missing from the Python standard library Connection re using pooling and file posting It s not terribly hard to implement these yourself but it s much easier to use a module that already did the work for you 
+uv,0.9.13,Apache-2.0 AND MIT,Python libuv CFFI Bindings pypi unix_build windows_build coverage docs This package aims to provide an object oriented CFFI based wrapper around the libuv asynchronous IO library It supports all handles of libuv as well as filesystem operations dns utility functions and miscellaneous utilities Features full featured event loop backed by epoll kqueue IOCP and events ports asynchronous TCP and UDP sockets asynchronous SSL sockets based on Python s SSL module asynchronous DNS resolution asynchronous file and file system operations asynchronous file system events cross platform ANSI escape code controlled TTY IPC with socket sharing using UNIX domain sockets or named pipes Windows child processes and signal handling cross platform memory CPU and network interface information timer and high resolution clock supported Python interpreters and versions CPython 3 3 3 4 3 5 PyPy 4 0 Windows and Linux PyPy3 2 4 0 2 7 0 alpha0 Linux Only pypi image https img shields io pypi v uv svg style flat square label latest 20version target https pypi python org pypi uv unix_build image https img shields io travis koehlma uv master svg style flat square label unix 20build target https travis ci org koehlma uv windows_build image https img shields io appveyor ci koehlma uv svg style flat square label windows 20build target https ci appveyor com project koehlma uv docs image https readthedocs org projects uv badge version latest style flat square target https uv readthedocs org en latest coverage image https img shields io coveralls koehlma uv master svg style flat square target https coveralls io github koehlma uv branch master
+v1.0.0-c2097c7c.zip,NOASSERTION,BSD-1-Clause AND BSD-3-Clause,Unknown
+wcmatch,10,MIT, Unix Build Status travis image travis link Windows Build Status appveyor image appveyor link Coverage codecov image codecov link pypi version pypi image pypi link License license image mit Wildcard Match Wildcard Match provides an enhanced fnmatch and glob library In some ways it is similar to Python s builtin fnmatch and glob as it provides functions to match filter and glob the file system But it adds a number of features found in Bash s globbing such as backslash escaping brace expansion extended glob pattern groups etc It also adds a path centric matcher called globmatch which functions like fnmatch for paths Paths that would normally be returned when providing glob a pattern should also be properly match in globmatch Adds support for in glob Adds support for escaping characters with Add support for POSIX style character classes inside sequences alnum etc The C locale is used for byte string and Unicode properties for Unicode strings Adds support for brace expansion a b c d ab ac ad Adds support for extended match patterns and Adds ability to match path names via globmatch as well as traditional file system searching via glob And more If all you are looking for is an alternative fnmatch and or glob Wildcard Match has you covered but Wildcard Match also adds a file search utility called wcmatch that is built on top of fnmatch and globmatch It was originally written for Rummage https github com facelessuser Rummage but split out into this project to be used by other projects that may find it s approach useful Documentation http facelessuser github io wcmatch License The MIT License MIT Copyright c 2018 Isaac Muse Permission is hereby granted free of charge to any person obtaining a copy of this software and associated documentation files the Software to deal in the Software without restriction including without limitation the rights to use copy modify merge publish distribute sublicense and or sell copies of the Software and to permit persons to whom the Software is furnished to do so subject to the following conditions The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software THE SOFTWARE IS PROVIDED AS IS WITHOUT WARRANTY OF ANY KIND EXPRESS OR IMPLIED INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM DAMAGES OR OTHER LIABILITY WHETHER IN AN ACTION OF CONTRACT TORT OR OTHERWISE ARISING FROM OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE codecov image https img shields io codecov c github facelessuser wcmatch master svg codecov link https codecov io github facelessuser wcmatch travis image https img shields io travis facelessuser wcmatch master svg label Unix 20Build travis link https travis ci org facelessuser wcmatch appveyor image https img shields io appveyor ci facelessuser wcmatch master svg label Windows 20Build appveyor link https ci appveyor com project facelessuser wcmatch pypi image https img shields io pypi v wcmatch svg pypi link https pypi python org pypi wcmatch license image mit https img shields io badge license MIT blue svg 
+wcwidth,0.2.13,LicenseRef-HPND-Markus-Kuhn AND MIT,Unknown
+websocket-client,1.8.0,Apache-2.0,websocket client for python
+wheel,0.45.1,MIT,Implementation of the experimental wheel packaging format 
+yamllint,1.37.1,GPL-3.0-only,UNKNOWN
+zipp,3.19.2,MIT,A pathlib compatible Zipfile object wrapper Official backport of the standard library Path object 
+zipp,3.23.0,MIT,A pathlib compatible Zipfile object wrapper Official backport of the standard library Path object 
+Fedora 40:openldap-clients,0:2.6.9-1.fc40,OLDAP-2.8,Unknown
+Fedora 40:openldap-servers,0:2.6.9-1.fc40,LicenseRef-OpenLDAP,Unknown
+Slurm Workload manager ,25.05.2,GNU General Public License,HPC Workload Manager
+MariaDB,10.11.11,GPL 2.0,Open source relational database used by Slurm
+Munge-level,0.5.15,GPL 3.0,MUNGE (MUNGE Uid 'N' Gid Emporium) is an authentication service for creating and validating user credentials.
+Munge,0.5.15,GPL 3.0,MUNGE (MUNGE Uid 'N' Gid Emporium) is an authentication service for creating and validating user credentials.
+python3-PyMySQL,1.1.2,MIT License,Pure-Python MySQL client library
+firewalld,2.3.0,GPL-2.0 license,Stateful zone based firewall daemon with D-Bus interface
+python3-firewall,2.3.0,GPL-2.0 license,Python3 bindings for firewalld
+multus,v4.2.2,Apache-2.0,A CNI meta-plugin for multi-homed pods in Kubernetes
+whereabouts,v0.9.2,Apache-2.0,A CNI IPAM plugin that assigns IP addresses cluster-wide
+kubectl,1.34.1,Apache-2.0,Command line tool for Kubernetes
+kubelet,1.34.1,Apache-2.0,"Provides external, versioned ComponentConfig API types for configuring the kubelet"
+kubeadm,1.34.1,Apache-2.0,"""fast paths"" for creating Kubernetes clusters"
+calico,3.30.3,Apache-2.0,Cloud native networking and network
+cri-o,1.34.1,Apache-2.0,CLI and validation tools for Kubelet Container Runtime Interface (CRI)
+etcd,3.6.4,Apache-2.0,Relational database used by Kubernetes
+Kubernetes pip module,33.1.0,Apache-2.0,Official Python client library for kubernetes
+Kubernetes Controller manager,1.34.1,Apache-2.0,Kube Controller Management Container
+kube scheduler,1.34.1,Apache-2.0,Kubernetes scheduler is a control plane process which assigns Pods to Nodes
+kube proxy,1.34.1,Apache-2.0,Kubernetes network proxy
+pause,3.10.1,Apache-2.0,kubernetes pause container
+coreDNS,1.21.1,Apache-2.0,DNS server that chains plugins
+kube-apiserver,1.34.1,Apache-2.0,"The Kubernetes API server validates and configures data for the api objects which include pods, services, replicationcontrollers, and others"
+whearabouts,0.8.0,Apache-2.0,A CNI IPAM plugin that assigns IP addresses cluster-wide
+metallb,v0.15.2,Apache-2.0,A network load-balancer implementation for Kubernetes using standard routing protocols
+kube-vip,0.8.9,Apache-2.0,Kubernetes Control Plane Virtual IP and Load-Balancer
+cryptography,45.0.7,Apache-2.0 OR BSD-3-Clause, cryptography is a package which provides cryptographic recipes and primitives to Python developers.
+cffi,1.17.1,MIT,Foreign Function Interface for Python calling C code.
+nfs-utils,2.8.2,MIT and GPLv2 and GPLv2+ and BSD,NFS utilities and supporting clients and daemons for the kernel NFS server
+tcpdump,4.99.4,BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND ISC AND NTP,A network traffic monitoring tool
+traceroute,2.1.6,GPL-2.0-or-later,Traces the route taken by packets over an IPv4/IPv6 network
+vim,9.1.083,"Vim AND LGPL-2.1-or-later AND MIT AND GPL-1.0-only AND (GPL-2.0-only OR Vim) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND
+             : GPL-2.0-or-later AND GPL-3.0-or-later AND OPUBL-1.0",VIM editor
+vim-enhanced,9.1.083,"Vim AND LGPL-2.1-or-later AND MIT AND GPL-1.0-only AND (GPL-2.0-only OR Vim) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND
+             : GPL-2.0-or-later AND GPL-3.0-or-later AND OPUBL-1.0",A version of the VIM editor which includes recent enhancements
+python3,3.12,PSF license,The Python programming language
+python3-pip,25.1.1,MIT,The Python package installer
+git,2.47.0,GPL 3.0,"Git is a fast, scalable, distributed revision control system with an unusually rich command set that provides both high-level operations and full access to internals"
+git-lfs,3.3.0,MIT,Git extension for versioning large files
+iproute,6.11.0, GPL-2.0 license,"The iproute package contains networking utilities (ip and rtmon, for example) which are designed to use the advanced networking capabilities of the Linux kernel.
+"
+systemd-udev,257,GPL-2.0 license,The systemd System and Service Manager
+systemd,257,GPL-2.0 license,The systemd System and Service Manager
+curl,8.17.0,MIT License,"A command line tool and library for transferring data with URL syntax, supporting DICT, FILE, FTP, FTPS, GOPHER, GOPHERS, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, MQTT, POP3, POP3S, RTMP, RTMPS, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET, TFTP, WS and WSS. libcurl offers a myriad of powerful features"
+openssl,3.2.2,Apache-2.0 license,TLS/SSL and crypto library
+createrepo,0.20.1,"	GPL-2.0-only, LGPL-2.1 licenses found","This program generates a repodata dir and xml files for a repository of 
+rpm packages."
+yum-utils,4.3.0,"	GPL-2.0-only",Yum-utils CLI compatibility layer
+wget,1.24.5,GPL-3.0 license," It is a systems management and monitoring application that provides a comprehensive view of the Dell EMC servers, chassis, storage, and network switches on the enterprise network"
+unzip,6,Info‑ZIP License,A utility for unpacking zip files
+dnf-plugins-core,4.3.0,"	GPL-2.0-only",Core Plugins for DNF
+rsync,3.4.1,GPL-3.0-OR-LATER,A program for synchronizing files over a network
+iputils,20240905,BSD and GPLv2+,Network monitoring tools including ping
+nano,7.2,GPL-3.0-or-later,
+ipcalc,1.0.2,"	GPL-2.0-only",IP network address calculator
+ansible.utils,5.1.1,"GPL-3.0-only	",A collection of ansible utilities for the content creator
+community.crypto,2.23.0,"	GPL-3.0-or-later",The community.crypto collection for Ansible.
+community.docker,3.12.1,"	GPL-3.0-only",Community Docker Collection for Ansible: modules and plugins for working with Docker
+community.general,10.3.0,"	GPL-3.0-only",Ansible Community General Collection
+community.grafana,2.1.0,"GPL-3.0-only	",Ansible Community General Collection
+community.mysql,3.10.3,"GPL-3.0-only	",MySQL is an open-source relational database management system.
+community.postgresql,3.10.2,"GPL-3.0-only	",Manage PostgreSQL with Ansible
+dellemc.os10,1.1.1,"	GPL-3.0-only",It provides networking hardware abstraction through a common set of APIs
+dellemc.openmanage,9.6.0,"	GPL-3.0-only"," It is a systems management and monitoring application that provides a comprehensive view of the Dell EMC servers, chassis, storage, and network switches on the enterprise network"
+kubernetes.core,5.2.0,GNU-General Public License v3.0,
+community.kubernetes,2.0.1,GPL-3.0-or-later,Kubernetes collection for ansible
+csi powerscale driver ,2.15.0,Apache-2.0 license,CSI Driver for Dell PowerScale
+CSI provisioner,5.3.0,Apache-2.0 license,Sidecar container that watches Kubernetes PersistentVolumeClaim objects and triggers CreateVolume/DeleteVolume against a CSI endpoint
+CSI snapshotter,8.3.0,Apache-2.0 license,Sidecar container that watches Kubernetes Snapshot CRD objects and triggers CreateSnapshot/DeleteSnapshot against a CSI endpoint.
+CSI resizer,1.14.0, Apache-2.0 license,Sidecar container that watches Kubernetes PersistentVolumeClaims objects and triggers controller side expansion operation against a CSI endpoint
+CSI node driver registrar,2.14.0, Apache-2.0 license,Sidecar container that registers a CSI driver with the kubelet using the kubelet plugin registration mechanism.
+CSI external health monitor controller,0.15.0, Apache-2.0 license,This repo contains sidecar controller and agent for volume health monitoring.
+CSI replicator,1.13.0, Apache-2.0 license,Dell Container Storage Modules (CSM) for Replication aims at extending native Kubernetes functionality to support Disaster Recovery workflows by utilizing storage array based replication.
+podmon,1.14.0, Apache-2.0 license,A Kubernetes pod monitor for safely terminating pods with persistent volumes in case of node failures
+csm-authorization-sidecar,2.3.0, Apache-2.0 license,
+csm metadata retriever,1.12.0, Apache-2.0 license,Dell csi-metadata-retriever controller to retrieve various metadata from the cluster using kubeapi.
+csm-encryption,0.6.0, Apache-2.0 license,"Part of Dell Container Storage Modules (CSM) for Kubernetes, providing encryption capabilities for data-at-rest and secure storage operations integrated with Dell CSI drivers."
+snapshot controller,8.3.0, Apache-2.0 license,"The snapshot-controller in Kubernetes manages the creation and management of volume snapshots, enabling point-in-time copies of your data for CSI drivers"
+OpenLDAP,2.6.8,"The OpenLDAP Public License
+  Version 2.8","OpenLDAP is a free, open-source implementation of the Lightweight Directory Access Protocol (LDAP) developed by the OpenLDAP Project"
+OpenMPI,5.0.8, 3-clause BSD license,Open MPI main development repository
+helm,3.19.0,Apache-2.0,Kubernetes Package Manager
+pysnmp,7.1.20,BSD-2-Clause,Python SNMP library
+activemq,5.15.9,Apache-2.0,"Most popular multi protocol, message broker"
+mySQL container,9.3.0,"	GPL-2.0-only with exceptions and LGPLv2 and BSD","MySQL is a multi-user, multi-threaded SQL database server. MySQL is a client/server implementation consisting of a server daemon (mysqld) and many different client programs and libraries. The base package contains the standard MySQL client programs and generic MySQL files."
+golang,1.24,BSD-3-Clause,"Go is a statically typed, compiled programming language designed at Google"
+idrac-telemetry-reference tools,commit ID: 97ace09,Apache-2.0,Reference toolset for PowerEdge telemetry metric collection and integration with analytics and visualization solutions.
+ansible.posix,2.0.0,"GPL-3.0-only	",An Ansible Collection of modules and plugins that target POSIX UNIX/Linux and derivative Operating Systems.
+pandas,2.2.3,BSD-3-Clause,"Flexible and powerful data analysis / manipulation library for Python, providing labeled data structures"
+psycopg2-binary,2.9.10,LGPL-2.1-only AND LicenseRef-jfrog-lgpl-3.0-plus-openssl,PostgreSQL database adapter for the Python programming language
+requests,2.32.4,Apache-2.0,"A simple, yet elegant, HTTP library."
+pyinstaller,6.11.1,Bootloader-exception AND GPL-2.0-only AND MIT AND Apache-2.0,Freeze (package) Python programs into stand-alone executables
+psutil,6.1.1,BSD-3-Clause,Cross-platform lib for process and system monitoring in Python
+jq,1.6,MIT,Software for verifying syntax of json files
+pyarrow,19.0.0,LLVM-exception AND NTP AND Zlib AND BSD-2-Clause AND BSL-1.0 AND CC-BY-3.0 AND LicenseRef-jfrog-protobuf AND OpenSSL AND Apache-2.0 AND BSD-3-Clause AND CC0-1.0 AND MIT,Apache Arrow is a multi-language toolbox for accelerated data interchange and in-memory processing
+ucx,1.19.0,BSD 3 Clause License,Unified Communication X 
+gcc-c++,11.5.0,"GPL-3.0-only	","This package adds C++ support to the GNU Compiler Collection. It includes support for most of the current C++ specification, including templates and exception handling.
+"
+nfs-subdir-external-provisioner,4.0.18,Apache-2.0,Dynamic sub-dir volume provisioner on a remote NFS server.
+nfs-subdir-external-provisioner image,4.0.2,Apache License 2.0,A dynamic storage provisioner for Kubernetes that uses an existing NFS server to create subdirectories for Persistent Volumes automatically.
+pyyaml,6.0.2,MIT,Canonical source repository for PyYAML
+which,2.21,"GPL-3.0-only	"," The which command shows the full pathname of a specified program, if the specified program is in your PATH."
+openssh-clients,9.9p1,BSD licence,An open source SSH client applications
+Pulp container,3.80.0,"GPL-2.0-only	",Pulp 3 pulpcore package
+pulp-deb,3.5.2,GNU GENERAL PUBLIC LICENSE Version 2,pulp-deb plugin for the Pulp Project
+pulpcore,3.80.1,GNU GENERAL PUBLIC LICENSE Version 2,Pulp Django Application and Related Modules
+openssh-server,9.9p1,BSD licence,Portable OpenSSH
+chrony,4.6.1,GPL-2.0,An NTP client/server
+distllb,0.3.9,PSF-2.0,A low-level library which implements some Python packaging standards (PEPs) and which could be used by third-party packaging tools to achieve interoperability.
+http-client,0.1.22,MIT,Twilio SendGrid's Python HTTP Client for calling APIs
+gitPython,3.1.44,BSD-3-Clause,GitPython is a python library used to interact with Git repositories.
+passwd,0.18.14,MIT,Assorted utilities for gracefully handling and generating passwords
+grep,3.11,GPL-3.0-or-later,Searches text for patterns using regular expressions. Commonly used for filtering lines in files or streams.
+coreutils,9.5,GPL-3.0-or-later,"Provides essential file, text, and process utilities (e.g., ls, cp, mv, rm, cat, echo)."
+bash,5.2.26,GPL-3.0-OR-LATER,GNU Bourne Again Shell – an interactive shell and scripting language widely used in Linux/Unix systems.
+bash-completion,2.11.9,GPL-2.0-or-later,Programmable completion for Bash
+sshpass,1.09,"	GPL-2.0-only",Non-interactive SSH authentication utility
+pdsh,2.34,"	GPL-2.0-only","A high performance, parallel remote shell utility"
+containers.podman,1.16.2,GPL-3.0-or-later,"Repository for Ansible content that can include playbooks, roles, modules, and plugins for use with the Podman tool"
+ansible-compact,25.6.0,MIT License,"A Python package that provides functions to facilitate working with various versions of Ansible, ensuring compatibility across releases. It is part of the Ansible ecosystem and used by tools like ansible-lint and ansible-devtools."
+altgraph,0.17.4,MIT,"A Python graph library (fork of graphlib) for constructing graphs, performing BFS/DFS traversals, topological sort, shortest paths, and generating Graphviz output. Commonly used by macholib and modulegraph for dependency analysis"
+iperf3,3.17.1,BSD-3-Clause,Network throughput testing (TCP/UDP performance).
+kexec-tools,2.0.29,GPL-2.0-or-later,Tools to load/boot into another kernel (kexec/kdump).
+strace,6.12,GPL-2.0-or-later,Trace system calls/signals of processes (debugging).
+pciutils,3.13.0,GPL-2.0-or-later,Tools for PCI bus/device enumeration (lspci).
+lshw,B.02.20,GPL-2.0-or-later,Hardware inventory viewer (detailed component listing).
+hwloc-libs,2.11.1,BSD License (BSD License),Portable hardware locality (NUMA/topology) discovery library/tools.
+hwloc,2.11.1,BSD License (BSD License),Portable hardware locality (NUMA/topology) discovery library/tools.
+dmidecode,3.6,GPL-2.0-or-later,Dump SMBIOS/DMI system hardware information.
+fping,5.2.3,BSD-3-Clause,Fast parallel ICMP ping utility for multiple hosts.
+man-pages,6.06,GPL-3.0-or-later,Collection of Linux API and command manual pages.
+man-db,2.12.0,GPL-2.0-or-later,"Tools and DB for manual pages (man, apropos, whatis)."
+tar,1.35,GPL-3.0-or-later,Archive tool for creating/extracting tar files.
+bzip2,1.0.8,BSD-4-CLAUSE,Block-sorting compression utility (.bz2).
+file,5.45,BSD License (BSD License),Identify file types via magic signatures (file command).
+gedit,48.1,GPL-2.0-or-later,Simple GNOME text editor.
+emacs,29.4,GPL-3.0-or-later,Extensible text editor and Lisp environment.
+zsh,5.9,MIT License,Z shell: interactive shell with advanced completion/prompting.
+sudo,2.10.2,ISC,Privilege escalation: run commands as another user/root with policy.
+rsyslog,6.3.2,GPL-3.0-or-later,System logging daemon with filtering and forwarding.
+device-mapper,1.02.202,GPL-2.0-or-later,Kernel/userspace components for block device mapping.
+lvm2,2.03.28,GPL-2.0-or-later,Logical Volume Manager tools for device-mapper storage.
+cryptsetup,2.7.5,"GPL-2.0-or-later (tools), LGPL-2.1-or-later (libs)",LUKS/dm-crypt disk encryption setup and key management.
+lsof,4.98.0,GPL-2.0-or-later,List open files and the processes using them.
+kbd,2.6.4,GPL-2.0-OR-LATER,Console keyboard layout and font utilities.
+util-linux,2.40.2,GPL-1.0-OR-LATER AND GPL-2.0-ONLY AND GPL-2.0-OR-LATER AND GPL-3.0-OR-LATER AND LGPL-2.1-OR-LATER AND BSD-2-CLAUSE AND BSD-3-CLAUSE AND BSD-4-CLAUSE-UC AND LICENSEREF-FEDORA-PUBLIC-DOMAIN,"Misc system utilities (mount, fdisk, loginctl adjuncts)."
+findutils,4.10.0,GPL-3.0-or-later,"File finding/execution tools (find, xargs, locate)."
+gzip,1.13.3,GPL-3.0-or-later,Compression utility using DEFLATE (.gz).
+gawk,5.3.0,GPL-3.0-OR-LATER AND GPL-2.0-OR-LATER AND LGPL-2.1-OR-LATER AND BSD-3-CLAUSE,AWK language implementation for text processing.
+sed,4.9.3,GPL-3.0-or-later,Stream editor for text transformations.
+nm-connection-editor,1.36.0,GPL-2.0-or-later,GTK UI to create/edit NetworkManager connections.
+NetworkManager,1.52.0,"GPL-2.0-or-later (daemon), LGPL-2.1-or-later (libnm)","Dynamic network configuration and management (wired, Wi-Fi, WWAN, VPN)."
+nfs4-acl-tools,0.4.2,GPL-2.0-or-later,"Manage NFSv4 ACLs (getfacl, setfacl for NFSv4)"
+squashfs-tools,4.6.1,GPL-2.0-or-later,Create/extract SquashFS compressed filesystem images (used for live systems)
+Dracut,105,GPL-2.0-or-later,"An event-driven initramfs generator for Linux, using udev and modular scripts to create minimal boot images."
+Dracut-live,105,"GPL-2.0-or-later, LGPL-2.1-or-later",Provides modules to build a dracut initramfs with live image capabilities (used for Live CDs or live boot environments).
+Dracut-network,105,GPL-2.0-or-later,"An event-driven initramfs generator for Linux, using udev and modular scripts to create minimal boot images."
+kernel,6.12.0,GNU GENERAL PUBLIC LICENSE Version 2,This package is commonly used in various Linux distributions to ensure compatibility
+kernel-devel,5.14.0-570.12.1.el9_6,"	GPL-2.0-only",This package is commonly used in various Linux distributions to ensure compatibility
+kernel-headers,5.14.0-570.12.1.el9_6,"	GPL-2.0-only",The kernel-header package contains the header files for the Linux kernel
+ochami,0.5.3,Apache-2.0 license,Open Composable Heterogeneous Adaptable Management Infrastructure
+magellan,0.3.1,MIT,Redfish-based BMC discovery tool written in Go
+SMD,2.18.0,MIT,"The State Management Database (SMD) is a robust service designed for monitoring, tracking, and managing hardware components in high-performance computing (HPC) environments."
+BSS,1.32.0,MIT license,"The Boot Script Service (BSS) provides boot arguments (initrd, kernel arguments, etc.) and Level 2 boot services for static images in HPE Shasta systems."
+Image builder,0.1.2,MIT license,A wrapper around various buildah commands that makes creating images in layers easier.
+cloud-init,1.2.3,MIT,Micro-service for serving cloud-init payloads
+coresmd,0.3.0,MIT License,A CoreDHCP plugin with a pull-through cache that communicates with SMD
+Step-CA,0.2.2,Apache-2.0 license,"A zero trust swiss army knife for working with X509, OAuth, JWT, OATH OTP, etc."
+haproxy,3.2.5,GPL-2.0 license,Reverse proxy for allowing all microservices to be accessible through a single http(s) host
+Ory Hydra,2.3.0,Apache-2.0,Reverse proxy for allowing all microservices to be accessible through a single http(s) host
+cloud-init,24.4,GNU General Public License v3 (GPLv3),"The Cloud-Init RPM is the packaged version of the Cloud-Init tool for RHEL-based distributions (such as Red Hat Enterprise Linux, CentOS, AlmaLinux, and Rocky Linux). It is included in the AppStream repository for easy installation and integration."
+glibc-langpack-en,2.39,"GPL-2.0-or-later, LGPL-2.1-or-later",Provides locale data for English language support in applications.
+opaal,0.3.10,MIT License,OPAAL (OpenCHAMI Platform Abstraction and Automation Layer) is part of the OpenCHAMI project under the Linux Foundation. It provides automation and abstraction for HPC and AI cluster deployment and management.
+minio,latest,GNU Affero General Public License v3.0 (AGPLv3),MinIO is a high-performance object storage system compatible with the Amazon S3 API.
+postgres,11.5-alpine,MIT License,PostgreSQL is a powerful open-source relational database known for reliability and advanced features.
+registry,latest,Apache-2.0 license,Docker Registry is the official image registry service for storing and distributing Docker images.
+libcurl,8.9.1,curl,"command line tool and library
+for transferring data with URLs"
+pmix-devel,4.2.8,BSD-3-Clause,PMIx is an application programming interface standard that provides libraries and programming models with portable and well-defined access to commonly needed services in distributed and parallel computing systems.
+pmix,4.2.8,BSD-3-Clause,PMIx is an application programming interface standard that provides libraries and programming models with portable and well-defined access to commonly needed services in distributed and parallel computing systems.
+LDMS,4.5.1, GPL-2.0,"OVIS/LDMS High Performance Computing monitoring, analysis, and visualization project."
+NERSC-LDMS,commit 1f46921,BSD-3-Clause,"Helm Chart, Image Build, and Dashboards for the Light Weight Distributed Metric Service"
+Strimzi-Kafka,0.48.0-kafka-4.1.0,Apache-2.0 license,Apache Kafka® running on Kubernetes
+Strimzi Kafka Operator,0.48.0,Apache-2.0 license,Deploy and manage Apache Kafka clusters on Kubernetes/OpenShift
+Strimzi Kafka Operator Helm Chart ,0.48.1,Apache-2.0 license,Deploy Strimzi Kafka Operator on Kubernetes using Helm 3
+Strimzi Kafka Bridge,0.33.1,Apache-2.0 license,"Provides an HTTP-based API for Apache Kafka, enabling REST clients to produce and consume messages without using Kafka protocol directly."
+CUDA,13.0.2,NVIDIA Software License,"The NVIDIA® CUDA® Toolkit provides a development environment for creating high-performance, GPU-accelerated applications."
+VictoriaMetrics,1.128.0,Apache-2.0 license,"VictoriaMetrics: fast, cost-effective monitoring solution and time series database"
+external-snapshotter,8.3.0,Apache-2.0 license,Sidecar container that watches Kubernetes Snapshot CRD objects and triggers CreateSnapshot/DeleteSnapshot against a CSI endpoint.
+Dell helm-charts,csi-isilon-2.15.0 ,Apache-2.0 license,The source for Dell Helm charts
+CSI-attacher,4.9.0,Apache-2.0 license,"
+Sidecar container that watches Kubernetes VolumeAttachment objects and triggers ControllerPublish/Unpublish against a CSI endpoint"
+Busybox base image.,1.36,Apache-2.0 license,BusyBox combines tiny versions of many common UNIX utilities into a single small executable
+Multus CNI image,snapshot-thick,Apache-2.0 license,Multus CNI enables attaching multiple network interfaces to pods in Kubernetes.
+Whereabout image,latest,Apache-2.0 license,An IP Address Management (IPAM) CNI plugin that assigns IP addresses cluster-wide.
+fuse-overlayfs,1.14,GPL-3.0-or-later,FUSE implementation for overlayfs
+podman,5.4.0,Apache License 2.0,Podman: A tool for managing OCI containers and pods.
+container-selinux,2.235.0,GPL-2.0-only,SELinux policy files for Container Runtimes
+vmagent,1.128.0,Apache License 2.0,"A lightweight agent for collecting metrics from various sources, filtering, relabeling, and sending them to VictoriaMetrics or other storage systems via Prometheus/VictoriaMetrics remote_write protocols."
+vmstorage,1.128.0,Apache License 2.0,"vmstorage is the storage node for VictoriaMetrics cluster mode, responsible for storing time-series data."
+vminsert,1.128.0,Apache License 2.0,vminsert handles ingestion of metrics into VictoriaMetrics cluster mode.
+vmselect,1.128.0,Apache License 2.0,vmselect handles query execution in VictoriaMetrics cluster mode.
+LDMS Aggregator image,1.0.0,Apache License 2.0 and GPL-2.0-or-later,Ubuntu-based container with LDMS tools for telemetry and metric collection in HPC/AI environments.
+Omnia Auth,1.0.0,Apache License 2.0,"The omnia_auth image is part of Dell’s Omnia toolkit and is responsible for authentication services within HPC, AI, and data analytics clusters. It primarily manages centralized user authentication and integrates with OpenLDAP to provide secure access control across the cluster."
+Omnia Core,1.0.0,Apache License 2.0,"The omnia_core image is the foundational container for Dell’s Omnia solution, which is an open-source toolkit designed to deploy and manage high-performance computing (HPC), AI, and data analytics clusters. This container runs on the Omnia Infrastructure Manager (OIM) and acts as the central service for cluster orchestration."
+idrac-telemetry-receiver,1.0.0,Apache License 2.0,The idrac_telemetry_receiver image is part of Dell’s Telemetry Reference Tools for PowerEdge servers. It is designed to collect and stream telemetry data from Dell iDRAC (Integrated Dell Remote Access Controller) interfaces to external analytics platforms for monitoring and visualization.
+victoriapump,1.0.0,Apache License 2.0,"The victoriapump image is part of Dell’s Omnia telemetry pipeline and is designed to push telemetry metrics into VictoriaMetrics, a high-performance time-series database optimized for large-scale monitoring and observability."
+Kafkapump,1.0.0,Apache License 2.0,"The kafkapump image is part of Dell’s Omnia telemetry pipeline and is designed to consume telemetry data from Kafka topics and forward it to downstream systems such as time-series databases (e.g., VictoriaMetrics) or analytics platforms."
+colorama,0.4.6,BSD License (BSD License),"Cross-platform colored terminal text for Python (Windows, Linux, macOS)."
+durationpy,0.10.0,MIT license,Parses and formats duration strings in Python (ISO 8601-like).
+idna,3.10.0,BSD License (BSD License),Implements Internationalized Domain Names in Applications (IDNA) protocol.
+importlib-metadata,8.7.0,Apache License 2.0,Accesses Python package metadata using the importlib interface.
+jinja2,3.1.6,BSD License (BSD License),"Templating engine for Python, widely used in web frameworks and configuration tools."
+macholib,1.16.3,MIT license,Analyze and modify Mach-O binaries on macOS
+markupsafe,3.0.2,BSD License (BSD License),Provides a string type for safe HTML/XML escaping.
+packaging,25.0.0,Apache License 2.0,Provides utilities for version parsing and dependency handling.
+pefile,2023.2.7,MIT license,Parse and analyze Windows PE files.
+paltformdirs,4.3.8,MIT license,"Determines platform-specific directories for config, cache, and data."
+pyasn1-modules,0.4.2,BSD License (BSD License),ASN.1 modules for protocols like SNMP and LDAP.
+pygments,2.19.1,BSD License (BSD License),Syntax highlighting for code in many languages.
+python-dateutils,2.9.0.post0,BSD License (BSD License),Extensions to Python’s datetime module.
+pywin32-ctypes,0.2.3,MIT license,Windows API access via ctypes.
+ruamel-yaml,0.18.14,MIT license,YAML parser/emitter for Python.
+ruamel-yaml-clib,0.2.12,MIT license,C-based speedups for ruamel.yaml.
+tomli-w,1.2.0,MIT license,Write TOML files in Python.
+typing-extensions,4.14.0,PSF,Backport of new typing features to older Python versions.
+wcmatch,10.0.0,MIT license,Advanced globbing and matching for Python.
+wcwidth,0.2.23,MIT license,Measures the width of Unicode characters for terminal display.
+libgcc,14.2.1,GPL-3.0-OR-LATER AND LGPL-3.0-OR-LATER AND (GPL-3.0-OR-LATER WITH GCC-EXCEPTION-3.1) AND (GPL-3.0-OR-LATER WITH TEXINFO-EXCEPTION) AND (LGPL-2.1-OR-LATER WITH GCC-EXCEPTION-2.0) AND (GPL-2.0-OR-LATER WITH GCC-EXCEPTION-2.0) AND (GPL-2.0-OR-LATER WITH GNU-COMPILER-EXCEPTION) AND BSL-1.0 AND GFDL-1.3-OR-LATER AND LINUX-MAN-PAGES-COPYLEFT-2-PARA AND SUNPRO AND BSD-1-CLAUSE AND BSD-2-CLAUSE AND BSD-2-CLAUSE-VIEWS AND BSD-3-CLAUSE AND BSD-4-CLAUSE AND BSD-SOURCE-CODE AND ZLIB AND MIT AND APACHE-2.0 AND (APACHE-2.0 WITH LLVM-EXCEPTION) AND ZPL-2.1 AND ISC AND LICENSEREF-FEDORA-PUBLIC-DOMAIN AND HP-1986 AND CURL AND MARTIN-BIRGMEIER AND HPND-MARKUS-KUHN AND DTOA AND SMLNJ AND AMD-NEWLIB AND OAR AND HPND-MERCHANTABILITY-VARIANT AND HPND-INTEL,Unknown
+crypto-policies,20241011,LGPL-2.1-OR-LATER,Unknown
+tzdata,2025b,LICENSEREF-FEDORA-PUBLIC-DOMAIN AND (GPL-2.0-ONLY WITH CLASSPATH-EXCEPTION-2.0),Unknown
+fedora-release-identity-container,40,MIT,Unknown
+fedora-gpg-keys,40,MIT,Unknown
+fedora-repos,40,MIT,Unknown
+fedora-release-common,40,MIT,Unknown
+fedora-release-container,40,MIT,Unknown
+setup,2.14.5,LICENSEREF-FEDORA-PUBLIC-DOMAIN,Unknown
+filesystem,3.18,LICENSEREF-FEDORA-PUBLIC-DOMAIN,Unknown
+vim-data,9.1.1275,VIM AND LGPL-2.1-OR-LATER AND MIT AND GPL-1.0-ONLY AND (GPL-2.0-ONLY OR VIM) AND APACHE-2.0 AND BSD-2-CLAUSE AND BSD-3-CLAUSE AND GPL-2.0-OR-LATER AND GPL-3.0-OR-LATER AND OPUBL-1.0 AND APACHE-2.0 WITH SWIFT-EXCEPTION,Unknown
+publicsuffix-list-dafsa,20250116,MPL-2.0,Unknown
+pcre2-syntax,10.44,BSD-3-CLAUSE AND FSFULLR AND X11 AND GPL-2.0-OR-LATER AND FSFAP AND FSFUL AND GPL-3.0-OR-LATER,Unknown
+dnf-data,4.23.0,GPL-2.0-OR-LATER AND GPL-1.0-ONLY,Unknown
+coreutils-common,9.4,GPL-3.0-OR-LATER AND GFDL-1.3-NO-INVARIANTS-OR-LATER AND LGPL-2.1-OR-LATER AND LGPL-3.0-OR-LATER,Unknown
+ncurses-base,6.4,MIT-OPEN-GROUP,Unknown
+ncurses-libs,6.4,MIT-OPEN-GROUP,Unknown
+glibc-common,2.39,LGPL-2.1-OR-LATER AND SUNPRO AND LGPL-2.1-OR-LATER WITH GCC-EXCEPTION-2.0 AND BSD-3-CLAUSE AND GPL-2.0-OR-LATER AND LGPL-2.1-OR-LATER WITH GNU-COMPILER-EXCEPTION AND GPL-2.0-ONLY AND ISC AND LICENSEREF-FEDORA-PUBLIC-DOMAIN AND HPND AND CMU-MACH AND LGPL-2.1-ONLY AND LGPL-2.0-OR-LATER AND UNICODE-DFS-2015 AND GFDL-1.1-OR-LATER AND GPL-1.0-OR-LATER AND FSFUL AND MIT AND INNER-NET-2.0 AND X11 AND GPL-2.0-OR-LATER WITH GCC-EXCEPTION-2.0 AND GFDL-1.3-ONLY AND GFDL-1.1-ONLY,Unknown
+glibc-minimal-langpack,2.39,LGPL-2.1-OR-LATER AND SUNPRO AND LGPL-2.1-OR-LATER WITH GCC-EXCEPTION-2.0 AND BSD-3-CLAUSE AND GPL-2.0-OR-LATER AND LGPL-2.1-OR-LATER WITH GNU-COMPILER-EXCEPTION AND GPL-2.0-ONLY AND ISC AND LICENSEREF-FEDORA-PUBLIC-DOMAIN AND HPND AND CMU-MACH AND LGPL-2.1-ONLY AND LGPL-2.0-OR-LATER AND UNICODE-DFS-2015 AND GFDL-1.1-OR-LATER AND GPL-1.0-OR-LATER AND FSFUL AND MIT AND INNER-NET-2.0 AND X11 AND GPL-2.0-OR-LATER WITH GCC-EXCEPTION-2.0 AND GFDL-1.3-ONLY AND GFDL-1.1-ONLY,Unknown
+glibc,2.39,LGPL-2.1-OR-LATER AND SUNPRO AND LGPL-2.1-OR-LATER WITH GCC-EXCEPTION-2.0 AND BSD-3-CLAUSE AND GPL-2.0-OR-LATER AND LGPL-2.1-OR-LATER WITH GNU-COMPILER-EXCEPTION AND GPL-2.0-ONLY AND ISC AND LICENSEREF-FEDORA-PUBLIC-DOMAIN AND HPND AND CMU-MACH AND LGPL-2.1-ONLY AND LGPL-2.0-OR-LATER AND UNICODE-DFS-2015 AND GFDL-1.1-OR-LATER AND GPL-1.0-OR-LATER AND FSFUL AND MIT AND INNER-NET-2.0 AND X11 AND GPL-2.0-OR-LATER WITH GCC-EXCEPTION-2.0 AND GFDL-1.3-ONLY AND GFDL-1.1-ONLY,Unknown
+zlib-ng-compat,2.1.7,ZLIB,Unknown
+xz-libs,5.8.1,0BSD,Unknown
+bzip2-libs,1.0.8,BSD-4-CLAUSE,Unknown
+libzstd,1.5.7,BSD-3-CLAUSE AND GPL-2.0-ONLY,Unknown
+gmp,6.2.1,(LGPL-3.0-OR-LATER OR GPL-2.0-OR-LATER OR (LGPL-3.0-OR-LATER AND GPL-2.0-OR-LATER)) AND GFDL-1.3-INVARIANTS-OR-LATER,Unknown
+popt,1.19,MIT AND LICENSEREF-FEDORA-PUBLIC-DOMAIN,Unknown
+libuuid,2.40.2,BSD-3-CLAUSE,Unknown
+libxcrypt,4.4.38,LGPL-2.1-OR-LATER AND BSD-3-CLAUSE AND BSD-2-CLAUSE AND BSD-2-CLAUSE-FREEBSD AND 0BSD AND CC0-1.0 AND LICENSEREF-FEDORA-PUBLIC-DOMAIN,Unknown
+libxml2,2.12.10,MIT AND ISC-VEILLARD AND W3C,Unknown
+sqlite-libs,3.45.1,BLESSING,Unknown
+gdbm-libs,1.23,GPL-3.0-OR-LATER,Unknown
+libffi,3.4.4,MIT,Unknown
+readline,8.2,GPL-3.0-OR-LATER AND GPL-2.0-OR-LATER AND GFDL-1.3-NO-INVARIANTS-OR-LATER,Unknown
+libgpg-error,1.49,LGPL-2.1-OR-LATER AND (BSD-3-CLAUSE OR LGPL-2.1-OR-LATER) AND FSFULLR AND GPL-2.0-OR-LATER,Unknown
+libstdc++,14.2.1,GPL-3.0-OR-LATER AND LGPL-3.0-OR-LATER AND (GPL-3.0-OR-LATER WITH GCC-EXCEPTION-3.1) AND (GPL-3.0-OR-LATER WITH TEXINFO-EXCEPTION) AND (LGPL-2.1-OR-LATER WITH GCC-EXCEPTION-2.0) AND (GPL-2.0-OR-LATER WITH GCC-EXCEPTION-2.0) AND (GPL-2.0-OR-LATER WITH GNU-COMPILER-EXCEPTION) AND BSL-1.0 AND GFDL-1.3-OR-LATER AND LINUX-MAN-PAGES-COPYLEFT-2-PARA AND SUNPRO AND BSD-1-CLAUSE AND BSD-2-CLAUSE AND BSD-2-CLAUSE-VIEWS AND BSD-3-CLAUSE AND BSD-4-CLAUSE AND BSD-SOURCE-CODE AND ZLIB AND MIT AND APACHE-2.0 AND (APACHE-2.0 WITH LLVM-EXCEPTION) AND ZPL-2.1 AND ISC AND LICENSEREF-FEDORA-PUBLIC-DOMAIN AND HP-1986 AND CURL AND MARTIN-BIRGMEIER AND HPND-MARKUS-KUHN AND DTOA AND SMLNJ AND AMD-NEWLIB AND OAR AND HPND-MERCHANTABILITY-VARIANT AND HPND-INTEL,Unknown
+libattr,2.5.2,LGPL-2.1-OR-LATER,Unknown
+libacl,2.3.2,LGPL-2.1-OR-LATER,Unknown
+libunistring,1.1,GPL-2.0-OR-LATER OR LGPL-3.0-OR-LATER,Unknown
+libidn2,2.3.8,(GPL-2.0-OR-LATER OR LGPL-3.0-OR-LATER) AND GPL-3.0-OR-LATER,Unknown
+lz4-libs,1.9.4,GPL-2.0-OR-LATER AND BSD-2-CLAUSE,Unknown
+libeconf,0.6.2,MIT,Unknown
+libsmartcols,2.40.2,LGPL-2.1-OR-LATER,Unknown
+libtasn1,4.20.0,GPL-3.0-OR-LATER AND LGPL-2.1-OR-LATER,Unknown
+p11-kit,0.25.5,BSD-3-CLAUSE,Unknown
+pcre2,10.44,BSD-3-CLAUSE AND FSFULLR AND X11 AND GPL-2.0-OR-LATER AND FSFAP AND FSFUL AND GPL-3.0-OR-LATER,Unknown
+libblkid,2.40.2,LGPL-2.1-OR-LATER,Unknown
+elfutils-libelf,0.192,GPL-2.0-OR-LATER OR LGPL-3.0-OR-LATER,Unknown
+json-c,0.17,MIT,Unknown
+keyutils-libs,1.6.3,GPL-2.0-OR-LATER AND LGPL-2.1-OR-LATER,Unknown
+libcom_err,1.47.0,MIT,Unknown
+lua-libs,5.4.6,MIT,Unknown
+expat,2.7.1,MIT,Unknown
+libgomp,14.2.1,GPL-3.0-OR-LATER AND LGPL-3.0-OR-LATER AND (GPL-3.0-OR-LATER WITH GCC-EXCEPTION-3.1) AND (GPL-3.0-OR-LATER WITH TEXINFO-EXCEPTION) AND (LGPL-2.1-OR-LATER WITH GCC-EXCEPTION-2.0) AND (GPL-2.0-OR-LATER WITH GCC-EXCEPTION-2.0) AND (GPL-2.0-OR-LATER WITH GNU-COMPILER-EXCEPTION) AND BSL-1.0 AND GFDL-1.3-OR-LATER AND LINUX-MAN-PAGES-COPYLEFT-2-PARA AND SUNPRO AND BSD-1-CLAUSE AND BSD-2-CLAUSE AND BSD-2-CLAUSE-VIEWS AND BSD-3-CLAUSE AND BSD-4-CLAUSE AND BSD-SOURCE-CODE AND ZLIB AND MIT AND APACHE-2.0 AND (APACHE-2.0 WITH LLVM-EXCEPTION) AND ZPL-2.1 AND ISC AND LICENSEREF-FEDORA-PUBLIC-DOMAIN AND HP-1986 AND CURL AND MARTIN-BIRGMEIER AND HPND-MARKUS-KUHN AND DTOA AND SMLNJ AND AMD-NEWLIB AND OAR AND HPND-MERCHANTABILITY-VARIANT AND HPND-INTEL,Unknown
+libsepol,3.7,LGPL-2.1-OR-LATER,Unknown
+libselinux,3.7,LICENSEREF-FEDORA-PUBLIC-DOMAIN,Unknown
+sed,4.9,GPL-3.0-OR-LATER,Unknown
+libmount,2.40.2,LGPL-2.1-OR-LATER,Unknown
+findutils,4.9.0,GPL-3.0-OR-LATER,Unknown
+libb2,0.98.1,CC0-1.0 OR APACHE-1.0 OR APACHE-2.0,Unknown
+libpsl,0.21.5,MIT,Unknown
+libassuan,2.5.7,GPL-3.0-OR-LATER AND LGPL-2.1-OR-LATER AND LGPL-3.0-OR-LATER,Unknown
+libgcrypt,1.10.3,BSD-3-CLAUSE AND (BSD-3-CLAUSE OR GPL-2.0-ONLY) AND GPL-2.0-OR-LATER AND LGPL-2.1-OR-LATER AND LGPL-2.0-OR-LATER AND MIT-MODERN-VARIANT,Unknown
+libksba,1.6.6,GPL-3.0-OR-LATER AND LGPL-2.1-OR-LATER AND (LGPL-3.0-OR-LATER OR GPL-2.0-OR-LATER),Unknown
+gdbm,1.23,GPL-3.0-OR-LATER,Unknown
+cyrus-sasl-lib,2.1.28,BSD-ATTRIBUTION-HPND,Unknown
+nettle,3.9.1,LGPL-3.0-OR-LATER OR GPL-2.0-OR-LATER,Unknown
+mpfr,4.2.1,LGPL-3.0-OR-LATER,Unknown
+file-libs,5.45,BSD,Unknown
+libbrotli,1.1.0,MIT,Unknown
+libcap-ng,0.8.4,LGPL-2.0-OR-LATER,Unknown
+audit-libs,4.0.3,LGPL-2.0-OR-LATER,Unknown
+pam-libs,1.6.1,BSD-3-CLAUSE AND GPL-2.0-OR-LATER,Unknown
+libcap,2.69,BSD-3-CLAUSE OR GPL-2.0-ONLY,Unknown
+systemd-libs,255.18,LGPL-2.1-OR-LATER AND MIT,Unknown
+libsemanage,3.7,LGPL-2.1-OR-LATER,Unknown
+shadow-utils,4.15.1,BSD-3-CLAUSE AND GPL-2.0-OR-LATER,Unknown
+libtool-ltdl,2.4.7,LGPLV2+,Unknown
+libverto,0.3.2,MIT,Unknown
+libyaml,0.2.5,MIT,Unknown
+mpdecimal,2.5.1,BSD-2-CLAUSE,Unknown
+npth,1.7,LGPL-2.1-OR-LATER,Unknown
+alternatives,1.27,GPL-2.0-ONLY,Unknown
+p11-kit-trust,0.25.5,BSD-3-CLAUSE,Unknown
+openssl-libs,3.2.4,APACHE-2.0,Unknown
+coreutils,9.4,GPL-3.0-OR-LATER AND GFDL-1.3-NO-INVARIANTS-OR-LATER AND LGPL-2.1-OR-LATER AND LGPL-3.0-OR-LATER,Unknown
+ca-certificates,2024.2.69_v8.0.401,MIT AND GPL-2.0-OR-LATER,Unknown
+krb5-libs,1.21.3,BRIAN-GLADMAN-2-CLAUSE AND BSD-2-CLAUSE AND (BSD-2-CLAUSE OR GPL-2.0-OR-LATER) AND BSD-2-CLAUSE-FIRST-LINES AND BSD-3-CLAUSE AND BSD-4-CLAUSE AND CMU-MACH-NODOC AND FSFULLRWD AND HPND AND HPND-EXPORT2-US AND HPND-EXPORT-US AND HPND-EXPORT-US-ACKNOWLEDGEMENT AND HPND-EXPORT-US-MODIFY AND ISC AND MIT AND MIT-CMU AND OLDAP-2.8 AND OPENVISION,Unknown
+libtirpc,1.3.6,SISSL AND BSD-3-CLAUSE,Unknown
+libnsl2,2.0.1,BSD AND LGPLV2+,Unknown
+tpm2-tss,4.1.3,BSD-2-CLAUSE,Unknown
+zchunk-libs,1.5.1,BSD-2-CLAUSE AND MIT,Unknown
+gnutls,3.8.9,GPL-3.0-OR-LATER AND LGPL-2.1-OR-LATER,Unknown
+glib2,2.80.5,LGPL-2.1-OR-LATER,Unknown
+ima-evm-utils,1.5,GPLV2,Unknown
+python-pip-wheel,23.3.2,MIT AND PYTHON-2.0.1 AND APACHE-2.0 AND BSD-2-CLAUSE AND BSD-3-CLAUSE AND ISC AND LGPL-2.1-ONLY AND MPL-2.0 AND (APACHE-2.0 OR BSD-2-CLAUSE),Unknown
+python3,3.12.10,PYTHON-2.0.1,Unknown
+python3-libs,3.12.10,PYTHON-2.0.1 AND CC0-1.0,Unknown
+python3-libcomps,0.1.20,GPL-2.0-OR-LATER,Unknown
+gzip,1.13,GPL-3.0-OR-LATER AND GFDL-1.3-ONLY,Unknown
+cracklib,2.9.11,LGPL-2.1-OR-LATER,Unknown
+libpwquality,1.4.5,BSD-3-CLAUSE OR GPL-2.0-OR-LATER,Unknown
+authselect-libs,1.5.0,GPL-3.0-OR-LATER,Unknown
+authselect,1.5.0,GPL-3.0-OR-LATER,Unknown
+pam,1.6.1,BSD-3-CLAUSE AND GPL-2.0-OR-LATER,Unknown
+libevent,2.1.12,BSD-3-CLAUSE AND ISC AND LICENSEREF-FEDORA-PUBLIC-DOMAIN,Unknown
+openldap,2.6.9,OLDAP-2.8,Unknown
+gnupg2,2.4.4,CC0-1.0 AND GPL-2.0-OR-LATER AND GPL-3.0-OR-LATER AND LGPL-2.1-OR-LATER AND LGPL-3.0-OR-LATER AND (BSD-3-CLAUSE OR LGPL-3.0-OR-LATER OR GPL-2.0-OR-LATER) AND CC-BY-4.0 AND MIT,Unknown
+libfsverity,1.4,BSD,Unknown
+libarchive,3.7.2,BSD-2-CLAUSE AND FSFULLR AND GPL-2.0-OR-LATER WITH LIBTOOL-EXCEPTION AND BSD-3-CLAUSE AND FSFUL,Unknown
+rpm-sequoia,1.7.0,LGPL-2.0-OR-LATER AND APACHE-2.0 AND BSL-1.0 AND MIT AND UNICODE-DFS-2016 AND (APACHE-2.0 OR MIT) AND (MIT OR APACHE-2.0 OR ZLIB) AND (UNLICENSE OR MIT),Unknown
+rpm-libs,4.19.1.1,GPL-2.0-OR-LATER OR LGPL-2.1-OR-LATER,Unknown
+libmodulemd,2.15.0,MIT,Unknown
+libsolv,0.7.32,BSD-3-CLAUSE,Unknown
+rpm-sign-libs,4.19.1.1,GPL-2.0-OR-LATER,Unknown
+libnghttp2,1.59.0,MIT,Unknown
+elfutils-default-yama-scope,0.192,GPL-2.0-OR-LATER OR LGPL-3.0-OR-LATER,Unknown
+elfutils-libs,0.192,GPL-2.0-OR-LATER OR LGPL-3.0-OR-LATER,Unknown
+rpm-build-libs,4.19.1.1,GPL-2.0-OR-LATER,Unknown
+python3-rpm,4.19.1.1,GPL-2.0-OR-LATER,Unknown
+libssh-config,0.10.6,LGPL-2.1-OR-LATER,Unknown
+libssh,0.10.6,LGPL-2.1-OR-LATER,Unknown
+libcurl,8.6.0,CURL,Unknown
+curl,8.6.0,CURL,Unknown
+librepo,1.19.0,LGPL-2.1-OR-LATER,Unknown
+python3-libdnf,0.74.0,LGPL-2.1-OR-LATER,Unknown
+python3-hawkey,0.74.0,LGPL-2.1-OR-LATER,Unknown
+python3-dnf,4.23.0,GPL-2.0-OR-LATER AND GPL-1.0-ONLY,Unknown
+yum,4.23.0,GPL-2.0-OR-LATER AND GPL-1.0-ONLY,Unknown
+rpm,4.19.1.1,GPL-2.0-OR-LATER,Unknown
+sudo,1.9.15,ISC,Unknown
+util-linux-core,2.40.2,GPL-2.0-ONLY AND GPL-2.0-OR-LATER AND BSD-2-CLAUSE AND BSD-3-CLAUSE AND BSD-4-CLAUSE-UC AND LICENSEREF-FEDORA-PUBLIC-DOMAIN,Unknown
+vim-minimal,9.1.1275,VIM AND LGPL-2.1-OR-LATER AND MIT AND GPL-1.0-ONLY AND (GPL-2.0-ONLY OR VIM) AND APACHE-2.0 AND BSD-2-CLAUSE AND BSD-3-CLAUSE AND GPL-2.0-OR-LATER AND GPL-3.0-OR-LATER AND OPUBL-1.0 AND APACHE-2.0 WITH SWIFT-EXCEPTION,Unknown
+xz,5.8.1,0BSD AND GPL-2.0-OR-LATER AND LICENSEREF-FEDORA-PUBLIC-DOMAIN,Unknown
+zstd,1.5.7,BSD-3-CLAUSE AND GPL-2.0-ONLY,Unknown
+libfdisk,2.40.2,LGPL-2.1-OR-LATER,Unknown
+libbpf,1.2.3,LGPL-2.1-ONLY OR BSD-2-CLAUSE,Unknown
+kmod-libs,31,GPL-2.0-OR-LATER AND GPL-3.0-OR-LATER AND FSFUL AND FSFULLRWD AND LGPL-2.1-ONLY AND LGPL-2.1-OR-LATER AND X11,Unknown
+gpgme,1.23.2,LGPL-2.1-OR-LATER AND MIT,Unknown
+xxhash-libs,0.8.3,BSD-2-CLAUSE,Unknown
+libseccomp,2.5.5,LGPL-2.1-ONLY,Unknown
+libedit,3.1,BSD-3-CLAUSE AND BSD-2-CLAUSE AND ISC,Unknown
+less,643,GPL-3.0-ONLY AND BSD-2-CLAUSE,Unknown
+xkeyboard-config,2.41,HPND AND HPND-SELL-VARIANT AND X11 AND X11-DISTRIBUTE-MODIFICATIONS-VARIANT AND MIT AND MIT-OPEN-GROUP AND XKEYBOARD-CONFIG-ZINOVIEV,Unknown
+libxkbcommon,1.6.0,MIT AND X11 AND MIT-CMU,Unknown
+qrencode-libs,4.1.1,LGPLV2+,Unknown
+python3-systemd,235,LGPL-2.1-OR-LATER,Unknown
+python3-six,1.16.0,MIT,Unknown
+python3-dateutil,2.8.2,(APACHE-2.0 AND BSD-3-CLAUSE) OR BSD-3-CLAUSE,Unknown
+python3-distro,1.9.0,APACHE-2.0,Unknown
+psmisc,23.6,GPL-2.0-OR-LATER,Unknown
+protobuf-c,1.5.0,BSD-2-CLAUSE,Unknown
+unbound-anchor,1.21.1,BSD-3-CLAUSE,Unknown
+unbound-libs,1.21.1,BSD-3-CLAUSE,Unknown
+gnutls-dane,3.8.9,GPL-3.0-OR-LATER AND LGPL-2.1-OR-LATER,Unknown
+wget2-libs,2.2.0,GPL-3.0-OR-LATER AND LGPL-3.0-OR-LATER AND GFDL-1.3-OR-LATER,Unknown
+wget2,2.2.0,GPL-3.0-OR-LATER AND LGPL-3.0-OR-LATER AND GFDL-1.3-OR-LATER,Unknown
+oniguruma,6.9.9,BSD-2-CLAUSE,Unknown
+ncurses,6.4,MIT-OPEN-GROUP,Unknown
+libmnl,1.0.5,LGPL-2.1-OR-LATER,Unknown
+libcbor,0.11.0,MIT,Unknown
+libfido2,1.14.0,BSD-2-CLAUSE,Unknown
+kmod,31,GPL-2.0-OR-LATER AND GPL-3.0-OR-LATER AND FSFUL AND FSFULLRWD AND LGPL-2.1-ONLY AND LGPL-2.1-OR-LATER AND X11,Unknown
+kbd-misc,2.6.4,GPL-2.0-OR-LATER,Unknown
+kbd-legacy,2.6.4,GPL-2.0-OR-LATER,Unknown
+groff-base,1.23.0,GPL-3.0-OR-LATER AND GFDL-1.3-OR-LATER AND BSD-4-CLAUSE-UC AND MIT AND X11 AND LICENSEREF-FEDORA-PUBLIC-DOMAIN,Unknown
+perl-Digest,1.2,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Digest-MD5,2.59,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-B,1.88,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-FileHandle,2.05,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Data-Dumper,2.188,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-libnet,3.15,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-AutoLoader,5.74,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-URI,5.28,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Text-Tabs+Wrap,2024.001,TTWL,Unknown
+perl-Time-Local,1.35,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Mozilla-CA,20231213,MPL-2.0,Unknown
+perl-if,0.61.000,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-locale,1.1,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-IO-Socket-IP,0.42,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-File-Path,2.18,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-IO-Socket-SSL,2.085,(GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL) AND MPL-2.0,Unknown
+perl-Net-SSLeay,1.94,ARTISTIC-2.0,Unknown
+perl-Pod-Escapes,1.07,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Term-ANSIColor,5.01,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Class-Struct,0.68,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-POSIX,2.13,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-IPC-Open3,1.22,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-File-Temp,0.231.100,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-HTTP-Tiny,0.088,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Term-Cap,1.18,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Pod-Simple,3.45,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Socket,2.038,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-SelectSaver,1.02,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Symbol,1.09,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-File-stat,1.13,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-podlators,5.01,(GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL) AND FSFAP,Unknown
+perl-Pod-Perldoc,3.28.01,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Text-ParseWords,3.31,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Fcntl,1.15,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-base,2.27,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-mro,1.28,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-IO,1.52,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-overloading,0.02,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Pod-Usage,2.03,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-MIME-Base64,3.16,(GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL) AND METAMAIL,Unknown
+perl-Scalar-List-Utils,1.63,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-constant,1.33,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-parent,0.241,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Errno,1.37,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-File-Basename,2.86,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Getopt-Std,1.13,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Storable,3.32,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-overload,1.37,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-vars,1.05,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Getopt-Long,2.57,GPL-2.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Carp,1.54,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Exporter,5.78,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-PathTools,3.89,( GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL ) AND BSD-3-CLAUSE,Unknown
+perl-NDBM_File,1.16,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-DynaLoader,1.54,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Encode,3.21,(GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL) AND ARTISTIC-2.0,Unknown
+perl-libs,5.38.4,(GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL) AND MARTIN-BIRGMEIER AND SPENCER-86 AND MIT AND UNICODE-3.0 AND LICENSEREF-FEDORA-PUBLIC-DOMAIN,Unknown
+perl-interpreter,5.38.4,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-Error,0.17029,(GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL) AND X11,Unknown
+perl-TermReadKey,2.38,TERMREADKEY AND (GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL),Unknown
+perl-File-Find,1.43,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+perl-lib,0.65,GPL-1.0-OR-LATER OR ARTISTIC-1.0-PERL,Unknown
+drpm,0.5.2,LGPLV2+ AND BSD,Unknown
+createrepo_c-libs,1.2.0,GPL-2.0-OR-LATER,Unknown
+diffutils,3.1,GPL-3.0-OR-LATER,Unknown
+dbus-libs,1.14.10,(AFL-2.1 OR GPL-2.0-OR-LATER) AND GPL-2.0-OR-LATER,Unknown
+python3-dbus,1.3.2,MIT,Unknown
+dbus-common,1.14.10,(AFL-2.1 OR GPL-2.0-OR-LATER) AND GPL-2.0-OR-LATER,Unknown
+dbus-broker,36,APACHE-2.0 AND LGPL-2.0-OR-LATER AND LGPL-2.1-OR-LATER AND (APACHE-2.0 OR LGPL-2.1-OR-LATER),Unknown
+dbus,1.14.10,(AFL-2.1 OR GPL-2.0-OR-LATER) AND GPL-2.0-OR-LATER,Unknown
+libutempter,1.2.1,LGPL-2.1-OR-LATER AND LGPL-2.1-ONLY AND BSD-2-CLAUSE,Unknown
+device-mapper,1.02.199,GPL-2.0-ONLY,Unknown
+device-mapper-libs,1.02.199,LGPL-2.1-ONLY,Unknown
+cryptsetup-libs,2.7.5,GPL-2.0-OR-LATER WITH CRYPTSETUP-OPENSSL-EXCEPTION AND LGPL-2.1-OR-LATER WITH CRYPTSETUP-OPENSSL-EXCEPTION,Unknown
+systemd-pam,255.18,LGPL-2.1-OR-LATER AND MIT AND GPL-2.0-OR-LATER,Unknown
+systemd-resolved,255.18,LGPL-2.1-OR-LATER AND MIT AND GPL-2.0-OR-LATER,Unknown
+systemd-networkd,255.18,LGPL-2.1-OR-LATER,Unknown
+systemd,255.18,LGPL-2.1-OR-LATER AND MIT AND GPL-2.0-OR-LATER,Unknown
+systemd-udev,255.18,LGPL-2.1-OR-LATER,Unknown
+openssh,9.6p1,BSD-3-CLAUSE AND BSD-2-CLAUSE AND ISC AND SSH-OPENSSH AND SSH-KEYSCAN AND SPRINTF AND LICENSEREF-FEDORA-PUBLIC-DOMAIN AND X11-DISTRIBUTE-MODIFICATIONS-VARIANT,Unknown
+openssh-clients,9.6p1,BSD-3-CLAUSE AND BSD-2-CLAUSE AND ISC AND SSH-OPENSSH AND SSH-KEYSCAN AND SPRINTF AND LICENSEREF-FEDORA-PUBLIC-DOMAIN AND X11-DISTRIBUTE-MODIFICATIONS-VARIANT,Unknown
+git-core,2.49.0,BSD-3-CLAUSE AND GPL-2.0-ONLY AND GPL-2.0-OR-LATER AND LGPL-2.1-OR-LATER AND MIT,Unknown
+git-core-doc,2.49.0,BSD-3-CLAUSE AND GPL-2.0-ONLY AND GPL-2.0-OR-LATER AND LGPL-2.1-OR-LATER AND MIT,Unknown
+perl-Git,2.49.0,BSD-3-CLAUSE AND GPL-2.0-ONLY AND GPL-2.0-OR-LATER AND LGPL-2.1-OR-LATER AND MIT,Unknown
+git,2.49.0,BSD-3-CLAUSE AND GPL-2.0-ONLY AND GPL-2.0-OR-LATER AND LGPL-2.1-OR-LATER AND MIT,Unknown
+python3-dnf-plugins-core,4.10.1,GPL-2.0-OR-LATER,Unknown
+dnf-plugins-core,4.10.1,GPL-2.0-OR-LATER,Unknown
+dnf-utils,4.10.1,GPL-2.0-OR-LATER,Unknown
+git-lfs,3.6.1,MIT AND BSD-3-CLAUSE,Unknown
+openssh-server,9.6p1,BSD-3-CLAUSE AND BSD-2-CLAUSE AND ISC AND SSH-OPENSSH AND SSH-KEYSCAN AND SPRINTF AND LICENSEREF-FEDORA-PUBLIC-DOMAIN AND X11-DISTRIBUTE-MODIFICATIONS-VARIANT,Unknown
+iputils,20240117,BSD-4-CLAUSE-UC AND GPL-2.0-OR-LATER,Unknown
+createrepo_c,1.2.0,GPL-2.0-OR-LATER,Unknown
+iproute,6.7.0,GPL-2.0-OR-LATER AND NIST-PD,Unknown
+jq,1.7.1,MIT AND ICU AND CC-BY-3.0,Unknown
+wget2-wget,2.2.0,GPL-3.0-OR-LATER AND LGPL-3.0-OR-LATER AND GFDL-1.3-OR-LATER,Unknown
+python3-pip,23.3.2,MIT AND PYTHON-2.0.1 AND APACHE-2.0 AND BSD-2-CLAUSE AND BSD-3-CLAUSE AND ISC AND LGPL-2.1-ONLY AND MPL-2.0 AND (APACHE-2.0 OR BSD-2-CLAUSE),Unknown
+openssl,3.2.4,APACHE-2.0,Unknown
+unzip,6,INFO-ZIP,Unknown
+ipcalc,1.0.3,GPL-2.0-OR-LATER,Unknown
+libref_array,0.1.5,LGPL-3.0-OR-LATER,Unknown
+rpcbind,1.2.7,BSD-3-CLAUSE,Unknown
+libnl3,3.11.0,LGPL-2.1-ONLY,Unknown
+libnfsidmap,2.8.1,BSD,Unknown
+quota-nls,4.09,LGPLV2+ AND GPLV2 AND GPLV2+,Unknown
+libpath_utils,0.2.1,LGPL-3.0-OR-LATER,Unknown
+libev,4.33,BSD-2-CLAUSE OR GPL-2.0-OR-LATER,Unknown
+libverto-libev,0.3.2,MIT,Unknown
+libcollection,0.7.0,LGPL-3.0-OR-LATER,Unknown
+libbasicobjects,0.1.1,GPL-3.0-OR-LATER,Unknown
+libini_config,1.3.1,LGPL-3.0-OR-LATER,Unknown
+gssproxy,0.9.2,MIT,Unknown
+keyutils,1.6.3,GPL-2.0-OR-LATER AND LGPL-2.1-OR-LATER,Unknown
+e2fsprogs-libs,1.47.0,GPLV2 AND LGPLV2,Unknown
+quota,4.09,GPLV2 AND GPLV2+,Unknown
+nfs-utils,2.8.1,MIT AND GPLV2 AND GPLV2+ AND BSD,Unknown
