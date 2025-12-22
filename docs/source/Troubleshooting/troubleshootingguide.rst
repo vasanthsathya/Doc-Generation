@@ -137,9 +137,6 @@ Troubleshooting LDMS on the slurm nodes
 
 5. If ldms plugins are loaded, check the metrics of each plugin using the following command: 
 
-.. image:: ../images/troubleshoot_ldms_4.png
-
-
 Get the ldsm_port from the file /opt/ovis-ldms/etc/ldms/ldmsd.sampler.env and run the following command: ::
 
         ldms_ls -l -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p <ldms_port> -h localhost $(hostname)/<plugin_name>
@@ -147,6 +144,9 @@ Get the ldsm_port from the file /opt/ovis-ldms/etc/ldms/ldmsd.sampler.env and ru
         Example: ::
                 
                 ldms_ls -l -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p 10001 -h localhost $(hostname)/meminfo
+
+.. image:: ../images/troubleshoot_ldms_4.png
+
 
 
 .. image:: ../images/troubleshoot_ldms_5.png
