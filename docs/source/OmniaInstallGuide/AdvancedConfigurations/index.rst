@@ -6,3 +6,4 @@ Advanced Configurations
     
     PowerScale_CSI
     build_arm_ochami_image
+    external_kafka_ome

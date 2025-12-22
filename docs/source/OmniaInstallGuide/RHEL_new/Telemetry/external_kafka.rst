@@ -6,6 +6,8 @@ and configure an external telemetry producer to stream metrics securely into the
 This procedure assumes that Kafka is deployed using Strimzi inside the telemetry namespace of the Service Kubernetes clusters. For more details, see
 `Strimzi Kafka Operator Documentation <https://strimzi.io/docs/operators/latest/overview>`_.
 
+To configure OpenManage Enterprise to stream telemetry data to Kafka, see :doc:`Collect Telemetry Data from OpenManage Enterprise <external_kafka_ome>`.
+
 
 Prerequisites
 ---------------
