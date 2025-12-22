@@ -143,7 +143,7 @@ Get the ldsm_port from the file /opt/ovis-ldms/etc/ldms/ldmsd.sampler.env and ru
 
         ldms_ls -l -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p <ldms_port> -h localhost $(hostname)/<plugin_name>
         
-        Example: ::
+Example: ::
                 
                 ldms_ls -l -a ovis -A conf=/opt/ovis-ldms/etc/ldms/ldmsauth.conf -p 10001 -h localhost $(hostname)/meminfo
 
