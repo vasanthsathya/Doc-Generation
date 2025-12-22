@@ -7,6 +7,8 @@ securely into the Service Kubernetes cluster using TLS.
 This procedure assumes that VictoriaMetrics is deployed in **cluster mode** inside the ``telemetry`` namespace of the Service Kubernetes cluster.
 For more details, see the `VictoriaMetrics Cluster Mode documentation <https://docs.victoriametrics.com/victoriametrics/cluster-victoriametrics/>`_.
 
+For collecting telemetry data from Smart Fabric Manager (SFM) to Victoria DB, see :doc:`Collect telemetry data from Smart Fabric Manager to Victoria DB (cluster mode) <external_victoria_sfm>`.
+
 
 Prerequisites
 ---------------
