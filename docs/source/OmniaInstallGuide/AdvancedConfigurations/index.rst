@@ -6,4 +6,4 @@ Advanced Configurations
     
     PowerScale_CSI
     build_arm_ochami_image
-    RHEL_new/Telemetry/external_kafka_ome
+    OmniaInstallGuide/RHEL_new/Telemetry/external_kafka_ome
