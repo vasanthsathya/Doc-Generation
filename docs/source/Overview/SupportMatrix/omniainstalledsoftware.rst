@@ -8,3 +8,12 @@ Software Installed by Omnia
       :header-rows: 1
       :keepspace:
       :class: longtable
+
+
+.. dropdown:: Software support matrix for RHEL clusters
+
+   .. csv-table::
+      :file: ../../Tables/omnia_software_packages.csv
+      :header-rows: 1
+      :keepspace:
+      :class: longtable
