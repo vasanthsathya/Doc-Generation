@@ -43,11 +43,11 @@ You can deploy the ``omnia_auth`` and ``omnia_core`` container images on the Omn
         
    * To use the tagged version of Omnia, run the following command::
 
-      wget https://raw.githubusercontent.com/dell/omnia/refs/tags/${OMNIA_VERSION}/omnia.sh${NC}
+      wget https://raw.githubusercontent.com/dell/omnia/refs/tags/${OMNIA_VERSION}/omnia.sh
 
    * To use the specific branch of Omnia, run the following command::
 
-      wget https://raw.githubusercontent.com/dell/omnia/refs/heads/${OMNIA_VERSION}/omnia.sh${NC}
+      wget https://raw.githubusercontent.com/dell/omnia/refs/heads/${OMNIA_VERSION}/omnia.sh
 
   **Example:** 
     * **Specifc verion:** ``wget https://raw.githubusercontent.com/dell/omnia/refs/heads/main/omnia.sh`` 
