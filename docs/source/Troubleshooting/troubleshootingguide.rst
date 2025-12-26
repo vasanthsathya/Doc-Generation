@@ -184,3 +184,19 @@ Pulp Repository Sync and Publication Failures
 
 Re-run Failed Operations: After making the changes, re-run the Ansible playbook to retry the failed operations:
 ``ansible-playbook local_repo.yml``.
+
+
+After job submission on the Slurm cluster, compute nodes intermittently enter the DRAINED state
+=================================================================================================
+
+When Slurm nodes go into a DRAINED state after job submission, one possible cause is a failure in an epilog script under ``/etc/slurm/epilog.d`` due to incorrect file permissions.
+
+To resolve, ensure the epilog script is executable on all Slurm nodes.
+
+For example: ::
+
+        chmod 0755 /etc/slurm/epilog.d/logout_user.sh
+
+After updating the permissions, reload the Slurm configuration: ::
+
+        scontrol reconfigure
