@@ -37,25 +37,9 @@ OIM (Omnia Infrastructure Manager) Prerequisites
         dnf install git -y
 
 * All target bare-metal servers (cluster nodes) must be **reachable from the OIM**.
-* Clone the `Omnia artifacts repository <https://github.com/dell/omnia-artifactory/tree/omnia-container>`_  and build the container images as shown below:
-
-     .. code-block:: bash
-
-        git clone https://github.com/dell/omnia-artifactory.git
-        cd omnia-artifactory
-        ./build_images.sh omnia_branch=<branch_name/tag name> 
-
-    **For example:** 
-    
-    * To pull the branch, use ``./build_images.sh omnia_branch=main``
-    * To pull the tag, use: ``./build_images.sh omnia_branch=v2.0.0.0-rc3``
-
-   * For detailed build instructions, refer to the
-     `Omnia Artifacts README <https://github.com/dell/omnia-artifactory/blob/omnia-container/README.md>`_.
-
 * Make sure that the required ports are open on the OIM node for cluster deployment. For detailed information on the required ports, refer to the :doc:`Omnia Ports <omnia_ports>`.
-
-
+* The ``omnia_core`` and ``omnia_auth`` container images are deployed on the OIM. For instructions to deploy containers, see :doc:`Deploy Omnia Core Container <OmniaInstallGuide/RHEL_new/omnia_startup>`.
+  
 Repository Prerequisites
 ---------------------------
 

@@ -27,27 +27,94 @@ Prerequisites for Deploying the Omnia Core Container
 
     .. include:: ../../Appendices/hostnamereqs.rst
 
-Install Omnia Core Container
+Deploy Omnia Core Container
 ------------------------------
 
-The ``omnia.sh --install`` command is used to deploy the Omnia core container on the OIM.
+You can deploy the ``omnia_auth`` and ``omnia_core`` container images on the Omnia Infrastructure Manager (OIM) in two ways:
 
-1. Download the ``omnia.sh`` script from the Dell Omnia GitHub repository. To download, run the following command::
+ * From Docker Hub, available at `Docker Hub <https://hub.docker.com/u/dellhpcomniaaisolution>`_
 
-    OMNIA_BRANCH=<Omnia_Version/Branch>
-    wget https://raw.githubusercontent.com/dell/omnia/refs/heads/$OMNIA_BRANCH/omnia.sh
+ * From Omnia Artifactory repository, available at `Omnia Artifactory <https://github.com/dell/omnia-artifactory.git>`_
+
+
+**To deploy the container images from DockerHub**, do the following:  
+
+1. Download the ``omnia.sh`` script using the following commands:
+        
+   * To use the tagged version of Omnia, run the following command::
+
+      wget https://raw.githubusercontent.com/dell/omnia/refs/tags/${OMNIA_VERSION}/omnia.sh
+
+   * To use the specific branch of Omnia, run the following command::
+
+      wget https://raw.githubusercontent.com/dell/omnia/refs/heads/${OMNIA_VERSION}/omnia.sh
+
+  **Example:** 
+    * **Specifc verion:** ``wget https://raw.githubusercontent.com/dell/omnia/refs/heads/main/omnia.sh`` 
+    * **Tagged version:** ``wget https://raw.githubusercontent.com/dell/omnia/refs/tags/v2.0.0.0-rc3/omnia.sh``
+
+2. Run the following command to make the script executable::
+
     chmod +x omnia.sh
 
-
-2. On the OIM, run the following command::
+3. On the OIM, run the following command to deploy the ``omnia_auth`` and ``omnia_core`` containers and configure passwordless SSH::
 
    ./omnia.sh --install
+
+   If there are issues pulling images from Docker Hub, manually pull the image using Podman::
+       
+       podman pull dellhpcomniaaisolution/omnia_auth:1.0  
+
+4. When prompted for the shared path, enter the path for the Omnia shared directory. This can be a local file path or an NFS share path.
+5. When prompted for the password, enter a secure alphanumeric password for accessing the Omnia core container.
+   
+.. caution:: The password must not contain special characters such as \ , | , & , ; , ` , < > , * , ? , ! , $ , ( ) , { } , [ ] . 
+
+  
+**To deploy the container images from any Omnia branch**, available at `Omnia Artifactory Repository <https://github.com/dell/omnia-artifactory.git>`_, do the following:
+
+  
+ 1. Clone the Omnia artifacts repository and build the ``omnia_core`` and ``omnia_auth`` container images. Run the following commands:
+
+    .. code-block:: bash
+
+      git clone https://github.com/dell/omnia-artifactory.git
+      cd omnia-artifactory
+      ./build_images.sh omnia_branch=<branch_name_or_tag>
+
+    Examples:
+
+    To build from a branch:
+
+    .. code-block:: bash
+
+      ./build_images.sh omnia_branch=main
+
+    To build from a tag:
+
+    .. code-block:: bash
+
+      ./build_images.sh omnia_branch=v2.0.0.0-rc3
+
+  * For detailed build instructions, refer to the `Omnia Artifacts README <https://github.com/dell/omnia-artifactory/blob/omnia-container/README.md>`_.
+
+2. Run the following command to make the script executable::
+
+    chmod +x omnia.sh
+
+3. On the OIM, run the following command to deploy the ``omnia_auth`` and ``omnia_core`` containers and configure passwordless SSH::
+
+    ./omnia.sh --install
 
 3. When prompted for the shared path, enter the path for the Omnia shared directory. This can be a local file path or an NFS share path.
 4. When prompted for the password, enter a secure alphanumeric password for accessing the Omnia core container.
    
 .. caution:: The password must not contain special characters such as \ , | , & , ; , ` , < > , * , ? , ! , $ , ( ) , { } , [ ] . 
-  
+
+
+Tasks Performed by ``omnia.sh``
+---------------------------------
+
 The ``omnia.sh`` script performs the following tasks:
 
 * Deploys and starts the ``omnia_core`` container as a Systemd service.
