@@ -12,8 +12,7 @@ Telemetry
 
 ⦾ **Why do telemetry services fail to collect or display data when PowerScale is configured as an NFS server?**
 
-**Potential Cause**:  The CSI-PowerScale driver is not installed on the kubernetes cluster nodes because CSI driver entry is not present in the ``software_config.json`` file. 
-When PowerScale is used without CSI-based integration, Kubernetes treats the storage as a manual NFS mount, which is not supported by Omnia for telemetry workloads.
+**Potential Cause**:  The CSI-PowerScale driver is not installed on the Kubernetes cluster nodes because the CSI driver entry is not present in the ``software_config.json``file. When PowerScale is used without CSI-based integration, Kubernetes treats the storage as a manual NFS mount, which is not supported by Omnia for telemetry workloads.
 
 **Resolution**: Ensure that the following CSI-PowerScale driver entry is present in the ``software_config.json`` file:: 
    
