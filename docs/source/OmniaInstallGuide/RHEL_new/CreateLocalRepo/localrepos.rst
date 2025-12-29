@@ -60,5 +60,5 @@ Configuring Specific Local Repositories
 
             {"name": "csi_driver_powerscale", "version":"v2.15.0", "arch": ["x86_64"]},
 
-.. note:: PowerScale must not be mounted manually via NFS on Kubernetes cluster nodes, as this may result in telemetry failures. PowerScale must be integrated with the Kubernetes cluster using the CSI-PowerScale driver. For more information on deploying Dell CSI PowerScale driver, see `Deploy CSI drivers for Dell PowerScale Storage Solutions <../../AdvancedConfigurations/PowerScale_CSI.html>`_ 
+For more information on deploying Dell CSI PowerScale driver, see `Deploy CSI drivers for Dell PowerScale Storage Solutions <../../AdvancedConfigurations/PowerScale_CSI.html>`_ 
     
