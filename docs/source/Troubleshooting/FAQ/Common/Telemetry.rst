@@ -10,7 +10,7 @@ Telemetry
 **Resolution**: If this issue occurs during telemetry execution, check if the service kube nodes are booted and added to the service ``kube_control_plane``.
 
 
-⦾ **Why do telemetry services fail to collect or display data when PowerScale is configured as an NFS server?**
+⦾ **Why do telemetry pods enter a CrashLoopBackOff state when PowerScale is configured as an NFS server?**
 
 **Potential Cause**:  The CSI-PowerScale driver is not installed on the Kubernetes cluster nodes because the CSI driver entry is not present in the ``software_config.json``file. When PowerScale is used without CSI-based integration, Kubernetes treats the storage as a manual NFS mount, which is not supported by Omnia for telemetry workloads.
 
