@@ -46,10 +46,10 @@ Specify the required parameters in the following input files:
 
 .. note::  
    
-    When PowerScale is configured as an NFS server, ensure that the following CSI-PowerScale driver entry is present in the ``software.json`` file::
+    When PowerScale is configured as an NFS server, ensure that the following CSI-PowerScale driver entry is present in the ``software_config.json`` file::
 
      {"name": "csi_driver_powerscale", "version": "v2.15.0", "arch": ["x86_64"]}
-     
+
     For more information on deploying the Dell CSI-PowerScale driver, see `Deploy CSI drivers for Dell PowerScale Storage Solutions <../../AdvancedConfigurations/PowerScale_CSI.html>`_.
 
 
