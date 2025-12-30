@@ -18,4 +18,5 @@ Telemetry
    
    {"name": "csi_driver_powerscale", "version": "v2.15.0", "arch": ["x86_64"]}
 
-For more information on deploying the Dell CSI-PowerScale driver, see `Deploy CSI drivers for Dell PowerScale Storage Solutions <../../../OmniaInstallGuide/AdvancedConfigurations/PowerScale_CSI.html>`_.
+For more information on deploying the Dell CSI-PowerScale driver, For deployment details, see :doc:`OmniaInstallGuide/AdvancedConfigurations/PowerScale_CSI`.
+
