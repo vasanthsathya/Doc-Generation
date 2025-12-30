@@ -11,4 +11,4 @@ General Query
 
 ⦾ **After successful discovery, PowerEdge R7615 and R6615 nodes might fail to complete PXE boot or become unresponsive during the provisioning process.**
 
-**Resolution**: Not available. For more information about the issue, see `PowerEdge: C6615 Red Hat Enterprise Linux Install May Fail When Media Is Mounted on Remote File Share <https://www.dell.com/support/kbdoc/en-us/000193828/poweredge-c6615-red-hat-enterprise-linux-install-may-fail-when-media-is-mounted-on-remote-file-share>`_.
+**Resolution**: Use an alternative supported PowerEdge server model. For more information about the issue, see `PowerEdge: C6615 Red Hat Enterprise Linux Install May Fail When Media Is Mounted on Remote File Share <https://www.dell.com/support/kbdoc/en-us/000193828/poweredge-c6615-red-hat-enterprise-linux-install-may-fail-when-media-is-mounted-on-remote-file-share>`_.
