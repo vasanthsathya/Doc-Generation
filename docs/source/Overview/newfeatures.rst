@@ -20,7 +20,7 @@ Containerization and Repository Management
    LDAP server is now containerized for simplified authentication and directory services.
 
 
-Service Cluster Enhancements
+K8s Service Cluster
 -----------------------------
 
 - **Service cluster configuration**  
@@ -39,7 +39,7 @@ Service Cluster Enhancements
 Telemetry and Metrics
 ----------------------
 - **LDMS Support**
-   Full integration of LDMS for distributed metric collection and performance monitoring.
+   Full integration of LDMS for distributed metric collection and performance monitoring for Slurm cluster.
 
 - **Enabled support for two iDRAC telemetry collectors** 
    Kafka-based flow and VictoriaPump flow, with VictoriaPump storing telemetry metrics efficiently in VictoriaMetrics DB.

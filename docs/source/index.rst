@@ -38,6 +38,7 @@ For a better understanding of what Omnia does, check out the following:
     * `1.x documentation <https://omnia-doc.readthedocs.io/en/latest/index.html>`_
     * `2.x documentation <https://omnia.readthedocs.io/en/latest/index.html>`_
 
+.. note:: The upgrade to version 2.x is not supported because of architectural changes.
 
 **Omnia Community Members**
 
