@@ -20,7 +20,7 @@ Containerization and Repository Management
    LDAP server is now containerized for simplified authentication and directory services.
 
 
-Service Cluster Enhancements
+K8s Service Cluster
 -----------------------------
 
 - **Service cluster configuration**  
