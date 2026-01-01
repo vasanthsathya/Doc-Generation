@@ -2,86 +2,69 @@
 New Features
 =========================
 
-This release introduces significant enhancements to deployment flexibility, security, 
-and high availability on the service clusters.
-
-Containerization and Repository Management
-------------------------------------------
-
-- **Omnia containerization using Podman**  
-   Core Omnia components are now containerized with Podman, improving portability 
-   and lifecycle management.
-
-- **Local repository creation with Pulp container**  
-   A Pulp-based containerized repository service enables self-contained package 
-   distribution without external dependencies.
-
-- **Containerized LDAP Server**
-   LDAP server is now containerized for simplified authentication and directory services.
+The following are the new features and enhancements introduced in the Omnia 2.0.0.0 release
 
 
-K8s Service Cluster
+Support for Podman Containers
 -----------------------------
+Supports deployment of the following key services as Podman containers, enabling simplified lifecycle management and easier updates:
 
-- **Service cluster configuration**  
-   Automated configuration workflows for establishing dedicated service clusters.
+- **Omnia Core**: Orchestrates HPC cluster management and operations.
+- **Omnia Auth**: Provides secure authentication services based on LDAP.
+- **OpenCHAMI**: Supports diskless provisioning workflows.
+- **Pulp Repository Service**: Hosts local package repositories to enable deployments on air-gapped environments.
 
-- **High availability for service Kubernetes cluster**  
-   Built-in HA capabilities ensure resilience and failover protection for Kubernetes-based control planes.
+Repository Management
+---------------------
+Enables deployment of a Pulp-based local repository service as a Podman container, allowing you to manage local repositories and distribute packages seamlessly in air-gapped environments.
 
-- **iDRAC Telemetry integration on service Kubernetes cluster**  
-   Telemetry data from iDRAC interfaces can now be collected and processed natively within the cluster.
-
-- **LDMS Integration on Service Kubernetes Cluster**
-   LDMS metrics can now be collected and processed natively within the cluster for distributed performance monitoring.
-
-
-Telemetry and Metrics
+Authentication Service
 ----------------------
-- **LDMS Support**
-   Full integration of LDMS for distributed metric collection and performance monitoring for Slurm cluster.
+Supports deployment of the LDAP server as part of the Omnia Auth Podman container, simplifying authentication and directory services.
 
-- **Enabled support for two iDRAC telemetry collectors** 
-   Kafka-based flow and VictoriaPump flow, with VictoriaPump storing telemetry metrics efficiently in VictoriaMetrics DB.
+Telemetry Collection and Monitoring
+-----------------------------------
+- Enables automated configuration of dedicated Kubernetes Service Clusters that host essential monitoring components for telemetry collection and monitoring.
+- Supports telemetry collection using both iDRAC Telemetry service and LDMS (Lightweight Distributed Metric Service) in HPC environments:
 
-- **Containerized iDRAC Telemetry Receiver**
-   Supports air-gapped/offline telemetry collection for secure environments.
+  - **iDRAC Telemetry service** collects out-of-band system metrics from Dell servers, including power, thermal, and hardware health information. The iDRAC Telemetry data can be collected and streamed as time-series data to Kafka or VictoriaMetrics, depending on deployment needs, with VictoriaPump storing telemetry metrics in VictoriaMetrics DB.
+  - **LDMS Telemetry** collects in-band performance metrics from Slurm cluster nodes such as CPU, memory, network, and I/O statistics from compute nodes. The LDMS Telemetry data can be collected and streamed as time-series data to Kafka.
 
+- Supports air-gapped or offline telemetry collection for secure environments.
 
-Functional Groups for Cluster Deployment
------------------------------------------
+High Availability
+-----------------
+Provides support for built-in high-availability (HA) failover protection for Service Kubernetes Cluster control plane nodes.
 
-- **Composable functional groups for nodes**  
-   Nodes can be dynamically assigned roles based on modular functional profiles.
+Provisioning and Deployment Based on Functional Groups
+-------------------------------------------------------
+Support for provisioning and image deployment on HPC clusters based on groups and functional groups defined in a mapping file:
 
-- **Support for image creation based on functional groups (Slurm and Kubernetes)**  
-   Customized OS images can be generated automatically depending on workload type.
+- Nodes are automatically assigned roles (for example, Slurm Control Node, Service Kubernetes Node, Login Node) based on the functional group specified in the mapping file.
+- Customized OS images are deployed on nodes according to their assigned roles, ensuring workload-specific configurations for Slurm and Kubernetes environments.
+- Supports provisioning for multiple node types within functional groups, including:
 
-- **Multiple node types supported within functional groups. Includes support for:**  
-    - Login Compiler Node  
-    - Login Node  
-    - Slurm Node
-    - Slurm Control Node  
-    - Service Kube Node
-    - Service Kube Control Plane
+  - Login Node
+  - Login Compiler Node
+  - Slurm Node
+  - Slurm Control Node
+  - Service Kubernetes Node
+  - Service Kubernetes Control Plane
 
-Platform and Security Updates
------------------------------
+Diskless Boot
+-------------
+- Support for diskless provisioning for RHEL 10.0 using OpenCHAMI.
+- Automatic CUDA installation during diskless provisioning of Slurm cluster nodes ensures nodes are ready for GPU-enabled workloads immediately after deployment.
 
-- **Support for x86_64 and aarch64 architectures**
-   x86_64 and aarch64 platforms are now enabled.
+Security Updates
+----------------
+Sensitive credentials are now stored securely using encrypted formats.
 
-- **Support for RHEL 10.0 (diskless OS) using OpenCHAMI**  
-   Diskless provisioning is now available using OpenCHAMI workflows.
+Platform Support
+----------------
+- Support for x86_64 and aarch64 architectures.
 
-- **CUDA Installation on Slurm Cluster Nodes with Diskless Provisioning**
-   GPU-enabled workloads supported with CUDA installation during diskless provisioning.
-
-- **Input templates**  
-   Predefined templates allow customized deployments tailored to specific infrastructure configurations.
-
-- **Input validator**  
-   Early validation of configuration inputs reduces deployment errors.
-
-- **Encrypted storage of input credentials**  
-   Sensitive credentials are now stored securely using encrypted formats.
+Input Template and Validator
+----------------------------
+- **Input Template**: Provides predefined configuration file templates to provision nodes for specific deployment requirements.
+- **Input Validator**: Performs early validation of configuration file inputs to avoid issues during deployment.
