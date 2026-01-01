@@ -2,7 +2,7 @@
 New Features
 =========================
 
-The following are the new features and enhancements introduced in the Omnia 2.0.0.0 release
+The following are the new features and enhancements introduced in the Omnia 2.0.0.0 release:
 
 
 Support for Podman Containers
@@ -62,7 +62,7 @@ Sensitive credentials are now stored securely using encrypted formats.
 
 Platform Support
 ----------------
-- Support for x86_64 and aarch64 architectures.
+Support for x86_64 and aarch64 architectures.
 
 Input Template and Validator
 ----------------------------
