@@ -1,12 +1,10 @@
 Omnia Prerequisites
-==========================
+====================
 
-This section outlines the key prerequisites for setting up Omnia components, including
-NFS configuration, OIM setup, and service Kubernetes cluster preparation.
+This section outlines the key prerequisites required to configure the components used by Omnia to deploy HPC clusters.
 
-
-NFS Server Prerequisites
-----------------------------
+NFS Server
+-----------
 
 * Choose an NFS server located outside your cluster.
 * The NFS share has **755 permissions** and ``no_root_squash`` is enabled during mount.
@@ -18,10 +16,11 @@ NFS Server Prerequisites
 
 * Ensure that the external NFS share is accessible from all nodes (both diskless and diskful)
   and is reachable via the admin network.
+* Omnia recommends using an NFS share with at least 100GB storage for OIM and cluster configuration.
 
 
-OIM (Omnia Infrastructure Manager) Prerequisites
--------------------------------------------------
+OIM (Omnia Infrastructure Manager)
+----------------------------------
 
 * Choose a **server outside of your intended cluster** that meets the required :doc:`Storage Requirements <OmniaInstallGuide/RHEL_new/RHELSpace>` to function as the Omnia Infrastructure Manager (OIM).
 * Ensure that the OIM has the RHEL operating system installed with the **Server with GUI** Base Environment. For a complete list of supported RHEL versions, see the :doc:`supported operating systems <Overview/SupportMatrix/OperatingSystems/index>`.
@@ -40,8 +39,8 @@ OIM (Omnia Infrastructure Manager) Prerequisites
 * Make sure that the required ports are open on the OIM node for cluster deployment. For detailed information on the required ports, refer to the :doc:`Omnia Ports <omnia_ports>`.
 * The ``omnia_core`` and ``omnia_auth`` container images are deployed on the OIM. For instructions to deploy containers, see :doc:`Deploy Omnia Core Container <OmniaInstallGuide/RHEL_new/omnia_startup>`.
   
-Repository Prerequisites
----------------------------
+Repository
+-----------
 
 * Enable the **AppStream** and **BaseOS** repositories via the RHEL subscription manager.
 * Ensure that RHEL has an **active subscription** or is configured to access **local repositories**.
@@ -50,13 +49,13 @@ Repository Prerequisites
 * Docker credentials are a mandatory requirement to pull in the essential packages during local repository deployment. 
 
 
-Service Kubernetes Cluster Prerequisites
--------------------------------------
+Service Kubernetes Cluster 
+---------------------------
 
 * A minimum of **three Kubernetes controller nodes** must be available.
 
-iDRAC Telemetry Metric Collection Prerequisites
------------------------------------------------
+iDRAC Telemetry Metric Collection 
+----------------------------------
 
 * **Redfish** is enabled in iDRAC.
 * **iDRAC firmware** is updated to the latest version.
@@ -64,18 +63,18 @@ iDRAC Telemetry Metric Collection Prerequisites
 * **Correct node service tags** are displayed on the iDRAC interface.
 * For telemetry collection on the service cluster, ensure all **BMC (iDRAC) IPs** are **reachable** from the service cluster nodes.
 
-Lightweight Directory Access Protocol (LDAP) Prerequisites
------------------------------------------------------------
+Lightweight Directory Access Protocol (LDAP)
+--------------------------------------------
 
 * The LDAP server details are required to configure the ``omnia_auth`` container and OpenLDAP as a proxy server. See :doc:`Configure OpenLDAP as a proxy server <OmniaInstallGuide/RHEL_new/Authentication/OpenLDAP>`.
 
-Lightweight Distributed Metric Service (LDMS) Prerequisites
--------------------------------------------------------------
+Lightweight Distributed Metric Service (LDMS)
+---------------------------------------------
 
 * The LDMS RPM must be available in the user repository, and the ``ldms.json`` file should be updated accordingly. 
   If the LDMS RPM is not available, refer to  `Building LDMS PRODUCER RPM Package <https://github.com/dell/omnia-artifactory?tab=readme-ov-file#building-ldms-producer-rpm-package>`_ for instructions on building LDMS RPMs. 
 
-Slurm Prerequisites
---------------------
+Slurm
+------
 * The Slurm RPM must be available in the user repository. If the Slurm RPM is not available, refer to `Slurm Quick Start Administrator Guide <https://slurm.schedmd.com/quickstart_admin.html>`_ for instructions on building Slurm RPMs.
 
