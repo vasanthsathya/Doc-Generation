@@ -1,7 +1,7 @@
-Omnia Prerequisites
-====================
+Omnia Deployment Requirements
+=============================
 
-This section outlines the key prerequisites required to configure the components used by Omnia to deploy HPC clusters.
+This section outlines the key requirements for the components used by Omnia to deploy HPC clusters.
 
 NFS Server
 -----------
