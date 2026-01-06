@@ -53,4 +53,12 @@ Configuring Specific Local Repositories
 
     UCX is deployed on the cluster when ``local_repo.yml`` playbook is executed, followed by the execution of `omnia.yml <../OmniaCluster/BuildingCluster/installscheduler.html>`_.
 
+
+**Dell CSI PowerScale driver**
+
+    To install Dell CSI PowerScale driver, include the following line under ``softwares`` in ``software_config.json``: ::
+
+            {"name": "csi_driver_powerscale", "version":"v2.15.0", "arch": ["x86_64"]},
+
+For more information on deploying Dell CSI PowerScale driver, see `Deploy CSI drivers for Dell PowerScale Storage Solutions <../../AdvancedConfigurations/PowerScale_CSI.html>`_ 
     
