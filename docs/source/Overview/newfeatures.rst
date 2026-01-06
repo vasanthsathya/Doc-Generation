@@ -1,70 +1,79 @@
-=========================
 New Features
-=========================
+=============
 
-The following are the new features and enhancements introduced in the Omnia 2.0.0.0 release:
-
+The following sections describe the new features and enhancements introduced in the Omnia 2.0.0.0 release.
 
 Support for Podman Containers
 -----------------------------
-Supports deployment of the following key services as Podman containers, enabling simplified lifecycle management and easier updates:
 
-- **Omnia Core**: Orchestrates HPC cluster management and operations.
-- **Omnia Auth**: Provides secure authentication services based on LDAP.
-- **OpenCHAMI**: Supports diskless provisioning workflows.
-- **Pulp Repository Service**: Hosts local package repositories to enable deployments on air-gapped environments.
+Enables deployment of the following Omnia core services as Podman containers, ensuring secure, lightweight, and OCI-compliant environments for HPC clusters. This simplifies lifecycle management, accelerates updates, and improves isolation for critical services:
+
+- **Omnia Core** — Orchestrates HPC cluster operations.
+- **Omnia Auth** — Provides LDAP-based authentication.
+- **OpenCHAMI** — Powers diskless provisioning workflows.
+- **Pulp Repository Service** — Hosts local repositories for air-gapped deployments.
 
 Repository Management
 ---------------------
-Enables deployment of a Pulp-based local repository service as a Podman container, allowing you to manage local repositories and distribute packages seamlessly in air-gapped environments.
+
+Provides a Pulp-based local repository service deployed as a Podman container, enabling secure and efficient package distribution in air-gapped HPC environments. This reduces dependency on external networks and accelerates provisioning workflows.
 
 Authentication Service
 ----------------------
-Supports deployment of the LDAP server as part of the Omnia Auth Podman container, simplifying authentication and directory services.
+
+Integrates an LDAP server within the Omnia Auth Podman container for centralized authentication and directory services. This enhances security and simplifies identity management across HPC clusters.
 
 Telemetry Collection and Monitoring
 -----------------------------------
-- Enables automated configuration of dedicated Kubernetes Service Clusters that host essential monitoring components for telemetry collection and monitoring.
-- Supports telemetry collection using both iDRAC Telemetry service and LDMS (Lightweight Distributed Metric Service) in HPC environments:
 
-  - **iDRAC Telemetry service** collects out-of-band system metrics from Dell servers, including power, thermal, and hardware health information. The iDRAC Telemetry data can be collected and streamed as time-series data to Kafka or VictoriaMetrics, depending on deployment needs, with VictoriaPump storing telemetry metrics in VictoriaMetrics DB.
-  - **LDMS Telemetry** collects in-band performance metrics from Slurm cluster nodes such as CPU, memory, network, and I/O statistics from compute nodes. The LDMS Telemetry data can be collected and streamed as time-series data to Kafka.
+Automates the configuration of Kubernetes Service Clusters to host essential monitoring components for telemetry collection and monitoring. The following telemetry capabilities are supported:
 
-- Supports air-gapped or offline telemetry collection for secure environments.
+- **iDRAC Telemetry** — Collects out-of-band system metrics, including power, thermal, and hardware health data, from Dell servers. Telemetry data is streamed as time-series data to Kafka or VictoriaMetrics, depending on deployment requirements. VictoriaPump is included for storing telemetry metrics in the VictoriaMetrics database.
 
-High Availability
------------------
-Provides support for built-in high-availability (HA) failover protection for Service Kubernetes Cluster control plane nodes.
+- **LDMS Telemetry** — Captures in-band performance metrics such as CPU, memory, network, and I/O usage from Slurm cluster nodes. Metrics are streamed as time-series data to Kafka for scalable ingestion and analysis.
+
+- **Air-gapped telemetry support** — Supports telemetry collection in air-gapped or offline environments to meet security and compliance requirements.
+
+Kubernetes Cluster High Availability
+------------------------------------
+
+Delivers built-in high-availability (HA) failover for Service Kubernetes Cluster control plane nodes, ensuring uninterrupted cluster management and improved resilience for HPC workloads.
 
 Provisioning and Deployment Based on Functional Groups
--------------------------------------------------------
-Support for provisioning and image deployment on HPC clusters based on groups and functional groups defined in a mapping file:
+------------------------------------------------------
 
-- Nodes are automatically assigned roles (for example, Slurm Control Node, Service Kubernetes Node, Login Node) based on the functional group specified in the mapping file.
-- Customized OS images are deployed on nodes according to their assigned roles, ensuring workload-specific configurations for Slurm and Kubernetes environments.
-- Supports provisioning for multiple node types within functional groups, including:
+Enables role-based provisioning for HPC clusters using mapping files. Automatically assigns functional roles (for example, Slurm Control Node and Login Node) and deploys customized operating system images tailored to workload-specific configurations.
 
-  - Login Node
-  - Login Compiler Node
-  - Slurm Node
-  - Slurm Control Node
-  - Service Kubernetes Node
-  - Service Kubernetes Control Plane
+The following functional roles are supported:
 
-Diskless Boot
--------------
-- Support for diskless provisioning for RHEL 10.0 using OpenCHAMI.
-- Automatic CUDA installation during diskless provisioning of Slurm cluster nodes ensures nodes are ready for GPU-enabled workloads immediately after deployment.
+- Login Node
+- Login Compiler Node
+- Slurm Node
+- Slurm Control Node
+- Service Kubernetes Node
+- Service Kubernetes Control Plane
 
-Security Updates
-----------------
-Sensitive credentials are now stored securely using encrypted formats.
+Stateless Boot
+--------------
+
+Introduces stateless provisioning for RHEL 10 using OpenCHAMI, reducing deployment time and storage overhead for HPC clusters.
+
+Automatic CUDA Installation for GPU Workloads
+---------------------------------------------
+
+Automatically installs CUDA during node provisioning, ensuring GPU-enabled nodes are ready for HPC workloads immediately after deployment. This reduces manual setup time and accelerates readiness for GPU-intensive applications.
+
+Security Enhancements
+---------------------
+
+Credentials are now encrypted using industry-standard algorithms (for example, AES-256), improving compliance with security best practices and reducing the risk of data exposure.
 
 Platform Support
 ----------------
-Support for x86_64 and aarch64 architectures.
+
+Supports ``x86_64`` and ``aarch64`` architectures, enabling deployment on both traditional and ARM-based HPC nodes for improved flexibility and energy efficiency.
 
 Input Template and Validator
 ----------------------------
-- **Input Template**: Provides predefined configuration file templates to provision nodes for specific deployment requirements.
-- **Input Validator**: Performs early validation of configuration file inputs to avoid issues during deployment.
+
+Provides predefined configuration templates and early input validation to reduce configuration errors and accelerate HPC cluster provisioning. This improves deployment reliability and overall user experience.
