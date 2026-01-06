@@ -5,3 +5,4 @@ Hardware Supported by Omnia
     servers
     nics
     switches
+    storage
