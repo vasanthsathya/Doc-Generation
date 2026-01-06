@@ -36,7 +36,7 @@ Omnia is made available under the `Apache 2.0 license. <https://opensource.org/l
 
 For a better understanding of what Omnia does, check out the following:
     * `1.x documentation <https://omnia-doc.readthedocs.io/en/latest/index.html>`_: supports diskful provisioning.
-    * `2.x documentation <https://omnia.readthedocs.io/en/latest/index.html>`_: supports diskless provisioning and deployment of key services as Podman containers.
+    * `2.x documentation <https://omnia.readthedocs.io/en/latest/index.html>`_: supports diskless provisioning and containerized deployment.
 
 .. note:: Upgrade from Omnia 1.x to 2.x is not supported due to architectural changes.
 
