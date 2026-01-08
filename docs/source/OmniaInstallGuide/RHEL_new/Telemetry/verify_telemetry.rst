@@ -141,7 +141,7 @@ use the (VMUI) to validate that iDRAC telemetry data is being collected and stor
 successfully in a single-mode VictoriaMetrics deployment. For more details, see
 `VictoriaMetrics Single Server documentation <https://docs.victoriametrics.com/victoriametrics/single-server-victoriametrics/>`_.
 
-
+.. note:: Metric availability depends on the server hardware configuration and iDRAC capabilities. Only telemetry metrics that are exposed and streamed by iDRAC can be retrieved and viewed. Metrics that appear as “NA” (Not Available) in iDRAC are not included in telemetry data and therefore do not appear in telemetry queries or views.
 
 1. Run the following command to verify that the VictoriaMetrics pod is running::
 
