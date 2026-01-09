@@ -1,7 +1,6 @@
 "Parameter	",Mandatory/Optional,Details
 ``idrac_telemetry_support``,Mandatory,"* **Type**: Boolean
-* If you want iDRAC telemetry support on your service cluster, set this variable  to ``true`` before 
-executing  ``telemetry.yml`` and  ``discovery.yml`` playbooks.              
+* If you want iDRAC telemetry support on your service cluster, set this variable  to ``true`` before executing  ``telemetry.yml`` and  ``discovery.yml`` playbooks.              
             
 * **Accepted values**: ``true`` or ``false``
 * **Default value**: ``true``
