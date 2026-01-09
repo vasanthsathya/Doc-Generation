@@ -21,7 +21,7 @@ Telemetry
 For more information on deploying the Dell CSI-PowerScale driver, see `Deploy CSI drivers for Dell PowerScale Storage Solutions <../../../OmniaInstallGuide/AdvancedConfigurations/PowerScale_CSI.html>`_
 
 
-⦾ **Why do telemetry pods enter a ``CrashLoopBackOff`` state and fail to retrieve telemetry with the error ``No space left on device``?**
+⦾ **Why do kafka telemetry pods enter a ``CrashLoopBackOff`` state and fail to retrieve telemetry with the error ``No space left on device``?**
 
 .. image:: ../../../images/faq_telemetry_error_crash_loop.png
 
