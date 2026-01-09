@@ -24,12 +24,14 @@ For more information on deploying the Dell CSI-PowerScale driver, see `Deploy CS
 ⦾ **Why do telemetry pods enter a ``CrashLoopBackOff`` state and fail to retrieve telemetry with the error ``No space left on device``?**
 
 .. image:: ../../../images/faq_telemetry_error_crash_loop.png
-   
 
-.. image:: ../../../images/faq_telemetry_error_crash_loop_2.png
+
 
 
 **Potential Cause**: This issue occurs when the configured ``persistence_size`` for Kafka reaches its capacity limit.
+
+.. image:: ../../../images/faq_telemetry_error_crash_loop_2.png
+
 
 **Resolution**: The default ``8Gi`` persistent volume size is suitable for small clusters (typically fewer than 5 nodes). For larger clusters, increase the ``persistence_size`` and configure Kafka retention settings ``log_retention_hours`` and ``log_retention_bytes`` so that old logs are deleted before the persistent volume reaches its limit. These settings should be based on your expected data volume and cluster size.
 
