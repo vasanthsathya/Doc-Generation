@@ -1,5 +1,13 @@
 ﻿Parameter,Mandatory/Optional,Details
-``idrac_telemetry_support``,Mandatory,
+``idrac_telemetry_support``,Mandatory,"* **Type**: Boolean
+* If you want iDRAC telemetry support on your service cluster, set this variable  to ``true`` before executing  ``telemetry.yml`` and  ``discovery.yml`` playbooks.              
+            
+* **Accepted values**: ``true`` or ``false``
+* **Default value**: ``true``
+
+.. note:: If ``idrac_telemetry_support`` is set to ``true``,``mysqldb_user``, ``mysqldb_password``, and ``mysqldb_root_password`` parameters in  the ``omnia_config_credentials.yml`` file becomes mandatory. 
+
+.. note:: If you want to deploy only Slurm clusters (``slurm_custom``), ``idrac_telemetry_support`` must be set to ``false``."
 ``idrac_telemetry_collection_type``,Mandatory,
 victoria_configurations > ``deployment_mode``,Mandatory,
 victoria_configurations > ``persistence_size``,Conditional Mandatory,
