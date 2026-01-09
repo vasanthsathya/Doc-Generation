@@ -40,9 +40,7 @@ victoria_configurations > ``persistence_size``,Conditional Mandatory,"
 * **Accepted values:** Must be specified in the form of ``X[Ki|Mi|Gi|Ti|Pi|Ei]``
 * **Default value:** ``8Gi`` (results in **24Gi total storage** for cluster mode)
 
-.. note::
-
-Ensure that the PersistentVolume (PV) size for Kafka brokers is correctly configured based on your expected data retention. If PV capacity is smaller than the data retained per partition, brokers may run out of disk space before logs are deleted. For more details on managing Kafka log retention and cleanup policies, see `Managing Kafka logs with delete and compact policies <https://strimzi.io/docs/operators/in-development/deploying#managing_kafka_logs_with_delete_and_compact_policies>`_"
+.. note:: Ensure that the PersistentVolume (PV) size for Kafka brokers is correctly configured based on your expected data retention. If PV capacity is smaller than the data retained per partition, brokers may run out of disk space before logs are deleted. For more details on managing Kafka log retention and cleanup policies, see `Managing Kafka logs with delete and compact policies <https://strimzi.io/docs/operators/in-development/deploying#managing_kafka_logs_with_delete_and_compact_policies>`_."
 victoria_configurations > ``retention_period``,Conditional Mandatory,"* Specify the number of hours to retain victoria logs before they are deleted.
 * **Default**: 168 (7 days)"
 kafka_configurations > ``persistence_size``,Conditional Mandatory,"* The amount of storage allocated for **each** Kafka persistent volume.
