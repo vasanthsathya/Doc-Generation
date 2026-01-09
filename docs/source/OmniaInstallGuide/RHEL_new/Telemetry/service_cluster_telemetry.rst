@@ -36,5 +36,5 @@ Steps
  .. csv-table:: telemetry_config.yml
         :file: ../../../Tables/telemetry_config_1.csv
         :header-rows: 1
-        :keepspace:
+        :widths: 20, 20, 60
 
