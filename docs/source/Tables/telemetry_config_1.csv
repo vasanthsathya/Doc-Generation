@@ -1,33 +1,7 @@
 ﻿Parameter,Mandatory/Optional,Details
-``idrac_telemetry_support``,Mandatory,"* **Type**: Boolean
-* If you want iDRAC telemetry support on your service cluster, set this variable  to ``true`` before executing  ``telemetry.yml`` and  ``discovery.yml`` playbooks.              
-            
-* **Accepted values**: ``true`` or ``false``
-* **Default value**: ``true``
-
-.. note:: If ``idrac_telemetry_support`` is set to ``true``,``mysqldb_user``, ``mysqldb_password``, and ``mysqldb_root_password`` parameters in  the ``omnia_config_credentials.yml`` file becomes mandatory. 
-
-.. note::
-   If you want to deploy only Slurm clusters (``slurm_custom``),  ``idrac_telemetry_support`` must be set to ``false``."
-``idrac_telemetry_collection_type``,Mandatory,"*  Specify where to store iDRAC telemetry data.
-* **Supported values:**
-    * ``victoria``: Store in VictoriaMetrics only
-    *  ``Kafka``: Store in Kafka only
-    *  ``victoria,kafka`` : Store in both (recommended)
-* **Default:** ``victoria,kafka``"
-victoria_configurations > ``deployment_mode``,Mandatory,"* **Supported values:**
-    * ``single-node``: Simple deployment (1 pod, suitable for dev/test)
-    * ``cluster``: High-availability deployment (7 pods, recommended for production)
-* **Default:** ``cluster``
-* **Cluster Mode Benefits:**
-    * High availability (no single point of failure)
-    * Horizontal scalability (scale components independently)
-    * Better performance (4x ingestion, 2x query speed)  
-    * Production-ready architecture
-*  **Single-Node Benefits:**
-    * Simple setup (fewer resources)
-    * Suitable for small deployments (<10 nodes)
-    * Lower resource usage (~4Gi memory vs ~10Gi for cluster)"
+``idrac_telemetry_support``,Mandatory,
+``idrac_telemetry_collection_type``,Mandatory,
+victoria_configurations > ``deployment_mode``,Mandatory,
 victoria_configurations > ``persistence_size``,Conditional Mandatory,"
 * The amount of storage allocated for **each** VictoriaMetrics persistent volume.
 * **Important: Total VictoriaMetrics storage depends on deployment mode:**
