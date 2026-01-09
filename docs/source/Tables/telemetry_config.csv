@@ -49,7 +49,8 @@ kafka_configurations > ``persistence_size``,Conditional Mandatory,"* The amount 
 *  **Example:** ``8Gi * 6 = 48Gi`` total Kafka storage
 * **Accepted values:** Must be specified in the form of ``X[Ki|Mi|Gi|Ti|Pi|Ei]``
 * **Default value:** ``8Gi`` (results in **48Gi total storage**)
-.. caution:: Ensure that the PersistentVolume (PV) size for Kafka brokers is correctly configured based on your expected data retention. If PV capacity is smaller than the data retained per partition, brokers may run out of disk space before logs are deleted. For more details on managing Kafka log retention and cleanup policies, see `Managing Kafka logs with delete and compact policies <https://strimzi.io/docs/operators/in-development/deploying#managing_kafka_logs_with_delete_and_compact_policies>`_."
+* The default ``8Gi`` size is suitable for small clusters (typically fewer than 5 nodes). For larger clusters, you should increase the ``persistent size`` and adjust ``log_retention_hours`` and ``log_retention_bytes`` based on expected data volume and cluster size.
+.. caution:: Ensure that the ``persistent_size``, ``log_retentions_hours``, and ``log_retention_bytes`` for Kafka brokers are configured based on your expected requirements for data retention. If ``persistence_size`` capacity is smaller than the data retained per partition, Kafka brokers may run out of disk space before logs are deleted. For more details on managing Kafka log retention and cleanup policies, see `Managing Kafka logs with delete and compact policies <https://strimzi.io/docs/operators/in-development/deploying#managing_kafka_logs_with_delete_and_compact_policies>`_."
 kafka_configurations > ``log_retention_hours``,Conditional Mandatory,"*  Specify the number of hours to retain Kafka logs before they are deleted.
 *  **Default**: 168 (7 days)"
 kafka_configurations > ``log_retention_bytes``,Conditional Mandatory,"* Specify the maximum size of Kafka logs (in bytes) before they are deleted.
