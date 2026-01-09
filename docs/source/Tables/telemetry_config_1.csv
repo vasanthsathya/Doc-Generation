@@ -29,11 +29,11 @@ kafka_configurations > ``topic_partitions``,Conditional Mandatory,"* Specify the
 * Default partition counts: ``idrac=1``, ``ldms=2``, ``ome=1``
 
 * Example:
-       topic_partitions:
-         - name: ""idrac""
-           partitions: 1
-         - name: ""ldms""
-           partitions: 2        "
+  topic_partitions:
+  --name: ""idrac""
+      partitions: 1
+  --name: ""ldms""
+      partitions: 2    "
 LDMS port configurations > ``ldms_agg_port``,Conditional Mandatory,
 LDMS port configurations > ``ldms_store_port``,Conditional Mandatory,
 LDMS port configurations > ``ldms_sampler_port``,Conditional Mandatory,
