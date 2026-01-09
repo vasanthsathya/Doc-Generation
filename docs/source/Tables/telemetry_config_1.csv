@@ -2,26 +2,9 @@
 ``idrac_telemetry_support``,Mandatory,
 ``idrac_telemetry_collection_type``,Mandatory,
 victoria_configurations > ``deployment_mode``,Mandatory,
-victoria_configurations > ``persistence_size``,Conditional Mandatory,"
-* The amount of storage allocated for **each** VictoriaMetrics persistent volume.
-* **Important: Total VictoriaMetrics storage depends on deployment mode:**
-    * ``Single-node mode``: Total storage = ``persistence_size * 1 pod``
-    * ``Cluster mode``: Total storage = ``persistence_size * 3 vmstorage pods``
-* **Example (cluster):** ``8Gi *  3 = 24Gi`` total VictoriaMetrics storage
-* **Accepted values:** Must be specified in the form of ``X[Ki|Mi|Gi|Ti|Pi|Ei]``
-* **Default value:** ``8Gi`` (results in **24Gi total storage** for cluster mode)
-"
-victoria_configurations > ``retention_period``,Conditional Mandatory,"* Specify the number of hours to retain victoria logs before they are deleted.
-* **Default**: 168 (7 days)"
-kafka_configurations > ``persistence_size``,Conditional Mandatory,"* The amount of storage allocated for **each** Kafka persistent volume.
-* **Important: Total Kafka storage =** ``persistence_size * 6 pods``
-  * 3 Kafka brokers (each gets ``persistence_size`` storage)
-  * 3 Kafka controllers (each gets ``persistence_size`` storage)
-*  **Example:** ``8Gi * 6 = 48Gi`` total Kafka storage
-* **Accepted values:** Must be specified in the form of ``X[Ki|Mi|Gi|Ti|Pi|Ei]``
-* **Default value:** ``8Gi`` (results in **48Gi total storage**)
-* The default ``8Gi`` size is suitable for small clusters (typically fewer than 5 nodes). For larger clusters, you should increase the ``persistent size`` and adjust ``log_retention_hours`` and ``log_retention_bytes`` based on expected data volume and cluster size.
-.. caution:: Ensure that the Kafka broker settings ``persistence_size``, ``log_retention_hours``, and ``log_retention_bytes`` are configured based on your data retention requirements. If the persistent volume reaches its capacity before logs are deleted according to the log retention period configured, Kafka brokers may run out of disk space.  For more details on managing Kafka log retention and cleanup policies, see `Managing Kafka logs with delete and compact policies <https://strimzi.io/docs/operators/in-development/deploying#managing_kafka_logs_with_delete_and_compact_policies>`_."
+victoria_configurations > ``persistence_size``,Conditional Mandatory,
+victoria_configurations > ``retention_period``,Conditional Mandatory,
+kafka_configurations > ``persistence_size``,Conditional Mandatory,
 kafka_configurations > ``log_retention_hours``,Conditional Mandatory,"*  Specify the number of hours to retain Kafka logs before they are deleted.
 *  **Default**: 168 (7 days)"
 kafka_configurations > ``log_retention_bytes``,Conditional Mandatory,"* Specify the maximum size of Kafka logs (in bytes) before they are deleted.
