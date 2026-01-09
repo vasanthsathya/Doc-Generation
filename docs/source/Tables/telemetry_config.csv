@@ -5,9 +5,7 @@
 * **Accepted values**: ``true`` or ``false``
 * **Default value**: ``true``
 
-.. note:: If ``idrac_telemetry_support`` is set to ``true``, ``mysqldb_user``, 
-   ``mysqldb_password``, and ``mysqldb_root_password`` parameters in 
-   the ``omnia_config_credentials.yml`` file becomes mandatory. 
+.. note:: If ``idrac_telemetry_support`` is set to ``true``,``mysqldb_user``, ``mysqldb_password``, and ``mysqldb_root_password`` parameters in  the ``omnia_config_credentials.yml`` file becomes mandatory. 
 
 .. note::
    If you want to deploy only Slurm clusters (``slurm_custom``),  ``idrac_telemetry_support`` must be set to ``false``."
