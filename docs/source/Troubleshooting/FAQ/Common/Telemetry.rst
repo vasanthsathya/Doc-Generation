@@ -24,8 +24,9 @@ For more information on deploying the Dell CSI-PowerScale driver, see `Deploy CS
 ⦾ **Why do telemetry pods enter a ``CrashLoopBackOff`` state and fail to retrieve telemetry with the error ``No space left on device``?**
 
 .. image:: ../../../images/faq_telemetry_error_crash_loop.png
+   
 
-.. image:: ../../../images/faq_telemetry_error_nospace.png
+.. image:: ../../../images/faq_telemetry_error_crash_loop_2.png
 
 
 **Potential Cause**: This issue occurs when the configured ``persistence_size`` for Kafka reaches its capacity limit.
