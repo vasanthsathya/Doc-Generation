@@ -5,6 +5,9 @@ This section outlines the steps to validate telemetry services and their compone
 verifying message flow, confirming TLS connectivity, and reviewing collected telemetry data.
 
 
+.. note:: For the list of iDRAC telemetry metrics collected by Kafka and VictoriaMetrics, see `iDRAC Telemetry Reference Tools <https://github.com/dell/iDRAC-Telemetry-Reference-Tools>`_.
+
+
 Verify Telemetry-Related Pods Are Running
 -------------------------------------------
 
