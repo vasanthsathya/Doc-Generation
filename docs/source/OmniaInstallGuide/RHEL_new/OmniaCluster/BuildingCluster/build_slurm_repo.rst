@@ -26,7 +26,7 @@ Build Slurm repository for x86_64 without GPU support
 
 After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x86_64/``.
 
-    .. image:: ../../../images/slurm_rpm_build.png
+    .. image:: ../../images/slurm_rpm_build.png
 
 4. To verify the build before hosting, navigate to ``/root/rpmbuild/RPMS/x86_64/`` and run the following command: ::
        
