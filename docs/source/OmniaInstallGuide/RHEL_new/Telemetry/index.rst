@@ -19,6 +19,14 @@ providing flexible deployment and simplified lifecycle management.
    Ensure that the ``service_k8s`` entry is mentioned in the ``software_config.json`` file when ``idrac_telemetry_support`` is set to ``true`` in the ``telemetry_config.yml`` file.
 
 
+Omnia Telemetry Architecture
+-----------------------------
+
+The following diagram illustrates the telemetry services that can be deployed using Omnia and the data flow between the components.
+
+.. image:: ../../images/omnia_telemetry_architecture.png
+
+
 .. toctree::
     :maxdepth: 1
 

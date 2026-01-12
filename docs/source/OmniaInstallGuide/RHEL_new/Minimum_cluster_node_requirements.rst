@@ -17,15 +17,15 @@ The following table lists the minimum cluster node requirements for the complete
 +-----------------------------------+--------------+----------+
 | Service Kubernetes Control Plane  | x86_64       | 3        |
 +-----------------------------------+--------------+----------+
-| Service Kubernetes Worker Node    | x86_64       | 1        |
+| Service Kubernetes Node           | x86_64       | 1        |
 +-----------------------------------+--------------+----------+
 | Slurm Control Node                | x86_64       | 1        |
 +-----------------------------------+--------------+----------+
-| Slurm Compute Node                | x86_64       | 1        |
+| Slurm Node                        | x86_64       | 1        |
 +-----------------------------------+--------------+----------+
-| Slurm Compute Node                | aarch64      | 1        |
+| Slurm Node                        | aarch64      | 1        |
 +-----------------------------------+--------------+----------+
-| Login / Compiler Node             | aarch64      | 1        |
+| Login/Compiler Node             | aarch64      | 1        |
 +-----------------------------------+--------------+----------+
 
 Complete Deployment Supported by Omnia (Slurm and Service Kubernetes Cluster) – x86_64 Only
@@ -42,11 +42,11 @@ The following table lists the minimum cluster node requirements for complete dep
 +-----------------------------------+--------------+----------+
 | Service Kubernetes Control Plane  | x86_64       | 3        |
 +-----------------------------------+--------------+----------+
-| Service Kubernetes Worker Node    | x86_64       | 1        |
+| Service Kubernetes Node           | x86_64       | 1        |
 +-----------------------------------+--------------+----------+
 | Slurm Control Node                | x86_64       | 1        |
 +-----------------------------------+--------------+----------+
-| Slurm Compute Node                | x86_64       | 1        |
+| Slurm Node                        | x86_64       | 1        |
 +-----------------------------------+--------------+----------+
 | Login Node                        | x86_64       | 1        |
 +-----------------------------------+--------------+----------+
@@ -65,7 +65,7 @@ The following table lists the minimum cluster node requirements for Slurm-only d
 +------------------------------------+--------------+----------+
 | Slurm Control Node                 | x86_64       | 1        |
 +------------------------------------+--------------+----------+
-| Slurm Compute Node                 | x86_64       | 1        |
+| Slurm Node                         | x86_64       | 1        |
 +------------------------------------+--------------+----------+
 | Login Node                         | x86_64       | 1        |
 +------------------------------------+--------------+----------+
@@ -84,5 +84,5 @@ The following table lists the minimum cluster node requirements for Service Kube
 +----------------------------------+--------------+----------+
 | Service Kubernetes Control Plane | x86_64       | 3        |
 +----------------------------------+--------------+----------+
-| Service Kubernetes Worker Node   | x86_64       | 1        |
+| Service Kubernetes Node          | x86_64       | 1        |
 +----------------------------------+--------------+----------+
