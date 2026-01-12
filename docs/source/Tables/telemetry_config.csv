@@ -66,11 +66,11 @@ kafka_configurations > ``topic_partitions``,Conditional Mandatory,"* Specify the
 
   topic_partitions:
 
-  - name: ""idrac""
+    name: ""idrac""
 
     partitions: 1
 
-  - name: ""ldms""
+    name: ""ldms""
 
     partitions: 2       "
 LDMS port configurations > ``ldms_agg_port``,Conditional Mandatory,"*  Specify the aggregator port to be used on the service k8s cluster.
