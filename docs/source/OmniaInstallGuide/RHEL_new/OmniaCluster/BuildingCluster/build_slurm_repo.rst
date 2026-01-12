@@ -26,7 +26,7 @@ Build Slurm repository for x86_64 without GPU support
 
 After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x86_64/``.
 
-    .. image:: ../../images/slurm_rpm_build.png
+    .. image:: ../../../../images/slurm_rpm_build.png
 
 4. To verify the build before hosting, navigate to ``/root/rpmbuild/RPMS/x86_64/`` and run the following command: ::
        
@@ -35,7 +35,7 @@ After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x8
 
 All the required .so, cgroup_v2.so files should be available.
 
-    .. image:: ../../../images/slurm_rpm_build_1.png
+    .. image:: ../../../../images/slurm_rpm_build_1.png
 
 
 
@@ -62,7 +62,7 @@ The cuda_13.0.2_580.95.05_linux.run file is downloaded.
 
 After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x86_64/``.
 
-    .. image:: ../../../images/slurm_rpm_build_2.png
+    .. image:: ../../../../images/slurm_rpm_build_2.png
 
 6. To verify the build before hosting, navigate to ``/root/rpmbuild/RPMS/x86_64/`` and run the following command:
 
@@ -71,7 +71,7 @@ After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x8
 
 All required .so along with the gpu_nvml.so should be available.
 
-    .. image:: ../../../images/slurm_rpm_build_3.png
+    .. image:: ../../../../images/slurm_rpm_build_3.png
 
 
 

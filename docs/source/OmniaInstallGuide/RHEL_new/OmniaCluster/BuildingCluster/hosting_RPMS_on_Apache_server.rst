@@ -30,6 +30,6 @@ The status should be Active.
 
 6. Copy the RPMs to ``/var/www/html/``, then navigate to that directory and run the command ``“createrepo .”,`` as shown in the image below.
 
-.. image:: ../../../images/host_rpm.png
+.. image:: ../../../../images/host_rpm.png
 
-.. image:: ../../../images/host_rpm_1.png
+.. image:: ../../../../images/host_rpm_1.png
