@@ -48,7 +48,7 @@ The following table lists the minimum cluster node requirements for complete dep
 +-----------------------------------+--------------+----------+
 | Slurm Node                        | x86_64       | 1        |
 +-----------------------------------+--------------+----------+
-| Login/Compiler Node               | x86_64       | 1        |
+| Login Compiler Node               | x86_64       | 1        |
 +-----------------------------------+--------------+----------+
 
 Slurm-Only Deployment Supported by Omnia – x86_64
@@ -67,7 +67,7 @@ The following table lists the minimum cluster node requirements for Slurm-only d
 +------------------------------------+--------------+----------+
 | Slurm Node                         | x86_64       | 1        |
 +------------------------------------+--------------+----------+
-| Login/Compiler Node                | x86_64       | 1        |
+| Login Compiler Node                | x86_64       | 1        |
 +------------------------------------+--------------+----------+
 
 Service Kubernetes Cluster-Only Deployment Supported by Omnia (iDRAC Telemetry) – x86_64
