@@ -2,6 +2,19 @@
 Troubleshooting guide
 ============================
 
+PXE Boot Hangs During Node Replacement
+=====================================
+
+When an existing node is replaced with a new node and ``discovery.yml`` is rerun, the new node may hang during PXE boot at ``nm-wait-online-initrd.service``.
+
+**Cause**: An IP address conflict occurs when the new node is assigned an IP address that is still in use by the old node on the network.
+
+**Resolution**: Before adding the new node, complete the following steps:
+
+- Ensure the old node is powered off or disconnected from the network.
+- Verify that the IP address is not in use by any other device.
+- Rerun ``discovery.yml`` after confirming that no IP conflicts exist.
+
 
 Checking and updating encrypted parameters
 =============================================

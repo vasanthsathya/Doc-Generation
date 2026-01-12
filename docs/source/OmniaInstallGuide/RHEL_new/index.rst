@@ -7,6 +7,7 @@ Follow the below steps to deploy the Omnia container on RHEL-based platforms:
     :maxdepth: 2
 
     RHELSpace
+    Minimum_cluster_node_requirements
     omnia_ports
     omnia_startup
     composable_roles
