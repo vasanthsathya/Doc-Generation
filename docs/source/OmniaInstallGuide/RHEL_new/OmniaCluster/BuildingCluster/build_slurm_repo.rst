@@ -12,9 +12,9 @@ If you are using RHEL subscription, enable CodeReady Builder (CRB) ::
 Build Slurm repository for x86_64 without GPU support
 =======================================================
 
-1. Install dependencies ::
+1. Install dependencies. ::
       
-        dnf install -y   wget git make gcc gcc-c++ rpm-build autoconf automake   python3 python3-devel perl perl-devel   readline-devel zlib-devel pam-devel dbus-devel   hwloc-devel libbpf-devel   ucx ucx-devel openmpi openmpi-devel pmix pmix-devel   jansson-devel   json-c json-c-devel   libyaml libyaml-devel   openssl-devel   mariadb-devel systemd-devel   munge munge-devel 
+        rpmbuild -ta slurm-25.05.2.tar.bz2  --with pmix   --define "with_pmix --with-pmix=/usr"    --with yaml   --define "with_yaml --with-yaml"  --without hdf5   --define "without_hdf5 --without-hdf5"
 
 
 
@@ -31,7 +31,7 @@ After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x8
 4. To verify the build before hosting, navigate to ``/root/rpmbuild/RPMS/x86_64/`` and run the following command: ::
        
         sudo rpm -ivh slurm-25.05.2-1*.x86_64.rpm \
-            slurm-slurmd-25.05.2-1*.x86_64.rpm
+        slurm-slurmd-25.05.2-1*.x86_64.rpm
 
 All the required .so, cgroup_v2.so files should be available.
 
@@ -44,7 +44,8 @@ Build Slurm repo for x86_64 with GPU support
 
 1. Install dependencies ::
       
-        dnf install -y   wget git make gcc gcc-c++ rpm-build autoconf automake   python3 python3-devel perl perl-devel   readline-devel zlib-devel pam-devel dbus-devel   hwloc-devel libbpf-devel   ucx ucx-devel openmpi openmpi-devel pmix pmix-devel   jansson-devel   json-c json-c-devel   libyaml libyaml-devel   openssl-devel   mariadb-devel systemd-devel   munge munge-devel
+        rpmbuild -ta slurm-25.05.2.tar.bz2  --with pmix   --define "with_pmix --with-pmix=/usr"     --with yaml   --define "with_yaml --with-yaml"  --without hdf5   --define "without_hdf5 --without-hdf5" --with nvml   --define "_with_nvml --with-nvml=/usr/local/cuda"
+
 
 2. Download slurm tar file: wget, `Download <https://download.schedmd.com/slurm/slurm-25.05.2.tar.bz2>`_ 
 
@@ -64,10 +65,10 @@ After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x8
 
     .. image:: ../../../../images/slurm_rpm_build_2.png
 
-6. To verify the build before hosting, navigate to ``/root/rpmbuild/RPMS/x86_64/`` and run the following command:
+6. To verify the build before hosting, navigate to ``/root/rpmbuild/RPMS/x86_64/`` and run the following command: ::
 
-        sudo rpm -ivh slurm-25.05.2-1*.x86_64.rpm \
-            slurm-slurmd-25.05.2-1*.x86_64.rpm
+        sudo rpm -ivh slurm-25.05.2-1*.x86_64.rpm 
+        slurm-slurmd-25.05.2-1*.x86_64.rpm
 
 All required .so along with the gpu_nvml.so should be available.
 
