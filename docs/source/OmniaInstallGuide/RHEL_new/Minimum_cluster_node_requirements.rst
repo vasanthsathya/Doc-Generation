@@ -70,7 +70,7 @@ The following table lists the minimum cluster node requirements for Slurm-only d
 | Login Node                         | x86_64       | 1        |
 +------------------------------------+--------------+----------+
 
-3.4 Service Kubernetes Cluster-Only Deployment Supported by Omnia (iDRAC Telemetry) – x86_64
+Service Kubernetes Cluster-Only Deployment Supported by Omnia (iDRAC Telemetry) – x86_64
 ---------------------------------------------------------------------------------------------
 
 The following table lists the minimum cluster node requirements for Service Kubernetes Cluster-only deployment supported by Omnia. This deployment is intended for iDRAC telemetry collection.
