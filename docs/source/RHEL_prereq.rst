@@ -47,6 +47,17 @@ Repository
 * Verify that all **repository URLs** for the software packages are **accessible** — downloads will fail for inaccessible packages.
 * For RHEL systems without a subscription, the repository URLs for ``x86_64_codeready-builder``, ``x86_64_appstream``, and ``x86_64_baseos`` are mandatory.
 * Docker credentials are a mandatory requirement to pull in the essential packages during local repository deployment. 
+* If the Slurm RPMS is already available, update the server using the following command: ::
+        
+    /opt/omnia/input/project_default/local_repo_config.yml
+  
+  Repository is hosted, use the URL created in  ``local_repo_config.yml`` file.
+
+   - { url: "<hosted slurm repository url>", gpgkey: "", sslcacert: "", sslclientkey: "", sslclientcert: "",  name: "x86_64_slurm_custom" }
+
+   Run ``ansible-playbook local_repo/local_repo.yml``.
+* Create Slurm repository build for x86_64. See `Build Slurm repository for x86_64 <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/build_slurm_repo>`_ and `Host RPMS on Apache server <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/hosting_RPMS_on_Apache_server>`_.
+
 
 
 Service Kubernetes Cluster 
@@ -77,4 +88,14 @@ Lightweight Distributed Metric Service (LDMS)
 Slurm
 ------
 * The Slurm RPM must be available in the user repository. If the Slurm RPM is not available, refer to `Slurm Quick Start Administrator Guide <https://slurm.schedmd.com/quickstart_admin.html>`_ for instructions on building Slurm RPMs.
+* If the Slurm RPMS is already available, update the server using the following command: ::
+        
+    /opt/omnia/input/project_default/local_repo_config.yml
+  
+  Repository is hosted, use the URL created in  ``local_repo_config.yml`` file.
+
+   - { url: "<hosted slurm repository url>", gpgkey: "", sslcacert: "", sslclientkey: "", sslclientcert: "",  name: "x86_64_slurm_custom" }
+
+   Run ``ansible-playbook local_repo/local_repo.yml``.
+* Create Slurm repository build for x86_64. See `Build Slurm repository for x86_64 <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/build_slurm_repo>`_ and `Host RPMS on Apache server <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/hosting_RPMS_on_Apache_server>`_.
 
