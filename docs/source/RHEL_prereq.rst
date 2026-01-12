@@ -19,19 +19,19 @@ NFS Server
   and is reachable via the admin network.
 
 NFS Server for K8s
--------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 * Minimum NFS k8s is 200 GB. The storage is recommended based on small cluster deployments. Increase the storage based on cluster size and telemetry data.
 * Ensure that there is a dedicated mount point for each NFS.
 
 NFS Server for Slurm
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 * Minimum NFS Slurm is 50 GB. Increase the storage based on job data.
 * Ensure that there is a dedicated mount point for each NFS.
 
 NFS Server for Omnia Infrastructure Manager (OIM)
----------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * Omnia recommends using an NFS share with at least 100 GB storage for OIM and cluster configuration.
 * Ensure that there is a dedicated mount point for each NFS.
