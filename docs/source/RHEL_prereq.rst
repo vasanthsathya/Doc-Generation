@@ -30,13 +30,13 @@ NFS Server for Slurm
 * Minimum NFS Slurm is 50 GB. Increase the storage based on job data.
 * Ensure that there is a dedicated mount point for each NFS.
 
-NFS Server for OIM
+NFS Server for Omnia Infrastructure Manager (OIM)
 ---------------------
 
 * Omnia recommends using an NFS share with at least 100 GB storage for OIM and cluster configuration.
 * Ensure that there is a dedicated mount point for each NFS.
 
-OIM (Omnia Infrastructure Manager)
+Omnia Infrastructure Manager (OIM)
 ----------------------------------
 
 * Choose a **server outside of your intended cluster** that meets the required :doc:`Storage Requirements <OmniaInstallGuide/RHEL_new/RHELSpace>` to function as the Omnia Infrastructure Manager (OIM).
