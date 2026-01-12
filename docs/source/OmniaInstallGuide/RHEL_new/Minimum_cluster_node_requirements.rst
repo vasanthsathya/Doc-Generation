@@ -21,8 +21,6 @@ The following table lists the minimum cluster node requirements for the complete
 +-----------------------------------+--------------+----------+
 | Slurm Control Node                | x86_64       | 1        |
 +-----------------------------------+--------------+----------+
-| Slurm Node                        | x86_64       | 1        |
-+-----------------------------------+--------------+----------+
 | Slurm Node                        | aarch64      | 1        |
 +-----------------------------------+--------------+----------+
 | Login Compiler Node               | aarch64      | 1        |
@@ -31,7 +29,7 @@ The following table lists the minimum cluster node requirements for the complete
 Complete Deployment Supported by Omnia (Slurm and Service Kubernetes Cluster) – x86_64 Only
 ------------------------------------------------------------------------------------
 
-The following table lists the minimum cluster node requirements for complete deployment supported by Omnia with Slurm and Service Kubernetes Clusters. using only x86_64 servers.
+The following table lists the minimum cluster node requirements for complete deployment supported by Omnia with Slurm and Service Kubernetes Clusters, using only x86_64 servers.
 
 **Node Requirements**
 
