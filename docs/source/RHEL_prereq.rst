@@ -1,7 +1,9 @@
 Omnia Deployment Requirements
 =============================
 
-This section outlines the key requirements for the components used by Omnia to deploy HPC clusters.
+This section outlines the key requirements for the components used by Omnia to deploy HPC clusters. For more information about the supported devices and software, see `Support Matrix <Overview/SupportMatrix/index>`.
+* Ensure that **Podman** container engine is installed on the OIM.
+* The OIM must have **two active Network Interface Cards (NICs)**:
 
 NFS Server
 -----------
@@ -16,8 +18,24 @@ NFS Server
 
 * Ensure that the external NFS share is accessible from all nodes (both diskless and diskful)
   and is reachable via the admin network.
-* Omnia recommends using an NFS share with at least 100GB storage for OIM and cluster configuration.
 
+NFS Server for K8s
+-------------------
+
+* Minimum NFS k8s is 200 GB. The storage is recommended based on small cluster deployments. Increase the storage based on cluster size and telemetry data.
+* Ensure that there is a dedicated mount point for each NFS.
+
+NFS Server for Slurm
+---------------------
+
+* Minimum NFS Slurm is 50 GB. Increase the storage based on job data.
+* Ensure that there is a dedicated mount point for each NFS.
+
+NFS Server for OIM
+---------------------
+
+* Omnia recommends using an NFS share with at least 100 GB storage for OIM and cluster configuration.
+* Ensure that there is a dedicated mount point for each NFS.
 
 OIM (Omnia Infrastructure Manager)
 ----------------------------------
@@ -56,7 +74,7 @@ Repository
    - { url: "<hosted slurm repository url>", gpgkey: "", sslcacert: "", sslclientkey: "", sslclientcert: "",  name: "x86_64_slurm_custom" }
 
    Run ``ansible-playbook local_repo/local_repo.yml``.
-* Create Slurm repository build for x86_64. See `Build Slurm repository for x86_64 <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/build_slurm_repo>`_ and `Host RPMS on Apache server <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/hosting_RPMS_on_Apache_server>`_.
+* Create Slurm repository build for x86_64. See `Build Slurm repository for x86_64 <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/build_slurm_repo.html>`_ and `Host RPMS on Apache server <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/hosting_RPMS_on_Apache_server.html>`_.
 
 
 
