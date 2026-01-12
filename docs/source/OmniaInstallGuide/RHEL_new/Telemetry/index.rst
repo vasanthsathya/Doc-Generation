@@ -24,7 +24,7 @@ Omnia Telemetry Architecture
 
 The following diagram illustrates the telemetry services that can be deployed using Omnia and the data flow between the components.
 
-.. image:: ../../images/omnia_telemetry_architecture.png
+.. image:: ../../../images/omnia_telemetry_architecture.png
 
 
 .. toctree::
