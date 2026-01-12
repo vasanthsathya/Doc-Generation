@@ -2,8 +2,7 @@ Omnia Deployment Requirements
 =============================
 
 This section outlines the key requirements for the components used by Omnia to deploy HPC clusters. For more information about the supported devices and software, see `Support Matrix <Overview/SupportMatrix/index>`.
-* Ensure that **Podman** container engine is installed on the OIM.
-* The OIM must have **two active Network Interface Cards (NICs)**:
+
 
 NFS Server
 -----------
