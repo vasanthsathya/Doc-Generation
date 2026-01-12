@@ -1,7 +1,7 @@
 Omnia Deployment Requirements
 =============================
 
-This section outlines the key requirements for the components used by Omnia to deploy HPC clusters. For more information about the supported devices and software, see `Support Matrix <Overview/SupportMatrix/index>`.
+This section outlines the key requirements for the components used by Omnia to deploy HPC clusters. For more information about the supported devices and software, see :doc:`Support Matrix <Overview/SupportMatrix/index>`.
 
 
 NFS Server
