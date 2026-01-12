@@ -1,7 +1,8 @@
 Omnia Deployment Requirements
 =============================
 
-This section outlines the key requirements for the components used by Omnia to deploy HPC clusters.
+This section outlines the key requirements for the components used by Omnia to deploy HPC clusters. For more information about the supported devices and software, see :doc:`Support Matrix <Overview/SupportMatrix/index>`.
+
 
 NFS Server
 -----------
@@ -16,10 +17,26 @@ NFS Server
 
 * Ensure that the external NFS share is accessible from all nodes (both diskless and diskful)
   and is reachable via the admin network.
-* Omnia recommends using an NFS share with at least 100GB storage for OIM and cluster configuration.
 
+NFS Server for K8s
+-------------------
 
-OIM (Omnia Infrastructure Manager)
+* Minimum NFS k8s is 200 GB. The storage is recommended based on small cluster deployments. Increase the storage based on cluster size and telemetry data.
+* Ensure that there is a dedicated mount point for each NFS.
+
+NFS Server for Slurm
+---------------------
+
+* Minimum NFS Slurm is 50 GB. Increase the storage based on job data.
+* Ensure that there is a dedicated mount point for each NFS.
+
+NFS Server for Omnia Infrastructure Manager (OIM)
+---------------------
+
+* Omnia recommends using an NFS share with at least 100 GB storage for OIM and cluster configuration.
+* Ensure that there is a dedicated mount point for each NFS.
+
+Omnia Infrastructure Manager (OIM)
 ----------------------------------
 
 * Choose a **server outside of your intended cluster** that meets the required :doc:`Storage Requirements <OmniaInstallGuide/RHEL_new/RHELSpace>` to function as the Omnia Infrastructure Manager (OIM).
@@ -47,6 +64,17 @@ Repository
 * Verify that all **repository URLs** for the software packages are **accessible** — downloads will fail for inaccessible packages.
 * For RHEL systems without a subscription, the repository URLs for ``x86_64_codeready-builder``, ``x86_64_appstream``, and ``x86_64_baseos`` are mandatory.
 * Docker credentials are a mandatory requirement to pull in the essential packages during local repository deployment. 
+* If the Slurm RPMS is already available, update the server using the following command: ::
+        
+    /opt/omnia/input/project_default/local_repo_config.yml
+  
+  Repository is hosted, use the URL created in  ``local_repo_config.yml`` file.
+
+   - { url: "<hosted slurm repository url>", gpgkey: "", sslcacert: "", sslclientkey: "", sslclientcert: "",  name: "x86_64_slurm_custom" }
+
+   Run ``ansible-playbook local_repo/local_repo.yml``.
+* Create Slurm repository build for x86_64. See `Build Slurm repository for x86_64 <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/build_slurm_repo.html>`_ and `Host RPMS on Apache server <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/hosting_RPMS_on_Apache_server.html>`_.
+
 
 
 Service Kubernetes Cluster 
@@ -77,4 +105,14 @@ Lightweight Distributed Metric Service (LDMS)
 Slurm
 ------
 * The Slurm RPM must be available in the user repository. If the Slurm RPM is not available, refer to `Slurm Quick Start Administrator Guide <https://slurm.schedmd.com/quickstart_admin.html>`_ for instructions on building Slurm RPMs.
+* If the Slurm RPMS is already available, update the server using the following command: ::
+        
+    /opt/omnia/input/project_default/local_repo_config.yml
+  
+  Repository is hosted, use the URL created in  ``local_repo_config.yml`` file.
+
+   - { url: "<hosted slurm repository url>", gpgkey: "", sslcacert: "", sslclientkey: "", sslclientcert: "",  name: "x86_64_slurm_custom" }
+
+   Run ``ansible-playbook local_repo/local_repo.yml``.
+* Create Slurm repository build for x86_64. See `Build Slurm repository for x86_64 <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/build_slurm_repo.html>`_ and `Host RPMS on Apache server <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/hosting_RPMS_on_Apache_server.html>`_.
 
