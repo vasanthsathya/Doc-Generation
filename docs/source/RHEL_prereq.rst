@@ -40,6 +40,7 @@ Omnia Infrastructure Manager (OIM)
 ----------------------------------
 
 * Choose a **server outside of your intended cluster** that meets the required :doc:`Storage Requirements <OmniaInstallGuide/RHEL_new/RHELSpace>` to function as the Omnia Infrastructure Manager (OIM).
+* Ensure the OIM has at least 64 GB RAM.
 * Ensure that the OIM has the RHEL operating system installed with the **Server with GUI** Base Environment. For a complete list of supported RHEL versions, see the :doc:`supported operating systems <Overview/SupportMatrix/OperatingSystems/index>`.
 * Ensure that **Podman** container engine is installed on the OIM.
 * The OIM must have **two active Network Interface Cards (NICs)**:
@@ -98,12 +99,23 @@ Lightweight Distributed Metric Service (LDMS)
 ---------------------------------------------
 
 * The LDMS RPM must be available in the user repository, and the ``ldms.json`` file should be updated accordingly. 
-  If the LDMS RPM is not available, refer to  `Building LDMS PRODUCER RPM Package <https://github.com/dell/omnia-artifactory?tab=readme-ov-file#building-ldms-producer-rpm-package>`_ for instructions on building LDMS RPMs. 
+  If the LDMS RPM is not available, refer to  `Building LDMS PRODUCER RPM Package <https://github.com/dell/omnia-artifactory?tab=readme-ov-file#building-ldms-producer-rpm-package>`_ for instructions on building LDMS RPMs.
+* If the LDMS RPM is already available, update the ``user_repo_url_x86_64`` and ``user_repo_url_aarch64`` parameters in ``local_repo_config.yml`` with the corresponding hosted LDMS hosted repository URL. After updating the URL, run the ``local_repo.yml`` playbook.
+
+  The ``local_repo_config.yml`` is located at ``/opt/omnia/input/project_default/local_repo_config.yml``.
+
+  Example:
+
+  ::
+
+     - { url: "<hosted LDMS repository url>", gpgkey: "", sslcacert: "", sslclientkey: "", sslclientcert: "", name: "x86_64_slurm_custom" } 
+
 
 Slurm
 ------
+* Ensure that each slurm compute node has at least 64 GB RAM.
 * The Slurm RPM must be available in the user repository. If the Slurm RPM is not available, refer to `Slurm Quick Start Administrator Guide <https://slurm.schedmd.com/quickstart_admin.html>`_ for instructions on building Slurm RPMs.
-* If the Slurm RPMS is already available, update the value (<hosted slurm repository url>) in the URL of the ``user_repo_url_x86_64`` or ``user_repo_url_aarch64`` parameter in ``/opt/omnia/input/project_default/local_repo_config.yml``.
+* If the Slurm RPMS are already available, update the value (<hosted slurm repository url>) in the URL of the ``user_repo_url_x86_64`` or ``user_repo_url_aarch64`` parameter in ``/opt/omnia/input/project_default/local_repo_config.yml``.
   
   Repository is hosted, use the URL created in  ``local_repo_config.yml`` file.
 
@@ -112,4 +124,8 @@ Slurm
    Run ``ansible-playbook local_repo/local_repo.yml``.
 * Create Slurm repository build for x86_64. See `Build Slurm repository for x86_64 <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/build_slurm_repo.html>`_ and `Host RPMS on Apache server <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/hosting_RPMS_on_Apache_server.html>`_.
 * After Slurm RPMS are generated, change the rpms in corresponsing role accordingly if the rpm names are not matching with rpms in ``input/config/x86_64/rhel/10.0/slurm_custom.json``.
+
+
+
+
 
