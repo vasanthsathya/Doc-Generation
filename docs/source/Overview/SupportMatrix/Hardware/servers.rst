@@ -17,4 +17,4 @@ PowerEdge AMD servers
       :header-rows: 1
       :keepspace:
 
-.. note:: For aarch64 architecture, limited validation has been performed on early access systems.
+.. note:: For aarch64 architecture platforms, limited validation has been performed on early access systems.
