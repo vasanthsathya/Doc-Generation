@@ -73,8 +73,6 @@ Platform Support
 
 Supports ``x86_64`` and ``aarch64`` architectures, enabling deployment on both traditional and ARM-based HPC nodes for improved flexibility and energy efficiency.
 
-.. caution:: Limited validation has been performed on aarch64 platform.
-
 Input Template and Validator
 ----------------------------
 
