@@ -80,6 +80,7 @@ Service Kubernetes Cluster
 ---------------------------
 
 * A minimum of **three Kubernetes controller nodes** must be available.
+* Ensure that each Service Kubernetes Cluste node has at least 64 GB RAM.
 
 iDRAC Telemetry Metric Collection 
 ----------------------------------
@@ -100,15 +101,15 @@ Lightweight Distributed Metric Service (LDMS)
 
 * The LDMS RPM must be available in the user repository, and the ``ldms.json`` file should be updated accordingly. 
   If the LDMS RPM is not available, refer to  `Building LDMS PRODUCER RPM Package <https://github.com/dell/omnia-artifactory?tab=readme-ov-file#building-ldms-producer-rpm-package>`_ for instructions on building LDMS RPMs.
-* If the LDMS RPM is already available, update the ``user_repo_url_x86_64`` and ``user_repo_url_aarch64`` parameters in ``local_repo_config.yml`` with the corresponding hosted LDMS hosted repository URL. After updating the URL, run the ``local_repo.yml`` playbook.
-
-  The ``local_repo_config.yml`` is located at ``/opt/omnia/input/project_default/local_repo_config.yml``.
-
-  Example:
+* If the LDMS RPMS are already available, update the value (<hosted LDMS repository url>) in the URL of the ``user_repo_url_x86_64`` or ``user_repo_url_aarch64`` parameter in ``/opt/omnia/input/project_default/local_repo_config.yml``.
+  
+  Repository is hosted, use the URL created in  ``local_repo_config.yml`` file.
 
   ::
+    
+     - { url: "<hosted LDMS RPM repository url>", gpgkey: "", sslcacert: "", sslclientkey: "", sslclientcert: "",  name: "x86_64_slurm_custom" }
 
-     - { url: "<hosted LDMS repository url>", gpgkey: "", sslcacert: "", sslclientkey: "", sslclientcert: "", name: "x86_64_slurm_custom" } 
+   Run ``ansible-playbook local_repo/local_repo.yml``.
 
 
 Slurm
@@ -119,7 +120,9 @@ Slurm
   
   Repository is hosted, use the URL created in  ``local_repo_config.yml`` file.
 
-   - { url: "<hosted slurm repository url>", gpgkey: "", sslcacert: "", sslclientkey: "", sslclientcert: "",  name: "x86_64_slurm_custom" }
+  ::
+    
+     - { url: "<hosted slurm repository url>", gpgkey: "", sslcacert: "", sslclientkey: "", sslclientcert: "",  name: "x86_64_slurm_custom" }
 
    Run ``ansible-playbook local_repo/local_repo.yml``.
 * Create Slurm repository build for x86_64. See `Build Slurm repository for x86_64 <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/build_slurm_repo.html>`_ and `Host RPMS on Apache server <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/hosting_RPMS_on_Apache_server.html>`_.
