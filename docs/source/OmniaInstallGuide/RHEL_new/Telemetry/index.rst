@@ -39,7 +39,9 @@ The following diagram illustrates the telemetry services that can be deployed us
 Components
 ------------
 
-**OIM (Omnia Infrastructure Manager)
+The following components are involved in the Omnia telemetry architecture:
+
+**OIM (Omnia Infrastructure Manager)**
 
 Central management node that deploys and configures all telemetry services across the cluster.
 
@@ -47,14 +49,15 @@ Central management node that deploys and configures all telemetry services acros
 
 Hosts telemetry collection and storage services:
 
-- **LDMS Aggregator** – Receives metrics from compute node samplers
+- **LDMS Aggregator** – Receives metrics from slurm compute node samplers.
 - **LDMS Store** – Stores aggregated LDMS data
 - **iDRAC Collector** – Collects hardware telemetry via Redfish API
 - **Kafka Broker** – Streams telemetry data
-- **Victoria Metrics** – Time-series database for metric storage
 - **VMAgent** – Forwards metrics to Victoria Metrics
+- **Victoria Metrics** – Time-series database for metric storage
 
-**Slurm Cluster
+
+**Slurm Cluster**
 
 Each compute node runs:
 
@@ -68,13 +71,11 @@ Data Flows
 
 ::
 
-   Compute Nodes (LDMS Sampler) → LDMS Aggregator → LDMS Store → Kafka
+   Slurm Compute Nodes (LDMS Sampler) → LDMS Aggregator → LDMS Store → Kafka
 
-**iDRAC Path (Hardware Metrics)
+**iDRAC Path (Hardware Metrics)**
 
 ::
 
    iDRAC (BMC) → iDRAC Collector → Kafka
    iDRAC (BMC) → iDRAC Collector → VMAgent → Victoria Metrics
-
-
