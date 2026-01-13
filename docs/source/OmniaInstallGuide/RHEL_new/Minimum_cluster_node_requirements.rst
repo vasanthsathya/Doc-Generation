@@ -10,7 +10,7 @@ The following table lists the minimum cluster node requirements for the complete
 
 **Node Requirements**
 
-+-----------------------------------+------------+------------+
++-----------------------------------+--------------+----------+
 | Role                              | Architecture | Quantity |
 +===================================+==============+==========+
 | Omnia Infrastructure Manager (OIM)| x86_64       | 1        |
