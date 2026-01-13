@@ -36,10 +36,10 @@ The following diagram illustrates the telemetry services that can be deployed us
     ldms_telemetry
     
 
-Components
-------------
+Telemetry Components
+---------------------
 
-The following components are part of the Omnia telemetry architecture:
+The following components are involved in the telmetry services deployed by Omnia:
 
 **OIM (Omnia Infrastructure Manager)**
 
@@ -59,13 +59,13 @@ Hosts telemetry collection and storage services:
 
 **Slurm Cluster**
 
-Each compute node runs:
+Each slurm compute node runs:
 
 - **LDMS Sampler** – Collects OS metrics (CPU, memory, network, and I/O)
 - **iDRAC** – Provides hardware health data (temperature, power, and fans)
 
-Data Flows
------------
+iDRAC and LDMS Telemetry Data Flows
+------------------------------------
 
 **LDMS Path (OS Metrics)**
 
