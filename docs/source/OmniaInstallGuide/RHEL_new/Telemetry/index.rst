@@ -39,7 +39,7 @@ The following diagram illustrates the telemetry services that can be deployed us
 Components
 ------------
 
-The following components are involved in the Omnia telemetry architecture:
+The following components are part of the Omnia telemetry architecture:
 
 **OIM (Omnia Infrastructure Manager)**
 
