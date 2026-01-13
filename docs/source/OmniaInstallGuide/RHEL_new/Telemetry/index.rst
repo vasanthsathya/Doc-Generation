@@ -22,6 +22,8 @@ providing flexible deployment and simplified lifecycle management.
 Omnia Telemetry Architecture
 -----------------------------
 
+Omnia collects telemetry data from HPC cluster nodes using two sources: **LDMS** for OS-level metrics and **iDRAC** for hardware telemetry.
+
 The following diagram illustrates the telemetry services that can be deployed using Omnia and the data flow between the components.
 
 .. image:: ../../../images/omnia_telemetry_architecture.png
@@ -33,3 +35,46 @@ The following diagram illustrates the telemetry services that can be deployed us
     service_cluster_telemetry
     ldms_telemetry
     
+
+Components
+------------
+
+**OIM (Omnia Infrastructure Manager)
+
+Central management node that deploys and configures all telemetry services across the cluster.
+
+**Service Kubernetes Cluster**
+
+Hosts telemetry collection and storage services:
+
+- **LDMS Aggregator** – Receives metrics from compute node samplers
+- **LDMS Store** – Stores aggregated LDMS data
+- **iDRAC Collector** – Collects hardware telemetry via Redfish API
+- **Kafka Broker** – Streams telemetry data
+- **Victoria Metrics** – Time-series database for metric storage
+- **VMAgent** – Forwards metrics to Victoria Metrics
+
+**Slurm Cluster
+
+Each compute node runs:
+
+- **LDMS Sampler** – Collects OS metrics (CPU, memory, network, and I/O)
+- **iDRAC** – Provides hardware health data (temperature, power, and fans)
+
+Data Flows
+-----------
+
+**LDMS Path (OS Metrics)**
+
+::
+
+   Compute Nodes (LDMS Sampler) → LDMS Aggregator → LDMS Store → Kafka
+
+**iDRAC Path (Hardware Metrics)
+
+::
+
+   iDRAC (BMC) → iDRAC Collector → Kafka
+   iDRAC (BMC) → iDRAC Collector → VMAgent → Victoria Metrics
+
+
