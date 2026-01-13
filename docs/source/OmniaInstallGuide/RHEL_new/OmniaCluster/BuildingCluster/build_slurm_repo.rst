@@ -39,7 +39,7 @@ All the required .so, cgroup_v2.so files should be available.
 
 After you verify the build, remove the rpm packages. ::
         
-        sudo dnf remove -y 'slurm*
+        sudo dnf remove -y 'slurm'
 
 Build Slurm repo for x86_64 with GPU support
 ==============================================
@@ -80,5 +80,5 @@ All required .so along with the gpu_nvml.so should be available.
 
 After you verify the build, remove the rpm packages. ::
         
-        sudo dnf remove -y 'slurm*
+        sudo dnf remove -y 'slurm'
 
