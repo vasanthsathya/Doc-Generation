@@ -71,8 +71,8 @@ For a better understanding of what Omnia does, check out the following:
 
     Overview/index
     bestpractices
-    RHEL_prereq
     Overview/SupportMatrix/index
+    RHEL_prereq
     OmniaInstallGuide/index
     Utils/index
     Logging/index
