@@ -33,7 +33,7 @@ NFS Server for Slurm
 NFS Server for Omnia Infrastructure Manager (OIM)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* Omnia recommends using an NFS share with at least 100 GB storage for OIM and cluster configuration.
+* Omnia recommends using an NFS share with at least 200 GB storage for OIM and cluster configuration.
 * Ensure that there is a dedicated mount point for each NFS.
 
 Omnia Infrastructure Manager (OIM)
@@ -64,9 +64,7 @@ Repository
 * Verify that all **repository URLs** for the software packages are **accessible** — downloads will fail for inaccessible packages.
 * For RHEL systems without a subscription, the repository URLs for ``x86_64_codeready-builder``, ``x86_64_appstream``, and ``x86_64_baseos`` are mandatory.
 * Docker credentials are a mandatory requirement to pull in the essential packages during local repository deployment. 
-* If the Slurm RPMS is already available, update the server using the following command: ::
-        
-    /opt/omnia/input/project_default/local_repo_config.yml
+* If the Slurm RPMS is already available, update the value in the URL of the ``user_repo_url_x86_64`` or ``user_repo_url_aarch64`` parameter in ``/opt/omnia/input/project_default/local_repo_config.yml``.
   
   Repository is hosted, use the URL created in  ``local_repo_config.yml`` file.
 
@@ -105,9 +103,7 @@ Lightweight Distributed Metric Service (LDMS)
 Slurm
 ------
 * The Slurm RPM must be available in the user repository. If the Slurm RPM is not available, refer to `Slurm Quick Start Administrator Guide <https://slurm.schedmd.com/quickstart_admin.html>`_ for instructions on building Slurm RPMs.
-* If the Slurm RPMS is already available, update the server using the following command: ::
-        
-    /opt/omnia/input/project_default/local_repo_config.yml
+* If the Slurm RPMS is already available, update the value (<hosted slurm repository url>) in the URL of the ``user_repo_url_x86_64`` or ``user_repo_url_aarch64`` parameter in ``/opt/omnia/input/project_default/local_repo_config.yml``.
   
   Repository is hosted, use the URL created in  ``local_repo_config.yml`` file.
 
