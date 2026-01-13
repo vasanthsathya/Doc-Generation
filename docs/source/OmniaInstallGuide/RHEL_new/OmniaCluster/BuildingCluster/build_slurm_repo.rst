@@ -12,7 +12,7 @@ If you are using RHEL subscription, enable CodeReady Builder (CRB) ::
 Build Slurm repository for x86_64 without GPU support
 =======================================================
 
-1. Install dependencies. ::
+1. Install dependencies. See the following example: ::
       
         rpmbuild -ta slurm-25.05.2.tar.bz2  --with pmix   --define "with_pmix --with-pmix=/usr"    --with yaml   --define "with_yaml --with-yaml"  --without hdf5   --define "without_hdf5 --without-hdf5"
 
@@ -30,9 +30,10 @@ After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x8
 
 4. To verify the build before hosting, navigate to ``/root/rpmbuild/RPMS/x86_64/`` and run the following command: ::
        
-        sudo rpm -ivh slurm-25.05.2-1*.x86_64.rpm \
+        sudo rpm -ivh slurm-25.05.2-1*.x86_64.rpm 
         slurm-slurmd-25.05.2-1*.x86_64.rpm
 
+After you verify the build, remove the rpm packages.
 All the required .so, cgroup_v2.so files should be available.
 
     .. image:: ../../../../images/slurm_rpm_build_1.png
@@ -42,7 +43,7 @@ All the required .so, cgroup_v2.so files should be available.
 Build Slurm repo for x86_64 with GPU support
 ==============================================
 
-1. Install dependencies ::
+1. Install dependencies. See the following example: ::
       
         rpmbuild -ta slurm-25.05.2.tar.bz2  --with pmix   --define "with_pmix --with-pmix=/usr"     --with yaml   --define "with_yaml --with-yaml"  --without hdf5   --define "without_hdf5 --without-hdf5" --with nvml   --define "_with_nvml --with-nvml=/usr/local/cuda"
 
@@ -69,6 +70,8 @@ After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x8
 
         sudo rpm -ivh slurm-25.05.2-1*.x86_64.rpm 
         slurm-slurmd-25.05.2-1*.x86_64.rpm
+
+After you verify the build, remove the rpm packages.
 
 All required .so along with the gpu_nvml.so should be available.
 
