@@ -22,20 +22,13 @@ providing flexible deployment and simplified lifecycle management.
 Omnia Telemetry Architecture
 -----------------------------
 
-Omnia collects telemetry data from HPC cluster nodes using two sources: **LDMS** for OS-level metrics and **iDRAC** for hardware telemetry.
+Omnia collects telemetry data from HPC cluster nodes using: **LDMS** for OS-level metrics and **iDRAC** for hardware telemetry.
 
 The following diagram illustrates the telemetry services that can be deployed using Omnia and the data flow between the components.
 
 .. image:: ../../../images/omnia_telemetry_architecture.png
 
-
-.. toctree::
-    :maxdepth: 1
-
-    service_cluster_telemetry
-    ldms_telemetry
-    
-
+  
 Telemetry Components
 ---------------------
 
@@ -79,3 +72,9 @@ iDRAC and LDMS Telemetry Data Flows
 
    iDRAC (BMC) → iDRAC Collector → Kafka
    iDRAC (BMC) → iDRAC Collector → VMAgent → Victoria Metrics
+
+.. toctree::
+    :maxdepth: 1
+
+    service_cluster_telemetry
+    ldms_telemetry
