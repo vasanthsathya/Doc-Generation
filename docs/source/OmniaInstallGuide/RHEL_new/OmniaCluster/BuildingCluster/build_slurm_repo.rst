@@ -33,15 +33,13 @@ After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x8
         sudo rpm -ivh slurm-25.05.2-1*.x86_64.rpm 
         slurm-slurmd-25.05.2-1*.x86_64.rpm
 
-After you verify the build, remove the rpm packages. ::
-        
-        sudo dnf remove -y 'slurm*
-
 All the required .so, cgroup_v2.so files should be available.
 
     .. image:: ../../../../images/slurm_rpm_build_1.png
 
-
+After you verify the build, remove the rpm packages. ::
+        
+        sudo dnf remove -y 'slurm'
 
 Build Slurm repo for x86_64 with GPU support
 ==============================================
@@ -73,16 +71,14 @@ After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x8
 
         sudo rpm -ivh slurm-25.05.2-1*.x86_64.rpm 
         slurm-slurmd-25.05.2-1*.x86_64.rpm
-
-After you verify the build, remove the rpm packages. ::
-        
-        sudo dnf remove -y 'slurm*
-        
+     
 
 All required .so along with the gpu_nvml.so should be available.
 
     .. image:: ../../../../images/slurm_rpm_build_3.png
 
 
-
+After you verify the build, remove the rpm packages. ::
+        
+        sudo dnf remove -y 'slurm'
 
