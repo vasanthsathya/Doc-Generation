@@ -67,13 +67,13 @@ Each slurm compute node runs:
 iDRAC and LDMS Telemetry Data Flows
 ------------------------------------
 
-**LDMS Path (OS Metrics)**
+**LDMS Flow (OS Metrics)**
 
 ::
 
    Slurm Compute Nodes (LDMS Sampler) → LDMS Aggregator → LDMS Store → Kafka
 
-**iDRAC Path (Hardware Metrics)**
+**iDRAC Flow (Hardware Metrics)**
 
 ::
 
