@@ -17,7 +17,7 @@ Based on the inputs provided to the ``/opt/omnia/input/project_default/software_
    :keepspace:
    :widths: auto
 
-Here's a sample of the ``software_config.json`` for RHEL clusters:
+The following is the sample ``software_config.json`` file
 
 ::
 
@@ -65,7 +65,7 @@ To deploay additional sofware packages on the cluster nodes, update the ``additi
    :keepspace:
    :widths: auto
 
-The following is the sample file for ``additional_packages.json``:
+The following is the sample ``additional_packages.json`` file:
 
 ::
     
