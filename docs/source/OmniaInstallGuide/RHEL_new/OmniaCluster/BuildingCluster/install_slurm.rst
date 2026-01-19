@@ -4,6 +4,11 @@ Step 11: Set up Slurm on nodes
 **Prerequisites**
 
 * Provide the Slurm 25.05.2 user repository.
+.. note:: If any Slurm nodes (Slurm controller, compute nodes, login nodes, or login/compile nodes) have an InfiniBand interface and ``ib_network`` details are defined in network_spec.yml (Update the Input Parameters for Discovering the Nodes — Dell/Omnia), the Slurm user repository must be built without UCX support.
+        Specifically: 
+        * The Slurm user repository **must NOT include** the following packages: ucx, ucx-devel, openmpi, openmpi-devel
+        * Slurm itself must be compiled without UCX support.
+        After running ``discovery.ym``l and PXE-booting the nodes, DOCA-OFED is installed on nodes that have Mellanox InfiniBand cards. A static IP is assigned to the InfiniBand interface only if the interface is up. If the interface is down, the user must bring it up to enable IP assignment.
 * Fill the mandatory parameters in ``omnia_config.yml``: `Input parameters for the cluster <../schedulerinputparams.html#id13>`_
 * Fill the parameters in ``storage_config.yml``: `Input parameters for the cluster <../schedulerinputparams.html#id13>`_
 * Add ``slurm_custom`` to ``software_config.json`` and add ``slurm_custom`` subgroups.
