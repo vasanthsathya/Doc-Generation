@@ -9,7 +9,7 @@ General Issues
 
 ⦾ **Why is IPoIB connected mode not working on nodes having Mellanox InfiniBand?**
 
-**Potential Cause**: As per the RedHat documentation, `Configuring InfiniBand and RDMA networks <https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/configuring_and_managing_networking/configuring-infiniband-and-rdma-networks>`, on RHEL 8 and later, Mellanox InfiniBand adapters starting from ConnectX-4 and newer use Enhanced IPoIB mode by default, which supports datagram mode only. Connected mode is not supported on these devices.
+**Potential Cause**: As per the RedHat documentation, `Configuring InfiniBand and RDMA networks <https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/configuring_and_managing_networking/configuring-infiniband-and-rdma-networks>`_, on RHEL 8 and later, Mellanox InfiniBand adapters starting from ConnectX-4 and newer use Enhanced IPoIB mode by default, which supports datagram mode only. Connected mode is not supported on these devices.
 
 **Resolution**: By default, MTU for datagram mode is limited and cannot be increased to 65520. If a higher MTU is required (for example, 65520 for RDMA traffic), ensure that the switch supports Jumbo frames and that all connected devices in the fabric are configured consistently for the desired MTU.
 
