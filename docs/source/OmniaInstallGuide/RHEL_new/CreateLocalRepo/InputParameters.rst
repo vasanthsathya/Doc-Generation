@@ -46,6 +46,17 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
  
     }
 
+    
+To deploay additional sofware packages on the cluster nodes, update the ``additional_packages.json`` available at ``/opt/omnia/input/project_default/``.
+
+.. csv-table:: Additional software packages
+   :file: ../../../Tables/additional_software_packages.csv
+   :header-rows: 1
+   :keepspace:
+   :widths: auto
+
+
+
 .. csv-table:: Architecture information for softwares
    :file: ../../../Tables/Software_arch.csv
    :header-rows: 1
