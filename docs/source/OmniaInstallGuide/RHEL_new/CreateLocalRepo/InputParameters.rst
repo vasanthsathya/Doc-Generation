@@ -69,31 +69,31 @@ The following is the sample ``additional_packages.json`` file:
 
 ::
     
-{
-  "additional_packages": {
-    "cluster": [
-      { "package": "fuse-overlayfs", "type": "rpm", "repo_name": "x86_64_appstream" },
-      { "package": "python3-PyMySQL", "type": "rpm", "repo_name": "x86_64_appstream" },
-      { "package": "sssd", "type": "rpm", "repo_name": "x86_64_baseos" },
-      { "package": "oddjob-mkhomedir", "type": "rpm", "repo_name": "x86_64_appstream" },
-      { "package": "quay.io/strimzi/kafka-bridge", "type": "image", "tag": "0.33.1" },
-      { "package": "registry.k8s.io/pause", "type": "image", "digest": "sha256:7031c1b283388c2c47cc389c74e7a6a1f91e3c23f7f9c2d9e25f7c8b1a2d3e4f" }
-    ]
-  },
-  "service_kube_control_plane": {
-    "cluster": [
-      { "package": "git", "type": "rpm", "repo_name": "x86_64_appstream" },
-      { "package": "docker.io/curlimages/curl", "type": "image", "tag": "8.17.0" },
-      { "package": "docker.io/mohr/activemq", "type": "image", "tag": "5.15.9" }
-    ]
-  },
-  "service_kube_control_plane_first": {
-    "cluster": [
-      { "package": "kernel-devel", "type": "rpm", "repo_name": "x86_64_appstream" },
-      { "package": "kernel-headers", "type": "rpm", "repo_name": "x86_64_appstream" }
-    ]
-  }
-}
+    {
+    "additional_packages": {
+        "cluster": [
+        { "package": "fuse-overlayfs", "type": "rpm", "repo_name": "x86_64_appstream" },
+        { "package": "python3-PyMySQL", "type": "rpm", "repo_name": "x86_64_appstream" },
+        { "package": "sssd", "type": "rpm", "repo_name": "x86_64_baseos" },
+        { "package": "oddjob-mkhomedir", "type": "rpm", "repo_name": "x86_64_appstream" },
+        { "package": "quay.io/strimzi/kafka-bridge", "type": "image", "tag": "0.33.1" },
+        { "package": "registry.k8s.io/pause", "type": "image", "digest": "sha256:7031c1b283388c2c47cc389c74e7a6a1f91e3c23f7f9c2d9e25f7c8b1a2d3e4f" }
+        ]
+    },
+    "service_kube_control_plane": {
+        "cluster": [
+        { "package": "git", "type": "rpm", "repo_name": "x86_64_appstream" },
+        { "package": "docker.io/curlimages/curl", "type": "image", "tag": "8.17.0" },
+        { "package": "docker.io/mohr/activemq", "type": "image", "tag": "5.15.9" }
+        ]
+    },
+    "service_kube_control_plane_first": {
+        "cluster": [
+        { "package": "kernel-devel", "type": "rpm", "repo_name": "x86_64_appstream" },
+        { "package": "kernel-headers", "type": "rpm", "repo_name": "x86_64_appstream" }
+        ]
+    }
+    }
 
 
 .. csv-table:: Architecture information for softwares
