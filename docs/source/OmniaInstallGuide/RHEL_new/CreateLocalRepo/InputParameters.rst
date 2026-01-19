@@ -27,10 +27,12 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
     "repo_config": "always",
     "softwares": [
         {"name": "default_packages", "arch": ["x86_64","aarch64"]},
+        {"name": "admin_debug_packages", "arch": ["x86_64, "aarch64"]}
         {"name": "openldap", "arch": ["x86_64"]},
         {"name": "nfs", "arch": ["x86_64","aarch64"]},
         {"name": "service_k8s","version": "1.31.4", "arch": ["x86_64"]},
         {"name": "slurm_custom", "arch": ["x86_64","aarch64"]}
+        {"name": "additional_packages", "arch": ["x86_64, "aarch64"]}
     ],
     "slurm_custom": [
         {"name": "slurm_control_node"},
@@ -43,7 +45,15 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
         {"name": "service_etcd"},
         {"name": "service_kube_node"}
     ]
- 
+    "additional_packages": [
+        {"name": "slurm_control_node"},
+        {"name": "slurm_node"},
+        {"name": "login_node"},
+        {"name": "login_compiler_node"},
+        {"name": "service_kube_control_plane_first"},
+        {"name": "service_kube_control_plane"},
+        {"name": "service_kube_node"}
+    ]
     }
 
     
@@ -55,6 +65,35 @@ To deploay additional sofware packages on the cluster nodes, update the ``additi
    :keepspace:
    :widths: auto
 
+The following is the sample file for ``additional_packages.json``:
+
+::
+    
+{
+  "additional_packages": {
+    "cluster": [
+      {"package": "fuse-overlayfs", "type": "rpm", "repo_name": "x86_64_appstream"},
+      {"package": "python3-PyMySQL", "type": "rpm", "repo_name": "x86_64_appstream"},
+      {"package": "sssd", "type": "rpm", "repo_name": "x86_64_baseos"},
+      {"package": "oddjob-mkhomedir", "type": "rpm", "repo_name": "x86_64_appstream"},
+      {"package": "quay.io/strimzi/kafka-bridge", "tag": "0.33.1", "type": "image"},
+      {"package": "registry.k8s.io/pause", "digest": "sha256:7031c1b283388c2c47cc389c74e7a6a1f91e3c23f7f9c2d9e25f7c8b1a2d3e4f", "type": "image"}
+    ]
+  },
+  "service_kube_control_plane": {
+    "cluster": [
+      { "package": "git","type": "rpm","repo_name": "x86_64_appstream" },
+      { "package": "docker.io/curlimages/curl","type": "image","tag": "8.17.0" },
+      { "package": "docker.io/mohr/activemq","type": "image","tag": "5.15.9" }
+   ]
+  },
+  "service_kube_control_plane_first": {
+    "cluster": [
+      { "package": "kernel-devel","type": "rpm","repo_name": "x86_64_appstream" },
+      { "package": "kernel-headers","type": "rpm","repo_name": "x86_64_appstream" }
+    ]
+  }
+}
 
 
 .. csv-table:: Architecture information for softwares
