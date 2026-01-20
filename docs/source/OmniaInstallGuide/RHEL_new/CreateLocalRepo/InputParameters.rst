@@ -43,15 +43,6 @@ The following is the sample ``software_config.json`` for RHEL clusters:
         {"name": "service_etcd"},
         {"name": "service_kube_node"}
     ]
-    "additional_packages": [
-        {"name": "slurm_control_node"},
-        {"name": "slurm_node"},
-        {"name": "login_node"},
-        {"name": "login_compiler_node"},
-        {"name": "service_kube_control_plane_first"},
-        {"name": "service_kube_control_plane"},
-        {"name": "service_kube_node"}
-    ]
     }
 
 
