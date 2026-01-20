@@ -17,7 +17,7 @@ Based on the inputs provided to the ``/opt/omnia/input/project_default/software_
    :keepspace:
    :widths: auto
 
-The following is the sample ``software_config.json`` file
+The following is the sample ``software_config.json`` file:
 
 ::
 
