@@ -49,4 +49,5 @@ Default value: 192.168.0.0"
 
 ``integer``
 
-Mandatory",The 32-bit “mask” used to divide an IP address into subnets and specify the network’s available hosts. Default value: 24
+Mandatory","* The 32-bit “mask” used to divide an IP address into subnets and specify the network’s available hosts. Default value: 24
+* Netmask bits of ib_network should match the netmask bits of the admin network."
