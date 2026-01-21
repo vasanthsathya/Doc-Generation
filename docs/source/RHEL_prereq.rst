@@ -73,7 +73,9 @@ Repository
 
    Run ``ansible-playbook local_repo/local_repo.yml``.
 * Create Slurm repository build for x86_64. See `Build Slurm repository for x86_64 <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/build_slurm_repo.html>`_ and `Host RPMS on Apache server <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/hosting_RPMS_on_Apache_server.html>`_.
-
+.. note:: 
+    *  If any user repository is already hosted externally, update the value of the ``user_repo_url_x86_64`` or ``user_repo_url_aarch64`` parameter in ``/opt/omnia/input/project_default/local_repo_config.yml`` with the hosted repository URL based on the architecture.
+    * If the RPMs are already available but are not externally hosted, place the RPMs in the OIM and follow the steps in `Host RPMS on Apache server <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/hosting_RPMS_on_Apache_server.html>`_. After hosting the RPMs, update the ``user_repo_url_x86_64`` or ``user_repo_url_aarch64`` parameter with the newly created repository URL.
 
 
 Service Kubernetes Cluster 
