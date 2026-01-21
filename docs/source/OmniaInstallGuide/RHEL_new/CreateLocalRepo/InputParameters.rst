@@ -4,7 +4,6 @@ Input Parameters for Local Repositories
 The ``local_repo.yml`` playbook is dependent on the inputs provided to the following input files:
 
 * ``/opt/omnia/input/project_default/software_config.json``
-* ``/opt/omnia/input/project_default/additional_packages.json``
 * ``/opt/omnia/input/project_default/local_repo_config.yml``
 
 ``/opt/omnia/input/project_default/software_config.json``
@@ -17,8 +16,6 @@ Based on the inputs provided to the ``/opt/omnia/input/project_default/software_
    :header-rows: 1
    :keepspace:
    :widths: auto
-
-For information on adding additional packages, see :doc:`additional_packages`.
 
 The following is the sample ``software_config.json`` for RHEL clusters:
 
