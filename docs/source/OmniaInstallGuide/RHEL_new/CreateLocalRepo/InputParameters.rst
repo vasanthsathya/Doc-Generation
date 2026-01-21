@@ -17,7 +17,7 @@ Based on the inputs provided to the ``/opt/omnia/input/project_default/software_
    :keepspace:
    :widths: auto
 
-Here's a sample of the ``software_config.json`` for RHEL clusters:
+The following is the sample ``software_config.json`` for RHEL clusters:
 
 ::
 
@@ -43,8 +43,8 @@ Here's a sample of the ``software_config.json`` for RHEL clusters:
         {"name": "service_etcd"},
         {"name": "service_kube_node"}
     ]
- 
     }
+
 
 .. csv-table:: Architecture information for softwares
    :file: ../../../Tables/Software_arch.csv
