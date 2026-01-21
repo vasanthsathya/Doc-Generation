@@ -14,7 +14,7 @@ Build Slurm repository for x86_64 without GPU support
 
 1. Install dependencies. The following command is provided as an example: ::
       
-        dnf install -y   wget git make gcc gcc-c++ rpm-build autoconf automake   python3 python3-devel perl perl-devel   readline-devel zlib-devel pam-devel dbus-devel   hwloc-devel libbpf-devel   ucx ucx-devel openmpi openmpi-devel pmix pmix-devel   jansson-devel   json-c json-c-devel   libyaml libyaml-devel   openssl-devel   mariadb-devel systemd-devel   munge munge-devel 
+        dnf install -y   wget git make gcc gcc-c++ rpm-build autoconf automake   python3 python3-devel perl perl-devel   readline-devel zlib-devel pam-devel dbus-devel   hwloc-devel libbpf-devel   pmix pmix-devel   jansson-devel   json-c json-c-devel   libyaml libyaml-devel   openssl-devel   mariadb-devel systemd-devel   munge munge-devel 
 
 
 
@@ -46,7 +46,7 @@ Build Slurm repo for x86_64 with GPU support
 
 1. Install dependencies. The following command is provided as an example: ::
       
-        dnf install -y   wget git make gcc gcc-c++ rpm-build autoconf automake   python3 python3-devel perl perl-devel   readline-devel zlib-devel pam-devel dbus-devel   hwloc-devel libbpf-devel   ucx ucx-devel openmpi openmpi-devel pmix pmix-devel   jansson-devel   json-c json-c-devel   libyaml libyaml-devel   openssl-devel   mariadb-devel systemd-devel   munge munge-devel
+        dnf install -y   wget git make gcc gcc-c++ rpm-build autoconf automake   python3 python3-devel perl perl-devel   readline-devel zlib-devel pam-devel dbus-devel   hwloc-devel libbpf-devel   pmix pmix-devel   jansson-devel   json-c json-c-devel   libyaml libyaml-devel   openssl-devel   mariadb-devel systemd-devel   munge munge-devel
 
 
 2. Download slurm tar file: wget, `Download <https://download.schedmd.com/slurm/slurm-25.05.2.tar.bz2>`_ 
