@@ -57,7 +57,7 @@ The following is the sample ``software_config.json`` file:
     }
 
     
-To deploay additional sofware packages on the cluster nodes, update the ``additional_packages.json`` available at ``/opt/omnia/input/project_default/``.
+To deploy additional sofware packages on the cluster nodes, update the ``additional_packages.json`` available at ``/opt/omnia/input/project_default/``.
 
 .. csv-table:: Additional software packages
    :file: ../../../Tables/additional_software_packages.csv
