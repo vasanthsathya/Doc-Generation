@@ -1,7 +1,7 @@
 Add Additional Packages
 ==========================
 
-To download and deploy additional software packages and containerimages using Omnia local repositories, update the required Omnia input files and execute the playbooks.
+To download and deploy additional software packages and container images using Omnia local repositories, update the required Omnia input files and execute the playbooks.
 
 Update ``software_config.json``
 ------------------------------
@@ -72,8 +72,8 @@ Download packages/images to the Pulp container
 
 After updating the input files, execute the ``local_repo.yml`` playbook from inside the ``omnia_core`` container to download packages and container images to the **Pulp container**: ::
 
-For more information about executing the playbook, see `Execute the Local Repo Playbook <RunningLocalRepo.html>`_.
-
     ssh omnia_core
     cd /omnia/local_repo
     ansible-playbook local_repo.yml
+
+For more information about executing the playbook, see `Execute the Local Repo Playbook <RunningLocalRepo.html>`_.
