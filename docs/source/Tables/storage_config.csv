@@ -36,7 +36,7 @@
 
 * ip—A list of PowerVault iscsi target IP addresses used for iSCSI target discovery.
 * port—Defines the TCP port for the iSCSI target service.
-* iscsi_initiators—Specifies the ``InitiatorName`` used by the host when connecting to the iSCSI target.
+* isci_initiators—Specifies the ``InitiatorName`` used by the host when connecting to the iSCSI target.
 * volume_id—This is the unique WWN/serial-identifier for the specific volume that should be used for persistent storage.
 
 .. note:: 
@@ -48,7 +48,7 @@
     powervault_config:
         ip: - 172.1.2.3
         port: 3260
-        iscsi_initiators: iqn.initiator.com.example:7d7d7d7d7d7
+        isci_initiators: iqn.initiator.com.example:7d7d7d7d7d7
         volume_id: 00c0ff4343f1f1f1001c8c4e6901000000",
 ,,
 ,,
