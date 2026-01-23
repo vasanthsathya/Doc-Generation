@@ -29,10 +29,10 @@
 
      ``List (dict)``
 
-     Required   ","* ip: ipv4. A list of PowerVault controller IP addresses used for iSCSI target discovery and login.
-* port: Defines the TCP port for the iSCSI target service.
-* isci_initiators: Specifies the ``InitiatorName`` used by the host when connecting to the iSCSI target.
-* volume_id: This is the unique WWN/serial-identifier for the specific volume that should be used for persistent storage.
+     Required   ","* ip—ipv4. A list of PowerVault controller IP addresses used for iSCSI target discovery and login.
+* port—Defines the TCP port for the iSCSI target service.
+* isci_initiators—Specifies the ``InitiatorName`` used by the host when connecting to the iSCSI target.
+* volume_id—This is the unique WWN/serial-identifier for the specific volume that should be used for persistent storage.
 
 **Sample**::
 
