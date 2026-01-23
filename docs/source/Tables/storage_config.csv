@@ -1,4 +1,4 @@
-﻿Variables,Details,s
+﻿Variables,Details
 "**nfs_client_params**
 
      ``List (dict)``
@@ -24,4 +24,22 @@
           server_share_path: ""/mnt/share/omnia_k8s"" # Provide server share path of the NFS Server
           client_share_path: /share_omnia_k8s
           client_mount_options: ""nosuid,rw,sync,hard,intr""
-          nfs_name: nfs_k8s",
+          nfs_name: nfs_k8s"
+"**powervault_config**
+
+     ``List (dict)``
+
+     Required   ","* ip: ipv4. A list of PowerVault controller IP addresses used for iSCSI target discovery and login.
+* port: Defines the TCP port for the iSCSI target service.
+* isci_initiators: Specifies the ``InitiatorName`` used by the host when connecting to the iSCSI target.
+* volume_id: This is the unique WWN/serial-identifier for the specific volume that should be used for persistent storage.
+
+**Sample**::
+
+    powervault_config:
+        ip: - 172.1.2.3
+        port: 3260
+        isci_initiators: iqn.initiator.com.example:7d7d7d7d7d7
+        volume_id: 00c0ff4343f1f1f1001c8c4e6901000000"
+**port**,"* Defines the TCP port for the iSCSI target service.
+* Port 3260 is the standard port for iSCSI communication."
