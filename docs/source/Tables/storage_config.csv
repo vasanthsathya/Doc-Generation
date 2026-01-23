@@ -1,9 +1,10 @@
 ﻿Variables,Details,
-"**nfs_client_params**
-
-     ``List (dict)``
-
-     Required    ","* This is a list of dictionaries.
+"**nfs_client_params**  ``List (dict)`` Required   
+    nfs_name
+    server_ip
+    server_share_path
+    client_share_path
+    client_mount_options ","* This is a list of dictionaries.
 * nfs_name—Provide the name of the NFS share which is referred by slurm and service kubernetes. 
 * server_ip—Provide the IP or hostname of the NFS server which is accessible to all the diskful and diskless nodes. 
 * server_share_path—Provide the full path of the directory in the NFS Server. 
@@ -29,11 +30,7 @@
 
      ``List (dict)``
 
-     Required   
-
-
-    *port
-    *isci_initiators","* The PowerVault storage integration provides persistent external storage for critical Slurm components, ensuring high availability and data durability across node reboots or reimaging.
+     Required  ","* The PowerVault storage integration provides persistent external storage for critical Slurm components, ensuring high availability and data durability across node reboots or reimaging.
 
     * Slurm State Save Location (``StateSaveLocation``): Preserves Slurm controller state, job checkpoints, and scheduler data, enabling seamless recovery after controller restarts.
     * Slurm Database Storage (``/var/lib/mysql``): Houses the SlurmDBD (Slurm Database Daemon) MySQL/MariaDB data, maintaining job accounting records, user associations, and cluster usage history.
@@ -50,4 +47,4 @@
         port: 3260
         isci_initiators: iqn.initiator.com.example:7d7d7d7d7d7
         volume_id: 00c0ff4343f1f1f1001c8c4e6901000000",
-    *ip,* ip—ipv4. A list of PowerVault controller IP addresses used for iSCSI target discovery and login.,
+    ip,* ip—ipv4. A list of PowerVault controller IP addresses used for iSCSI target discovery and login.,
