@@ -29,7 +29,7 @@
 
      ``dict``
 
-     Required  ","* The PowerVault storage integration provides persistent external storage for critical Slurm components, ensuring high availability and data durability across node reboots or reimaging.
+     Optional  ","* The PowerVault storage integration provides persistent external storage for critical Slurm components, ensuring high availability and data durability across node reboots or reimaging.
 
     * Slurm State Save Location (``StateSaveLocation``): Preserves Slurm controller state, job checkpoints, and scheduler data, enabling seamless recovery after controller restarts.
     * Slurm Database Storage (``/var/lib/mysql``): Houses the SlurmDBD (Slurm Database Daemon) MySQL/MariaDB data, maintaining job accounting records, user associations, and cluster usage history.
