@@ -1,10 +1,9 @@
 ﻿Variables,Details,
-"**nfs_client_params**  ``List (dict)`` Required   
-    nfs_name
-    server_ip
-    server_share_path
-    client_share_path
-    client_mount_options ","* This is a list of dictionaries.
+"**nfs_client_params**
+
+     ``List (dict)``
+
+     Required    ","* This is a list of dictionaries.
 * nfs_name—Provide the name of the NFS share which is referred by slurm and service kubernetes. 
 * server_ip—Provide the IP or hostname of the NFS server which is accessible to all the diskful and diskless nodes. 
 * server_share_path—Provide the full path of the directory in the NFS Server. 
@@ -40,6 +39,10 @@
 * isci_initiators—Specifies the ``InitiatorName`` used by the host when connecting to the iSCSI target.
 * volume_id—This is the unique WWN/serial-identifier for the specific volume that should be used for persistent storage.
 
+.. note:: 
+    * Powervault storage is not replacement for the NFS storage used by NFS.
+    * Validation of the ip, iscsi_inititors or volume_id will not be validated, ensure the  accurate values are provided.
+
 **Sample**::
 
     powervault_config:
@@ -47,4 +50,4 @@
         port: 3260
         isci_initiators: iqn.initiator.com.example:7d7d7d7d7d7
         volume_id: 00c0ff4343f1f1f1001c8c4e6901000000",
-    ip,* ip—ipv4. A list of PowerVault controller IP addresses used for iSCSI target discovery and login.,
+,,
