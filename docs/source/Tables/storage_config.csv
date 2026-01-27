@@ -1,4 +1,4 @@
-﻿Variables,Details,
+﻿Variables,Details
 "**nfs_client_params**
 
      ``List (dict)``
@@ -24,7 +24,7 @@
           server_share_path: ""/mnt/share/omnia_k8s"" # Provide server share path of the NFS Server
           client_share_path: /share_omnia_k8s
           client_mount_options: ""nosuid,rw,sync,hard,intr""
-          nfs_name: nfs_k8s",
+          nfs_name: nfs_k8s"
 "**powervault_config**
 
      ``dict``
@@ -48,8 +48,5 @@
     powervault_config:
         ip: - 172.1.2.3
         port: 3260
-        isci_initiators: iqn.initiator.com.example:7d7d7d7d7d7
-        volume_id: 00c0ff4343f1f1f1001c8c4e6901000000",
-,,
-,,
-,,
+        isci_initiators: iqn.2025-01.com.dell:scontrol-node
+        volume_id: 00c0ff4343f1f1f1001c8c4e6901000000"
