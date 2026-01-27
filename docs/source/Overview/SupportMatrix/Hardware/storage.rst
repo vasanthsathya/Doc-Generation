@@ -9,7 +9,7 @@ PowerScale
       :header-rows: 1
       :keepspace:
 
-PowerScale
+PowerVault
 -----------
 
    .. csv-table::
