@@ -56,8 +56,16 @@ The following is the sample ``software_config.json`` file:
     ]
     }
 
-    
-To deploy additional sofware packages on the cluster nodes, update the ``additional_packages.json`` available at ``/opt/omnia/input/project_default/``.
+Admin Debug Packages - RHEL 10.0 (x86_64)
+----------------------------------------------------------
+
+.. csv-table:: Admin debug packages
+   :file: ../../../Tables/admin_debug_packages_rhel10_x86_64.csv
+   :header-rows: 1
+   :keepspace:
+   :widths: auto
+
+To deploy additional software packages on the cluster nodes, update the ``additional_packages.json`` available at ``/opt/omnia/input/project_default/``.
 
 .. csv-table:: Additional software packages
    :file: ../../../Tables/additional_software_packages.csv
@@ -68,6 +76,7 @@ To deploy additional sofware packages on the cluster nodes, update the ``additio
 The following is the sample ``additional_packages.json`` file:
 
 ::
+
     
     {
     "additional_packages": {

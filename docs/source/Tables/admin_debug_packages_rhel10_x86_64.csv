@@ -1,0 +1,55 @@
+Category,Package,Repository,Description
+Network Diagnostics,tcpdump,x86_64_appstream,Command-line packet analyzer for capturing and analyzing network traffic
+Network Diagnostics,traceroute,x86_64_baseos,Traces the route packets take to reach a network host
+Network Diagnostics,iperf3,x86_64_appstream,Network bandwidth measurement tool for TCP/UDP performance testing
+Network Diagnostics,fping,epel,Fast ping utility for sending ICMP echo requests to multiple hosts
+Hardware Information,dmidecode,x86_64_baseos,Reports hardware information from system BIOS/DMI tables
+Hardware Information,hwloc,x86_64_baseos,"Portable Hardware Locality - displays hardware topology (CPUs, caches, memory)"
+Hardware Information,hwloc-libs,x86_64_baseos,Runtime libraries for hwloc hardware topology detection
+Hardware Information,lshw,x86_64_baseos,"Lists detailed hardware configuration (memory, CPU, disks, network)"
+Hardware Information,pciutils,x86_64_baseos,PCI utilities including lspci for listing PCI devices
+Hardware Information,ipmitool,x86_64_appstream,"Utility for managing IPMI-enabled devices (BMC, server management)"
+Text Editors & Shell,vim-enhanced,x86_64_appstream,Enhanced version of the Vi text editor with syntax highlighting
+Text Editors & Shell,emacs,x86_64_appstream,Extensible customizable text editor and computing environment
+Text Editors & Shell,zsh,x86_64_baseos,Z shell - advanced shell with improved features over bash
+Text Editors & Shell,bash-completion,x86_64_baseos,Programmable completion for bash shell commands
+Remote Access & File Transfer,openssh,x86_64_baseos,OpenSSH core package for secure shell protocol
+Remote Access & File Transfer,openssh-server,x86_64_baseos,OpenSSH server daemon (sshd) for accepting SSH connections
+Remote Access & File Transfer,openssh-clients,x86_64_baseos,"OpenSSH client utilities (ssh, scp, sfp)"
+Remote Access & File Transfer,rsync,x86_64_baseos,Fast versatile file copying and synchronization tool
+File Utilities,which,x86_64_baseos,Shows the full path of shell commands
+File Utilities,file,x86_64_baseos,Determines file type by examining file contents
+File Utilities,tar,x86_64_baseos,Tape archive utility for creating and extracting archives
+File Utilities,bzip2,x86_64_baseos,High-quality block-sorting file compressor
+File Utilities,libcurl,x86_64_baseos,"Library for transferring data with URL syntax (HTTP, FTP, etc.)"
+Documentation,man-db,x86_64_baseos,Tools for reading manual pages (man command)
+Documentation,man-pages,x86_64_baseos,Linux manual pages for system calls and library functions
+System Debugging & Tracing,strace,x86_64_baseos,System call tracer - traces system calls and signals
+System Debugging & Tracing,ltrace,x86_64_appstream,Library call tracer - traces dynamic library calls
+System Debugging & Tracing,gdb,x86_64_appstream,GNU Debugger for debugging C/C++ and other programs
+System Debugging & Tracing,gdb-gdbserver,x86_64_appstream,Remote debugging server for GDB
+System Debugging & Tracing,lldb,x86_64_appstream,LLVM debugger - high-performance debugger for C/C++
+System Debugging & Tracing,lldb-devel,x86_64_appstream,Development headers and libraries for LLDB
+System Debugging & Tracing,kexec-tools,x86_64_baseos,Tools for kexec-based kernel crash dumping (kdump)
+Memory & Performance Analysis,valgrind,x86_64_appstream,Memory debugging and profiling tool for detecting leaks and errors
+Memory & Performance Analysis,valgrind-devel,x86_64_appstream,Development files for Valgrind tool integration
+Memory & Performance Analysis,perf,x86_64_appstream,Linux performance profiling tool for CPU and system analysis
+Memory & Performance Analysis,kernel-tools,x86_64_baseos,Kernel tools including cpupower for CPU frequency management
+Memory & Performance Analysis,papi,x86_64_appstream,Performance Application Programming Interface for hardware counters
+Memory & Performance Analysis,papi-devel,x86_64_appstream,Development files for PAPI
+Memory & Performance Analysis,papi-libs,x86_64_appstream,Runtime libraries for PAPI
+Build Tools & Compilers,gcc,x86_64_appstream,GNU C Compiler
+Build Tools & Compilers,gcc-c++,x86_64_appstream,GNU C++ Compiler
+Build Tools & Compilers,gcc-gfortran,x86_64_appstream,GNU Fortran Compiler for scientific computing
+Build Tools & Compilers,make,x86_64_baseos,GNU Make build automation tool
+Build Tools & Compilers,cmake,x86_64_appstream,Cross-platform build system generator
+Build Tools & Compilers,autoconf,x86_64_appstream,Automatic configure script builder
+Build Tools & Compilers,automake,x86_64_appstream,Automatic Makefile generator
+Build Tools & Compilers,libtool,x86_64_appstream,Generic library support script
+Build Tools & Compilers,binutils,x86_64_baseos,"Binary utilities (ld, as, ovjdumpt, nm, etc.)"
+Build Tools & Compilers,binutils-devel,x86_64_appstream,Development files for binutils
+Security & Development Libraries,openssl-devel,x86_64_appstream,Development files for OpenSSL cryptographic library
+Cluster Management,clustershell,epel,Distributed shell for running commands across cluster nodes in parallel
+Repository Sources,x86_64_baseos,,RHEL 10.0 BaseOS repository - core OS packages
+Repository Sources,x86_64_appstream,,RHEL 10.0 AppStream repository - application packages
+Repository Sources,epel,,Extra Packages for Enterprise Linux - community packages
