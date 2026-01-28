@@ -5,11 +5,17 @@ The ``local_repo.yml`` playbook is dependent on the inputs provided to the follo
 
 * ``/opt/omnia/input/project_default/software_config.json``
 * ``/opt/omnia/input/project_default/local_repo_config.yml``
+* ``/opt/omnia/input/project_default/additional_packages.json``
 
 ``/opt/omnia/input/project_default/software_config.json``
 ----------------------------------------------------------
 
 Based on the inputs provided to the ``/opt/omnia/input/project_default/software_config.json``, the software packages/images are accessed from the Pulp container and the desired software stack is deployed on the cluster nodes.
+
+.. note::
+    * To download a software with both x86_64 and aarch64 architectures, the arch key input is mandatory. Ensure that you check if the .json files for all the specified architectures are available in the input or configuration file. Else, update the .json files. 
+       
+    * For additional_software support, update the input/config/{arch}/rhel/10.0/additional_packages.json file with the required {arch} data, where {arch} can either be x86_64 or aarch64, or a combination of both.
 
 .. csv-table:: Parameters for Software Configuration
    :file: ../../../Tables/software_config_rhel.csv
@@ -56,8 +62,9 @@ The following is the sample ``software_config.json`` file:
     ]
     }
 
+For a list of packages included in ``admin_debug_packages``, see `Admin Debug Packages - RHEL 10.0 (x86_64) <AdminDebugPackages.html>`_.
 
-To deploy additional software packages on the cluster nodes, update the ``additional_packages.json`` available at ``/opt/omnia/input/project_default/``.
+To deploy additional software packages on the cluster nodes, update the ``additional_packages.json`` available at ``/opt/omnia/input/project_default/``. For detailed steps on how to deploy additional packages, see `Deploy Additional Packages <../../AdvancedConfigurations/DeployAdditionalPackages.html>`_.
 
 .. csv-table:: Additional software packages
    :file: ../../../Tables/additional_software_packages.csv
@@ -96,11 +103,6 @@ The following is the sample ``additional_packages.json`` file:
     }
     }
 
-.. note::
-
-    * To download a software with both x86_64 and aarch64 architectures, the arch key input is mandatory. Ensure that you check if the .json files for all the specified architectures are available in the input or configuration file. Else, update the .json files. 
-       
-    * For additional_software support, update the input/config/{arch}/rhel/10.0/additional_packages.json file with the required {arch} data, where {arch} can either be x86_64 or aarch64, or a combination of both.
 
 
 
@@ -128,13 +130,3 @@ The following is the sample ``additional_packages.json`` file:
 .. note::
 
     * For systems with RedHat subscription, subscription URLs override ``rhel_os_urls`` and are processed automatically by the ``local_repo.yml`` playbook.
-
-Default packages installed on cluster nodes
--------------------------------------------
-
-
-.. csv-table:: Admin debug packages
-   :file: ../../../Tables/admin_debug_packages_rhel10_x86_64.csv
-   :header-rows: 1
-   :keepspace:
-   :widths: auto
