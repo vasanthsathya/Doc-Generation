@@ -56,14 +56,6 @@ The following is the sample ``software_config.json`` file:
     ]
     }
 
-Admin Debug Packages - RHEL 10.0 (x86_64)
-----------------------------------------------------------
-
-.. csv-table:: Admin debug packages
-   :file: ../../../Tables/admin_debug_packages_rhel10_x86_64.csv
-   :header-rows: 1
-   :keepspace:
-   :widths: auto
 
 To deploy additional software packages on the cluster nodes, update the ``additional_packages.json`` available at ``/opt/omnia/input/project_default/``.
 
@@ -104,6 +96,13 @@ The following is the sample ``additional_packages.json`` file:
     }
     }
 
+.. note::
+
+    * To download a software with both x86_64 and aarch64 architectures, the arch key input is mandatory. Ensure that you check if the .json files for all the specified architectures are available in the input or configuration file. Else, update the .json files. 
+       
+    * For additional_software support, update the input/config/{arch}/rhel/10.0/additional_packages.json file with the required {arch} data, where {arch} can either be x86_64 or aarch64, or a combination of both.
+
+
 
 .. csv-table:: Architecture information for softwares
    :file: ../../../Tables/Software_arch.csv
@@ -111,39 +110,6 @@ The following is the sample ``additional_packages.json`` file:
    :keepspace:
    :widths: auto
 
-.. note::
-
-    * To download a software with both x86_64 and aarch64 architectures, the arch key input is mandatory. Ensure that you check if the .json files for all the specified architectures are available in the input or configuration file. Else, update the .json files. See the following sample:
-
-    ::
-     
-        {
-            "cluster_os_type": "rhel",
-            "cluster_os_version": "10.0",
-            "repo_config": "always",
-            "softwares": [
-                {"name": "default_packages", "arch": ["x86_64","aarch64"]},
-                {"name": "openldap", "arch": ["x86_64","aarch64"]},
-                {"name": "service_k8s","version": "1.34.1", "arch": ["x86_64"]},
-                {"name": "slurm_custom", "arch": ["x86_64","aarch64"]},
-                {"name": "ldms", "arch": ["x86_64","aarch64"]}
-            ],
-            "slurm_custom": [
-                {"name": "slurm_control_node"},
-                {"name": "slurm_node"},
-                {"name": "login_node"},
-                {"name": "login_compiler_node"}
-            ],
-            "service_k8s": [
-                {"name": "service_kube_control_plane_first"},
-                {"name": "service_kube_control_plane"},
-                {"name": "service_kube_node"}
-            ]
-
-        }
-        
-
-    * For additional_software support, update the input/config/{arch}/rhel/10.0/additional_software.json file with the required {arch} data, where {arch} can either be x86_64 or aarch64, or a combination of both.
 
 .. note::
 
@@ -162,3 +128,13 @@ The following is the sample ``additional_packages.json`` file:
 .. note::
 
     * For systems with RedHat subscription, subscription URLs override ``rhel_os_urls`` and are processed automatically by the ``local_repo.yml`` playbook.
+
+Default packages installed on cluster nodes
+-------------------------------------------
+
+
+.. csv-table:: Admin debug packages
+   :file: ../../../Tables/admin_debug_packages_rhel10_x86_64.csv
+   :header-rows: 1
+   :keepspace:
+   :widths: auto
