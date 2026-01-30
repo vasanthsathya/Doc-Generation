@@ -1,8 +1,8 @@
 Deploy Additional Packages
 ==========================
 
-Deploy additional packages during fist time deployment
------------------------------------------------------
+Deploy Additional Packages During First Time Deployment
+--------------------------------------------------------
 
 To deploy additional software packages and container images on cluster nodes, do the following:
 
@@ -26,12 +26,10 @@ To deploy additional software packages and container images on cluster nodes, do
 * Build images: `Step 12: Build Cluster Node Images <../RHEL_new/build_images.html>`_
 * Discover nodes and PXE boot: `Step 13: Discover cluster nodes <../RHEL_new/Provision/index.html>`_
 
-For more information about executing the playbook, see `Execute the Local Repo Playbook <../RHEL_new/CreateLocalRepo/RunningLocalRepo.html>`_.
+Deploy Additional Packages After Cluster Provisioning
+-----------------------------------------------------
 
-Deploy additional packages post post deployment of cluster nodes
------------------------------------------------------------------
-
-To deploy additional packages/images after the deployment of cluster nodes.
+To deploy additional packages/images after cluster provisioning, do the following:
 
 1. Update ``/opt/omnia/input/project_default/additional_packages.json`` with the new packages/images.
 2. Re-run the ``local_repo.yml`` playbook to download the new packages/images to the Pulp container.
@@ -46,3 +44,9 @@ To deploy additional packages/images after the deployment of cluster nodes.
         Using tag: crictl pull <image_name>:<tag>
 
         Using digest: crictl pull <image_name>@<digest>
+        
+    * To verify the installed packages/images, run the following command on each node: ::
+
+        dnf list installed <package-name>
+
+        crictl images

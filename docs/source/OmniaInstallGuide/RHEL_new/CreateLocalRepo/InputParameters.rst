@@ -62,7 +62,7 @@ The following is the sample ``software_config.json`` file:
     ]
     }
 
-For a list of packages included in ``admin_debug_packages``, see `Admin Debug Packages) <AdminDebugPackages.html>`_.
+For a list of packages included in ``admin_debug_packages``, see `Default Admin Debug Packages <AdminDebugPackages.html>`_.
 
 To deploy additional software packages on the cluster nodes, update the ``additional_packages.json`` available at ``/opt/omnia/input/project_default/``. For detailed steps on how to deploy additional packages, see `Deploy Additional Packages <../../AdvancedConfigurations/DeployAdditionalPackages.html>`_.
 
