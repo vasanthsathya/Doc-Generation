@@ -59,7 +59,7 @@ To deploy the container images from DockerHub, do the following:
 
   **Example:** 
     * **Specifc verion:** ``wget https://raw.githubusercontent.com/dell/omnia/refs/heads/main/omnia.sh`` 
-    * **Tagged version:** ``wget https://raw.githubusercontent.com/dell/omnia/refs/tags/v2.0.0.0/omnia.sh``
+    * **Tagged version:** ``wget https://raw.githubusercontent.com/dell/omnia/refs/tags/v2.1.0.0-rc1/omnia.sh``
 
 2. Run the following command to make the script executable::
 
