@@ -45,3 +45,13 @@ Additional values you must provide:
 * **Telemetry configuration (if enabled):**  
    * ``csi_powerscale_driver_secret_file_path`` – Powerscale driver secret file  
    * ``csi_powerscale_driver_values_file_path`` – Powerscale driver values file
+
+
+Input Validator
+=================
+
+Once all the input files are filled, the input validator can be used to verify if the provided inputs are correct or not.
+This helps reduce execution delays at runtime caused by wrong inputs. Use the following command to execute the input validator: ::
+
+    cd input_validation
+    ansible-playbook validate_config.yml
