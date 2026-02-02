@@ -9,7 +9,53 @@ If you are using RHEL subscription, enable CodeReady Builder (CRB) ::
     
      subscription-manager repos --enable codeready-builder-for-rhel-10-x86_64-rpms
 
-Build Slurm repository for x86_64 without GPU support
+Slurm repository build for aarch64   
+===============================
+
+**Prerequisites**
+
+1. Identify the aarch64 node, install the operating system, and assign a free PXE IP address.
+2. If internet connection is not available, do the following:
+
+        1. Enable the network masquerading to provide internet access.
+        2. Run the following script: ::
+
+                #!/bin/bash
+
+                echo "=== Enable MASQUERADE (Internet Sharing) ==="
+                echo
+                
+                read -p "Enter INTERNET interface name " WAN
+                read -p "Enter PXE interface name " LAN
+                
+                echo
+                echo "WAN interface : $WAN"
+                echo "LAN interface : $LAN"
+                echo
+                
+                # Enable IP forwarding
+                echo "[*] Enabling IP forwarding..."
+                echo 1 > /proc/sys/net/ipv4/ip_forward
+                
+                # Add NAT rule
+                echo "[*] Adding MASQUERADE rule..."
+                iptables -t nat -A POSTROUTING -o "$WAN" -j MASQUERADE
+                
+                # Add forward rules
+                echo "[*] Allowing forwarding..."
+                iptables -A FORWARD -i "$LAN" -o "$WAN" -j ACCEPT
+                iptables -A FORWARD -i "$WAN" -o "$LAN" -m state --state RELATED,ESTABLISHED -j ACCEPT
+                
+                echo
+                echo "✔ MASQUERADE enabled successfully"
+                echo "✔ $LAN can now access internet via $WAN"
+
+
+
+
+
+
+Build Slurm repository without GPU support
 =======================================================
 
 1. Install dependencies. The following command is provided as an example: ::
@@ -41,7 +87,7 @@ After you verify the build, remove the rpm packages. ::
         
         sudo dnf remove -y 'slurm'
 
-Build Slurm repo for x86_64 with GPU support
+Build Slurm repository with GPU support
 ==============================================
 
 1. Install dependencies. The following command is provided as an example: ::
@@ -51,7 +97,9 @@ Build Slurm repo for x86_64 with GPU support
 
 2. Download slurm tar file: wget, `Download <https://download.schedmd.com/slurm/slurm-25.05.2.tar.bz2>`_ 
 
-3. Download the cuda tool kit: wget `Download <https://developer.download.nvidia.com/compute/cuda/13.0.2/local_installers/cuda_13.0.2_580.95.05_linux.run>`_
+3. Download the cuda tool kit for x86_64: wget `Download <https://developer.download.nvidia.com/compute/cuda/13.0.2/local_installers/cuda_13.0.2_580.95.05_linux.run>`_
+   
+   Download the cuda tool kit for aarch64: wget `Download <https://developer.download.nvidia.com/compute/cuda/13.1.0/local_installers/cuda_13.1.0_590.44.01_linux_sbsa.run>`_
 
 The cuda_13.0.2_580.95.05_linux.run file is downloaded.
 
