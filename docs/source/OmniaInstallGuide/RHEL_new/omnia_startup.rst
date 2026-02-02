@@ -32,56 +32,9 @@ Prerequisites for Deploying the Omnia Core Container
 
     .. include:: ../../Appendices/hostnamereqs.rst
 
-Steps to Deploy Omnia Core Container
-------------------------------------
-
-You can deploy the ``omnia_core`` container images on the Omnia Infrastructure Manager (OIM) in one of the following ways:
-
- * From Docker Hub (recommended for production), available at `Docker Hub <https://hub.docker.com/u/dellhpcomniaaisolution>`_
-
- * From Omnia Artifactory repository (recommended for custom development), available at `Omnia Artifactory <https://github.com/dell/omnia-artifactory.git>`_
-
-Deploy Omnia Core Container from Docker Hub (Recommended)
-----------------------------------------------------------
-
-To deploy the container images from DockerHub, do the following:  
-
-1. Download the ``omnia.sh`` script using the following commands:
-        
-   * To use the tagged version of Omnia, run the following command::
-
-      wget https://raw.githubusercontent.com/dell/omnia/refs/tags/${OMNIA_VERSION}/omnia.sh
-
-   * In the DockerHub, by default Omnia source code points to the ``v2.0.0.0`` branch. To use the specific branch of Omnia, run the following command::
-
-      wget https://raw.githubusercontent.com/dell/omnia/refs/heads/${OMNIA_VERSION}/omnia.sh
-
-
-  **Example:** 
-    * **Specifc verion:** ``wget https://raw.githubusercontent.com/dell/omnia/refs/heads/main/omnia.sh`` 
-    * **Tagged version:** ``wget https://raw.githubusercontent.com/dell/omnia/refs/tags/v2.1.0.0-rc1/omnia.sh``
-
-2. Run the following command to make the script executable::
-
-    chmod +x omnia.sh
-
-3. On the OIM, run the following command to deploy the ``omnia_core`` container and configure passwordless SSH. The ``omnia.sh`` command internally pulls 
-   the ``omnia_core`` container image from Docker Hub::
-
-   ./omnia.sh --install
-
-   If there are issues pulling images from Docker Hub, log in to your Docker Hub account using Podman and manually pull the image::
-       
-       podman pull dellhpcomniaaisolution/omnia_auth:1.0  
-
-4. When prompted for the shared path, enter the path for the Omnia shared directory. This can be a local file path or an NFS share path.
-5. When prompted for the password, enter a secure alphanumeric password for accessing the Omnia core container.
-   
-.. caution:: The password must not contain special characters such as \ , | , & , ; , ` , < > , * , ? , ! , $ , ( ) , { } , [ ] . 
-
   
-Deploy the Omnia Core Container from Omnia Artifactory (Alternative)
---------------------------------------------------------------------
+Deploy the Omnia Core Container from Omnia Artifactory 
+-------------------------------------------------------
 
 To deploy the container images from any Omnia branch, available at `Omnia Artifactory Repository <https://github.com/dell/omnia-artifactory.git>`_, do the following:
 
@@ -92,7 +45,7 @@ To deploy the container images from any Omnia branch, available at `Omnia Artifa
 
       git clone https://github.com/dell/omnia-artifactory.git
       cd omnia-artifactory
-      ./build_images.sh omnia_branch=<branch_name_or_tag>
+      ./build_images.sh omnia_branch=<branch_name_or_tag> core_tag=1.0
 
     Examples:
 
@@ -100,26 +53,41 @@ To deploy the container images from any Omnia branch, available at `Omnia Artifa
 
     .. code-block:: bash
 
-      ./build_images.sh oim omnia_branch=main
+      ./build_images.sh oim omnia_branch=main core_tag=1.0
 
     To build from a tag:
 
     .. code-block:: bash
 
-      ./build_images.sh oim omnia_branch=v2.1.0.0-rc1
+      ./build_images.sh core omnia_branch=v2.1.0.0-rc1 core_tag=1.0
 
   * For detailed build instructions, refer to the `Omnia Artifacts README <https://github.com/dell/omnia-artifactory/blob/omnia-container/README.md>`_.
 
-2. Run the following command to make the script executable::
+2. Download the ``omnia.sh`` script using the following commands:
+
+   * To use the tagged version of Omnia, run the following command::
+
+     wget https://raw.githubusercontent.com/dell/omnia/refs/tags/${OMNIA_VERSION}/omnia.sh
+
+   * To use the specific branch of Omnia, run the following command::
+
+     wget https://raw.githubusercontent.com/dell/omnia/refs/heads/${OMNIA_VERSION}/omnia.sh
+
+    **Example:**
+    * Specifc verion: wget https://raw.githubusercontent.com/dell/omnia/refs/heads/main/omnia.sh
+    * Tagged version: wget https://raw.githubusercontent.com/dell/omnia/refs/tags/v2.1.0.0-rc1/omnia.sh
+
+
+3. Run the following command to make the script executable::
 
     chmod +x omnia.sh
 
-3. On the OIM, run the following command to deploy the ``omnia_core`` container and configure passwordless SSH::
+4. On the OIM, run the following command to deploy the ``omnia_core`` container and configure passwordless SSH::
 
     ./omnia.sh --install
 
-3. When prompted for the shared path, enter the path for the Omnia shared directory. This can be a local file path or an NFS share path.
-4. When prompted for the password, enter a secure alphanumeric password for accessing the Omnia core container.
+5. When prompted for the shared path, enter the path for the Omnia shared directory. This can be a local file path or an NFS share path.
+6. When prompted for the password, enter a secure alphanumeric password for accessing the Omnia core container.
    
 .. caution:: The password must not contain special characters such as \ , | , & , ; , ` , < > , * , ? , ! , $ , ( ) , { } , [ ] . 
 
