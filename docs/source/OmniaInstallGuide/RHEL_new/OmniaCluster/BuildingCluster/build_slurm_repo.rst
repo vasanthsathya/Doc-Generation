@@ -98,6 +98,7 @@ Build Slurm repository with GPU support
 2. Download slurm tar file: wget, `Download <https://download.schedmd.com/slurm/slurm-25.05.2.tar.bz2>`_ 
 
 3. Download the cuda tool kit for x86_64: wget `Download <https://developer.download.nvidia.com/compute/cuda/13.0.2/local_installers/cuda_13.0.2_580.95.05_linux.run>`_
+   
    Download the cuda tool kit for aarch64: wget `Download <https://developer.download.nvidia.com/compute/cuda/13.1.0/local_installers/cuda_13.1.0_590.44.01_linux_sbsa.run>`_
 
 The cuda_13.0.2_580.95.05_linux.run file is downloaded.
