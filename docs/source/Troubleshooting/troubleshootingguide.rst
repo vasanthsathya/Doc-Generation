@@ -3,7 +3,7 @@ Troubleshooting guide
 ============================
 
 Troubleshooting Core Container Failures
-----------------------------------------
+=========================================
 
 The deployment of the Omnia core container may fail for the following reasons:
 
@@ -11,7 +11,8 @@ The deployment of the Omnia core container may fail for the following reasons:
 - ``podman pull`` fails.
 - The Omnia core container starts but cannot write to the shared path.
 
-**Resolution**
+**Resolution:**
+
 Peform the following steps:
 
 1.  Verify the Omnia core container status using the following command:
@@ -41,8 +42,8 @@ Peform the following steps:
 
 4. Ensure that the OIM hostname meets the following requirements. If not, rename the host to comply with the hostname rules and re-run the ``omnia.sh`` script.
 
-- No dot (``.``), underscore (``_``), or comma (``,``)
-- No leading or trailing hyphen (``-``)
+ - No dot (``.``), underscore (``_``), or comma (``,``)
+ - No leading or trailing hyphen (``-``)
 - No uppercase characters
 - Must not start with a digit
 - Fully qualified domain name (FQDN) length must be ≤ 64 characters
@@ -62,8 +63,8 @@ If unsure, start with a **local** shared path and switch to NFS later.
 8. After applying the fixes, re-run the ``omnia.sh`` script to deploy the Omnia core
 container.
 
-Troubleshooting Prepare the OIM (prepare_oim.yml)
--------------------------------------------------
+Troubleshooting failures during Prepare the OIM 
+================================================
 
 The deployment of the Omnia core container may fail for the following reasons:
 
@@ -80,7 +81,7 @@ Verify container inventory:
    podman ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}'
 
 Common Container Logs and Debugging Shortcuts
----------------------------------------------
+==============================================
 
 Use the following commands to troubleshoot container issues across Omnia services.
 
