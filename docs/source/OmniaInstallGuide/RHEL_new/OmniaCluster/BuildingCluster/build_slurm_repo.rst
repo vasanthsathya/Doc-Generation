@@ -1,4 +1,4 @@
-Slurm repository build for x86_64   
+Enable repository for x86_64   
 ===============================
 
 The build steps must be performed on RHEL 10.0 OS node.
@@ -7,9 +7,11 @@ The build steps must be performed on RHEL 10.0 OS node.
 
 If you are using RHEL subscription, enable CodeReady Builder (CRB) ::
     
+     subscription-manager repos --enable rhel-10-for-x86_64-baseos-rpms
+     subscription-manager repos --enable rhel-10-for-x86_64-appstream-rpms
      subscription-manager repos --enable codeready-builder-for-rhel-10-x86_64-rpms
 
-Slurm repository build for aarch64   
+Enable repository for aarch64   
 ===============================
 
 **Prerequisites**
@@ -50,6 +52,11 @@ Slurm repository build for aarch64
                 echo "✔ MASQUERADE enabled successfully"
                 echo "✔ $LAN can now access internet via $WAN"
 
+3. If you are using RHEL subscription, enable CodeReady Builder (CRB) ::
+
+        subscription-manager repos --enable rhel-10-for-aarch64-baseos-rpms
+        subscription-manager repos --enable rhel-10-for-aarch64-appstream-rpms
+        subscription-manager repos --enable codeready-builder-for-rhel-10-aarch64-rpms
 
 
 
@@ -70,14 +77,19 @@ Build Slurm repository without GPU support
 
         rpmbuild -ta slurm-25.05.2.tar.bz2  --with pmix   --define "with_pmix --with-pmix=/usr"    --with yaml   --define "with_yaml --with-yaml"  --without hdf5   --define "without_hdf5 --without-hdf5"
 
-After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x86_64/``.
+After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x86_64/`` or ``/root/rpmbuild/RPMS/aarch64/``.
 
     .. image:: ../../../../images/slurm_rpm_build.png
 
-4. To verify the build before hosting, navigate to ``/root/rpmbuild/RPMS/x86_64/`` and run the following command: ::
+4. To verify the build before hosting, navigate to ``/root/rpmbuild/RPMS/x86_64/`` or ``/root/rpmbuild/RPMS/aarch64/`` and run the following command: ::
        
         sudo rpm -ivh slurm-25.05.2-1*.x86_64.rpm 
         slurm-slurmd-25.05.2-1*.x86_64.rpm
+
+ Or, ::
+
+        sudo rpm -ivh slurm-25.05.2-1*.aarch64.rpm 
+        slurm-slurmd-25.05.2-1*.aarch64.rpm
 
 All the required .so, cgroup_v2.so files should be available.
 
@@ -105,21 +117,25 @@ The cuda_13.0.2_580.95.05_linux.run file is downloaded.
 
 4. After the file is downloaded, run the following command from the directory where the file is downloaded: ::
     
-        bash cuda_13.0.2_580.95.05_linux.run --silent --toolkit --toolkitpath=/usr/local/cuda –override
+        bash cuda_13.0.2_580.95.05_linux.run --silent --toolkit --toolkitpath=/usr/local/cuda -–override
 
 5. Run the RPM Build command. Run the following command from the directory containing the downloaded tar file. The following command is provided as an example: ::
 
         rpmbuild -ta slurm-25.05.2.tar.bz2  --with pmix   --define "with_pmix --with-pmix=/usr"     --with yaml   --define "with_yaml --with-yaml"  --without hdf5   --define "without_hdf5 --without-hdf5" --with nvml   --define "_with_nvml --with-nvml=/usr/local/cuda"
 
-After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x86_64/``.
+After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x86_64/`` or ``/root/rpmbuild/RPMS/aarch64/``.
 
     .. image:: ../../../../images/slurm_rpm_build_2.png
 
-6. To verify the build before hosting, navigate to ``/root/rpmbuild/RPMS/x86_64/`` and run the following command: ::
+6. To verify the build before hosting, navigate to ``/root/rpmbuild/RPMS/x86_64/`` or ``/root/rpmbuild/RPMS/aarch64/`` and run the following command: ::
 
         sudo rpm -ivh slurm-25.05.2-1*.x86_64.rpm 
         slurm-slurmd-25.05.2-1*.x86_64.rpm
      
+ Or, ::
+
+        sudo rpm -ivh slurm-25.05.2-1*.aarch64.rpm 
+        slurm-slurmd-25.05.2-1*.aarch64.rpm
 
 All required .so along with the gpu_nvml.so should be available.
 
