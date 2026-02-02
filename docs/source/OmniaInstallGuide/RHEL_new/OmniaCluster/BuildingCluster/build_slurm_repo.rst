@@ -86,7 +86,7 @@ After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x8
         sudo rpm -ivh slurm-25.05.2-1*.x86_64.rpm 
         slurm-slurmd-25.05.2-1*.x86_64.rpm
 
-Or, ::
+ Or, ::
 
         sudo rpm -ivh slurm-25.05.2-1*.aarch64.rpm 
         slurm-slurmd-25.05.2-1*.aarch64.rpm
@@ -132,8 +132,8 @@ After the build is completed, the RPMs are available at ``/root/rpmbuild/RPMS/x8
         sudo rpm -ivh slurm-25.05.2-1*.x86_64.rpm 
         slurm-slurmd-25.05.2-1*.x86_64.rpm
      
-Or, ::
-        
+ Or, ::
+
         sudo rpm -ivh slurm-25.05.2-1*.aarch64.rpm 
         slurm-slurmd-25.05.2-1*.aarch64.rpm
 
