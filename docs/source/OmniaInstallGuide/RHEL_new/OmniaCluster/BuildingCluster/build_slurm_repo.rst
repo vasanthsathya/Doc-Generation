@@ -1,4 +1,4 @@
-Slurm repository build for x86_64   
+Enable repository for x86_64   
 ===============================
 
 The build steps must be performed on RHEL 10.0 OS node.
@@ -11,7 +11,7 @@ If you are using RHEL subscription, enable CodeReady Builder (CRB) ::
      subscription-manager repos --enable rhel-10-for-x86_64-appstream-rpms
      subscription-manager repos --enable codeready-builder-for-rhel-10-x86_64-rpms
 
-Slurm repository build for aarch64   
+Enable repository for aarch64   
 ===============================
 
 **Prerequisites**
