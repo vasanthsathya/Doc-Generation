@@ -63,10 +63,10 @@ If unsure, start with a **local** shared path and switch to NFS later.
 8. After applying the fixes, re-run the ``omnia.sh`` script to deploy the Omnia core
 container.
 
-Troubleshooting failures during Prepare the OIM 
+Troubleshooting failures during prepare OIM 
 ================================================
 
-The deployment of the Omnia core container may fail for the following reasons:
+The prepare OIM playbook may fail for the following reasons:
 
 - Certificate or TLS failures
 - Expected container not created
