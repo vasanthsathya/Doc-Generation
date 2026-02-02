@@ -44,11 +44,11 @@ Peform the following steps:
 
  - No dot (``.``), underscore (``_``), or comma (``,``)
  - No leading or trailing hyphen (``-``)
-- No uppercase characters
-- Must not start with a digit
-- Fully qualified domain name (FQDN) length must be ≤ 64 characters
+ - No uppercase characters
+ - Must not start with a digit
+ - Fully qualified domain name (FQDN) length must be ≤ 64 characters
 
-5. Check whether Podman is installed and able to pull images. If not, install podman and authenticate to Docker Hub using ``podman login``.
+5. Check whether Podman is installed and able to pull images. If not, install podman and verify podman login.
 
 6. Verify outbound network connectivity from the OIM.
 
