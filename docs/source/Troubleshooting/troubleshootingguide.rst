@@ -360,14 +360,14 @@ To verify that persistence mode is enabled::
 
 Expected output should show ``Persistence Mode`` as ``Enabled``:
 
-.. image:: ../images/troubleshoot_nvidia_smi.png
+ .. image:: ../images/troubleshoot_nvidia_smi.png
 
 GPU GRES configuration failures on Slurm nodes
 ================================================
 
 GPU jobs fail to submit when requesting GPU resources using --gres=gpu:<count>. The submission fails with:
 
-.. image:: ../images/troubleshoot_gpu_gres_2.png
+ .. image:: ../images/troubleshoot_gpu_gres_2.png
 
 This occurs because GPU nodes are missing the Gres= configuration in /etc/slurm/slurm.conf (shows as Gres=null or not present).
 
