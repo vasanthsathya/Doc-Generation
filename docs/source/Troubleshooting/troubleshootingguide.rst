@@ -348,16 +348,17 @@ On GPU compute nodes, the ``nvidia-smi`` command may take several seconds to min
 
 **Cause:**
 
-The NVIDIA driver may not be initialized when the GPU compute node reboots, leading to slow responses from the nvidia-smi command.
+On some GPU compute nodes, the NVIDIA driver may intermittently behave slowly during normal runtime operation. This slow behavior is observed when GPU persistence mode is not enabled, causing delayed responses from GPU management commands such as ``nvidia-smi``.
 
 **Resolution:**
-Enable GPU persistence mode so that the NVIDIA driver keeps GPUs initialized even when idle. This prevents repeated GPU reinitialization and ensures nvidia-smi responds immediately.
 
-To enable Persistence Mode, run the following command on the GPU node::
+1. Enable GPU persistence mode so that the NVIDIA driver keeps GPUs initialized even when idle. This prevents repeated GPU reinitialization and ensures nvidia-smi responds immediately.
+
+2. To enable Persistence Mode, run the following command on the GPU node::
 
         nvidia-smi -pm 1
 
-To verify that persistence mode is enabled::
+3. To verify that persistence mode is enabled::
 
         sudo nvidia-smi -q | grep "Persistence Mode"
 
