@@ -324,12 +324,14 @@ Running the following command on the host shows the port state as Initializing::
  
  bstat
 
-**Cause**
+**Cause:**
+
 The Open Subnet Manager (OpenSM) service is not running on the InfiniBand (IB) switch.
 Subnet Manager is a fabric‑level service that should be running on the IB switch. If OpenSM is not enabled on the IB switch, the 
 InfiniBand fabric cannot complete initialization, causing host ports to remain in the Initializing state.
 
-**Resolution**
+**Resolution:**
+
 1. Ensure that the Open Subnet Manager service is enabled and running on the InfiniBand switch.
 2. After enabling OpenSM on the IB switch, do the following:
     * PXE boot all the IB NIC based nodes.
@@ -341,11 +343,11 @@ Slow nvidia-smi response on GPU compute nodes
 
 On GPU compute nodes, the ``nvidia-smi`` command may take several seconds to minutes to return output, particularly after a reboot or fresh NVIDIA driver installation.
 
-**Cause**
+**Cause:**
 
 The NVIDIA driver may not be initialized when the GPU compute node reboots, leading to slow responses from the nvidia-smi command.
 
-**Resolution**
+**Resolution:**
 Enable GPU persistence mode so that the NVIDIA driver keeps GPUs initialized even when idle. This prevents repeated GPU reinitialization and ensures nvidia-smi responds immediately.
 
 To enable Persistence Mode, run the following command on the GPU node::
@@ -356,8 +358,6 @@ To verify that persistence mode is enabled::
 
         nvidia-smi
 
-Expected output::
-
-Verify that persistence mode is enabled::
+Expected output should show "Persistence Mode" as "Enabled":
 
 .. image:: ../images/troubleshoot_nvidia_smi.png
