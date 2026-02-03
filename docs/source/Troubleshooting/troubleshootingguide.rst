@@ -384,12 +384,12 @@ The Redfish API used to get the GPU count for Slurm nodes is returning GPU count
 1. Login to omnia core container.
 2. ssh to Slurm controller.
 3. Copy the provided script content and save it with the following filename: ``gpu_detect.sh``
-4. Edit the script and update the BMC credentials with the **exact username and password** for your environment. Locate and update the following variables inside the script ::
+4. Edit the script and update the BMC credentials with the **exact username and password** for your environment. Locate and update the following variables inside the script. ::
         
         BMC_USERNAME=<your_bmc_username>
         BMC_PASSWORD=<your_bmc_password>
 
-::
+ ::
 
         #!/bin/bash
         set -euo pipefail
