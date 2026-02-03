@@ -274,19 +274,19 @@ Pulp Repository Sync and Publication Failures
 
 1. No Space Left on NFS Share (where Pulp is mounted).
 
-**Observation**:  Pulp storage runs out of disk space during sync or publish. In this case , Pulp logs show the error "No space left on device." Check the available storage space on the NFS share.
+**Cause**:  Pulp storage runs out of disk space during sync or publish. In this case , Pulp logs show the error "No space left on device." Check the available storage space on the NFS share.
 
 **Resolution**:  Increase the size of the NFS share where Pulp is mounted to free up space.
 
 2. Incorrect URL in ``local_repo_config.yml``.
 
-**Observation**: The repository URLs in the ``local_repo_config.yml`` file may be incorrect . The URL must point to the repository root (where the repodata directory exists) and be reachable.
+**Cause**: The repository URLs in the ``local_repo_config.yml`` file may be incorrect . The URL must point to the repository root (where the repodata directory exists) and be reachable.
 
 **Resolution**: Verify and update the URLs in the local_repo_config.yml file to ensure they are correct and accessible.
 
 3. NFS storage configuration or performance
 
-**Observation**: If Pulp is mounted on NFS, network delays can impact performance, potentially causing sync or publication issues.
+**Cause**: If Pulp is mounted on NFS, network delays can impact performance, potentially causing sync or publication issues.
 
 **Resolution**: Reduce ``PULP_SYNC_CONCURRENCY`` and ``PULP_PUBLISH_CONCURRENCY`` to 1 in ``config.py``.
 
@@ -314,3 +314,50 @@ For example: ::
 After updating the permissions, reload the Slurm configuration: ::
 
         scontrol reconfigure
+
+InfiniBand ports remain in initializing state on hosts
+========================================================
+
+In Omnia deployments using InfiniBand (IB) networking, compute or management hosts show InfiniBand ports stuck in the 
+Initializing state after boot. Even though the physical link is up, InfiniBand communication between nodes does not work.
+Running the following command on the host shows the port state as Initializing::
+ 
+ bstat
+
+**Cause**
+The Open Subnet Manager (OpenSM) service is not running on the InfiniBand (IB) switch.
+Subnet Manager is a fabric‑level service that should be running on the IB switch. If OpenSM is not enabled on the IB switch, the 
+InfiniBand fabric cannot complete initialization, causing host ports to remain in the Initializing state.
+
+**Resolution**
+1. Ensure that the Open Subnet Manager service is enabled and running on the InfiniBand switch.
+2. After enabling OpenSM on the IB switch, do the following:
+    * PXE boot all the IB NIC based nodes.
+    * Run the following command on the host: ibstat
+    * Verify that the InfiniBand ports state transition to: ``State: Active``
+ 
+Slow nvidia-smi response on GPU compute nodes
+==============================================
+
+On GPU compute nodes, the ``nvidia-smi`` command may take several seconds to minutes to return output, particularly after a reboot or fresh NVIDIA driver installation.
+
+**Cause**
+
+The NVIDIA driver may not be initialized when the GPU compute node reboots, leading to slow responses from the nvidia-smi command.
+
+**Resolution**
+Enable GPU persistence mode so that the NVIDIA driver keeps GPUs initialized even when idle. This prevents repeated GPU reinitialization and ensures nvidia-smi responds immediately.
+
+To enable Persistence Mode, run the following command on the GPU node::
+
+        nvidia-smi -pm 1
+
+To verify that persistence mode is enabled::
+
+        nvidia-smi
+
+Expected output::
+
+Verify that persistence mode is enabled::
+
+.. image:: ../images/troubleshoot_nvidia_smi.png
