@@ -358,6 +358,28 @@ To verify that persistence mode is enabled::
 
         nvidia-smi
 
-Expected output should show "Persistence Mode" as "Enabled":
+Expected output should show ``Persistence Mode`` as ``Enabled``:
 
 .. image:: ../images/troubleshoot_nvidia_smi.png
+
+GPU GRES configuration failures on Slurm nodes
+================================================
+
+GPU jobs fail to submit when requesting GPU resources using --gres=gpu:<count>. The submission fails with:
+
+.. image:: ../images/troubleshoot_gpu_gres_2.png
+
+This occurs because GPU nodes are missing the Gres= configuration in /etc/slurm/slurm.conf (shows as Gres=null or not present).
+
+**Cause**
+The Redfish API used to get the GPU count for Slurm nodes is returning GPU count as zero. As a result, slurm.conf is not updated with the GPU count for each Slurm node.
+
+**Resolution**
+
+1. Login to omnia core container.
+2. ssh to Slurm controller.
+3. Execute the following script on the Slurm controller to update the GPU count in ``slurm.conf``.
+
+<Script from Nagachandan>
+To verify the GPU count, run the following command on the Slurm controller:
+<command>
