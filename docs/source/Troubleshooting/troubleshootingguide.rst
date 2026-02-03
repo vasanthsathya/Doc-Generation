@@ -324,6 +324,8 @@ Running the following command on the host shows the port state as Initializing::
  
  ibstat
 
+.. image:: ../images/troubleshooting_ib.png
+
 **Cause:**
 
 The Open Subnet Manager (OpenSM) service is not running on the InfiniBand (IB) switch.
@@ -334,6 +336,7 @@ InfiniBand fabric cannot complete initialization, causing host ports to remain i
 
 1. Ensure that the Open Subnet Manager service is enabled and running on the InfiniBand switch.
 2. After enabling OpenSM on the IB switch, do the following:
+
     * PXE boot all the IB NIC based nodes.
     * Run the following command on the host: ibstat
     * Verify that the InfiniBand ports state transition to: ``State: Active``
