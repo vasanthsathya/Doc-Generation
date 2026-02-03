@@ -518,7 +518,7 @@ The Redfish API used to get the GPU count for Slurm nodes is returning GPU count
         
         ./gpu_detect.sh <bmc_ip>:<node_name>
  
-Example::
+ Example::
  
         ./gpu_detect.sh 192.168.1.10:node0
 
@@ -526,7 +526,7 @@ Example::
         
         ./gpu_detect.sh <bmc_ip1>:<node_name1> <bmc_ip2>:<node_name2>
  
-Example::
+ Example::
  
         ./gpu_detect.sh 192.168.1.10:node01 192.168.1.11:node02
  
