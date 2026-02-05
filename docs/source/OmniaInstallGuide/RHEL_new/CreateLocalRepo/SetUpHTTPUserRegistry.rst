@@ -7,7 +7,8 @@ To deploy a container registry using Podman, do the following:
 
 1.  Create a registry storage directory. ::
 
-        mkdir -p /root/data chown -R 1000:1000 /root/data
+        mkdir -p /root/data 
+        chown -R 1000:1000 /root/data
 
 2. Start the registry container. ::
     
