@@ -9,10 +9,10 @@ To configure a secure (HTTPS) container registry using Podman, do the following:
 
     mkdir -p /root/data/certs
 
-    ::
+ ::
 
         cd /root/data/certs
-        
+
  Generate a self-signed certificate (replace <Public_IP> with your server’s Public IP). ::
 
     openssl req -x509 -nodes -newkey rsa:4096 -days 365 -sha256 \ -keyout domain.key \ -out domain.crt \ -subj "/CN=<Public_IP>" \ -addext "subjectAltName = IP:<Public_IP>
