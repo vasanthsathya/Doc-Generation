@@ -9,7 +9,7 @@ Version 2.1.0.0-rc1
 PowerVault Storage Integration
 ------------------------------
 
-Enables automated configuration and management of Dell PowerVault ME4 and ME5 storage arrays for HPC clusters. Supports flexible RAID configurations, volume management, and seamless NFS server integration to provide scalable storage solutions for demanding HPC workloads.
+The PowerVault integration, with a preconfigured volume, provides persistent storage for critical Slurm controller components using iSCSI block storage with multipath support. This ensures data persistence for Slurm’s StateSaveLocation and the MariaDB/MySQL database.
 
 InfiniBand Networking Support
 ------------------------------
