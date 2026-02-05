@@ -9,12 +9,12 @@ To configure a secure (HTTPS) container registry using Podman, do the following:
 
     mkdir -p /root/data/certs
 
-Generate a self-signed certificate (replace <Public_IP> with your server’s Public IP). ::
+ Generate a self-signed certificate (replace <Public_IP> with your server’s Public IP). ::
 
     openssl req -x509 -nodes -newkey rsa:4096 -days 365 -sha256 \ -keyout domain.key \ -out domain.crt \ -subj "/CN=<Public_IP>" \ -addext "subjectAltName = IP:<Public_IP>
 
 
-Verify the Subject Alternative Name. ::
+ Verify the Subject Alternative Name. ::
 
     openssl x509 -in domain.crt -noout -text | grep -A2 "Subject Alternative Name"
 
@@ -48,13 +48,13 @@ Verify the Subject Alternative Name. ::
 
 .. note:: Use a port other than 5000 when exposing the registry (for example, 3445), as port 5000 is already occupied by Omnia containers.
 
-The registry is now accessible at: ``https:// <PUBLIC_IP>:2727/v2/``.
+ The registry is now accessible at: ``https:// <PUBLIC_IP>:2727/v2/``.
 
 5. Configure Podman to trust the registry certificate. Create the certificate directory. ::
 
     sudo mkdir -p /etc/containers/certs.d/<Public_IP>:2727 
 
-Copy the certificate. ::
+ Copy the certificate. ::
     
     sudo cp /root/data/certs/domain.crt /etc/containers/certs.d/<Public_IP>:2727/ca.crt
 

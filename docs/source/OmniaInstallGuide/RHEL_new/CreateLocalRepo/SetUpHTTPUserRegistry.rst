@@ -7,7 +7,7 @@ To deploy a container registry using Podman, do the following:
 
 1.  Create a registry storage directory. ::
 
-    mkdir -p /root/data chown -R 1000:1000 /root/data
+        mkdir -p /root/data chown -R 1000:1000 /root/data
 
 2. Start the registry container. ::
     
@@ -29,7 +29,7 @@ To pull an image, tag it for your local registry, and push the changes, do the f
 
 1.  Pull the image. ::
 
-    podman pull docker.io/library/nginx:1.25.2-alpine-slim 
+        podman pull docker.io/library/nginx:1.25.2-alpine-slim 
 
 2. Tag the image. ::
 
@@ -37,7 +37,7 @@ To pull an image, tag it for your local registry, and push the changes, do the f
 
 3.  Push the image to the registry. Because this is an HTTP registry, disable TLS verification. ::
 
-    podman push <Public_IP>:3445/library/nginx:1.25.2-alpine-slim --tls-verify=false
+        podman push <Public_IP>:3445/library/nginx:1.25.2-alpine-slim --tls-verify=false
 
 
 
