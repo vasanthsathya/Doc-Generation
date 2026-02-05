@@ -44,7 +44,8 @@ To configure a secure (HTTPS) container registry using Podman, do the following:
 
 4. Open firewall port. ::
 
-    sudo firewall-cmd --add-port=2727/tcp --permanent sudo firewall-cmd --reload
+    sudo firewall-cmd --add-port=2727/tcp --permanent 
+    sudo firewall-cmd --reload
 
 .. note:: Use a port other than 5000 when exposing the registry (for example, 3445), as port 5000 is already occupied by Omnia containers.
 
