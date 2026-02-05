@@ -8,9 +8,9 @@ Configure Additional Container Images from User Registry to Local Repository
 
 Omnia supports configuring additional container images from specified user registries to Omnia Local Repository, so that these images are available and can be pulled by cluster nodes as per requirement. User registries may be hosted either on OIM or on an external server, and both HTTP and HTTPS registries are supported.
 
-To view the steps to set up an HTTP user registry: 
+To view the steps to set up an HTTP user registry, see `Set Up an HTTP User Registry <SetUpHTTPUserRegistry.html>`_.
 
-To view the steps to prepare an HTTPS user registry:
+To view the steps to prepare an HTTPS user registry, see `Set Up an HTTPS User Registry <SetUpHTTPS_UserRegistry.html>`_.
 
 After the registry is ready, mention the inputs in ``local_repo_config.yml``, see `Input Parameters for Local Repositories <InputParameters.html>`_.
 
