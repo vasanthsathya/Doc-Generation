@@ -1,7 +1,23 @@
 New Features
 =============
 
-The following sections describe the new features and enhancements introduced in the Omnia 2.0.0.0 release.
+The following sections describe the new features and enhancements introduced in Omnia 2.x releases.
+
+Version 2.1.0.0-rc1
+-------------------
+
+PowerVault Storage Integration
+------------------------------
+
+Enables automated configuration and management of Dell PowerVault ME4 and ME5 storage arrays for HPC clusters. Supports flexible RAID configurations, volume management, and seamless NFS server integration to provide scalable storage solutions for demanding HPC workloads.
+
+InfiniBand Networking Support
+------------------------------
+
+Provides comprehensive support for InfiniBand (IB) networking in HPC clusters, including automatic DOCA-OFED driver installation for Mellanox InfiniBand cards, static IP assignment for IB interfaces, and prerequisite validation for Open Subnet Manager (OpenSM) service configuration. This ensures high-performance, low-latency interconnects for parallel computing workloads.
+
+Version 2.0.0.0
+---------------
 
 Support for Podman Containers
 -----------------------------

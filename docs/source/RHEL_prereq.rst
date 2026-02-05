@@ -80,7 +80,7 @@ Repository
 -----------
 
 * Enable the **AppStream** and **BaseOS** repositories via the RHEL subscription manager.
-* To pin specific RHEL version in the subscription manager, use the following commands:
+* To pin specific RHEL version in the subscription manager, use the following commands::
 
     subscription-manager release --show
     subscription-manager release --set=10.0
