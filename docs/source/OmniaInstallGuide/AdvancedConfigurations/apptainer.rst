@@ -84,7 +84,7 @@ Run the command. ::
         apptainer inspect /hpc_tools/container_images/ubuntu_22.04.sif
 
 
-Required Cleanup ( For method 3 only)
+**Required Cleanup ( For method 3 only)**
 
 After pulling directly from the internet, restore the registry mirror configuration so that future pulls again route through Pulp.
 
