@@ -6,7 +6,7 @@ Deploy Additional Repositories
 - `additional_repos_x86_64`
 - `additional_repos_aarch64`
 
-2. Rerun the ``local_repo_config.yml`` playbook for Omnia to sync the repositories and update the repository configuration.
+2. Rerun the ``local_repo.yml`` playbook for Omnia to sync the repositories and update the repository configuration.
 3. For first time deployment, do the following:
 
 * Build images: `Step 12: Build Cluster Node Images <../RHEL_new/build_images.html>`_
