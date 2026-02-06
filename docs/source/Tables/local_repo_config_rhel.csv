@@ -86,6 +86,7 @@
       * Ensure that all the listed URLs are reachable from the OIM."
 **additional_repos_x86_64**,Optional,"* **Type**: JSON list
 * Each repository entry must include: 
+
     * ``url``: Repository base URL.
     * ``name``: Unique repository name.
     * ``gpgkey``: URL to the repository GPG key, or empty string (`""""`) if you are not using GPG.
@@ -97,6 +98,7 @@ additional_repos_x86_64:
   - { url: ""https://nginx.org/packages/rhel/9/x86_64/"", gpgkey: """", name: ""test-nginx"" }"
 **additional_repos_aarch64**,Optional,"* **Type**: JSON list
 * Each repository entry must include: 
+
     * ``url``: Repository base URL.
     * ``name``: Unique repository name.
     * ``gpgkey``: URL to the repository GPG key, or empty string (`""""`) if you are not using GPG.
