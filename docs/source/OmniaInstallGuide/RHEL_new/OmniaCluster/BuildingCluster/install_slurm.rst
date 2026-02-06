@@ -39,7 +39,8 @@ A helper script is provided to simplify pulling container images on cluster node
     ls -l /hpc_tools/scripts
     ls -ld /hpc_tools/container_images
 
- The following should be available: ::
+ The following should be available:
+ 
  * ``download_container_image.sh``
  * ``container_image.list``
 
