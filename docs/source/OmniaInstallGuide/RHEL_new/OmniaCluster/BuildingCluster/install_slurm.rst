@@ -32,7 +32,9 @@ Step 11: Set up Slurm on nodes
 Post Installation
 ----------------------
 
-A helper script is provided to simplify pulling container images on cluster nodes. By default, the script downloads the hpcbenchmarks container from the site Pulp registry, but it can also be used to pull any other approved images available in Pulp.
+Pulling container images on a Slurm cluster node 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+A helper script is provided to simplify pulling container images on cluster nodes. By default, the script downloads the **hpcbenchmarks** container from the site Pulp registry, but it can also be used to pull any other approved images available in Pulp.
 
 1. Verify if required paths exist. ::
 
@@ -40,7 +42,7 @@ A helper script is provided to simplify pulling container images on cluster node
     ls -ld /hpc_tools/container_images
 
  The following should be available:
- 
+
  * ``download_container_image.sh``
  * ``container_image.list``
 
