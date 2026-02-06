@@ -27,3 +27,59 @@ Step 11: Set up Slurm on nodes
 
 
 .. note:: If the iDRAC of a Slurm node is not accessible through OIM—because of issues such as an incorrect iDRAC port configuration or invalid credentials—the node configuration specified in ``/etc/slurm/slurm.conf`` for ``NodeName`` will default to: ``Sockets=1 CoresPerSocket=1 ThreadsPerCore=1 RealMemory=3774873``. Update ``slurm.conf`` with the correct hardware values and run ``scontrol reconfigure`` to apply the changes.
+
+
+Post Installation
+----------------------
+
+A helper script is provided to simplify pulling container images on cluster nodes. By default, the script downloads the hpcbenchmarks container from the site Pulp registry, but it can also be used to pull any other approved images available in Pulp.
+
+1. Verify if required paths exist. ::
+
+    ls -l /hpc_tools/scripts
+    ls -ld /hpc_tools/container_images
+
+ The following should be available: ::
+ * ``download_container_image.sh``
+ * ``container_image.list``
+
+ If missing, NFS is not mounted.
+
+2. Verify if Apptainer is installed. :: 
+
+    apptainer --version
+
+3. Update image list (optional): By default, the list includes the HPC benchmarks image. To retrieve additional images from Pulp, add them to this list. ::
+
+    vi /hpc_tools/scripts/container_image.list
+
+ Format: ::
+        
+        <registry>/<namespace>/<image>:<tag>
+
+ Example: ::
+
+        docker.io/library/ubuntu:22.04
+
+4. Run the download script. ::
+
+    /hpc_tools/scripts/download_container_image.sh
+
+ The script retrieves images from the Pulp mirror and saves them to ``/hpc_tools/container_images``.
+
+5. Verify the downloaded images. ::
+
+        ls -lh /hpc_tools/container_images
+        apptainer inspect /hpc_tools/container_images/<image>.sif
+
+6. Run a container (example). ::
+
+        apptainer exec /hpc_tools/container_images/hpc-benchmarks_25.09.sif --help
+
+
+
+
+    
+
+
+
