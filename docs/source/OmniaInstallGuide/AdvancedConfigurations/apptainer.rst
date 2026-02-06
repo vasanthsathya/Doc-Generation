@@ -21,8 +21,7 @@ General Apptainer pull command is the default command to pull container images: 
     * --tmpdir specifies the temporary working directory used during the pull.
     * Both directories should be located on an NFS-backed filesystem to avoid failures due to limited local disk space.
 
-Method 1: Standard Pull (Default and preferred)
--------------------------------------------------
+**Method 1: Standard Pull (Default and preferred)**
 
 Create the directory used for both image storage and temporary files. This directory must be on an NFS-backed filesystem. ::
 
@@ -41,8 +40,7 @@ Behavior:
 * If a Pulp registry mirror is configured and the image is present, the image is pulled from Pulp.
 * If a Pulp registry mirror is not configured, the image is pulled directly from the public registry.
 
-Method 2: Pulling an Image Directly from Pulp
-------------------------------------------------
+**Method 2: Pulling an Image Directly from Pulp**
 
 If the system is configured to use Pulp and the image is known to exist in Pulp, it can be pulled explicitly from the Pulp registry. ::
 
@@ -54,8 +52,8 @@ If the system is configured to use Pulp and the image is known to exist in Pulp,
 
  Replace <pulp-registry> and <namespace> with site-specific values.
 
-Method 3: Pulling an Image directly from the internet (Exception only)
--------------------------------------------------------------------------
+**Method 3: Pulling an Image directly from the internet (Exception only)**
+
 
 .. caution:: Use this method only when absolutely necessary.
 
@@ -78,8 +76,8 @@ This method should be used only if:
         --tmpdir /hpc_tools/container_images \
         docker://docker.io/library/ubuntu:22.04
 
-Verification (All methods)
-------------------------------
+**Verification (All methods)**
+
 Run the command. ::
 
         ls -lh /hpc_tools/container_images/ubuntu_22.04.sif
