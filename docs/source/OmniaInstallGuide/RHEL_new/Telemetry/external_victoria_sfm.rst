@@ -30,11 +30,11 @@ Steps
       cd /omnia/utils
       ansible-playbook external_victoria_connect_details.yml -i <inventory>
 
-   The ``external_victoria_connect_details.yml`` playbook does the following:
-   - Retrieves the VictoriaMetrics vminsert and vmselect LoadBalancer IPs.
-   - Extracts the server CA certificate for TLS.
-   - Writes the connection details to ``/opt/omnia/telemetry/external_victoria_connect_details.yml``.
-   - Saves the CA certificate at ``/opt/omnia/telemetry/victoria-certs/ca.crt``.
+   The ``external_victoria_connect_details.yml`` playbook performs the following:
+      - Retrieves the VictoriaMetrics vminsert and vmselect LoadBalancer IPs.
+      - Extracts the server CA certificate for TLS.
+      - Writes the connection details to ``/opt/omnia/telemetry/external_victoria_connect_details.yml``.
+      - Saves the CA certificate at ``/opt/omnia/telemetry/victoria-certs/ca.crt``.
 
    **Inventory requirement:**
    The inventory file must define a ``service_kube_control_plane`` group with exactly one host. Provide either the service_kube_control_plane VIP or one of the service_kube_control_plane node IPs.
@@ -44,13 +44,13 @@ Steps
 3. Under **Prometheus Remote Pump**, select the option button next to ``vminsert-target``, and then select **Edit**.
 
 4. Configure the following settings:
-   - **Enable**: ON
-   - **URL**: ``https://vminsert.telemetry.svc.cluster.local:8480/insert/0/prometheus/api/v1/write``
-   - **Message Version**: v1
-   - **TLS Config**: Upload ``ca.crt`` from ``/opt/omnia/telemetry/victoria-certs/`` as the Server Certificate File
+      - **Enable**: ON
+      - **URL**: ``https://vminsert.telemetry.svc.cluster.local:8480/insert/0/prometheus/api/v1/write``
+      - **Message Version**: v1
+      - **TLS Config**: Upload ``ca.crt`` from ``/opt/omnia/telemetry/victoria-certs/`` as the Server Certificate File
 
    .. note::
-      If using the SFM UI from a different system than the OIM host, copy ``ca.crt`` to that system before uploading it in the UI.
+      If SFM is installed on a different system than the OIM host, copy ``ca.crt`` to that system before uploading it in the UI.
 
 5. SSH to the SFM IP with admin credentials.
 
