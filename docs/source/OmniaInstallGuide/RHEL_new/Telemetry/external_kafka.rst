@@ -55,35 +55,34 @@ Extract Server and Client Certificates from Service Kubernetes Cluster
 
 To extract the server and client certificates, on the Service Kubernetes cluster, do the following:
 
-1. Retrieve the Kafka LoadBalancer external IP using the following command::
+1. Run the following playbook to retrieve the Kafka connection details and TLS certificates from the Service Kubernetes cluster::
 
-       kubectl get svc -n telemetry kafka-kafka-external-bootstrap -o wide
+      cd /omnia/utils
+      ansible-playbook external_kafka_connect_details.yml -i <inventory>
 
-   Sample output:
+   The ``external_kafka_connect_details.yml`` playbook does the following:
+   - Retrieves the Kafka LoadBalancer external IP.
+   - Extracts the server CA certificate and client certificates/keys from the telemetry namespace.
+   - Writes the Kafka endpoint and TLS file locations to ``/opt/omnia/telemetry/external_kafka_connect_details.yml``.
+   - Saves the TLS files in ``/opt/omnia/telemetry/external_kafka/``:
+     - ``ca.crt`` (server certificate)
+     - ``user.crt`` (client certificate)
+     - ``user.key`` (client key)
 
-   .. image:: ../../../images/external_ip_loadbalances.png
+   **Inventory requirement:**
+   The inventory file must define a ``service_kube_control_plane`` group with exactly one host. Provide either the service_kube_control_plane VIP or one of the service_kube_control_plane node IPs.
 
-.. note:: Note the Kafka LoadBalancer external IP. This external IP will be used by the external client node to connect to Kafka.
+2. On the external client node (Kafka Pump host), create a working directory using the following command and set appropriate permissions::
 
-2. Extract the required server certificate for mTLS authentication using the following command::
+      mkdir -p ~/kafka-mtls-test
+      cd ~/kafka-mtls-test
 
-       kubectl get secret kafka-cluster-ca-cert -n telemetry -o jsonpath='{.data.ca\.crt}' | base64 -d > ca.crt
+3. From the Service Kubernetes cluster, copy the extracted certificates to the directory created on the external client node using the following command::
 
-.. note:: For OpenManage Enterprise kafka client, the ca.crt certificate can be directly used. To know more about OpenManage Enterprise, refer `OpenManage Enterprise <https://www.dell.com/en-in/lp/dt/open-manage-enterprise>`_.
-     
-3. Extract the required client certificate for mTLS authentication using the following commands::
-
-       kubectl get secret kafkapump -n telemetry -o jsonpath='{.data.user\.crt}' | base64 -d > user.crt
-       kubectl get secret kafkapump -n telemetry -o jsonpath='{.data.user\.key}' | base64 -d > user.key
-
-4. On the external client node (Kafka Pump host), create a working directory using the following command and set appropriate permissions::
-
-       mkdir -p ~/kafka-mtls-test
-       cd ~/kafka-mtls-test
-
-5. From the Service Kubernetes cluster, copy the extracted certificates to the directory created on the external client node using the following command::
-
-       scp ca.crt user.crt user.key <username>@<external_node_ip>:~/kafka-mtls-test
+      scp /opt/omnia/telemetry/external_kafka/ca.crt \
+          /opt/omnia/telemetry/external_kafka/user.crt \
+          /opt/omnia/telemetry/external_kafka/user.key \
+          <username>@<external_node_ip>:~/kafka-mtls-test
 
 
 Establish Secure Connection Between External Client Node and Service Kubernetes Cluster

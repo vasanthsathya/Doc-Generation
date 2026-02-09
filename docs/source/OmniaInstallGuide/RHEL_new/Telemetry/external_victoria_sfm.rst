@@ -25,26 +25,40 @@ Make sure the following prerequisites are met:
 Steps
 -----
 
-1. Log in to the Omnia core container and go to the VictoriaMetrics certificate
-   directory::
+1. Run the following playbook to retrieve the VictoriaMetrics connection details and TLS certificate from the Service Kubernetes cluster::
 
-      ssh omnia_core
-      cd /opt/omnia/telemetry/victoria-certs/
+      cd /omnia/utils
+      ansible-playbook external_victoria_connect_details.yml -i <inventory>
 
-2. Add the LoadBalancer IP addresses for the VictoriaMetrics insert and select
-   services to the ``/etc/hosts`` file::
+   The ``external_victoria_connect_details.yml`` playbook does the following:
+   - Retrieves the VictoriaMetrics vminsert and vmselect LoadBalancer IPs.
+   - Extracts the server CA certificate for TLS.
+   - Writes the connection details to ``/opt/omnia/telemetry/external_victoria_connect_details.yml``.
+   - Saves the CA certificate at ``/opt/omnia/telemetry/victoria-certs/ca.crt``.
 
-      echo "10.xx.xx.xx vminsert.telemetry.svc.cluster.local" >> /etc/hosts
-      echo "10.xx.xx.xx vmselect.telemetry.svc.cluster.local" >> /etc/hosts
+   **Inventory requirement:**
+   The inventory file must define a ``service_kube_control_plane`` group with exactly one host. Provide either the service_kube_control_plane VIP or one of the service_kube_control_plane node IPs.
 
-3. Log in to Smart Fabric Manager for SONiC.
+2. In the Smart Fabric Manager for SONiC UI, navigate to **Observability**, and then select the **Settings** tab.
 
-4. In the left navigation pane, select **Observability**, and then select the
-   **Settings** tab.
+3. Under **Prometheus Remote Pump**, select the option button next to ``vminsert-target``, and then select **Edit**.
 
-5. Under **Prometheus Remote Pump**, select the option button next to
-   ``vminsert-target``, and then select **Edit**.
+4. Configure the following settings:
+   - **Enable**: ON
+   - **URL**: ``https://vminsert.telemetry.svc.cluster.local:8480/insert/0/prometheus/api/v1/write``
+   - **Message Version**: v1
+   - **TLS Config**: Upload ``ca.crt`` from ``/opt/omnia/telemetry/victoria-certs/`` as the Server Certificate File
 
-6. In the **URL** field, enter the following endpoint::
+   .. note::
+      If using the SFM UI from a different system than the OIM host, copy ``ca.crt`` to that system before uploading it in the UI.
 
-      https://vminsert.telemetry.svc.cluster.local:8480/insert/0/prometheus/api/v1/write
+5. SSH to the SFM IP with admin credentials.
+
+6. Update the ``/etc/hosts`` file only inside the SFM Prometheus pod (this is required only inside the pod, not on the SFM server host)::
+
+      kubectl exec -it <sfm-prometheus-pod-name> -n sfm-ui -- /bin/sh
+      echo "<vminsert-IP> vminsert.telemetry.svc.cluster.local" >> /etc/hosts
+      echo "<vmselect-IP> vmselect.telemetry.svc.cluster.local" >> /etc/hosts
+
+   .. note::
+      The ``/etc/hosts`` update must be repeated if the SFM Prometheus pod restarts.

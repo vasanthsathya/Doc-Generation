@@ -25,15 +25,19 @@ Ensure the following prerequisites are met:
 Retrieve the Victoria Select and Insert LoadBalancer IP Addresses
 ------------------------------------------------------------------
 
-On the Service Kubernetes cluster, run the following command to retrieve the LoadBalancer IP addresses 
-for the Victoria **select** and **insert** services::
+1. Run the following playbook to retrieve the VictoriaMetrics connection details and TLS certificate from the Service Kubernetes cluster::
 
-   kubectl get svc -n telemetry | grep vm
+      cd /omnia/utils
+      ansible-playbook external_victoria_connect_details.yml -i <inventory>
 
-Sample output:
+   The ``external_victoria_connect_details.yml`` playbook does the following:
+   - Retrieves the VictoriaMetrics vminsert and vmselect LoadBalancer IPs.
+   - Extracts the server CA certificate for TLS.
+   - Writes the connection details to ``/opt/omnia/telemetry/external_victoria_connect_details.yml``.
+   - Saves the CA certificate at ``/opt/omnia/telemetry/victoria-certs/ca.crt``.
 
-.. image:: ../../../images/victoria_loadbalancer_ip.png
-
+   **Inventory requirement:**
+   The inventory file must define a ``service_kube_control_plane`` group with exactly one host. Provide either the service_kube_control_plane VIP or one of the service_kube_control_plane node IPs.
 
 Push Sample metrics from Omnia Core Container in the OIM
 ---------------------------------------------------------------
@@ -44,8 +48,8 @@ Push Sample metrics from Omnia Core Container in the OIM
 
 2. Add the LoadBalancer insert and select IP addresses to ``/etc/hosts``::
 
-    echo "10.xx.xx.xx vminsert.telemetry.svc.cluster.local" >> /etc/hosts
-    echo "10.xx.xx.xx vmselect.telemetry.svc.cluster.local" >> /etc/hosts
+    echo "<vminsert-IP> vminsert.telemetry.svc.cluster.local" >> /etc/hosts
+    echo "<vmselect-IP> vmselect.telemetry.svc.cluster.local" >> /etc/hosts
   
 3. Create a new test metric using the following command::
  
