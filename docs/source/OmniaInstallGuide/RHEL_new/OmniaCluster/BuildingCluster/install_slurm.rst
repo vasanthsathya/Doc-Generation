@@ -2,6 +2,7 @@ Step 11: Set up Slurm on nodes
 ==============
 
 **Prerequisites**
+
 * Provide the repository with slurm v25.X rpms.
 * Fill the mandatory parameters in ``omnia_config.yml``: `Input parameters for the cluster <../schedulerinputparams.html#id13>`_
 * Fill the parameters in ``storage_config.yml``: `Input parameters for the cluster <../schedulerinputparams.html#id13>`_
