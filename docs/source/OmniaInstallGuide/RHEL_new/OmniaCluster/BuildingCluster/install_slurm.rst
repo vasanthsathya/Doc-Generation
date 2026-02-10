@@ -83,8 +83,52 @@ It is recommended to run this script on a login or compiler node.
 
 
 
+Add New Slurm Nodes
+----------------------------
 
-    
+Omnia supports dynamic addition of Slurm compute nodes to an existing cluster. The process automatically updates the Slurm configuration and integrates new nodes into the cluster.
+
+1. Update the PXE mapping file with new node entries. Add entries for new nodes with appropriate functional group assignments ``slurm_node_x86_64``.
+
+.. note:: Addition of new ``slurm_control_node`` is not supported.
+
+2. Run the discovery playbook.
+3. PXE reboot the newly added node.
+
+Remove Slurm Nodes
+-----------------------
+
+Omnia automatically handles node removal when nodes are deleted from the PXE mapping file or functional groups.
+
+1. Update the PXE mapping file. Remove or reassign nodes that should no longer be part of the Slurm cluster.
+2. Run the discovery playbook.
+
+Slurm Configuration Validation and Defaults
+----------------------------------------------
+
+Omnia includes a built-in validation system that checks Slurm configuration files for correctness before deployment. The ``slurm_conf`` module validates all configuration files (slurm.conf, slurmdbd.conf, cgroup.conf, gres.conf, etc.) against Slurm 25.X specifications, ensuring parameter names are valid and values match expected types (integers, strings, booleans, arrays, etc.). You can provide custom configurations in ``omnia_config.yml`` > ``slurm_cluster`` > ``config_sourcesalidation and Defaults``.
+
+Default Slurm Configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Omnia provides a comprehensive default configuration optimized for HPC clusters. These defaults are automatically applied and can be overridden via custom configuration files.
+
+Default slurm.conf parameters ::
+
+        ini# Authentication and SecurityAuthType=auth/mungeCredType=cred/mungeSlurmUser=slurm # Controller ConfigurationClusterName=clusterSlurmctldHost=<auto-detected>SlurmctldPort=6817SlurmctldTimeout=120SlurmctldLogFile=/var/log/slurm/slurmctld.logSlurmctldPidFile=/var/run/slurmctld.pidSlurmctldParameters=enable_configlessStateSaveLocation=/var/spool/slurmctld # Compute Node ConfigurationSlurmdPort=6818SlurmdTimeout=300SlurmdLogFile=/var/log/slurm/slurmd.logSlurmdPidFile=/var/run/slurmd.pidSlurmdSpoolDir=/var/spool/slurmd # Job ExecutionSrunPortRange=60001-63000ReturnToService=2Epilog=/etc/slurm/epilog.d/logout_user.shPrologFlags=contain # SchedulingSchedulerType=sched/backfillSelectType=select/linear # Resource TrackingTaskPlugin=task/cgroupProctrackType=proctrack/cgroupJobAcctGatherType=jobacct_gather/linuxJobAcctGatherFrequency=30 # MPI ConfigurationMpiDefault=none # Plugin DirectoryPluginDir=/usr/lib64/slurm # Default Node ConfigurationNodeName=DEFAULT State=UNKNOWN # Default Partition ConfigurationPartitionName=DEFAULT Nodes=ALL Default=YES MaxTime=INFINITE State=UP
+
+Default slurmdbd.conf parameters ::
+
+        ini# AuthenticationAuthType=auth/mungeSlurmUser=slurm # Database Daemon ConfigurationDbdHost=<auto-detected>DbdPort=6819LogFile=/var/log/slurm/slurmdbd.logPidFile=/var/run/slurmdbd.pidPluginDir=/usr/lib64/slurm # Database ConnectionStorageType=accounting_storage/mysqlStorageHost=<auto-detected>StoragePort=3306StorageLoc=slurm_acct_dbStorageUser=slurmStoragePass=<encrypted>
+
+Default cgroup.conf parameters ::
+
+        ini# Cgroup PluginCgroupPlugin=autodetect # Resource ConstraintsConstrainCores=yesConstrainDevices=yesConstrainRAMSpace=yesConstrainSwapSpace=yes
+
+Default gres.conf parameters ::
+
+        ini# GPU Auto-DetectionAutoDetect=nvml
+
 
 
 
