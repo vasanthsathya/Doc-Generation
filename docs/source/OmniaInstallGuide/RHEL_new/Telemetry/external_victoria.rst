@@ -25,16 +25,16 @@ Ensure the following prerequisites are met:
 Retrieve the Victoria Select and Insert LoadBalancer IP Addresses
 ------------------------------------------------------------------
 
-1. Run the following playbook to retrieve the VictoriaMetrics connection details and TLS certificate from the Service Kubernetes cluster::
+Run the following playbook to retrieve the VictoriaMetrics connection details and TLS certificate from the Service Kubernetes cluster::
 
-      cd /omnia/utils
-      ansible-playbook external_victoria_connect_details.yml
+    cd /omnia/utils
+    ansible-playbook external_victoria_connect_details.yml
 
-   The ``external_victoria_connect_details.yml`` playbook does the following:
-    - Retrieves the VictoriaMetrics vminsert and vmselect LoadBalancer IPs.
-    - Extracts the server CA certificate for TLS.
-    - Writes the connection details to ``/opt/omnia/telemetry/external_victoria_connect_details.yml``.
-    - Saves the CA certificate at ``/opt/omnia/telemetry/victoria-certs/ca.crt``.
+The ``external_victoria_connect_details.yml`` playbook does the following:
+ - Retrieves the VictoriaMetrics vminsert and vmselect LoadBalancer IPs.
+ - Extracts the server CA certificate for TLS.
+ - Writes the connection details to ``/opt/omnia/telemetry/external_victoria_connect_details.yml``.
+ - Saves the CA certificate at ``/opt/omnia/telemetry/victoria-certs/ca.crt``.
 
    
 Push Sample metrics from Omnia Core Container in the OIM

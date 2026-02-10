@@ -59,13 +59,14 @@ Extract Kafka connection details and TLS certificates from the Service Kubernete
       ansible-playbook external_kafka_connect_details.yml
 
    The ``external_kafka_connect_details.yml`` playbook does the following:
-   - Retrieves the Kafka LoadBalancer external IP.
-   - Extracts the server CA certificate and client certificates/keys from the telemetry namespace.
-   - Writes the Kafka endpoint and TLS file locations to ``/opt/omnia/telemetry/external_kafka_connect_details.yml``.
-   - Saves the TLS files in ``/opt/omnia/telemetry/external_kafka/``:
-     - ``ca.crt`` (server certificate)
-     - ``user.crt`` (client certificate)
-     - ``user.key`` (client key)
+       - Retrieves the Kafka LoadBalancer external IP.
+       - Extracts the server CA certificate and client certificates/keys from the telemetry namespace.
+       - Writes the Kafka endpoint and TLS file locations to ``/opt/omnia/telemetry/external_kafka_connect_details.yml``.
+       - Saves the TLS files in ``/opt/omnia/telemetry/external_kafka/``:
+       - ``ca.crt`` (server certificate)
+       - ``user.crt`` (client certificate)
+       - ``user.key`` (client key)
+     
 2. Create a client certificate in ``.pfx`` format for mTLS by running the following command. Provide a passphrase when prompted::
 
       cd /opt/omnia/telemetry/external_kafka/
