@@ -1,4 +1,13 @@
 ﻿Variables,Details
+"**slurm_cluster**
+
+    ``string``
+
+
+    Mandatory","* Indicates a list of slurm clusters.
+slurm_cluster:
+    - cluster_name: slurm_cluster
+      nfs_storage_name: nfs_slurm"
 "**cluster_name**
 
     ``string``
