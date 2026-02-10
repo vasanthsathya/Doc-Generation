@@ -15,7 +15,11 @@ To configure a secure (HTTPS) container registry using Podman, do the following:
 
  Generate a self-signed certificate (replace <Public_IP> with your server’s Public IP). ::
 
-    openssl req -x509 -nodes -newkey rsa:4096 -days 365 -sha256 \ -keyout domain.key \ -out domain.crt \ -subj "/CN=<Public_IP>" \ -addext "subjectAltName = IP:<Public_IP>
+    openssl req -x509 -nodes -newkey rsa:4096 -days 365 -sha256 \
+        -keyout domain.key \
+        -out domain.crt \
+        -subj "/CN=<PUBLIC_IP>" \
+        -addext "subjectAltName=IP:<PUBLIC_IP>"
 
 
  Verify the Subject Alternative Name. ::
@@ -44,7 +48,14 @@ To configure a secure (HTTPS) container registry using Podman, do the following:
 
 3. Start the HTTPS registry container. ::
 
-    podman run -d --name user_registry --restart=always --network host -v /root/data:/var/lib/registry:Z -v /root/data/config.yml:/etc/docker/registry/config.yml:Z -v /root/data/certs:/certs:Z  docker.io/library/registry:2 -p 2727:5000
+    podman run -d \
+        --name user_registry \
+        --restart=always \
+        --network host \
+        -v /root/data:/var/lib/registry:Z \
+        -v /root/data/config.yml:/etc/docker/registry/config.yml:Z \
+        -v /root/data/certs:/certs:Z \
+        docker.io/library/registry:2
 
 4. Open firewall port. ::
 
