@@ -30,18 +30,12 @@ Steps
     docker.io/bitnamilegacy/openldap:latest
 
 .. note::
-      
-   **Important Configuration Notes:**
-   
-   In this example, the domain components used are:
-   
-   ``dc=omnia,dc=test``
+        
+   In this example, the domain components used are: ``dc=omnia,dc=test``
    
    This corresponds to the sample domain name ``omnia.test``. When following this guide, replace these values with your own domain components (for example, ``dc=example,dc=com`` or ``dc=mycompany,dc=local``).
    
-   The LDAP admin password in the examples is set as:
-   
-   ``LDAP_ADMIN_PASSWORD=Dell1234``
+   The LDAP admin password in the examples is set as: ``LDAP_ADMIN_PASSWORD=Dell1234``
    
    You can replace this value with any secure password of your choice.
 
