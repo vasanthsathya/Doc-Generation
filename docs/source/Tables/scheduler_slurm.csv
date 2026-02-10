@@ -20,10 +20,10 @@
 
 
     Optional","* Indicates how the slurm configuration values are provided to the cluster.
-* <conf name> :  <dict> or <mapping>
+* <conf name> :  <filepath> or <mapping>
 
     * The conf files supported by slurm are slurm, cgroup, gres, mpi, helpers, job_container, acct_gather, oci, and topology.
 
-    * <dict>: Supply the absolute path to a custom configuration file.
+    * <filepath>: Supply the absolute path to a custom configuration file.
     * <mapping>: Supply the configuration values directly as a key–value map
 "
