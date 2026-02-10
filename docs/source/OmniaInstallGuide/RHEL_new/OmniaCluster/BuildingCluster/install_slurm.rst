@@ -36,6 +36,8 @@ Pulling container images on a Slurm cluster node
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 A helper script is provided to simplify pulling container images on cluster nodes. By default, the script downloads the **hpcbenchmarks** container from the site Pulp registry, but it can also be used to pull any other approved images available in Pulp.
 
+It is recommended to run this script on a login or compiler node.
+
 1. Verify if required paths exist. ::
 
     ls -l /hpc_tools/scripts
