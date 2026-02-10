@@ -20,7 +20,7 @@ Ensure the following prerequisites are met before proceeding:
 
 
 (Optional) Create a Kafka Topic
--------------------------
+--------------------------------
 
 On the Service Kubernetes cluster, do the following:
 
@@ -50,15 +50,13 @@ Replace ``topic_name`` with the desired Kafka topic name.
        kubectl get kafkatopics -n telemetry
 
 
-Extract Server and Client Certificates from Service Kubernetes Cluster
-----------------------------------------------------------------------
-
-To extract the server and client certificates, on the Service Kubernetes cluster, do the following:
+Extract Kafka connection details and TLS certificates from the Service Kubernetes cluster
+-----------------------------------------------------------------------------------------
 
 1. Run the following playbook to retrieve the Kafka connection details and TLS certificates from the Service Kubernetes cluster::
 
       cd /omnia/utils
-      ansible-playbook external_kafka_connect_details.yml -i <inventory>
+      ansible-playbook external_kafka_connect_details.yml
 
    The ``external_kafka_connect_details.yml`` playbook does the following:
    - Retrieves the Kafka LoadBalancer external IP.
@@ -68,43 +66,14 @@ To extract the server and client certificates, on the Service Kubernetes cluster
      - ``ca.crt`` (server certificate)
      - ``user.crt`` (client certificate)
      - ``user.key`` (client key)
+2. Create a client certificate in ``.pfx`` format for mTLS by running the following command. Provide a passphrase when prompted::
 
-   **Inventory requirement:**
-   The inventory file must define a ``service_kube_control_plane`` group with exactly one host. Provide either the service_kube_control_plane VIP or one of the service_kube_control_plane node IPs.
-
-2. On the external client node (Kafka Pump host), create a working directory using the following command and set appropriate permissions::
-
-      mkdir -p ~/kafka-mtls-test
-      cd ~/kafka-mtls-test
-
-3. From the Service Kubernetes cluster, copy the extracted certificates to the directory created on the external client node using the following command::
-
-      scp /opt/omnia/telemetry/external_kafka/ca.crt \
-          /opt/omnia/telemetry/external_kafka/user.crt \
-          /opt/omnia/telemetry/external_kafka/user.key \
-          <username>@<external_node_ip>:~/kafka-mtls-test
-
-
-Establish Secure Connection Between External Client Node and Service Kubernetes Cluster
----------------------------------------------------------------------------------------
-
-1. On the external client node, navigate to the target directory::
-
-       cd ~/kafka-mtls-test
-
-   Make sure the following files are present in the directory::
-
-       ca.crt 
-       user.crt
-       user.key 
-
-2. Run the following command to create certificate in .pfx format and provide the password when prompted::
-
-       openssl pkcs12 -export -out user.pfx -inkey user.key -in user.crt
+      cd /opt/omnia/telemetry/external_kafka/
+      openssl pkcs12 -export -out user.pfx -inkey user.key -in user.crt
 
 .. note:: For OpenManage Enterprise Kafka client, the client certificate must be in .pfx format. To know more about OpenManage Enterprise, refer `OpenManage Enterprise <https://www.dell.com/en-in/lp/dt/open-manage-enterprise>`_.
 
-2. (Optional) Run the following commands to create Java truststore and keystore::
+3. (Optional) Run the following commands to create Java truststore and keystore::
 
        keytool -import -trustcacerts -alias kafka-ca -file ca.crt \
        -keystore kafka.truststore.jks -storepass changeit -noprompt
@@ -119,7 +88,7 @@ Establish Secure Connection Between External Client Node and Service Kubernetes 
 .. note::  The steps for converting certificates into JKS format are required **only for Java-based Kafka clients**. If your client does not use a Java keystore (JKS), these conversion steps are not necessary.
 
 
-3. Create the Kafka client SSL configuration file::
+4. Create the Kafka client SSL configuration file::
 
    Sample SSL configuration file::
 
@@ -133,7 +102,7 @@ Establish Secure Connection Between External Client Node and Service Kubernetes 
        ssl.endpoint.identification.algorithm=
        EOF
 
-4. Run a Kafka tools container with certificates mounted::
+5. Run a Kafka tools container with certificates mounted::
 
        podman run -it --rm \
        --name kafka-mtls-producer \

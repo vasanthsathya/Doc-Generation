@@ -28,30 +28,28 @@ Retrieve the Victoria Select and Insert LoadBalancer IP Addresses
 1. Run the following playbook to retrieve the VictoriaMetrics connection details and TLS certificate from the Service Kubernetes cluster::
 
       cd /omnia/utils
-      ansible-playbook external_victoria_connect_details.yml -i <inventory>
+      ansible-playbook external_victoria_connect_details.yml
 
    The ``external_victoria_connect_details.yml`` playbook does the following:
-   - Retrieves the VictoriaMetrics vminsert and vmselect LoadBalancer IPs.
-   - Extracts the server CA certificate for TLS.
-   - Writes the connection details to ``/opt/omnia/telemetry/external_victoria_connect_details.yml``.
-   - Saves the CA certificate at ``/opt/omnia/telemetry/victoria-certs/ca.crt``.
+    - Retrieves the VictoriaMetrics vminsert and vmselect LoadBalancer IPs.
+    - Extracts the server CA certificate for TLS.
+    - Writes the connection details to ``/opt/omnia/telemetry/external_victoria_connect_details.yml``.
+    - Saves the CA certificate at ``/opt/omnia/telemetry/victoria-certs/ca.crt``.
 
-   **Inventory requirement:**
-   The inventory file must define a ``service_kube_control_plane`` group with exactly one host. Provide either the service_kube_control_plane VIP or one of the service_kube_control_plane node IPs.
-
+   
 Push Sample metrics from Omnia Core Container in the OIM
 ---------------------------------------------------------------
-1. Log in to Omnia core container and navigate to ``/opt/omnia/telemetry/victoria-certs/``::
-
-    ssh omnia_core
-    cd /opt/omnia/telemetry/victoria-certs/
-
-2. Add the LoadBalancer insert and select IP addresses to ``/etc/hosts``::
+1. Add the LoadBalancer insert and select IP addresses to ``/etc/hosts``::
 
     echo "<vminsert-IP> vminsert.telemetry.svc.cluster.local" >> /etc/hosts
     echo "<vmselect-IP> vmselect.telemetry.svc.cluster.local" >> /etc/hosts
+
+ For vminsert and vmselect IP, use the values retrieved by the ``external_victoria_connect_details.yml`` playbook.
+
+    .. note::
+      The ``/etc/hosts`` update must be repeated if the SFM Prometheus pod restarts.
   
-3. Create a new test metric using the following command::
+2. Create a new test metric using the following command::
  
     curl --cacert ca.crt -X POST "https://vminsert.telemetry.svc.cluster.local:8480/insert/0/prometheus/api/v1/import/prometheus" \
     -H "Content-Type: text/plain" \
@@ -59,7 +57,7 @@ Push Sample metrics from Omnia Core Container in the OIM
 
 .. note:: Use ``https://vminsert.telemetry.svc.cluster.local:8480//insert/0/prometheus/api/v1/write`` to push the metrics from an external client, such as SmartFabric Manager (SFM). To know more about SFM, refer to `SFM <https://www.dell.com/en-in/shop/ipovw/smartfabric-manager-for-sonic>`_.
 
-4. Push the sample test metrics to Victoria DB using the following command::
+3. Push the sample test metrics to Victoria DB using the following command::
 
     curl --cacert ca.crt -X POST   "https://vminsert.telemetry.svc.cluster.local:8480/insert/0/prometheus/api/v1/import/prometheus"   -H "Content-Type: text/plain"   -d 'cpu_usage{host="server1",job="new"} 75.5
     memory_usage{host="server1",job="new"} 1024
@@ -67,7 +65,7 @@ Push Sample metrics from Omnia Core Container in the OIM
     network_rx{host="server1",interface="eth0"} 1000000
     network_tx{host="server1",interface="eth0"} 500000'
 
-5. Use the following commands to query the inserted data from Victoria DB::
+4. Use the following commands to query the inserted data from Victoria DB::
 
     curl --cacert ca.crt -s "https://vmselect.telemetry.svc.cluster.local:8481/select/0/prometheus/api/v1/query?query=new_metric"
     curl --cacert ca.crt -s "https://vmselect.telemetry.svc.cluster.local:8481/select/0/prometheus/api/v1/query_range?query=cpu_usage&start=$(date -d '1 hour ago' +%s)&end=$(date +%s)&step=600s"

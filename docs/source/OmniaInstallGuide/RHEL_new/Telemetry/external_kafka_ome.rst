@@ -14,7 +14,7 @@ Steps
 1. Run the following playbook to retrieve the Kafka connection details and TLS certificates from the Service Kubernetes cluster::
 
       cd /omnia/utils
-      ansible-playbook external_kafka_connect_details.yml -i <inventory>
+      ansible-playbook external_kafka_connect_details.yml
 
    The ``external_kafka_connect_details.yml`` playbook performs the following:
       - Retrieves the Kafka LoadBalancer external IP.
@@ -25,11 +25,11 @@ Steps
       - ``user.crt`` (client certificate)
       - ``user.key`` (client key)
 
-   .. note:: The inventory file must contain only one host and the host must be either a service cluster VIP or one of the service cluster control plane node IPs.
    .. note:: If OpenManage Enterprise is installed on a different system than the OIM host, copy ``ca.crt`` to that system before uploading it in the UI.
 
 2. Create a client certificate in ``.pfx`` format for mTLS by running the following command. Provide a passphrase when prompted::
 
+      cd /opt/omnia/telemetry/external_kafka/
       openssl pkcs12 -export -out user.pfx -inkey user.key -in user.crt
 
 3. In OpenManage Enterprise, navigate to **Configuration > Remote Connectivity**, and select **Enable**.

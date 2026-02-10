@@ -28,16 +28,13 @@ Steps
 1. Run the following playbook to retrieve the VictoriaMetrics connection details and TLS certificate from the Service Kubernetes cluster::
 
       cd /omnia/utils
-      ansible-playbook external_victoria_connect_details.yml -i <inventory>
+      ansible-playbook external_victoria_connect_details.yml
 
    The ``external_victoria_connect_details.yml`` playbook performs the following:
       - Retrieves the VictoriaMetrics vminsert and vmselect LoadBalancer IPs.
       - Extracts the server CA certificate for TLS.
       - Writes the connection details to ``/opt/omnia/telemetry/external_victoria_connect_details.yml``.
       - Saves the CA certificate at ``/opt/omnia/telemetry/victoria-certs/ca.crt``.
-
-   **Inventory requirement:**
-   The inventory file must define a ``service_kube_control_plane`` group with exactly one host. Provide either the service_kube_control_plane VIP or one of the service_kube_control_plane node IPs.
 
 2. In the Smart Fabric Manager for SONiC UI, navigate to **Observability**, and then select the **Settings** tab.
 
@@ -52,13 +49,14 @@ Steps
    .. note::
       If SFM is installed on a different system than the OIM host, copy ``ca.crt`` to that system before uploading it in the UI.
 
-5. SSH to the SFM IP with admin credentials.
+5. SSH to the SFM IP with admin credentials and log in to secure shell.
 
-6. Update the ``/etc/hosts`` file only inside the SFM Prometheus pod (this is required only inside the pod, not on the SFM server host)::
+6. Update the ``/etc/hosts`` file only inside the SFM Prometheus pod. This is required only inside the pod, not on the SFM server host)::
 
       kubectl exec -it <sfm-prometheus-pod-name> -n sfm-ui -- /bin/sh
       echo "<vminsert-IP> vminsert.telemetry.svc.cluster.local" >> /etc/hosts
       echo "<vmselect-IP> vmselect.telemetry.svc.cluster.local" >> /etc/hosts
 
+   For vminsert and vmselect IP, use the values retrieved by the ``external_victoria_connect_details.yml`` playbook in Step 1.
    .. note::
       The ``/etc/hosts`` update must be repeated if the SFM Prometheus pod restarts.
