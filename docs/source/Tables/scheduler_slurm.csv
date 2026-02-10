@@ -16,7 +16,7 @@
 * This is defined in storage_config.yml as nfs_name."
 "**config_sources**
 
-    ``dict`` or ``mapping``
+    ``filepath`` or ``mapping``
 
 
     Optional","* Indicates how the slurm configuration values are provided to the cluster.
