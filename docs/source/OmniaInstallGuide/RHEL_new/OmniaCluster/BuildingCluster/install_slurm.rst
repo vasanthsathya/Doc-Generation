@@ -28,6 +28,25 @@ Step 11: Set up Slurm on nodes
 
 .. note:: If the iDRAC of a Slurm node is not accessible through OIM—because of issues such as an incorrect iDRAC port configuration or invalid credentials—the node configuration specified in ``/etc/slurm/slurm.conf`` for ``NodeName`` will default to: ``Sockets=1 CoresPerSocket=1 ThreadsPerCore=1 RealMemory=3774873``. Update ``slurm.conf`` with the correct hardware values and run ``scontrol reconfigure`` to apply the changes.
 
+Add new Slurm nodes
+----------------------------
+
+Omnia supports dynamic addition of Slurm compute nodes to an existing cluster. The process automatically updates the Slurm configuration and integrates new nodes into the cluster.
+
+1. Update the PXE mapping file with new node entries. Add entries for new nodes with appropriate functional group assignments ``slurm_node_x86_64``.
+
+.. note:: Addition of new ``slurm_control_node`` is not supported.
+
+2. Run the discovery playbook.
+3. PXE reboot the newly added node.
+
+Remove Slurm nodes
+-----------------------
+
+Omnia automatically handles node removal when nodes are deleted from the PXE mapping file or functional groups.
+
+1. Update the PXE mapping file. Remove or reassign nodes that should no longer be part of the Slurm cluster.
+2. Run the discovery playbook.
 
 Post Installation
 ----------------------
@@ -83,25 +102,7 @@ It is recommended to run this script on a login or compiler node.
 
 
 
-Add new Slurm nodes
-----------------------------
 
-Omnia supports dynamic addition of Slurm compute nodes to an existing cluster. The process automatically updates the Slurm configuration and integrates new nodes into the cluster.
-
-1. Update the PXE mapping file with new node entries. Add entries for new nodes with appropriate functional group assignments ``slurm_node_x86_64``.
-
-.. note:: Addition of new ``slurm_control_node`` is not supported.
-
-2. Run the discovery playbook.
-3. PXE reboot the newly added node.
-
-Remove Slurm nodes
------------------------
-
-Omnia automatically handles node removal when nodes are deleted from the PXE mapping file or functional groups.
-
-1. Update the PXE mapping file. Remove or reassign nodes that should no longer be part of the Slurm cluster.
-2. Run the discovery playbook.
 
 Slurm configuration validation and defaults
 ----------------------------------------------
@@ -115,19 +116,92 @@ Omnia provides a comprehensive default configuration optimized for HPC clusters.
 
 Default slurm.conf parameters ::
 
-        ini# Authentication and SecurityAuthType=auth/mungeCredType=cred/mungeSlurmUser=slurm # Controller ConfigurationClusterName=clusterSlurmctldHost=<auto-detected>SlurmctldPort=6817SlurmctldTimeout=120SlurmctldLogFile=/var/log/slurm/slurmctld.logSlurmctldPidFile=/var/run/slurmctld.pidSlurmctldParameters=enable_configlessStateSaveLocation=/var/spool/slurmctld # Compute Node ConfigurationSlurmdPort=6818SlurmdTimeout=300SlurmdLogFile=/var/log/slurm/slurmd.logSlurmdPidFile=/var/run/slurmd.pidSlurmdSpoolDir=/var/spool/slurmd # Job ExecutionSrunPortRange=60001-63000ReturnToService=2Epilog=/etc/slurm/epilog.d/logout_user.shPrologFlags=contain # SchedulingSchedulerType=sched/backfillSelectType=select/linear # Resource TrackingTaskPlugin=task/cgroupProctrackType=proctrack/cgroupJobAcctGatherType=jobacct_gather/linuxJobAcctGatherFrequency=30 # MPI ConfigurationMpiDefault=none # Plugin DirectoryPluginDir=/usr/lib64/slurm # Default Node ConfigurationNodeName=DEFAULT State=UNKNOWN # Default Partition ConfigurationPartitionName=DEFAULT Nodes=ALL Default=YES MaxTime=INFINITE State=UP
+    # Authentication and Security
+        AuthType=auth/munge
+        CredType=cred/munge
+        SlurmUser=slurm
+ 
+    # Controller Configuration
+        ClusterName=cluster
+        SlurmctldHost=<auto-detected>
+        SlurmctldPort=6817
+        SlurmctldTimeout=120
+        SlurmctldLogFile=/var/log/slurm/slurmctld.log
+        SlurmctldPidFile=/var/run/slurmctld.pid
+        SlurmctldParameters=enable_configless
+        StateSaveLocation=/var/spool/slurmctld
+ 
+    # Compute Node Configuration
+        SlurmdPort=6818
+        SlurmdTimeout=300
+        SlurmdLogFile=/var/log/slurm/slurmd.log
+        SlurmdPidFile=/var/run/slurmd.pid
+        SlurmdSpoolDir=/var/spool/slurmd
+ 
+    # Job Execution
+        SrunPortRange=60001-63000
+        ReturnToService=2
+        Epilog=/etc/slurm/epilog.d/logout_user.sh
+        PrologFlags=contain
+ 
+    # Scheduling
+        SchedulerType=sched/backfill
+        SelectType=select/linear
+ 
+    # Resource Tracking
+        TaskPlugin=task/cgroup
+        ProctrackType=proctrack/cgroup
+        JobAcctGatherType=jobacct_gather/linux
+        JobAcctGatherFrequency=30
+ 
+    # MPI Configuration
+        MpiDefault=none
+ 
+    # Plugin Directory
+        PluginDir=/usr/lib64/slurm
+ 
+    # Default Node Configuration
+        NodeName=DEFAULT State=UNKNOWN
+ 
+    # Default Partition Configuration
+        PartitionName=DEFAULT Nodes=ALL Default=YES MaxTime=INFINITE State=UP
 
 Default slurmdbd.conf parameters ::
 
-        ini# AuthenticationAuthType=auth/mungeSlurmUser=slurm # Database Daemon ConfigurationDbdHost=<auto-detected>DbdPort=6819LogFile=/var/log/slurm/slurmdbd.logPidFile=/var/run/slurmdbd.pidPluginDir=/usr/lib64/slurm # Database ConnectionStorageType=accounting_storage/mysqlStorageHost=<auto-detected>StoragePort=3306StorageLoc=slurm_acct_dbStorageUser=slurmStoragePass=<encrypted>
+    # Authentication
+        AuthType=auth/munge
+        SlurmUser=slurm
+ 
+    # Database Daemon Configuration
+        DbdHost=<auto-detected>
+        DbdPort=6819
+        LogFile=/var/log/slurm/slurmdbd.log
+        PidFile=/var/run/slurmdbd.pid
+        PluginDir=/usr/lib64/slurm
+ 
+    # Database Connection
+        StorageType=accounting_storage/mysql
+        StorageHost=<auto-detected>
+        StoragePort=3306
+        StorageLoc=slurm_acct_db
+        StorageUser=slurm
+        StoragePass=<encrypted>
 
 Default cgroup.conf parameters ::
 
-        ini# Cgroup PluginCgroupPlugin=autodetect # Resource ConstraintsConstrainCores=yesConstrainDevices=yesConstrainRAMSpace=yesConstrainSwapSpace=yes
+    # Cgroup Plugin
+        CgroupPlugin=autodetect
+ 
+    # Resource Constraints
+        ConstrainCores=yes
+        ConstrainDevices=yes
+        ConstrainRAMSpace=yes
+        ConstrainSwapSpace=yes
 
 Default gres.conf parameters ::
 
-        ini# GPU Auto-DetectionAutoDetect=nvml
+    # GPU Auto-Detection
+        AutoDetect=nvml
 
 
 
