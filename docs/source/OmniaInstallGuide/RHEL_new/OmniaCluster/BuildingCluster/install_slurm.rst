@@ -83,7 +83,7 @@ It is recommended to run this script on a login or compiler node.
 
 
 
-Add New Slurm Nodes
+Add new Slurm nodes
 ----------------------------
 
 Omnia supports dynamic addition of Slurm compute nodes to an existing cluster. The process automatically updates the Slurm configuration and integrates new nodes into the cluster.
@@ -95,7 +95,7 @@ Omnia supports dynamic addition of Slurm compute nodes to an existing cluster. T
 2. Run the discovery playbook.
 3. PXE reboot the newly added node.
 
-Remove Slurm Nodes
+Remove Slurm nodes
 -----------------------
 
 Omnia automatically handles node removal when nodes are deleted from the PXE mapping file or functional groups.
@@ -103,12 +103,12 @@ Omnia automatically handles node removal when nodes are deleted from the PXE map
 1. Update the PXE mapping file. Remove or reassign nodes that should no longer be part of the Slurm cluster.
 2. Run the discovery playbook.
 
-Slurm Configuration Validation and Defaults
+Slurm configuration validation and defaults
 ----------------------------------------------
 
 Omnia includes a built-in validation system that checks Slurm configuration files for correctness before deployment. The ``slurm_conf`` module validates all configuration files (slurm.conf, slurmdbd.conf, cgroup.conf, gres.conf, etc.) against Slurm 25.X specifications, ensuring parameter names are valid and values match expected types (integers, strings, booleans, arrays, etc.). You can provide custom configurations in ``omnia_config.yml`` > ``slurm_cluster`` > ``config_sourcesalidation and Defaults``.
 
-Default Slurm Configuration
+Default Slurm configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Omnia provides a comprehensive default configuration optimized for HPC clusters. These defaults are automatically applied and can be overridden via custom configuration files.
