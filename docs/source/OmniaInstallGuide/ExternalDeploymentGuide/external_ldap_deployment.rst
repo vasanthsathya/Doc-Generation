@@ -55,51 +55,51 @@ The following are the parameters used in the command:
 3. Perform the following steps to create LDIF Files. The LDIF (LDAP Data Interchange Format) files define the structure of the LDAP directory. 
    The entries in the LDIF files include organization units, users, and groups.
 
-   a. For the organizational unit, create a file named ``ou_people.ldif`` with the following content::
+    a. For the organizational unit, create a file named ``ou_people.ldif`` with the following content::
 
-        dn: ou=People,dc=omnia,dc=test
-        objectClass: top
-        objectClass: organizationalUnit
-        ou: People
-   
-      This creates an organizational unit named People under the base domain.
+            dn: ou=People,dc=omnia,dc=test
+            objectClass: top
+            objectClass: organizationalUnit
+            ou: People
+    
+        This creates an organizational unit named People under the base domain.
 
-   b. For the groups organizational unit, create a file named ``ou_groups.ldif`` with the following content::
+    b. For the groups organizational unit, create a file named ``ou_groups.ldif`` with the following content::
 
-        dn: ou=groups,dc=omnia,dc=test
-        objectClass: top
-        objectClass: organizationalUnit
-        ou: groups
+            dn: ou=groups,dc=omnia,dc=test
+            objectClass: top
+            objectClass: organizationalUnit
+            ou: groups
 
-      This creates an organizational unit named groups under the base domain.
+        This creates an organizational unit named groups under the base domain.
 
-   c. For the user entry, create a file named ``ldapuser.ldif`` with the following content::
+    c. For the user entry, create a file named ``ldapuser.ldif`` with the following content::
 
-        dn: uid=ldapuser,ou=People,dc=omnia,dc=test
-        objectClass: inetOrgPerson
-        objectClass: posixAccount
-        objectClass: shadowAccount
-        cn: ldapuser
-        sn: ldapuser
-        loginShell: /bin/bash
-        uidNumber: 2000
-        gidNumber: 2000
-        homeDirectory: /home/ldapuser
-        shadowLastChange: 0
-        shadowMax: 0
-        shadowWarning: 0
+            dn: uid=ldapuser,ou=People,dc=omnia,dc=test
+            objectClass: inetOrgPerson
+            objectClass: posixAccount
+            objectClass: shadowAccount
+            cn: ldapuser
+            sn: ldapuser
+            loginShell: /bin/bash
+            uidNumber: 2000
+            gidNumber: 2000
+            homeDirectory: /home/ldapuser
+            shadowLastChange: 0
+            shadowMax: 0
+            shadowWarning: 0
 
-      This creates a user named ``ldapuser`` with standard POSIX attributes.
+        This creates a user named ``ldapuser`` with standard POSIX attributes.
 
-   d. For the group entry, create a file named ``ldapuser_grp.ldif`` with the following content::
+    d. For the group entry, create a file named ``ldapuser_grp.ldif`` with the following content::
 
-        dn: cn=ldapuser,ou=groups,dc=omnia,dc=test
-        objectClass: posixGroup
-        cn: ldapuser
-        gidNumber: 2000
-        memberUid: ldapuser
+            dn: cn=ldapuser,ou=groups,dc=omnia,dc=test
+            objectClass: posixGroup
+            cn: ldapuser
+            gidNumber: 2000
+            memberUid: ldapuser
 
-    This creates a group named ``ldapuser`` and adds the user as a member.
+        This creates a group named ``ldapuser`` and adds the user as a member.
 
 4. Once you have created the LDIF files (ou_people.ldif, ou_groups.ldif, ldapuser.ldif, ldapuser_grp.ldif), copy them 
    into the running OpenLDAP container using the following commands::
