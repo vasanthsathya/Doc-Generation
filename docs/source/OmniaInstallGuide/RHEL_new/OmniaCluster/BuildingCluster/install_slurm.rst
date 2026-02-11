@@ -245,7 +245,7 @@ Create timestamped backups of Slurm configuration files.
 1. Create a complete backup of Slurm configuration files with optional custom naming. Run the following command: ::
 
         bash
-            ansible-playbook utils/slurm_config_util.yml --tags config_backup
+        ansible-playbook utils/slurm_config_util.yml --tags config_backup
 
 2. Provide a backup base name or use a timestamp-only name. The backup is created at ``<client_share_path>/slurm_backups/<backup_name>/<controller_node>/``
 
@@ -260,7 +260,50 @@ Cleanup Slurm configuration
 
 Remove existing Slurm configuration files from the live cluster directory.
 
-1. 
+Run the following command: ::
+
+        bash
+        ansible-playbook utils/slurm_config_util.yml --tags slurm_cleanup
+
+* Before cleanup, take a config backup. It is recommended before deleting live configurations.
+* The path where files are deleted: ``<client_share_path>/slurm/``
+
+Example: ::
+
+    Before cleanup, take a config backup? (y/n): y
+    Enter backup base name (leave empty for timestamp-only): safety_backup
+
+    This will delete /share/slurm. Type YES to continue: YES
+    Deleted SLURM configuration directory successfully
+
+Rollback Slurm configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Restore Slurm configuration from a previous backup with comprehensive validation.
+
+Example: ::
+
+    Available backups (newest first):
+    1. backup_2024-02-01_120000 (controller: slurm-ctrl-01)
+    2. pre_maintenance (controller: slurm-ctrl-01)
+    3. backup_2024-01-15_143022 (controller: slurm-ctrl-01)
+    ... (showing 10 of 15 total)
+
+    Enter backup name to restore (or press Enter to abort): pre_maintenance
+
+    Validating backup 'pre_maintenance'...
+    ✓ slurm.conf exists
+    ⚠ munge.key missing (optional but recommended)
+
+    Take safety backup of current config before rollback? (y/n): y
+    Enter backup base name (leave empty for timestamp-only): safety_before_rollback
+
+    Restoring configuration files...
+    Fixing file permissions...
+    Restarting slurmdbd (config changed)...
+    Reconfiguring SLURM controller...
+
+    Rollback completed successfully!
 
 
 
