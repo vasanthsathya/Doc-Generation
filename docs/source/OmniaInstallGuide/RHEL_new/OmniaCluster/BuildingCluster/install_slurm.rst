@@ -55,7 +55,7 @@ Omnia includes a built-in validation system that checks Slurm configuration file
 
 .. note:: Always one partition is created or updated with the following default settings: 
     ::
-        
+
         PartitionName=normal Nodes=<Comma-separated list of all compute nodes> MaxTime=INFINITE State=UP
 
 Default Slurm configuration
@@ -233,7 +233,6 @@ Create a backup, rollback, or cleanup of Slurm configuration files.
 
 **Prerequisites**
 
-* Ansible is installed and configured.
 * Access to the Omnia infrastructure is available.
 * Proper configuration files are available.
 * SSH access to Slurm controller node is available.

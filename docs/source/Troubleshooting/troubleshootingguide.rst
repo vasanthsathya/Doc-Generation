@@ -249,7 +249,7 @@ PXE mapping file is missing ``slurm_control_node_*`` groups.
 
 **Resolution:**
 
-Update ``nodes.yaml`` with proper controller groups.
+Update ``pxe_mapping.csv`` with proper controller groups.
 
 ``slurm.conf`` missing from backup
 ===================================
@@ -274,17 +274,6 @@ Slurm controller service is not running.
 
 Start slurmctld service manually, then retry rollback.
 
-Permission denied issues
-===========================
-
-**Cause:**
-
-Insufficient permissions on configuration files.
-
-
-**Resolution:**
-
-Ensure running as appropriate user with sudo/root access.
 
 
 
