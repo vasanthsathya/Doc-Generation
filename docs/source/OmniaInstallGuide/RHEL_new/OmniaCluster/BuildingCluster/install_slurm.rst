@@ -51,14 +51,23 @@ Omnia automatically handles node removal when nodes are deleted from the PXE map
 Slurm configuration validation and defaults
 ----------------------------------------------
 
-Omnia includes a built-in validation system that checks Slurm configuration files for correctness before deployment. The ``slurm_conf`` module validates all configuration files (slurm.conf, slurmdbd.conf, cgroup.conf, gres.conf, etc.) against Slurm 25.X specifications, ensuring parameter names are valid and values match expected types (integers, strings, booleans, arrays, etc.). You can provide custom configurations in ``omnia_config.yml`` > ``slurm_cluster`` > ``config_source``.
+Omnia includes a built-in validation system that checks Slurm configuration files for correctness before deployment. The input validator module validates all configuration files (slurm.conf, slurmdbd.conf, cgroup.conf, gres.conf, etc.) against Slurm 25.X specifications, ensuring parameter names are valid and values match expected types (integers, strings, booleans, arrays, etc.). You can provide custom configurations in ``omnia_config.yml`` > ``slurm_cluster`` > ``config_sources`` either as a file path or a mapping directly. For supported conf parameters, see `Slurm.conf <https://slurm.schedmd.com/slurm.conf.html>`_
+
+.. note:: Always one partition is created or updated with the following default settings: ::
+
+        PartitionName=normal Nodes=<Comma-separated list of all compute nodes> MaxTime=INFINITE State=UP
 
 Default Slurm configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Omnia provides a comprehensive default configuration optimized for HPC clusters. These defaults are automatically applied and can be overridden via custom configuration files.
 
-Default slurm.conf parameters ::
+
+Default slurm.conf parameters:
+
+.. note:: The parameters ClusterName, SlurmctldHost, AccountingStorageHost cannot be modified.
+
+ ::
 
     # Authentication and Security
         AuthType=auth/munge
@@ -74,13 +83,18 @@ Default slurm.conf parameters ::
         SlurmctldPidFile=/var/run/slurmctld.pid
         SlurmctldParameters=enable_configless
         StateSaveLocation=/var/spool/slurmctld
- 
+    
     # Compute Node Configuration
         SlurmdPort=6818
         SlurmdTimeout=300
         SlurmdLogFile=/var/log/slurm/slurmd.log
         SlurmdPidFile=/var/run/slurmd.pid
         SlurmdSpoolDir=/var/spool/slurmd
+ 
+    # Accounting
+        AccountingStorageHost=<auto-detected>
+        AccountingStoragePort=6819
+        AccountingStorageType=accounting_storage/slurmdbd
  
     # Job Execution
         SrunPortRange=60001-63000
@@ -109,8 +123,13 @@ Default slurm.conf parameters ::
  
     # Default Partition Configuration
         PartitionName=DEFAULT Nodes=ALL Default=YES MaxTime=INFINITE State=UP
+        PartitionName=normal Nodes=<compute_nodes> Default=YES MaxTime=INFINITE State=UP
 
-Default slurmdbd.conf parameters ::
+Default slurmdbd.conf parameters:
+
+.. note:: The parameters DbdHost, StorageHost cannot be modified.
+
+ ::
 
     # Authentication
         AuthType=auth/munge
@@ -129,7 +148,7 @@ Default slurmdbd.conf parameters ::
         StoragePort=3306
         StorageLoc=slurm_acct_db
         StorageUser=slurm
-        StoragePass=<encrypted>
+        StoragePass=<storage_password>
 
 Default cgroup.conf parameters ::
 
@@ -257,6 +276,4 @@ Remove existing Slurm configuration files from the live cluster directory.
 
 
 
- **Cleanup** - Remove existing Slurm configurations with safety prompts and validation
- **Rollback** - Restore Slurm configurations from previous backups
-
+ 
