@@ -67,7 +67,7 @@ Default slurm.conf parameters:
 
 .. note:: The parameters ClusterName, SlurmctldHost, AccountingStorageHost cannot be modified.
 
- ::
+::
 
     # Authentication and Security
         AuthType=auth/munge
@@ -129,7 +129,7 @@ Default slurmdbd.conf parameters:
 
 .. note:: The parameters DbdHost, StorageHost cannot be modified.
 
- ::
+::
 
     # Authentication
         AuthType=auth/munge
