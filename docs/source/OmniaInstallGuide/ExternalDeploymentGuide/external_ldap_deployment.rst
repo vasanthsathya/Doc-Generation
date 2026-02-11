@@ -109,7 +109,7 @@ The following are the parameters used in the command:
         podman cp ldapuser.ldif openldap:/tmp/
         podman cp ldapuser_grp.ldif openldap:/tmp/
 
-This command copies all LDIF files into the running OpenLDAP container under the ``/tmp`` directory, making them accessible for LDAP operations. 
+   This command copies all LDIF files into the running OpenLDAP container under the ``/tmp`` directory, making them accessible for LDAP operations. 
 
 5. Execute the following commands to import the LDIF files into OpenLDAP. You can either run these commands from the host system or access the container shell.
 
@@ -163,8 +163,7 @@ This command copies all LDIF files into the running OpenLDAP container under the
 
    Replace ``<LDAP_SERVER_IP>`` with the actual IP address of your LDAP server (or use ``localhost`` if running from the same machine).
 
-The following are the parameters used in the command:
-
+   The following are the parameters used in the command:
     - **-b**: Search base DN.
     - **-H**: Host and port of the LDAP service.
     - This command lists all entries, including your newly created ldapuser.
