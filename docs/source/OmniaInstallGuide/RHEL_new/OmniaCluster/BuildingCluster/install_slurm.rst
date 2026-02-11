@@ -48,66 +48,10 @@ Omnia automatically handles node removal when nodes are deleted from the PXE map
 1. Update the PXE mapping file. Remove or reassign nodes that should no longer be part of the Slurm cluster.
 2. Run the discovery playbook.
 
-Post Installation
-----------------------
-
-Pulling container images on a Slurm cluster node 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-A helper script is provided to simplify pulling container images on cluster nodes. By default, the script downloads the **hpcbenchmarks** container from the site Pulp registry, but it can also be used to pull any other approved images available in Pulp.
-
-It is recommended to run this script on a login or compiler node.
-
-1. Verify if required paths exist. ::
-
-    ls -l /hpc_tools/scripts
-    ls -ld /hpc_tools/container_images
-
- The following should be available:
-
- * ``download_container_image.sh``
- * ``container_image.list``
-
- If missing, NFS is not mounted.
-
-2. Verify if Apptainer is installed. :: 
-
-    apptainer --version
-
-3. Update image list (optional): By default, the list includes the HPC benchmarks image. To retrieve additional images from Pulp, add them to this list. ::
-
-    vi /hpc_tools/scripts/container_image.list
-
- Format: ::
-        
-        <registry>/<namespace>/<image>:<tag>
-
- Example: ::
-
-        docker.io/library/ubuntu:22.04
-
-4. Run the download script. ::
-
-    /hpc_tools/scripts/download_container_image.sh
-
- The script retrieves images from the Pulp mirror and saves them to ``/hpc_tools/container_images``.
-
-5. Verify the downloaded images. ::
-
-        ls -lh /hpc_tools/container_images
-        apptainer inspect /hpc_tools/container_images/<image>.sif
-
-6. Run a container (example). ::
-
-        apptainer exec /hpc_tools/container_images/hpc-benchmarks_25.09.sif --help
-
-
-
-
-
 Slurm configuration validation and defaults
 ----------------------------------------------
 
-Omnia includes a built-in validation system that checks Slurm configuration files for correctness before deployment. The ``slurm_conf`` module validates all configuration files (slurm.conf, slurmdbd.conf, cgroup.conf, gres.conf, etc.) against Slurm 25.X specifications, ensuring parameter names are valid and values match expected types (integers, strings, booleans, arrays, etc.). You can provide custom configurations in ``omnia_config.yml`` > ``slurm_cluster`` > ``config_sourcesalidation and Defaults``.
+Omnia includes a built-in validation system that checks Slurm configuration files for correctness before deployment. The ``slurm_conf`` module validates all configuration files (slurm.conf, slurmdbd.conf, cgroup.conf, gres.conf, etc.) against Slurm 25.X specifications, ensuring parameter names are valid and values match expected types (integers, strings, booleans, arrays, etc.). You can provide custom configurations in ``omnia_config.yml`` > ``slurm_cluster`` > ``config_source``.
 
 Default Slurm configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -204,6 +148,64 @@ Default gres.conf parameters ::
         AutoDetect=nvml
 
 
+Post Installation
+----------------------
+
+Pulling container images on a Slurm cluster node 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+A helper script is provided to simplify pulling container images on cluster nodes. By default, the script downloads the **hpcbenchmarks** container from the site Pulp registry, but it can also be used to pull any other approved images available in Pulp.
+
+It is recommended to run this script on a login or compiler node.
+
+1. Verify if required paths exist. ::
+
+    ls -l /hpc_tools/scripts
+    ls -ld /hpc_tools/container_images
+
+ The following should be available:
+
+ * ``download_container_image.sh``
+ * ``container_image.list``
+
+ If missing, NFS is not mounted.
+
+2. Verify if Apptainer is installed. :: 
+
+    apptainer --version
+
+3. Update image list (optional): By default, the list includes the HPC benchmarks image. To retrieve additional images from Pulp, add them to this list. ::
+
+    vi /hpc_tools/scripts/container_image.list
+
+ Format: ::
+        
+        <registry>/<namespace>/<image>:<tag>
+
+ Example: ::
+
+        docker.io/library/ubuntu:22.04
+
+4. Run the download script. ::
+
+    /hpc_tools/scripts/download_container_image.sh
+
+ The script retrieves images from the Pulp mirror and saves them to ``/hpc_tools/container_images``.
+
+5. Verify the downloaded images. ::
+
+        ls -lh /hpc_tools/container_images
+        apptainer inspect /hpc_tools/container_images/<image>.sif
+
+6. Run a container (example). ::
+
+        apptainer exec /hpc_tools/container_images/hpc-benchmarks_25.09.sif --help
+
+
+
+
+
+
+
 Slurm configuration utilities
 -----------------------------------
 
@@ -216,8 +218,8 @@ Create a backup, rollback, or cleanup of Slurm configuration files.
 * Proper configuration files are available.
 * SSH access to Slurm controller node is available.
 
-Backup 
-^^^^^^^^^^^
+Backup Slurm configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Create timestamped backups of Slurm configuration files.
 
@@ -226,7 +228,21 @@ Create timestamped backups of Slurm configuration files.
         bash
             ansible-playbook utils/slurm_config_util.yml --tags config_backup
 
-2. Provide a backup base name or use a timestamp-only name. 
+2. Provide a backup base name or use a timestamp-only name. The backup is created at ``<client_share_path>/slurm_backups/<backup_name>/<controller_node>/``
+
+Example: ::
+
+    Enter backup base name (leave empty for timestamp-only): pre_upgrade
+    Creating backup: pre_upgrade
+    Backup completed successfully
+
+Cleanup Slurm configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Remove existing Slurm configuration files from the live cluster directory.
+
+1. 
+
 
 
 
