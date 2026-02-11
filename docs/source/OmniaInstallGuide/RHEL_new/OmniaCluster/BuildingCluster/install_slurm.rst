@@ -204,5 +204,43 @@ Default gres.conf parameters ::
         AutoDetect=nvml
 
 
+Slurm configuration utilities
+-----------------------------------
 
+Create a backup, rollback, or cleanup of Slurm configuration files.
+
+**Prerequisites**
+
+* Ansible is installed and configured.
+* Access to the Omnia infrastructure is available.
+* Proper configuration files are available.
+* SSH access to Slurm controller node is available.
+
+Backup 
+^^^^^^^^^^^
+
+Create timestamped backups of Slurm configuration files.
+
+1. Create a complete backup of Slurm configuration files with optional custom naming. Run the following command: ::
+
+        bash
+            ansible-playbook utils/slurm_config_util.yml --tags config_backup
+
+2. Provide a backup base name or use a timestamp-only name. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ **Cleanup** - Remove existing Slurm configurations with safety prompts and validation
+ **Rollback** - Restore Slurm configurations from previous backups
 
