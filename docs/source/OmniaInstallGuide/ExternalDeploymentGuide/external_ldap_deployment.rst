@@ -19,7 +19,7 @@ Steps
 -----
 
 1. Pull the Bitnami OpenLDAP Image using the following command::
-
+    
     podman run -d --name openldap \
     -p 0.0.0.0:1389:1389 \
     -p 0.0.0.0:1636:1636 \
@@ -53,7 +53,7 @@ The following are the parameters used in the command:
     podman ps
 
 3. Perform the following steps to create LDIF Files. The LDIF (LDAP Data Interchange Format) files define the structure of the LDAP directory. 
-The entries in the LDIF files include organization units, users, and groups.
+   The entries in the LDIF files include organization units, users, and groups.
 
    a. For the organizational unit, create a file named ``ou_people.ldif`` with the following content::
 
@@ -61,8 +61,8 @@ The entries in the LDIF files include organization units, users, and groups.
         objectClass: top
         objectClass: organizationalUnit
         ou: People
-
-   This creates an organizational unit named People under the base domain.
+   
+      This creates an organizational unit named People under the base domain.
 
    b. For the groups organizational unit, create a file named ``ou_groups.ldif`` with the following content::
 
@@ -71,7 +71,7 @@ The entries in the LDIF files include organization units, users, and groups.
         objectClass: organizationalUnit
         ou: groups
 
-   This creates an organizational unit named groups under the base domain.
+      This creates an organizational unit named groups under the base domain.
 
    c. For the user entry, create a file named ``ldapuser.ldif`` with the following content::
 
@@ -89,7 +89,7 @@ The entries in the LDIF files include organization units, users, and groups.
         shadowMax: 0
         shadowWarning: 0
 
-   This creates a user named ``ldapuser`` with standard POSIX attributes.
+      This creates a user named ``ldapuser`` with standard POSIX attributes.
 
    d. For the group entry, create a file named ``ldapuser_grp.ldif`` with the following content::
 
@@ -99,7 +99,7 @@ The entries in the LDIF files include organization units, users, and groups.
         gidNumber: 2000
         memberUid: ldapuser
 
-   This creates a group named ``ldapuser`` and adds the user as a member.
+    This creates a group named ``ldapuser`` and adds the user as a member.
 
 4. Once you have created the LDIF files (ou_people.ldif, ou_groups.ldif, ldapuser.ldif, ldapuser_grp.ldif), copy them 
    into the running OpenLDAP container using the following commands::
@@ -161,7 +161,7 @@ This command copies all LDIF files into the running OpenLDAP container under the
 
     ldapsearch -x -H ldap://<LDAP_SERVER_IP>:1389 -D "cn=admin,dc=omnia,dc=test" -W -b "dc=omnia,dc=test"
 
-Replace ``<LDAP_SERVER_IP>`` with the actual IP address of your LDAP server (or use ``localhost`` if running from the same machine).
+   Replace ``<LDAP_SERVER_IP>`` with the actual IP address of your LDAP server (or use ``localhost`` if running from the same machine).
 
 The following are the parameters used in the command:
 
