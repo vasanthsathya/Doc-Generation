@@ -60,9 +60,9 @@ Provide all required mandatory credentials for the cluster. See the table below 
 .. caution:: Once the cluster is up and running, you may only modify the ``bmc_username`` and ``bmc_password`` fields in the ``omnia_config_credentials.yml`` input file. To make these changes, use the command provided below. Do not alter any other fields in the file, as this may lead to unexpected failures.
     ::
         ansible-vault edit omnia_config_credentials.yml --vault-password-file .omnia_config_credentials_key
-        
+
 
 .. csv-table:: BuildStreaM credentials
-   :file: ../../Tables/build_stream_utility.csv
+   :file: ../../Tables/build_stream_credential_utility.csv
    :header-rows: 1
    :keepspace:
