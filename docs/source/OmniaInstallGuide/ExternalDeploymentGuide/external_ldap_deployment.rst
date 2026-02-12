@@ -1,33 +1,20 @@
 Deploy and Configure Bitnami OpenLDAP Using Podman on External Servers
-=====================================================================
+======================================================================
 This section describes how to deploy and configure Bitnami OpenLDAP using Podman on external servers.
 
-Prerequisites
--------------
-
-Before you begin, ensure you have the following LDAP client tools installed on your system:
-
-::
-
-    # For RHEL/CentOS systems
-    sudo yum install -y openldap-clients
-    
-    # For Ubuntu/Debian systems  
-    sudo apt-get install -y ldap-utils
-
 Steps
------
+------
 
 1. Pull the Bitnami OpenLDAP Image using the following command::
     
     podman run -d --name openldap \
-    -p 0.0.0.0:1389:1389 \
-    -p 0.0.0.0:1636:1636 \
-    -e LDAP_ADMIN_USERNAME=admin \
-    -e LDAP_ADMIN_PASSWORD=Dell1234\
-    -e LDAP_ROOT=dc=omnia,dc=test \
-    -v openldap_data:/bitnami/openldap \
-    docker.io/bitnamilegacy/openldap:latest
+      -p 0.0.0.0:1389:1389 \
+      -p 0.0.0.0:1636:1636 \
+      -e LDAP_ADMIN_USERNAME=admin \
+      -e LDAP_ADMIN_PASSWORD=Dell1234\
+      -e LDAP_ROOT=dc=omnia,dc=test \
+      -v openldap_data:/bitnami/openldap \
+      docker.io/bitnamilegacy/openldap:latest
 
 .. note::
         
@@ -35,9 +22,14 @@ Steps
    
    This corresponds to the sample domain name ``omnia.test``. When following this guide, replace these values with your own domain components (for example, ``dc=example,dc=com`` or ``dc=mycompany,dc=local``).
    
+   The LDAP admin username in the examples is set as: ``LDAP_ADMIN_USERNAME=admin``
+   
+   You can replace this value with any username of your choice.
+   
    The LDAP admin password in the examples is set as: ``LDAP_ADMIN_PASSWORD=Dell1234``
    
    You can replace this value with any secure password of your choice.
+
 
 The following are the parameters used in the command:
 
@@ -64,76 +56,56 @@ The following are the parameters used in the command:
     
         This creates an organizational unit named People under the base domain.
 
-    b. For the groups organizational unit, create a file named ``ou_groups.ldif`` with the following content::
+    b. For the user entry, create a file named ``ldapuser.ldif`` with the following content::
 
-            dn: ou=groups,dc=omnia,dc=test
-            objectClass: top
-            objectClass: organizationalUnit
-            ou: groups
+        dn: uid=ldapuser,ou=People,dc=omnia,dc=test
+        objectClass: inetOrgPerson
+        objectClass: posixAccount
+        objectClass: shadowAccount
+        cn: ldapuser
+        sn: ldapuser
+        loginShell: /bin/bash
+        uidNumber: 2000
+        gidNumber: 2000
+        homeDirectory: /home/ldapuser
+        shadowLastChange: 0
+        shadowMax: 0
+        shadowWarning: 0
 
-        This creates an organizational unit named groups under the base domain.
+    This creates a user named ``ldapuser`` with standard POSIX attributes.
 
-    c. For the user entry, create a file named ``ldapuser.ldif`` with the following content::
+    c. For the group entry, create a file named ``ldapuser_grp.ldif`` with the following content::
 
-            dn: uid=ldapuser,ou=People,dc=omnia,dc=test
-            objectClass: inetOrgPerson
-            objectClass: posixAccount
-            objectClass: shadowAccount
-            cn: ldapuser
-            sn: ldapuser
-            loginShell: /bin/bash
-            uidNumber: 2000
-            gidNumber: 2000
-            homeDirectory: /home/ldapuser
-            shadowLastChange: 0
-            shadowMax: 0
-            shadowWarning: 0
+        dn: cn=ldapuser,ou=groups,dc=omnia,dc=test
+        objectClass: posixGroup
+        cn: ldapuser
+        gidNumber: 2000
+        memberUid: ldapuser
 
-        This creates a user named ``ldapuser`` with standard POSIX attributes.
 
-    d. For the group entry, create a file named ``ldapuser_grp.ldif`` with the following content::
-
-            dn: cn=ldapuser,ou=groups,dc=omnia,dc=test
-            objectClass: posixGroup
-            cn: ldapuser
-            gidNumber: 2000
-            memberUid: ldapuser
-
-        This creates a group named ``ldapuser`` and adds the user as a member.
+    This creates a group named ``ldapuser`` and adds the user as a member.
 
 4. Once you have created the LDIF files (ou_people.ldif, ou_groups.ldif, ldapuser.ldif, ldapuser_grp.ldif), copy them 
    into the running OpenLDAP container using the following commands::
 
-        podman cp ou_people.ldif openldap:/tmp/
-        podman cp ou_groups.ldif openldap:/tmp/
-        podman cp ldapuser.ldif openldap:/tmp/
-        podman cp ldapuser_grp.ldif openldap:/tmp/
+        podman cp ou_people.ldif openldap:/
+        podman cp ldapuser.ldif openldap:/
+        podman cp ldapuser_grp.ldif openldap:/
+        
 
-   This command copies all LDIF files into the running OpenLDAP container under the ``/tmp`` directory, making them accessible for LDAP operations. 
+   This command copies all LDIF files into the running OpenLDAP container under the ``/`` directory, making them accessible for LDAP operations. 
 
-5. Execute the following commands to import the LDIF files into OpenLDAP. You can either run these commands from the host system or access the container shell.
+5. Execute the following commands to import the LDIF files into OpenLDAP. 
 
-    **Option 1: From Host System**
-
-    ::
-
-        ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=omnia,dc=test" -w Dell1234 -f /tmp/ou_people.ldif
-        ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=omnia,dc=test" -w Dell1234 -f /tmp/ou_groups.ldif
-        ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=omnia,dc=test" -w Dell1234 -f /tmp/ldapuser.ldif
-        ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=omnia,dc=test" -w Dell1234 -f /tmp/ldapuser_grp.ldif
-
-    **Option 2: From Container Shell**
-
-    First, access the container shell::
+    a. First, access the container shell::
 
         podman exec -it openldap /bin/bash
 
-    Then run the ldapadd commands from inside the container::
+    b. Then run the ldapadd commands from inside the container::
 
-        ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=omnia,dc=test" -w Dell1234 -f /tmp/ou_people.ldif
-        ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=omnia,dc=test" -w Dell1234 -f /tmp/ou_groups.ldif
-        ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=omnia,dc=test" -w Dell1234 -f /tmp/ldapuser.ldif
-        ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=omnia,dc=test" -w Dell1234 -f /tmp/ldapuser_grp.ldif
+        ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=omnia,dc=test" -w Dell1234 -f ou_people.ldif
+        ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=omnia,dc=test" -w Dell1234 -f ldapuser.ldif
+        ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=omnia,dc=test" -w Dell1234 -f ldapuser_grp.ldif
 
     The following are the parameters used in this command:
 
@@ -159,14 +131,12 @@ The following are the parameters used in the command:
 
 7. Verify the user within the LDAP directory with the following command::
 
-    ldapsearch -x -H ldap://<LDAP_SERVER_IP>:1389 -D "cn=admin,dc=omnia,dc=test" -W -b "dc=omnia,dc=test"
+    ldapsearch -x -H ldap://localhost:1389 -D "cn=admin,dc=omnia,dc=test" -W -b "dc=omnia,dc=test"
 
-   Replace ``<LDAP_SERVER_IP>`` with the actual IP address of your LDAP server (or use ``localhost`` if running from the same machine).
-
-   The following are the parameters used in the command:
-    - **-b**: Search base DN.
-    - **-H**: Host and port of the LDAP service.
-    - This command lists all entries, including your newly created ldapuser.
+    The following are the parameters used in the command:
+        - **-b**: Search base DN.
+        - **-H**: Host and port of the LDAP service.
+        - This command lists all entries, including your newly created ldapuser.
 
 
 Troubleshooting
@@ -188,6 +158,6 @@ If you encounter any issues, follow these steps:
 3. **Common Issues and Solutions:**
 
    - **"No such object" error**: Ensure you created the ``ou=groups`` organizational unit before adding the group entry.
-   - **"File not found" error**: Verify the LDIF files are copied to the correct ``/tmp`` directory inside the container.
+   - **"File not found" error**: Verify the LDIF files are copied to the correct ``/`` directory inside the container.
    - **"Connection refused" error**: Check if the container is running and ports are properly mapped.
    - **"Invalid credentials" error**: Verify the admin password and DN format match your configuration.
