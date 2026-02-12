@@ -22,13 +22,13 @@ NFS Server
 NFS Server for K8s
 ^^^^^^^^^^^^^^^^^^^^^
 
-* Minimum NFS k8s is 200 GB. The storage is recommended based on small cluster deployments. Increase the storage based on cluster size and telemetry data.
+* Minimum NFS for Kubernetes is 200 GB. The storage is recommended based on small cluster deployments. Increase the storage based on cluster size and telemetry data.
 * Ensure that there is a dedicated mount point for each NFS.
 
 NFS Server for Slurm
 ^^^^^^^^^^^^^^^^^^^^^
 
-* Minimum NFS Slurm is 50 GB. Increase the storage based on job data.
+* Minimum NFS for Slurm is 50 GB. Increase the storage based on job data.
 * Ensure that there is a dedicated mount point for each NFS.
 
 NFS Server for Omnia Infrastructure Manager (OIM)
@@ -91,7 +91,7 @@ Repository
 * Docker credentials are a mandatory requirement to pull in the essential packages during local repository deployment. 
 * If the Slurm RPMS is already available, update the value in the URL of the ``user_repo_url_x86_64`` or ``user_repo_url_aarch64`` parameter in ``/opt/omnia/input/project_default/local_repo_config.yml``.
   
-  Repository is hosted, use the URL created in  ``local_repo_config.yml`` file.
+* If the repository is hosted, use the URL created in the ``local_repo_config.yml`` file.
 
    - { url: "<hosted slurm repository url>", gpgkey: "", sslcacert: "", sslclientkey: "", sslclientcert: "",  name: "x86_64_slurm_custom" }
 
@@ -106,9 +106,9 @@ Service Kubernetes Cluster
 ---------------------------
 
 * A minimum of **three Kubernetes controller nodes** must be available.
-* Ensure that each Service Kubernetes Cluste node has at least 64 GB RAM.
+* Ensure that each Service Kubernetes Cluster node has at least 64 GB RAM.
 
-iDRAC Telemetry Metric Collection 
+iDRAC Telemetry Metrics Collection 
 ----------------------------------
 
 * **Redfish** is enabled in iDRAC.
@@ -130,11 +130,11 @@ Lightweight Distributed Metric Service (LDMS)
   If the LDMS RPM is not available, refer to  `Building LDMS PRODUCER RPM Package <https://github.com/dell/omnia-artifactory?tab=readme-ov-file#building-ldms-producer-rpm-package>`_ for instructions on building LDMS RPMs.
 * If the LDMS RPMS are already available, update the value (<hosted LDMS repository url>) in the URL of the ``user_repo_url_x86_64`` or ``user_repo_url_aarch64`` parameter in ``/opt/omnia/input/project_default/local_repo_config.yml``.
   
-  Repository is hosted, use the URL created in  ``local_repo_config.yml`` file.
+* If the repository is hosted, use the URL created in the ``local_repo_config.yml`` file.
 
   ::
     
-     - { url: "<hosted LDMS RPM repository url>", gpgkey: "", sslcacert: "", sslclientkey: "", sslclientcert: "",  name: "x86_64_slurm_custom" }
+     - { url: "<hosted LDMS RPM repository url>", gpgkey: "", sslcacert: "", sslclientkey: "", sslclientcert: "",  name: "x86_64_ldms_custom" }
 
   Run ``ansible-playbook local_repo/local_repo.yml``.
 
@@ -145,7 +145,7 @@ Slurm
 * The Slurm RPM must be available in the user repository. If the Slurm RPM is not available, refer to `Slurm Quick Start Administrator Guide <https://slurm.schedmd.com/quickstart_admin.html>`_ for instructions on building Slurm RPMs.
 * If the Slurm RPMS are already available, update the value (<hosted slurm repository url>) in the URL of the ``user_repo_url_x86_64`` or ``user_repo_url_aarch64`` parameter in ``/opt/omnia/input/project_default/local_repo_config.yml``.
   
-  Repository is hosted, use the URL created in  ``local_repo_config.yml`` file.
+* If the repository is hosted, use the URL created in the ``local_repo_config.yml`` file.
 
   ::
     
@@ -153,7 +153,7 @@ Slurm
 
   Run ``ansible-playbook local_repo/local_repo.yml``.
 * Create Slurm repository build for x86_64. See `Build Slurm repository for x86_64 <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/build_slurm_repo.html>`_ and `Host RPMS on Apache server <OmniaInstallGuide/RHEL_new/OmniaCluster/BuildingCluster/hosting_RPMS_on_Apache_server.html>`_.
-* After Slurm RPMS are generated, change the rpms in corresponsing role accordingly if the rpm names are not matching with rpms in ``input/config/x86_64/rhel/10.0/slurm_custom.json``.
+* After Slurm RPMS are generated, change the rpms in corresponding role accordingly if the rpm names are not matching with rpms in ``input/config/x86_64/rhel/10.0/slurm_custom.json``.
 
 
 
