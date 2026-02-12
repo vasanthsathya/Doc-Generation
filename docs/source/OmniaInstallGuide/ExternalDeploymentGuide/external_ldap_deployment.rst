@@ -54,7 +54,7 @@ The following are the parameters used in the command:
             objectClass: organizationalUnit
             ou: People
     
-        This creates an organizational unit named People under the base domain.
+    This creates an organizational unit named People under the base domain.
 
     b. For the user entry, create a file named ``ldapuser.ldif`` with the following content::
 
@@ -121,7 +121,7 @@ The following are the parameters used in the command:
 
     ldappasswd -x -D "cn=admin,dc=omnia,dc=test" -W -S -H ldap://localhost:1389 "uid=ldapuser,ou=People,dc=omnia,dc=test"
 
-    The following are the parameters used in the command:
+   The following are the parameters used in the command:
 
         - **-x**: Use simple authentication.
         - **-D**: Bind DN (admin distinguished name).
@@ -133,7 +133,7 @@ The following are the parameters used in the command:
 
     ldapsearch -x -H ldap://localhost:1389 -D "cn=admin,dc=omnia,dc=test" -W -b "dc=omnia,dc=test"
 
-    The following are the parameters used in the command:
+   The following are the parameters used in the command:
         - **-b**: Search base DN.
         - **-H**: Host and port of the LDAP service.
         - This command lists all entries, including your newly created ldapuser.
