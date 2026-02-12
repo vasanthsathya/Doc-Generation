@@ -16,7 +16,7 @@ To add a new Slurm node to the cluster, follow these steps:
 
 2. Run the ``discovery.yml`` playbook to discover the new nodes. For more information, see :doc:`../RHEL_new/Provision/installprovisiontool`.
 3. PXE boot the newly added nodes.
-4. To enable telemetry collection using iDRAC telemetry service, run the ``telemetry.yml`` playbook. For more information, see :doc:`../RHEL_new/Provision/installprovisiontool`.
+4. To enable telemetry collection using iDRAC telemetry service, run the ``telemetry.yml`` playbook. For steps to initiate telemetry collection, see :doc:`../RHEL_new/Telemetry/initialize_and_verify_telemetry`
 
 .. note:: You do not need to run the ``telemetry.yml`` playbook if the service kubernetes cluster nodes are configured to collect telemetry data only using LDMS. By default, LDMS begins collection of data
     after ``discovery.yml`` playbook is executed.
