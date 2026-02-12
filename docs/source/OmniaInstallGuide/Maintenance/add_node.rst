@@ -1,10 +1,10 @@
 Add or Remove Slurm Nodes to the Cluster
 ========================================
 
+Omnia supports addition and removal of Slurm compute nodes from an existing cluster. 
+
 Add Slurm Node to the Cluster
 -----------------------------
-
-Omnia supports addition of Slurm compute nodes to an existing cluster. 
 
 To add a new Slurm node to the cluster, follow these steps:
 
@@ -17,13 +17,12 @@ To add a new Slurm node to the cluster, follow these steps:
 2. Run the ``discovery.yml`` playbook to discover the new nodes. For more information, see :doc:`../RHEL_new/Provision/installprovisiontool`.
 3. PXE boot the newly added nodes.
 4. To enable telemetry collection using iDRAC telemetry service, run the ``telemetry.yml`` playbook. For more information, see :doc:`../RHEL_new/Provision/installprovisiontool`.
-.. note:: You do not need to run the ``telemetry.yml`` playbook if the service kubernetes cluster nodes are configured to collect telemetry data only using LDMS. By default, LDMS begins collection of data 
+
+.. note:: You do not need to run the ``telemetry.yml`` playbook if the service kubernetes cluster nodes are configured to collect telemetry data only using LDMS. By default, LDMS begins collection of data
     after ``discovery.yml`` playbook is executed.
 
 Remove Slurm nodes
 -----------------------
-
-Omnia automatically removes Slurm nodes when nodes are deleted from the PXE mapping file.
 
 To remove a Slurm node from the cluster, follow these steps:
 
