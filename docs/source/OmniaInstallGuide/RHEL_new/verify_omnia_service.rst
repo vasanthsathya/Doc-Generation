@@ -24,11 +24,14 @@ its dependent services are running correctly.
    .. code-block:: text
 
       omnia.target
+      ● ├─minio.service
+      ● ├─omnia_auth.service
+      ● ├─omnia_build_stream.service
       ● ├─omnia_core.service
+      ● ├─pulp.service 
+      ● ├─registry.service   
       ● ├─network-online.target
       ● │ └─NetworkManager-wait-online.service
-      ● ├─pulp.service
-      ● ├─omnia_auth.service
       ● └─openchami.target
       ●   ├─acme-deploy.service
       ●   ├─acme-register.service
@@ -52,6 +55,7 @@ its dependent services are running correctly.
    * A **circle with a cross** indicates that the service failed to start.
 
    .. note::  The ``omnia_auth.service`` runs only when OpenLDAP is specified in the ``software_config.json``.
+   .. note::  The ``omnia_build_stream.service`` runs only when BuildStreaM is enabled in the ``build_stream_config.csv``.
     
 
 View Usage Instructions for OpenCHAMI Containers
