@@ -341,7 +341,6 @@ InfiniBand fabric cannot complete initialization, causing host ports to remain i
     * Run the following command on the host: ibstat
     * Verify that the InfiniBand ports state transition to: ``State: Active``
  
- 
 Slow nvidia-smi response on GPU compute nodes
 ==============================================
 
