@@ -113,6 +113,7 @@ The following is the sample ``additional_packages.json`` file:
    :widths: auto
 
 
+
 .. note::
 
     * For a list of accepted ``softwares``, go to the ``/opt/omnia/input/project_default/config/<cluster_os_type>/<cluster_os_version>`` and view the list of JSON files available. The filenames present in this location are the list of accepted softwares. For a cluster running RHEL 10.0, go to ``/opt/omnia/input/project_default/config/<architecture>/rhel/10.0/`` and view the file list for accepted softwares.
