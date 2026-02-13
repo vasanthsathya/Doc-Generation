@@ -314,7 +314,7 @@ For example: ::
 After updating the permissions, reload the Slurm configuration: ::
 
         scontrol reconfigure
-
+        
 InfiniBand ports remain in initializing state on hosts
 ========================================================
 
