@@ -36,3 +36,85 @@ To deploy additional packages/images after cluster provisioning, do the followin
         dnf list installed <package-name>
 
         crictl images
+
+Pulling images from a user registry via Pulp on a service Kubernetes cluster
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When container images are specified from a user registry in the ``additional_packages`` input, Omnia automatically uploads those images to the configured Pulp registry.
+ 
+After this synchronization:
+
+* All cluster nodes must pull images from Pulp, not directly from the user registry.
+* This enables centralized image management and supports offline or air-gapped environments.
+
+Example: Image defined in input JSON ::
+
+    json
+    "additional_packages": {
+    "cluster": [
+        {
+        "package": "100.10.0.76:3445/library/nginx",
+        "type": "image",
+        "tag": "1.25.2-alpine-slim"
+        }
+    ]
+    }
+
+In this example:
+
+* `100.10.0.76:3445` is the user registry.
+* Omnia syncs the image to the Pulp registry.
+* Cluster nodes must subsequently pull the image from Pulp.
+
+
+Retrieve the Pulp registry endpoint
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+On the Omnia Core container, run: ::
+
+    bash
+    pulp status | jq -r '.content_settings.content_origin'
+
+Sample output: ::
+
+    https://172.16.255.254:2225
+
+Remove the `https://` prefix and use only 172.16.255.254:2225
+
+
+Configure compute nodes to pull from Pulp
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+On each Kubernetes compute node:
+
+1. Edit the following file: ::
+
+    bash
+    /etc/containers/registries.conf.d/crio.conf
+
+2. Append this configuration at the end of the file. ::
+
+    toml
+    [[registry]]
+    prefix = "100.10.0.76:3445"
+    location = "100.10.0.76:3445"
+    
+    [[registry.mirror]]
+    location = "172.16.255.254:2225"
+
+3. Reload and restart CRI-O. ::
+    
+    bash
+    systemctl daemon-reload
+    systemctl restart crio
+
+
+Pull the image
+^^^^^^^^^^^^^^^^^
+
+Pull the image using the original registry reference (CRI-O transparently redirects to Pulp). ::
+
+    bash
+    crictl pull 100.10.0.76:3445/library/nginx:1.25.2-alpine-slim
+
+The image will be retrieved from the Pulp mirror automatically.
