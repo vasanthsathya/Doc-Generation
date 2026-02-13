@@ -40,16 +40,15 @@ To deploy additional packages/images after cluster provisioning, do the followin
 Pulling images from a user registry via Pulp on a service Kubernetes cluster
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When container images are specified from a user registry in the ``additional_packages`` input, Omnia automatically uploads those images to the configured Pulp registry.
+When the container images from a user registry are specified in the ``additional_packages.json``, running ``local_repo.yml`` thereafter, uploads those images to the configured Pulp registry.
  
 After this synchronization:
 
 * All cluster nodes must pull images from Pulp, not directly from the user registry.
 * This enables centralized image management and supports offline or air-gapped environments.
 
-Example: Image defined in input JSON ::
+Example: Image defined in input additional_packages.json ::
 
-    json
     "additional_packages": {
     "cluster": [
         {
