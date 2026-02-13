@@ -542,7 +542,6 @@ The Redfish API used to get the GPU count for Slurm nodes is returning GPU count
 
 
 Slurm controller functional group is missing
-==============================================
 
 **Cause**
 
@@ -553,7 +552,6 @@ PXE mapping file missing ``slurm_control_node_*`` groups.
 Update ``pxe_mapping.csv`` with proper controller groups.
 
 ``slurm.conf`` missing from backup
-========================================
 
 **Cause**
 
@@ -565,7 +563,6 @@ Choose a different backup or create new backup.
 
 
 ``slurmctld not active`` message during rollback
-=================================================
 
 **Cause**
 
