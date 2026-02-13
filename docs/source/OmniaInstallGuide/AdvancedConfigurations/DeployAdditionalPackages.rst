@@ -25,11 +25,7 @@ To deploy additional packages/images after cluster provisioning, do the followin
 
         dnf install <package-name>
 
-    * To pull the container images on the required nodes, manually run the following command on each node: ::
-
-        Using tag: crictl pull <image_name>:<tag>
-
-        Using digest: crictl pull <image_name>@<digest>
+    * To pull the container images on the required nodes, see **Pulling images from a user registry via Pulp on a service Kubernetes cluster** in the following section.
         
     * To verify the installed packages/images, run the following command on each node: ::
 
