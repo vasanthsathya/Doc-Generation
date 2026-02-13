@@ -71,7 +71,6 @@ Retrieve the Pulp registry endpoint
 
 On the Omnia Core container, run: ::
 
-    bash
     pulp status | jq -r '.content_settings.content_origin'
 
 Sample output: ::
@@ -89,11 +88,10 @@ On each Kubernetes compute node:
 1. Edit the following file: ::
 
     bash
-    /etc/containers/registries.conf.d/crio.conf
+    vi /etc/containers/registries.conf.d/crio.conf
 
 2. Append this configuration at the end of the file. ::
 
-    toml
     [[registry]]
     prefix = "100.10.0.76:3445"
     location = "100.10.0.76:3445"
@@ -103,7 +101,6 @@ On each Kubernetes compute node:
 
 3. Reload and restart CRI-O. ::
     
-    bash
     systemctl daemon-reload
     systemctl restart crio
 
@@ -113,7 +110,6 @@ Pull the image
 
 Pull the image using the original registry reference (CRI-O transparently redirects to Pulp). ::
 
-    bash
     crictl pull 100.10.0.76:3445/library/nginx:1.25.2-alpine-slim
 
 The image will be retrieved from the Pulp mirror automatically.
