@@ -106,6 +106,7 @@ The following is the sample ``additional_packages.json`` file:
 
 
 
+
 .. csv-table:: Architecture information for softwares
    :file: ../../../Tables/Software_arch.csv
    :header-rows: 1
