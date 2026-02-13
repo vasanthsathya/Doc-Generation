@@ -87,7 +87,6 @@ On each Kubernetes compute node:
 
 1. Edit the following file: ::
 
-    bash
     vi /etc/containers/registries.conf.d/crio.conf
 
 2. Append this configuration at the end of the file. ::
