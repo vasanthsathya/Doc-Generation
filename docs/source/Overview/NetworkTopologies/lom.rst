@@ -1,4 +1,4 @@
-Network Topology: Shared LAN on Motherboard (LOM) Setup
+Network Topology: Shared LOM Setup
 =========================================================
 
 .. note:: The following diagram is for representational purposes only.
