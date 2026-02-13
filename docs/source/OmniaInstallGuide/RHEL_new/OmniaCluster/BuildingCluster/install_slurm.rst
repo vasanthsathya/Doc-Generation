@@ -37,7 +37,7 @@ Step 11: Set up Slurm on nodes
                 export LD_LIBRARY_PATH=$MPI_HOME/lib:$MPI_HOME/lib64:$LD_LIBRARY_PATH
 
                 <share_omnia> : nfs client share path for slurm in storage_config.yml
-
+    
 
 **Slurm with GPU:**
 
