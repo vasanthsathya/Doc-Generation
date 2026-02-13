@@ -156,3 +156,6 @@ Slurm
 * After Slurm RPMS are generated, change the rpms in corresponding role accordingly if the rpm names are not matching with rpms in ``input/config/x86_64/rhel/10.0/slurm_custom.json``.
 
 
+
+
+
