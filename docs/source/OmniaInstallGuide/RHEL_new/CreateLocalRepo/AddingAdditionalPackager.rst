@@ -64,7 +64,7 @@ Update ``additional_packages.json``
 
 .. note:: All container images specified in ``additional_packages.json`` under any given subgroup are configured in Omnia local repository and can be pulled on all cluster nodes (Slurm, K8s etc).
 
-1. Update the ``additional_packages.json`` file available at ``/opt/omnia/input/project_default/`` with the required packages/images.
+1. Update the ``additional_packages.json`` file available at ``/opt/omnia/input/project_default/config/<architecture>/rhel/10.0/`` with the required packages/images.
 2. Ensure you provide the correct package type (``rpm`` or ``image``) and the repository name/tag/digest, based on your requirement.
 
 The following is a sample ``additional_packages.json`` file: ::
