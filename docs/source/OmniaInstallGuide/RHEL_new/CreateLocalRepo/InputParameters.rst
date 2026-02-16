@@ -5,7 +5,7 @@ The ``local_repo.yml`` playbook is dependent on the inputs provided to the follo
 
 * ``/opt/omnia/input/project_default/software_config.json``
 * ``/opt/omnia/input/project_default/local_repo_config.yml``
-* ``/opt/omnia/input/project_default/additional_packages.json``
+* ``/opt/omnia/input/project_default/config/<architecture>/rhel/10.0/additional_packages.json``
 
 ``/opt/omnia/input/project_default/software_config.json``
 ----------------------------------------------------------
