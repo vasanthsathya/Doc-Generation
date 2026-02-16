@@ -30,6 +30,6 @@ To remove a Slurm node from the cluster, follow these steps:
 2. Run the ``discovery.yml`` playbook.
 3. To stop telemetry collection using iDRAC telemetry service from the removed nodes, run the ``telemetry.yml`` playbook.
 
-.. note:: You do not need to run the ``telemetry.yml`` playbook to stop telemetry collection using LDMSfrom the removed nodes. By default, LDMS stops collection of data
+.. note:: You do not need to run the ``telemetry.yml`` playbook to stop telemetry collection using LDMS from the removed nodes. By default, LDMS stops collection of data
     after ``discovery.yml`` playbook is executed.
 
