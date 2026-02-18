@@ -6,7 +6,7 @@ Deploy Additional Packages During First Time Deployment
 
 To deploy additional software packages and container images on cluster nodes, do the following:
 
-1. To download and deploy additional software packages and container images using Omnia local repositories, see `Add Additional Packages <../RHEL_new/CreateLocalRepo/AddingAdditionalPackager.html>`_.
+1. To download and deploy additional software packages and container images using Omnia local repositories, see `Add Additional Packages <../RHEL_new/CreateLocalRepo/AddingAdditionalPackages.html>`_.
 2. After the local repositories are created, build the cluster node images and PXE boot the nodes using the images:
 
 * Build images: `Step 12: Build Cluster Node Images <../RHEL_new/build_images.html>`_
