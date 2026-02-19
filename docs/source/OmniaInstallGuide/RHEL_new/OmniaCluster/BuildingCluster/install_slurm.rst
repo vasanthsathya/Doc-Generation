@@ -73,11 +73,15 @@ Slurm configuration validation and defaults
 
 Omnia includes a built-in validation system that checks Slurm configuration files for correctness before deployment. The input validator module validates all configuration files (slurm.conf, slurmdbd.conf, cgroup.conf, gres.conf, etc.) against Slurm 25.X specifications, ensuring parameter names are valid and values match expected types (integers, strings, booleans, arrays, etc.). You can provide custom configurations in ``omnia_config.yml`` > ``slurm_cluster`` > ``config_sources`` either as a file path or a mapping directly. For supported conf parameters, see `Slurm.conf <https://slurm.schedmd.com/slurm.conf.html>`_
 
-.. note:: By default, there is a partition with name "normal" that is created with all the slurm compute nodes listed in the ``pxe_mapping`` file. 
-    ::
+.. note:: 
+    * By default, there is a partition with name "normal" that is created with all the slurm compute nodes listed in the ``pxe_mapping`` file. 
+        ::
 
-        PartitionName=normal Nodes=<Comma-separated list of all compute nodes> MaxTime=INFINITE State=UP
+            PartitionName=normal Nodes=<Comma-separated list of all compute nodes> MaxTime=INFINITE State=UP
 
+    * If iDRAC is not reachable, then the nodename information in ``slurm.conf`` are default values.
+
+    
 Default Slurm configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
