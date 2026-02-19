@@ -79,9 +79,11 @@ Omnia includes a built-in validation system that checks Slurm configuration file
 
             PartitionName=normal Nodes=<Comma-separated list of all compute nodes> MaxTime=INFINITE State=UP
 
-    * If iDRAC is not reachable, then the nodename information in ``slurm.conf`` are default values.
+    * If iDRAC is not reachable, then the default values of nodename information in ``slurm.conf`` are considered. ::
 
-    
+            NodeName=<nodename> Sockets=1 CoresPerSocket=1 ThreadsPerCore=1 RealMemory=3686
+
+
 Default Slurm configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
