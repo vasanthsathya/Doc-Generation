@@ -53,7 +53,7 @@ Once the upgrade is successful, a running upgrade_omnia.yml along with a success
 Post-Upgrade Status
 -------------------
 
-Upon successful upgrade, user will be directly inside omnia_core container and now has to proceed for step2.
+Upon successful upgrade, user will be directly inside omnia_core container and now has to proceed for step 2.
 
 User can also be able to check backups present at the directory "/opt/omnia/backups/upgrade/input"
 
