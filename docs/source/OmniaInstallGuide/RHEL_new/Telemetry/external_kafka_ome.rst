@@ -1,5 +1,5 @@
-Collect Telemetry Data from OpenManage Enterprise to Omnia Service Kubernetes Clusters
-=======================================================================================
+Integrate OpenManage Enterprise with Omnia Kafka Pipeline for Secure Telemetry Data Streaming
+===========================================================================================
 
 This section describes how to configure OpenManage Enterprise to securely stream metrics into the Service Kubernetes clusters using mutual TLS (mTLS).
 

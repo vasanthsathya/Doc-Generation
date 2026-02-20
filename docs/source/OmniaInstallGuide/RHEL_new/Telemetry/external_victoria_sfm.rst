@@ -1,5 +1,5 @@
-Collect telemetry data from Smart Fabric Manager to Victoria DB (cluster mode)
-=============================================================================
+Integrate Smart Fabric Manager with VictoriaMetrics for Secure Telemetry Data Streaming
+============================================================================================
 
 This section describes how to configure Smart Fabric Manager to securely stream
 telemetry metrics to the Service Kubernetes cluster.
