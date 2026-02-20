@@ -46,7 +46,7 @@ Upgrade
 
 .. image:: images/upgrade_successful.png
 
-.. image:: images/upgrad_running_successfully.png
+.. image:: images/upgrade_running_successfully.png
 
 Once the upgrade is successful, a running upgrade_omnia.yml along with a success message is displayed.
 
