@@ -38,17 +38,65 @@ Upgrade
     
     ./omnia.sh --upgrade
 
+.. image:: images/upgrade_options.png
+
 2. Select the relevant version.
 
 3. To backup the current version files, enter yes. The location of the backup files is displayed. A backup is created in the directory in the NFS share path. After the upgrade is successful, a message is displayed. The backup files are available in the directory ``/opt/omnia/backups/upgrade/input``.
 
+.. image:: images/upgrade_successful.png
+
+.. image:: images/upgrad_running_successfully.png
+
+Once the upgrade is successful, a running upgrade_omnia.yml along with a success message is displayed.
+
 Post-Upgrade Status
 -------------------
 
-Upon successful completion of the upgrade process:
+Upon successful upgrade, user will be directly inside omnia_core container and now has to proceed for step2.
 
-- You will be automatically placed inside the `omnia_core` container
-- You can proceed with Step 2 of the upgrade process
-- Backup files are available at `/opt/omnia/backups/upgrade/input`
+User can also be able to check backups present at the directory "/opt/omnia/backups/upgrade/input"
 
-**Important Note**: If you attempt to run any playbook other than `upgrade_omnia.yml` before proceeding to Step 2, you will encounter an error message with specific instructions on how to proceed.
+Before step2, if user runs any playbook other than upgrade_omnia.yml, he gets the below error with instructions:
+
+Post-Upgrade Options
+--------------------
+
+Here, user has 2 options:
+
+**Option 1: Proceed with Input File Migration**
+
+Proceed with the 2nd upgrade step by running upgrade_omnia.yml using the following command::
+
+    ansible-playbook /omnia/upgrade/upgrade_omnia.yml
+
+This will migrate the 2.0 input files from backup to 2.1 format.
+
+Above you can see the further guidance given to user after successful input migration (full upgrade) is done.
+
+**Note**: Cluster reprovision guidance is to be still modified.
+
+Also here, if any config files are missing from the backup, a warning is shown before reprovisioning guidance saying omnia execution might not be completed.
+
+**Option 2: Skip Input File Migration**
+
+Skip the input file migration from backup, reconfigure the default input files manually and then remove the upgrade lock using the following command::
+
+    rm /opt/omnia/.data/upgrade_in_progress.lock
+
+This will ensure that other playbooks run without any problem.
+
+Rollback
+^^^^^^^^
+
+To rollback to a previous version, run the following command::
+
+    ./omnia.sh --rollback
+
+When this command is run, user is shown the available versions to rollback to and is prompted to select a version. User is then prompted yes/no to continue to rollback to that particular version. Then rollback successful is shown and user is given some important info.
+
+Post-Rollback Status
+--------------------
+
+After rollback, omnia 2.0 container will run with the original inputs and configurations (restored from backup).
+
