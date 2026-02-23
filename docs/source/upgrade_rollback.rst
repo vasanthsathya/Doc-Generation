@@ -1,6 +1,9 @@
-Upgrade Omnia Core Containers
-================================
+Upgrade of Omnia
+================
 This section describes how to upgrade Omnia Core containers.
+
+Upgrade omnia core container
+----------------------------
 
 Prerequisites
 --------------
@@ -17,20 +20,20 @@ Prerequisites
 * Go to the same directory where the omnia.sh file for version 2.1 is located.
 
 Omnia Configurations
--------------------
+--------------------
 
 The following operations can be performed on the Omnia Core Containers: Version, upgrade, and rollback.
 
-.. image:: images/omnia_configurations.png
+.. image:: images/omnia_configurations_list.png
 
 View Omnia Version
-^^^^^^^^^^^^^^^^^^^
+------------------
 
 To view the Omnia version, run the following command: ::
     
     ./omnia.sh --version
 
-.. image:: images/omnia_version_output.png
+.. image:: images/omnia_output_version.png
 
 Upgrade
 ^^^^^^^^
@@ -39,7 +42,7 @@ Upgrade
     
     ./omnia.sh --upgrade
 
-.. image:: images/upgrade_options.png
+.. image:: images/omnia_upgrade_options.png
 
 2. Select the relevant version and enter yes to backup the current version files.
 
@@ -57,7 +60,7 @@ The backup files are available in the directory ``/opt/omnia/backups/upgrade/inp
 
 Running playbooks other than the ``upgrade_omnia.yml`` before ``./omnia.sh --upgrade`` generates an error with instructions.
 
-.. image:: images/error_trigger.png
+.. image:: images/upgrade_error_trigger.png
 
 Choose one of the following options:
 
@@ -73,8 +76,6 @@ The system displays guidance after successful migration completes.
 
 .. image:: images/successful_input_migration.png
 
-**Note**: Cluster reprovision guidance requires updates.
-
 If any configuration files are missing from the backup, a warning is generated before reprovisioning is started.
 
 .. image:: images/missing_config_files_warning.png
@@ -87,8 +88,11 @@ Manually reconfigure default input files, then remove the upgrade lock using the
 
 Other playbooks are allowed to run normally.
 
+Rollback Omnia
+===============
+
 Rollback to the previous version
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------
 
 To rollback to a previous version, run the following command: ::
 
@@ -96,7 +100,7 @@ To rollback to a previous version, run the following command: ::
 
 Select the previous version and confirm to proceed. A message confirming the rollback is successful is displayed.
 
-.. image:: images/rollback_one.png
+.. image:: images/omnia_rollback_one.png
 
 .. image:: images/rollback_two.png
 
