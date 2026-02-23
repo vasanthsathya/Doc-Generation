@@ -51,19 +51,13 @@ Upgrade
 
 After successful upgrade, run ``upgrade_omnia.yml`` to complete the process.
 
-Post-Upgrade Status
--------------------
-
-After upgrade, the process runs inside the ``Omnia_core`` container.
+The upgrade process runs inside the ``Omnia_core`` container.
 
 The backup files are available in the directory ``/opt/omnia/backups/upgrade/input``.
 
 Running playbooks other than the ``upgrade_omnia.yml`` before ``./omnia.sh --upgrade`` generates an error with instructions.
 
 .. image:: images/error_trigger.png
-
-Post-Upgrade Options
---------------------
 
 Choose one of the following options:
 
