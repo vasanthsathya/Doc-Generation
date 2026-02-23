@@ -38,7 +38,7 @@ Steps
 
 2. In the Smart Fabric Manager for SONiC UI, navigate to **Observability**, and then select the **Settings** tab.
 
-   .. image:: ../../images/sfm_observability_settings.png
+   .. image:: ../../../images/sfm_observability_settings.png
 
 3. Under **Prometheus Remote Write**, select the option button next to ``vminsert-target``, and then select **Edit**.
 
@@ -51,11 +51,11 @@ Steps
    .. note::
       If SFM is installed on a different system than the OIM host, copy ``ca.crt`` to that system before uploading it in the UI.
 
-   .. image:: ../../images/sfm_settings_edit.png
+   .. image:: ../../../images/sfm_settings_edit.png
 
-   .. image:: ../../images/sfm_prometheus_remote_write.png
+   .. image:: ../../../images/sfm_prometheus_remote_write.png
 
-   .. image:: ../../images/sfm_observability_tls_config.png    
+   .. image:: ../../../images/sfm_observability_tls_config.png    
 
 5. SSH to the SFM IP with admin credentials and log in to secure shell.
 
