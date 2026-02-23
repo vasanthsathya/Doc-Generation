@@ -20,6 +20,7 @@ Omnia Configurations
 -------------------
 
 The following operations can be performed on the Omnia Core Containers: Version, upgrade, and rollback.
+
 .. image:: images/omnia_configurations.png
 
 View Omnia Version
@@ -109,4 +110,3 @@ Post-Rollback Status
 --------------------
 
 Omnia 2.0 container runs with original inputs and configurations restored from backup.
-
