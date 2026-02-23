@@ -30,7 +30,7 @@ To view the Omnia version, run the following command: ::
     
     ./omnia.sh --version
 
-.. image:: images/upgrade_version.png
+.. image:: images/omnia_version_output.png
 
 Upgrade
 ^^^^^^^^
