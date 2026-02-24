@@ -14,9 +14,9 @@ Select the previous version and confirm to proceed. A message confirming the rol
 
 .. image:: images/rollback_two.png
 
-.. image:: images/rollback_three.png
-
 Post-Rollback Status
 --------------------
 
 The ``Omnia_core`` container runs with inputs and configurations restored from backup.
+
+.. image:: images/rollback_three.png
