@@ -17,12 +17,14 @@ Prerequisites
     ./build_images.sh core core_tag=2.1 omnia_branch=pub/q1_dev
 
 * Ensure that Omnia 2.0 core container is running.
-* Go to the same directory where the omnia.sh file for version 2.1 is located.
+* Go to the directory where the omnia.sh file for version 2.1 is located.
 
 Omnia Configurations
 --------------------
 
-The following operations can be performed on the Omnia Core Containers: Version, upgrade, and rollback.
+The following operations can be performed on the Omnia Core Containers: Install, uninstall, version, upgrade, and rollback.
+
+For more information, see :ref:`View_Usage_Instructions_for_Omnia_Core_Container <view_omnia_core_container>`.
 
 .. image:: images/omnia_configurations_list.png
 
