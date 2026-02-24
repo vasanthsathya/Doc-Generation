@@ -17,17 +17,19 @@ Prerequisites
     ./build_images.sh core core_tag=2.1 omnia_branch=pub/q1_dev
 
 * Ensure that Omnia 2.0 core container is running.
-* Go to the same directory where the omnia.sh file for version 2.1 is located.
+* Go to the directory where the omnia.sh file for version 2.1 is located.
 
 Omnia Configurations
 --------------------
 
-The following operations can be performed on the Omnia Core Containers: Version, upgrade, and rollback.
+The following operations can be performed on the Omnia Core Containers: Install, uninstall, version, upgrade, and rollback.
+
+For more information, see :ref:`View_Usage_Instructions_for_Omnia_Core_Container <view_omnia_core_container>`.
 
 .. image:: images/omnia_configurations_list.png
 
 View Omnia Version
-------------------
+^^^^^^^^^^^^^^^^^^
 
 To view the Omnia version, run the following command: ::
     
@@ -52,9 +54,9 @@ Upgrade
 
 .. image:: images/upgrade_running.png
 
-After successful upgrade, run ``upgrade_omnia.yml`` to complete the process.
-
 The upgrade process runs inside the ``Omnia_core`` container.
+
+After successful upgrade, run ``upgrade_omnia.yml`` to complete the process.
 
 The backup files are available in the directory ``/opt/omnia/backups/upgrade/input``.
 
@@ -62,7 +64,7 @@ Running playbooks other than the ``upgrade_omnia.yml`` before ``./omnia.sh --upg
 
 .. image:: images/upgrade_error_trigger.png
 
-Choose one of the following options:
+Choose one of the following options when the error is displayed:
 
 **Option 1: Migrate Input Files**
 
@@ -72,9 +74,9 @@ Run the ``upgrade_omnia.yml`` playbook. ::
 
 The input files are migrated from 2.0 to 2.1 format.
 
-The system displays guidance after successful migration completes.
-
 .. image:: images/successful_input_migration.png
+
+The system displays guidance after successful migration completes.
 
 If any configuration files are missing from the backup, a warning is generated before reprovisioning is started.
 
@@ -82,8 +84,10 @@ If any configuration files are missing from the backup, a warning is generated b
 
 **Option 2: Skip Migration**
 
-Manually reconfigure default input files, then remove the upgrade lock using the following command: ::
+Remove the upgrade lock using the following command: ::
 
     rm /opt/omnia/.data/upgrade_in_progress.lock
+
+After the lock is removed, manually reconfigure default input files of the upgraded version
 
 Other playbooks are allowed to run normally.
