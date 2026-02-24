@@ -1,0 +1,27 @@
+Problem statement (context & objectives)
+
+We previously had ability to do version-to-version upgrade with Omnia 1.x.  This needs to be changed in Omnia 2.0 (Jan) to account for the new architecture when customers eventually move to Omnia 2.1 (April).  Obviously, we can’t wait until Q2 to do this since it will be too late.
+
+The following page will be used as a reference for updates, but things may be different in the new architecture (containerized OIM, LocalRepo, OpenCHAMI are all different)
+
+https://github.com/dell/omnia/blob/main/docs/source/Upgrade/index.rst 
+
+Target Customer:
+
+This is intended for admins that have OIM-level administrator access, and not intended for project admins or users.
+
+Success metrics (e.g., incr. revenue, adoption/usage)
+
+Users are able to migrate to Omnia 2.1 without downtime due to failed upgrade and without wiping their config/input files.
+
+Requirements
+
+OIM should be able to check github code to determine if upgrade is available
+
+Download of Omnia TAR and dependent packages occurs automatically and populates local repo without conflicts
+
+Omnia DB, input files, config files should be migrated to new format, with appropriate backups made
+
+Dependent OS layers and cloud-inits for OS images of non-management nodes are generated, but not pushed until the admin is ready
+
+Nice to have: Omnia DB is able to track current and first-installed version of Omnia on each node, in case we ever need to track a situation where fresh-install and upgraded OIM behave different
