@@ -10,5 +10,5 @@ build_stream_port,Mandatory,"* BuildStreaM API server port.
 *  **Default value**: 8010"
 aarch64_inventory_host_ip,Conditional Mandatory,"* Specify the aarch64 inventory host IP address for aarch64 builds.
 * **Accepted values:** The admin IP of aarch64 host where OS is installed.
-* ** Default values**: None. If the inventory host IP address is not specified, the build images for aarch64 are not generated."
+* ** Default values:**  None. If the inventory host IP address is not specified, the build images for aarch64 are not generated."
 postgres_db_name,Optional,Specify the PostgreSQL database name for BuildStreaM.
