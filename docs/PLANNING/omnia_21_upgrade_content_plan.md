@@ -169,7 +169,7 @@ When an upgrade fails or causes issues, administrators need to rollback to the p
   2. Stop 2.1 container
   3. Execute rollback_omnia.yml to restore inputs
   4. Start 1.0 container
-  5. Update metadata to omnia_version: 2.0.0.0
+  5. Update metadata to omnia_version: 2.0.0
   6. Validate rollback success
 - Verification steps to confirm successful rollback
 - Guidance on when to use rollback vs. troubleshoot
