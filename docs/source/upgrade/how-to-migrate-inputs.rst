@@ -28,7 +28,7 @@ Before migrating input files:
 Procedure
 ---------
 
-#. Access the upgraded Omnia core container.
+1. Access the upgraded Omnia core container.
 
 .. code-block:: bash
 
@@ -36,13 +36,13 @@ Procedure
 
 You should now be inside the Omnia core 1.1 container running version 2.1.
 
-#. Navigate to the upgrade directory.
+2. Navigate to the upgrade directory.
 
 .. code-block:: bash
 
    cd /omnia/upgrade
 
-#. Verify the backup contains your original input files.
+3. Verify the backup contains your original input files.
 
 .. code-block:: bash
 
@@ -57,7 +57,7 @@ Expected output shows your original 2.0 input files:
    scheduler_config.yml
    security_config.yml
 
-#. Run the input file migration playbook.
+4. Run the input file migration playbook.
 
 .. code-block:: bash
 
@@ -99,7 +99,7 @@ Example output:
    PLAY RECAP *****************************************************************
    localhost : ok=4    changed=2    unreachable=0    failed=0
 
-#. Address any manual configuration requirements.
+5. Address any manual configuration requirements.
 
 The migration may identify parameters that need manual attention:
 
@@ -113,7 +113,7 @@ The migration may identify parameters that need manual attention:
 
 Review the migration output for specific manual steps needed.
 
-#. Validate the migrated input files.
+6. Validate the migrated input files.
 
 .. code-block:: bash
 
@@ -137,7 +137,7 @@ Expected output shows validation results:
    PLAY RECAP *****************************************************************
    localhost : ok=3    changed=0    unreachable=0    failed=0
 
-#. Review the new configuration structure.
+7. Review the new configuration structure.
 
 Examine the migrated input files to understand the changes:
 
@@ -177,7 +177,7 @@ Verification
 
 Verify the migration completed successfully:
 
-#. Check input file locations and permissions.
+1. Check input file locations and permissions.
 
 .. code-block:: bash
 
@@ -185,7 +185,7 @@ Verify the migration completed successfully:
 
 Expected output shows migrated files with proper permissions.
 
-#. Test configuration syntax.
+2. Test configuration syntax.
 
 .. code-block:: bash
 
@@ -193,7 +193,7 @@ Expected output shows migrated files with proper permissions.
 
 Expected output shows all files pass syntax validation.
 
-#. Verify new parameters are present.
+3. Verify new parameters are present.
 
 .. code-block:: bash
 
@@ -202,7 +202,7 @@ Expected output shows all files pass syntax validation.
 
 Expected output shows new parameters in appropriate configuration files.
 
-#. Confirm the upgrade lock is removed.
+4. Confirm the upgrade lock is removed.
 
 .. code-block:: bash
 
@@ -215,13 +215,13 @@ Next Steps
 
 After completing input file migration:
 
-#. **Review New Parameters**: Examine new 2.1 parameters and customize as needed for your environment.
+1. **Review New Parameters**: Examine new 2.1 parameters and customize as needed for your environment.
 
-#. **Test Configuration**: Validate that the migrated configuration works with your cluster setup.
+2. **Test Configuration**: Validate that the migrated configuration works with your cluster setup.
 
-#. **Plan Cluster Reprovisioning**: If you want to use new 2.1 features, plan for cluster reprovisioning.
+3. **Plan Cluster Reprovisioning**: If you want to use new 2.1 features, plan for cluster reprovisioning.
 
-#. **Document Changes**: Update your documentation to reflect the new configuration structure.
+4. **Document Changes**: Update your documentation to reflect the new configuration structure.
 
 .. tip::
    Keep a copy of the migration output for your records. It provides a valuable audit trail of the changes made during the upgrade.
@@ -231,19 +231,19 @@ Manual Reconfiguration Option
 
 If you prefer not to use the automatic migration, you can manually reconfigure the default input files:
 
-#. Remove the upgrade lock file.
+1. Remove the upgrade lock file.
 
 .. code-block:: bash
 
    rm /opt/omnia/.data/upgrade_in_progress.lock
 
-#. Manually edit the default 2.1 input files.
+2. Manually edit the default 2.1 input files.
 
 .. code-block:: bash
 
    vi /opt/omnia/input/network_config.yml
 
-#. Copy your custom settings from the backup.
+3. Copy your custom settings from the backup.
 
 .. code-block:: bash
 
@@ -252,31 +252,6 @@ If you prefer not to use the automatic migration, you can manually reconfigure t
 .. warning::
    Manual reconfiguration requires careful attention to parameter compatibility between 2.0 and 2.1 formats. Use the automatic migration unless you have specific reasons to manual configure.
 
-Troubleshooting
----------------
-
-Common migration issues and solutions:
-
-**Migration Playbook Fails**:
-- Check backup file permissions and accessibility
-- Verify sufficient disk space for migration operations
-- Review playbook error messages for specific issues
-
-**Validation Errors**:
-- Check YAML syntax in migrated files
-- Verify required parameters are present
-- Review parameter value formats and types
-
-**Missing Parameters**:
-- Compare with backup files to identify missing settings
-- Add missing parameters manually if needed
-- Run validation again after corrections
-
-**Lock File Issues**:
-- Remove lock file if migration was interrupted: ``rm /opt/omnia/.data/upgrade_in_progress.lock``
-- Ensure no other migration processes are running
-
-For detailed troubleshooting guidance, see :doc:`../troubleshooting/upgrade-issues`.
 
 Related Topics
 --------------
