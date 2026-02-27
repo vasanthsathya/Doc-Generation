@@ -42,19 +42,19 @@ Use rollback in these situations:
 Procedure
 ---------
 
-#. Navigate to the directory containing the ``omnia.sh`` script.
+1. Navigate to the directory containing the ``omnia.sh`` script.
 
 .. code-block:: bash
 
    cd /path/to/omnia_2.1_script
 
-#. Initiate the rollback process.
+2. Initiate the rollback process.
 
 .. code-block:: bash
 
    ./omnia.sh --rollback
 
-#. Review available rollback options.
+3. Review available rollback options.
 
 The system displays available backup versions:
 
@@ -68,7 +68,7 @@ The system displays available backup versions:
 
    Select version to rollback to [1]: 1
 
-#. Confirm the rollback operation.
+4. Confirm the rollback operation.
 
 The system shows rollback details and requests confirmation:
 

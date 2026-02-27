@@ -41,13 +41,13 @@ Before beginning the upgrade:
 Procedure
 ---------
 
-#. Navigate to the directory containing the new ``omnia.sh`` file (version 2.1).
+1. Navigate to the directory containing the new ``omnia.sh`` file (version 2.1).
 
 .. code-block:: bash
 
    cd /path/to/omnia_2.1_script
 
-#. Verify the current Omnia version.
+2. Verify the current Omnia version.
 
 .. code-block:: bash
 
@@ -60,13 +60,13 @@ Expected output:
    Omnia version: 2.0.0.0
    Core container: 1.0
 
-#. Initiate the core container upgrade.
+3. Initiate the core container upgrade.
 
 .. code-block:: bash
 
    ./omnia.sh --upgrade
 
-#. Review the pre-upgrade validation results.
+4. Review the pre-upgrade validation results.
 
 The system displays:
 - Current Omnia version (2.0) and target version (2.1)
@@ -75,7 +75,7 @@ The system displays:
 
 If validation fails, address the reported issues before proceeding.
 
-#. Review the upgrade information and backup destination.
+5. Review the upgrade information and backup destination.
 
 The approval gate shows:
 - New features available in Omnia 2.1
@@ -83,7 +83,7 @@ The approval gate shows:
 - Default backup destination: ``/opt/omnia/backups/upgrade_<timestamp>``
 - Option to specify custom backup location
 
-#. Confirm you want to proceed with the upgrade.
+6. Confirm you want to proceed with the upgrade.
 
 When prompted, enter ``y`` to continue or ``n`` to cancel:
 
@@ -94,7 +94,7 @@ When prompted, enter ``y`` to continue or ``n`` to cancel:
 .. warning::
    This action will stop the current Omnia core container and begin the upgrade process. Ensure you have a maintenance window available.
 
-#. Wait for backup creation to complete.
+7. Wait for backup creation to complete.
 
 The system automatically:
 - Creates the timestamped backup directory
@@ -105,7 +105,7 @@ The system automatically:
 
 If backup creation fails, the upgrade stops and you must resolve the issue before retrying.
 
-#. Monitor the container swap process.
+8. Monitor the container swap process.
 
 The upgrade automatically:
 - Stops the Omnia core 1.0 container gracefully
@@ -116,7 +116,7 @@ The upgrade automatically:
 
 If any step fails, the system initiates automatic rollback.
 
-#. Verify the core container upgrade success.
+9. Verify the core container upgrade success.
 
 After the container swap completes, the system displays:
 - Upgrade success confirmation
@@ -134,7 +134,7 @@ Verification
 
 Verify the upgrade completed successfully:
 
-#. Check the new Omnia version.
+1. Check the new Omnia version.
 
 .. code-block:: bash
 
@@ -147,7 +147,7 @@ Expected output:
    Omnia version: 2.1.0.0
    Core container: 1.1
 
-#. Verify the new core container is running.
+2. Verify the new core container is running.
 
 .. code-block:: bash
 
@@ -155,7 +155,7 @@ Expected output:
 
 Expected output should show the omnia-core container with tag ``1.1``.
 
-#. Confirm backup creation.
+3. Confirm backup creation.
 
 .. code-block:: bash
 
@@ -163,7 +163,7 @@ Expected output should show the omnia-core container with tag ``1.1``.
 
 Expected output shows a timestamped backup directory with your original files.
 
-#. Access the new core container.
+4. Access the new core container.
 
 .. code-block:: bash
 
@@ -176,13 +176,13 @@ Next Steps
 
 After completing the core container upgrade:
 
-#. **Migrate Input Files**: Run the input file migration process to transform your 2.0 configurations to 2.1 format. See :doc:`how-to-migrate-inputs`.
+1. **Migrate Input Files**: Run the input file migration process to transform your 2.0 configurations to 2.1 format. See :doc:`how-to-migrate-inputs`.
 
-#. **Validate Cluster Operation**: Test your cluster functionality with the new core container.
+2. **Validate Cluster Operation**: Test your cluster functionality with the new core container.
 
-#. **Plan Reprovisioning**: If you want to use new 2.1 features, plan for cluster reprovisioning.
+3. **Plan Reprovisioning**: If you want to use new 2.1 features, plan for cluster reprovisioning.
 
-#. **Monitor System Performance**: Observe system behavior and performance after the upgrade.
+4. **Monitor System Performance**: Observe system behavior and performance after the upgrade.
 
 .. tip::
    Keep the backup directory available until you have verified that all systems are operating correctly with Omnia 2.1.
