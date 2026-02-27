@@ -64,19 +64,19 @@ Expected output shows your original 2.0 input files:
    ansible-playbook /omnia/upgrade/upgrade_omnia.yml
 
 The migration process:
-- Reads existing 2.0 input files from backup
-- Transforms configurations to 2.1 format
-- Adds new parameters and structure
-- Validates migrated file syntax
-- Preserves your custom settings
+   - Reads existing 2.0 input files from backup
+   - Transforms configurations to 2.1 format
+   - Adds new parameters and structure
+   - Validates migrated file syntax
+   - Preserves your custom settings
 
 #. Review the migration results.
 
 The playbook displays:
-- Files successfully migrated
-- New parameters added
-- Manual configuration requirements
-- Validation results
+   - Files successfully migrated
+   - New parameters added
+   - Manual configuration requirements
+   - Validation results
 
 Example output:
 
@@ -104,12 +104,12 @@ Example output:
 The migration may identify parameters that need manual attention:
 
 **New IB Network Configuration**:
-- ``ib_network`` parameter added to network configuration
-- Default value provided but may need customization
+   - ``ib_network`` parameter added to network configuration
+   - Default value provided but may need customization
 
 **Enhanced Configuration Sources**:
-- ``config_sources`` parameter structure updated
-- Multiple source types now supported
+   - ``config_sources`` parameter structure updated
+   - Multiple source types now supported
 
 Review the migration output for specific manual steps needed.
 
