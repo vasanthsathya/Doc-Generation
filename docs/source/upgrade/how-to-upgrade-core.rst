@@ -69,19 +69,19 @@ Expected output:
 4. Review the pre-upgrade validation results.
 
 The system displays:
-- Current Omnia version (2.0) and target version (2.1)
-- Available upgrade options
-- Validation results for prerequisites
+   - Current Omnia version (2.0) and target version (2.1)
+   - Available upgrade options
+   - Validation results for prerequisites
 
 If validation fails, address the reported issues before proceeding.
 
 5. Review the upgrade information and backup destination.
 
 The approval gate shows:
-- New features available in Omnia 2.1
-- Breaking changes and migration impacts
-- Default backup destination: ``/opt/omnia/backups/upgrade_<timestamp>``
-- Option to specify custom backup location
+   - New features available in Omnia 2.1
+   - Breaking changes and migration impacts
+   - Default backup destination: ``/opt/omnia/backups/upgrade_<timestamp>``
+   - Option to specify custom backup location
 
 6. Confirm you want to proceed with the upgrade.
 
@@ -97,32 +97,32 @@ When prompted, enter ``y`` to continue or ``n`` to cancel:
 7. Wait for backup creation to complete.
 
 The system automatically:
-- Creates the timestamped backup directory
-- Copies input files from ``/opt/omnia/input/``
-- Backs up container configuration files
-- Preserves ``oim_metadata.yml``
-- Validates backup integrity
+   - Creates the timestamped backup directory
+   - Copies input files from ``/opt/omnia/input/``
+   - Backs up container configuration files
+   - Preserves ``oim_metadata.yml``
+   - Validates backup integrity
 
 If backup creation fails, the upgrade stops and you must resolve the issue before retrying.
 
 8. Monitor the container swap process.
 
 The upgrade automatically:
-- Stops the Omnia core 1.0 container gracefully
-- Verifies the 1.0 container is stopped
-- Starts the Omnia core 1.1 Quadlet unit
-- Performs health checks on the new container
-- Updates metadata with version information
+   - Stops the Omnia core 1.0 container gracefully
+   - Verifies the 1.0 container is stopped
+   - Starts the Omnia core 1.1 Quadlet unit
+   - Performs health checks on the new container
+   - Updates metadata with version information
 
 If any step fails, the system initiates automatic rollback.
 
 9. Verify the core container upgrade success.
 
 After the container swap completes, the system displays:
-- Upgrade success confirmation
-- New version information
-- Next steps for input file migration
-- Rollback command availability
+   - Upgrade success confirmation
+   - New version information
+   - Next steps for input file migration
+   - Rollback command availability
 
 Result
 ------
