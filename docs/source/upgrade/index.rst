@@ -1,58 +1,112 @@
-Omnia Upgrade Guide
-===================
+.. _upgrade-index:
 
-This section provides comprehensive documentation for upgrading Omnia from version 2.0 to 2.1, including the core container upgrade process, input file migration, and rollback procedures.
+Upgrading Omnia
+===============
+
+This section provides comprehensive guidance for upgrading Omnia from version 2.0 to 2.1. The upgrade process is designed to preserve your existing configurations while enabling new features and improvements.
 
 .. note::
-   This section is pending SME validation. Content may change before publication.
+   This topic is pending SME validation. Content may change before publication.
 
 .. toctree::
    :maxdepth: 2
 
-   concept-omnia-core-upgrade
-   how-to-perform-upgrade
+   concept-core-upgrade
+   how-to-upgrade-core
+   how-to-migrate-inputs
    how-to-rollback-upgrade
-   how-to-migrate-input-files
-   reference-upgrade-commands
-   troubleshooting-upgrade-issues
 
 Upgrade Overview
 ----------------
 
-The Omnia 2.1 upgrade process introduces a new automated workflow for transitioning your core container while preserving your existing configuration and data.
+The Omnia 2.0 to 2.1 upgrade involves:
 
-**Key Features:**
-* Automated six-phase upgrade workflow
-* Built-in backup and rollback capabilities
-* Input file migration from 2.0 to 2.1 format
-* Validation and health checks throughout the process
+* **Core Container Upgrade**: Replace the Omnia core container from version 1.0 to 1.1
+* **Input File Migration**: Transform configuration files from 2.0 to 2.1 format
+* **Backup and Recovery**: Automated backup creation with rollback capability
+* **Feature Enablement**: Access new 2.1 capabilities after cluster reprovisioning
 
-**Upgrade Process:**
-1. **Core Container Upgrade**: Transition from Omnia 2.0 to 2.1 core container
-2. **Input File Migration**: Transform configurations to 2.1 format
-3. **Cluster Reprovisioning**: Optional - for new 2.1 features
+Before You Begin
+----------------
 
-**Important Notes:**
-* New features in Omnia 2.1 require full cluster reprovisioning
-* Core container upgrade alone preserves existing cluster operations
-* Rollback capability provides safety net for failed upgrades
+**Prerequisites**:
+- Omnia 2.0.0.0 with core container 1.0 currently running
+- Administrator access on the Omnia Infrastructure Manager (OIM) node
+- Minimum 2 GB free disk space for backup operations
+- Network connectivity for container image downloads
 
-Getting Started
+**Planning Considerations**:
+- Schedule 5-10 minute maintenance window for core container swap
+- Plan for cluster reprovisioning if using new 2.1 features
+- Ensure backup storage is available and accessible
+- Test upgrade process in non-production environment if possible
+
+**What Gets Preserved**:
+- All input files and configurations
+- Cluster metadata and settings
+- Custom parameter values
+- Network and storage configurations
+
+**What Changes**:
+- Core container version (1.0 → 1.1)
+- Omnia version (2.0.0.0 → 2.1.0.0)
+- Input file format and structure
+- Available configuration parameters
+
+Upgrade Process
+--------------
+
+The upgrade follows a structured approach:
+
+1. **Preparation**: Download 2.1 script and verify prerequisites
+2. **Core Container Upgrade**: Replace container and create backups
+3. **Input Migration**: Transform configurations to 2.1 format
+4. **Validation**: Verify system operation and configuration integrity
+5. **Optional Reprovisioning**: Enable new features through cluster reprovisioning
+
+For detailed step-by-step instructions, see :doc:`how-to-upgrade-core`.
+
+Key Features in 2.1
+--------------------
+
+Omnia 2.1 introduces several enhancements:
+
+* **IB Network Support**: Enhanced InfiniBand network configuration options
+* **Improved Configuration Sources**: Multiple configuration source types and better management
+* **Enhanced Scheduler Integration**: Improved Slurm and Kubernetes integration
+* **Better Performance**: Optimized container operations and resource management
+* **Enhanced Security**: Updated security configurations and compliance features
+
+.. warning::
+   To use new 2.1 features, you must perform a full cluster reprovision after the upgrade. The core container upgrade alone preserves existing functionality.
+
+Rollback Capability
+-------------------
+
+The upgrade includes comprehensive rollback capabilities:
+
+* **Automatic Backup**: All critical files backed up before any changes
+* **Rollback Command**: ``./omnia.sh --rollback`` restores previous version
+* **Validation Checks**: System validation before and after rollback
+* **Data Protection**: No data loss during rollback process
+
+For rollback procedures, see :doc:`how-to-rollback-upgrade`.
+
+Troubleshooting
 ---------------
 
-To begin the upgrade process:
+Common issues and solutions:
 
-1. Review the :doc:`concept-omnia-core-upgrade` topic
-2. Follow the :doc:`how-to-perform-upgrade` procedure
-3. Complete :doc:`how-to-migrate-input-files` for configuration updates
-4. Use :doc:`reference-upgrade-commands` for command reference
-5. Consult :doc:`troubleshooting-upgrade-issues` if issues occur
+* **Validation Failures**: Check prerequisites and system requirements
+* **Backup Problems**: Verify disk space and file permissions
+* **Container Issues**: Check system resources and image availability
+* **Migration Errors**: Validate input file syntax and structure
 
-**Prerequisites:**
-* Omnia 2.0 deployment with healthy core container
-* Sufficient disk space for backups (minimum 2 GB)
-* Network connectivity for container operations
-* Appropriate system permissions (sudo/root access)
+For comprehensive troubleshooting guidance, see :doc:`../troubleshooting/upgrade-issues`.
 
-**Support:**
-If you encounter issues during the upgrade process, refer to the troubleshooting guide or consider using the rollback procedure to restore system stability.
+Related Topics
+--------------
+
+* :doc:`../Overview/Architecture/index`
+* :doc:`../OmniaInstallGuide/index`
+* :doc:`../reference/cli/omnia-upgrade`

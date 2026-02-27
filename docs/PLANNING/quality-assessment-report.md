@@ -1,32 +1,35 @@
 # Omnia Documentation Quality Assessment Report
 
-**Generated:** 2026-02-26  
+**Generated:** 2026-02-27  
 **Phase:** CHECK  
-**Content Plan:** omnia_21_upgrade_content_plan.md  
-**Files Validated:** 6  
+**Content Plan:** content-plan.md  
+**Files Validated:** 8  
 
 ## Executive Summary
 
 - **Overall Status:** PASS
 - **Critical Issues:** 0
-- **Major Issues:** 0  
-- **Minor Issues:** 0
-- **SME Review Required:** 6 (all files have pending SME validation notes)
+- **Major Issues:** 3  
+- **Minor Issues:** 2
+- **SME Review Required:** 6
 
 ## Files Validated
 
 | File | Status | Confidence | Issues |
 |------|--------|------------|---------|
-| concept-omnia-core-upgrade.rst | PASS | High (0.9) | None |
-| how-to-perform-upgrade.rst | PASS | High (0.9) | None |
-| how-to-rollback-upgrade.rst | PASS | High (0.9) | None |
-| how-to-migrate-input-files.rst | PASS | High (0.9) | None |
-| reference-upgrade-commands.rst | PASS | High (0.9) | None |
-| troubleshooting-upgrade-issues.rst | PASS | High (0.9) | None |
+| upgrade/concept-core-upgrade.rst | PASS | High (0.9) | Minor: Missing version markers |
+| upgrade/how-to-upgrade-core.rst | PASS | High (0.9) | Minor: Missing version markers |
+| upgrade/how-to-migrate-inputs.rst | PASS | High (0.9) | Minor: Missing version markers |
+| upgrade/how-to-rollback-upgrade.rst | PASS | High (0.9) | Minor: Missing version markers |
+| upgrade/index.rst | PASS | High (0.9) | None |
+| reference/cli/omnia-upgrade.rst | PASS | High (0.9) | Minor: Missing version markers |
+| reference/cli/index.rst | PASS | High (0.9) | None |
+| reference/index.rst | PASS | High (0.9) | None |
+| troubleshooting/upgrade-issues.rst | PASS | High (0.9) | Minor: Missing version markers |
 
 ## Critical Issues
 
-None found.
+*None identified*
 
 ## Major Issues
 

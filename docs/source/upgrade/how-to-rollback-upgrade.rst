@@ -1,9 +1,12 @@
-.. _task-rollback-upgrade:
+.. _how-to-rollback-upgrade:
 
 Rolling Back Omnia Core Container Upgrade
 ==========================================
 
-Roll back your Omnia core container from version 2.1 to 2.0 when an upgrade fails or causes issues. This procedure restores your previous configuration using the backup created during the upgrade process.
+.. note::
+   This topic is pending SME validation. Content may change before publication.
+
+Roll back the Omnia core container upgrade to restore your system to the previous 2.0 state when upgrade failures occur or when you need to return to a stable configuration. This procedure uses the automatically created backups to restore your original environment.
 
 .. contents:: On This Page
    :local:
@@ -12,174 +15,298 @@ Roll back your Omnia core container from version 2.1 to 2.0 when an upgrade fail
 Prerequisites
 -------------
 
-Before starting the rollback, ensure the following requirements are met:
+Before rolling back the upgrade:
 
-* A backup exists from a previous upgrade
-* The backup directory is accessible and intact
-* You have sudo/root access on the OIM node
-* No other Omnia operations are in progress
-* You understand that rollback will revert to Omnia 2.0 functionality
+* A failed or problematic upgrade to Omnia 2.1
+* Available backup directory from the upgrade process
+* Access to the OIM node with administrator privileges
+* The 2.1 version of ``omnia.sh`` script (used for rollback operations)
 
-.. note::
-   This topic is pending SME validation. Content may change before publication.
+.. important::
+   Rollback restores your system to the exact state it was in before the upgrade, including all input files and configurations from the backup.
+
+When to Use Rollback
+-------------------
+
+Use rollback in these situations:
+
+* **Upgrade Failure**: The upgrade process fails during any phase
+* **Container Issues**: The new 1.1 container fails to start or has health problems
+* **Configuration Problems**: Migrated input files cause system instability
+* **Performance Issues**: The upgraded system shows unexpected performance degradation
+* **Feature Incompatibility**: New features conflict with your existing workflows
 
 .. warning::
-   Rollback will restore your Omnia core container to version 2.0 and revert configuration changes made during the upgrade. Ensure this is the desired action before proceeding.
+   Rollback will undo all changes made during the upgrade, including any manual configuration changes made after the upgrade.
 
 Procedure
 ---------
 
-#. Navigate to the directory containing the ``omnia.sh`` file:
+#. Navigate to the directory containing the ``omnia.sh`` script.
 
-   .. code-block:: bash
+.. code-block:: bash
 
-      cd /path/to/omnia.sh
+   cd /path/to/omnia_2.1_script
 
-#. Verify your current Omnia version:
+#. Initiate the rollback process.
 
-   .. code-block:: bash
+.. code-block:: bash
 
-      ./omnia.sh --version
+   ./omnia.sh --rollback
 
-   Expected output should show version 2.1.0.0.
+#. Review available rollback options.
 
-#. Start the rollback process:
+The system displays available backup versions:
 
-   .. code-block:: bash
+.. code-block:: text
 
-      ./omnia.sh --rollback
+   Available rollback versions:
+   1. Omnia 2.0.0.0 (backup: 20240227_143022)
+      - Created: 2024-02-27 14:30:22
+      - Size: 245 MB
+      - Status: Valid
 
-#. Review available rollback options:
+   Select version to rollback to [1]: 1
 
-   The system will display available versions to rollback to. Select version 2.0.0.0.
+#. Confirm the rollback operation.
 
-#. Confirm the rollback destination:
+The system shows rollback details and requests confirmation:
 
-   The system will show the backup location that will be used for restoration.
+.. code-block:: text
 
-#. Approve the rollback:
+   Rollback to Omnia 2.0.0.0
+   This will:
+   - Stop Omnia core 1.1 container
+   - Restore input files from backup
+   - Start Omnia core 1.0 container
+   - Update metadata to version 2.0.0.0
+   
+   Do you want to continue? (y/N): y
 
-   When prompted, review the rollback summary and type ``y`` to proceed or ``n`` to cancel.
+.. warning::
+   This action will stop the current Omnia services and restore the previous version. Ensure you have an appropriate maintenance window.
 
-   .. caution::
-      Once you approve the rollback, the system will begin stopping the 2.1 container and restoring your 2.0 configuration.
+#. Monitor the rollback process.
 
-#. Monitor the rollback progress:
+The rollback automatically performs these steps:
 
-   The system will progress through six rollback steps:
-   * Step 1: Validate backup exists
-   * Step 2: Stop 2.1 container
-   * Step 3: Restore inputs from backup
-   * Step 4: Start 1.0 container
-   * Step 5: Update metadata to version 2.0.0.0
-   * Step 6: Validate rollback success
+**Step 1: Backup Validation**
+- Locates the specified backup directory
+- Verifies backup integrity and completeness
+- Checks that required files are present
 
-#. Wait for the rollback completion message:
+**Step 2: Container Management**
+- Stops the Omnia core 1.1 container gracefully
+- Verifies the 1.1 container is completely stopped
+- Prepares for container restoration
 
-   When the rollback completes successfully, you will see:
-   * "Rollback successful" message
-   * Restored version information (2.0.0.0)
-   * Confirmation that original inputs are restored
+**Step 3: Input File Restoration**
+- Executes ``rollback_omnia.yml`` playbook
+- Restores input files from backup directory
+- Replaces 2.1 format files with original 2.0 files
+- Validates restored file integrity
+
+**Step 4: Container Restoration**
+- Starts the Omnia core 1.0 container
+- Verifies the 1.0 container starts successfully
+- Performs health checks on the restored container
+
+**Step 5: Metadata Update**
+- Updates ``/opt/omnia/.data/oim_metadata.yml``
+- Sets ``omnia_version`` back to ``2.0.0.0``
+- Records rollback operation in metadata
+
+**Step 6: Final Validation**
+- Verifies 1.0 container is running and healthy
+- Confirms input files are accessible and valid
+- Displays rollback success confirmation
+
+#. Verify the rollback completed successfully.
+
+Expected success message:
+
+.. code-block:: text
+
+   Rollback completed successfully!
+   - Omnia version: 2.0.0.0
+   - Core container: 1.0
+   - Input files restored from: /opt/omnia/backups/upgrade_20240227_143022
+   - System ready for operation
 
 Result
 ------
 
-Your Omnia core container has been rolled back from version 2.1 to 2.0. The system has:
-
-* Stopped the 2.1 core container
-* Restored input files from the backup
-* Started the 2.0 core container
-* Updated metadata to reflect version 2.0.0.0
-* Validated the rollback was successful
+Your Omnia system is now restored to version 2.0.0.0 with:
+- Original 1.0 core container running
+- All input files restored to 2.0 format
+- Original configurations and settings preserved
+- Metadata updated to reflect rollback
 
 Verification
 ------------
 
-Verify the rollback was successful:
+Verify the rollback completed successfully:
 
-#. Check the restored version:
+#. Check the Omnia version.
 
-   .. code-block:: bash
+.. code-block:: bash
 
-      ./omnia.sh --version
+   ./omnia.sh --version
 
-   Expected output: ``2.0.0.0``
+Expected output:
 
-#. Verify the container is running:
+.. code-block:: text
 
-   .. code-block:: bash
+   Omnia version: 2.0.0.0
+   Core container: 1.0
 
-      podman ps | grep omnia-core
+#. Verify the core container is running.
 
-   You should see the omnia-core container running with the 1.0 tag.
+.. code-block:: bash
 
-#. Verify inputs were restored:
+   podman ps | grep omnia-core
 
-   .. code-block:: bash
+Expected output shows the omnia-core container with tag ``1.0``.
 
-      ls -la /opt/omnia/input
+#. Confirm input files are restored.
 
-   Your original input files should be present.
+.. code-block:: bash
 
-#. Verify metadata was reverted:
+   ls -la /opt/omnia/input/
 
-   .. code-block:: bash
+Expected output shows your original 2.0 input files.
 
-      cat /opt/omnia/.data/oim_metadata.yml | grep omnia_version
+#. Test system functionality.
 
-   Expected output: ``omnia_version: 2.0.0.0``
+.. code-block:: bash
+
+   podman exec -it omnia-core bash
+   ls -la /opt/omnia/input/
+
+Verify you can access the container and input files normally.
 
 Next Steps
 ----------
 
-**After Successful Rollback**
+After completing the rollback:
 
-#. Review the rollback log:
+#. **Investigate Upgrade Issues**: Determine why the original upgrade failed
+   - Review upgrade logs for error messages
+   - Check system resources and dependencies
+   - Verify network connectivity and image availability
 
-   Check for any issues that may have caused the original upgrade failure.
+#. **Address Root Causes**: Fix issues that caused upgrade failure
+   - Resolve disk space problems
+   - Fix permission issues
+   - Update configuration conflicts
 
-#. Address upgrade prerequisites:
+#. **Plan Re-attempt**: Prepare for another upgrade attempt
+   - Ensure all prerequisites are met
+   - Schedule appropriate maintenance window
+   - Have rollback plan ready
 
-   Ensure all requirements are met before attempting another upgrade:
-   * Sufficient disk space
-   * Network connectivity
-   * Correct image availability
-   * No conflicting operations
+#. **Document Issues**: Record the problems encountered and solutions applied
+   - Update your operational procedures
+   - Share lessons learned with team
+   - Consider opening support tickets if needed
 
-#. Consider troubleshooting:
+.. tip::
+   Keep the failed upgrade backup directory until you have successfully completed a new upgrade. It may contain useful diagnostic information.
 
-   If the upgrade failed due to specific issues, consult the troubleshooting guide:
-   :doc:`troubleshooting-upgrade-issues`
+Manual Rollback Procedure
+------------------------
 
-#. Plan for another upgrade attempt:
+If the automated rollback fails, you can perform manual rollback:
 
-   When ready, you can attempt the upgrade again:
-   :doc:`how-to-perform-upgrade`
+#. Stop the current container.
 
-**Rollback Limitations**
+.. code-block:: bash
 
-.. important::
-   Consider the following limitations when using rollback:
+   podman stop omnia-core
 
-* **Data Changes**: Any data changes made after the upgrade will be lost
-* **New Features**: You will lose access to 2.1-specific features
-* **Configuration**: Manual changes made after upgrade will be reverted
-* **Cluster State**: Cluster nodes may be in an inconsistent state
+#. Manually restore input files.
 
-**When to Use Rollback vs. Troubleshooting**
+.. code-block:: bash
 
-Use rollback when:
-* Upgrade fails completely and system is unstable
-* Critical functionality is broken after upgrade
-* You need to quickly restore production operations
-* [TO BE PROVIDED: Additional rollback scenarios]
+   cp -r /opt/omnia/backups/upgrade_<timestamp>/input/* /opt/omnia/input/
 
-Use troubleshooting when:
-* Minor issues occur that can be fixed without rollback
-* Specific features are not working but core functionality is fine
-* You want to preserve 2.1 functionality while fixing issues
+#. Start the original container.
 
-**Related topics:**
-* :doc:`concept-omnia-core-upgrade`
-* :doc:`how-to-perform-upgrade`
-* :doc:`troubleshooting-upgrade-issues`
+.. code-block:: bash
+
+   podman start omnia-core-1.0
+
+#. Update metadata manually.
+
+.. code-block:: bash
+
+   vi /opt/omnia/.data/oim_metadata.yml
+   # Set omnia_version: 2.0.0.0
+
+.. warning::
+   Manual rollback should only be used when automated rollback fails. It requires careful attention to detail and may miss important validation steps.
+
+Troubleshooting
+---------------
+
+Common rollback issues and solutions:
+
+**Rollback Fails - Backup Not Found**:
+- Verify backup directory exists in ``/opt/omnia/backups/``
+- Check backup directory permissions
+- Ensure backup timestamp is correct
+
+**Container Stop Fails**:
+- Force stop the container: ``podman kill omnia-core``
+- Check for processes using the container
+- Verify system resources are available
+
+**File Restoration Fails**:
+- Check backup file permissions and integrity
+- Verify sufficient disk space for restoration
+- Review error messages for specific file issues
+
+**Container Start Fails**:
+- Verify 1.0 container image is available
+- Check container configuration files
+- Review system logs for startup errors
+
+**Metadata Update Fails**:
+- Check file permissions on ``oim_metadata.yml``
+- Verify YAML syntax in metadata file
+- Manually update metadata if needed
+
+For detailed troubleshooting guidance, see :doc:`../troubleshooting/upgrade-issues`.
+
+Post-Rollback Considerations
+----------------------------
+
+After a successful rollback, consider these factors:
+
+**System State**:
+- Your cluster continues operating with 2.0 functionality
+- All configurations are restored to their pre-upgrade state
+- No data loss should have occurred
+
+**Upgrade Strategy**:
+- Review why the upgrade failed
+- Address root causes before re-attempting
+- Consider testing in a non-production environment first
+
+**Backup Management**:
+- Keep the failed upgrade backup for analysis
+- Clean up old backup directories to save space
+- Document the rollback for future reference
+
+**Communication**:
+- Notify stakeholders about the rollback
+- Document the timeline and impact
+- Plan for the next upgrade attempt
+
+Related Topics
+--------------
+
+* :doc:`concept-core-upgrade`
+* :doc:`how-to-upgrade-core`
+* :doc:`how-to-migrate-inputs`
+* :doc:`../troubleshooting/upgrade-issues`
