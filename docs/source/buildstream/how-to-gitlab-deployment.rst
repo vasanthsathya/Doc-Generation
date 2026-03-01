@@ -1,16 +1,9 @@
 .. _how-to-buildstream-gitlab-deployment:
 
-GitLab Deployment
-=================
-
-.. note::
-   This topic is pending SME validation. Content may change before publication.
+GitLab Deployment for BuildStreaM
+==================================
 
 Deploy GitLab as part of BuildStreaM integration to enable automated pipeline execution, catalog management, and build monitoring. This procedure covers GitLab installation, project setup, runner verification, and service validation.
-
-.. contents:: On This Page
-   :local:
-   :depth: 2
 
 Prerequisites
 -------------
@@ -29,34 +22,55 @@ Before deploying GitLab for BuildStreaM:
 Procedure
 ---------
 
-#. Navigate to the GitLab installation directory.
+1. Use SSH to connect to the ``omnia_core`` container.
 
-Change to the BuildStreaM GitLab directory:
+   .. code-block:: bash
 
-.. code-block:: bash
+      ssh omnia_core
 
-   cd /omnia/build_stream/gitlab
+2. Navigate to ``/opt/omnia/input/project_default/gitlab_config.yml`` and update the following parameters.
+    
+   .. code-block:: bash
 
-#. Deploy GitLab using the installation playbook.
+      cat /opt/omnia/input/project_default/gitlab_config.yml
 
-Run the GitLab installation playbook for a fresh install:
+   The configuration should include:
+
+   .. code-block:: yaml
+
+      # Project settings
+      # Name of the GitLab project Omnia will create/manage
+      gitlab_project_name: "omnia-catalog"
+      # Visibility options: private | internal | public
+      gitlab_project_visibility: "private"
+      # Default branch used for repository and API operations
+      gitlab_default_branch: "main"
+
+3. Navigate to the GitLab directory.
+
+   .. code-block:: bash
+
+      cd /omnia/build_stream/gitlab
+
+4. Run the ``gitlab.yml`` playbook:
 
 .. code-block:: bash
 
    ansible-playbook gitlab.yml
 
-This installs:
-- GitLab server with web interface
-- GitLab runner for pipeline execution
-- Integration components for BuildStreaM
-- Default project structure
+This ``gitlab.yml`` playbook installs the following:
+
+- GitLab on the specified host with the specified project name, visibility, and default branch in the ``gitlab_config.yml`` file.
+- GitLab runner as a Podman container.
+- Adds the project with the following files:
+   - **README.MD** - Project documentation
+   - **catalog_rhel.json** - Default catalog file
+   - **.gitlab-ci.yml** - Pipeline configuration file
 
 .. note::
    The installation may take 10-15 minutes to complete.
 
-#. Verify GitLab service status.
-
-Check that GitLab is running and accessible:
+5. Check that GitLab is running and accessible:
 
 .. code-block:: bash
 
@@ -70,7 +84,7 @@ Expected response shows GitLab is accessible:
    Server: nginx
    Date: Wed, 01 Mar 2026 12:00:00 GMT
 
-#. Access the GitLab project.
+6. Verify you can access the GitLab project URL.
 
 Navigate to the GitLab project URL to verify project creation:
 
@@ -83,7 +97,7 @@ The project should contain:
 - **catalog_rhel.json** - Default catalog file
 - **.gitlab-ci.yml** - Pipeline configuration file
 
-#. Verify GitLab runner status.
+7. Verify GitLab runner status.
 
 Check that the GitLab runner is running as a Podman container:
 
@@ -99,107 +113,10 @@ Expected output shows the runner container:
 
 Alternatively, verify runner status through GitLab web interface:
 
-1. Navigate to **Settings** → **CI/CD**
-2. Expand **Runners** section
-3. Verify the runner shows a **green** status indicator
-4. Confirm runner is set to **Running Always** with **Podman Container**
-
-#. Review pipeline configuration.
-
-Examine the .gitlab-ci.yml file that defines the BuildStreaM pipeline:
-
-.. code-block:: yaml
-
-   # .gitlab-ci.yml
-   stages:
-     - parse-catalog
-     - generate-input-files
-     - prepare-repos
-     - build-image
-     - validate-image
-
-   buildstream-pipeline:
-     stage: parse-catalog
-     script:
-       - /opt/omnia/buildstream/scripts/trigger-pipeline.sh
-     artifacts:
-       reports:
-         junit: buildstream-results.xml
-     only:
-       - main
-
-.. note::
-   The .gitlab-ci.yml pipeline file invokes BuildStreaM REST APIs chronologically from a GitLab runner acting as a remote client.
-
-#. Test GitLab integration.
-
-Verify that GitLab can communicate with BuildStreaM:
-
-.. code-block:: bash
-
-   # Test API connectivity from GitLab runner
-   podman exec gitlab-runner curl -X GET "http://buildstream-api:8080/api/v1/health"
-
-Expected response:
-
-.. code-block:: json
-
-   {
-     "status": "healthy",
-     "version": "1.0.0"
-   }
-
-#. Verify repository access.
-
-Check that you can access project files through the GitLab interface:
-
-1. Navigate to the project
-2. Go to **Check** → **Code** → **Repository**
-3. Verify the following files are present:
-   - README.MD
-   - catalog_rhel.json
-   - .gitlab-ci.yml
-
-Result
-------
-
-GitLab is now deployed and integrated with BuildStreaM for automated pipeline execution. The system can automatically trigger builds based on catalog changes and provide monitoring through the GitLab web interface.
-
-Verification
-------------
-
-Verify the GitLab deployment is working correctly:
-
-#. Check GitLab service health:
-
-.. code-block:: bash
-
-   # Monitor GitLab services
-   podman logs gitlab --tail 20
-
-#. Verify runner functionality:
-
-.. code-block:: bash
-
-   # Check runner logs
-   podman logs gitlab-runner --tail 20
-
-#. Test project access:
-
-.. code-block:: bash
-
-   # Clone the project to test access
-   git clone https://gitlab.example.com/omnia-catalog.git
-
-#. Validate pipeline configuration:
-
-.. code-block:: bash
-
-   # Check pipeline syntax
-   cd omnia-catalog
-   gitlab-ci-lint .gitlab-ci.yml
-
-Expected output shows no syntax errors and all services are healthy.
+   1. Navigate to **Settings** → **CI/CD**
+   2. Expand **Runners** section
+   3. Verify the runner shows a **green** status indicator
+   4. Confirm runner is set to **Running Always** with **Podman Container**
 
 Next Steps
 ----------
@@ -208,17 +125,3 @@ After completing GitLab deployment:
 
 * **Update catalog files** - Modify catalog_rhel.json to define your build requirements
 * **Trigger first pipeline** - Make catalog changes to test automated pipeline execution
-* **Monitor pipeline execution** - Use GitLab Build > Pipeline interface to track progress
-* **Verify job execution** - Use GitLab Build > Jobs interface to verify all jobs run
-
-.. warning::
-   If the GitLab runner shows offline status, restart the runner service and check network connectivity between GitLab and BuildStreaM.
-
-For catalog update procedures, see :doc:`how-to-update-catalog-pipeline`.
-
-Related Topics
---------------
-
-* :doc:`concept-overview`
-* :doc:`how-to-prepare-buildstream`
-* :doc:`how-to-update-catalog-pipeline`
