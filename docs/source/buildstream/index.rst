@@ -6,7 +6,7 @@ BuildStreaM Documentation
 .. note::
    This topic is pending SME validation. Content may change before publication.
 
-BuildStreaM is a build and validation automation solution that provides a catalog-driven, policy-enforced lifecycle to build, validate, and promote Omnia-compatible images. This documentation covers BuildStreaM architecture, setup, configuration, and operational procedures.
+BuildStreaM is a build and validation automation solution that provides catalog-driven, policy-enforced lifecycle to build and validate Omnia-compatible images. This documentation covers BuildStreaM setup, configuration, GitLab integration, and operational procedures.
 
 .. contents:: On This Page
    :local:
@@ -15,189 +15,69 @@ BuildStreaM is a build and validation automation solution that provides a catalo
 Overview
 --------
 
-BuildStreaM implements a modular monolith architecture that integrates with Omnia for automated build and validation workflows. The system provides:
-
-- **Catalog-driven builds**: Define roles, packages, and validation dependencies in YAML catalogs
-- **Stage-gated workflows**: Enforce proper build sequence with validation at each stage
-- **GitLab integration**: Automated pipeline triggering and monitoring
-- **API access**: RESTful API for integration with CI/CD systems
-- **Policy enforcement**: Automated validation and promotion procedures
-
-BuildStreaM represents a separate workflow from traditional Omnia deployment, focusing on automated image build and validation rather than manual cluster provisioning.
+BuildStreaM automates the build and validation process for HPC cluster images using a catalog-driven approach. You define your build requirements in structured catalog files, and BuildStreaM executes automated pipelines through GitLab to create and validate images according to your specifications.
 
 Key Features
 ------------
 
 **Automation**
-- Eliminates manual build and validation processes
-- Automated pipeline triggering based on catalog changes
-- Consistent build procedures across all environments
+- Catalog-driven build definitions
+- Automatic pipeline triggering from catalog changes
+- GitLab-based workflow orchestration
 
 **Integration**
 - Seamless integration with existing Omnia deployments
-- GitLab-based source control and pipeline management
-- RESTful API for CI/CD integration
+- GitLab repository management and version control
+- REST API for build management
 
 **Validation**
-- Comprehensive validation at each build stage
-- Automated testing and verification procedures
-- Detailed reporting and audit trails
+- Automated testing and validation procedures
+- Comprehensive build artifact tracking
+- Pipeline monitoring and status reporting
 
 **Scalability**
-- Support for multiple concurrent build operations
-- Efficient resource utilization and management
-- Artifact repository integration for build storage
-
-Architecture
------------
-
-BuildStreaM consists of several key components:
-
-**API Facade**
-- Single external entry point with OAuth 2.0 authentication
-- Request validation and routing to internal modules
-- Rate limiting and access control
-
-**Workflow Orchestrator**
-- Central coordination of build stages
-- Stage gating and dependency management
-- Error handling and recovery procedures
-
-**Core Modules**
-- **Catalog Manager**: Catalog parsing and validation
-- **Build Module**: Omnia build workflow orchestration
-- **Validate Module**: Test execution and validation
-- **Promote Module**: Image promotion and baseline management
-
-**Data Plane**
-- **Artifact Repository**: Immutable storage for build artifacts
-- **Metadata Store**: Job tracking and state management
-- **Cache**: Performance optimization for repeated operations
+- Support for multiple build environments
+- Automated artifact repository management
+- Consistent build procedures across deployments
 
 Getting Started
 ---------------
 
 To start using BuildStreaM:
 
-1. **Review prerequisites**: Ensure Omnia 2.1+ and required system resources
-2. **Enable BuildStreaM**: Configure Omnia to start BuildStreaM services
-3. **Set up authentication**: Configure OAuth 2.0 for API access
-4. **Create catalogs**: Define your build requirements in YAML catalogs
-5. **Submit builds**: Use API or GitLab integration to start builds
+1. **Review the BuildStreaM Overview** to understand capabilities and limitations
+2. **Prepare BuildStreaM Configuration** to set up services and credentials
+3. **Deploy GitLab** for pipeline execution and repository management
+4. **Update Catalogs** to define your build requirements
+5. **Monitor Pipelines** to track build progress and results
 
-For detailed setup instructions, see :doc:`how-to-get-started`.
+BuildStreaM represents a separate workflow from traditional Omnia deployment, focusing on automated image build and validation rather than manual cluster provisioning.
 
-Configuration
--------------
+Documentation Structure
+-----------------------
 
-BuildStreaM requires several configuration components:
+The BuildStreaM documentation is organized into the following topics:
 
-**Catalogs**
-- Define roles, packages, and validation dependencies
-- Support for complex build requirements
-- Version control and change tracking
+**Concept Topics**
+- BuildStreaM Overview - High-level introduction to BuildStreaM functionality
 
-**GitLab Integration**
-- Automated pipeline triggering
-- Build monitoring and status tracking
-- Collaboration and change management
+**Procedural Topics**
+- Prepare BuildStreaM Configuration and Pipeline - Setup and configuration procedures
+- GitLab Deployment - GitLab installation and integration
+- Update Catalog and Check Pipeline - Catalog management and pipeline monitoring
 
-**API Access**
-- RESTful endpoints for all operations
-- OAuth 2.0 authentication
-- Comprehensive error handling
+Current Limitations
+-------------------
 
-For configuration details, see:
-- :doc:`how-to-configure-catalogs`
-- :doc:`how-to-gitlab-integration`
+BuildStreaM 1.0 has the following limitations:
 
-Operations
-----------
+- **Promote and validate images** are not yet implemented
+- **Single-user support** - only one client/user at a time
+- **No existing GitLab support** - Omnia does not support existing customer GitLab instances
+- **No high availability** - no disaster recovery guarantees
 
-BuildStreaM operations include:
-
-**Build Management**
-- Submit and monitor build jobs
-- Handle build failures and retries
-- Manage build artifacts and results
-
-**Pipeline Monitoring**
-- Track build progress through GitLab
-- Analyze build logs and error messages
-- Optimize build performance
-
-**System Maintenance**
-- Service health monitoring
-- Database and storage management
-- Performance tuning and scaling
-
-For operational guidance, see :doc:`../troubleshooting/buildstream-issues`.
-
-API Reference
--------------
-
-The BuildStreaM API provides comprehensive access to all system functions:
-
-**Jobs API**
-- Submit and manage build jobs
-- Monitor job status and progress
-- Control job execution and cancellation
-
-**Catalog API**
-- Validate catalog files
-- Retrieve catalog schemas
-- Analyze catalog dependencies
-
-**System API**
-- Health checks and system status
-- Configuration and capabilities
-- Metrics and performance data
-
-For complete API documentation, see :doc:`../reference/api/buildstream`.
-
-Limitations
------------
-
-BuildStreaM has several limitations to consider:
-
-**Single-User Support**
-- Baseline supports one client/user
-- No role-based access control
-- Multi-tenant support planned for future releases
-
-**Performance Constraints**
-- Default limit of 1 concurrent build
-- No queueing for overflow requests
-- Performance depends on external capacity
-
-**Operational Constraints**
-- No high availability guarantees
-- No disaster recovery features
-- Build and validation only (no deployment)
-
-For detailed limitations, see :doc:`concept-architecture`.
-
-Support and Troubleshooting
----------------------------
-
-For help with BuildStreaM:
-
-**Documentation**
-- Review relevant topics in this documentation
-- Check API reference for integration details
-- Consult troubleshooting guides for common issues
-
-**Diagnostics**
-- Use built-in health check endpoints
-- Analyze service logs and metrics
-- Run diagnostic scripts for system analysis
-
-**Community Support**
-- Report issues through appropriate channels
-- Share diagnostic information for faster resolution
-- Contribute to documentation and improvements
-
-For troubleshooting assistance, see :doc:`../troubleshooting/buildstream-issues`.
+.. important::
+   Future releases will address these limitations and add additional features.
 
 BuildStreaM Topics
 ------------------
@@ -205,14 +85,39 @@ BuildStreaM Topics
 .. toctree::
    :maxdepth: 2
    
-   concept-architecture
-   how-to-get-started
-   how-to-configure-catalogs
-   how-to-gitlab-integration
+   concept-overview
+   how-to-prepare-buildstream
+   how-to-gitlab-deployment
+   how-to-update-catalog-pipeline
+
+Support and Troubleshooting
+--------------------------
+
+For help with BuildStreaM:
+
+**Documentation**
+- Review the procedural guides for step-by-step instructions
+- Check the BuildStreaM Overview for conceptual understanding
+
+**Pipeline Issues**
+- Monitor GitLab pipeline status through Build > Pipeline interface
+- Review job logs through Build > Jobs interface
+- Check GitLab runner status in Settings > CI/CD > Runners
+
+**Configuration Problems**
+- Verify BuildStreaM service status
+- Check database connectivity
+- Validate configuration file syntax
+
+**Common Solutions**
+- Restart GitLab runner if it shows offline status
+- Verify network connectivity between services
+- Check catalog file syntax for JSON errors
+
+For additional assistance, consult the Omnia documentation and support channels.
 
 Related Topics
 --------------
 
-* :doc:`../reference/api/buildstream`
-* :doc:`../troubleshooting/buildstream-issues`
-* :doc:`../Overview/Architecture/index`
+* :doc:`../upgrade/index`
+* :doc:`../OmniaInstallGuide/index`

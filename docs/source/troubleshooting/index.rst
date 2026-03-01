@@ -3,7 +3,7 @@
 Troubleshooting Documentation
 =============================
 
-This section provides troubleshooting guides for common issues with Omnia and BuildStreaM deployments, configurations, and operations.
+This section provides troubleshooting guides for common issues with Omnia deployments, configurations, and operations.
 
 .. note::
    This topic is pending SME validation. Content may change before publication.
@@ -12,7 +12,6 @@ This section provides troubleshooting guides for common issues with Omnia and Bu
    :maxdepth: 2
 
    upgrade-issues
-   buildstream-issues
 
 Troubleshooting Sections
 ------------------------
@@ -22,12 +21,6 @@ Troubleshooting Sections
 - Configuration validation failures
 - Network and storage issues
 - Performance optimization
-
-**BuildStreaM Issues**
-- Service connectivity problems
-- Build and validation failures
-- GitLab integration issues
-- API authentication errors
 
 **Common Solutions**
 - Log analysis and diagnostics
@@ -40,7 +33,7 @@ Troubleshooting Approach
 
 When troubleshooting issues:
 
-1. **Identify the problem area** - Determine if it's related to Omnia or BuildStreaM
+1. **Identify the problem area** - Determine the specific Omnia component affected
 2. **Check system status** - Verify service health and connectivity
 3. **Review logs** - Analyze error messages and warning indicators
 4. **Apply solutions** - Follow specific troubleshooting guides
@@ -51,6 +44,5 @@ For detailed troubleshooting procedures, see the specific guides listed above.
 Related Topics
 --------------
 
-* :doc:`../buildstream/index`
 * :doc:`../upgrade/index`
 * :doc:`../OmniaInstallGuide/index`
