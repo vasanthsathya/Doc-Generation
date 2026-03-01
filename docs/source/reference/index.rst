@@ -12,6 +12,7 @@ This section provides detailed reference information for Omnia commands, configu
    :maxdepth: 2
 
     cli/index
+    api/buildstream
 
 Reference Sections
 -------------------
