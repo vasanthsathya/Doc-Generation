@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE reference PUBLIC "-//OASIS//DTD DITA Reference//EN" "reference.dtd">
+<reference id="supported_file_types">
+    <title>File Types Supported by Microsoft Excel</title>
+    <shortdesc>Comprehensive list of file formats that Microsoft Excel can open, edit, and save.</shortdesc>
+    <refbody>
+        <section>
+            <title>Native Excel Formats</title>
+            <dl>
+                <dlentry>
+                    <dt>.xlsx</dt>
+                    <dd>Default Excel workbook format (XML-based)</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>.xls</dt>
+                    <dd>Legacy Excel workbook format (97-2003)</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>.xltx</dt>
+                    <dd>Excel template format</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>.xlsm</dt>
+                    <dd>Excel macro-enabled workbook</dd>
+                </dlentry>
+            </dl>
+        </section>
+        <section>
+            <title>CSV and Text Formats</title>
+            <dl>
+                <dlentry>
+                    <dt>.csv</dt>
+                    <dd>Comma-separated values format</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>.txt</dt>
+                    <dd>Tab-delimited text format</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>.prn</dt>
+                    <dd>Formatted text (space-delimited)</dd>
+                </dlentry>
+            </dl>
+        </section>
+        <section>
+            <title>Other Formats</title>
+            <dl>
+                <dlentry>
+                    <dt>.pdf</dt>
+                    <dd>Portable Document Format (requires save as PDF)</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>.xps</dt>
+                    <dd>XML Paper Specification</dd>
+                </dlentry>
+                <dlentry>
+                    <dt>.xml</dt>
+                    <dd>XML spreadsheet format</dd>
+                </dlentry>
+            </dl>
+        </section>
+    </refbody>
+</reference>
