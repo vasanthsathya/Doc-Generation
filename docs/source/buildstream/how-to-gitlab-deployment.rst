@@ -1,6 +1,6 @@
 .. _how-to-buildstream-gitlab-deployment:
 
-Step 4:  Deploy GitLab for BuildStreaM Integration: Automated Pipeline Execution and Build Monitoring
+Step 3:  Deploy GitLab for BuildStreaM Integration: Automated Pipeline Execution and Build Monitoring
 ============================================================================================
 
 .. note::

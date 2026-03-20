@@ -1,7 +1,7 @@
 .. _how-to-buildstream-catalog-configuration:
 
-Configuring BuildStreaM Catalogs
-=================================
+Step 4: Configuring BuildStreaM Catalogs
+=========================================
 
 .. note::
    This topic is pending SME validation. Content may change before publication.

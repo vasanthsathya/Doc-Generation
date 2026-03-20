@@ -1,7 +1,7 @@
 .. _how-to-buildstream-catalog-pipeline-update:
 
-Updating BuildStreaM Catalogs and Triggering Pipelines
-======================================================
+Step 4: Updating BuildStreaM Catalogs and Triggering Pipelines
+==============================================================
 
 .. note::
    This topic is pending SME validation. Content may change before publication.

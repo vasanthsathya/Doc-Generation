@@ -1,7 +1,7 @@
 .. _how-to-buildstream-setup:
 
-Getting Started with BuildStreaM
-=================================
+Step 1: Getting Started with BuildStreaM
+========================================
 
 .. note::
    This topic is pending SME validation. Content may change before publication.

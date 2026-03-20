@@ -4,7 +4,7 @@ BuildStreaM Documentation
 BuildStreaM provides a catalog-driven automation solution for image lifecycle management that complements Omnia's existing capabilities. This section covers BuildStreaM concepts, setup, configuration, and operational procedures.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: BuildStreaM Documentation
 
    concept-overview
