@@ -4,7 +4,7 @@ a comprehensive Content Plan in Markdown format that will be used by a Build Age
 to implement documentation changes.
 
 **Phase:** COLLECT - Information gathering and planning
-**Skill Document:** .windsurf\skills\omnia-doc-skill\SKILL_COLLECT.md
+**Skill Document:** .windsurf\skills\omnia-doc-skill\skill_collect-json.md
 
 ## Source Documents
 
