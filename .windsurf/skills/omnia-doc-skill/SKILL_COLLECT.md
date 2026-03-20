@@ -78,7 +78,7 @@ When this skill document and the style guide conflict, **this skill document tak
 |-----------------------|-----------------------------------------------------------------------------|
 | Technical Level       | Advanced                                                                    |
 | Typical Job Titles    | HPC Administrator, Infrastructure Engineer, Systems Administrator, DevOps Engineer |
-| Primary Goals         | Deploy and configure Omnia clusters reliably; automate repetitive setup tasks |
+| Primary Goals         | Deploy and configure Omnia clusters reliably|
 | Pain Points           | Manual provisioning is error-prone and slow; unclear dependency order; lack of rollback guidance |
 | Documentation Needs   | Step-by-step How-To guides, prerequisite checklists, configuration reference, troubleshooting |
 
@@ -88,40 +88,6 @@ Write as a knowledgeable peer. Assume Linux proficiency, familiarity with networ
 **Example user story:**
 > "As an HPC administrator, I want clear, step-by-step instructions on how to deploy additional container images and packages on Service Kubernetes Cluster and Slurm Nodes."
 
----
-
-### Secondary Audience: Platform Engineer / Cloud Architect
-
-| Attribute             | Description                                                                 |
-|-----------------------|-----------------------------------------------------------------------------|
-| Technical Level       | Expert                                                                      |
-| Typical Job Titles    | Platform Engineer, Cloud Architect, Solution Architect                      |
-| Primary Goals         | Integrate Omnia into an existing pipeline; understand architecture for capacity planning |
-| Pain Points           | Insufficient architecture diagrams; unclear integration points; missing API/CLI depth |
-| Documentation Needs   | Architecture concepts, API reference, CLI reference, integration guides     |
-
-**Voice/Tone for this audience:**
-Technical depth is expected and welcome. Lead with architecture and design intent. Diagrams, data flow descriptions, and interface contracts are high-value. Minimize hand-holding.
-
-**Example user story:**
-> "As a platform engineer, I want to understand Omnia's component interactions so that I can integrate it with our existing Kubernetes-based infrastructure."
-
----
-
-### Tertiary Audience: Evaluator / Decision Maker
-
-| Attribute             | Description                                                                 |
-|-----------------------|-----------------------------------------------------------------------------|
-| Technical Level       | Intermediate                                                                |
-| Typical Job Titles    | IT Manager, Technical Lead, Pre-Sales Engineer                              |
-| Primary Goals         | Understand what Omnia does and whether it fits their use case               |
-| Pain Points           | Documentation is too deep too fast; no high-level orientation               |
-| Documentation Needs   | Overview concepts, feature summaries, supported configurations              |
-
-**Voice/Tone for this audience:**
-Clear, benefit-oriented. Avoid acronym overload without definition. Lead with value and outcomes. Do not assume deep familiarity with Omnia internals.
-
----
 
 ## 4. Information Map
 
@@ -129,40 +95,79 @@ Clear, benefit-oriented. Avoid acronym overload without definition. Lead with va
 
 ### Content Type Decision Rules
 
-When deciding where new content belongs, answer these questions in order:
+When deciding where new content belongs, follow this decision hierarchy:
+
+**Step 1: Check for Major Feature**
+| Question                                      | Answer → Section          |
+|-----------------------------------------------|---------------------------|
+| Is this content for a major feature? (BuildStreaM, upgrade, security, networking, etc.)| Use `<feature>/` structure |
+
+**Step 2: Apply Feature-Specific Rules**
+If Step 1 is YES, use the feature-specific directory structure:
+
+| Content Type        | File Naming Convention                         | Example Files                      |
+|---------------------|-----------------------------------------------|------------------------------------|
+| Feature overview    | `<feature>/index.rst`                         | `buildstream/index.rst`            |
+| Concept topics      | `<feature>/concept-<name>.rst`                | `buildstream/concept-overview.rst` |
+| How-to topics       | `<feature>/how-to-<task>.rst`                  | `buildstream/how-to-setup.rst`     |
+
+**Step 3: Use General Structure (Only if not a major feature)**
+If Step 1 is NO, use the general content type structure:
 
 | Question                                      | Answer → Section          |
 |-----------------------------------------------|---------------------------|
 | Does it explain "what is X" or "why X exists"?| `concepts/`               |
-| Is it a first-time setup or installation step? | `getting-started/`        |
 | Does it walk through "how do I do X"?          | `how-to/[area]/`          |
-| Is it a lookup table (commands, params, API)?  | `reference/`              |
-| Does it describe a known problem and fix?      | `troubleshooting/`        |
-| Is it a high-level product or design overview? | `overview/`               |
+
+**Priority**: Feature-specific structure takes precedence over general content type rules.
+
+**Major Features Include**: BuildStreaM, upgrade, security, networking, storage, monitoring
+
+**Content Organization Guidelines:**
+
+- **No separate getting-started topics**: Integrate getting-started content into the main feature documentation
+- **Setup procedures**: Include as `how-to-setup.rst` within the feature directory
+- **User workflows**: Cover all user workflows within feature-specific how-to topics
+- **Conceptual content**: Keep as concept topics within the feature directory
+- **Complete feature coverage**: Each feature directory should contain all necessary content for that feature
+
 
 **When content spans two types** (e.g., a concept that also has steps): create two separate files — one concept, one how-to — and cross-reference them.
 
 ### File Naming Conventions
 
+**Feature-Specific Structure (Priority)**
+Use for major features: BuildStreaM, upgrade, security, networking, storage, monitoring
+
 | Content Type        | Directory Structure                   | File Naming Convention                         | Example Files                      |
 |---------------------|---------------------------------------|-----------------------------------------------|------------------------------------|
-| `overview/`         | Feature or component name             | `<feature>.rst`                               | `omnia-architecture.rst`           |
-| `getting-started/`  | Step or milestone name                 | `<step-name>.rst`                             | `prerequisites.rst`, `quick-start.rst`        |
+| Feature overview    | `<feature>/`                           | `index.rst`                                    | `buildstream/index.rst`            |
+| Concept topics      | `<feature>/`                           | `concept-<name>.rst`                           | `buildstream/concept-overview.rst` |
+| How-to topics       | `<feature>/`                           | `how-to-<task>.rst`                            | `buildstream/how-to-setup.rst`     |
+| Setup procedures    | `<feature>/`                           | `how-to-setup.rst` (standardized)             | `buildstream/how-to-setup.rst`     |
+
+**General Structure (Only for non-feature content)**
+Use for general concepts and how-to topics not tied to major features
+
+| Content Type        | Directory Structure                   | File Naming Convention                         | Example Files                      |
+|---------------------|---------------------------------------|-----------------------------------------------|------------------------------------|
 | `how-to/`           | Gerund + noun, kebab-case              | `<task-name>.rst`                             | `configuring-network.rst`, `adding-nodes.rst` |
 | `concepts/`         | Concept name, kebab-case               | `<concept-name>.rst`                          | `core-container.rst`, `upgrade-workflow.rst` |
-| `reference/cli/`     | Exact command name                      | `<command>.rst`                               | `omnia-provision.rst`, `omnia-status.rst`     |
-| `reference/api/`    | Resource name                           | `<resource>.rst`                              | `nodes.rst`, `clusters.rst`                   |
-| `reference/config/`  | Config file name                      | `<config-file>.rst`                           | `omnia-yml.rst`, `inventory.rst`              |
-| `troubleshooting/`   | Symptom or error, kebab-case           | `<issue>.rst`                                 | `nodes-not-provisioning.rst`                  |
-| **Feature-specific** | `<feature>/` (parent directory)        | `<type>-<name>.rst`                           | `upgrade/how-to-perform-upgrade.rst`, `upgrade/concept-core-upgrade.rst` |
+
 
 **Feature-Specific Directory Structure:**
-For major features like upgrade, create a dedicated directory containing all related topics:
-- `<feature>/index.rst` - Parent index file
-- `<feature>/concept-<name>.rst` - Concept topics
-- `<feature>/how-to-<task>.rst` - Procedure topics
-- `<feature>/reference-<type>.rst` - Reference topics (if needed)
-- `<feature>/troubleshooting-<issue>.rst` - Troubleshooting topics (if needed)
+For major features like BuildStreaM, upgrade, security, networking, storage, monitoring, create a dedicated directory containing all related topics:
+- `<feature>/index.rst` - Main feature index with overview and navigation
+- `<feature>/concept-<name>.rst` - Concept topics explaining what and why
+- `<feature>/how-to-<task>.rst` - Procedure topics explaining how to accomplish tasks
+
+**Feature-Specific Structure Examples:**
+- `buildstream/index.rst` - BuildStreaM main index
+- `buildstream/concept-overview.rst` - BuildStreaM concept explanation
+- `buildstream/how-to-setup.rst` - BuildStreaM setup and getting started procedure
+- `upgrade/index.rst` - Omnia upgrade main index
+- `upgrade/concept-overview.rst` - Upgrade concept explanation
+- `upgrade/how-to-upgrade.rst` - Upgrade procedure
 
 ### Toctree Rules
 
@@ -234,12 +239,9 @@ Since Omnia documentation is not triggered by GitHub signals, all documentation 
 
 | Prompt Type                           | Doc Action                              | Priority  | Section Target              |
 |---------------------------------------|-----------------------------------------|-----------|-----------------------------|
-| "Add documentation for [feature]"     | Create concept + how-to                 | High      | `concepts/` + `how-to/`     |
-| "Update [command] reference"          | Update or create reference              | High      | `reference/cli/`            |
-| "Document [config parameter]"         | Update reference + affected how-to      | High      | `reference/config/`         |
+| "generate documentation for [feature]"| Create concept + how-to                 | High      | `concepts/` + `how-to/`     |
 | "Add troubleshooting for [issue]"     | Create troubleshooting topic            | Medium    | `troubleshooting/`          |
 | "Update release notes"                | Update release notes                    | Medium    | `overview/release-notes`    |
-| "Create getting started guide"        | Create getting started content          | High      | `getting-started/`          |
 
 ---
 
@@ -260,6 +262,57 @@ Use these prompts to extract knowledge from HLD, Engineering Notes, Demo Transcr
 5. "Extract from all these sources any customer pain points or challenges that the product addresses or fails to address."
 
 6. "From the HLD and engineering notes, list all key functionality and user workflows that will need clear documentation for customers."
+
+---
+
+## Content Organization Guidelines
+
+### No Separate Getting-Started Topics
+
+**Policy**: Do not create separate getting-started topics for major features. Instead, integrate getting-started content into the feature-specific documentation structure.
+
+**Implementation**:
+- **Setup procedures**: Include as `how-to-setup.rst` within the feature directory
+- **Initial user guidance**: Cover in the main feature index or concept overview
+- **Progressive disclosure**: Structure content from concept → setup → advanced procedures
+- **Complete feature coverage**: Each feature directory should contain all necessary content
+
+**Example BuildStreaM Structure**:
+```
+buildstream/
+├── index.rst                    (Feature overview and navigation)
+├── concept-overview.rst         (What is BuildStreaM and why it matters)
+├── how-to-setup.rst             (Initial setup and getting started)
+├── how-to-gitlab-deployment.rst (GitLab integration)
+├── how-to-catalog-config.rst   (Catalog configuration)
+└── how-to-pipeline-update.rst  (Pipeline operations)
+```
+
+**Benefits**:
+- **Better user experience**: All related content in one location
+- **Easier maintenance**: Feature content is co-located
+- **Logical flow**: Natural progression from concept to setup to advanced usage
+- **Reduced complexity**: Fewer top-level directories to navigate
+
+### Cross-Reference Guidance
+
+When creating content plans, specify cross-references based on the chosen structure:
+
+**Feature-Specific Structure Example:**
+```markdown
+**Cross-References:**
+- BuildStreaM Overview (same directory)
+- BuildStreaM Setup Guide (same directory)
+- BuildStreaM Troubleshooting (same directory)
+```
+
+**General Structure Example:**
+```markdown
+**Cross-References:**
+- ../concepts/related-concept
+- ../how-to/related-procedure
+- ../troubleshooting/related-issue
+```
 
 7. "Scan these engineering documents for explanations of complex or non-intuitive product behavior that customers will need to understand."
 

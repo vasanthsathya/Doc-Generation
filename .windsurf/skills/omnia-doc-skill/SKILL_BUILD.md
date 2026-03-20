@@ -21,7 +21,6 @@ status: active
 5. [RST Documentation Conventions](#5-rst-documentation-conventions)
 6. [Terminology and Glossary](#6-terminology-and-glossary)
 7. [Examples Library](#7-examples-library)
-8. [Build Prompt Template](#8-build-prompt-template)
 
 ---
 
@@ -159,46 +158,37 @@ For detailed data flow diagrams, see [Architecture — Dell/Omnia](https://omnia
 
 ## 5. RST Documentation Conventions
 
-### 5.1 File Structure Template
+### 5.1 File Placement and Structure
 
-Every `.rst` file must follow this structure:
+Follow the file placement decision hierarchy from SKILL_COLLECT.md:
 
-```rst
-.. _[unique-label]:
+**Step 1: Check for Major Feature**
+- Is this content for BuildStreaM, upgrade, security, networking, storage, or monitoring?
+- **YES**: Use feature-specific structure (`<feature>/`)
+- **NO**: Use general structure (`concepts/`, `how-to/[area]/`)
 
-[Page Title in Title Case]
-==========================
+**Feature-Specific Structure Examples:**
+- `buildstream/index.rst` - Main feature index
+- `buildstream/concept-overview.rst` - Feature concept
+- `buildstream/how-to-setup.rst` - Setup and getting started procedure
+- `upgrade/index.rst` - Upgrade feature index
+- `upgrade/concept-overview.rst` - Upgrade concept
+- `upgrade/how-to-upgrade.rst` - Upgrade procedure
 
-Brief one- or two-sentence introduction stating what this page covers
-and who it is for.
+**General Structure Examples:**
+- `concepts/core-container.rst` - General concept
+- `how-to/configuration/configure-network.rst` - General procedure
 
-.. contents:: On This Page
-   :local:
-   :depth: 2
+**Cross-Reference Guidelines:**
+- **Feature-specific**: Use relative references (`:doc:`concept-overview``)
+- **General structure**: Use relative paths (`:doc:`../concepts/related-concept``)
 
-Prerequisites
--------------
-
-Before you begin, ensure:
-
-* [Prerequisite 1]
-* [Prerequisite 2]
-
-[Section Heading]
------------------
-
-Content here.
-
-.. note::
-
-   Use notes sparingly for genuinely important information.
-
-Related Topics
---------------
-
-* :doc:`[related-page]`
-* :doc:`[another-page]`
-```
+**File Creation Checklist:**
+- [ ] Determined if content is for a major feature
+- [ ] Applied correct directory structure
+- [ ] Used proper naming convention
+- [ ] Updated appropriate index.rst toctree
+- [ ] Verified cross-references use correct paths
 
 ### 5.2 Heading Hierarchy
 
@@ -230,18 +220,6 @@ Sub-subsection    →  ^^^^^^^^  (caret, full width)
 - Use numbered steps with specific commands and configurations
 - Include expected outcomes and troubleshooting
 
-**Reference Topics:**
-- Purpose: Provide detailed technical reference information
-- Structure: Overview → Parameters/Commands → Examples → Related Topics
-- Include comprehensive parameter tables and command syntax
-- Use code blocks with language specification
-
-**Troubleshooting Topics:**
-- Purpose: Help users resolve common issues
-- Structure: Symptoms → Causes → Solutions → Prevention
-- Include error messages and log excerpts
-- Provide step-by-step resolution procedures
-
 ### 5.4 Step Writing Rules (How-To Topics)
 
 - Use **numbered lists** (`#.`) for ordered steps — never bullets for procedural content
@@ -253,23 +231,7 @@ Sub-subsection    →  ^^^^^^^^  (caret, full width)
 - **Source information priority:** Extract workflow steps from Engineering Notes first, then Unit Tests, then Demo Transcriptions, then supplement with HLD if needed
 - **Missing information handling:** Use `<To be decided>` for any steps, prerequisites, or verification information that cannot be found in source materials
 
-```rst
-#. Install the required packages.
-
-   .. code-block:: bash
-
-      sudo dnf install -y omnia-control-plane
-
-#. Verify the installation completed successfully.
-
-   .. code-block:: bash
-
-      omnia --version
-
-   The output should display the installed version, for example: ``omnia 4.2.0``.
-```
-
-### 5.5 Code Blocks
+### 5.6 Code Blocks
 
 Always specify the language:
 
@@ -288,7 +250,7 @@ Always specify the language:
 - Use `.. literalinclude::` to embed actual files from the repo (preferred for config examples)
 - Use `.. code-block:: text` for sample output, never `bash`
 
-### 5.6 Admonitions
+### 5.7 Admonitions
 
 Use sparingly. Each admonition must earn its place.
 
@@ -302,7 +264,7 @@ Use sparingly. Each admonition must earn its place.
 
 **Never use `.. note::` as a substitute for main content.** If the information is important enough to note, it belongs in the body.
 
-### 5.7 Cross-References
+### 5.8 Cross-References
 
 Use RST labels and `:doc:` or `:ref:` directives — never bare URLs to internal pages.
 
@@ -317,7 +279,7 @@ For background, see :ref:`concept-cluster-topology`.
 - `task-configure-network`
 - `ref-omnia-cli`
 
-### 5.8 Voice and Tone Rules
+### 5.9 Voice and Tone Rules
 
 **General Principle:** Follow the Omnia Style Guide for general writing standards. The rules below are Omnia documentation-specific applications and clarifications.
 
@@ -333,7 +295,7 @@ For background, see :ref:`concept-cluster-topology`.
 | Neutral tone in troubleshooting | "This error occurs when..."               | "Unfortunately, this known issue..."        |
 | Lead with the action          | "To configure X, edit the `omnia.yml` file"  | "The `omnia.yml` file can be used to configure X" |
 
-### 5.9 ReadTheDocs / Sphinx-Specific Rules
+### 5.10 ReadTheDocs / Sphinx-Specific Rules
 
 - Use `conf.py` extensions: `sphinx.ext.intersphinx`, `sphinx_rtd_theme`, `myst_parser` (if Markdown mixed)
 - Include `:orphan:` at the top of any `.rst` file intentionally excluded from a toctree
@@ -417,35 +379,33 @@ Use these existing pages as models for structure, voice, and formatting when cre
 #### Concept Topic — Exemplary
 
 ```rst
-.. _concept-cluster-provisioning:
+.. _concept-buildstream-overview:
 
-Cluster Provisioning
-====================
+Omnia BuildStreaM: Catalog-Driven Build Automation
+==================================================
 
-Cluster provisioning is the process by which Omnia configures bare-metal
-nodes — installing operating systems, network settings, and required
-software — to function as part of a managed cluster.
+Omnia BuildStreaM provides a comprehensive automation solution for managing infrastructure build workflows. It uses a catalog-driven approach where you define your build requirements in a structured catalog file, and BuildStreaM executes automated pipelines to create and deploy images according to your specifications.
 
-.. contents:: On This Page
-   :local:
-   :depth: 2
+BuildStreaM addresses the key challenges in HPC cluster image management:
 
-How Provisioning Works
+   - **Automation**: Eliminates manual build and deployment processes
+   - **Integration**: Works seamlessly with existing Omnia deployments
+   - **Traceability**: Provides complete audit trails for all build operations
+   
+To build your own custom workflows, you can use the BuildStreaM REST API. The BuildStreaM API documentation is available at `Omnia BuildStreaM API Documentation <https://developer.dell.com/apis/ea677050-f49b-49e1-a4b9-1cdd563415d9/versions/2.1.0/docs/Introduction.md>`_.
 
-* **Star topology:** All compute nodes connect directly to the control plane
-  for centralized management and monitoring
-* **Mesh topology:** Compute nodes interconnect for peer-to-peer communication
-  and workload distribution
-* **Hybrid topology:** Combines star and mesh elements for balanced
-  management and performance
+.. toctree::
+   :maxdepth: 1
+   :caption: BuildStreaM Deployment Workflow
 
-The topology is defined in the ``omnia.yml`` configuration file using the
-``cluster_topology`` parameter. Each topology type has specific network
-requirements and performance characteristics.
-
-**Related topics:**
-* :doc:`../how-to/configuration/configure-topology`
-* :doc:`../reference/topology-parameters`
+   omnia_startup_buildstream
+   composable_roles_buildstream
+   prepare_oim_buildstream
+   how-to-gitlab-deployment
+   how-to-update-catalog-pipeline
+   set_pxe_boot_order_buildstream
+   buildstream_tables
+   buildstream_troubleshooting
 ```
 
 **Why it's good:** Defines the concept clearly, explains the mechanism step-by-step, uses approved terminology, links to related topics, and **does not include prerequisites** (focuses purely on conceptual understanding).
@@ -455,185 +415,102 @@ requirements and performance characteristics.
 #### How-To Topic — Exemplary
 
 ```rst
-.. _task-configure-scheduler:
+.. _how-to-buildstream-gitlab-deployment:
 
-Configuring the Job Scheduler
-==============================
+Step 4:  Deploy GitLab for BuildStreaM Integration: Automated Pipeline Execution and Build Monitoring
+============================================================================================
 
-Configure the job scheduler to enable workload management across the
-cluster. Omnia supports Slurm and PBS Professional.
-
-.. contents:: On This Page
-   :local:
-   :depth: 2
+GitLab serves as the automation engine for BuildStreaM, providing the pipeline execution framework that processes catalog definitions and orchestrates the build workflows. Deploy GitLab to enable automated pipeline execution, catalog management, image building, and cluster node discovery. This procedure covers GitLab installation, project setup, runner verification, and service validation.
 
 Prerequisites
 -------------
 
-Before configuring the scheduler:
+Before deploying GitLab for BuildStreaM:
 
-* The control plane must be installed and running (see :doc:`../getting-started/installation`)
-* All compute nodes must be provisioned (see :doc:`provision-nodes`)
-* You must have root or sudo access on the control plane
+* Ensure that Omnia BuildStreaM container, PostgreSQL container, and Playbook Watcher service are deployed on the OIM node (see :ref:`Prepare the Omnia Infrastructure Manager <prepare-oim-buildstream>`)
+* A dedicated node is required for BuildStreaM GitLab deployment.
+* The node must have sufficient system resources for BuildStreaM (minimum 4 GB RAM, 2 CPU cores, 20 GB free disk space)
+* GitLab requires a minimum of 2 CPU cores. More cores may be needed for production workloads.
+* Network connectivity for GitLab services
+
+.. important::
+   Omnia uses a dedicated GitLab instance for BuildStreaM. This procedure provisions a new GitLab instance specifically configured for BuildStreaM. Currently, existing GitLab setups configured for other purposes are not supported.
 
 Procedure
 ---------
 
-#. Navigate to the Omnia configuration directory.
+1. Use SSH to connect to the ``omnia_core`` container.
 
    .. code-block:: bash
 
-      cd /opt/omnia/config
+      ssh omnia_core
 
-#. Open the scheduler configuration file.
+2. Navigate to ``/opt/omnia/input/project_default/gitlab_config.yml`` and update the ``gitlab_config.yml`` file. Use the :ref:`GitLab configuration table <buildstream-tables-gitlab-configuration>` for reference.
+    
+   .. code-block:: bash
+
+      cat /opt/omnia/input/project_default/gitlab_config.yml
+
+3. Navigate to the GitLab directory.
 
    .. code-block:: bash
 
-      sudo vi omnia.yml
+      cd /omnia/gitlab
 
-#. Set the ``scheduler_type`` parameter to your preferred scheduler.
+4. Run the ``gitlab.yml`` playbook:
 
-   .. code-block:: yaml
+   .. code-block:: bash
 
-      scheduler_type: slurm
+      ansible-playbook gitlab.yml
 
-#. Save the configuration file and exit the editor.
+This ``gitlab.yml`` playbook performs the following tasks:
 
-Result
-------
+- Installs the GitLab instance on the host specified in the ``gitlab_config.yml`` file.
+- In the GitLab instance, creates a project with the specified name, visibility, and default branch as configured in the ``gitlab_config.yml`` file.
+- Installs GitLab runner as a Podman container.
+- Generates a self-signed CA certificate for GitLab at ``/root/gitlab-certs/ca.crt``
+- Adds the project with the following files:
+   - **README.MD** - Project documentation
+   - **catalog_rhel.json** - Default catalog file
+   - **.gitlab-ci.yml** - Pipeline configuration file
 
-The scheduler type is now configured in the Omnia configuration file.
-The next time Omnia services restart, they will use the specified scheduler
-for workload management.
+.. image:: ../images/buildstream_project.png
+   :alt: BuildStream project structure
+   
+.. note::
+   The installation may take 10-15 minutes to complete.
+
+5. To avoid **Not Secure** warnings when accessing the GitLab instance, download and import the certificate generated in step 4 to the browser.
 
 Verification
 ------------
+After the installation of GitLab complete, verify the following:
 
-Verify the scheduler configuration is valid:
+1. Verify you can access the GitLab project URL.
 
-.. code-block:: bash
+   .. code-block:: text
 
-   omnia-cli validate --check scheduler
+      https://<gitlab host ip>/<gitlab project name>
 
-Expected output:
+ The project should contain:
+  * ``README.MD`` — Project documentation with setup instructions and usage guidelines
+  * ``catalog_rhel.json`` — Default catalog file containing build definitions for RHEL images
+  * ``.gitlab-ci.yml`` — Pipeline configuration file defining automated build stages and execution steps
 
-.. code-block:: text
+2. Verify runner status through GitLab web interface:
 
-   ✓ Scheduler configuration is valid
-   ✓ Slurm integration ready
-
-If the validation fails, check the ``omnia.yml`` file syntax and ensure
-the specified scheduler type is supported.
+   1. Navigate to **Settings** → **CI/CD**.
+   2. Expand **Runners** section.
+   3. Verify the runner shows a **green** status indicator.
+   4. Confirm runner is set to **Running Always** with **Podman Container**.
 
 Next Steps
------------
+----------
 
-* Restart Omnia services to apply the new scheduler configuration
-* Configure scheduler-specific settings (queues, partitions, etc.)
-* Submit test jobs to verify scheduler operation
-
-**Related topics:**
-* :doc:`../reference/scheduler-parameters`
-* :doc:`../troubleshooting/scheduler-issues`)
+After completing GitLab deployment, update the catalog file to automatically trigger the pipeline. See :doc:`how-to-update-catalog-pipeline`.
 ```
 
 **Why it's good:** Includes clear prerequisites, step-by-step procedure, **verification step** to confirm completion, expected results, and next steps. **Source priority:** Workflow steps extracted from Engineering Notes → Unit Tests → Demo Transcriptions → HLD. Uses `<To be decided>` for any missing information.
-
----
-
-#### Reference Topic — Exemplary
---------------
-
-* :doc:`../concepts/job-scheduling`
-* :doc:`../reference/config/omnia-yml`
-```
-
-**Why it's good:** Clear prerequisites, one action per step, uses exact parameter names, includes verification, links to troubleshooting and reference.
-
----
-
-#### Reference Topic — Exemplary
-
-```rst
-.. _ref-omnia-provision:
-
-omnia provision
-===============
-
-The ``omnia provision`` command configures bare-metal nodes by installing
-the operating system, network settings, and required software components
-to function as part of a managed Omnia cluster.
-
-.. contents:: On This Page
-   :local:
-   :depth: 2
-
-Synopsis
---------
-
-.. code-block:: bash
-
-   omnia provision [OPTIONS] NODE_SPEC
-
-Description
------------
-
-The ``omnia provision`` command configures bare-metal nodes by installing
-the operating system, network settings, and required software components
-to function as part of a managed Omnia cluster.
-
-Options
--------
-
-.. list-table::
-   :header-rows: 1
-   :widths: 25 15 60
-
-   * - Option
-     - Type
-     - Description
-   * - ``--inventory``
-     - string
-     - Path to the Ansible inventory file. Default: ``/opt/omnia/inventory``
-   * - ``--dry-run``
-     - flag
-     - Simulate provisioning without making changes.
-   * - ``--force``
-     - flag
-     - Re-provision nodes that are already configured.
-   * - ``--log-level``
-     - string
-     - Verbosity level: ``info``, ``debug``, ``warn``. Default: ``info``
-
-Examples
---------
-
-Provision all nodes in the inventory:
-
-.. code-block:: bash
-
-   omnia provision --inventory /opt/omnia/inventory
-
-Provision specific nodes:
-
-.. code-block:: bash
-
-   omnia provision node01 node02 node03
-
-Simulate provisioning without changes:
-
-.. code-block:: bash
-
-   omnia provision --dry-run
-
-Related Topics
---------------
-
-* :doc:`../how-to/configuration/provision-nodes`
-* :doc:`../concepts/cluster-provisioning`
-```
-
-**Why it's good:** Consistent structure, exact option names, default values documented, real examples.
 
 ---
 
@@ -650,39 +527,6 @@ Related Topics
 | Generic code blocks       | `` ` `` without language                                  | No syntax highlighting; unclear context      | Always use `.. code-block:: bash` (or appropriate language) |
 | Step combining            | "Open the file and change the scheduler setting and save" | Skips verification opportunities             | One action per numbered step                       |
 
----
-
-## 8. Build Prompt Template
-
-**Build Prompt Template (copy into WindSurf):**
-
-```
-You are a technical writer for Omnia documentation. Generate RST content 
-following the Omnia Skill Document rules.
-
-INPUT:
-- Source asset: {hld_or_engineering_notes_or_demo_transcript_or_unit_test}
-- Existing file (if update): {existing_rst_file_content}
-- Requested content type: {concept | how-to | reference | troubleshooting}
-
-RULES:
-- Follow the Omnia Style Guide (docs/STYLE_GUIDE/Dell Technologies Unified Style Guide v1.0.pdf) for general writing standards
-- Follow voice and tone rules (Skill Doc §5.8)
-- Use approved terminology only (Skill Doc §6)
-- Follow RST structure conventions (Skill Doc §5)
-- Place content according to the Information Map (from COLLECT phase)
-- Apply all guardrails (from CHECK phase)
-- Use **bold** formatting for UI elements (Skill Doc §6.3)
-- Reference existing Omnia docs for examples (Skill Doc §7)
-
-OUTPUT:
-- Complete, valid RST content
-- Recommended file path (relative to docs/)
-- toctree entry for the parent index.rst
-- List of any AI_REVIEW markers inserted with reasons
-```
-
----
 
 ## Related Documents
 

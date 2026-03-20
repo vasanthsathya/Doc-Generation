@@ -1,38 +1,14 @@
-.. _buildstream-index:
+BuildStreaM Documentation
+==========================
 
-
-
-BuildStreaM
-
-===========
-
-
-
-BuildStreaM is an automation solution that extends Omnia's capabilities with catalog-driven, policy-enforced CI/CD workflows. BuildStreaM replaces manual image configuration with automated build → validate → promote pipelines.
-
-
+BuildStreaM provides a catalog-driven automation solution for image lifecycle management that complements Omnia's existing capabilities. This section covers BuildStreaM concepts, setup, configuration, and operational procedures.
 
 .. toctree::
+   :maxdepth: 2
+   :caption: BuildStreaM Documentation
 
-    :maxdepth: 2
-
-
-
-    overview-buildstream
-
-    concepts-buildstream-architecture
-
-    concepts-buildstream-catalog
-
-    how-to-buildstream-enabling-buildstream
-
-    how-to-buildstream-managing-gitlab-integration
-
-    how-to-buildstream-working-with-pipelines
-
-    reference-buildstream-configuration
-
-    troubleshooting-buildstream-pipeline-failures
-
-    troubleshooting-buildstream-catalog-validation-errors
-
+   concept-overview
+   how-to-setup
+   how-to-gitlab-deployment
+   how-to-catalog-configuration
+   how-to-catalog-pipeline-update
