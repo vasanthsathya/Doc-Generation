@@ -68,7 +68,7 @@ documentation requirement identified:
 
 | Field                  | Details                                      |
 |------------------------|----------------------------------------------|
-| **Topic Type**         | Concept / Procedure / Reference              |
+| **Topic Type**         | Concept / how-to/ Reference / Troubleshooting |
 | **Status**             | New Topic / Update Existing Topic            |
 | **Target Audience**    | Infrastructure/HPC Administrator, Platform Engineer/Cloud Architect, or Evaluator/Decision Maker |
 | **Source Traceability**| e.g., HLD Section 3.2, Engineering Notes v1.1, Demo Transcription 1, Unit Test Suite 2.3  |
