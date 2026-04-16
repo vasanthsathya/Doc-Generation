@@ -54,7 +54,9 @@ Verify iDRAC Telemetry Messages in Kafka
 
 To verify that iDRAC telemetry data is being successfully published to the ``idrac`` Kafka topic, do the following:
 
-1. Create a Kafka consumer using the following command::
+1. Log in to the Service Kubernetes Control plane.
+
+2. Create a Kafka consumer using the following command::
 
     KAFKA_LB_IP=<external load balancer IP of the bridge-bridge-lb service>
     curl -X POST http://$KAFKA_LB_IP:8080/consumers/idrac-consumer-group \
@@ -65,25 +67,29 @@ To verify that iDRAC telemetry data is being successfully published to the ``idr
             "auto.offset.reset": "earliest"
         }'
 
-2. Subscribe the consumer to the telemetry topic using the following command::
+3. Subscribe the consumer to the telemetry topic using the following command::
 
     curl -X POST http://$KAFKA_LB_IP:8080/consumers/idrac-consumer-group/instances/idrac-consumer-1/subscription \
     -H 'content-type: application/vnd.kafka.v2+json' \
     -d '{"topics": ["idrac"]}'
 
-3. Consume messages from the topic using the following command::
+4. Consume messages from the topic using the following command::
 
     while true; do curl -X GET http://$KAFKA_LB_IP:8080/consumers/idrac-consumer-group/instances/idrac-consumer-1/records \
     -H 'accept: application/vnd.kafka.json.v2+json' | jq '.' ;  sleep 2; done
 
 If telemetry metrics are collected correctly, the output contains JSON-formatted iDRAC telemetry records.
 
+.. _verify_ldms_messages_in_kafka:
+
 Verify LDMS Messages in Kafka
 -----------------------------
 
 To verify that LDMS telemetry data is being successfully published to the ``ldms`` Kafka topic, do the following:
 
-1. Create a Kafka consumer using the following command::
+1. Log in to the Service Kubernetes Control plane.
+
+2. Create a Kafka consumer using the following command::
 
     KAFKA_LB_IP=<external load balancer IP of the bridge-bridge-lb service>
     curl -X POST http://$KAFKA_LB_IP:8080/consumers/ldms-consumer-group \
@@ -91,23 +97,24 @@ To verify that LDMS telemetry data is being successfully published to the ``ldms
     -d '{
             "name": "ldms-consumer-1",
             "format": "json",
-            "auto.offset.reset": "earliest",
+            "auto.offset.reset": "latest",
             "enable.auto.commit": true
         }'
 
-2. Subscribe the consumer to the LDMS topic using the following command::
+3. Subscribe the consumer to the LDMS topic using the following command::
 
     curl -X POST http://$KAFKA_LB_IP:8080/consumers/ldms-consumer-group/instances/ldms-consumer-1/subscription \
     -H 'content-type: application/vnd.kafka.v2+json' \ 
     -d '{"topics": ["ldms"]}'
 
-3. Consume messages from the topic using the following command::
+4. Consume messages from the topic using the following command::
 
     while true; do curl -X GET http://$KAFKA_LB_IP:8080/consumers/ldms-consumer-group/instances/ldms-consumer-1/records \
     -H 'accept: application/vnd.kafka.json.v2+json' | jq '.' ;  sleep 2; done
 
 If telemetry is flowing correctly, the output contains JSON-formatted LDMS telemetry records.
 
+.. note:: When new nodes are added, ensure the nodes are up and cloud-init has completed successfully (check /var/log/cloud-init-output.log on each node). Then, create a new Kafka consumer group with a unique name (e.g., ldms-new-nodes-group) to verify metrics from the newly added nodes. Wait 2-3 minutes after discovery completes before checking.
 
 Verify Kafka TLS Connectivity
 -----------------------------
@@ -212,7 +219,7 @@ For example, the following query displays detailed PowerEdge metrics for each ha
 Accessing the MySQL Database
 ------------------------------------
 
-After ``telemetry.yml`` has been executed for the service cluster, you can check the MySQL Database database inside the ``mysqldb`` container. To view these logs, do the following:
+After ``telemetry.yml`` has been executed for the service cluster, you can check the MySQL database inside the ``mysqldb`` container. To view these logs, do the following:
 
     1. Use the following command to get the names of all the telemetry pods: ::
         
