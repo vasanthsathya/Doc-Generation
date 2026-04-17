@@ -14,3 +14,4 @@ Releases
 * Input validator
 * Input credentials stored in encrypted format
 * Support image creation based on functional groups (Slurm and K8s)
+* Minimal OS functional groups (``os_x86_64`` and ``os_aarch64``) for clean operating system baseline with downstream platform software support

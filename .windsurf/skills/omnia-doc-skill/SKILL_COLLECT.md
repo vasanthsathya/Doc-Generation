@@ -59,6 +59,75 @@ The AI must reference this document during the **COLLECT** phase (before writing
 4. Unit Tests - Practical workflow validation and observable behaviors
 5. Existing documentation (style and precedent)
 
+**Critical Discovery Requirement:**
+Before finalizing any content plan, perform comprehensive discovery across the entire documentation repository using the methodology outlined in the "Comprehensive Discovery Methodology" section above. This ensures all related documentation files are identified and updated appropriately, preventing missed updates to configuration tables, reference files, and cross-references.
+
+**Knowledge Source Location:**
+
+All source documents for documentation analysis are located in:
+
+* **Primary Location:** `C:\Working Folder\Auto Generate Content\omnia-spec-driven\Doc-Generation\knowledge_source`
+* **Structure:** Each capability or feature has its own subfolder containing relevant specifications, transcriptions, and notes
+* **File Types:** HLD documents, engineering specifications, behavior specifications, functional specifications, manual inputs, demo transcriptions, unit tests
+
+**Topic Analysis Approach:**
+
+Before proposing new documentation topics, first analyze existing documentation to identify relevant topics that can be updated:
+
+1. **Check for Existing Topics** - Search the current documentation structure for topics that cover similar functionality or user workflows
+2. **Evaluate Update Potential** - Determine if existing topics can be enhanced with new information rather than creating entirely new topics
+3. **Propose New Topics Only When Necessary** - Create new topics only when no existing topic adequately covers the subject matter
+
+**Comprehensive Discovery Methodology:**
+
+To ensure no related documentation is missed, perform systematic discovery across the entire documentation repository:
+
+1. **Keyword-Based Discovery**
+   - Search for all mentions of key terms from source documents (functional group names, component names, technologies)
+   - Use `grep_search` with broad patterns to find all related content
+   - Search for both exact terms and variations (e.g., "functional group", "functional_group", "role")
+
+2. **File Type Discovery**
+   - Identify all configuration files, tables, and data files that might need updates
+   - Look for CSV files, JSON files, YAML files that contain configuration data
+   - Check for reference tables and parameter lists
+
+3. **Cross-Reference Discovery**
+   - Find all files that reference or link to potentially affected topics
+   - Search for `:doc:`, `:ref:`, and internal links that might need updating
+   - Identify index files and toctree entries that might need modification
+
+4. **Structural Discovery**
+   - Map the documentation structure to understand relationships between topics
+   - Identify parent/child relationships in documentation hierarchy
+   - Find shared components or templates used across multiple files
+
+5. **Dependency Discovery**
+   - Trace dependencies between documentation files
+   - Identify files that import or include content from others
+   - Find configuration files that control documentation generation
+
+**Discovery Checklist:**
+
+Before finalizing the content plan, verify discovery completeness:
+
+- [ ] Searched for all key terms from source documents across entire repository
+- [ ] Identified all configuration tables and data files that need updates
+- [ ] Found all cross-references that might require modification
+- [ ] Checked index files and navigation structures
+- [ ] Verified no duplicate or conflicting information exists
+- [ ] Confirmed all affected file types have been considered (RST, CSV, JSON, YAML)
+- [ ] Validated that all user workflows have complete documentation coverage
+
+**Decision Criteria for New vs. Update:**
+
+| Situation | Action | Rationale |
+|-----------|--------|-----------|
+| Existing topic covers same user workflow | **Update existing topic** | Maintains content cohesion, avoids duplication |
+| Existing topic covers related but different scope | **Create new topic** + cross-reference | Provides focused content while maintaining context |
+| No existing topic addresses the subject | **Create new topic** | Fills documentation gap |
+| Subject spans multiple existing topics | **Update multiple topics** | Ensures comprehensive coverage across related areas |
+
 **Style Guide Reference:**
 
 For all writing conventions, voice, tone, and formatting standards not explicitly covered in this skill document, refer to the Omnia Style Guide:

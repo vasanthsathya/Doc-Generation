@@ -47,3 +47,18 @@ InfiniBand Networking Support
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Provides comprehensive support for InfiniBand (IB) networking in HPC clusters, including automatic DOCA-OFED driver installation for Mellanox InfiniBand cards, and static IP assignment for IB interfaces. InfiniBand Networking requires an InfiniBand subnet manager (SM) configured and running to manage the IB fabric.
+
+Minimal OS Functional Groups
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Introduces new Minimal OS functional groups (``os_x86_64`` and ``os_aarch64``) that provide a clean operating system baseline designed specifically for downstream platform software installation. These groups address the key need for a truly minimal OS environment without conflicts from pre-installed components.
+
+The Minimal OS functional groups deliver:
+
+* **Clean OS Baseline**: Only essential operating system packages and LDMS telemetry packages are included, with no schedulers, container runtimes, or orchestration software
+* **Downstream Platform Support**: Ideal for deploying RKE2, custom Kubernetes, or other platform software that requires a clean environment
+* **Telemetry Readiness**: LDMS packages are pre-installed for future observability, though services are not activated at handoff
+* **Architecture Support**: Separate groups for x86_64 and AArch64 architectures ensure hardware-optimized deployments
+* **Stateless Provisioning**: Maintains Omnia's diskless, stateless provisioning model with deterministic node states
+
+Use Minimal OS functional groups when you need to deploy platform software without conflicts from Slurm, Kubernetes, or other pre-installed components, while maintaining cluster-wide telemetry capabilities.
