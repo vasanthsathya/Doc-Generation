@@ -142,9 +142,9 @@ The following table lists the functional groups along with the recommended softw
 +-----------------------------------------+--------------------------------------------------------------------------------------+
 | login_compiler_node_aarch64             | slurm_custom.json, openldap.json, ucx.json, openmpi.json, ldms.json                  |
 +-----------------------------------------+--------------------------------------------------------------------------------------+
-| os_x86_64                               | default_packages.json, ldms.json                                                      |
+| os_x86_64                               | default_packages.json, ldms.json                                                     |
 +-----------------------------------------+--------------------------------------------------------------------------------------+
-| os_aarch64                               | default_packages.json, ldms.json                                                      |
+| os_aarch64                              | default_packages.json, ldms.json                                                     |
 +-----------------------------------------+--------------------------------------------------------------------------------------+
 
 .. note::
