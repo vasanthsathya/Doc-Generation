@@ -54,25 +54,74 @@ The AI must reference this document during the **BUILD** phase (while generating
 
 **Content Update vs. Creation During BUILD:**
 
+**IMPORTANT: The Content Plan MUST specify whether to update existing content or create new content based on the systematic workflow from SKILL_COLLECT.md §2 (Content Update vs. Creation Decision). Do not make this decision during BUILD phase — it must be made during COLLECT phase.**
+
 **When the Content Plan specifies "Update Existing Topic":**
 - Load the existing RST file
-- Identify sections that need enhancement or modification
+- Identify sections that need enhancement or modification based on the Content Plan rationale
 - Add new information, update outdated content, or expand incomplete sections
 - Preserve existing structure, voice, and formatting unless they need correction
 - Maintain cross-references to other topics
 - Update the toctree if new sections are added
 - Do not recreate the entire file unless the existing content is fundamentally incorrect
+- **Verification:** Ensure the update addresses the gap without duplicating information
+- **Cross-reference check:** Ensure all related topics that should reference this updated content are updated accordingly
 
 **When the Content Plan specifies "New Topic":**
-- Create a new RST file following the file placement and structure guidelines
+- Verify that the Content Plan includes the rationale for creating a new topic (from SKILL_COLLECT.md §2 Step 4)
+- Create a new RST file following the file placement and structure guidelines from §5.1
 - Apply all RST conventions from §5
-- Include appropriate cross-references to related topics
+- Include appropriate cross-references to existing related topics
 - Update the parent index.rst toctree to include the new file
 - Follow the naming conventions specified in the Content Plan
+- **Verification:** Confirm that no existing content already covers the same functionality (as documented in Content Plan rationale)
+- **Cross-reference check:** Identify existing topics that should reference this new topic and update them
 
-**Verification:**
-- If updating existing content, verify that the update addresses the gap without duplicating information
-- If creating new content, verify that no existing content already covers the same functionality
+**CSV Table Handling During BUILD:**
+
+**When the Content Plan specifies "Update Existing CSV Table":**
+- Load the existing CSV file from `docs/source/Tables/`
+- Identify rows/columns that need to be added, modified, or removed based on the Content Plan
+- Add new rows for new parameters/metrics following the existing table structure
+- Update existing parameter values, descriptions, or default values as needed
+- Mark deprecated parameters if required (add a "Deprecated" column or note)
+- Preserve the existing CSV structure and column headers
+- **Verification:** Ensure the update maintains table consistency and data integrity
+- **Cross-reference check:** Update any RST topics that reference this table if table structure changes significantly
+
+**When the Content Plan specifies "New CSV Table":**
+- Verify that the Content Plan includes the rationale for creating a new table (from SKILL_COLLECT.md §2 Step 2.5)
+- Create a new CSV file in `docs/source/Tables/` following naming conventions
+- Define appropriate column headers based on the data type (parameters, metrics, packages, etc.)
+- Populate the table with initial data from source assets
+- Follow the structure of similar existing tables for consistency
+- **Verification:** Confirm that no existing table covers the same data (as documented in Content Plan rationale)
+- **Cross-reference check:** Identify RST topics that should reference this new table and update them
+
+**When the Content Plan specifies "No Table Needed":**
+- No CSV table action required
+- Verify that the rationale in Content Plan justifies why no table is needed
+
+**If Content Plan Does Not Specify Update vs. New:**
+- STOP and return to COLLECT phase
+- Perform the systematic check from SKILL_COLLECT.md §2
+- Document the decision in the Content Plan
+- Only then proceed with BUILD phase
+
+**Verification Checklist for BUILD Phase:**
+- [ ] Content Plan clearly specifies "Update Existing Topic" or "New Topic"
+- [ ] Content Plan includes rationale for the decision
+- [ ] If updating: Existing file loaded and specific sections identified for update
+- [ ] If creating new: Verification that no existing content covers the same functionality
+- [ ] Cross-references added or updated appropriately
+- [ ] Toctree updated if needed
+- [ ] No duplication of information across topics
+- [ ] **CSV Table Check:** Content Plan specifies CSV table status (Update Existing Table | New Table | No Table Needed)
+- [ ] **CSV Table Rationale:** Content Plan includes rationale for CSV table decision
+- [ ] **If updating CSV table:** Existing CSV file loaded and specific rows/columns identified for update
+- [ ] **If creating new CSV table:** Verification that no existing table covers the same data
+- [ ] **CSV table structure preserved** (when updating existing tables)
+- [ ] **CSV table cross-references updated** (if table structure changes significantly)
 
 **Style Guide Reference:**
 

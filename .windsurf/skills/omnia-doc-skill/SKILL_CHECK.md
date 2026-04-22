@@ -51,7 +51,7 @@ The AI must reference this document during the **CHECK** phase (before finalizin
 - Verify file placement against the Information Map (from COLLECT phase)
 - Apply confidence thresholds (§3.3) to determine review needs
 - Use §7 (Check Process Workflow) for systematic validation
-- **Verify content update vs. creation decision** — Ensure that existing content was updated rather than creating duplicate new content
+- **Verify content update vs. creation decision** — Ensure that the systematic workflow from SKILL_COLLECT.md §2 was performed and documented in the Content Plan
 
 **Style Guide Reference:**
 
@@ -78,7 +78,8 @@ When this skill document and the style guide conflict, **this skill document tak
 - [ ] Add `.. versionadded::` or `.. versionchanged::` when content is version-specific
 - [ ] Validate placement against the Information Map (from COLLECT phase) before creating a new file
 - [ ] Write from source assets (Behaviour Spec → Engineering Specification → Component Specification → HLD → Engineering Notes → Demo Transcripts → Unit Tests) — never from general knowledge alone
-- [ ] Verify that existing content was updated rather than creating duplicate new content (check for related topics before creating new files)
+- [ ] **Verify that the systematic workflow from SKILL_COLLECT.md §2 was performed and documented in the Content Plan** — This includes the search for existing topics, evaluation of search results, decision rationale, and topic status (Update Existing Topic or New Topic)
+- [ ] **Verify that the CSV table check from SKILL_COLLECT.md §2 Step 1.5 was performed and documented in the Content Plan** — This includes the search for existing CSV tables, evaluation of table coverage, decision rationale, and CSV table status (Update Existing Table, New Table, or No Table Needed)
 
 ### 3.2 Never Do
 

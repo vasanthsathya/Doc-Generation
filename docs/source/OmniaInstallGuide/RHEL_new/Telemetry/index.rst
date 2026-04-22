@@ -3,7 +3,7 @@ Step 8: Configure Telemetry Requirements
 
 Omnia enables telemetry collection using both iDRAC Telemetry and LDMS
 (Lightweight Distributed Metric Service) in HPC environments. This design ensures that
-telemetry components are dynamically provisioned with stateless provisioning tool, 
+telemetry components are dynamically provisioned with stateless provisioning tool,
 providing flexible deployment and simplified lifecycle management.
 
 * **iDRAC Telemetry** provides out-of-band system metrics from Dell servers, including
@@ -14,6 +14,10 @@ providing flexible deployment and simplified lifecycle management.
   network, and I/O statistics from compute nodes. The LDMS Telemetry data can be collected
   and streamed to **Kafka**.
 
+* **VictoriaLogs** provides centralized log management for the cluster, collecting logs from
+  various sources including network devices, storage systems, and fabric managers. VictoriaLogs
+  is deployed in cluster mode for high availability and scalability.
+
 .. note::
 
    Ensure that the ``service_k8s`` entry is mentioned in the ``software_config.json`` file when ``idrac_telemetry_support`` is set to ``true`` in the ``telemetry_config.yml`` file.
@@ -22,7 +26,7 @@ providing flexible deployment and simplified lifecycle management.
 Omnia Telemetry Architecture
 -----------------------------
 
-Omnia collects telemetry data from HPC cluster nodes using: **LDMS** for OS-level metrics and **iDRAC** for hardware telemetry.
+Omnia collects telemetry data from HPC cluster nodes using: **LDMS** for OS-level metrics, **iDRAC** for hardware telemetry, and **VictoriaLogs** for centralized log management.
 
 The following diagram illustrates the telemetry services that can be deployed using Omnia and the data flow between the components.
 
@@ -32,7 +36,7 @@ The following diagram illustrates the telemetry services that can be deployed us
 Telemetry Components
 ---------------------
 
-The following components are involved in the telmetry services deployed by Omnia:
+The following components are involved in the telemetry services deployed by Omnia:
 
 **OIM (Omnia Infrastructure Manager)**
 
@@ -42,25 +46,25 @@ Central management node that deploys and configures all telemetry services acros
 
 Hosts telemetry collection and storage services:
 
-- **LDMS Aggregator** – Receives metrics from slurm compute node samplers.
+- **LDMS Aggregator** – Receives metrics from Slurm compute node samplers.
 - **LDMS Store** – Stores aggregated LDMS data
 - **iDRAC Collector** – Collects hardware telemetry via Redfish API
 - **Kafka Broker** – Streams telemetry data
 - **VMAgent** – Forwards metrics to Victoria Metrics
 - **Victoria Metrics** – Time-series database for metric storage
-- **VictoriaLogs** – Centralized log storage and querying engine for log management
-- **VLAgent** – Platform-managed log forwarding agent for VictoriaLogs
+- **VictoriaLogs Cluster** – Distributed log storage system with vlstorage, vlinsert, vlselect components
+- **VLAgent** – Platform-managed log collection agent that receives logs from external sources
 
 
 **Slurm Cluster**
 
-Each slurm compute node runs:
+Each Slurm compute node runs:
 
 - **LDMS Sampler** – Collects OS metrics (CPU, memory, network, and I/O)
 - **iDRAC** – Provides hardware health data (temperature, power, and fans)
 
-iDRAC and LDMS Telemetry Data Flows
-------------------------------------
+Telemetry Data Flows
+---------------------
 
 **LDMS Flow (OS Metrics)**
 
@@ -75,20 +79,11 @@ iDRAC and LDMS Telemetry Data Flows
    iDRAC (BMC) → iDRAC Collector → Kafka
    iDRAC (BMC) → iDRAC Collector → VMAgent → Victoria Metrics
 
-**VictoriaLogs Flow (Log Management)**
+**VictoriaLogs Flow (Logs)**
 
 ::
 
-   External Log Sources → VLAgent → vlinsert → vlstorage
-   Query Clients → vlselect → vlstorage
-
-.. note::
-
-   VictoriaLogs is deployed as a mandatory platform service when ``victoria`` is present in ``telemetry_collection_type``.
-
-.. important::
-
-   Single-node VictoriaLogs is not supported; cluster mode only for production environments.
+   External Log Sources (syslog, HTTP) → VLAgent → vlinsert → vlstorage → vlselect
 
 .. toctree::
     :maxdepth: 1

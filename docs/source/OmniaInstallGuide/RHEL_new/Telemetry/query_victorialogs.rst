@@ -1,124 +1,154 @@
 .. _query-victorialogs:
 
+.. versionadded:: 2.2
+
 .. note::
    This topic is pending SME validation. Content may change before publication.
 
 Query Logs with VictoriaLogs
-=============================
+============================
 
-This procedure guides you through querying logs stored in VictoriaLogs to troubleshoot issues, analyze system behavior, and investigate events across the cluster.
+Query logs stored in VictoriaLogs to troubleshoot issues, analyze system behavior, and investigate events across the cluster. VictoriaLogs uses LogsQL (Log Query Language) for searching and filtering log data.
 
 Prerequisites
 -------------
 
-Ensure the following prerequisites are met:
+Before querying logs:
 
-* VictoriaLogs cluster is deployed
-* Logs are ingested from one or more sources
-* vlselect endpoint information is available
+* Ensure that VictoriaLogs cluster is deployed (see :doc:`deploy_victorialogs`)
+* Ensure that logs are ingested from one or more sources (see :doc:`configure_victorialogs_sources`)
+* Ensure that you have the vlselect endpoint information
 
 Access Query Interface
-----------------------
+---------------------
 
-#. Access the VictoriaLogs query interface.
+VictoriaLogs provides multiple interfaces for querying logs:
 
-   VictoriaLogs provides multiple methods for querying logs:
+**HTTP API**
 
-   * **Built-in web UI** (if configured)
-   * **HTTP API** via vlselect endpoint
-   * **Command-line tools** using curl or similar
+Use the HTTP API to query logs programmatically or from the command line.
 
-   For HTTP API access, use the vlselect endpoint:
+.. code-block:: bash
 
-   .. code-block:: text
+   curl -k https://<LoadBalancer IP>:9491/select/logsql/query -d 'query="<query>"'
 
-       https://vlselect-victoria-logs-cluster.telemetry.svc.cluster.local:9491
+Replace ``<LoadBalancer IP>`` with the external IP of the vlselect service and ``<query>`` with your LogsQL query.
 
-   Replace the service name with the LoadBalancer IP for external access.
+**Built-in Web UI**
 
-   .. important::
+If configured, access the VictoriaLogs web UI through a browser at ``https://<LoadBalancer IP>:9491``.
 
-      TLS is required for all external query access. Use the CA certificate from the ``victoria-tls-certs`` secret.
+.. important::
+   TLS is required for all external query access. Use ``-k`` with curl to bypass certificate verification for self-signed certificates during testing.
 
 LogsQL Query Basics
 -------------------
 
-VictoriaLogs uses LogsQL (VictoriaLogs Query Language) for searching, filtering, and aggregating log data. LogsQL syntax differs from other log query languages.
+LogsQL is VictoriaLogs query language. It uses a simple syntax for filtering and searching log data.
 
-#. Use basic LogsQL query syntax.
+**Basic Query Syntax**
 
-   A basic LogsQL query has the following format:
+A basic LogsQL query consists of filter expressions that match log fields.
 
-   .. code-block:: text
+.. code-block:: text
 
-       {filter_expression} | pipe_commands
+   {_stream="device-01"}
+   {_msg="error"}
+   {level="error"}
 
-   Examples:
+**Time Range Filtering**
 
-   .. code-block:: text
+Filter logs by time range using the ``time:`` filter.
 
-       # Search for all logs from the last 5 minutes
-       {_time:5m}
+.. code-block:: text
 
-       # Search for error logs
-       {_level:ERROR}
+   {time:1h}               # Last 1 hour
+   {time:24h}              # Last 24 hours
+   {time:7d}               # Last 7 days
+   {time:"2024-01-01"}     # Specific date
 
-       # Search for logs from a specific host
-       {host="server1"}
+**Field Filtering**
 
-   .. note::
+Filter by specific log fields.
 
-      LogsQL is VictoriaLogs query language. Syntax differs from other log query languages.
+.. code-block:: text
+
+   {_stream="device-01"}
+   {_msg="connection"}
+   {level="error"}
+   {host="server-01"}
 
 Common Query Patterns
---------------------
+---------------------
 
-#. Search for specific error messages.
+**Search for Specific Error Messages**
 
-   .. code-block:: bash
+Find logs containing specific error text.
 
-       curl --cacert victoria-ca.crt -s "https://<vlselect-IP>:9491/select/logsql/query?query={_level:ERROR}" | jq
+.. code-block:: text
 
-#. Filter by log level.
+   {_msg="error"}
+   {_msg=~"connection.*failed"}  # Regex match
 
-   .. code-block:: bash
+**Filter by Log Level**
 
-       curl --cacert victoria-ca.crt -s "https://<vlselect-IP>:9491/select/logsql/query?query={_level:WARN}" | jq
+Filter logs by severity level.
 
-#. Query logs from specific hosts or devices.
+.. code-block:: text
 
-   .. code-block:: bash
+   {level="error"}
+   {level="warning"}
+   {level="info"}
 
-       curl --cacert victoria-ca.crt -s "https://<vlselect-IP>:9491/select/logsql/query?query={host=\"server1\"}" | jq
+**Query Logs from Specific Hosts**
 
-#. Aggregate and analyze log data.
+Find logs from specific devices or hosts.
 
-   .. code-block:: bash
+.. code-block:: text
 
-       curl --cacert victoria-ca.crt -s "https://<vlselect-IP>:9491/select/logsql/stats_query?query={_level:ERROR} | stats by (_level)" | jq
+   {_stream="device-01"}
+   {host="server-01"}
 
-   .. AI_REVIEW: LogsQL query syntax examples require SME verification against VictoriaLogs documentation
+**Combine Multiple Filters**
+
+Combine multiple filters using logical operators.
+
+.. code-block:: text
+
+   {level="error"} AND {_stream="device-01"}
+   {level="warning"} OR {level="error"}
+   {_msg=~"error"} AND {time:1h}
+
+**Aggregate and Analyze Log Data**
+
+Use aggregation functions to analyze log patterns.
+
+.. code-block:: text
+
+   stats by (_stream) count()
+   stats by (level) count()
+   stats by (host) count()
+
+.. AI_REVIEW::
+   LogsQL query syntax examples require SME verification against VictoriaLogs documentation. The examples above provide general guidance; actual syntax may vary by VictoriaLogs version.
 
 Export Results
 --------------
 
-#. Export query results if needed.
+Export query results to a file for further analysis.
 
-   Use curl to query and save results to a file:
+.. code-block:: bash
 
-   .. code-block:: bash
+   curl -k https://<LoadBalancer IP>:9491/select/logsql/query -d 'query="<query>"' > results.json
 
-       curl --cacert victoria-ca.crt -s "https://<vlselect-IP>:9491/select/logsql/query?query={_time:1h}" > logs.json
+The results are returned in JSON format.
 
-   The results are returned in JSON format for further processing or analysis.
-
-   .. note::
-
-      Query latency depends on time range and data volume. Large time ranges may result in slower query performance.
+.. note::
+   Query latency depends on time range and data volume. Narrow the time range for faster results.
 
 Related Topics
----------------
+--------------
 
-* :doc:`index` - Telemetry overview
-* :doc:`configure_victorialogs_sources` - Configure log sources for VictoriaLogs
-* :doc:`external_victoria` - Collect telemetry data from external client nodes to Victoria DB
+* :doc:`deploy_victorialogs` — Deploy VictoriaLogs cluster mode
+* :doc:`configure_victorialogs_sources` — Configure log sources for VictoriaLogs
+* :doc:`troubleshoot_victorialogs` — Troubleshoot VictoriaLogs issues

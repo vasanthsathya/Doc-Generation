@@ -4,7 +4,7 @@
 **Version:** 2.1.0.0-rc2  
 **Feature:** VictoriaLogs Cluster Mode  
 **Created:** 2026-04-22  
-**Updated:** 2026-04-22 (Updated to reflect existing telemetry structure)  
+**Updated:** 2026-04-22  
 **Owner:** Documentation Team  
 **Status:** Draft  
 
@@ -15,10 +15,18 @@
 - Component Specification: `knowledge_source/victoria_logs_cluster_mode/VL_Cluster_component_spec.md`
 
 **Existing Documentation Analysis:**
-- Existing telemetry documentation found at `docs/source/OmniaInstallGuide/RHEL_new/Telemetry/`
-- Current telemetry documentation covers VictoriaMetrics (metrics) but NOT VictoriaLogs (logs)
-- Telemetry index.rst mentions VictoriaMetrics, Kafka, LDMS, iDRAC — VictoriaLogs is not documented
-- Decision: Update existing telemetry structure to include VictoriaLogs, create new VictoriaLogs-specific topics within the telemetry directory
+- NO existing VictoriaLogs documentation found in `docs/source/OmniaInstallGuide/RHEL_new/Telemetry/`
+- Current telemetry documentation covers VictoriaMetrics (metrics), Kafka, LDMS, iDRAC — VictoriaLogs is NOT documented
+- Telemetry index.rst mentions VictoriaMetrics, Kafka, LDMS, iDRAC — VictoriaLogs is not mentioned
+- Decision: CREATE NEW VictoriaLogs-specific topics within the telemetry directory
+- telemetry_config.csv EXISTS but does NOT include victoria_logs_configurations parameters
+
+**Systematic Workflow Applied (SKILL_COLLECT.md §2):**
+- Step 1: Searched existing documentation for VictoriaLogs topics — FOUND 0 existing topics
+- Step 2: Evaluated search results — No existing VictoriaLogs documentation exists
+- Step 3: Determined action — CREATE NEW TOPICS
+- Step 4: Documented decision — All topics marked as "New Topic" with rationale
+- Step 1.5: Checked CSV tables — telemetry_config.csv exists but needs update to add victoria_logs_configurations
 
 **Source Asset Priority:**
 1. Behaviour Spec — Customer interaction details and victoria logs section for doc generation
@@ -495,28 +503,101 @@ As an HPC administrator, I need to troubleshoot common issues with VictoriaLogs 
 
 ---
 
+## Topic 7: Update telemetry_config.csv Table
+
+| Field | Details |
+|-------|---------|
+| **Topic Type** | CSV Table Update |
+| **Status** | Update Existing Table |
+| **Target Audience** | Infrastructure/HPC Administrator, Platform Engineer |
+| **Source Traceability** | Behaviour Spec §5.8.2, Engineering Spec §4.1.3.1, VL_Cluster_Component_Spec §2.1, §2.12 |
+| **CSV File** | `docs/source/Tables/telemetry_config.csv` |
+| **Content Type** | Tables/ |
+
+**Customer Workflow Context:**
+The existing telemetry_config.csv does not include victoria_logs_configurations parameters. This update adds the new configuration parameters for VictoriaLogs (retention_period and storage_size) to provide a complete reference for all telemetry configuration options.
+
+**Content Requirements:**
+- Add new rows for victoria_logs_configurations parameters:
+  - victoria_logs_configurations > retention_period
+    - Type: Integer (hours)
+    - Default: 168 (7 days)
+    - Range: 24-8760 (1 day to 1 year)
+    - Description: How long logs are retained before automatic deletion
+  - victoria_logs_configurations > storage_size
+    - Type: Kubernetes PVC size format
+    - Default: 8Gi (per replica)
+    - Description: Storage allocated per vlstorage replica
+    - Sizing formula: (140 MB/day × retention_days × node_count) / 3 replicas
+- Preserve existing table structure and formatting
+- Expected outcomes: Complete telemetry configuration reference including VictoriaLogs parameters
+- Warnings/Notes:
+  - .. warning:: Storage under-provisioning can lead to data loss before retention period
+  - .. note:: VictoriaLogs uses integer-hours format for retention (e.g., 168 = 7 days)
+
+**Configuration Artifacts:**
+- `telemetry_config.yml` — victoria_logs_configurations section
+- Storage sizing formula: 140 MB/day × retention_days × node_count
+
+**Cross-References:**
+- `victorialogs_config.rst` (Topic 5 - configuration reference)
+- `deploy_victorialogs.rst` (Topic 2 - deployment guide)
+
+**Build Agent Instructions:**
+- Load existing telemetry_config.csv
+- Add new rows for victoria_logs_configurations parameters
+- Follow existing CSV structure and formatting
+- Preserve existing content
+- No SME validation required
+- Confidence: High (0.9)
+- AI_REVIEW markers: None
+
+**Gap Analysis:**
+- [x] User workflows and use cases identified
+- [x] Real-world examples and scenarios available
+- [x] Common mistakes and gotchas documented
+- [x] Performance characteristics covered
+- [x] Integration examples provided
+- [ ] Troubleshooting scenarios included
+- [x] Prerequisites and dependencies listed
+- [x] Security and compliance considerations addressed
+
+**Additional Source Requirements:**
+- [ ] None identified
+
+---
+
 ## Summary
 
-This content plan defines 6 documentation topics for VictoriaLogs Cluster Mode:
+This content plan defines 7 documentation topics for VictoriaLogs Cluster Mode:
 
 1. **Update Telemetry Index** — Add VictoriaLogs to existing telemetry documentation
-2. **Deployment Guide** — How to deploy VictoriaLogs in cluster mode
-3. **Log Source Configuration** — How to configure external devices to send logs
-4. **Query Guide** — How to search and analyze logs using LogsQL
-5. **Configuration Reference** — Reference for all configuration parameters
-6. **Troubleshooting** — Common issues and resolutions
+2. **Deploy VictoriaLogs Cluster Mode** — How to deploy VictoriaLogs in cluster mode
+3. **Configure Log Sources for VictoriaLogs** — How to configure external devices to send logs
+4. **Query Logs with VictoriaLogs** — How to search and analyze logs using LogsQL
+5. **VictoriaLogs Configuration Reference** — Reference for all configuration parameters
+6. **Troubleshooting VictoriaLogs** — Common issues and resolutions
+7. **Update telemetry_config.csv** — Add victoria_logs_configurations parameters (retention_period, storage_size)
 
-**Total Topics:** 6  
-**New Topics:** 5  
-**Update Existing Topics:** 1  
+**Total Topics:** 7  
+**New Topics:** 5 (RST files)  
+**Update Existing Topics:** 1 (RST file) + 1 (CSV table)
+
+**Systematic Workflow Applied (SKILL_COLLECT.md §2):**
+- Step 1: Searched existing documentation for VictoriaLogs topics — FOUND 0 existing RST topics
+- Step 2: Evaluated search results — No existing VictoriaLogs documentation exists
+- Step 3: Determined action — CREATE NEW TOPICS
+- Step 4: Documented decision — All topics marked as "New Topic" with rationale
+- Step 1.5: Checked CSV tables — telemetry_config.csv exists but needs update to add victoria_logs_configurations
 
 **Priority Order for Implementation:**
-1. Topic 1 (Update Telemetry Index) — Foundation for all other topics, updates existing structure
-2. Topic 2 (Deployment) — Core capability required before use
+1. Topic 7 (Update telemetry_config.csv) — Foundation for configuration reference
+2. Topic 1 (Update Telemetry Index) — Foundation for all other topics
 3. Topic 5 (Configuration Reference) — Supports deployment topic
-4. Topic 3 (Log Source Configuration) — Core use case
-5. Topic 4 (Query Guide) — Core use case
-6. Topic 6 (Troubleshooting) — Support topic
+4. Topic 2 (Deployment) — Core capability required before use
+5. Topic 3 (Log Source Configuration) — Core use case
+6. Topic 4 (Query Guide) — Core use case
+7. Topic 6 (Troubleshooting) — Support topic
 
 **SME Validation Required:**
 - Topic 3 (Log Source Configuration) — Device-specific examples

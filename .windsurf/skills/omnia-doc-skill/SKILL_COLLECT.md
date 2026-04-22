@@ -55,22 +55,186 @@ The AI must reference this document during the **COLLECT** phase (before writing
 
 **Content Update vs. Creation Decision:**
 
+**MANDATORY WORKFLOW: Before Creating Any New Topic, Follow This Systematic Check**
+
+For ANY feature or functionality, the AI MUST perform the following systematic check to determine whether to update existing content or create new content:
+
+### Step 1: Search Existing Documentation
+Search the `docs/` directory for existing topics related to the feature using these criteria:
+
+**Search Keywords:**
+- Feature name and all synonyms
+- Component names
+- Configuration parameter names
+- Command names
+- Related workflow names
+- Error messages or symptoms (for troubleshooting)
+
+**Search Locations:**
+- `docs/concepts/` - For conceptual explanations
+- `docs/how-to/` - For procedural guides
+- `docs/reference/` - For configuration and command references
+- `docs/troubleshooting/` - For known issues and solutions
+- Feature-specific directories (e.g., `docs/buildstream/`, `docs/upgrade/`)
+
+### Step 2: Evaluate Search Results
+For each matching topic found, evaluate:
+
+| Evaluation Criteria | Questions to Ask | Decision |
+|---------------------|-----------------|----------|
+| **Topic Coverage** | Does the existing topic cover the same functionality? | YES → Proceed to Step 3 |
+| **Audience Match** | Is the existing topic for the same target audience? | YES → Proceed to Step 3 |
+| **Completeness** | Is the existing topic complete, or does it need enhancement? | Incomplete → Plan update |
+| **Accuracy** | Is the existing content accurate, or does it need correction? | Inaccurate → Plan update |
+| **Relevance** | Is the existing content still relevant to the current feature? | Irrelevant → Consider new topic |
+
+### Step 1.5: Check for CSV Tables
+In addition to RST documentation topics, search for existing .csv tables that may need updates:
+
+**Search Locations for CSV Tables:**
+- `docs/source/Tables/` - Primary location for all CSV tables
+- Feature-specific directories that may contain tables
+
+**Search Keywords for CSV Tables:**
+- Feature name and related terms
+- Configuration parameter names
+- Component names
+- Metric names
+- Package names
+- Hardware component names
+- Network topology names
+
+**Common CSV Table Types:**
+- Configuration parameter tables (e.g., `Provision_config.csv`, `omnia_config_compute_cluster.csv`)
+- Metrics tables (e.g., `Metrics.csv`, `Metrics_GPU.csv`)
+- Software package tables (e.g., `omnia_software_packages.csv`, `additional_software.csv`)
+- Hardware specification tables (e.g., `network_spec.csv`, `roce_config.csv`)
+- Credential tables (e.g., `credentials_utility.csv`, `Provision_creds.csv`)
+- Log reference tables (e.g., `ControlPlaneLogs.csv`, `podman_logs.csv`)
+- FAQ tables (e.g., `FAQ_provision.csv`)
+
+**Evaluation Criteria for CSV Tables:**
+
+| Evaluation Criteria | Questions to Ask | Decision |
+|---------------------|-----------------|----------|
+| **Table Coverage** | Does the existing table contain parameters/metrics for this feature? | YES → Proceed to Step 2.5 |
+| **Parameter Match** | Are the new parameters/metrics already in the table? | NO → Plan to add rows/columns |
+| **Structure Match** | Does the table structure support the new data? | YES → Plan to add rows |
+| **Obsolescence** | Are there deprecated parameters/metrics to remove? | YES → Plan to update/remove rows |
+| **Relevance** | Is the table still relevant for the current feature/version? | NO → Consider new table |
+
+### Step 2.5: Determine CSV Table Action
+Based on the evaluation:
+
+**UPDATE EXISTING CSV TABLE if:**
+- The table contains related parameters/metrics for the same feature
+- New parameters/metrics need to be added as new rows
+- Existing parameter values need to be updated
+- Deprecated parameters need to be marked or removed
+- The table structure supports the new data
+- **Examples:**
+  - Adding new configuration parameters to `Provision_config.csv`
+  - Adding new metrics to `Metrics.csv` or `Metrics_GPU.csv`
+  - Updating parameter descriptions or default values
+  - Adding new software packages to `omnia_software_packages.csv`
+  - Updating credential parameters in `credentials_utility.csv`
+
+**CREATE NEW CSV TABLE if:**
+- No existing table covers the parameter/metric category
+- The new data requires a different table structure
+- The table is for a completely new feature area
+- The existing tables are for different audiences or use cases
+- **Examples:**
+  - A new feature with unique configuration parameters
+  - A new metric category not covered by existing metrics tables
+  - A new component requiring its own parameter table
+  - A new hardware type requiring specification tables
+
+**Document CSV Table Decision:**
+In the Content Plan, clearly document:
+
+```
+**CSV Table Status:** [Update Existing Table | New Table | No Table Needed]
+
+**Rationale:**
+- [Search results summary for CSV tables]
+- [Evaluation findings]
+- [Decision justification]
+- [Specific CSV file to update (if applicable)]
+- [Rows/columns to add or modify]
+```
+
+### Step 3: Determine Action
+Based on the evaluation:
+
+**UPDATE EXISTING TOPIC if:**
+- The existing topic covers the same or closely related functionality
+- The new information enhances, extends, or corrects the existing content
+- The audience is the same
+- The content is for the same feature area
+- **Examples:**
+  - Adding new configuration parameters to an existing reference topic
+  - Adding new steps to an existing how-to guide
+  - Enhancing a concept topic with additional details
+  - Adding troubleshooting information to an existing topic
+  - Updating outdated information in an existing topic
+
+**CREATE NEW TOPIC if:**
+- No existing topic covers the functionality
+- The functionality is fundamentally different from existing documented features
+- The existing content is for a different audience or use case
+- The new content would duplicate existing information without adding value
+- The feature is a new major feature with no existing documentation
+- **Examples:**
+  - A completely new feature with no existing documentation
+  - A fundamentally different workflow that doesn't fit existing topics
+  - A new audience segment requiring different depth/tone
+  - A new component that requires its own documentation structure
+
+### Step 4: Document the Decision
+In the Content Plan, clearly document:
+
+```
+**Topic Status:** [Update Existing Topic | New Topic]
+
+**Rationale:**
+- [Search results summary]
+- [Evaluation findings]
+- [Decision justification]
+- [Specific file to update (if applicable)]
+```
+
 **Priority 1: Update or Enhance Existing Content**
-- Before creating new topics, always search for existing documentation that covers the same or related functionality
+- Before creating new topics, always perform the systematic check above
 - If existing content exists, plan to update or enhance it rather than creating new files
 - Common update scenarios:
   - Adding new features to existing how-to guides
   - Enhancing concept topics with new information
   - Updating configuration reference with new parameters
   - Adding troubleshooting information to existing topics
+  - Correcting outdated or inaccurate information
 - Mark the topic status as "Update Existing Topic" in the Content Plan
 
 **Priority 2: Create New Content (Only if No Existing Content)**
-- Create new concept and how-to topics only when:
-  - No existing content covers the functionality
+- Create new concept and how-to topics only after confirming:
+  - No existing content covers the functionality (after systematic search)
   - The functionality is fundamentally different from existing documented features
   - The existing content is for a different audience or use case
+  - Creating new content would not duplicate existing information
 - Mark the topic status as "New Topic" in the Content Plan
+
+### Step 5: Cross-Reference Strategy
+When updating existing topics:
+- Add cross-references to related topics where appropriate
+- Ensure consistency across all related topics
+- Update the parent index.rst if the topic structure changes
+- Verify that all cross-references remain valid after updates
+
+When creating new topics:
+- Add cross-references to existing related topics
+- Ensure the new topic integrates with the existing documentation structure
+- Update the parent index.rst toctree to include the new file
+- Verify that existing topics that should reference the new topic are updated
 
 **Source Asset Priority Order (when inputs conflict):**
 1. Behaviour Spec - Customer interaction details and victoria logs section for doc generation

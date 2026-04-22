@@ -1,154 +1,190 @@
 .. _troubleshoot-victorialogs:
 
+.. versionadded:: 2.2
+
 .. note::
    This topic is pending SME validation. Content may change before publication.
 
-Troubleshooting VictoriaLogs
-============================
+Troubleshoot VictoriaLogs
+==========================
 
-This section provides common issues and solutions for VictoriaLogs deployment, log ingestion, and querying.
+Troubleshoot common issues with VictoriaLogs deployment, log ingestion, and querying to maintain observability of your cluster.
+
+Prerequisites
+-------------
+
+Before troubleshooting VictoriaLogs:
+
+* Ensure that VictoriaLogs cluster is deployed (see :doc:`deploy_victorialogs`)
+
 
 Component Health Issues
------------------------
+------------------------
 
-**Issue: VictoriaLogs components not reaching healthy state**
+**VictoriaLogs Pods Not Reaching Healthy State**
 
-#. Check pod status and logs.
+If VictoriaLogs pods fail to reach a healthy state:
 
-   .. code-block:: bash
-
-       kubectl get pods -n telemetry
-       kubectl logs <pod-name> -n telemetry
-
-   Look for error messages in the pod logs that indicate the cause of the failure.
-
-#. Verify TLS certificate configuration.
-
-   Ensure that the ``victoria-tls-certs`` secret exists and contains the correct certificates:
+1. Check pod status and identify the failing component.
 
    .. code-block:: bash
 
-       kubectl get secret victoria-tls-certs -n telemetry
+      kubectl get pods -n telemetry
 
-   Verify that the certificates include VictoriaLogs SANs (vlinsert, vlselect, vlstorage).
-
-#. Check resource limits.
-
-   Verify that the pods are not resource-constrained:
+2. Check pod logs for error messages.
 
    .. code-block:: bash
 
-       kubectl describe pod <pod-name> -n telemetry
+      kubectl logs <pod-name> -n telemetry
 
-   Look for OOMKilled or resource limit errors.
+3. Verify TLS certificate configuration.
+
+   .. code-block:: bash
+
+      kubectl get secret victoria-tls-certs -n telemetry
+
+4. Check resource limits and ensure sufficient CPU and memory are allocated.
+
+   .. code-block:: bash
+
+      kubectl describe pod <pod-name> -n telemetry
+
+.. note::
+   VictoriaLogs cluster mode is relatively new in upstream. Pin to a tested release for production deployments.
 
 Log Ingestion Issues
 --------------------
 
-**Issue: Logs not appearing in VictoriaLogs**
+**Logs Not Appearing in VictoriaLogs**
 
-#. Verify log source configuration.
+If logs from external sources do not appear in VictoriaLogs:
 
-   Ensure that your log sources are configured to send logs to the correct VLAgent endpoint (port 514 for plaintext, port 6514 for TLS).
+1. Verify log source configuration.
 
-#. Check network connectivity to VLAgent.
+   * Confirm syslog forwarding is configured with the correct endpoint
+   * Confirm HTTP forwarding uses the correct URL and format
+   * Check device logs for connection errors
 
-   Verify that the log sources can reach the Service Kubernetes cluster:
-
-   .. code-block:: bash
-
-       telnet <VLAgent-LoadBalancer-IP> 514
-
-   Replace ``<VLAgent-LoadBalancer-IP>`` with the actual LoadBalancer IP.
-
-#. Verify TLS handshake for encrypted sources.
-
-   For TLS syslog connections, ensure that the CA certificate is correctly configured on the log source:
+2. Check network connectivity to VLAgent.
 
    .. code-block:: bash
 
-       openssl s_client -connect <VLAgent-LoadBalancer-IP>:6514 -CAfile victoria-ca.crt
+      telnet <LoadBalancer IP> 514
+      telnet <LoadBalancer IP> 6514
+
+3. Verify TLS handshake for encrypted sources.
+
+   .. code-block:: bash
+
+      openssl s_client -connect <LoadBalancer IP>:6514 -showcerts
+
+4. Check VLAgent pod logs for ingestion errors.
+
+   .. code-block:: bash
+
+      kubectl logs vlagent -n telemetry
 
 Query Access Issues
---------------------
+-------------------
 
-**Issue: Query endpoint not accessible**
+**Query Endpoint Not Accessible**
 
-#. Verify LoadBalancer service type.
+If the query endpoint is not accessible:
 
-   Ensure that the vlselect service is of type LoadBalancer:
-
-   .. code-block:: bash
-
-       kubectl get svc vlselect -n telemetry
-
-#. Check MetalLB configuration.
-
-   If using MetalLB for LoadBalancer services, verify that MetalLB is functioning correctly:
+1. Verify LoadBalancer service type.
 
    .. code-block:: bash
 
-       kubectl get pods -n metallb-system
+      kubectl get svc vlselect-victoria-logs-cluster -n telemetry
 
-#. Verify TLS certificate SANs.
-
-   Ensure that the TLS certificates include the correct SANs for vlselect:
+2. Check MetalLB configuration if LoadBalancer type is used.
 
    .. code-block:: bash
 
-       openssl x509 -in victoria-ca.crt -text -noout | grep -A1 "Subject Alternative Name"
+      kubectl get configmap config -n metallb-system
+
+3. Verify TLS certificate SANs include the LoadBalancer IP.
+
+   .. code-block:: bash
+
+      openssl x509 -in victoria-ca.crt -text -noout
+
+4. Check vlselect pod health.
+
+   .. code-block:: bash
+
+      kubectl get pods -n telemetry | grep vlselect
 
 Storage Issues
 --------------
 
-**Issue: Storage space exhaustion**
+**Storage Space Exhaustion**
 
-#. Check PVC utilization.
+If PVC storage is exhausted:
+
+1. Check PVC utilization.
 
    .. code-block:: bash
 
-       kubectl get pvc -n telemetry
-       kubectl exec -it <vlstorage-pod> -n telemetry -- df -h
+      kubectl get pvc -n telemetry
 
-   Replace ``<vlstorage-pod>`` with the actual vlstorage pod name.
+2. Check vlstorage PVC usage.
 
-#. Adjust retention period or storage size.
+   .. code-block:: bash
 
-   If storage is exhausted, consider adjusting the ``retention_period`` or ``storage_size`` parameters in ``telemetry_config.yml`` and redeploying.
+      kubectl exec -it <vlstorage-pod> -n telemetry -- df -h
 
-   See :doc:`victorialogs_config` for configuration details.
+3. Adjust retention period or storage size in ``telemetry_config.yml``.
+
+   .. code-block:: yaml
+
+      victoria_logs_configurations:
+        retention_period: 168  # Reduce retention if needed
+        storage_size: 16Gi     # Increase storage if needed
+
+4. Redeploy telemetry configuration.
+
+   .. code-block:: bash
+
+      cd /opt/omnia/telemetry
+      ansible-playbook discovery.yml
+
+.. important::
+   vlstorage PVCs persist after StatefulSet deletion. Manual cleanup is required during teardown.
 
 Performance Issues
--------------------
+------------------
 
-**Issue: High query latency**
+**High Query Latency**
 
-#. Check time range in query.
+If query performance is slow:
 
-   Large time ranges can result in slower query performance. Reduce the time range in your LogsQL query.
+1. Check the time range in your query. Narrow the range for faster results.
 
-#. Verify vlselect pod health.
+   .. code-block:: text
+
+      {time:1h}  # Use smaller time ranges
+
+2. Verify vlselect pod health and resource usage.
 
    .. code-block:: bash
 
-       kubectl get pods -n telemetry | grep vlselect
+      kubectl top pods -n telemetry | grep vlselect
 
-   Ensure that all vlselect pods are in the ``Running`` state.
+3. Check if vlselect pods are under heavy load.
 
-   .. note::
+   .. code-block:: bash
 
-      VictoriaLogs cluster mode is relatively new in upstream. Pin to a tested release for production deployments.
+      kubectl describe pod <vlselect-pod> -n telemetry
 
-   .. important::
+4. Consider increasing vlselect replica count if query load is high.
 
-      vlstorage PVCs persist after StatefulSet deletion. Manual cleanup is required during teardown to release storage resources.
+.. AI_REVIEW::
+   Troubleshooting steps require SME validation against real deployment scenarios. The steps above provide general guidance; actual resolution steps may vary based on specific deployment configurations.
 
 Related Topics
----------------
+--------------
 
-* :doc:`index` - Telemetry overview
-* :doc:`deploy_victorialogs` - Deploy VictoriaLogs cluster mode
-* :doc:`configure_victorialogs_sources` - Configure log sources for VictoriaLogs
-* :doc:`query_victorialogs` - Query logs with VictoriaLogs
-
-.. AI_REVIEW: Troubleshooting steps require SME validation against real deployment scenarios
+* :doc:`deploy_victorialogs` — Deploy VictoriaLogs cluster mode
+* :doc:`configure_victorialogs_sources` — Configure log sources for VictoriaLogs
+* :doc:`query_victorialogs` — Query logs with VictoriaLogs

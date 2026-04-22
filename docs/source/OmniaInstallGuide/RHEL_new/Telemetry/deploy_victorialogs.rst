@@ -1,130 +1,166 @@
 .. _deploy-victorialogs:
 
-Deploy VictoriaLogs Cluster Mode
-================================
+.. versionadded:: 2.2
 
-This procedure guides you through deploying VictoriaLogs in cluster mode to enable centralized log management for your Omnia cluster. VictoriaLogs is deployed as a mandatory platform service alongside VictoriaMetrics.
+Deploy VictoriaLogs Cluster Mode
+=================================
+
+Deploy VictoriaLogs in cluster mode to enable centralized log management for your Omnia cluster. This procedure guides you through configuring telemetry settings and deploying VictoriaLogs alongside VictoriaMetrics.
 
 Prerequisites
 -------------
 
-Ensure the following prerequisites are met before deploying VictoriaLogs:
+Before deploying VictoriaLogs:
 
-* Omnia Infrastructure Manager (OIM) is deployed
-* Service Kubernetes cluster is deployed with at least 2 worker nodes
-* VictoriaMetrics is deployed (VictoriaLogs co-deploys with VictoriaMetrics)
-* ``pod_external_ip_range`` is configured in ``omnia_config.yml``
-* Storage provisioner is available for PVC provisioning
+* Ensure that Omnia Infrastructure Manager (OIM) is deployed
+* Ensure that Service Kubernetes cluster is deployed with at least 2 worker nodes
+* Ensure that VictoriaMetrics deployment is configured (VictoriaLogs co-deploys with VictoriaMetrics)
+* Ensure that ``pod_external_ip_range`` is configured in ``omnia_config.yml``
+* Ensure that a storage provisioner is available for PVC provisioning
+
+.. important::
+   Cluster mode requires at least 2 Service Kubernetes worker nodes for pod anti-affinity rules to function correctly.
+
+.. note::
+   VictoriaLogs shares the same deployment gate as VictoriaMetrics. Both deploy when ``victoria`` is included in ``telemetry_collection_type``.
 
 Configure VictoriaLogs Settings
-------------------------------
+-------------------------------
 
-#. Configure the ``telemetry_config.yml`` file to set VictoriaLogs parameters.
+1. Navigate to the telemetry configuration directory.
 
-   Edit the ``telemetry_config.yml`` file and add the ``victoria_logs_configurations`` section:
+   .. code-block:: bash
 
-   .. code-block:: yaml
+      cd /opt/omnia/input/project_default
 
-       victoria_logs_configurations:
-         retention_period: 168  # hours (7 days)
-         storage_size: 8Gi      # per replica
+2. Open the ``telemetry_config.yml`` file for editing.
 
-   The ``retention_period`` specifies how long logs are retained before automatic deletion. The default is 168 hours (7 days).
+   .. code-block:: bash
 
-   The ``storage_size`` specifies the storage allocated per vlstorage replica. The default is 8Gi per replica (24Gi total for 3 replicas).
+      vi telemetry_config.yml
 
-   .. warning::
-
-      Storage sizing must account for log volume and retention period. Use the sizing formula: ``140 MB/day × retention_days × node_count``. Storage under-provisioning can lead to data loss before the retention period.
-
-#. Set the ``telemetry_collection_type`` to include ``victoria``.
-
-   Edit the ``telemetry_config.yml`` file and ensure ``victoria`` is included in the collection type:
+3. Configure the ``victoria_logs_configurations`` section.
 
    .. code-block:: yaml
 
-       telemetry_collection_type:
-         - victoria
+      victoria_logs_configurations:
+        retention_period: 168  # hours (7 days)
+        storage_size: 8Gi      # per replica
 
-   .. note::
+   * Set ``retention_period`` to the number of hours to retain logs (default: 168 hours / 7 days)
+   * Set ``storage_size`` to the storage allocated per vlstorage replica (default: 8Gi)
 
-      VictoriaLogs shares the same deployment gate as VictoriaMetrics. Both are deployed when ``victoria`` is present in ``telemetry_collection_type``.
+.. warning::
+   Storage sizing must account for log volume and retention period. Use the sizing formula: (140 MB/day × retention_days × node_count) / 3 replicas.
+
+4. Set ``telemetry_collection_type`` to include ``victoria``.
+
+   .. code-block:: yaml
+
+      telemetry_collection_type:
+        - victoria
+
+.. note::
+   To deploy both VictoriaMetrics and VictoriaLogs, use ``victoria,kafka`` for ``telemetry_collection_type``.
+
+5. Save and close the file.
 
 Deploy VictoriaLogs Cluster
 ---------------------------
 
-#. Run the discovery playbook for telemetry deployment.
-
-   Execute the discovery playbook to deploy the telemetry services:
+1. Navigate to the telemetry playbooks directory.
 
    .. code-block:: bash
 
-       cd /omnia
-       ansible-playbook discovery.yml
+      cd /opt/omnia/telemetry
 
-   The playbook deploys VictoriaLogs in cluster mode with the following components:
+2. Run the discovery playbook for telemetry deployment.
 
-   * 3 vlstorage replicas (persistent log storage)
-   * 2 vlinsert replicas (log ingestion gateway)
-   * 2 vlselect replicas (log query gateway)
-   * 1 VLAgent replica (log forwarding agent)
+   .. code-block:: bash
 
-   .. important::
+      ansible-playbook discovery.yml
 
-      Cluster mode requires at least 2 Service Kubernetes worker nodes for pod anti-affinity distribution of vlstorage replicas.
+This playbook deploys the following components:
+
+* **VictoriaLogs Cluster**: 3 vlstorage replicas, 2 vlinsert replicas, 2 vlselect replicas
+* **VLAgent**: Log collection agent with syslog receivers on ports 514 (plaintext) and 6514 (TLS)
+* **TLS Certificates**: Self-signed certificates for secure communication
+
+.. note::
+   The deployment may take 10-15 minutes to complete.
 
 Verify Deployment
 -----------------
 
-#. Verify that VictoriaLogs cluster components are healthy.
-
-   Check the status of the VictoriaLogs pods in the ``telemetry`` namespace:
+1. Check the status of VictoriaLogs pods.
 
    .. code-block:: bash
 
-       kubectl get pods -n telemetry
+      kubectl get pods -n telemetry
 
-   Verify that the following pods are in the ``Running`` state:
+   Verify that the following pods are running and healthy:
 
    * ``vlstorage-victoria-logs-cluster-0``, ``vlstorage-victoria-logs-cluster-1``, ``vlstorage-victoria-logs-cluster-2``
-   * ``vlinsert-victoria-logs-cluster-<hash>-<replica>``
-   * ``vlselect-victoria-logs-cluster-<hash>-<replica>``
+   * ``vlinsert-victoria-logs-cluster-0``, ``vlinsert-victoria-logs-cluster-1``
+   * ``vlselect-victoria-logs-cluster-0``, ``vlselect-victoria-logs-cluster-1``
    * ``vlagent``
 
-#. Verify that VLAgent is running with syslog receivers.
-
-   Check the VLAgent service to confirm syslog receivers are exposed:
+2. Verify that the LoadBalancer services are created.
 
    .. code-block:: bash
 
-       kubectl get svc vlagent -n telemetry
+      kubectl get svc -n telemetry
 
-   The service should expose ports 514 (plaintext syslog) and 6514 (TLS syslog).
+   Verify that the following services have external IPs:
+
+   * ``vlinsert-victoria-logs-cluster`` (ingestion endpoint)
+   * ``vlselect-victoria-logs-cluster`` (query endpoint)
+   * ``vlagent`` (syslog receivers)
+
+3. Verify TLS connectivity.
+
+   .. code-block:: bash
+
+      openssl s_client -connect <LoadBalancer IP>:6514 -showcerts
+
+   Replace ``<LoadBalancer IP>`` with the external IP of the vlagent service.
 
 Record Endpoint Information
------------------------------
+----------------------------
 
-#. Record the VictoriaLogs endpoint information for log source configuration.
+After successful deployment, record the following endpoint information for log source configuration:
 
-   Retrieve the LoadBalancer IP addresses for the VictoriaLogs services:
+* **Syslog plaintext**: ``<LoadBalancer IP>:514``
+* **Syslog TLS**: ``<LoadBalancer IP>:6514``
+* **HTTP forwarder**: ``https://<LoadBalancer IP>:9481/insert/jsonline``
+* **Query endpoint**: ``https://<LoadBalancer IP>:9491``
+
+.. note::
+   Store this information securely. You will need it when configuring external log sources to send logs to VictoriaLogs.
+
+Verification
+------------
+
+After recording endpoint information, verify the VictoriaLogs deployment is fully functional:
+
+1. Test log ingestion by sending a test syslog message to VLAgent.
 
    .. code-block:: bash
 
-       kubectl get svc -n telemetry | grep victoria
+      echo "test message" | nc -u <LoadBalancer IP> 514
 
-   Record the following endpoint information:
+2. Verify the test message appears in VictoriaLogs query results.
 
-   * ``vlinsert`` endpoint (log ingestion): ``https://<LoadBalancer-IP>:9481``
-   * ``vlselect`` endpoint (log query): ``https://<LoadBalancer-IP>:9491``
-   * ``vlagent`` syslog plaintext: ``<LoadBalancer-IP>:514``
-   * ``vlagent`` syslog TLS: ``<LoadBalancer-IP>:6514``
+   .. code-block:: bash
 
-   Store this information for configuring external log sources. See :doc:`configure_victorialogs_sources` for details on configuring log sources to send logs to VictoriaLogs.
+      curl -k https://<LoadBalancer IP>:9491/select/logsql/query -d 'query="{_msg=\"test message\"}"'
+
+3. Confirm the query returns the test log entry, indicating successful ingestion and query functionality.
 
 Related Topics
----------------
+--------------
 
-* :doc:`index` - Telemetry overview
-* :doc:`configure_victorialogs_sources` - Configure log sources for VictoriaLogs
-* :doc:`victorialogs_config` - VictoriaLogs configuration reference
-* :doc:`external_victoria` - Collect telemetry data from external client nodes to Victoria DB
+* :doc:`victorialogs_config` — VictoriaLogs configuration reference
+* :doc:`configure_victorialogs_sources` — Configure log sources for VictoriaLogs
+* :doc:`query_victorialogs` — Query logs with VictoriaLogs
+* :doc:`troubleshoot_victorialogs` — Troubleshoot VictoriaLogs issues
