@@ -1,0 +1,7 @@
+Scale,Nodes,Retention,Total Storage,Per-Replica (3),Default Sufficient
+Small,50,7d,~49 GB,~16.3 GB,No
+Small,50,30d,~210 GB,~70 GB,No
+Medium,500,7d,~70 GB,~23.3 GB,No
+Medium,500,30d,~300 GB,~100 GB,No
+Large,2000,7d,~350 GB,~117 GB,No
+Large,2000,30d,~1.5 TB,~500 GB,No

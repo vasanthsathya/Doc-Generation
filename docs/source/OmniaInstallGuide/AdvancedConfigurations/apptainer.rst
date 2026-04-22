@@ -1,7 +1,7 @@
 Apptainer
 ==============
 
-Apptainer pulls the container images from configured container registries. The method used to retrieve an image depends on the system registry configuration and image availability. Always start with the standard Apptainer pull command. Additional methods should only be used when required.
+Apptainer pulls the container images from configured container registries on all cluster nodes. The method used to retrieve an image depends on the system registry configuration and image availability. Always start with the standard Apptainer pull command. Additional methods should only be used when required.
 
 Verify if Apptainer is installed using the following command: ::
 
@@ -41,7 +41,7 @@ Registry mirror behavior is controlled by configuration files under: ::
 
         /etc/containers/registries.conf.d/
 
-When a Pulp registry mirror is configured and the image is present, the pull is transparently served from Pulp. If the image is not available in Pulp, the pull falls back to the public registry.
+When a Pulp registry mirror is configured and the image is present, the pull is transparently served from Pulp.
 
 In environments where Pulp usage is required and the image is known to exist, the Pulp registry may be specified explicitly: ::
 
@@ -83,6 +83,10 @@ Run the command. ::
 
 
 After pulling directly from the internet, restore the registry mirror configuration so that future pulls again route through Pulp.
+
+.. note:: For detailed guidance on using Apptainer and NVIDIA HPC Benchmarks, refer to:
+    
+    Apptainer User Documentation: https://apptainer.org/docs/user/main/
 
 
 

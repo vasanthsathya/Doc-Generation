@@ -17,7 +17,7 @@ following standard Sphinx RST conventions.
 - BUILD phase skills: .windsurf\skills\omnia-doc-skill\SKILL_BUILD.md
 - COLLECT phase context: .windsurf\skills\omnia-doc-skill\SKILL_COLLECT.md
 - CHECK phase validation: .windsurf\skills\omnia-doc-skill\SKILL_CHECK.md
-- Style Guide: docs/STYLE_GUIDE/Dell Technologies Unified Style Guide v1.0.pdf
+- Style Guide: review_source/dell-style-guide.md
 - Reference images (use where indicated): /docs/source/images/
 
 ## Implementation Instructions

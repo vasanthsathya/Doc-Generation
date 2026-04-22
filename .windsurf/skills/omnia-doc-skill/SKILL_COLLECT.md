@@ -48,22 +48,45 @@ The AI must reference this document during the **COLLECT** phase (before writing
 **During COLLECT (before writing anything):**
 - Use §3 (Target Audiences) to determine depth and tone
 - Use §4 (Information Map) to understand where the new content fits
-- Use §5 (Source-to-Doc Mapping) to identify which source assets (HLD, Engineering Notes, Demo Transcriptions, Unit Tests) apply
+- **Check for existing content** — Search the repository for existing documentation on the topic before planning new content
+- Use §5 (Source-to-Doc Mapping) to identify which source assets (Behaviour Spec, Engineering Specification, Component Specification) apply
 - Use §6 (Collect Prompts) to extract relevant information from source materials
 - Use §7 (Progressive Development) when sources lack sufficient customer-focused content
 
+**Content Update vs. Creation Decision:**
+
+**Priority 1: Update or Enhance Existing Content**
+- Before creating new topics, always search for existing documentation that covers the same or related functionality
+- If existing content exists, plan to update or enhance it rather than creating new files
+- Common update scenarios:
+  - Adding new features to existing how-to guides
+  - Enhancing concept topics with new information
+  - Updating configuration reference with new parameters
+  - Adding troubleshooting information to existing topics
+- Mark the topic status as "Update Existing Topic" in the Content Plan
+
+**Priority 2: Create New Content (Only if No Existing Content)**
+- Create new concept and how-to topics only when:
+  - No existing content covers the functionality
+  - The functionality is fundamentally different from existing documented features
+  - The existing content is for a different audience or use case
+- Mark the topic status as "New Topic" in the Content Plan
+
 **Source Asset Priority Order (when inputs conflict):**
-1. HLD (High-Level Design) - Technical ground truth and architecture
-2. Engineering Notes - Implementation details and configuration parameters
-3. Demo Transcriptions - User-facing behavior and language
-4. Unit Tests - Practical workflow validation and observable behaviors
-5. Existing documentation (style and precedent)
+1. Behaviour Spec - Customer interaction details and victoria logs section for doc generation
+2. Engineering Specification - Technical architecture and implementation approach
+3. Component Specification - Details of each component in engineering specs
+4. HLD (High-Level Design) - Technical ground truth and architecture
+5. Engineering Notes - Implementation details and configuration parameters
+6. Demo Transcripts - User-facing behavior and language
+7. Unit Tests - Practical workflow validation and observable behaviors
+8. Existing documentation (style and precedent)
 
 **Style Guide Reference:**
 
 For all writing conventions, voice, tone, and formatting standards not explicitly covered in this skill document, refer to the Omnia Style Guide:
 
-* **Location:** `docs/STYLE_GUIDE/Dell Technologies Unified Style Guide v1.0.pdf`
+* **Location:** `review_source/dell-style-guide.md`
 * **External Reference:** [Link to style guide if published separately]
 
 When this skill document and the style guide conflict, **this skill document takes precedence** for Omnia-specific rules. The style guide provides general writing standards; this document provides Omnia product-specific applications of those standards.
@@ -192,10 +215,13 @@ Every new `.rst` file **must** be registered in the `toctree` of its parent `ind
 
 | Source Asset          | Location in Repo               | What It Informs                                  | Primary Doc Types Created        |
 |-----------------------|-------------------------------|--------------------------------------------------|----------------------------------|
-| HLD (High-Level Design)| `docs/SOURCE MATERIALS/hld.doc`        | Technical accuracy, architecture, component behavior, data flow| Overview, Concepts, How-To, Reference, New Features |
-| Engineering Notes     | `docs/SOURCE MATERIALS/user_story.txt`| Implementation details, configuration parameters, CLI commands, constraints | How-To, Reference, Troubleshooting |
-| Demo Transcripts      | `docs/SOURCE MATERIALS/demo_transcription.txt`      | Real-world user language, common workflows       | How-To                           |
-| Unit Tests            | `docs/SOURCE MATERIALS/unit_test.txt`      | Practical workflow validation, observable behaviors | How-To, Reference, Troubleshooting |
+| Behaviour Spec        | `knowledge_source/victoria_logs_cluster_mode/behaviour_spec.doc`        | Customer interaction details, victoria logs section for doc generation| Overview, Concepts, How-To, Reference, New Features |
+| Engineering Specification | `knowledge_source/victoria_logs_cluster_mode/engineering_specification.doc`| Technical architecture, implementation approach | How-To, Reference, Troubleshooting |
+| Component Specification | `knowledge_source/victoria_logs_cluster_mode/component_specification.doc`      | Details of each component in engineering specs       | How-To, Reference, Troubleshooting |
+| HLD (High-Level Design)| `knowledge_source/victoria_logs_cluster_mode/hld.doc`        | Technical accuracy, architecture, component behavior, data flow| Overview, Concepts, How-To, Reference, New Features |
+| Engineering Notes     | `knowledge_source/victoria_logs_cluster_mode/user_story.txt`| Implementation details, configuration parameters, CLI commands, constraints | How-To, Reference, Troubleshooting |
+| Demo Transcripts      | `knowledge_source/victoria_logs_cluster_mode/demo_transcription.txt`      | Real-world user language, common workflows       | How-To                           |
+| Unit Tests            | `knowledge_source/victoria_logs_cluster_mode/unit_test.txt`      | Practical workflow validation, observable behaviors | How-To, Reference, Troubleshooting |
 | Existing Docs         | `docs/`                        | Style precedent, existing coverage gaps          | All types (for updates)          |
 | User Prompts          | Direct input                   | Specific documentation requests and updates      | All types                        |
 
@@ -203,28 +229,28 @@ Every new `.rst` file **must** be registered in the `toctree` of its parent `ind
 
 ### Source Priority When Inputs Conflict
 
-1. **HLD** — Technical ground truth and architecture. Always wins on implementation details and system design.
-2. **Engineering Notes** — Implementation specifics. Wins on configuration parameters, CLI commands, and technical constraints.
-3. **Demo Transcripts** — User-facing language and workflows. Wins on how to describe behavior to end users.
-4. **Unit Tests** — Practical validation. Wins on observable behaviors and workflow steps.
-5. **Existing Docs** — Style and placement precedent only.
+1. **Behaviour Spec** — Customer interaction details and victoria logs section for doc generation. Always wins on customer-facing behavior and workflows.
+2. **Engineering Specification** — Technical architecture and implementation approach. Wins on configuration parameters, CLI commands, and technical constraints.
+3. **Component Specification** — Details of each component in engineering specs. Wins on component-specific implementation details.
+4. **HLD** — Technical ground truth and architecture. Always wins on implementation details and system design.
+5. **Engineering Notes** — Implementation specifics. Wins on configuration parameters, CLI commands, and technical constraints.
+6. **Demo Transcripts** — User-facing language and workflows. Wins on how to describe behavior to end users.
+7. **Unit Tests** — Practical validation. Wins on observable behaviors and workflow steps.
+8. **Existing Docs** — Style and placement precedent only.
 
 ### Content Type Decision Tree
 
 ```
 New feature signal received?
 │
-├─ Does an HLD exist? → YES → Use as primary source for technical accuracy
-│                    → NO  → Flag for SME review; use Engineering Notes only
+├─ Does a Behaviour Spec exist? → YES → Use as primary source for customer interaction details
+│                            → NO  → Flag for SME review; use Engineering Specification only
 │
-├─ Are there Engineering Notes? → YES → Extract implementation details and configuration
-│                             → NO  → Derive from HLD architecture
+├─ Is there an Engineering Specification? → YES → Extract technical architecture and implementation details
+│                                       → NO  → Derive from Behaviour Spec
 │
-├─ Is there a Demo Transcript? → YES → Extract user-facing language and key workflows
-│                              → NO  → Derive from HLD and Engineering Notes
-│
-├─ Are there Unit Tests? → YES → Validate workflow steps and observable behaviors
-│                         → NO  → Use HLD and Engineering Notes for validation
+├─ Is there a Component Specification? → YES → Extract component-specific implementation details
+│                                     → NO  → Use Behaviour Spec and Engineering Specification
 │
 ├─ Is this an update to existing content?
 │   → YES → Load existing RST file, identify changed sections only
@@ -251,13 +277,13 @@ Since Omnia documentation is not triggered by GitHub signals, all documentation 
 
 Use these prompts to extract knowledge from HLD, Engineering Notes, Demo Transcriptions, Unit Tests, or other source materials. These are designed for **progressive content development** when initial sources lack sufficient customer-focused content:
 
-1. "From these HLD documents, identify any customer-impacting functionality, architectural decisions, or system behaviors that would affect how customers deploy or use the product."
+1. "From the Behaviour Spec, identify any customer-impacting functionality, architectural decisions, or system behaviors that would affect how customers deploy or use the product, with special focus on the victoria logs section."
 
-2. "From these engineering notes, extract configuration parameters, CLI commands, Ansible playbook references, and any technical constraints that customers need to understand."
+2. "From the Engineering Specification, extract configuration parameters, CLI commands, technical architecture details, and any technical constraints that customers need to understand."
 
-3. "From these demo transcriptions, identify step-by-step customer workflows, observable behaviors, and real-world usage patterns."
+3. "From the Component Specification, extract details of each component in engineering specs, including component-specific implementation details and interactions."
 
-4. "From these unit tests, extract practical workflow validation steps, expected behaviors, and observable system responses that customers should understand."
+4. "From all source materials, identify step-by-step customer workflows, observable behaviors, and real-world usage patterns."
 
 5. "Extract from all these sources any customer pain points or challenges that the product addresses or fails to address."
 
@@ -329,10 +355,13 @@ When creating content plans, specify cross-references based on the chosen struct
 13. "Identify any terminology or jargon in these notes that will need to be explained or defined for customers in a glossary."
 
 **Source File Locations:**
-- HLD: `docs/SOURCE MATERIALS/hld.doc`
-- Engineering Notes: `docs/SOURCE MATERIALS/user_story.txt`  
-- Demo Transcripts: `docs/SOURCE MATERIALS/demo_transcription.txt`
-- Unit Tests: `docs/SOURCE MATERIALS/unit_test.txt`
+- Behaviour Spec: `knowledge_source/victoria_logs_cluster_mode/behaviour_spec.doc`
+- Engineering Specification: `knowledge_source/victoria_logs_cluster_mode/engineering_specification.doc`
+- Component Specification: `knowledge_source/victoria_logs_cluster_mode/component_specification.doc`
+- HLD: `knowledge_source/victoria_logs_cluster_mode/hld.doc`
+- Engineering Notes: `knowledge_source/victoria_logs_cluster_mode/user_story.txt`
+- Demo Transcripts: `knowledge_source/victoria_logs_cluster_mode/demo_transcription.txt`
+- Unit Tests: `knowledge_source/victoria_logs_cluster_mode/unit_test.txt`
 
 **For each Collect prompt, add this directive:**
 > "Provide the output as a structured, itemized list of content points or requirements in a format that another AI can directly use as input prompts. Make sure each item is clear and actionable, ready to guide drafting or updating customer documentation."
@@ -341,8 +370,8 @@ When creating content plans, specify cross-references based on the chosen struct
 
 ## 7. Progressive Content Development
 
-There are cases where we need to develop content progressively because the initial source content (HLD, Engineering Notes) does not have sufficient customer-focused content. In these cases:
-1. Start with available technical sources (HLD, Engineering Notes)
+There are cases where we need to develop content progressively because the initial source content (Behaviour Spec, Engineering Specification) does not have sufficient customer-focused content. In these cases:
+1. Start with available technical sources (Behaviour Spec, Engineering Specification)
 2. Identify gaps in customer-facing information
 3. Gather additional sources such as:
    - Demo videos and transcripts

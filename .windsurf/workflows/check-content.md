@@ -14,7 +14,7 @@ Act as a senior technical editor and QA specialist. Your responsibility is to va
 - CHECK phase skills: .windsurf\skills\omnia-doc-skill\SKILL_CHECK.md
 - BUILD phase context: .windsurf\skills\omnia-doc-skill\SKILL_BUILD.md
 - COLLECT phase context: .windsurf\skills\omnia-doc-skill\SKILL_COLLECT.md
-- Style Guide: docs/STYLE_GUIDE/Dell Technologies Unified Style Guide v1.0.pdf
+- Style Guide: review_source/dell-style-guide.md
 - Generated RST files: docs/source/upgrade/
 
 ## Validation Instructions

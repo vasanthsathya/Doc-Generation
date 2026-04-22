@@ -96,7 +96,7 @@ The AI must reference this document and the appropriate phase-specific document 
 
 For all writing conventions, voice, tone, and formatting standards not explicitly covered in this skill document, refer to the Omnia Style Guide:
 
-* **Location:** `docs/STYLE_GUIDE/Dell Technologies Unified Style Guide v1.0.pdf`
+* **Location:** `review_source/dell-style-guide.md`
 * **External Reference:** [Link to style guide if published separately]
 
 When this skill document and the style guide conflict, **this skill document takes precedence** for Omnia-specific rules. The style guide provides general writing standards; this document provides Omnia product-specific applications of those standards.
@@ -440,7 +440,7 @@ For background, see :ref:`concept-cluster-topology`.
 
 **General Principle:** Follow the Omnia Style Guide for general writing standards. The rules below are Omnia documentation-specific applications and clarifications.
 
-**Style Guide Reference:** See `docs/.ai/STYLE_GUIDE.md` for comprehensive voice and tone guidance.
+**Style Guide Reference:** See `review_source/dell-style-guide.md` for comprehensive voice and tone guidance.
 
 | Rule                          | Correct                                      | Incorrect                                   |
 |-------------------------------|----------------------------------------------|---------------------------------------------|
@@ -468,9 +468,13 @@ For background, see :ref:`concept-cluster-topology`.
 
 | Source Asset          | Location in Repo               | What It Informs                                  | Primary Doc Types Created        |
 |-----------------------|-------------------------------|--------------------------------------------------|----------------------------------|
-| BSpec (Technical Spec)| `docs/.ai/sources/bspec/`      | Technical accuracy, component behavior, data flow| Overview, Concepts, How-To, Reference, New Features |
-| PRD (Product Req Doc) | `docs/.ai/sources/prd/`        | Feature scope, user intent, acceptance criteria  | Overview, Concepts, How-To, Reference, New Features |
-| Demo Transcripts      | `docs/.ai/sources/demos/`      | Real-world user language, common workflows       | How-To                           |
+| Behaviour Spec        | `knowledge_source/victoria_logs_cluster_mode/behaviour_spec.doc`      | Customer interaction details, victoria logs section for doc generation| Overview, Concepts, How-To, Reference, New Features |
+| Engineering Specification | `knowledge_source/victoria_logs_cluster_mode/engineering_specification.doc`        | Technical architecture, implementation approach  | Overview, Concepts, How-To, Reference, New Features |
+| Component Specification | `knowledge_source/victoria_logs_cluster_mode/component_specification.doc`      | Details of each component in engineering specs       | How-To, Reference, Troubleshooting |
+| HLD (High-Level Design)| `knowledge_source/victoria_logs_cluster_mode/hld.doc`      | Technical accuracy, architecture, component behavior, data flow| Overview, Concepts, How-To, Reference, New Features |
+| Engineering Notes     | `knowledge_source/victoria_logs_cluster_mode/user_story.txt`| Implementation details, configuration parameters, CLI commands, constraints | How-To, Reference, Troubleshooting |
+| Demo Transcripts      | `knowledge_source/victoria_logs_cluster_mode/demo_transcription.txt`      | Real-world user language, common workflows       | How-To                           |
+| Unit Tests            | `knowledge_source/victoria_logs_cluster_mode/unit_test.txt`      | Practical workflow validation, observable behaviors | How-To, Reference, Troubleshooting |
 | Existing Docs         | `docs/`                        | Style precedent, existing coverage gaps          | All types (for updates)          |
 | User Prompts          | Direct input                   | Specific documentation requests and updates      | All types                        |
 
@@ -478,10 +482,14 @@ For background, see :ref:`concept-cluster-topology`.
 
 ### Source Priority When Inputs Conflict
 
-1. **BSpec** — Technical ground truth. Always wins on implementation details.
-2. **PRD** — Intent and scope. Wins on "what the feature should do" vs. internal details.
-3. **Demo Transcripts** — User-facing language and workflows. Wins on how to describe behavior to end users.
-4. **Existing Docs** — Style and placement precedent only.
+1. **Behaviour Spec** — Customer interaction details and victoria logs section for doc generation. Always wins on customer-facing behavior and workflows.
+2. **Engineering Specification** — Technical architecture and implementation approach. Wins on configuration parameters, CLI commands, and technical constraints.
+3. **Component Specification** — Details of each component in engineering specs. Wins on component-specific implementation details.
+4. **HLD** — Technical ground truth and architecture. Always wins on implementation details and system design.
+5. **Engineering Notes** — Implementation specifics. Wins on configuration parameters, CLI commands, and technical constraints.
+6. **Demo Transcripts** — User-facing language and workflows. Wins on how to describe behavior to end users.
+7. **Unit Tests** — Practical validation. Wins on observable behaviors and workflow steps.
+8. **Existing Docs** — Style and placement precedent only.
 
 ### Content Type Decision Tree
 
@@ -518,7 +526,7 @@ Since Omnia documentation is not triggered by GitHub signals, all documentation 
 
 ## 9. Terminology and Glossary
 
-**Style Guide Reference:** For general terminology standards and word usage guidelines, consult the Omnia Style Guide at `docs/.ai/STYLE_GUIDE.md`.
+**Style Guide Reference:** For general terminology standards and word usage guidelines, consult the Omnia Style Guide at `review_source/dell-style-guide.md`.
 
 The tables below define Omnia-specific terms and approved usage. When the style guide and this section conflict on Omnia-specific terms, this section takes precedence.
 
@@ -916,8 +924,8 @@ When reviewing AI-generated content, check:
 **Context assembly order before generating:**
 
 1. Load this skill document (`docs/.ai/SKILL.md`)
-2. Load the Omnia Style Guide (`docs/STYLE_GUIDE/Dell Technologies Unified Style Guide v1.0.pdf`) for general writing standards
-3. Load the relevant source assets from `docs/SOURCE MATERIALS/` (HLD → Engineering Notes → Demo Transcripts → Unit Tests)
+2. Load the Omnia Style Guide (`review_source/dell-style-guide.md`) for general writing standards
+3. Load the relevant source assets from `knowledge_source/victoria_logs_cluster_mode/` (Behaviour Spec → Engineering Specification → Component Specification → HLD → Engineering Notes → Demo Transcripts → Unit Tests)
 4. Load existing `.rst` files in the target section to match style and avoid duplication
 5. Identify content type using §7.3 and file placement using §6
 6. Generate draft following RST conventions in §7

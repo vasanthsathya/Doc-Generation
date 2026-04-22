@@ -48,6 +48,8 @@ Hosts telemetry collection and storage services:
 - **Kafka Broker** – Streams telemetry data
 - **VMAgent** – Forwards metrics to Victoria Metrics
 - **Victoria Metrics** – Time-series database for metric storage
+- **VictoriaLogs** – Centralized log storage and querying engine for log management
+- **VLAgent** – Platform-managed log forwarding agent for VictoriaLogs
 
 
 **Slurm Cluster**
@@ -73,8 +75,28 @@ iDRAC and LDMS Telemetry Data Flows
    iDRAC (BMC) → iDRAC Collector → Kafka
    iDRAC (BMC) → iDRAC Collector → VMAgent → Victoria Metrics
 
+**VictoriaLogs Flow (Log Management)**
+
+::
+
+   External Log Sources → VLAgent → vlinsert → vlstorage
+   Query Clients → vlselect → vlstorage
+
+.. note::
+
+   VictoriaLogs is deployed as a mandatory platform service when ``victoria`` is present in ``telemetry_collection_type``.
+
+.. important::
+
+   Single-node VictoriaLogs is not supported; cluster mode only for production environments.
+
 .. toctree::
     :maxdepth: 1
 
     service_cluster_telemetry
     ldms_telemetry
+    deploy_victorialogs
+    configure_victorialogs_sources
+    query_victorialogs
+    victorialogs_config
+    troubleshoot_victorialogs

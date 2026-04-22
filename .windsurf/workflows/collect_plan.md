@@ -9,13 +9,16 @@ to implement documentation changes.
 ## Source Documents
 
 You will be provided with one or more of the following source document types in the SOURCE MATERIALS DIRECTORY:
+- **Behaviour Spec**: Customer interaction details and victoria logs section for doc generation. Extract customer-facing behavior and workflows.
+- **Engineering Specification**: Technical architecture and implementation approach. Extract configuration parameters, CLI commands, and technical constraints.
+- **Component Specification**: Details of each component in engineering specs. Extract component-specific implementation details.
 - **HLD (High-Level Design)**: Engineering-focused. Extract only customer-impacting 
   functionality — ignore internal architecture details that are not relevant to 
   customer workflows.
-- **Demo Transcriptions**: Practical, workflow-focused. Extract step-by-step 
-  customer workflows, configuration details, and observable behaviors.
 - **Engineering Notes**: Supplementary details. Extract configuration parameters, 
   CLI commands, Ansible playbook references, and any customer-facing constraints.
+- **Demo Transcriptions**: Practical, workflow-focused. Extract step-by-step 
+  customer workflows, configuration details, and observable behaviors.
 - **Unit Tests**: Practical, workflow-focused. Extract step-by-step 
   customer workflows, configuration details, and observable behaviors.
 
@@ -34,7 +37,7 @@ For each source document, follow the COLLECT phase methodology from SKILL_COLLEC
    - Plan toctree placement
 
 3. **Source Asset Prioritization** (SKILL_COLLECT.md §5): Apply priority order
-   - HLD (technical ground truth and architecture) > Engineering Notes (implementation details) > Demo Transcripts (user language) > Unit Tests (practical validation) > Existing docs
+   - Behaviour Spec (customer interaction details and victoria logs section) > Engineering Specification (technical architecture and implementation approach) > Component Specification (component details) > HLD (technical ground truth and architecture) > Engineering Notes (implementation details) > Demo Transcripts (user language) > Unit Tests (practical validation) > Existing docs
 
 4. **Gap Identification** (SKILL_COLLECT.md §7.2): Check for common gaps
    - User workflows and use cases
@@ -76,10 +79,13 @@ documentation requirement identified:
 | **Content Type**       | concepts/ | getting-started/ | how-to/[area]/ | reference/ | troubleshooting/ | overview/ (per SKILL_COLLECT.md §4) |
 
 **Source File Locations:**
-- HLD: `docs/SOURCE MATERIALS/hld.doc`
-- Engineering Notes: `docs/SOURCE MATERIALS/user_story.txt`  
-- Demo Transcripts: `docs/SOURCE MATERIALS/demo_transcription.txt`
-- Unit Tests: `docs/SOURCE MATERIALS/unit_test.txt`
+- Behaviour Spec: `knowledge_source/victoria_logs_cluster_mode/behaviour_spec.doc`
+- Engineering Specification: `knowledge_source/victoria_logs_cluster_mode/engineering_specification.doc`
+- Component Specification: `knowledge_source/victoria_logs_cluster_mode/component_specification.doc`
+- HLD: `knowledge_source/victoria_logs_cluster_mode/hld.doc`
+- Engineering Notes: `knowledge_source/victoria_logs_cluster_mode/user_story.txt`
+- Demo Transcripts: `knowledge_source/victoria_logs_cluster_mode/demo_transcription.txt`
+- Unit Tests: `knowledge_source/victoria_logs_cluster_mode/unit_test.txt`
 
 **Customer Workflow Context:**
 [Describe the customer scenario this topic addresses — what the customer is trying 

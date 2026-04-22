@@ -52,11 +52,33 @@ The AI must reference this document during the **BUILD** phase (while generating
 - Apply §6 (Terminology) to verify every product term
 - Use §8 (Build Prompt Template) for consistent content generation
 
+**Content Update vs. Creation During BUILD:**
+
+**When the Content Plan specifies "Update Existing Topic":**
+- Load the existing RST file
+- Identify sections that need enhancement or modification
+- Add new information, update outdated content, or expand incomplete sections
+- Preserve existing structure, voice, and formatting unless they need correction
+- Maintain cross-references to other topics
+- Update the toctree if new sections are added
+- Do not recreate the entire file unless the existing content is fundamentally incorrect
+
+**When the Content Plan specifies "New Topic":**
+- Create a new RST file following the file placement and structure guidelines
+- Apply all RST conventions from §5
+- Include appropriate cross-references to related topics
+- Update the parent index.rst toctree to include the new file
+- Follow the naming conventions specified in the Content Plan
+
+**Verification:**
+- If updating existing content, verify that the update addresses the gap without duplicating information
+- If creating new content, verify that no existing content already covers the same functionality
+
 **Style Guide Reference:**
 
 For all writing conventions, voice, tone, and formatting standards not explicitly covered in this skill document, refer to the Omnia Style Guide:
 
-* **Location:** `docs/STYLE_GUIDE/Dell Technologies Unified Style Guide v1.0.pdf`
+* **Location:** `review_source/dell-style-guide.md`
 * **External Reference:** [Link to style guide if published separately]
 
 When this skill document and the style guide conflict, **this skill document takes precedence** for Omnia-specific rules. The style guide provides general writing standards; this document provides Omnia product-specific applications of those standards.
@@ -216,7 +238,7 @@ Sub-subsection    →  ^^^^^^^^  (caret, full width)
 - Purpose: Guide users through completing a specific task
 - Structure: Prerequisites → Steps → Result → Next Steps
 - **Always include verification step** to confirm task completion
-- **Source priority for workflow steps:** Engineering Notes → Unit Tests → Demo Transcriptions → HLD
+- **Source priority for workflow steps:** Behaviour Spec → Engineering Specification → Component Specification → HLD → Engineering Notes → Demo Transcripts → Unit Tests
 - Use numbered steps with specific commands and configurations
 - Include expected outcomes and troubleshooting
 
@@ -228,7 +250,7 @@ Sub-subsection    →  ^^^^^^^^  (caret, full width)
 - Include the **expected result** after steps where verification is possible
 - Use `.. code-block::` for all commands — never inline backtick-only code in steps
 - **Always include a verification step** after the main procedure to confirm task completion
-- **Source information priority:** Extract workflow steps from Engineering Notes first, then Unit Tests, then Demo Transcriptions, then supplement with HLD if needed
+- **Source information priority:** Extract workflow steps from Behaviour Spec first, then Engineering Specification, then Component Specification, then HLD, then Engineering Notes, then Demo Transcripts, then Unit Tests
 - **Missing information handling:** Use `<To be decided>` for any steps, prerequisites, or verification information that cannot be found in source materials
 
 ### 5.6 Code Blocks
@@ -283,7 +305,7 @@ For background, see :ref:`concept-cluster-topology`.
 
 **General Principle:** Follow the Omnia Style Guide for general writing standards. The rules below are Omnia documentation-specific applications and clarifications.
 
-**Style Guide Reference:** See `docs/STYLE_GUIDE/Dell Technologies Unified Style Guide v1.0.pdf` for comprehensive voice and tone guidance.
+**Style Guide Reference:** See `review_source/dell-style-guide.md` for comprehensive voice and tone guidance.
 
 | Rule                          | Correct                                      | Incorrect                                   |
 |-------------------------------|----------------------------------------------|---------------------------------------------|
@@ -307,7 +329,7 @@ For background, see :ref:`concept-cluster-topology`.
 
 ## 6. Terminology and Glossary
 
-**Style Guide Reference:** For general terminology standards and word usage guidelines, consult the Omnia Style Guide at `docs/STYLE_GUIDE/Dell Technologies Unified Style Guide v1.0.pdf`.
+**Style Guide Reference:** For general terminology standards and word usage guidelines, consult the Omnia Style Guide at `review_source/dell-style-guide.md`.
 
 The tables below define Omnia-specific terms and approved usage. When the style guide and this section conflict on Omnia-specific terms, this section takes precedence.
 

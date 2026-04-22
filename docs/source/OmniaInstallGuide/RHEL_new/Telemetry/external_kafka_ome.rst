@@ -5,8 +5,11 @@ This section describes how to configure OpenManage Enterprise to securely stream
 
 Prerequisites
 --------------
+* Ensure that the ``pod_external_ip_range`` parameter is set in the ``omnia_config.yml`` file for the Service Kubernetes cluster and it is reachable from the OpenManage Enterprise appliance network.
+* Ensure Kafka is installed and running in the Service Kubernetes cluster.
+* External access to Kafka is available through the following LoadBalancer ports:
 
-- Ensure that the ``telemetry.yml`` file has been executed.
+  * ``9094`` for ingesting and querying data.
 
 Steps
 -----
@@ -71,3 +74,50 @@ Steps
     - Under **Transfer status**, green check marks next to each metric indicate that the selected metrics are being successfully transmitted without errors.
 
    .. image:: ../../../images/ome_connectivity_verification.png
+
+Verify OME Telemetry Data in Kafka
+---------------------------------------
+To verify that OME telemetry data is being successfully published to the OME Kafka topics, do the following:
+
+1. Log in to Service Kubernetes Control plane.
+
+2. Set the required variables using the following command::
+
+      KAFKA_LB_IP=<external IP of bridge-bridge-lb service>
+      TOPIC=<OME Topic Name>
+      GROUP=ome-consumer-group
+      INSTANCE=<a-unique-instance-name>
+
+2. Create a Kafka consumer using the following command::
+
+      curl -s -X POST "http://$KAFKA_LB_IP:8080/consumers/$GROUP" \
+        -H 'content-type: application/vnd.kafka.v2+json' \
+        -d '{
+              "name": "'"$INSTANCE"'",
+              "format": "json",
+              "auto.offset.reset": "earliest"
+            }'
+
+3. Subscribe the consumer to the telemetry topic using the following command::
+
+      curl -s -X POST "http://$KAFKA_LB_IP:8080/consumers/$GROUP/instances/$INSTANCE/subscription" \
+        -H 'content-type: application/vnd.kafka.v2+json' \
+        -d '{"topics": ["'"$TOPIC"'"]}'
+
+4. Consume messages from the topic using the following command::
+
+      while true; do
+        curl -s -X GET "http://$KAFKA_LB_IP:8080/consumers/$GROUP/instances/$INSTANCE/records" \
+          -H 'accept: application/vnd.kafka.json.v2+json' | jq '.'
+        sleep 2
+      done
+
+5. (Optional) Cleanup the consumer using the following command::
+
+      curl -s -X DELETE "http://$KAFKA_LB_IP:8080/consumers/$GROUP/instances/$INSTANCE"
+
+ .. note::
+   * **From beginning**: Ensure ``"auto.offset.reset": "earliest"`` when creating the consumer if you want existing data.
+   * **Message format**: Use ``"format": "json"`` only if producers publish JSON. Otherwise use ``"binary"`` and decode base64 payloads.
+   * **Throughput**: Adjust polling interval; bridge returns empty array when no new records.
+   * **404/409 errors**: 404 usually means wrong group/instance name; 409 means already subscribed.

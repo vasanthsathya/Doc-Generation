@@ -66,7 +66,7 @@ The ``local_repo.yml`` playbook generates and provides two types of log files as
 
 Here's an example of how the log files are organized in the ``/opt/omnia/log/local_repo`` directory:
 
-.. image:: ../../../images/local_repo_log.png
+.. image:: ../../../images/local_repo_log_updated.png
 
 Updating Local Repositories after Modifying JSON Files
 ==========================================================
@@ -80,5 +80,31 @@ Command Format
 ::
 
    ansible-playbook local_repo.yml 
+
+Local Repository Resync
+======================
+
+The Local Repository Resync feature updates the local RPM repositories by synchronizing them with their respective remote sources. During resynchronization, new and updated RPM packages are downloaded, repository metadata is refreshed, and only incremental changes are fetched while preserving the existing local cache. This operation can be performed whenever remote repositories are updated, repository configurations are modified, or to ensure the local repositories remain current. Ensure that the initial local repository setup is complete, network connectivity to the remote repositories is available, and sufficient disk space is present before running the resync.
+
+Command Format
+--------------
+
+Resync all RPM repositories:
+
+.. code-block:: bash
+
+    ansible-playbook local_repo.yml -e "resync_repos=all"
+
+Resync specific RPM repository:
+
+.. code-block:: bash
+
+    ansible-playbook local_repo.yml -e "resync_repos=x86_64_epel"
+
+.. note::
+   * Use ``all`` to resync all configured RPM repositories
+   * Specify exact RPM repository name for targeted resync
+   * Existing RPM packages remain available during sync
+   * Logs created in ``/opt/omnia/log/local_repo/`` 
 
 

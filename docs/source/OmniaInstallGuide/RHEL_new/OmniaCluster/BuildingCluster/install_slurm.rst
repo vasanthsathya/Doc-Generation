@@ -46,7 +46,7 @@ Step 11: Set up Slurm on nodes
 * You must have the ``user_repo`` which is compiled with nvml and cgroup-v2. If slurm-nodes have GPU then you must provide at least one ``login_compiler_node``.
 
 
-.. note:: If the iDRAC of a Slurm node is not accessible through OIM—because of issues such as an incorrect iDRAC port configuration or invalid credentials—the node configuration specified in ``/etc/slurm/slurm.conf`` for ``NodeName`` will default to: ``Sockets=1 CoresPerSocket=1 ThreadsPerCore=1 RealMemory=3774873``. Update ``slurm.conf`` with the correct hardware values and run ``scontrol reconfigure`` to apply the changes.
+.. note:: If the iDRAC of a Slurm node is not accessible through OIM—because of issues such as an incorrect iDRAC port configuration or invalid credentials—the node configuration specified in ``/etc/slurm/slurm.conf`` for ``NodeName`` will default to: ``Sockets=2 CoresPerSocket=72 ThreadsPerCore=1 RealMemory=884736``. Update ``slurm.conf`` with the correct hardware values and run ``scontrol reconfigure`` to apply the changes.
 
 Add new Slurm nodes
 ----------------------------
@@ -55,7 +55,7 @@ Omnia supports dynamic addition of Slurm compute nodes to an existing cluster. T
 
 1. Update the PXE mapping file with new node entries. Add entries for new nodes with appropriate functional group assignments ``slurm_node_x86_64``.
 
-.. note:: Addition of new ``slurm_control_node`` is not supported.
+.. note:: Addition of only ``slurm_node`` is supported.
 
 2. Run the discovery playbook.
 3. PXE reboot the newly added node.
@@ -68,10 +68,18 @@ Omnia automatically handles node removal when nodes are deleted from the PXE map
 1. Update the PXE mapping file. Remove or reassign nodes that should no longer be part of the Slurm cluster.
 2. Run the discovery playbook.
 
+.. note:: Removal of only ``slurm_node`` is supported.
+
 Slurm configuration validation and defaults
 ----------------------------------------------
 
 Omnia includes a built-in validation system that checks Slurm configuration files for correctness before deployment. The input validator module validates all configuration files (slurm.conf, slurmdbd.conf, cgroup.conf, gres.conf, etc.) against Slurm 25.X specifications, ensuring parameter names are valid and values match expected types (integers, strings, booleans, arrays, etc.). You can provide custom configurations in ``omnia_config.yml`` > ``slurm_cluster`` > ``config_sources`` either as a file path or a mapping directly. For supported conf parameters, see `Slurm.conf <https://slurm.schedmd.com/slurm.conf.html>`_
+
+Configuration merge control
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``skip_merge`` parameter provides granular control over how Slurm configuration files are processed and applied to the cluster. By default, Omnia merges custom configuration sources with system defaults and existing configurations to ensure a complete and valid setup. However, when ``skip_merge`` is set to ``true``, any specific configuration source path under ``config_sources`` are applied directly to the cluster without any merging operations and is not applicable to mapping type ``config_sources``. The parameter accepts boolean values (``true`` or ``false``) and defaults to ``false``, ensuring that standard merge behavior is maintained unless explicitly modified. When using ``skip_merge: true``, administrators must ensure that the provided configuration file is complete and valid. Omnia does not supplement the file with default values or perform validation checks during the merge process.
+
 
 .. note:: 
     * By default, there is a partition with name "normal" that is created with all the slurm compute nodes listed in the ``pxe_mapping`` file. 
@@ -242,15 +250,37 @@ It is recommended to run this script on a login or compiler node.
         ls -lh /hpc_tools/container_images
         apptainer inspect /hpc_tools/container_images/<image>.sif
 
-6. Run a container (example). ::
+6. Run a container (example).
 
-        apptainer exec /hpc_tools/container_images/hpc-benchmarks_25.09.sif --help
+  Run the following command to execute the container::
+
+    apptainer exec /hpc_tools/container_images/hpc-benchmarks_25.09.sif --help
+
+  Verify GPU Visibility Inside the Container
+
+  To ensure GPUs are accessible within the container, run::
+
+    apptainer exec --nv /hpc_tools/container_images/hpc-benchmarks_25.09.sif nvidia-smi
+
+  HPL-MxP Quick Compute Test (2 GPUs)
+
+  Execute a quick HPL-MxP benchmark test using two GPUs::
+
+    srun -N 1 --ntasks-per-node=2 --gres=gpu:2 --mpi=pmix \
+        apptainer exec --nv /hpc_tools/container_images/hpc-benchmarks_25.09.sif \
+        /workspace/hpl-mxp-linux-x86_64/hpl-mxp.sh \
+        --n 5000 --nb 512 \
+        --nprow 1 --npcol 2 --nporder row \
+        --gpu-affinity 0:1
+
+.. note:: For detailed guidance on using Apptainer and NVIDIA HPC Benchmarks, refer to:
+    
+    * Apptainer User Documentation: https://apptainer.org/docs/user/main/
+    * NVIDIA HPC Benchmarks (NGC Catalog): https://catalog.ngc.nvidia.com/orgs/nvidia/containers/hpc-benchmarks?version=25.09
 
 
 
-
-
-
+.. _slurm-configuration-utilities:
 
 Slurm configuration utilities
 -----------------------------------

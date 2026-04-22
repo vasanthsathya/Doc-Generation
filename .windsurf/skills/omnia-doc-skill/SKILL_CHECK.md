@@ -51,12 +51,13 @@ The AI must reference this document during the **CHECK** phase (before finalizin
 - Verify file placement against the Information Map (from COLLECT phase)
 - Apply confidence thresholds (§3.3) to determine review needs
 - Use §7 (Check Process Workflow) for systematic validation
+- **Verify content update vs. creation decision** — Ensure that existing content was updated rather than creating duplicate new content
 
 **Style Guide Reference:**
 
 For all writing conventions, voice, tone, and formatting standards not explicitly covered in this skill document, refer to the Omnia Style Guide:
 
-* **Location:** `docs/STYLE_GUIDE/Dell Technologies Unified Style Guide v1.0.pdf`
+* **Location:** `review_source/dell-style-guide.md`
 * **External Reference:** [Link to style guide if published separately]
 
 When this skill document and the style guide conflict, **this skill document takes precedence** for Omnia-specific rules. The style guide provides general writing standards; this document provides Omnia product-specific applications of those standards.
@@ -76,7 +77,8 @@ When this skill document and the style guide conflict, **this skill document tak
 - [ ] Use exact configuration parameter names with double backticks
 - [ ] Add `.. versionadded::` or `.. versionchanged::` when content is version-specific
 - [ ] Validate placement against the Information Map (from COLLECT phase) before creating a new file
-- [ ] Write from source assets (HLD → Engineering Notes → Demo Transcriptions → Unit Tests) — never from general knowledge alone
+- [ ] Write from source assets (Behaviour Spec → Engineering Specification → Component Specification → HLD → Engineering Notes → Demo Transcripts → Unit Tests) — never from general knowledge alone
+- [ ] Verify that existing content was updated rather than creating duplicate new content (check for related topics before creating new files)
 
 ### 3.2 Never Do
 
@@ -88,7 +90,7 @@ When this skill document and the style guide conflict, **this skill document tak
 - [ ] Combine multiple actions into a single numbered step
 - [ ] Create an `.rst` file without registering it in a toctree
 - [ ] Use `.. note::` as a container for main content
-- [ ] Invent parameter names — always verify against HLD, Engineering Notes, or actual config files
+- [ ] Invent parameter names — always verify against Behaviour Spec, Engineering Specification, or actual config files
 - [ ] Write troubleshooting content that blames the user
 
 ### 3.3 Confidence Thresholds
@@ -108,9 +110,9 @@ When uncertain, insert an RST comment:
 ```
 
 **Common reasons:**
-- `Inferred from Demo Transcript only — verify against HLD or Engineering Notes`
-- `No HLD found for this component — SME verification required`
-- `Parameter name not confirmed — check omnia.yml schema or Engineering Notes`
+- `Inferred from Behaviour Spec only — verify against Engineering Specification or Component Specification`
+- `No Behaviour Spec found for this component — SME verification required`
+- `Parameter name not confirmed — check Behaviour Spec, Engineering Specification, or actual config files`
 - `Multiple possible workflows — confirm correct path with SME`
 - `Placement uncertain — verify toctree location`
 - `Version applicability unclear — confirm which Omnia version`
@@ -177,13 +179,13 @@ When reviewing AI-generated content, check:
 **Context assembly order before generating:**
 
 1. Load this skill document (`docs/.windsurf/skills/omnia-doc-skill/SKILL_CHECK.md`)
-2. Load the Omnia Style Guide (`docs/STYLE_GUIDE/Dell Technologies Unified Style Guide v1.0.pdf`) for general writing standards
-3. Load the relevant source assets from `docs/SOURCE MATERIALS/` (HLD → Engineering Notes → Demo Transcriptions → Unit Tests)
+2. Load the Omnia Style Guide (`review_source/dell-style-guide.md`) for general writing standards
+3. Load the relevant source assets from `knowledge_source/victoria_logs_cluster_mode/` (Behaviour Spec → Engineering Specification → Component Specification → HLD → Engineering Notes → Demo Transcripts → Unit Tests)
 4. Load existing `.rst` files in the target section to match style and avoid duplication
 5. Identify content type using BUILD phase §5.3 and file placement using COLLECT phase §4
 6. Generate draft following RST conventions in BUILD phase §5
 7. Self-review against §3 (Guardrails and Constraints) checklists
-8. Insert `.. AI_REVIEW:` markers for any uncertain content
+8. Insert `.. AI_REVIEW:` markers for uncertain content
 9. Output with recommended file path and toctree placement
 
 ### For Documentation Maintainers
@@ -195,7 +197,7 @@ When reviewing AI-generated content, check:
 | Weekly      | Review merged doc PRs for quality and style deviations              |
 | Monthly     | Update BUILD phase §6 (Terminology) with new terms from recent releases         |
 | Monthly     | Update §4 (Historical Context) with newly identified gotchas       |
-| Monthly     | Sync with Style Guide updates from `docs/STYLE_GUIDE/Dell Technologies Unified Style Guide v1.0.pdf`        |
+| Monthly     | Sync with Style Guide updates from `review_source/dell-style-guide.md`        |
 | Quarterly   | Full skill document review with SMEs; update all [SME ACTION REQUIRED] items |
 | Per release | Update deprecated features table; add `.. versionadded::` markers  |
 | As needed   | Update COLLECT phase §4 (Information Map) when doc structure changes              |
@@ -210,7 +212,7 @@ When reviewing AI-generated content, check:
 Before marking content as complete, run through this checklist:
 
 **Content Validation:**
-- [ ] All technical facts verified against source assets (HLD > Engineering Notes > Demo Transcriptions > Unit Tests)
+- [ ] All technical facts verified against source assets (Behaviour Spec > Engineering Specification > Component Specification > HLD > Engineering Notes > Demo Transcripts > Unit Tests)
 - [ ] Terminology matches approved glossary (BUILD phase §6)
 - [ ] Commands and parameters are exact and tested
 - [ ] Version-specific content properly marked with `.. versionadded::` or `.. versionchanged::`
