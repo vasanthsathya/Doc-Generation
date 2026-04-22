@@ -26,7 +26,7 @@ Steps
         :file: ../../../Tables/omnia_config_service_cluster.csv
         :header-rows: 1
         :keepspace: 
-3. Ensure that the ``telemetry_config.yml`` has the entries specific to iDRAC telemetry support, Victoria, and Kafka based on your requirement.
+3. Ensure that the ``telemetry_config.yml`` has the entries specific to iDRAC telemetry support, VictoriaMetrics, VictoriaLogs, and Kafka based on your requirement.
 
     .. csv-table:: telemetry_config.yml
         :file: ../../../Tables/telemetry_config.csv

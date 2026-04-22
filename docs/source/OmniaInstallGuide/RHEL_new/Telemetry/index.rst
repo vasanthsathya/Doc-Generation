@@ -8,7 +8,8 @@ providing flexible deployment and simplified lifecycle management.
 
 * **iDRAC Telemetry** provides out-of-band system metrics from Dell servers, including
   power, thermal, and hardware health information. The iDRAC Telemetry data can be collected
-  and streamed to **Kafka** or **VictoriaMetrics**, depending on the deployment needs.
+  and streamed to **Kafka** or **VictoriaMetrics**. When **VictoriaMetrics** is selected,
+  **VictoriaLogs** is deployed alongside it for centralized log management.
 
 * **LDMS Telemetry** collects in-band performance metrics such as CPU, memory,
   network, and I/O statistics from compute nodes. The LDMS Telemetry data can be collected

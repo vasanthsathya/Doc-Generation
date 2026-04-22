@@ -89,42 +89,6 @@ This playbook deploys the following components:
 .. note::
    The deployment may take 10-15 minutes to complete.
 
-Verify Deployment
------------------
-
-1. Check the status of VictoriaLogs pods.
-
-   .. code-block:: bash
-
-      kubectl get pods -n telemetry
-
-   Verify that the following pods are running and healthy:
-
-   * ``vlstorage-victoria-logs-cluster-0``, ``vlstorage-victoria-logs-cluster-1``, ``vlstorage-victoria-logs-cluster-2``
-   * ``vlinsert-victoria-logs-cluster-0``, ``vlinsert-victoria-logs-cluster-1``
-   * ``vlselect-victoria-logs-cluster-0``, ``vlselect-victoria-logs-cluster-1``
-   * ``vlagent``
-
-2. Verify that the LoadBalancer services are created.
-
-   .. code-block:: bash
-
-      kubectl get svc -n telemetry
-
-   Verify that the following services have external IPs:
-
-   * ``vlinsert-victoria-logs-cluster`` (ingestion endpoint)
-   * ``vlselect-victoria-logs-cluster`` (query endpoint)
-   * ``vlagent`` (syslog receivers)
-
-3. Verify TLS connectivity.
-
-   .. code-block:: bash
-
-      openssl s_client -connect <LoadBalancer IP>:6514 -showcerts
-
-   Replace ``<LoadBalancer IP>`` with the external IP of the vlagent service.
-
 Record Endpoint Information
 ----------------------------
 
@@ -138,24 +102,7 @@ After successful deployment, record the following endpoint information for log s
 .. note::
    Store this information securely. You will need it when configuring external log sources to send logs to VictoriaLogs.
 
-Verification
-------------
-
-After recording endpoint information, verify the VictoriaLogs deployment is fully functional:
-
-1. Test log ingestion by sending a test syslog message to VLAgent.
-
-   .. code-block:: bash
-
-      echo "test message" | nc -u <LoadBalancer IP> 514
-
-2. Verify the test message appears in VictoriaLogs query results.
-
-   .. code-block:: bash
-
-      curl -k https://<LoadBalancer IP>:9491/select/logsql/query -d 'query="{_msg=\"test message\"}"'
-
-3. Confirm the query returns the test log entry, indicating successful ingestion and query functionality.
+For verification steps, see :doc:`verify_telemetry`.
 
 Related Topics
 --------------
