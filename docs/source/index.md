@@ -13,41 +13,37 @@ The project is hosted on [GitHub](https://github.com/dell/omnia), where you can:
 
 ## How This Documentation is Organized
 
- * **[Overview](Overview/index.md)**
+```yaml
+- icon: material/book-open-variant
+  title: Overview
+  link: Overview/index.md
+  text: Architecture, components, network topologies, and design concepts. Start here if you are new to Omnia.
 
-* * *
+- icon: material/rocket-launch
+  title: Get Started
+  link: GetStarted/index.md
+  text: End-to-end tutorials that take you from a bare set of PowerEdge servers to a fully operational cluster. Choose from Slurm-only, full deployment, Kubernetes + telemetry, or BuildStreaM paths.
 
-Architecture, components, network topologies, and design concepts. Start here if you are new to Omnia.
+- icon: material/bookshelf
+  title: How-to Guides
+  link: HowTo/index.md
+  text: Task-oriented procedures for provisioning, configuring Slurm, Kubernetes, storage, networking, authentication, telemetry, and BuildStreaM.
 
- * **[Get Started](GetStarted/index.md)**
+- icon: material/reference
+  title: Reference
+  link: Reference/index.md
+  text: Configuration parameters, support matrices, playbook references, API documentation, and network port listings.
 
-* * *
+- icon: material/settings
+  title: Operations
+  link: Operations/index.md
+  text: Day-2 operations: adding and removing nodes, re-provisioning, OIM cleanup, log management, security hardening, and best practices.
 
-End-to-end tutorials that take you from a bare set of PowerEdge servers to a fully operational cluster. Choose from Slurm-only, full deployment, Kubernetes + telemetry, or BuildStreaM paths.
-
- * **[How-to Guides](HowTo/index.md)**
-
-* * *
-
-Task-oriented procedures for provisioning, configuring Slurm, Kubernetes, storage, networking, authentication, telemetry, and BuildStreaM.
-
- * **[Reference](Reference/index.md)**
-
-* * *
-
-Configuration parameters, support matrices, playbook references, API documentation, and network port listings.
-
- * **[Operations](Operations/index.md)**
-
-* * *
-
-Day-2 operations: adding and removing nodes, re-provisioning, OIM cleanup, log management, security hardening, and best practices.
-
- * **[Troubleshooting](Troubleshooting/index.md)**
-
-* * *
-
-Symptom-driven guides for diagnosing and resolving issues with provisioning, Slurm, Kubernetes, telemetry, authentication, and more.
+- icon: material/alert-circle
+  title: Troubleshooting
+  link: Troubleshooting/index.md
+  text: Symptom-driven guides for diagnosing and resolving issues with provisioning, Slurm, Kubernetes, telemetry, authentication, and more.
+```
 
 ## Quick Links
 
