@@ -13,37 +13,69 @@ The project is hosted on [GitHub](https://github.com/dell/omnia), where you can:
 
 ## How This Documentation is Organized
 
-```yaml
-- icon: material/book-open-variant
-  title: Overview
-  link: Overview/index.md
-  text: Architecture, components, network topologies, and design concepts. Start here if you are new to Omnia.
+<div class="grid cards" markdown>
 
-- icon: material/rocket-launch
-  title: Get Started
-  link: GetStarted/index.md
-  text: End-to-end tutorials that take you from a bare set of PowerEdge servers to a fully operational cluster. Choose from Slurm-only, full deployment, Kubernetes + telemetry, or BuildStreaM paths.
+-   <span class="mdx-icon">
+        [:material-book-open-variant:]{ .lg .middle }
+    </span>
 
-- icon: material/bookshelf
-  title: How-to Guides
-  link: HowTo/index.md
-  text: Task-oriented procedures for provisioning, configuring Slurm, Kubernetes, storage, networking, authentication, telemetry, and BuildStreaM.
+    **[Overview](Overview/index.md)**
 
-- icon: material/reference
-  title: Reference
-  link: Reference/index.md
-  text: Configuration parameters, support matrices, playbook references, API documentation, and network port listings.
+    ---
 
-- icon: material/settings
-  title: Operations
-  link: Operations/index.md
-  text: Day-2 operations: adding and removing nodes, re-provisioning, OIM cleanup, log management, security hardening, and best practices.
+    Architecture, components, network topologies, and design concepts. Start here if you are new to Omnia.
 
-- icon: material/alert-circle
-  title: Troubleshooting
-  link: Troubleshooting/index.md
-  text: Symptom-driven guides for diagnosing and resolving issues with provisioning, Slurm, Kubernetes, telemetry, authentication, and more.
-```
+-   <span class="mdx-icon">
+        [:material-rocket-launch:]{ .lg .middle }
+    </span>
+
+    **[Get Started](GetStarted/index.md)**
+
+    ---
+
+    End-to-end tutorials that take you from a bare set of PowerEdge servers to a fully operational cluster. Choose from Slurm-only, full deployment, Kubernetes + telemetry, or BuildStreaM paths.
+
+-   <span class="mdx-icon">
+        [:material-bookshelf:]{ .lg .middle }
+    </span>
+
+    **[How-to Guides](HowTo/index.md)**
+
+    ---
+
+    Task-oriented procedures for provisioning, configuring Slurm, Kubernetes, storage, networking, authentication, telemetry, and BuildStreaM.
+
+-   <span class="mdx-icon">
+        [:material-reference:]{ .lg .middle }
+    </span>
+
+    **[Reference](Reference/index.md)**
+
+    ---
+
+    Configuration parameters, support matrices, playbook references, API documentation, and network port listings.
+
+-   <span class="mdx-icon">
+        [:material-settings:]{ .lg .middle }
+    </span>
+
+    **[Operations](Operations/index.md)**
+
+    ---
+
+    Day-2 operations: adding and removing nodes, re-provisioning, OIM cleanup, log management, security hardening, and best practices.
+
+-   <span class="mdx-icon">
+        [:material-alert-circle:]{ .lg .middle }
+    </span>
+
+    **[Troubleshooting](Troubleshooting/index.md)**
+
+    ---
+
+    Symptom-driven guides for diagnosing and resolving issues with provisioning, Slurm, Kubernetes, telemetry, authentication, and more.
+
+</div>
 
 ## Quick Links
 
