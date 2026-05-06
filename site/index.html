@@ -53,8 +53,6 @@
       
     
     
-      <link rel="stylesheet" href="stylesheets/dell-brand.css">
-    
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -5519,7 +5517,9 @@
 
 
 <h1 id="omnia-documentation">Omnia Documentation<a class="headerlink" href="#omnia-documentation" title="Permanent link">&para;</a></h1>
+<p><a href="https://github.com/dell/omnia/releases"><img alt="Omnia version" src="https://img.shields.io/github/v/release/dell/omnia?include_prereleases" /></a> <a href="https://github.com/dell/omnia/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/dell/omnia/total" /></a> <a href="https://github.com/dell/omnia/commits"><img alt="Last Commit" src="https://img.shields.io/github/last-commit/dell/omnia" /></a> <a href="https://github.com/dell/omnia/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/dell/omnia" /></a> <a href="https://github.com/dell/omnia/network/members"><img alt="Forks" src="https://img.shields.io/github/forks/dell/omnia" /></a> <a href="https://github.com/dell/omnia/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/dell/omnia" /></a></p>
 <p>Omnia is an open-source, Ansible-based toolkit by Dell Technologies that automates the deployment and management of HPC, AI, and data analytics clusters on Dell PowerEdge servers. From bare-metal provisioning to job scheduling, telemetry, and storage configuration, Omnia turns a rack of servers into a production-ready cluster.</p>
+<p>The project is hosted on <a href="https://github.com/dell/omnia">GitHub</a>, where you can:</p>
 <ul>
 <li>Access the source code</li>
 <li>Report issues</li>
@@ -5527,16 +5527,34 @@
 <li>Contribute to development</li>
 </ul>
 <h2 id="how-this-documentation-is-organized">How This Documentation is Organized<a class="headerlink" href="#how-this-documentation-is-organized" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><a href="Overview/">Overview</a></strong></li>
+</ul>
 <hr />
 <p>Architecture, components, network topologies, and design concepts. Start here if you are new to Omnia.</p>
+<ul>
+<li><strong><a href="GetStarted/">Get Started</a></strong></li>
+</ul>
 <hr />
 <p>End-to-end tutorials that take you from a bare set of PowerEdge servers to a fully operational cluster. Choose from Slurm-only, full deployment, Kubernetes + telemetry, or BuildStreaM paths.</p>
+<ul>
+<li><strong><a href="HowTo/">How-to Guides</a></strong></li>
+</ul>
 <hr />
 <p>Task-oriented procedures for provisioning, configuring Slurm, Kubernetes, storage, networking, authentication, telemetry, and BuildStreaM.</p>
+<ul>
+<li><strong><a href="Reference/">Reference</a></strong></li>
+</ul>
 <hr />
 <p>Configuration parameters, support matrices, playbook references, API documentation, and network port listings.</p>
+<ul>
+<li><strong><a href="Operations/">Operations</a></strong></li>
+</ul>
 <hr />
 <p>Day-2 operations: adding and removing nodes, re-provisioning, OIM cleanup, log management, security hardening, and best practices.</p>
+<ul>
+<li><strong><a href="Troubleshooting/">Troubleshooting</a></strong></li>
+</ul>
 <hr />
 <p>Symptom-driven guides for diagnosing and resolving issues with provisioning, Slurm, Kubernetes, telemetry, authentication, and more.</p>
 <h2 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">&para;</a></h2>
@@ -5549,17 +5567,43 @@
 </thead>
 <tbody>
 <tr>
-<td></td>
-<td></td>
+<td><a href="GetStarted/slurm_quickstart/">Slurm Quickstart</a></td>
+<td>Fastest path to a working Slurm cluster (~2 hours, 4 nodes).</td>
+</tr>
+<tr>
+<td><a href="GetStarted/full_deployment/">Full Deployment</a></td>
+<td>Production deployment with Slurm, Kubernetes, telemetry, and LDAP.</td>
+</tr>
+<tr>
+<td><a href="Reference/SupportMatrix/servers/">Servers</a></td>
+<td>Supported OS versions, hardware, firmware, and software combinations.</td>
+</tr>
+<tr>
+<td><a href="Reference/Configuration/provision_config/">Provision Config</a></td>
+<td>Complete reference for all Omnia input configuration files.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="licensing">Licensing<a class="headerlink" href="#licensing" title="Permanent link">&para;</a></h2>
+<p>Omnia is made available under the <a href="https://opensource.org/licenses/Apache-2.0">Apache 2.0 license</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Omnia playbooks are licensed under the Apache 2.0 license. Once an end-user initiates Omnia, that end-user will deploy other open-source and/or third-party software that is licensed separately by their respective developer communities and/or third parties. For a comprehensive list of software and their licenses, <a href="Reference/SupportMatrix/installed_software/">click here</a>. Dell (or any other contributors) shall have no liability regarding (and no responsibility to provide support for) an end-user's use of any open-source and/or third-party software and Omnia users are solely responsible for ensuring that they are complying with all such licenses. Omnia is provided "as is" without any warranty, express or implied. Dell (or any other contributors) shall have no liability for any direct, indirect, incidental, punitive, special, or consequential damages for an end-user's use of Omnia.</p>
+</div>
 <h2 id="previous-versions">Previous Versions<a class="headerlink" href="#previous-versions" title="Permanent link">&para;</a></h2>
 <p><em>For a better understanding of what Omnia does, check out the following:</em></p>
+<ul>
+<li><a href="https://omnia-doc.readthedocs.io/en/latest/index.html">1.x documentation</a>: supports diskful provisioning.</li>
+<li><a href="https://omnia.readthedocs.io/en/latest/index.html">2.x documentation</a>: supports diskless provisioning and containerized deployment.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Upgrade from Omnia 1.x to 2.x is not supported due to architectural changes.</p>
+</div>
 <h2 id="omnia-community-members">Omnia Community Members<a class="headerlink" href="#omnia-community-members" title="Permanent link">&para;</a></h2>
+<p><a href="https://www.dell.com"><img alt="Dell Technologies" src="assets/images/delltech.png" /></a> <a href="https://www.intel.com"><img alt="Intel" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Intel_logo_%282020%2C_light_blue%29.svg" /></a> <a href="https://www.unipi.it"><img alt="University of Pisa" src="assets/images/pisa.png" /></a></p>
 <hr />
+<p><em>If you have any feedback about Omnia documentation, please reach out at <a href="mailto:omnia.readme@dell.com">omnia.readme@dell.com</a>.</em></p>
 <p>Copyright © 2025 Dell Technologies. All rights reserved.</p>
 
 
