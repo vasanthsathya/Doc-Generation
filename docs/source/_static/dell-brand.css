@@ -85,17 +85,25 @@ html[data-theme="dark"] {
 }
 
 /* Cards and grid items */
+.sd-card,
 .grid-card {
     border-left: 4px solid var(--dell-primary);
     background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
 }
 
+.sd-card:hover,
 .grid-card:hover {
     border-left-color: var(--dell-accent);
     box-shadow: 0 4px 12px rgba(0, 125, 184, 0.15);
+    border-color: var(--dell-primary);
 }
 
+.sd-card-title,
 .grid-card h3 {
+    color: var(--dell-primary);
+}
+
+.sd-card-icon {
     color: var(--dell-primary);
 }
 
