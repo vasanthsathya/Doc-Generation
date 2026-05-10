@@ -46,8 +46,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -55,8 +56,9 @@ Procedure
 #. **Configure InfiniBand settings** in the network specification:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/network_spec.yml
 
 
@@ -64,8 +66,9 @@ Procedure
    Add the IB network configuration:
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/network_spec.yml"
+**File: /opt/omnia/input/project_default/network_spec.yml**
 
+.. code-block:: yaml
       ---
       ib_network:
         ib_nic_name: "ib0"
@@ -78,8 +81,9 @@ Procedure
 #. **Ensure OFED is listed in software_config.json**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cat /opt/omnia/input/project_default/software_config.json | python3 -m json.tool
 
 
@@ -87,8 +91,9 @@ Procedure
    Verify the ``softwares`` list includes:
 
 
-.. code-block:: json title="File: /opt/omnia/input/project_default/software_config.json"
+**File: /opt/omnia/input/project_default/software_config.json**
 
+.. code-block:: json
       {
           "softwares": [
               {"name": "doca_ofed"}
@@ -100,8 +105,9 @@ Procedure
 #. **Run the omnia.yml playbook** to deploy InfiniBand:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
 
@@ -117,8 +123,9 @@ Procedure
 #. **(If needed) Manually configure IPoIB on a node**:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       # Load InfiniBand modules
       modprobe mlx5_core
       modprobe mlx5_ib
@@ -142,8 +149,9 @@ Procedure
 #. **Configure OpenSM** on the designated subnet manager node:
 
 
-.. code-block:: bash title="Run on: OpenSM node (typically the Slurm control node)"
+**Run on: OpenSM node (typically the Slurm control node)**
 
+.. code-block:: bash
       dnf install -y opensm
       systemctl enable --now opensm
 
@@ -162,8 +170,9 @@ Verification
 #. **Verify the IB interface is up** on each compute node:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       ip addr show ib0
 
 
@@ -173,8 +182,9 @@ Verification
 #. **Check IB port state**:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       ibstat
 
 
@@ -182,8 +192,9 @@ Verification
    Expected output:
 
 
-.. code-block:: text title="Expected output on: compute node"
+**Expected output on: compute node**
 
+.. code-block:: text
       CA 'mlx5_0'
          Port 1:
             State: Active
@@ -195,8 +206,9 @@ Verification
 #. **Verify OpenSM is running**:
 
 
-.. code-block:: bash title="Run on: OpenSM node"
+**Run on: OpenSM node**
 
+.. code-block:: bash
       systemctl status opensm
 
 
@@ -204,8 +216,9 @@ Verification
 #. **Test IB connectivity** between two compute nodes:
 
 
-.. code-block:: bash title="Run on: compute node 1"
+**Run on: compute node 1**
 
+.. code-block:: bash
       ping -c 5 10.230.0.102
 
 
@@ -215,8 +228,9 @@ Verification
    On the server node:
 
 
-.. code-block:: bash title="Run on: compute node 1"
+**Run on: compute node 1**
 
+.. code-block:: bash
       ib_write_bw
 
 
@@ -224,8 +238,9 @@ Verification
    On the client node:
 
 
-.. code-block:: bash title="Run on: compute node 2"
+**Run on: compute node 2**
 
+.. code-block:: bash
       ib_write_bw 10.230.0.101
 
 
@@ -235,8 +250,9 @@ Verification
    On the server node:
 
 
-.. code-block:: bash title="Run on: compute node 1"
+**Run on: compute node 1**
 
+.. code-block:: bash
       ib_write_lat
 
 
@@ -244,8 +260,9 @@ Verification
    On the client node:
 
 
-.. code-block:: bash title="Run on: compute node 2"
+**Run on: compute node 2**
 
+.. code-block:: bash
       ib_write_lat 10.230.0.101
 
 
@@ -272,8 +289,9 @@ Troubleshooting
    Verify InfiniBand modules are loaded:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       lsmod | grep mlx5
       lsmod | grep ib_ipoib
 
@@ -282,8 +300,9 @@ Troubleshooting
    Load missing modules:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       modprobe mlx5_core
       modprobe mlx5_ib
       modprobe ib_ipoib
@@ -296,8 +315,9 @@ Troubleshooting
   - Check for firmware issues:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
         ibv_devinfo
 
 
@@ -306,8 +326,9 @@ Troubleshooting
    Check for port GUID conflicts:
 
 
-.. code-block:: bash title="Run on: OpenSM node"
+**Run on: OpenSM node**
 
+.. code-block:: bash
       journalctl -u opensm --no-pager -n 30
 
 
@@ -316,8 +337,9 @@ Troubleshooting
   - Verify link rate (should be 100/200 Gbps for HDR):
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
         ibstat | grep Rate
 
 
@@ -325,8 +347,9 @@ Troubleshooting
   - Check for errors on the IB port:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
         perfquery
 
 
@@ -337,7 +360,8 @@ Troubleshooting
    Check for duplicate IPs:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible slurm_node -m shell -a "ip addr show ib0 | grep inet"
 

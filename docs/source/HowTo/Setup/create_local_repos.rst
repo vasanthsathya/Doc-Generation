@@ -49,8 +49,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -59,8 +60,9 @@ Procedure
    stacks:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cat /opt/omnia/input/project_default/software_config.json | python3 -m json.tool
 
 
@@ -71,8 +73,9 @@ Procedure
 #. **Run the local_repo playbook**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia/local_repo
       ansible-playbook local_repo.yml
 
@@ -83,8 +86,9 @@ Procedure
        If credentials are Vault-encrypted:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
           ansible-playbook local_repo.yml --ask-vault-pass
 
 
@@ -105,8 +109,9 @@ Procedure
 #. **Monitor synchronization progress** (in a separate terminal):
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman logs -f pulp
 
 
@@ -120,8 +125,9 @@ Verification
 #. **Check Pulp repository status** via the API:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       curl -s http://localhost:8080/pulp/api/v3/distributions/rpm/rpm/ | python3 -m json.tool
 
 
@@ -131,8 +137,9 @@ Verification
 #. **List available repositories** from a node's perspective:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       curl -s http://localhost:8080/pulp/content/ | grep -oP 'href="[^"]*"'
 
 
@@ -140,8 +147,9 @@ Verification
 #. **Test package availability** by querying a specific repository:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       curl -s http://localhost:8080/pulp/content/baseos/repodata/repomd.xml | head -5
 
 
@@ -151,8 +159,9 @@ Verification
 #. **Verify disk usage** to ensure sync completed:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       df -h /var/lib/containers
       du -sh /var/lib/pulp/
 
@@ -177,8 +186,9 @@ Troubleshooting
    Ensure the OIM has an active RHEL subscription:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       subscription-manager status
       subscription-manager repos --list-enabled
 
@@ -187,8 +197,9 @@ Troubleshooting
    If the subscription is not active, register:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       subscription-manager register --username <rhn-user> --password <rhn-pass>
       subscription-manager attach --auto
 
@@ -198,8 +209,9 @@ Troubleshooting
    Check internet connectivity from the Pulp container:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman exec pulp curl -I https://dl.fedoraproject.org
 
 
@@ -209,8 +221,9 @@ Troubleshooting
    the partition:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       du -sh /var/lib/pulp/*
       # Remove old repository versions if needed
       podman exec pulp pulpcore-manager repository-version-cleanup
@@ -222,8 +235,9 @@ Troubleshooting
    active:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       curl -s http://localhost:8080/pulp/api/v3/status/ | python3 -c "
       import sys, json
       data = json.load(sys.stdin)

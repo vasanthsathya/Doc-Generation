@@ -36,8 +36,9 @@ with no HPC job scheduler required.
 **Telemetry pipeline architecture:**
 
 
-.. code-block:: text title="Telemetry pipeline architecture"
+**Telemetry pipeline architecture**
 
+.. code-block:: text
    iDRAC (Redfish) ──┐
                      ├──> Kafka ──> VictoriaMetrics ──> Grafana
    LDMS (OS-level) ──┘
@@ -71,8 +72,9 @@ Step 1 -- Deploy the omnia_core Container
 
 
 
-.. code-block:: shell title="Run on OIM (as root)"
+**Run on OIM (as root)**
 
+.. code-block:: shell
    cd /opt
    git clone https://github.com/dell/omnia.git
    cd omnia
@@ -89,8 +91,9 @@ Step 1 -- Deploy the omnia_core Container
 
 
 
-.. code-block:: shell title="Run on OIM (as root)"
+**Run on OIM (as root)**
 
+.. code-block:: shell
    # Test container access
    ssh omnia_core
    exit
@@ -107,8 +110,9 @@ The mapping file for this path contains **only** Kubernetes roles -- no
 Slurm functional groups.
 
 
-.. code-block:: shell title="Run on OIM (as root)"
+**Run on OIM (as root)**
 
+.. code-block:: shell
    cat > /opt/omnia/input/project_default/mapping.csv << 'EOF'
    FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
    service_kube_control_plane,kube,SVCTAG01,,kube-cp01,24:6E:96:BB:01:01,10.5.0.201,,10.3.0.201
@@ -147,8 +151,9 @@ Since this deployment has no Slurm, use the ``with_service_k8s`` template
 and remove any Slurm-specific settings.
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    ssh omnia_core
    
    # Copy the template with K8s support
@@ -183,8 +188,9 @@ Step 4 -- Set Credentials
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    cd /opt/omnia
    ansible-playbook credentials_utility.yml
 
@@ -209,15 +215,17 @@ Step 5 -- Prepare the OIM
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    vi /opt/omnia/input/project_default/network_spec.yml
 
 
 
 
-.. code-block:: yaml title="Example network_spec.yml"
+**Example network_spec.yml**
 
+.. code-block:: yaml
    admin_network:
      nic: eno2
      cidr: 10.5.0.0/16
@@ -237,15 +245,17 @@ Step 5 -- Prepare the OIM
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    vi /opt/omnia/input/project_default/provision_config.yml
 
 
 
 
-.. code-block:: yaml title="Example provision_config.yml"
+**Example provision_config.yml**
 
+.. code-block:: yaml
    iso_path: /opt/isos/RHEL-8.8-x86_64-dvd.iso
    timezone: America/Chicago
    domain_name: omnia.local
@@ -258,15 +268,17 @@ Step 5 -- Prepare the OIM
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    vi /opt/omnia/input/project_default/ha_config.yml
 
 
 
 
-.. code-block:: yaml title="Example ha_config.yml"
+**Example ha_config.yml**
 
+.. code-block:: yaml
    # Virtual IP for K8s API HA -- must be unused on the admin network
    k8s_vip: 10.5.0.250
    k8s_vip_interface: eno2
@@ -287,8 +299,9 @@ Step 5 -- Prepare the OIM
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    cd /opt/omnia
    ansible-playbook prepare_oim.yml -i /opt/omnia/input/project_default/mapping.csv
 
@@ -301,8 +314,9 @@ Step 6 -- Verify OIM Services
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    systemctl list-dependencies omnia.target
    
    for svc in dhcpd tftp.socket httpd nfs-server; do
@@ -324,15 +338,17 @@ the cluster, so that all required telemetry packages are included in the
 local repository sync.
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    vi /opt/omnia/input/project_default/telemetry_config.yml
 
 
 
 
-.. code-block:: yaml title="Example telemetry_config.yml"
+**Example telemetry_config.yml**
 
+.. code-block:: yaml
    # Enable iDRAC hardware telemetry via Redfish
    idrac_telemetry: true
    
@@ -374,8 +390,9 @@ Step 8 -- Create Local Repositories
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    cd /opt/omnia
    ansible-playbook local_repo.yml
 
@@ -396,8 +413,9 @@ Step 9 -- Build Node Images
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    cd /opt/omnia
    ansible-playbook build_image_x86_64.yml
    
@@ -415,16 +433,18 @@ Step 10 -- Discover and Provision Nodes
 Power on your 4 target nodes with PXE boot priority, then run discovery.
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    cd /opt/omnia
    ansible-playbook discovery.yml
 
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    # Verify all 4 nodes are reachable
    ansible all -m ping -i /opt/omnia/inventories/project_default/inventory
 
@@ -439,8 +459,9 @@ Step 11 -- Deploy Service Kubernetes Cluster
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    cd /opt/omnia
    ansible-playbook k8s.yml
 
@@ -455,8 +476,9 @@ This playbook:
 - Installs Calico CNI and MetalLB.
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    # Verify the K8s cluster
    export KUBECONFIG=/opt/omnia/k8s/admin.conf
    kubectl get nodes
@@ -466,8 +488,9 @@ This playbook:
 Expected output (all nodes ``Ready``):
 
 
-.. code-block:: text title="Expected output"
+**Expected output**
 
+.. code-block:: text
    NAME        STATUS   ROLES           AGE   VERSION
    kube-cp01   Ready    control-plane   10m   v1.28.x
    kube-cp02   Ready    control-plane   8m    v1.28.x
@@ -477,8 +500,9 @@ Expected output (all nodes ``Ready``):
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    # Verify all system pods are healthy
    kubectl get pods -n kube-system
 
@@ -504,8 +528,9 @@ Step 12 -- Deploy Telemetry
 With the K8s cluster operational, deploy the full telemetry pipeline.
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    cd /opt/omnia
    ansible-playbook telemetry.yml
 
@@ -539,8 +564,9 @@ With the K8s cluster operational, deploy the full telemetry pipeline.
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    # Verify all telemetry pods are running
    export KUBECONFIG=/opt/omnia/k8s/admin.conf
    kubectl get pods -n omnia-telemetry
@@ -550,8 +576,9 @@ With the K8s cluster operational, deploy the full telemetry pipeline.
 Expected output (all pods ``Running`` or ``Completed``):
 
 
-.. code-block:: text title="Expected output"
+**Expected output**
 
+.. code-block:: text
    NAME                                  READY   STATUS    RESTARTS   AGE
    grafana-6b8c4f7d9-xk2p4              1/1     Running   0          5m
    victoriametrics-0                     1/1     Running   0          5m
@@ -562,8 +589,9 @@ Expected output (all pods ``Running`` or ``Completed``):
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    # Get the Grafana service endpoint
    kubectl get svc -n omnia-telemetry grafana
 
@@ -592,8 +620,9 @@ You should see pre-built dashboards in the **Omnia** folder:
 **13b. Verify data flow**
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    export KUBECONFIG=/opt/omnia/k8s/admin.conf
    
    # Check Kafka topics are receiving data
@@ -622,8 +651,9 @@ You should see pre-built dashboards in the **Omnia** folder:
 **13c. Verify iDRAC metrics specifically**
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    # Query VictoriaMetrics for iDRAC temperature metrics
    curl -s "http://10.5.0.250:8428/api/v1/query?query=idrac_inlet_temperature" \
        | python3 -m json.tool

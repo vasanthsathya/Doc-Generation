@@ -67,40 +67,47 @@ How This Documentation is Organized
 .. grid:: 2 2 2 2
    :gutter: 3
    :class-container: sd-mb-4
+   :margin: 2 0 2 0
 
    .. grid-item-card:: :material-book-open-variant: Overview
       :link: Overview/index
       :link-type: doc
+      :class-card: grid-card
 
       Architecture, components, network topologies, and design concepts. Start here if you are new to Omnia.
 
-   .. grid-item-card:: :material-book-open-variant: Get Started  
+   .. grid-item-card:: :material-rocket-launch: Get Started  
       :link: GetStarted/index
       :link-type: doc
+      :class-card: grid-card
 
       End-to-end tutorials that take you from a bare set of PowerEdge servers to a fully operational cluster. Choose from Slurm-only, full deployment, Kubernetes + telemetry, or BuildStreaM paths.
 
-   .. grid-item-card:: :material-book-open-variant: How-to Guides
+   .. grid-item-card:: :material-tools: How-to Guides
       :link: HowTo/index
       :link-type: doc
+      :class-card: grid-card
 
       Task-oriented procedures for provisioning, configuring Slurm, Kubernetes, storage, networking, authentication, telemetry, and BuildStreaM.
 
-   .. grid-item-card:: :material-book-open-variant: Reference
+   .. grid-item-card:: :material-book: Reference
       :link: Reference/index
       :link-type: doc
+      :class-card: grid-card
 
       Configuration parameters, support matrices, playbook references, API documentation, and network port listings.
 
-   .. grid-item-card:: :material-book-open-variant: Operations & Maintenance
+   .. grid-item-card:: :material-cog: Operations & Maintenance
       :link: Operations/index
       :link-type: doc
+      :class-card: grid-card
 
       Day-2 operations: adding and removing nodes, re-provisioning, OIM cleanup, log management, security hardening, and best practices.
 
-   .. grid-item-card:: :material-book-open-variant: Troubleshooting
+   .. grid-item-card:: :material-bug: Troubleshooting
       :link: Troubleshooting/index
       :link-type: doc
+      :class-card: grid-card
 
       Symptom-driven guides for diagnosing and resolving issues with provisioning, Slurm, Kubernetes, telemetry, authentication, and more.
 
@@ -157,12 +164,25 @@ Previous Versions
 Omnia Community Members
 -----------------------
 
-* Dell Technologies: https://www.dell.com
-* Intel: https://www.intel.com  
-* University of Pisa: https://www.unipi.it
-* Community Members
-* VIZIAS
-* Liqid: https://www.liqid.com
+.. raw:: html
+
+   <div class="community-logos">
+     <a href="https://www.dell.com" target="_blank" rel="noopener noreferrer">
+       <img src="images/logos/delltech.jpg" alt="Dell Technologies" style="height: 60px;">
+     </a>
+     <a href="https://www.intel.com" target="_blank" rel="noopener noreferrer">
+       <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Intel_logo_%282020%2C_light_blue%29.svg" alt="Intel" style="height: 40px;">
+     </a>
+     <a href="https://www.unipi.it" target="_blank" rel="noopener noreferrer">
+       <img src="images/logos/pisa.png" alt="University of Pisa" style="height: 60px;">
+     </a>
+     <img src="https://user-images.githubusercontent.com/83095575/117071024-64956c80-ace3-11eb-9d90-2dac7daef11c.png" alt="Community Member" style="height: 60px;">
+     <img src="https://images.squarespace-cdn.com/content/v1/660f1a48587dbb2769709a33/9ac5520f-a308-4751-80f4-415d07a23473/VIZIAS+Blue.png" alt="VIZIAS" style="height: 60px;">
+     <img src="https://user-images.githubusercontent.com/5414112/153955170-0a4b199a-54f0-42af-939c-03eac76881c0.png" alt="Community Member" style="height: 60px;">
+     <a href="https://www.liqid.com" target="_blank" rel="noopener noreferrer">
+       <img src="images/logos/Liqid.png" alt="Liqid" style="height: 50px;">
+     </a>
+   </div>
 
 
 ----

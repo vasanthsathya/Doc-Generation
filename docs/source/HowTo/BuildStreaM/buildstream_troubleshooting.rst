@@ -45,8 +45,9 @@ Pipeline Failures
 #. **Common validation-stage failures**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       # Manually re-run validation to see errors
       cd /omnia
       ansible-playbook input_validator.yml -v
@@ -63,8 +64,9 @@ Pipeline Failures
 #. **Common provision-stage failures**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       # Test BMC connectivity for a specific node
       curl -sk https://<bmc-ip>/redfish/v1/ -u root:<password>
 
@@ -79,8 +81,9 @@ Pipeline Failures
 #. **Common configure-stage failures**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       # Test node connectivity
       ansible all -m ping -v
 
@@ -101,8 +104,9 @@ GitLab Issues
 #. **GitLab is unresponsive or slow**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman stats gitlab --no-stream
       podman logs gitlab --tail=30
 
@@ -111,8 +115,9 @@ GitLab Issues
    If memory is exhausted, increase the container memory limit or add swap:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       # Check available memory
       free -h
    
@@ -126,8 +131,9 @@ GitLab Issues
 #. **GitLab "502 Bad Gateway"**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       # GitLab internal services may be restarting
       podman exec gitlab gitlab-ctl status
    
@@ -139,8 +145,9 @@ GitLab Issues
 #. **GitLab database migration errors**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman exec gitlab gitlab-rake db:migrate
       podman exec gitlab gitlab-ctl reconfigure
 
@@ -155,8 +162,9 @@ Runner Issues
 #. **Runner is offline or not picking up jobs**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman exec gitlab-runner gitlab-runner list
       podman exec gitlab-runner gitlab-runner verify
 
@@ -165,8 +173,9 @@ Runner Issues
    If the runner is stale, re-register it:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman exec gitlab-runner gitlab-runner unregister --all-runners
       podman exec gitlab-runner gitlab-runner register \
         --non-interactive \
@@ -182,8 +191,9 @@ Runner Issues
    Ensure the runner has access to the omnia_core container and playbooks:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman exec gitlab-runner ls /omnia/
       # If not mounted, add a volume mount when re-creating the runner container
 
@@ -205,8 +215,9 @@ Registry Issues
 #. **Container registry is unreachable**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
        systemctl status registry.service
        podman logs registry
 
@@ -215,8 +226,9 @@ Registry Issues
     Restart the registry:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
        systemctl restart registry.service
 
 
@@ -224,8 +236,9 @@ Registry Issues
 #. **Image push/pull fails**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
        # Test registry connectivity
        curl -s http://localhost:5000/v2/_catalog
 
@@ -235,8 +248,9 @@ Registry Issues
     insecure registries list:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
        cat /etc/containers/registries.conf | grep insecure
 
 
@@ -252,8 +266,9 @@ General Debugging
     Edit ``.gitlab-ci.yml`` to add ``-vvv`` to playbook commands:
 
 
-.. code-block:: yaml title="File: .gitlab-ci.yml"
+**File: .gitlab-ci.yml**
 
+.. code-block:: yaml
        configure_cluster:
          stage: configure
          script:
@@ -265,8 +280,9 @@ General Debugging
 #. **Check system resources** on the OIM:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
        # Check disk space
        df -h
    
@@ -294,8 +310,9 @@ After resolving issues, verify the pipeline works end-to-end:
 #. **Trigger the full pipeline** and confirm all stages complete.
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
    cd /opt/omnia/buildstream-catalog
    echo "# Test commit $(date)" >> catalog.yml
    git add catalog.yml

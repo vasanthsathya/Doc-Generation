@@ -95,8 +95,9 @@ Usage example
 
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/high_availability_config.yml"
+**File: /opt/omnia/input/project_default/high_availability_config.yml**
 
+.. code-block:: yaml
    ha_enabled: true
    ha_virtual_ip: "10.5.0.250"
    ha_load_balancer: "kube-vip"

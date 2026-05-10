@@ -44,8 +44,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -53,15 +54,17 @@ Procedure
 #. **Configure external VictoriaMetrics** in ``omnia_config.yml``:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/omnia_config.yml"
+**File: /opt/omnia/input/project_default/omnia_config.yml**
 
+.. code-block:: yaml
       ---
       # External VictoriaMetrics configuration
       victoriametrics_external: true
@@ -83,8 +86,9 @@ Procedure
 #. **Verify connectivity** to the external VictoriaMetrics:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       curl -s http://victoria.example.com:8428/api/v1/status/tsdb
 
 
@@ -94,8 +98,9 @@ Procedure
 #. **Run the telemetry playbook** to reconfigure:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia
       ansible-playbook telemetry.yml --ask-vault-pass
 
@@ -110,8 +115,9 @@ Procedure
 #. **Update Grafana data source** (if not automatically configured):
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       GRAFANA_POD=$(kubectl get pod -n telemetry -l app=grafana -o jsonpath='{.items[0].metadata.name}')
       kubectl exec -n telemetry $GRAFANA_POD -- \
         curl -s -X POST http://localhost:3000/api/datasources \
@@ -136,8 +142,9 @@ Verification
 #. **Verify data is being written** to the external VictoriaMetrics:
 
 
-.. code-block:: bash title="Run on: any node with curl"
+**Run on: any node with curl**
 
+.. code-block:: bash
       curl -s "http://victoria.example.com:8428/api/v1/query?query=up" | python3 -m json.tool
 
 
@@ -145,8 +152,9 @@ Verification
 #. **Check metric count** on the external instance:
 
 
-.. code-block:: bash title="Run on: any node with curl"
+**Run on: any node with curl**
 
+.. code-block:: bash
       curl -s "http://victoria.example.com:8428/api/v1/status/tsdb" | python3 -m json.tool
 
 
@@ -154,8 +162,9 @@ Verification
 #. **Verify no built-in VictoriaMetrics pod** is running:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl get pods -n telemetry | grep victoriametrics
 
 
@@ -182,8 +191,9 @@ Troubleshooting
    Verify authentication credentials are correct:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       curl -s -u user:password \
         "http://victoria.example.com:8428/api/v1/query?query=up"
 
@@ -193,8 +203,9 @@ Troubleshooting
    Check network connectivity and firewall rules:
 
 
-.. code-block:: bash title="Run on: K8s worker node"
+**Run on: K8s worker node**
 
+.. code-block:: bash
       curl -v http://victoria.example.com:8428/health
 
 
@@ -204,8 +215,9 @@ Troubleshooting
   - Check that the external VictoriaMetrics is receiving data:
 
 
-.. code-block:: bash title="Run on: any node"
+**Run on: any node**
 
+.. code-block:: bash
         curl -s "http://victoria.example.com:8428/api/v1/series?match[]={cluster='omnia-prod'}"
 
 

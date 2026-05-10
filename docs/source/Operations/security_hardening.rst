@@ -104,8 +104,9 @@ Check certificate expiry
 
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
    # List certificates and their expiry dates
    step certificate inspect /etc/step/certs/server.crt --short
    
@@ -123,8 +124,9 @@ Certificates issued by step-ca are typically short-lived and auto-renewed.
 If automatic renewal fails:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
    # Manually renew
    step ca renew /etc/step/certs/server.crt /etc/step/certs/server.key
    
@@ -156,8 +158,9 @@ OIM firewall configuration
 
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
    # Allow SSH (management)
    firewall-cmd --permanent --add-service=ssh
    
@@ -185,8 +188,9 @@ Compute node firewall configuration
 
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
    # Allow Slurm communication
    firewall-cmd --permanent --add-port=6817-6819/tcp
    
@@ -269,8 +273,9 @@ Disable unnecessary services
 Review running services on all nodes and disable anything not required:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
    # List all enabled services
    systemctl list-unit-files --state=enabled
    
@@ -293,8 +298,9 @@ Routine security updates
 Apply security patches regularly on the OIM and all cluster nodes:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
    # Install only security updates (RHEL/Rocky)
    yum update --security -y
    

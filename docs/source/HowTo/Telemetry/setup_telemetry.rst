@@ -48,8 +48,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -57,15 +58,17 @@ Procedure
 #. **Configure telemetry parameters** in ``omnia_config.yml``:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/omnia_config.yml"
+**File: /opt/omnia/input/project_default/omnia_config.yml**
 
+.. code-block:: yaml
       ---
       # Telemetry configuration
       enable_telemetry: true
@@ -94,8 +97,9 @@ Procedure
 #. **Run the telemetry playbook**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia
       ansible-playbook telemetry.yml --ask-vault-pass
 
@@ -116,8 +120,9 @@ Procedure
 #. **Access the Grafana dashboard**:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl get svc -n telemetry | grep grafana
 
 
@@ -140,8 +145,9 @@ Verification
 #. **Verify telemetry pods are running**:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl get pods -n telemetry
 
 
@@ -149,8 +155,9 @@ Verification
    Expected pods:
 
 
-.. code-block:: text title="Expected output on: K8s control plane node"
+**Expected output on: K8s control plane node**
 
+.. code-block:: text
       NAME                                    READY   STATUS    RESTARTS
       grafana-xxxxxxxxxx-xxxxx                1/1     Running   0
       kafka-0                                 1/1     Running   0
@@ -163,8 +170,9 @@ Verification
 #. **Verify LDMS agents on compute nodes**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible slurm_node -m shell -a "systemctl is-active ldmsd"
 
 
@@ -172,8 +180,9 @@ Verification
 #. **Check Kafka topics** have telemetry data:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl exec -n telemetry kafka-0 -- kafka-topics.sh --list --bootstrap-server localhost:9092
 
 
@@ -181,8 +190,9 @@ Verification
 #. **Verify VictoriaMetrics is receiving data**:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
       kubectl exec -n telemetry $VM_POD -- curl -s "http://localhost:8428/api/v1/query?query=up" | python3 -m json.tool
 
@@ -213,8 +223,9 @@ Troubleshooting
    Check for persistent volume issues:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl describe pvc -n telemetry
 
 
@@ -223,8 +234,9 @@ Troubleshooting
    Verify iDRAC credentials and Redfish access:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl logs -n telemetry -l app=idrac-collector --tail=30
 
 
@@ -233,8 +245,9 @@ Troubleshooting
    Re-deploy LDMS:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible slurm_node -m shell -a "systemctl restart ldmsd"
 
 
@@ -245,8 +258,9 @@ Troubleshooting
   - Verify data is flowing through Kafka:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
         kubectl exec -n telemetry kafka-0 -- kafka-console-consumer.sh \
           --bootstrap-server localhost:9092 --topic telemetry --from-beginning --max-messages 5
 
@@ -256,7 +270,8 @@ Troubleshooting
    Check disk space on the K8s worker node:
 
 
-.. code-block:: bash title="Run on: K8s worker node"
+**Run on: K8s worker node**
 
+.. code-block:: bash
       df -h
 

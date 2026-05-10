@@ -44,8 +44,9 @@ Verify Node Connectivity
 #. **Ping all nodes** from the omnia_core container:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible all -m ping
 
 
@@ -53,8 +54,9 @@ Verify Node Connectivity
    Expected output for each node:
 
 
-.. code-block:: text title="Expected output on: omnia_core container"
+**Expected output on: omnia_core container**
 
+.. code-block:: text
       10.5.0.101 | SUCCESS => {
           "ping": "pong"
       }
@@ -64,8 +66,9 @@ Verify Node Connectivity
 #. **Check OS version on all nodes**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible all -m shell -a "cat /etc/os-release | grep PRETTY_NAME"
 
 
@@ -73,8 +76,9 @@ Verify Node Connectivity
 #. **Check hostnames are correctly set**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible all -m shell -a "hostname"
 
 
@@ -88,15 +92,17 @@ Verify Slurm
 #. **SSH to the Slurm control node** and check the cluster status:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ssh root@<slurm-control-node-ip>
 
 
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       sinfo
 
 
@@ -104,8 +110,9 @@ Verify Slurm
    Expected output:
 
 
-.. code-block:: text title="Expected output on: Slurm control node"
+**Expected output on: Slurm control node**
 
+.. code-block:: text
       PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
       normal*      up   infinite      2   idle compute[01-02]
 
@@ -117,8 +124,9 @@ Verify Slurm
 #. **Run a test job** across all compute nodes:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       srun -N 2 hostname
 
 
@@ -127,8 +135,9 @@ Verify Slurm
    job:
 
 
-.. code-block:: text title="Expected output on: Slurm control node"
+**Expected output on: Slurm control node**
 
+.. code-block:: text
       compute01
       compute02
 
@@ -137,8 +146,9 @@ Verify Slurm
 #. **Submit a batch job**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       cat <<'EOF' > /tmp/test_job.sh
       #!/bin/bash
       #SBATCH --job-name=test
@@ -152,8 +162,9 @@ Verify Slurm
 
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       # Check job status
       squeue
    
@@ -165,8 +176,9 @@ Verify Slurm
 #. **Verify Slurm accounting**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       sacct --starttime=today
 
 
@@ -180,15 +192,17 @@ Verify Kubernetes
 #. **Check Kubernetes node status** from a control-plane node:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ssh root@<k8s-control-plane-ip>
 
 
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl get nodes
 
 
@@ -196,8 +210,9 @@ Verify Kubernetes
    Expected output:
 
 
-.. code-block:: text title="Expected output on: K8s control plane node"
+**Expected output on: K8s control plane node**
 
+.. code-block:: text
       NAME          STATUS   ROLES           AGE   VERSION
       k8s-cp01      Ready    control-plane   1h    v1.28.x
       k8s-cp02      Ready    control-plane   1h    v1.28.x
@@ -211,8 +226,9 @@ Verify Kubernetes
 #. **Verify core Kubernetes components**:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl get pods -A
 
 
@@ -223,8 +239,9 @@ Verify Kubernetes
 #. **Test pod scheduling**:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
        kubectl run test-pod --image=busybox --restart=Never -- echo "Hello from K8s"
        kubectl logs test-pod
        kubectl delete pod test-pod
@@ -285,8 +302,9 @@ Troubleshooting
   - Verify SSH keys are deployed:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
         ssh-copy-id root@<node-ip>
 
 
@@ -294,8 +312,9 @@ Troubleshooting
   - Check network connectivity:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
         ping -c 3 <node-ip>
 
 
@@ -304,8 +323,9 @@ Troubleshooting
    Check the Slurm daemon on the affected compute node:
 
 
-.. code-block:: bash title="Run on: affected compute node"
+**Run on: affected compute node**
 
+.. code-block:: bash
       systemctl status slurmd
       journalctl -u slurmd --no-pager -n 20
 
@@ -314,8 +334,9 @@ Troubleshooting
    Resume the node from the control node:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       scontrol update nodename=<node> state=resume
 
 
@@ -324,8 +345,9 @@ Troubleshooting
    Check kubelet status on the affected node:
 
 
-.. code-block:: bash title="Run on: affected K8s node"
+**Run on: affected K8s node**
 
+.. code-block:: bash
       systemctl status kubelet
       journalctl -u kubelet --no-pager -n 20
 
@@ -335,8 +357,9 @@ Troubleshooting
   - Verify ``munge`` is running on all Slurm nodes:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
         ansible slurm_cluster -m shell -a "systemctl is-active munge"
 
 
@@ -344,7 +367,8 @@ Troubleshooting
   - Check firewall rules allow Slurm traffic (ports 6817-6819):
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
         ansible slurm_cluster -m shell -a "firewall-cmd --list-ports"
 

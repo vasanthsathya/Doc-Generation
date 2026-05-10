@@ -61,8 +61,9 @@ Internal NFS (Omnia-Managed)
 #. **Configure NFS in omnia_config.yml**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -70,8 +71,9 @@ Internal NFS (Omnia-Managed)
    Set the NFS parameters:
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/omnia_config.yml"
+**File: /opt/omnia/input/project_default/omnia_config.yml**
 
+.. code-block:: yaml
       ---
       enable_omnia_nfs: true
       nfs_node_group: "slurm_control_node"
@@ -83,8 +85,9 @@ Internal NFS (Omnia-Managed)
 #. **Run the omnia.yml playbook** to deploy NFS:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
 
@@ -108,15 +111,17 @@ External NFS
 #. **Configure external NFS in omnia_config.yml**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/omnia_config.yml"
+**File: /opt/omnia/input/project_default/omnia_config.yml**
 
+.. code-block:: yaml
       ---
       enable_omnia_nfs: false
       external_nfs_server: "10.5.1.100"
@@ -129,8 +134,9 @@ External NFS
 #. **Run the omnia.yml playbook**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
 
@@ -139,8 +145,9 @@ External NFS
 #. **(Alternative) Manual NFS mount** on a specific node:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       dnf install -y nfs-utils
       mkdir -p /home
       mount -t nfs -o rw,hard,intr,nfsvers=3 10.5.1.100:/ifs/omnia/home /home
@@ -150,8 +157,9 @@ External NFS
    Add to ``/etc/fstab`` for persistence:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       echo "10.5.1.100:/ifs/omnia/home /home nfs rw,hard,intr,nfsvers=3 0 0" >> /etc/fstab
 
 
@@ -165,8 +173,9 @@ Verification
 #. **Verify the NFS server is exporting** (internal NFS):
 
 
-.. code-block:: bash title="Run on: NFS server node"
+**Run on: NFS server node**
 
+.. code-block:: bash
       exportfs -v
 
 
@@ -174,8 +183,9 @@ Verification
    Expected output:
 
 
-.. code-block:: text title="Expected output on: NFS server node"
+**Expected output on: NFS server node**
 
+.. code-block:: text
       /home  <network>(rw,sync,wdelay,no_root_squash,no_subtree_check,...)
 
 
@@ -183,8 +193,9 @@ Verification
 #. **Verify NFS is mounted on compute nodes**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible slurm_node -m shell -a "df -h /home"
 
 
@@ -192,8 +203,9 @@ Verification
 #. **Test read/write from a compute node**:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       echo "NFS test $(date)" > /home/nfs_test.txt
       cat /home/nfs_test.txt
       rm /home/nfs_test.txt
@@ -203,8 +215,9 @@ Verification
 #. **Verify permissions**:
 
 
-.. code-block:: bash title="Run on: NFS server node"
+**Run on: NFS server node**
 
+.. code-block:: bash
       ls -ld /home
       # Expected: drwxr-xr-x (755)
 
@@ -213,8 +226,9 @@ Verification
 #. **Verify mount persists across reboot**:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       grep "/home" /etc/fstab
 
 
@@ -242,8 +256,9 @@ Troubleshooting
    Verify the NFS export allows the client IP:
 
 
-.. code-block:: bash title="Run on: NFS server node"
+**Run on: NFS server node**
 
+.. code-block:: bash
       exportfs -v
       cat /etc/exports
 
@@ -252,8 +267,9 @@ Troubleshooting
    Ensure the export includes the admin network range:
 
 
-.. code-block:: text title="File: /etc/exports on NFS server node"
+**File: /etc/exports on NFS server node**
 
+.. code-block:: text
       /home 10.5.0.0/24(rw,sync,no_root_squash,no_subtree_check)
 
 
@@ -262,8 +278,9 @@ Troubleshooting
    Check firewall rules on the NFS server:
 
 
-.. code-block:: bash title="Run on: NFS server node"
+**Run on: NFS server node**
 
+.. code-block:: bash
       firewall-cmd --add-service=nfs --permanent
       firewall-cmd --add-service=mountd --permanent
       firewall-cmd --add-service=rpc-bind --permanent
@@ -275,8 +292,9 @@ Troubleshooting
    Remount on affected nodes:
 
 
-.. code-block:: bash title="Run on: affected compute node"
+**Run on: affected compute node**
 
+.. code-block:: bash
       umount -l /home
       mount /home
 
@@ -287,7 +305,8 @@ Troubleshooting
   - Increase the NFS read/write block size:
 
 
-.. code-block:: text title="File: /etc/fstab on compute node"
+**File: /etc/fstab on compute node**
 
+.. code-block:: text
         10.5.1.100:/ifs/omnia/home /home nfs rw,hard,intr,nfsvers=3,rsize=1048576,wsize=1048576 0 0
 

@@ -51,8 +51,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -60,8 +61,9 @@ Procedure
 #. **Verify the mapping file is in place**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cat /opt/omnia/input/project_default/pxe_mapping_file.csv
 
 
@@ -69,8 +71,9 @@ Procedure
 #. **Run the discovery playbook**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia/discovery
       ansible-playbook discovery.yml --ask-vault-pass
 
@@ -106,8 +109,9 @@ Verification
 #. **List discovered nodes in OpenCHAMI**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ochami node list
 
 
@@ -118,8 +122,9 @@ Verification
 #. **Check SMD inventory**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ochami smd status
 
 
@@ -127,8 +132,9 @@ Verification
 #. **Verify node count matches the mapping file**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       # Count discovered nodes
       ochami node list | wc -l
    
@@ -140,8 +146,9 @@ Verification
 #. **Ping each discovered node** on the admin network:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       # Example: ping a specific node
       ping -c 3 10.5.0.101
 
@@ -150,8 +157,9 @@ Verification
 #. **Check Ansible inventory** was populated:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible-inventory --list | python3 -m json.tool | head -50
 
 
@@ -176,8 +184,9 @@ Troubleshooting
   - Verify the BMC IP is reachable from the OIM:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
         ping -c 3 <bmc-ip>
 
 
@@ -194,8 +203,9 @@ Troubleshooting
   - Verify DHCP is running on the OIM:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
         systemctl status coredhcp.service
 
 
@@ -203,8 +213,9 @@ Troubleshooting
   - Check TFTP service:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
         systemctl status tftpd.service
 
 
@@ -217,8 +228,9 @@ Troubleshooting
   - Check for IP conflicts on the admin network:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
         arping -D -I <admin-nic> <admin-ip>
 
 
@@ -228,7 +240,8 @@ Troubleshooting
   - Verify Redfish API is accessible:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
         curl -sk https://<bmc-ip>/redfish/v1/ -u <user>:<pass>
 

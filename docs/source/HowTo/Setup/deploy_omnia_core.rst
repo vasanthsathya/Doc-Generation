@@ -69,8 +69,9 @@ Procedure
 #. **Log in to the OIM** as ``root`` or a user with ``sudo`` privileges:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh root@<oim-ip-address>
 
 
@@ -78,8 +79,9 @@ Procedure
 #. **Clone the Omnia repository** from Dell's artifact repository:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       cd /opt
       git clone https://github.com/dell/omnia.git
       cd omnia
@@ -91,8 +93,9 @@ Procedure
        To use a specific release, check out the corresponding tag:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
           git checkout v2.1.0.0
 
 
@@ -100,8 +103,9 @@ Procedure
 #. **Build the container images** using the provided build script:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       bash build_images.sh core
 
 
@@ -112,8 +116,9 @@ Procedure
 #. **Install the omnia_core service**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       bash omnia.sh --install
 
 
@@ -128,8 +133,9 @@ Procedure
 #. **Verify the service is running**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       systemctl status omnia_core.service
 
 
@@ -137,8 +143,9 @@ Procedure
    Expected output:
 
 
-.. code-block:: text title="Expected output on: OIM host"
+**Expected output on: OIM host**
 
+.. code-block:: text
       ● omnia_core.service - Omnia Core Container
            Loaded: loaded (/etc/systemd/system/omnia_core.service; enabled; vendor preset: disabled)
            Active: active (running) since ...
@@ -154,8 +161,9 @@ Verification
 #. **Check the container is running**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman ps --filter name=omnia_core
 
 
@@ -165,15 +173,17 @@ Verification
 #. **Enter the omnia_core container** and verify Ansible is available:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman exec -it -u root omnia_core bash
 
 
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible --version
 
 
@@ -181,8 +191,9 @@ Verification
 #. **Verify playbooks are accessible**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ls /omnia/*.yml
 
 
@@ -194,8 +205,9 @@ Verification
 #. **Verify input directory exists**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ls /opt/omnia/input/project_default/
 
 
@@ -220,8 +232,9 @@ Troubleshooting
    Check the Podman logs for detailed error output:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman logs omnia_core
 
 
@@ -230,8 +243,9 @@ Troubleshooting
    Re-run the installation script:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       bash omnia.sh --install
 
 
@@ -240,8 +254,9 @@ Troubleshooting
    Ensure the OIM has internet access and DNS is configured correctly:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ping -c 3 github.com
       cat /etc/resolv.conf
 
@@ -251,8 +266,9 @@ Troubleshooting
    Install Podman from the default OS repositories:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       dnf install -y podman
       systemctl enable --now podman.socket
 
@@ -262,7 +278,8 @@ Troubleshooting
    Check available disk space. At least 256 GB is required:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       df -h /opt
 

@@ -97,8 +97,9 @@ Usage example
 
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/provision_config.yml"
+**File: /opt/omnia/input/project_default/provision_config.yml**
 
+.. code-block:: yaml
    pxe_mapping_file_path: "/opt/omnia/input/project_default/pxe_mapping.csv"
    timezone: "America/Chicago"
    domain_name: "hpc.example.com"

@@ -49,8 +49,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -58,15 +59,17 @@ Procedure
 #. **Configure proxy LDAP parameters** in ``omnia_config.yml``:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/omnia_config.yml"
+**File: /opt/omnia/input/project_default/omnia_config.yml**
 
+.. code-block:: yaml
       ---
       auth_type: "openldap_proxy"
       external_ldap_uri: "ldaps://ldap.corp.example.com:636"
@@ -82,8 +85,9 @@ Procedure
 #. **(If using LDAPS) Copy the CA certificate** to the omnia_auth container:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman cp /path/to/corp-ca.pem omnia_auth:/etc/ssl/certs/corp-ca.pem
 
 
@@ -91,8 +95,9 @@ Procedure
 #. **Run the auth.yml playbook**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia
       ansible-playbook auth.yml --ask-vault-pass
 
@@ -109,15 +114,17 @@ Procedure
    container:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman exec -it omnia_auth bash
 
 
 
 
-.. code-block:: bash title="Run on: omnia_auth container"
+**Run on: omnia_auth container**
 
+.. code-block:: bash
       cat <<'EOF' >> /etc/openldap/slapd.d/cn=config/olcDatabase={2}ldap.ldif
       dn: olcDatabase={2}ldap
       objectClass: olcDatabaseConfig
@@ -139,8 +146,9 @@ Verification
 #. **Test proxy connectivity** to the external LDAP:
 
 
-.. code-block:: bash title="Run on: omnia_auth container"
+**Run on: omnia_auth container**
 
+.. code-block:: bash
       ldapsearch -x -H ldaps://ldap.corp.example.com:636 \
         -D "cn=omnia-readonly,ou=ServiceAccounts,dc=corp,dc=example,dc=com" \
         -W -b "ou=People,dc=corp,dc=example,dc=com" "(uid=*)" dn | head -20
@@ -150,8 +158,9 @@ Verification
 #. **Test local proxy** from the omnia_core container:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ldapsearch -x -H ldap://omnia_auth -b "dc=corp,dc=example,dc=com" "(uid=someuser)"
 
 
@@ -159,8 +168,9 @@ Verification
 #. **Verify user resolution** on a compute node:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       getent passwd someuser
       id someuser
 
@@ -169,8 +179,9 @@ Verification
 #. **Test SSH login** with a corporate LDAP user:
 
 
-.. code-block:: bash title="Run on: any node"
+**Run on: any node**
 
+.. code-block:: bash
       ssh someuser@<compute-node-ip>
 
 
@@ -195,8 +206,9 @@ Troubleshooting
    Verify the external LDAP server is reachable:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       openssl s_client -connect ldap.corp.example.com:636
 
 
@@ -205,8 +217,9 @@ Troubleshooting
    Ensure the CA certificate is correct and accessible:
 
 
-.. code-block:: bash title="Run on: omnia_auth container"
+**Run on: omnia_auth container**
 
+.. code-block:: bash
       openssl verify -CAfile /etc/ssl/certs/corp-ca.pem /etc/ssl/certs/corp-ca.pem
 
 
@@ -215,8 +228,9 @@ Troubleshooting
    Check the search base DN matches the external LDAP tree structure:
 
 
-.. code-block:: bash title="Run on: omnia_auth container"
+**Run on: omnia_auth container**
 
+.. code-block:: bash
       ldapsearch -x -H ldaps://ldap.corp.example.com:636 \
         -D "<bind-dn>" -W -b "<base-dn>" "(objectClass=*)" dn | head
 
@@ -226,8 +240,9 @@ Troubleshooting
    Clear and restart:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       sss_cache -E
       systemctl restart sssd
 

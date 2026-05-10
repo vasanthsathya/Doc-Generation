@@ -49,8 +49,9 @@ Standalone Server Deployment (Podman)
 #. **Log in to the LDAP server host**:
 
 
-.. code-block:: bash title="Run on: dedicated LDAP server"
+**Run on: dedicated LDAP server**
 
+.. code-block:: bash
       ssh root@<ldap-server-ip>
 
 
@@ -58,8 +59,9 @@ Standalone Server Deployment (Podman)
 #. **Create persistent storage directories**:
 
 
-.. code-block:: bash title="Run on: dedicated LDAP server"
+**Run on: dedicated LDAP server**
 
+.. code-block:: bash
       mkdir -p /opt/ldap/data
       mkdir -p /opt/ldap/config
 
@@ -68,8 +70,9 @@ Standalone Server Deployment (Podman)
 #. **Deploy the Bitnami OpenLDAP container**:
 
 
-.. code-block:: bash title="Run on: dedicated LDAP server"
+**Run on: dedicated LDAP server**
 
+.. code-block:: bash
       podman run -d \
         --name openldap \
         --restart=always \
@@ -89,8 +92,9 @@ Standalone Server Deployment (Podman)
 #. **Create initial LDIF** for organizational structure:
 
 
-.. code-block:: bash title="Run on: dedicated LDAP server"
+**Run on: dedicated LDAP server**
 
+.. code-block:: bash
       cat <<'EOF' > /opt/ldap/config/01-org.ldif
       dn: ou=People,dc=omnia,dc=example,dc=com
       objectClass: organizationalUnit
@@ -106,8 +110,9 @@ Standalone Server Deployment (Podman)
 #. **Load the initial LDIF**:
 
 
-.. code-block:: bash title="Run on: dedicated LDAP server"
+**Run on: dedicated LDAP server**
 
+.. code-block:: bash
       podman exec openldap ldapadd -x \
         -D "cn=admin,dc=omnia,dc=example,dc=com" \
         -w YourAdminPassword \
@@ -118,8 +123,9 @@ Standalone Server Deployment (Podman)
 #. **Add users and groups**:
 
 
-.. code-block:: bash title="Run on: dedicated LDAP server"
+**Run on: dedicated LDAP server**
 
+.. code-block:: bash
       cat <<'EOF' > /opt/ldap/config/02-users.ldif
       dn: cn=hpcusers,ou=Groups,dc=omnia,dc=example,dc=com
       objectClass: posixGroup
@@ -149,8 +155,9 @@ Standalone Server Deployment (Podman)
    Set the user password:
 
 
-.. code-block:: bash title="Run on: dedicated LDAP server"
+**Run on: dedicated LDAP server**
 
+.. code-block:: bash
       podman exec openldap ldappasswd -x \
         -D "cn=admin,dc=omnia,dc=example,dc=com" \
         -w YourAdminPassword \
@@ -167,8 +174,9 @@ Kubernetes Deployment (Helm)
 #. **(Alternative) Deploy on K8s** using Helm:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       helm repo add bitnami https://charts.bitnami.com/bitnami
       helm repo update
    
@@ -193,15 +201,17 @@ Configure Omnia Nodes
 #. **Update omnia_config.yml** to point to the external LDAP:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/omnia_config.yml"
+**File: /opt/omnia/input/project_default/omnia_config.yml**
 
+.. code-block:: yaml
       ---
       auth_type: "external_ldap"
       external_ldap_uri: "ldap://<ldap-server-ip>:389"
@@ -213,8 +223,9 @@ Configure Omnia Nodes
 #. **Run the auth playbook** to configure SSSD on cluster nodes:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia
       ansible-playbook auth.yml --ask-vault-pass
 
@@ -229,8 +240,9 @@ Verification
 #. **Verify the LDAP container is running**:
 
 
-.. code-block:: bash title="Run on: dedicated LDAP server"
+**Run on: dedicated LDAP server**
 
+.. code-block:: bash
       podman ps --filter name=openldap
 
 
@@ -238,8 +250,9 @@ Verification
 #. **Test LDAP search**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ldapsearch -x -H ldap://<ldap-server-ip> \
         -b "dc=omnia,dc=example,dc=com" "(uid=hpcuser1)"
 
@@ -248,8 +261,9 @@ Verification
 #. **Verify user resolution on cluster nodes**:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       getent passwd hpcuser1
       id hpcuser1
 
@@ -258,8 +272,9 @@ Verification
 #. **Test SSH login**:
 
 
-.. code-block:: bash title="Run on: any node"
+**Run on: any node**
 
+.. code-block:: bash
       ssh hpcuser1@<compute-node-ip>
 
 
@@ -283,8 +298,9 @@ Troubleshooting
    Check container logs:
 
 
-.. code-block:: bash title="Run on: dedicated LDAP server"
+**Run on: dedicated LDAP server**
 
+.. code-block:: bash
       podman logs openldap
 
 
@@ -293,8 +309,9 @@ Troubleshooting
    Check for existing LDAP processes:
 
 
-.. code-block:: bash title="Run on: dedicated LDAP server"
+**Run on: dedicated LDAP server**
 
+.. code-block:: bash
       ss -tlnp | grep 389
       # Kill or stop the conflicting process
 
@@ -304,8 +321,9 @@ Troubleshooting
    Verify connectivity from a cluster node:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       ldapsearch -x -H ldap://<ldap-server-ip> -b "dc=omnia,dc=example,dc=com" "(objectClass=*)" dn
 
 
@@ -314,7 +332,8 @@ Troubleshooting
    Clear SSSD cache on cluster nodes:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible all -m shell -a "sss_cache -E && systemctl restart sssd"
 

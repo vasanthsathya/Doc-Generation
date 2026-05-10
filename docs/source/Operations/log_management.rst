@@ -89,8 +89,9 @@ OIM services run as Podman containers. Access their logs with the ``podman
 logs`` command:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
    # List all running containers
    podman ps
    
@@ -135,8 +136,9 @@ OpenCHAMI logs
 OpenCHAMI components write structured JSON logs accessible via Podman:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
    # SMD logs (node state changes)
    podman logs ochami-smd 2>&1 | jq '.'
    
@@ -168,8 +170,9 @@ On Slurm cluster nodes, logs are stored in standard Slurm log directories:
 
 
 
-.. code-block:: bash title="Run on: Slurm nodes"
+**Run on: Slurm nodes**
 
+.. code-block:: bash
    # On the Slurm control node
    tail -f /var/log/slurm/slurmctld.log
    
@@ -186,8 +189,9 @@ Kubernetes logs
 On Kubernetes cluster nodes, use ``kubectl`` or ``journalctl`` to access logs:
 
 
-.. code-block:: bash title="Run on: Kubernetes nodes"
+**Run on: Kubernetes nodes**
 
+.. code-block:: bash
    # Pod logs
    kubectl logs <pod_name> -n <namespace>
    
@@ -211,8 +215,9 @@ Default settings
 
 
 
-.. code-block:: text title="File: /etc/logrotate.d/omnia"
+**File: /etc/logrotate.d/omnia**
 
+.. code-block:: text
    # /etc/logrotate.d/omnia
    /opt/omnia/log/core/playbooks/*.log {
        weekly
@@ -295,8 +300,9 @@ Slurm logs are rotated separately. Omnia installs a Slurm-specific logrotate
 configuration on the control node:
 
 
-.. code-block:: text title="File: /etc/logrotate.d/slurm"
+**File: /etc/logrotate.d/slurm**
 
+.. code-block:: text
    # /etc/logrotate.d/slurm
    /var/log/slurm/*.log {
        weekly
@@ -323,8 +329,9 @@ Sample log output
 A sample of the ``omnia.log`` is provided below:
 
 
-.. code-block:: text title="Sample omnia.log output"
+**Sample omnia.log output**
 
+.. code-block:: text
    2021-02-15 15:17:36,877 p=2778 u=omnia n=ansible | [WARNING]: provided hosts
    list is empty, only localhost is available. Note that the implicit localhost does not
    match 'all'

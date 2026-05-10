@@ -43,8 +43,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -52,15 +53,17 @@ Procedure
 #. **Configure OME telemetry** in ``omnia_config.yml``:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/omnia_config.yml"
+**File: /opt/omnia/input/project_default/omnia_config.yml**
 
+.. code-block:: yaml
       ---
       # OME telemetry configuration
       ome_telemetry_enabled: true
@@ -83,8 +86,9 @@ Procedure
 #. **Set OME/SFM credentials** using the credential utility:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia/utils/credential_utility
       ansible-playbook get_config_credentials.yml --tags telemetry
 
@@ -93,8 +97,9 @@ Procedure
 #. **Verify OME API access** from the K8s cluster:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       curl -sk https://10.5.1.50/api/SessionService/Sessions \
         -X POST \
         -H "Content-Type: application/json" \
@@ -105,8 +110,9 @@ Procedure
 #. **Run the telemetry playbook** to deploy the OME/SFM collectors:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia
       ansible-playbook telemetry.yml --ask-vault-pass
 
@@ -128,8 +134,9 @@ Verification
 #. **Verify OME/SFM collector pods are running**:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl get pods -n telemetry | grep -E "ome|sfm"
 
 
@@ -137,8 +144,9 @@ Verification
 #. **Check collector logs** for successful data collection:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl logs -n telemetry -l app=ome-collector --tail=20
       kubectl logs -n telemetry -l app=sfm-collector --tail=20
 
@@ -147,8 +155,9 @@ Verification
 #. **Verify OME metrics in VictoriaMetrics**:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
       kubectl exec -n telemetry $VM_POD -- \
         curl -s "http://localhost:8428/api/v1/query?query=ome_device_health"
@@ -179,8 +188,9 @@ Troubleshooting
    Verify credentials:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       curl -sk https://10.5.1.50/api/SessionService/Sessions \
         -X POST -H "Content-Type: application/json" \
         -d '{"UserName":"omnia_readonly","Password":"YourPassword","SessionType":"API"}'
@@ -191,8 +201,9 @@ Troubleshooting
    Check network connectivity:
 
 
-.. code-block:: bash title="Run on: K8s worker node"
+**Run on: K8s worker node**
 
+.. code-block:: bash
       curl -sk https://10.5.1.50/api/ApplicationService/Info
 
 
@@ -201,8 +212,9 @@ Troubleshooting
    Verify SFM is accessible and the API version is supported:
 
 
-.. code-block:: bash title="Run on: K8s worker node"
+**Run on: K8s worker node**
 
+.. code-block:: bash
       curl -sk https://10.5.1.51/api/
 
 

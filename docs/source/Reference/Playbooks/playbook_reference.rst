@@ -129,8 +129,9 @@ How to run
 All playbooks are executed from within the ``omnia_core`` container on the OIM:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
    # Enter the omnia_core container
    podman exec -it omnia_core bash
    

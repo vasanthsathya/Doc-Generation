@@ -46,8 +46,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -55,8 +56,9 @@ Procedure
 #. **Review and edit omnia_config.yml**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -64,8 +66,9 @@ Procedure
    Key Slurm-related parameters:
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/omnia_config.yml"
+**File: /opt/omnia/input/project_default/omnia_config.yml**
 
+.. code-block:: yaml
       ---
       # Slurm configuration
       slurm_installation_type: "nfs_share"
@@ -83,8 +86,9 @@ Procedure
 #. **Run the omnia.yml playbook**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
 
@@ -118,8 +122,9 @@ Verification
 #. **Check Slurm controller status**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       systemctl status slurmctld
 
 
@@ -127,8 +132,9 @@ Verification
 #. **Check compute daemon status on a compute node**:
 
 
-.. code-block:: bash title="Run on: Slurm compute node"
+**Run on: Slurm compute node**
 
+.. code-block:: bash
       systemctl status slurmd
 
 
@@ -136,8 +142,9 @@ Verification
 #. **View the cluster partition and node status**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       sinfo
 
 
@@ -145,8 +152,9 @@ Verification
    Expected output:
 
 
-.. code-block:: text title="Expected output on: Slurm control node"
+**Expected output on: Slurm control node**
 
+.. code-block:: text
       PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
       normal*      up   infinite      2   idle compute[01-02]
 
@@ -155,8 +163,9 @@ Verification
 #. **Run a test job**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       srun -N 2 hostname
 
 
@@ -164,8 +173,9 @@ Verification
 #. **Verify Munge authentication**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       munge -n | ssh <compute-node> unmunge
 
 
@@ -175,8 +185,9 @@ Verification
 #. **Check Slurm accounting**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       sacctmgr show cluster
 
 
@@ -202,8 +213,9 @@ Troubleshooting
    Check the Slurm controller log:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       journalctl -u slurmctld --no-pager -n 50
       cat /var/log/slurm/slurmctld.log
 
@@ -213,8 +225,9 @@ Troubleshooting
   - Verify ``slurmd`` is running on the affected node:
 
 
-.. code-block:: bash title="Run on: affected compute node"
+**Run on: affected compute node**
 
+.. code-block:: bash
         systemctl status slurmd
         journalctl -u slurmd --no-pager -n 20
 
@@ -223,8 +236,9 @@ Troubleshooting
   - Check Munge is running:
 
 
-.. code-block:: bash title="Run on: affected compute node"
+**Run on: affected compute node**
 
+.. code-block:: bash
         systemctl status munge
 
 
@@ -232,8 +246,9 @@ Troubleshooting
   - Resume the node:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
         scontrol update nodename=<node> state=resume
 
 
@@ -242,8 +257,9 @@ Troubleshooting
    Ensure the Munge key is identical on all nodes:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible slurm_cluster -m shell -a "md5sum /etc/munge/munge.key"
 
 
@@ -254,8 +270,9 @@ Troubleshooting
    Check MariaDB is running on the control node:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       systemctl status mariadb
       mysql -u slurm -p -e "SHOW DATABASES;"
 

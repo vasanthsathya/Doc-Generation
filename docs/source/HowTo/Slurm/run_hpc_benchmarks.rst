@@ -44,8 +44,9 @@ Procedure
 #. **SSH to the Slurm login or control node**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ssh root@<slurm-control-node-ip>
 
 
@@ -53,8 +54,9 @@ Procedure
 #. **Create a directory for benchmark images** on shared storage:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       mkdir -p /home/benchmarks/images
       mkdir -p /home/benchmarks/results
       cd /home/benchmarks
@@ -64,8 +66,9 @@ Procedure
 #. **Pull the HPL (High Performance Linpack) benchmark container**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       apptainer pull images/hpl.sif docker://nvcr.io/nvidia/hpc-benchmarks:24.03
 
 
@@ -75,8 +78,9 @@ Procedure
        For non-GPU clusters, use the standard HPL benchmark:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
           apptainer pull images/hpl-cpu.sif docker://ghcr.io/hpc-benchmarks/hpl:latest
 
 
@@ -84,8 +88,9 @@ Procedure
 #. **Pull the OSU Micro-Benchmarks container** for MPI testing:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       apptainer pull images/osu-benchmarks.sif docker://ghcr.io/osu-benchmarks/osu-micro-benchmarks:latest
 
 
@@ -93,8 +98,9 @@ Procedure
 #. **Run the HPL benchmark** as a Slurm job:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       cat <<'EOF' > /home/benchmarks/run_hpl.sh
       #!/bin/bash
       #SBATCH --job-name=hpl-benchmark
@@ -114,8 +120,9 @@ Procedure
 #. **Run GPU benchmarks** (NVIDIA):
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       cat <<'EOF' > /home/benchmarks/run_gpu_bench.sh
       #!/bin/bash
       #SBATCH --job-name=gpu-benchmark
@@ -136,8 +143,9 @@ Procedure
 #. **Run OSU MPI latency benchmark**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       cat <<'EOF' > /home/benchmarks/run_osu_latency.sh
       #!/bin/bash
       #SBATCH --job-name=osu-latency
@@ -157,8 +165,9 @@ Procedure
 #. **Monitor benchmark job status**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       squeue
       # Wait for completion, then check results
       ls -la /home/benchmarks/results/
@@ -174,8 +183,9 @@ Verification
 #. **Check benchmark job completed successfully**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       sacct --starttime=today --format=JobName,State,Elapsed,ExitCode
 
 
@@ -185,8 +195,9 @@ Verification
 #. **Review HPL results**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       cat /home/benchmarks/results/hpl-*.out | grep -A5 "T/V"
 
 
@@ -194,8 +205,9 @@ Verification
 #. **Review OSU latency results**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       cat /home/benchmarks/results/osu-latency-*.out
 
 
@@ -224,8 +236,9 @@ Troubleshooting
    Ensure the shared storage directory has correct permissions:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       chmod 755 /home/benchmarks
       chown -R root:root /home/benchmarks
 
@@ -235,8 +248,9 @@ Troubleshooting
    Verify MPI is installed on the host and accessible inside the container:
 
 
-.. code-block:: bash title="Run on: Slurm compute node"
+**Run on: Slurm compute node**
 
+.. code-block:: bash
       which mpirun
       apptainer exec /home/benchmarks/images/hpl.sif which mpirun
 
@@ -246,8 +260,9 @@ Troubleshooting
    Use the ``--nv`` flag with Apptainer for NVIDIA GPU access:
 
 
-.. code-block:: bash title="Run on: Slurm compute node"
+**Run on: Slurm compute node**
 
+.. code-block:: bash
       apptainer exec --nv /home/benchmarks/images/hpl.sif nvidia-smi
 
 
@@ -261,7 +276,8 @@ Troubleshooting
    Reduce the problem size or request more nodes:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       #SBATCH --mem=0  # Use all available memory on the node
 

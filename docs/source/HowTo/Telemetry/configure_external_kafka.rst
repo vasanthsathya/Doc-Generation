@@ -44,8 +44,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -53,15 +54,17 @@ Procedure
 #. **Configure external Kafka** in ``omnia_config.yml``:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/omnia_config.yml"
+**File: /opt/omnia/input/project_default/omnia_config.yml**
 
+.. code-block:: yaml
       ---
       # External Kafka configuration
       kafka_external: true
@@ -82,8 +85,9 @@ Procedure
    is disabled):
 
 
-.. code-block:: bash title="Run on: external Kafka broker"
+**Run on: external Kafka broker**
 
+.. code-block:: bash
       kafka-topics.sh --create \
         --bootstrap-server localhost:9092 \
         --topic omnia-telemetry \
@@ -107,8 +111,9 @@ Procedure
 #. **Run the telemetry playbook** to reconfigure:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia
       ansible-playbook telemetry.yml --ask-vault-pass
 
@@ -129,8 +134,9 @@ Verification
 #. **Verify Kafka connectivity** from the K8s cluster:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl run kafka-test --image=bitnami/kafka:latest --restart=Never -- \
         kafka-topics.sh --list --bootstrap-server kafka-broker1.example.com:9092
       kubectl logs kafka-test
@@ -141,8 +147,9 @@ Verification
 #. **Verify topics have data**:
 
 
-.. code-block:: bash title="Run on: external Kafka broker"
+**Run on: external Kafka broker**
 
+.. code-block:: bash
       kafka-console-consumer.sh \
         --bootstrap-server localhost:9092 \
         --topic omnia-telemetry \
@@ -154,8 +161,9 @@ Verification
 #. **Verify no built-in Kafka pod** is running:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl get pods -n telemetry | grep kafka
 
 
@@ -165,8 +173,9 @@ Verification
 #. **Verify data reaches VictoriaMetrics**:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
       kubectl exec -n telemetry $VM_POD -- curl -s "http://localhost:8428/api/v1/query?query=up"
 
@@ -191,8 +200,9 @@ Troubleshooting
    Verify network connectivity:
 
 
-.. code-block:: bash title="Run on: K8s worker node"
+**Run on: K8s worker node**
 
+.. code-block:: bash
       telnet kafka-broker1.example.com 9092
 
 
@@ -205,8 +215,9 @@ Troubleshooting
    Check collector logs:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl logs -n telemetry -l app=idrac-collector --tail=30
       kubectl logs -n telemetry -l app=ldms-aggregator --tail=30
 
@@ -216,8 +227,9 @@ Troubleshooting
    Check consumer group status:
 
 
-.. code-block:: bash title="Run on: external Kafka broker"
+**Run on: external Kafka broker**
 
+.. code-block:: bash
       kafka-consumer-groups.sh \
         --bootstrap-server localhost:9092 \
         --group omnia-victoria-consumer \

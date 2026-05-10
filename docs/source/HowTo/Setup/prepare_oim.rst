@@ -48,8 +48,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -57,8 +58,9 @@ Procedure
 #. **Review and edit network_spec.yml** (if not already done):
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/network_spec.yml
 
 
@@ -66,8 +68,9 @@ Procedure
    Ensure the admin and BMC network parameters match your physical network:
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/network_spec.yml"
+**File: /opt/omnia/input/project_default/network_spec.yml**
 
+.. code-block:: yaml
       ---
       admin_network:
         nic_name: "eno1"
@@ -89,15 +92,17 @@ Procedure
 #. **Review and edit provision_config.yml** (if not already done):
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/provision_config.yml
 
 
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/provision_config.yml"
+**File: /opt/omnia/input/project_default/provision_config.yml**
 
+.. code-block:: yaml
       ---
       timezone: "America/Chicago"
       language: "en-US"
@@ -110,8 +115,9 @@ Procedure
 #. **Run the prepare_oim playbook**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia/prepare_oim
       ansible-playbook prepare_oim.yml
 
@@ -123,8 +129,9 @@ Procedure
        ``--ask-vault-pass`` flag:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
           ansible-playbook prepare_oim.yml --ask-vault-pass
 
 
@@ -150,8 +157,9 @@ Verification
 #. **Check the omnia.target service tree**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       systemctl list-dependencies omnia.target
 
 
@@ -159,8 +167,9 @@ Verification
    Expected service tree:
 
 
-.. code-block:: text title="Expected output on: OIM host"
+**Expected output on: OIM host**
 
+.. code-block:: text
       omnia.target
       ├─minio.service
       ├─omnia_auth.service
@@ -183,8 +192,9 @@ Verification
 #. **Verify all services are active**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       systemctl status omnia_core.service
       systemctl status openchami.target
 
@@ -193,8 +203,9 @@ Verification
 #. **Test OpenCHAMI CLI**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ochami --help
 
 
@@ -205,8 +216,9 @@ Verification
 #. **Verify Pulp is running**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman ps --filter name=pulp
 
 
@@ -214,8 +226,9 @@ Verification
 #. **Verify MinIO is accessible**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       s3cmd ls
 
 
@@ -241,8 +254,9 @@ Troubleshooting
    names on the OIM:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ip link show
 
 
@@ -251,8 +265,9 @@ Troubleshooting
    Check the OpenCHAMI container logs:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman logs smd
       podman logs bss
       podman logs coredhcp
@@ -264,8 +279,9 @@ Troubleshooting
    for repository synchronization):
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       df -h /var/lib/containers
 
 
@@ -275,8 +291,9 @@ Troubleshooting
    (DHCP: 67, TFTP: 69, HTTP: 80/8080, MinIO: 9000):
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ss -tlnp | grep -E ':(67|69|80|8080|9000)\b'
 
 

@@ -41,8 +41,9 @@ Procedure
 #. **Review available LDMS sampler plugins**:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       ldms_ls -h localhost -p 411 -v
 
 
@@ -71,8 +72,9 @@ Procedure
 #. **Configure sampler plugins** on a compute node:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       vi /etc/ldms/ldmsd.conf
 
 
@@ -80,8 +82,9 @@ Procedure
    Example sampler configuration:
 
 
-.. code-block:: text title="File: /etc/ldms/ldmsd.conf on compute node"
+**File: /etc/ldms/ldmsd.conf on compute node**
 
+.. code-block:: text
       # Transport and authentication
       auth_add name=munge plugin=munge
    
@@ -113,8 +116,9 @@ Procedure
 #. **Restart the LDMS sampler daemon** after configuration changes:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       systemctl restart ldmsd
 
 
@@ -122,8 +126,9 @@ Procedure
 #. **Configure the LDMS aggregator** on the K8s cluster:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl edit configmap -n telemetry ldms-aggregator-config
 
 
@@ -131,8 +136,9 @@ Procedure
    Example aggregator configuration:
 
 
-.. code-block:: text title="ConfigMap: ldms-aggregator-config in telemetry namespace"
+**ConfigMap: ldms-aggregator-config in telemetry namespace**
 
+.. code-block:: text
       # Authentication
       auth_add name=munge plugin=munge
    
@@ -158,8 +164,9 @@ Procedure
 #. **Restart the aggregator pod**:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl rollout restart deployment -n telemetry ldms-aggregator
 
 
@@ -167,8 +174,9 @@ Procedure
 #. **(Bulk configuration) Deploy to all compute nodes** via Ansible:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible slurm_node -m copy -a "src=/tmp/ldmsd.conf dest=/etc/ldms/ldmsd.conf"
       ansible slurm_node -m service -a "name=ldmsd state=restarted"
 
@@ -183,8 +191,9 @@ Verification
 #. **Verify sampler data** on a compute node:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       ldms_ls -h localhost -p 411 -v
 
 
@@ -194,8 +203,9 @@ Verification
 #. **Query specific metrics**:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       ldms_ls -h localhost -p 411 -l -v | grep MemFree
 
 
@@ -203,8 +213,9 @@ Verification
 #. **Verify the aggregator is collecting** from compute nodes:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       AGG_POD=$(kubectl get pod -n telemetry -l app=ldms-aggregator -o jsonpath='{.items[0].metadata.name}')
       kubectl exec -n telemetry $AGG_POD -- ldms_ls -h localhost -p 411 -v
 
@@ -213,8 +224,9 @@ Verification
 #. **Verify data reaches VictoriaMetrics**:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
       kubectl exec -n telemetry $VM_POD -- curl -s "http://localhost:8428/api/v1/query?query=meminfo_MemFree"
 
@@ -239,8 +251,9 @@ Troubleshooting
    Check configuration syntax:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       ldmsd -c /etc/ldms/ldmsd.conf -F -v DEBUG 2>&1 | head -50
 
 
@@ -249,8 +262,9 @@ Troubleshooting
    Verify the sampler is listening:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       ss -tlnp | grep 411
 
 
@@ -258,8 +272,9 @@ Troubleshooting
    Check firewall:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       firewall-cmd --add-port=411/tcp --permanent
       firewall-cmd --reload
 
@@ -269,8 +284,9 @@ Troubleshooting
    Ensure the Munge key is the same on compute nodes and aggregator:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible slurm_node -m shell -a "md5sum /etc/munge/munge.key"
 
 
@@ -279,7 +295,8 @@ Troubleshooting
    Check the Kafka-to-VictoriaMetrics consumer logs:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl logs -n telemetry -l app=kafka-consumer --tail=30
 

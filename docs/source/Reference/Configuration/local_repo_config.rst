@@ -180,8 +180,9 @@ Usage example
 
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/local_repo_config.yml"
+**File: /opt/omnia/input/project_default/local_repo_config.yml**
 
+.. code-block:: yaml
    repo_store_path: "/opt/omnia/repo_store"
    repo_sync_on_run: true
    

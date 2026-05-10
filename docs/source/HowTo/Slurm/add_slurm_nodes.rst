@@ -41,8 +41,9 @@ Procedure
 #. **Update the mapping file** with new node entries:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/pxe_mapping_file.csv
 
 
@@ -50,8 +51,9 @@ Procedure
    Add new rows for each new compute node:
 
 
-.. code-block:: text title="File: /opt/omnia/input/project_default/pxe_mapping_file.csv"
+**File: /opt/omnia/input/project_default/pxe_mapping_file.csv**
 
+.. code-block:: text
       slurm_node,slurm_cluster,NEWSVCTG1,,,aa:bb:cc:dd:ee:10,10.5.0.110,aa:bb:cc:dd:ff:10,10.3.0.110
       slurm_node,slurm_cluster,NEWSVCTG2,,,aa:bb:cc:dd:ee:11,10.5.0.111,aa:bb:cc:dd:ff:11,10.3.0.111
 
@@ -60,8 +62,9 @@ Procedure
 #. **Provision the new nodes** if not already provisioned:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia/discovery
       ansible-playbook discovery.yml --ask-vault-pass
 
@@ -70,8 +73,9 @@ Procedure
 #. **Run the add-node playbook**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass --limit "new_nodes"
 
@@ -83,8 +87,9 @@ Procedure
        version, use it instead:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
           ansible-playbook utils/add_node.yml --ask-vault-pass \
             -e "target_nodes=10.5.0.110,10.5.0.111"
 
@@ -94,8 +99,9 @@ Procedure
    nodes:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       # Reconfigure Slurm to pick up new nodes
       scontrol reconfigure
 
@@ -110,8 +116,9 @@ Verification
 #. **Check that new nodes appear in the cluster**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       sinfo
 
 
@@ -121,8 +128,9 @@ Verification
 #. **Run a test job on the new nodes**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       srun -w <new-node-hostname> hostname
 
 
@@ -130,8 +138,9 @@ Verification
 #. **Verify Munge authentication** on the new nodes:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       munge -n | ssh <new-node-ip> unmunge
 
 
@@ -139,8 +148,9 @@ Verification
 #. **Check slurmd is running** on the new nodes:
 
 
-.. code-block:: bash title="Run on: new compute node"
+**Run on: new compute node**
 
+.. code-block:: bash
       systemctl status slurmd
 
 
@@ -167,8 +177,9 @@ Troubleshooting
   - Verify ``slurmd`` is running:
 
 
-.. code-block:: bash title="Run on: new compute node"
+**Run on: new compute node**
 
+.. code-block:: bash
         systemctl status slurmd
         journalctl -u slurmd --no-pager -n 20
 
@@ -178,8 +189,9 @@ Troubleshooting
      version:
 
 
-.. code-block:: bash title="Run on: new compute node"
+**Run on: new compute node**
 
+.. code-block:: bash
         grep "SlurmctldHost" /etc/slurm/slurm.conf
 
 
@@ -187,8 +199,9 @@ Troubleshooting
   - Resume the node from the controller:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
         scontrol update nodename=<node> state=resume reason="added"
 
 
@@ -197,8 +210,9 @@ Troubleshooting
    Re-distribute the Munge key from the control node:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible new_nodes -m copy -a "src=/etc/munge/munge.key dest=/etc/munge/munge.key owner=munge group=munge mode=0400"
       ansible new_nodes -m service -a "name=munge state=restarted"
 
@@ -208,7 +222,8 @@ Troubleshooting
    Re-run discovery or manually add the nodes to the Ansible inventory:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ochami node list
 

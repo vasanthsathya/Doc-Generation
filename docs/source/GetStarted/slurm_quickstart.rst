@@ -51,8 +51,9 @@ Clone the Omnia repository, build the container images, and install the
 ``omnia_core`` Podman container on the OIM.
 
 
-.. code-block:: shell title="Run on OIM (as root)"
+**Run on OIM (as root)**
 
+.. code-block:: shell
    # Clone the Omnia repository
    cd /opt
    git clone https://github.com/dell/omnia.git
@@ -73,8 +74,9 @@ Clone the Omnia repository, build the container images, and install the
 
 
 
-.. code-block:: shell title="Run on OIM (as root)"
+**Run on OIM (as root)**
 
+.. code-block:: shell
    # Install and start the omnia_core container
    bash omnia.sh --install
    
@@ -87,8 +89,9 @@ You should see ``active (running)`` in the output. If the service is
 ``failed``, check ``journalctl -u omnia_core`` for errors.
 
 
-.. code-block:: shell title="Run on OIM (as root)"
+**Run on OIM (as root)**
 
+.. code-block:: shell
    # Verify you can access the container shell
    ssh omnia_core
    # You should land at a prompt inside the container. Type 'exit' to return.
@@ -106,8 +109,9 @@ The mapping file tells Omnia which physical servers map to which cluster
 roles. Create a CSV at ``/opt/omnia/input/project_default/mapping.csv``.
 
 
-.. code-block:: shell title="Run on OIM (as root)"
+**Run on OIM (as root)**
 
+.. code-block:: shell
    cat > /opt/omnia/input/project_default/mapping.csv << 'EOF'
    FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
    slurm_control_node,slurm,ABC1234,,head01,24:6E:96:AA:BB:01,10.5.0.101,,10.3.0.101
@@ -151,8 +155,9 @@ Omnia ships example input templates for common deployment patterns. Copy
 the bare-metal Slurm template (without service K8s) and customize it.
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    ssh omnia_core
    
    # Copy the template inputs to the active input directory
@@ -193,8 +198,9 @@ for iDRAC, the provisioning OS, and other services. This playbook prompts
 you interactively.
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    cd /opt/omnia
    ansible-playbook credentials_utility.yml
 
@@ -230,8 +236,9 @@ and HTTP services.
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    vi /opt/omnia/input/project_default/network_spec.yml
 
 
@@ -239,8 +246,9 @@ and HTTP services.
 Set the following values (adjust to match your environment):
 
 
-.. code-block:: yaml title="Example network_spec.yml excerpt"
+**Example network_spec.yml excerpt**
 
+.. code-block:: yaml
    admin_network:
      nic: eno2                    # OIM NIC connected to admin switch
      cidr: 10.5.0.0/16            # Admin subnet CIDR
@@ -260,8 +268,9 @@ Set the following values (adjust to match your environment):
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    vi /opt/omnia/input/project_default/provision_config.yml
 
 
@@ -269,8 +278,9 @@ Set the following values (adjust to match your environment):
 Key fields to verify or set:
 
 
-.. code-block:: yaml title="Example provision_config.yml excerpt"
+**Example provision_config.yml excerpt**
 
+.. code-block:: yaml
    # Path to the RHEL or Rocky Linux ISO on the OIM
    iso_path: /opt/isos/RHEL-8.8-x86_64-dvd.iso
    
@@ -288,8 +298,9 @@ Key fields to verify or set:
 
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    cd /opt/omnia
    ansible-playbook prepare_oim.yml -i /opt/omnia/input/project_default/mapping.csv
 
@@ -314,8 +325,9 @@ After ``prepare_oim.yml`` completes, verify that all Omnia-managed
 services are running.
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    systemctl list-dependencies omnia.target
 
 
@@ -329,8 +341,9 @@ Every listed service should show a green dot (``●``) indicating
 - ``nfs-server.service`` -- NFS for shared storage
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    # Quick health check -- all should return 'active'
    for svc in dhcpd tftp.socket httpd nfs-server; do
        echo -n "$svc: "; systemctl is-active $svc
@@ -348,8 +361,9 @@ Build local mirrors of OS packages, Python packages, and container images
 so that node provisioning does not depend on external internet access.
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    cd /opt/omnia
    ansible-playbook local_repo.yml
 
@@ -368,8 +382,9 @@ so that node provisioning does not depend on external internet access.
 When the playbook finishes, verify that the local repo is accessible:
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    # Check that the repo metadata exists
    ls /opt/omnia/local_repo/
    dnf repolist --all | grep omnia
@@ -385,8 +400,9 @@ Step 8 -- Build Node Images
 Build the provisioning image that Omnia will PXE-boot onto target nodes.
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    cd /opt/omnia
    ansible-playbook build_image_x86_64.yml
 
@@ -397,8 +413,9 @@ packages, Omnia agents, and configuration. The image is stored in the
 local S3-compatible object store.
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    # Verify the image was uploaded to the local S3 store
    s3cmd ls s3://omnia-images/
 
@@ -424,8 +441,9 @@ Power on your target nodes (or ensure they are powered on with PXE boot
 priority). Then run the discovery playbook.
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    cd /opt/omnia
    ansible-playbook discovery.yml
 
@@ -455,8 +473,9 @@ priority). Then run the discovery playbook.
 After discovery completes, verify all nodes are reachable:
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    # Ping all discovered nodes
    ansible all -m ping -i /opt/omnia/inventories/project_default/inventory
 
@@ -472,8 +491,9 @@ Run the main Omnia playbook to install and configure Slurm across the
 cluster.
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    cd /opt/omnia
    ansible-playbook omnia.yml
 
@@ -506,16 +526,18 @@ Congratulations! Your Slurm cluster should now be operational. Run these
 verification commands.
 
 
-.. code-block:: shell title="Run on OIM (inside omnia_core container)"
+**Run on OIM (inside omnia_core container)**
 
+.. code-block:: shell
    # SSH to the head node
    ssh head01
 
 
 
 
-.. code-block:: shell title="Run on head node (head01)"
+**Run on head node (head01)**
 
+.. code-block:: shell
    # Check Slurm controller status
    systemctl status slurmctld
    
@@ -527,16 +549,18 @@ verification commands.
 Expected ``sinfo`` output:
 
 
-.. code-block:: text title="Expected output"
+**Expected output**
 
+.. code-block:: text
    PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
    normal*      up   infinite      1   idle compute01
 
 
 
 
-.. code-block:: shell title="Run on head node (head01)"
+**Run on head node (head01)**
 
+.. code-block:: shell
    # Run a test job across all nodes
    srun -N 1 hostname
    
@@ -547,8 +571,9 @@ Expected ``sinfo`` output:
 
 
 
-.. code-block:: shell title="Run on login node (login01)"
+**Run on login node (login01)**
 
+.. code-block:: shell
    # Verify login node can submit jobs
    ssh login01
    srun -N 1 hostname

@@ -44,8 +44,9 @@ Procedure
 #. **Clone the catalog repository** (if not already cloned):
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /opt/omnia
       git clone http://<oim-ip>:8082/root/buildstream-catalog.git
       cd buildstream-catalog
@@ -55,8 +56,9 @@ Procedure
 #. **Edit the catalog file**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi catalog.yml
 
 
@@ -64,8 +66,9 @@ Procedure
    Example catalog structure:
 
 
-.. code-block:: yaml title="File: /opt/omnia/buildstream-catalog/catalog.yml"
+**File: /opt/omnia/buildstream-catalog/catalog.yml**
 
+.. code-block:: yaml
       ---
       catalog_version: "2.1.0"
       cluster_name: "omnia-prod"
@@ -131,8 +134,9 @@ Procedure
 #. **Commit and push the changes**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /opt/omnia/buildstream-catalog
       git add catalog.yml
       git commit -m "Add 2 new compute nodes to slurm cluster"
@@ -178,8 +182,9 @@ Verification
 #. **Verify catalog changes were applied**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       # Check if new nodes were provisioned
       ochami node list
    
@@ -191,8 +196,9 @@ Verification
 #. **Run the verification stage** to confirm cluster health:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible all -m ping
 
 
@@ -235,8 +241,9 @@ Troubleshooting
    Check GitLab authentication:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       git remote -v
       # Ensure URL is correct and credentials are configured
 
@@ -247,7 +254,8 @@ Troubleshooting
    is active:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman exec gitlab-runner gitlab-runner list
 

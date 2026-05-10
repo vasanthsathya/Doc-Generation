@@ -51,8 +51,9 @@ Procedure
 #. **Verify Apptainer is installed** on compute nodes:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible slurm_node -m shell -a "apptainer --version"
 
 
@@ -60,8 +61,9 @@ Procedure
 #. **Create a shared images directory** on NFS:
 
 
-.. code-block:: bash title="Run on: Slurm control node or login node"
+**Run on: Slurm control node or login node**
 
+.. code-block:: bash
       mkdir -p /home/containers/images
       chmod 755 /home/containers/images
 
@@ -70,8 +72,9 @@ Procedure
 #. **Pull a Docker image** and convert to SIF:
 
 
-.. code-block:: bash title="Run on: Slurm control node or login node"
+**Run on: Slurm control node or login node**
 
+.. code-block:: bash
       apptainer pull /home/containers/images/ubuntu.sif docker://ubuntu:22.04
 
 
@@ -79,8 +82,9 @@ Procedure
 #. **Pull an HPC application container**:
 
 
-.. code-block:: bash title="Run on: Slurm control node or login node"
+**Run on: Slurm control node or login node**
 
+.. code-block:: bash
       # Example: GROMACS molecular dynamics
       apptainer pull /home/containers/images/gromacs.sif docker://nvcr.io/hpc/gromacs:2023.2
    
@@ -92,8 +96,9 @@ Procedure
 #. **Run an interactive container** on a compute node:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       srun -N 1 --pty apptainer shell /home/containers/images/ubuntu.sif
 
 
@@ -103,8 +108,9 @@ Procedure
 #. **Run a batch job** with Apptainer:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       cat <<'EOF' > /home/containers/run_gromacs.sh
       #!/bin/bash
       #SBATCH --job-name=gromacs-test
@@ -124,8 +130,9 @@ Procedure
 #. **Run a GPU container** with Apptainer:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       cat <<'EOF' > /home/containers/run_tensorflow.sh
       #!/bin/bash
       #SBATCH --job-name=tf-test
@@ -145,8 +152,9 @@ Procedure
 #. **Build a custom SIF image** from a definition file:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       cat <<'EOF' > /home/containers/custom.def
       Bootstrap: docker
       From: ubuntu:22.04
@@ -173,8 +181,9 @@ Verification
 #. **Verify SIF images are accessible** from all compute nodes:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible slurm_node -m shell -a "ls -la /home/containers/images/"
 
 
@@ -182,8 +191,9 @@ Verification
 #. **Run a quick test** across multiple nodes:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       srun -N 2 apptainer exec /home/containers/images/ubuntu.sif hostname
 
 
@@ -191,8 +201,9 @@ Verification
 #. **Verify GPU access** inside containers:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       srun -N 1 --gres=gpu:1 apptainer exec --nv /home/containers/images/tensorflow.sif nvidia-smi
 
 
@@ -200,8 +211,9 @@ Verification
 #. **Check job output**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       cat /home/containers/results/*.out
 
 
@@ -226,8 +238,9 @@ Troubleshooting
    Verify Apptainer is installed:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       dnf install -y apptainer
 
 
@@ -237,8 +250,9 @@ Troubleshooting
   - Apptainer uses ``/tmp`` for build cache; ensure sufficient space:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
         df -h /tmp
         export APPTAINER_TMPDIR=/scratch/tmp
 
@@ -253,8 +267,9 @@ Troubleshooting
    Re-pull the image:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       rm /home/containers/images/broken.sif
       apptainer pull /home/containers/images/fixed.sif docker://source-image
 
@@ -265,8 +280,9 @@ Troubleshooting
    MPI. Use ``--bind`` to mount the host MPI libraries:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       srun -N 2 apptainer exec --bind /usr/lib64/openmpi:/host-mpi \
         /home/containers/images/app.sif mpirun -np 8 /app/benchmark
 

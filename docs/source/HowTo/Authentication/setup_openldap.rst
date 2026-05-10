@@ -45,8 +45,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -54,8 +55,9 @@ Procedure
 #. **Configure authentication parameters** in ``omnia_config.yml``:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -63,8 +65,9 @@ Procedure
    Add or update the LDAP parameters:
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/omnia_config.yml"
+**File: /opt/omnia/input/project_default/omnia_config.yml**
 
+.. code-block:: yaml
       ---
       # Authentication configuration
       auth_type: "openldap"
@@ -77,8 +80,9 @@ Procedure
 #. **Run the auth.yml playbook**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia
       ansible-playbook auth.yml --ask-vault-pass
 
@@ -98,15 +102,17 @@ Procedure
 #. **Add LDAP users** from the omnia_auth container:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman exec -it omnia_auth bash
 
 
 
 
-.. code-block:: bash title="Run on: omnia_auth container"
+**Run on: omnia_auth container**
 
+.. code-block:: bash
       # Create an LDIF file for a new user
       cat <<'EOF' > /tmp/add_user.ldif
       dn: uid=testuser,ou=People,dc=omnia,dc=example,dc=com
@@ -130,8 +136,9 @@ Procedure
 #. **Set the user's password**:
 
 
-.. code-block:: bash title="Run on: omnia_auth container"
+**Run on: omnia_auth container**
 
+.. code-block:: bash
       ldappasswd -x -D "cn=admin,dc=omnia,dc=example,dc=com" -W \
         -S "uid=testuser,ou=People,dc=omnia,dc=example,dc=com"
 
@@ -146,8 +153,9 @@ Verification
 #. **Verify OpenLDAP is running** in the omnia_auth container:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman exec omnia_auth slapcat | head -20
 
 
@@ -155,8 +163,9 @@ Verification
 #. **Test LDAP search** from the omnia_core container:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ldapsearch -x -H ldap://omnia_auth -b "dc=omnia,dc=example,dc=com" "(uid=testuser)"
 
 
@@ -164,8 +173,9 @@ Verification
 #. **Verify SSSD is running** on cluster nodes:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible all -m shell -a "systemctl is-active sssd"
 
 
@@ -173,8 +183,9 @@ Verification
 #. **Test user resolution** on a compute node:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       id testuser
       getent passwd testuser
 
@@ -183,8 +194,9 @@ Verification
    Expected output:
 
 
-.. code-block:: text title="Expected output on: compute node"
+**Expected output on: compute node**
 
+.. code-block:: text
       uid=10001(testuser) gid=10001(testuser) groups=10001(testuser)
 
 
@@ -192,8 +204,9 @@ Verification
 #. **Test SSH login** as the LDAP user:
 
 
-.. code-block:: bash title="Run on: any node with network access"
+**Run on: any node with network access**
 
+.. code-block:: bash
       ssh testuser@<compute-node-ip>
 
 
@@ -219,8 +232,9 @@ Troubleshooting
    Verify network connectivity and the LDAP URI:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       ldapsearch -x -H ldap://<oim-ip> -b "dc=omnia,dc=example,dc=com"
 
 
@@ -229,8 +243,9 @@ Troubleshooting
   - Clear the SSSD cache:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
         sss_cache -E
         systemctl restart sssd
 
@@ -239,8 +254,9 @@ Troubleshooting
   - Check SSSD logs:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
         journalctl -u sssd --no-pager -n 30
 
 
@@ -249,8 +265,9 @@ Troubleshooting
    Ensure you are using the correct admin DN and password:
 
 
-.. code-block:: bash title="Run on: omnia_auth container"
+**Run on: omnia_auth container**
 
+.. code-block:: bash
       ldapwhoami -x -D "cn=admin,dc=omnia,dc=example,dc=com" -W
 
 
@@ -259,8 +276,9 @@ Troubleshooting
    Verify the ``pam_mkhomedir`` module is configured:
 
 
-.. code-block:: bash title="Run on: compute node"
+**Run on: compute node**
 
+.. code-block:: bash
       grep mkhomedir /etc/pam.d/system-auth
 
 
@@ -269,8 +287,9 @@ Troubleshooting
    Ensure the container is running:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       systemctl status omnia_auth.service
       podman ps --filter name=omnia_auth
 

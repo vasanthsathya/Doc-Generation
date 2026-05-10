@@ -47,8 +47,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -56,8 +57,9 @@ Procedure
 #. **Navigate to the credential utility directory**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia/utils/credential_utility
 
 
@@ -65,8 +67,9 @@ Procedure
 #. **Run the credential configuration playbook** with the ``provision`` tag:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible-playbook get_config_credentials.yml --tags provision
 
 
@@ -100,8 +103,9 @@ Procedure
 #. **Verify the encrypted file was created**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ls -la /opt/omnia/input/project_default/omnia_config_credentials.yml
 
 
@@ -109,8 +113,9 @@ Procedure
 #. **(Optional) View the encrypted credentials** to confirm values:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible-vault view /opt/omnia/input/project_default/omnia_config_credentials.yml
 
 
@@ -127,8 +132,9 @@ Verification
 #. **Confirm the file is Ansible Vault encrypted**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       head -1 /opt/omnia/input/project_default/omnia_config_credentials.yml
 
 
@@ -136,8 +142,9 @@ Verification
    Expected output:
 
 
-.. code-block:: text title="Expected output on: omnia_core container"
+**Expected output on: omnia_core container**
 
+.. code-block:: text
       $ANSIBLE_VAULT;1.1;AES256
 
 
@@ -145,8 +152,9 @@ Verification
 #. **Test decryption** with the Vault password:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible-vault view /opt/omnia/input/project_default/omnia_config_credentials.yml
 
 
@@ -184,8 +192,9 @@ Troubleshooting
    Edit the encrypted file directly:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible-vault edit /opt/omnia/input/project_default/omnia_config_credentials.yml
 
 
@@ -197,8 +206,9 @@ Troubleshooting
    Re-key the encrypted file:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible-vault rekey /opt/omnia/input/project_default/omnia_config_credentials.yml
 
 
@@ -213,8 +223,9 @@ Troubleshooting
    current file if needed:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cp /opt/omnia/input/project_default/omnia_config_credentials.yml \
          /opt/omnia/input/project_default/omnia_config_credentials.yml.bak
 

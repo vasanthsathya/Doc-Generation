@@ -184,8 +184,9 @@ Verification
 After adding or removing nodes, confirm the cluster state:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
    # Check overall cluster health
    sinfo
    

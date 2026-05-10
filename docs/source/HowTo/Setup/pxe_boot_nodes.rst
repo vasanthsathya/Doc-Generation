@@ -49,8 +49,9 @@ Procedure
 #. **Verify OIM boot services are running**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       systemctl is-active coredhcp.service
       systemctl is-active tftpd.service
       systemctl is-active image-server.service
@@ -73,8 +74,9 @@ Procedure
    Alternatively, configure via Redfish from the OIM:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       curl -sk -X PATCH \
         https://<bmc-ip>/redfish/v1/Systems/System.Embedded.1 \
         -u root:<bmc-password> \
@@ -86,8 +88,9 @@ Procedure
 #. **Power-cycle the target servers** to initiate PXE boot:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       # Using Redfish to power-cycle a single server
       curl -sk -X POST \
         https://<bmc-ip>/redfish/v1/Systems/System.Embedded.1/Actions/ComputerSystem.Reset \
@@ -100,8 +103,9 @@ Procedure
    Or power-cycle all nodes from the omnia_core container:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       # Power-cycle all discovered nodes
       ochami node power --action restart --all
 
@@ -131,8 +135,9 @@ Verification
 #. **Ping each provisioned node** from the OIM:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       # Ping all nodes listed in the mapping file
       for ip in $(awk -F',' 'NR>1 {print $7}' /opt/omnia/input/project_default/pxe_mapping_file.csv); do
         echo -n "$ip: "
@@ -144,15 +149,17 @@ Verification
 #. **SSH into a provisioned node** to verify the OS is installed:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ssh root@10.5.0.101
 
 
 
 
-.. code-block:: bash title="Run on: provisioned node"
+**Run on: provisioned node**
 
+.. code-block:: bash
       cat /etc/os-release
       hostname
       ip addr show
@@ -162,8 +169,9 @@ Verification
 #. **Verify node registration in OpenCHAMI**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ochami node list
 
 
@@ -197,8 +205,9 @@ Troubleshooting
   - Check the TFTP service:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
         podman logs tftpd
 
 
@@ -206,8 +215,9 @@ Troubleshooting
   - Verify the image server is running:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
         podman logs image-server
 
 
@@ -216,8 +226,9 @@ Troubleshooting
   - Verify the BSS configuration matches the expected image:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
         ochami bss list
 
 
@@ -235,7 +246,8 @@ Troubleshooting
   - Verify MinIO/image-server performance:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
         podman stats --no-stream minio image-server
 

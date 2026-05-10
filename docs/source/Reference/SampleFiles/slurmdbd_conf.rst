@@ -14,8 +14,9 @@ Complete sample
 
 
 
-.. code-block:: bash title="File: /etc/slurm/slurmdbd.conf"
+**File: /etc/slurm/slurmdbd.conf**
 
+.. code-block:: bash
    # ===========================================================================
    # slurmdbd.conf -- Slurm Database Daemon configuration
    # This file must be readable only by the SlurmUser (typically 'slurm').

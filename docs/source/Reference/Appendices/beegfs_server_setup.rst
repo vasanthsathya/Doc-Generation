@@ -69,8 +69,9 @@ Step 1: Add BeeGFS repository
 
 
 
-.. code-block:: bash title="Run on: BeeGFS server"
+**Run on: BeeGFS server**
 
+.. code-block:: bash
    # Import the BeeGFS GPG key
    rpm --import https://www.beegfs.io/release/beegfs_7.4.3/gpg/GPG-KEY-beegfs
    
@@ -95,8 +96,9 @@ Step 2: Install management service
 On the management node:
 
 
-.. code-block:: bash title="Run on: Management node"
+**Run on: Management node**
 
+.. code-block:: bash
    dnf install -y beegfs-mgmtd
    mkdir -p /data/beegfs/mgmtd
    /opt/beegfs/sbin/beegfs-setup-mgmtd -p /data/beegfs/mgmtd
@@ -113,8 +115,9 @@ Step 3: Install metadata service
 On each metadata server:
 
 
-.. code-block:: bash title="Run on: Metadata server"
+**Run on: Metadata server**
 
+.. code-block:: bash
    dnf install -y beegfs-meta
    mkdir -p /data/beegfs/meta
    /opt/beegfs/sbin/beegfs-setup-meta -p /data/beegfs/meta \
@@ -140,8 +143,9 @@ Step 4: Install storage service
 On each storage server:
 
 
-.. code-block:: bash title="Run on: Storage server"
+**Run on: Storage server**
 
+.. code-block:: bash
    dnf install -y beegfs-storage
    mkdir -p /data/beegfs/storage
    /opt/beegfs/sbin/beegfs-setup-storage -p /data/beegfs/storage \
@@ -164,8 +168,9 @@ Step 5: Verify the server setup
 
 
 
-.. code-block:: bash title="Run on: BeeGFS server"
+**Run on: BeeGFS server**
 
+.. code-block:: bash
    # Check registered servers (run from any node with beegfs-ctl)
    beegfs-ctl --listnodes --nodetype=meta
    beegfs-ctl --listnodes --nodetype=storage
@@ -197,8 +202,9 @@ Network configuration
 
 
 
-.. code-block:: bash title="Example: BeeGFS network configuration files"
+**Example: BeeGFS network configuration files**
 
+.. code-block:: bash
    # Example connInterfacesFile (/etc/beegfs/connInterfacesFile)
    enp175s0f0
    

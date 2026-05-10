@@ -48,8 +48,9 @@ Option A: Deploy GitLab on the OIM (Podman)
 #. **Create persistent storage directories**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       mkdir -p /opt/gitlab/{config,logs,data}
 
 
@@ -57,8 +58,9 @@ Option A: Deploy GitLab on the OIM (Podman)
 #. **Deploy the GitLab container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman run -d \
         --name gitlab \
         --restart=always \
@@ -82,8 +84,9 @@ Option A: Deploy GitLab on the OIM (Podman)
 #. **Retrieve the initial root password**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman exec gitlab cat /etc/gitlab/initial_root_password
 
 
@@ -100,8 +103,9 @@ Option A: Deploy GitLab on the OIM (Podman)
 #. **Create the BuildStreaM project**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       # Using GitLab API
       curl -s -X POST "http://localhost:8082/api/v4/projects" \
         -H "PRIVATE-TOKEN: <your-root-token>" \
@@ -112,8 +116,9 @@ Option A: Deploy GitLab on the OIM (Podman)
 #. **Register a GitLab Runner** for pipeline execution:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman run -d \
         --name gitlab-runner \
         --restart=always \
@@ -139,8 +144,9 @@ Option B: Deploy GitLab on K8s (Helm)
 #. **(Alternative) Deploy GitLab via Helm**:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       helm repo add gitlab https://charts.gitlab.io/
       helm repo update
    
@@ -166,8 +172,9 @@ Configure GitLab for BuildStreaM
 #. **Clone the BuildStreaM catalog repository** template:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /opt/omnia
       git clone http://<oim-ip>:8082/root/buildstream-catalog.git
       cd buildstream-catalog
@@ -177,8 +184,9 @@ Configure GitLab for BuildStreaM
 #. **Create the pipeline configuration**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cat <<'EOF' > .gitlab-ci.yml
       stages:
         - validate
@@ -218,8 +226,9 @@ Configure GitLab for BuildStreaM
 #. **Push the initial configuration**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
        git add .
        git commit -m "Initial BuildStreaM catalog"
        git push origin main
@@ -235,8 +244,9 @@ Verification
 #. **Verify GitLab is running**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman ps --filter name=gitlab
       curl -s http://localhost:8082/users/sign_in | grep "GitLab"
 
@@ -245,8 +255,9 @@ Verification
 #. **Verify the runner is registered**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman exec gitlab-runner gitlab-runner list
 
 
@@ -275,8 +286,9 @@ Troubleshooting
    Check container logs:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman logs -f gitlab
 
 
@@ -292,8 +304,9 @@ Troubleshooting
    GitLab requires at least 8 GB RAM. Check available memory:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       free -h
 
 
@@ -302,7 +315,8 @@ Troubleshooting
    Ensure ports 8082, 8443, and 2222 are not in use:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ss -tlnp | grep -E ':(8082|8443|2222)\b'
 

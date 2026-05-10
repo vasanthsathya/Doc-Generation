@@ -33,8 +33,9 @@ Prerequisites
 - The ``software_config.json`` includes the GPU software stack:
 
 
-.. code-block:: json title="File: /opt/omnia/input/project_default/software_config.json"
+**File: /opt/omnia/input/project_default/software_config.json**
 
+.. code-block:: json
      {
          "softwares": [
              {"name": "slurm"},
@@ -59,8 +60,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -68,8 +70,9 @@ Procedure
 #. **Verify GPU software is listed in software_config.json**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cat /opt/omnia/input/project_default/software_config.json | python3 -m json.tool
 
 
@@ -77,8 +80,9 @@ Procedure
 #. **Configure GPU-related parameters in omnia_config.yml**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -86,8 +90,9 @@ Procedure
    GPU-related parameters:
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/omnia_config.yml"
+**File: /opt/omnia/input/project_default/omnia_config.yml**
 
+.. code-block:: yaml
       ---
       # GPU configuration
       cuda_toolkit_path: "/usr/local/cuda"
@@ -101,8 +106,9 @@ Procedure
 #. **Run the omnia.yml playbook** (or re-run if Slurm is already deployed):
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
 
@@ -119,8 +125,9 @@ Procedure
 #. **Reconfigure Slurm** to load GRES definitions:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       scontrol reconfigure
 
 
@@ -136,8 +143,9 @@ Verification
    For NVIDIA:
 
 
-.. code-block:: bash title="Run on: GPU compute node"
+**Run on: GPU compute node**
 
+.. code-block:: bash
       nvidia-smi
 
 
@@ -147,8 +155,9 @@ Verification
    For AMD:
 
 
-.. code-block:: bash title="Run on: GPU compute node"
+**Run on: GPU compute node**
 
+.. code-block:: bash
       rocm-smi
 
 
@@ -156,8 +165,9 @@ Verification
    For Intel Gaudi:
 
 
-.. code-block:: bash title="Run on: GPU compute node"
+**Run on: GPU compute node**
 
+.. code-block:: bash
       hl-smi
 
 
@@ -165,8 +175,9 @@ Verification
 #. **Check Slurm GRES configuration**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       scontrol show nodes | grep -i gres
 
 
@@ -174,8 +185,9 @@ Verification
    Expected output:
 
 
-.. code-block:: text title="Expected output on: Slurm control node"
+**Expected output on: Slurm control node**
 
+.. code-block:: text
       Gres=gpu:nvidia_a100:4
       GresUsed=gpu:nvidia_a100:0
 
@@ -184,8 +196,9 @@ Verification
 #. **Submit a GPU job**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       srun --gres=gpu:1 nvidia-smi
 
 
@@ -193,8 +206,9 @@ Verification
 #. **Submit a multi-GPU batch job**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       cat <<'EOF' > /tmp/gpu_test.sh
       #!/bin/bash
       #SBATCH --job-name=gpu_test
@@ -214,8 +228,9 @@ Verification
 #. **Verify CUDA toolkit** (NVIDIA):
 
 
-.. code-block:: bash title="Run on: GPU compute node"
+**Run on: GPU compute node**
 
+.. code-block:: bash
       nvcc --version
       ls /usr/local/cuda/
 
@@ -241,8 +256,9 @@ Troubleshooting
   - Check that the NVIDIA driver module is loaded:
 
 
-.. code-block:: bash title="Run on: GPU compute node"
+**Run on: GPU compute node**
 
+.. code-block:: bash
         lsmod | grep nvidia
         dmesg | grep -i nvidia
 
@@ -251,8 +267,9 @@ Troubleshooting
   - Reinstall the driver:
 
 
-.. code-block:: bash title="Run on: GPU compute node"
+**Run on: GPU compute node**
 
+.. code-block:: bash
         dnf reinstall nvidia-driver cuda-toolkit
 
 
@@ -261,8 +278,9 @@ Troubleshooting
    Check ``gres.conf`` on the compute node:
 
 
-.. code-block:: bash title="Run on: GPU compute node"
+**Run on: GPU compute node**
 
+.. code-block:: bash
       cat /etc/slurm/gres.conf
 
 
@@ -270,8 +288,9 @@ Troubleshooting
    The file should list each GPU device:
 
 
-.. code-block:: text title="Expected content on: GPU compute node"
+**Expected content on: GPU compute node**
 
+.. code-block:: text
       NodeName=compute01 Name=gpu Type=nvidia_a100 File=/dev/nvidia[0-3]
 
 
@@ -281,8 +300,9 @@ Troubleshooting
    directive:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       grep GresTypes /etc/slurm/slurm.conf
 
 
@@ -293,7 +313,8 @@ Troubleshooting
    Verify the ROCm repository was synced successfully:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       curl -s http://localhost:8080/pulp/content/rocm/ | head
 

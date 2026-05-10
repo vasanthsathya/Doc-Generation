@@ -52,8 +52,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -61,8 +62,9 @@ Procedure
 #. **Copy the example templates** to the input directory:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cp /omnia/examples/input_template/* /opt/omnia/input/project_default/
 
 
@@ -75,8 +77,9 @@ Procedure
 #. **Edit the software configuration**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/software_config.json
 
 
@@ -84,8 +87,9 @@ Procedure
    Example ``software_config.json``:
 
 
-.. code-block:: json title="File: /opt/omnia/input/project_default/software_config.json"
+**File: /opt/omnia/input/project_default/software_config.json**
 
+.. code-block:: json
       {
           "cluster_os_type": "rhel",
           "cluster_os_version": "8.8",
@@ -121,8 +125,9 @@ Procedure
 #. **Edit the network specification**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/network_spec.yml
 
 
@@ -130,8 +135,9 @@ Procedure
    Example ``network_spec.yml``:
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/network_spec.yml"
+**File: /opt/omnia/input/project_default/network_spec.yml**
 
+.. code-block:: yaml
       ---
       admin_network:
         nic_name: "eno1"
@@ -153,8 +159,9 @@ Procedure
 #. **Edit the provision configuration**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/provision_config.yml
 
 
@@ -162,8 +169,9 @@ Procedure
    Example ``provision_config.yml``:
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/provision_config.yml"
+**File: /opt/omnia/input/project_default/provision_config.yml**
 
+.. code-block:: yaml
       ---
       timezone: "America/Chicago"
       language: "en-US"
@@ -176,8 +184,9 @@ Procedure
 #. **Edit the Omnia configuration** (for Slurm/K8s parameters):
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -185,8 +194,9 @@ Procedure
    Example ``omnia_config.yml``:
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/omnia_config.yml"
+**File: /opt/omnia/input/project_default/omnia_config.yml**
 
+.. code-block:: yaml
       ---
       mariadb_password: ""
       k8s_version: "1.28"
@@ -199,8 +209,9 @@ Procedure
 #. **(Optional) Run the input validator** to check your configuration:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia
       ansible-playbook input_validator.yml
 
@@ -222,8 +233,9 @@ Verification
 #. **List all input files** and confirm they are populated:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ls -la /opt/omnia/input/project_default/
 
 
@@ -231,8 +243,9 @@ Verification
 #. **Review the software configuration**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cat /opt/omnia/input/project_default/software_config.json | python3 -m json.tool
 
 
@@ -240,8 +253,9 @@ Verification
 #. **Validate YAML syntax** for each YAML input file:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       python3 -c "import yaml; yaml.safe_load(open('/opt/omnia/input/project_default/network_spec.yml'))"
 
 
@@ -272,8 +286,9 @@ Troubleshooting
    Validate JSON syntax:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       python3 -m json.tool /opt/omnia/input/project_default/software_config.json
 
 
@@ -287,7 +302,8 @@ Troubleshooting
    and later. Pull the latest code if necessary:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       cd /opt/omnia && git pull
 

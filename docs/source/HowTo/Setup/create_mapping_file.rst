@@ -50,8 +50,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -59,8 +60,9 @@ Procedure
    Or alternatively:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       podman exec -it -u root omnia_core bash
 
 
@@ -68,8 +70,9 @@ Procedure
 #. **Navigate to the input directory**:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /opt/omnia/input/project_default
 
 
@@ -77,8 +80,9 @@ Procedure
 #. **Create the mapping file** using a text editor:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi pxe_mapping_file.csv
 
 
@@ -87,8 +91,9 @@ Procedure
    columns in this exact order:
 
 
-.. code-block:: text title="File: /opt/omnia/input/project_default/pxe_mapping_file.csv"
+**File: /opt/omnia/input/project_default/pxe_mapping_file.csv**
 
+.. code-block:: text
       FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
       slurm_control_node,slurm_cluster,ABCDEF1,,,aa:bb:cc:dd:ee:01,10.5.0.101,aa:bb:cc:dd:ff:01,10.3.0.101
       slurm_node,slurm_cluster,ABCDEF2,,,aa:bb:cc:dd:ee:02,10.5.0.102,aa:bb:cc:dd:ff:02,10.3.0.102
@@ -165,8 +170,9 @@ Verification
 #. **Validate the CSV format** by checking the header row:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       head -1 /opt/omnia/input/project_default/pxe_mapping_file.csv
 
 
@@ -174,8 +180,9 @@ Verification
    Expected output:
 
 
-.. code-block:: text title="Expected output on: omnia_core container"
+**Expected output on: omnia_core container**
 
+.. code-block:: text
       FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
 
 
@@ -183,8 +190,9 @@ Verification
 #. **Count the entries** (excluding the header):
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       tail -n +2 /opt/omnia/input/project_default/pxe_mapping_file.csv | wc -l
 
 
@@ -194,8 +202,9 @@ Verification
 #. **Check for formatting issues** (trailing spaces, empty lines):
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cat -A /opt/omnia/input/project_default/pxe_mapping_file.csv
 
 

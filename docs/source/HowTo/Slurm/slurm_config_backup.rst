@@ -44,8 +44,9 @@ Backup
 #. **Create a backup directory** on the Slurm control node:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       mkdir -p /opt/slurm_backup
 
 
@@ -53,8 +54,9 @@ Backup
 #. **Create a timestamped backup** of all Slurm configuration files:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       BACKUP_DIR="/opt/slurm_backup/$(date +%Y%m%d_%H%M%S)"
       mkdir -p "$BACKUP_DIR"
    
@@ -73,8 +75,9 @@ Backup
 #. **(Optional) Create an automated backup** using a cron job:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       cat <<'EOF' > /etc/cron.daily/slurm_backup.sh
       #!/bin/bash
       BACKUP_DIR="/opt/slurm_backup/$(date +%Y%m%d_%H%M%S)"
@@ -97,8 +100,9 @@ Rollback
 #. **List available backups**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       ls -lt /opt/slurm_backup/
 
 
@@ -106,8 +110,9 @@ Rollback
 #. **Restore from a backup**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       # Select the backup to restore (e.g., the most recent)
       RESTORE_DIR=$(ls -dt /opt/slurm_backup/*/ | head -1)
       echo "Restoring from: $RESTORE_DIR"
@@ -128,8 +133,9 @@ Rollback
 #. **Verify the restored configuration**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       scontrol show config | head -20
       sinfo
 
@@ -138,8 +144,9 @@ Rollback
 #. **Distribute the restored config to compute nodes** if needed:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible slurm_node -m copy -a "src=/etc/slurm/slurm.conf dest=/etc/slurm/slurm.conf"
       ansible slurm_node -m service -a "name=slurmd state=restarted"
 
@@ -153,8 +160,9 @@ Cleanup
 #. **Remove old backups** to free disk space:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       # Remove backups older than 30 days
       find /opt/slurm_backup -maxdepth 1 -type d -mtime +30 -exec rm -rf {} \;
    
@@ -166,8 +174,9 @@ Cleanup
 #. **Check remaining backups and disk usage**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       du -sh /opt/slurm_backup
       ls -lt /opt/slurm_backup/
 
@@ -182,8 +191,9 @@ Verification
 #. **Verify the current configuration is valid**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       slurmctld -t
 
 
@@ -193,8 +203,9 @@ Verification
 #. **Verify all nodes are healthy** after a rollback:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       sinfo
       scontrol ping
 
@@ -203,8 +214,9 @@ Verification
 #. **Diff the current config against a backup** to see changes:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       diff /etc/slurm/slurm.conf /opt/slurm_backup/<latest>/slurm.conf
 
 
@@ -229,8 +241,9 @@ Troubleshooting
    ``slurm.conf`` to match the current cluster state:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       vi /etc/slurm/slurm.conf
       slurmctld -t  # Test config
 
@@ -241,8 +254,9 @@ Troubleshooting
    the Munge key from backup, redistribute it:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       ansible slurm_cluster -m copy -a "src=/etc/munge/munge.key dest=/etc/munge/munge.key owner=munge group=munge mode=0400"
       ansible slurm_cluster -m service -a "name=munge state=restarted"
 
@@ -252,8 +266,9 @@ Troubleshooting
    Reduce the retention period or move backups to external storage:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       du -sh /opt/slurm_backup
       # Adjust the cron cleanup period as needed
 

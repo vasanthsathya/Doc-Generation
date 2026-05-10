@@ -133,8 +133,9 @@ cleanup through extra variables:
 Example of selective cleanup:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
    cd /omnia/utils/
    ansible-playbook oim_cleanup.yml -e "cleanup_telemetry=true"
 

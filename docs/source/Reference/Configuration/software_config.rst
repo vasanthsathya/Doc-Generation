@@ -20,8 +20,9 @@ one functional group and specifies the software packages to install on nodes
 belonging to that group.
 
 
-.. code-block:: json title="File: /opt/omnia/input/project_default/software_config.json"
+**File: /opt/omnia/input/project_default/software_config.json**
 
+.. code-block:: json
    [
      {
        "functional_group_name": "<group_name>",
@@ -132,8 +133,9 @@ See `Software Config Json <../SampleFiles/software_config_json.rst>`_ for comple
 examples covering Slurm-only, Slurm + K8s, and telemetry-only scenarios.
 
 
-.. code-block:: json title="File: /opt/omnia/input/project_default/software_config.json"
+**File: /opt/omnia/input/project_default/software_config.json**
 
+.. code-block:: json
    [
      {
        "functional_group_name": "slurm_control_node",

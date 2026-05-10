@@ -41,8 +41,9 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ssh omnia_core
 
 
@@ -50,8 +51,9 @@ Procedure
 #. **Configure the virtual IP** in ``omnia_config.yml``:
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -59,8 +61,9 @@ Procedure
    Add or update the HA parameters:
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/omnia_config.yml"
+**File: /opt/omnia/input/project_default/omnia_config.yml**
 
+.. code-block:: yaml
       ---
       # Kubernetes HA configuration
       k8s_ha_enabled: true
@@ -77,8 +80,9 @@ Procedure
 #. **Run the omnia.yml playbook** (or re-run to apply HA changes):
 
 
-.. code-block:: bash title="Run on: omnia_core container"
+**Run on: omnia_core container**
 
+.. code-block:: bash
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
 
@@ -96,8 +100,9 @@ Procedure
    a. **Install keepalived** on all control-plane nodes:
 
 
-.. code-block:: bash title="Run on: each K8s control plane node"
+**Run on: each K8s control plane node**
 
+.. code-block:: bash
          dnf install -y keepalived
 
 
@@ -105,8 +110,9 @@ Procedure
    b. **Configure keepalived** on the primary control-plane node:
 
 
-.. code-block:: bash title="Run on: K8s control plane node 1 (MASTER)"
+**Run on: K8s control plane node 1 (MASTER)**
 
+.. code-block:: bash
          cat <<'EOF' > /etc/keepalived/keepalived.conf
          vrrp_instance K8S_VIP {
              state MASTER
@@ -131,8 +137,9 @@ Procedure
    c. **Configure keepalived** on backup control-plane nodes:
 
 
-.. code-block:: bash title="Run on: K8s control plane nodes 2 and 3 (BACKUP)"
+**Run on: K8s control plane nodes 2 and 3 (BACKUP)**
 
+.. code-block:: bash
          cat <<'EOF' > /etc/keepalived/keepalived.conf
          vrrp_instance K8S_VIP {
              state BACKUP
@@ -166,8 +173,9 @@ Verification
 #. **Verify the VIP is active**:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ping -c 3 10.5.0.200
 
 
@@ -175,8 +183,9 @@ Verification
 #. **Check which node currently holds the VIP**:
 
 
-.. code-block:: bash title="Run on: each K8s control plane node"
+**Run on: each K8s control plane node**
 
+.. code-block:: bash
       ip addr show eno1 | grep "10.5.0.200"
 
 
@@ -186,8 +195,9 @@ Verification
 #. **Access the Kubernetes API via the VIP**:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl --server=https://10.5.0.200:6443 get nodes
 
 
@@ -195,8 +205,9 @@ Verification
 #. **Test failover** by stopping keepalived on the active node:
 
 
-.. code-block:: bash title="Run on: active K8s control plane node"
+**Run on: active K8s control plane node**
 
+.. code-block:: bash
       systemctl stop keepalived
 
 
@@ -204,8 +215,9 @@ Verification
    Then verify the VIP migrated:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
       ping -c 3 10.5.0.200
       # Should still respond -- VIP migrated to a backup node
 
@@ -214,8 +226,9 @@ Verification
    Re-enable keepalived:
 
 
-.. code-block:: bash title="Run on: previously active node"
+**Run on: previously active node**
 
+.. code-block:: bash
       systemctl start keepalived
 
 
@@ -223,8 +236,9 @@ Verification
 #. **Update kubeconfig** to use the VIP:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       kubectl config set-cluster kubernetes --server=https://10.5.0.200:6443
 
 
@@ -249,8 +263,9 @@ Troubleshooting
    Check keepalived status on all control-plane nodes:
 
 
-.. code-block:: bash title="Run on: each K8s control plane node"
+**Run on: each K8s control plane node**
 
+.. code-block:: bash
       systemctl status keepalived
       journalctl -u keepalived --no-pager -n 20
 
@@ -261,8 +276,9 @@ Troubleshooting
    blocking multicast:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       firewall-cmd --add-protocol=vrrp --permanent
       firewall-cmd --reload
 
@@ -277,7 +293,8 @@ Troubleshooting
    Verify the API server is listening on the VIP address:
 
 
-.. code-block:: bash title="Run on: K8s control plane node"
+**Run on: K8s control plane node**
 
+.. code-block:: bash
       ss -tlnp | grep 6443
 

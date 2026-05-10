@@ -184,8 +184,9 @@ Usage example
 
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/storage_config.yml"
+**File: /opt/omnia/input/project_default/storage_config.yml**
 
+.. code-block:: yaml
    nfs_client_params: "nosuid,rw,sync,hard,intr"
    nfs_shares:
      - server: "10.5.0.100"

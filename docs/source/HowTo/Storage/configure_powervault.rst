@@ -49,8 +49,9 @@ Procedure
 #. **Install iSCSI and multipath packages** on the Slurm controller:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       dnf install -y iscsi-initiator-utils device-mapper-multipath
 
 
@@ -58,8 +59,9 @@ Procedure
 #. **Configure the iSCSI initiator name**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       cat /etc/iscsi/initiatorname.iscsi
 
 
@@ -67,8 +69,9 @@ Procedure
    If the initiator name is not set, generate one:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       echo "InitiatorName=$(iscsi-iname)" > /etc/iscsi/initiatorname.iscsi
 
 
@@ -76,8 +79,9 @@ Procedure
 #. **Configure DM-Multipath**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       cat <<'EOF' > /etc/multipath.conf
       defaults {
           polling_interval 10
@@ -106,8 +110,9 @@ Procedure
 #. **Discover iSCSI targets** on the PowerVault:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       iscsiadm -m discovery -t sendtargets -p 10.5.2.100:3260
       iscsiadm -m discovery -t sendtargets -p 10.5.2.101:3260
 
@@ -119,8 +124,9 @@ Procedure
 #. **Log in to the iSCSI targets**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       iscsiadm -m node --login
 
 
@@ -128,8 +134,9 @@ Procedure
 #. **Start and enable the iSCSI service**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       systemctl enable --now iscsid
       systemctl enable --now iscsi
 
@@ -138,8 +145,9 @@ Procedure
 #. **Verify multipath devices**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       multipath -ll
 
 
@@ -147,8 +155,9 @@ Procedure
    Expected output shows multipath devices with multiple paths:
 
 
-.. code-block:: text title="Expected output on: Slurm control node"
+**Expected output on: Slurm control node**
 
+.. code-block:: text
       mpath0 (360000000000000001) dm-0 DellEMC,ME5
       size=500G features='1 queue_if_no_path' hwhandler='0' wp=rw
       |-+- policy='round-robin 0' prio=1 status=active
@@ -161,8 +170,9 @@ Procedure
 #. **Create a filesystem and mount the LUN**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       mkfs.xfs /dev/mapper/mpath0
       mkdir -p /var/spool/slurm
       mount /dev/mapper/mpath0 /var/spool/slurm
@@ -172,8 +182,9 @@ Procedure
    Add to ``/etc/fstab`` for persistence:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       echo "/dev/mapper/mpath0 /var/spool/slurm xfs defaults,_netdev 0 0" >> /etc/fstab
 
 
@@ -187,8 +198,9 @@ Verification
 #. **Verify iSCSI sessions**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       iscsiadm -m session
 
 
@@ -196,8 +208,9 @@ Verification
 #. **Verify multipath status**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       multipath -ll
 
 
@@ -207,8 +220,9 @@ Verification
 #. **Verify the mount**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       df -h /var/spool/slurm
 
 
@@ -216,8 +230,9 @@ Verification
 #. **Test I/O performance**:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       dd if=/dev/zero of=/var/spool/slurm/test bs=1M count=1024 oflag=direct
       rm /var/spool/slurm/test
 
@@ -244,8 +259,9 @@ Troubleshooting
    Verify network connectivity to the PowerVault iSCSI ports:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       ping -c 3 10.5.2.100
       telnet 10.5.2.100 3260
 
@@ -255,8 +271,9 @@ Troubleshooting
    Check that iSCSI sessions are active:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       iscsiadm -m session
       multipath -v3
 
@@ -266,8 +283,9 @@ Troubleshooting
    Check network connectivity on the failed path:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       iscsiadm -m session -P 3 | grep -E "Target|iface|State"
 
 
@@ -276,8 +294,9 @@ Troubleshooting
    Rescan SCSI buses:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
       iscsiadm -m session --rescan
       multipath -r
 
@@ -287,8 +306,9 @@ Troubleshooting
   - Verify jumbo frames are enabled on the iSCSI network:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
         ip link show | grep mtu
 
 

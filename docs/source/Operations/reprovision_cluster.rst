@@ -63,8 +63,9 @@ Before re-provisioning, gracefully drain all workloads from the target nodes.
 **For Slurm nodes:**
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
    scontrol update NodeName=compute-03 State=DRAIN Reason="Re-provisioning"
 
 
@@ -72,8 +73,9 @@ Before re-provisioning, gracefully drain all workloads from the target nodes.
 Wait for running jobs to complete, or cancel them if immediate action is needed:
 
 
-.. code-block:: bash title="Run on: Slurm control node"
+**Run on: Slurm control node**
 
+.. code-block:: bash
    # Check for running jobs on the node
    squeue -w compute-03
    
@@ -85,8 +87,9 @@ Wait for running jobs to complete, or cancel them if immediate action is needed:
 **For Kubernetes nodes:**
 
 
-.. code-block:: bash title="Run on: Kubernetes control plane"
+**Run on: Kubernetes control plane**
 
+.. code-block:: bash
    kubectl drain kube-worker-02 --ignore-daemonsets --delete-emptydir-data
 
 
@@ -129,8 +132,9 @@ Run ``discovery.yml`` to re-discover and PXE-boot the target nodes with the
 updated OS image:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
    cd /omnia
    ansible-playbook playbooks/discovery.yml
 
@@ -159,8 +163,9 @@ After the nodes have been re-imaged and are accessible via SSH, redeploy the
 Omnia cluster software:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
    cd /omnia
    ansible-playbook playbooks/omnia.yml
 
@@ -183,8 +188,9 @@ Verification
 After re-provisioning is complete:
 
 
-.. code-block:: bash title="Run on: OIM host"
+**Run on: OIM host**
 
+.. code-block:: bash
    # Verify Slurm nodes are back online
    sinfo
    

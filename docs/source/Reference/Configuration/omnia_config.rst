@@ -173,8 +173,9 @@ Usage example
 
 
 
-.. code-block:: yaml title="File: /opt/omnia/input/project_default/omnia_config.yml"
+**File: /opt/omnia/input/project_default/omnia_config.yml**
 
+.. code-block:: yaml
    scheduler_type: "slurm,k8s"
    slurm_installation_type: "nfs_share"
    restart_slurm_services: true
