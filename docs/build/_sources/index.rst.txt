@@ -1,9 +1,3 @@
-
-.. image:: images/omnia-logo.png
-   :alt: Dell Omnia Logo
-   :align: center
-   :width: 200px
-
 Omnia Documentation
 ===================
 
@@ -181,4 +175,4 @@ Omnia Community Members
 ----
 
 
-*If you have any feedback about Omnia documentation, please reach out at `omnia.readme@dell.com <mailto:omnia.readme@dell.com>`_.*
+*If you have any feedback about Omnia documentation, please reach out at omnia.readme@dell.com.*
