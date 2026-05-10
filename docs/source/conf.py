@@ -112,7 +112,7 @@ html_theme_options = {
     'repo_url': 'https://github.com/dell/omnia',
     'repo_name': 'dell/omnia',
     'repo_type': 'github',
-    'globaltoc_depth': 3,
+    'globaltoc_depth': 4,
     'globaltoc_collapse': False,
     'globaltoc_includehidden': True,
     'master_doc': False,
@@ -176,8 +176,8 @@ html_static_path = ["_static"]
 # html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-# Note: sphinx_material theme includes sidebar by default in layout.html
-# html_sidebars configuration is not needed for this theme
+# For Material theme, must explicitly include globaltoc.html for sidebar to appear
+html_sidebars = {'**': ['globaltoc.html', 'pagetoc.html', 'searchbox.html']}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.

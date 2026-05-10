@@ -387,3 +387,47 @@ section {
 .md-sidebar--secondary {
     display: block !important;
 }
+
+/* Section navigation styling */
+.section-nav {
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.section-nav h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #0288d1;
+    font-size: 1.25rem;
+    font-weight: 600;
+    border-bottom: 2px solid #0288d1;
+    padding-bottom: 0.5rem;
+}
+
+.section-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.section-nav li {
+    margin-bottom: 0.75rem;
+}
+
+.section-nav a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.section-nav a:hover {
+    background-color: #e0e0e0;
+    color: #0288d1;
+    text-decoration: none;
+}
