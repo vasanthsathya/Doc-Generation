@@ -118,6 +118,13 @@ html_theme_options = {
     'pygments_light_style': 'default',
     'pygments_dark_style': 'material',
     'secondary_sidebar_items': ["page-toc", "edit-this-page"],
+    'icon_links': [
+        {
+            'name': 'GitHub',
+            'url': 'https://github.com/dell/omnia',
+            'icon': 'fa-brands fa-github',
+        },
+    ],
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
