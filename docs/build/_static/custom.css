@@ -1,5 +1,71 @@
 /* Custom CSS for sphinx-rtd-theme with Dell branding */
 
+/* Custom top navigation bar */
+.custom-top-nav {
+    background-color: #007db8;
+    color: white;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.custom-top-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.custom-top-nav a:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.custom-top-nav .logo-link {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-right: auto;
+}
+
+.custom-top-nav .logo-link img {
+    height: 30px;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.custom-top-nav .nav-links {
+    display: flex;
+}
+
+/* Adjust main content to account for top nav */
+.wy-grid-for-nav {
+    margin-top: 50px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .custom-top-nav {
+        padding: 0 1rem;
+        overflow-x: auto;
+    }
+
+    .custom-top-nav a {
+        padding: 0 0.5rem;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+}
+
 /* Grid cards styling to match expected output */
 .grid.cards {
     display: grid;
