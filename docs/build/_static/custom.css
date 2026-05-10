@@ -1,37 +1,62 @@
 /* Custom CSS for pydata-sphinx-theme with Dell branding */
 
 /* Two-row navbar styling */
-.navbar-top-row {
+.bd-header {
+    flex-direction: column !important;
+    background-color: #007db8 !important;
+}
+
+.bd-header__inner {
+    flex-direction: column !important;
+    padding: 0 !important;
+    gap: 0 !important;
+}
+
+/* Override Bootstrap grid to stack vertically */
+.bd-header .col-lg-3,
+.bd-header .col-lg-9 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+/* First row: Logo and search */
+.bd-header .navbar-header-items__start {
     background-color: #007db8;
     padding: 0.5rem 1rem;
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.navbar-bottom-row {
+/* Second row: Navigation menu */
+.bd-header .navbar-header-items {
     background-color: #f8f9fa;
     padding: 0.5rem 1rem;
-    width: 100%;
     border-bottom: 1px solid #e0e0e0;
 }
 
-.navbar-top-row .navbar-brand {
+.bd-header .navbar-header-items__center {
+    width: 100%;
+}
+
+/* Logo styling */
+.bd-header .navbar-brand {
     color: white !important;
 }
 
-.navbar-top-row .navbar-brand:hover {
+.bd-header .navbar-brand:hover {
     color: white !important;
 }
 
-.navbar-top-row .navbar-brand img {
+.bd-header .navbar-brand img {
     height: 30px;
     width: auto;
 }
 
-.navbar-top-row .sidebar-toggle {
+/* Sidebar toggle styling */
+.bd-header .sidebar-toggle {
     color: white !important;
     border: none;
     background: transparent;
@@ -39,34 +64,29 @@
     cursor: pointer;
 }
 
-.navbar-top-row .sidebar-toggle:hover {
+.bd-header .sidebar-toggle:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.navbar-search-container {
-    display: flex;
-    align-items: center;
+/* Search field styling */
+.bd-header .search-button {
+    color: white !important;
 }
 
 /* Navigation links styling */
-.navbar-bottom-row .bd-navbar-elements .nav-link {
+.bd-header .bd-navbar-elements .nav-link {
     color: #333 !important;
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
     transition: background-color 0.2s ease;
 }
 
-.navbar-bottom-row .bd-navbar-elements .nav-link:hover {
+.bd-header .bd-navbar-elements .nav-link:hover {
     background-color: #e0e0e0;
 }
 
-.navbar-bottom-row .bd-navbar-elements .nav-link.active {
+.bd-header .bd-navbar-elements .nav-link.active {
     background-color: #007db8;
-    color: white !important;
-}
-
-/* Search field styling in top row */
-.navbar-top-row .search-button {
     color: white !important;
 }
 
