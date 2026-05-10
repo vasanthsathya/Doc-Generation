@@ -2,15 +2,29 @@
 
 // Add custom top navigation bar
 document.addEventListener('DOMContentLoaded', function() {
+  // Get the current page depth to construct correct relative paths
+  const currentPath = window.location.pathname;
+  const depth = currentPath.split('/').filter(part => part && part !== 'docs' && part !== 'build' && !part.endsWith('.html')).length;
+  
+  // Construct the relative path to root (e.g., '../', '../../', etc.)
+  let rootPath = '';
+  for (let i = 0; i < depth; i++) {
+    rootPath += '../';
+  }
+  // If we're at the root, no prefix needed
+  if (rootPath === '' && !currentPath.endsWith('index.html') && !currentPath.endsWith('/')) {
+    rootPath = './';
+  }
+  
   // Create the navigation bar
   const navBar = document.createElement('div');
   navBar.className = 'custom-top-nav';
   
   // Create logo link
   const logoLink = document.createElement('a');
-  logoLink.href = 'index.html';
+  logoLink.href = rootPath + 'index.html';
   logoLink.className = 'logo-link';
-  logoLink.innerHTML = '<img src="_static/omnia-logo.png" alt="Logo" /> Dell Omnia';
+  logoLink.innerHTML = '<img src="' + rootPath + '_static/omnia-logo.png" alt="Logo" /> Dell Omnia';
   
   // Create nav links container
   const navLinks = document.createElement('div');
@@ -29,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   links.forEach(link => {
     const a = document.createElement('a');
-    a.href = link.href;
+    a.href = rootPath + link.href;
     a.textContent = link.text;
     navLinks.appendChild(a);
   });
