@@ -110,13 +110,13 @@ Quick Links
 
    * - Resource
      - Description
-   * - `Slurm Quickstart <GetStarted/slurm_quickstart.rst>`_
+   * - :doc:`GetStarted/slurm_quickstart`
      - Fastest path to a working Slurm cluster (~2 hours, 4 nodes).
-   * - `Full Deployment <GetStarted/full_deployment.rst>`_
+   * - :doc:`GetStarted/full_deployment`
      - Production deployment with Slurm, Kubernetes, telemetry, and LDAP.
-   * - `Servers <Reference/SupportMatrix/servers.rst>`_
+   * - :doc:`Reference/SupportMatrix/servers`
      - Supported OS versions, hardware, firmware, and software combinations.
-   * - `Provision Config <Reference/Configuration/provision_config.rst>`_
+   * - :doc:`Reference/Configuration/provision_config`
      - Complete reference for all Omnia input configuration files.
 
 

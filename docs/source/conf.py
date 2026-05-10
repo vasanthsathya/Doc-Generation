@@ -110,6 +110,7 @@ html_theme_options = {
     'navbar_end': ["navbar-icon-links"],
     'show_prev_next': True,
     'show_toc_level': 4,
+    'show_nav_level': 4,
     'navigation_depth': 4,
     'collapse_navigation': False,
     'header_links_before_dropdown': 7,

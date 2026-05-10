@@ -1,0 +1,199 @@
+{"filename": "Overview\\security_model.rst", "lineno": 361, "status": "unchecked", "code": 0, "uri": "#security-controls-map", "info": ""}
+{"filename": "Reference\\Configuration\\storage_config.rst", "lineno": 217, "status": "working", "code": 0, "uri": "../Appendices/beegfs_server_setup.rst", "info": ""}
+{"filename": "Reference\\Configuration\\provision_config.rst", "lineno": 130, "status": "working", "code": 0, "uri": "../Appendices/hostname_requirements.rst", "info": ""}
+{"filename": "Reference\\Configuration\\provision_config.rst", "lineno": 36, "status": "working", "code": 0, "uri": "../Appendices/timezones.rst", "info": ""}
+{"filename": "HowTo\\Setup\\verify_cluster.rst", "lineno": 291, "status": "working", "code": 0, "uri": "../Authentication/setup_openldap.rst", "info": ""}
+{"filename": "Reference\\Configuration\\local_repo_config.rst", "lineno": 38, "status": "working", "code": 0, "uri": "../ClusterRequirements/disk_space.rst", "info": ""}
+{"filename": "Reference\\SupportMatrix\\network_topologies.rst", "lineno": 180, "status": "working", "code": 0, "uri": "../Configuration/network_spec.rst", "info": ""}
+{"filename": "Reference\\Metrics\\gpu_metrics.rst", "lineno": 367, "status": "working", "code": 0, "uri": "../Configuration/omnia_config.rst", "info": ""}
+{"filename": "Reference\\Configuration\\ha_config.rst", "lineno": 116, "status": "working", "code": 0, "uri": "../ClusterRequirements/ports.rst", "info": ""}
+{"filename": "Reference\\ClusterRequirements\\minimum_nodes.rst", "lineno": 135, "status": "working", "code": 0, "uri": "../Configuration/ha_config.rst", "info": ""}
+{"filename": "Reference\\ClusterRequirements\\disk_space.rst", "lineno": 157, "status": "working", "code": 0, "uri": "../Configuration/local_repo_config.rst", "info": ""}
+{"filename": "Reference\\Configuration\\buildstream_config.rst", "lineno": 172, "status": "working", "code": 0, "uri": "../ClusterRequirements/minimum_nodes.rst", "info": ""}
+{"filename": "Reference\\Appendices\\hostname_requirements.rst", "lineno": 172, "status": "working", "code": 0, "uri": "../Configuration/provision_config.rst", "info": ""}
+{"filename": "Reference\\ClusterRequirements\\ports.rst", "lineno": 451, "status": "working", "code": 0, "uri": "../Configuration/security_config.rst", "info": ""}
+{"filename": "Reference\\SampleFiles\\pxe_mapping_file.rst", "lineno": 214, "status": "working", "code": 0, "uri": "../Configuration/software_config.rst", "info": ""}
+{"filename": "Reference\\Appendices\\beegfs_server_setup.rst", "lineno": 267, "status": "working", "code": 0, "uri": "../Configuration/storage_config.rst", "info": ""}
+{"filename": "Reference\\ClusterRequirements\\ports.rst", "lineno": 453, "status": "working", "code": 0, "uri": "../Configuration/telemetry_config.rst", "info": ""}
+{"filename": "HowTo\\Slurm\\run_hpc_benchmarks.rst", "lineno": 224, "status": "working", "code": 0, "uri": "../Containers/use_apptainer.rst", "info": ""}
+{"filename": "Troubleshooting\\buildstream.rst", "lineno": 286, "status": "working", "code": 0, "uri": "../GetStarted/buildstream_deployment.rst", "info": ""}
+{"filename": "HowTo\\index.rst", "lineno": 14, "status": "working", "code": 0, "uri": "../GetStarted/index.rst", "info": ""}
+{"filename": "Operations\\best_practices_checklist.rst", "lineno": 26, "status": "working", "code": 0, "uri": "../GetStarted/prerequisites_checklist.rst", "info": ""}
+{"filename": "Troubleshooting\\authentication.rst", "lineno": 372, "status": "working", "code": 0, "uri": "../HowTo/Authentication/setup_openldap.rst", "info": ""}
+{"filename": "Troubleshooting\\buildstream.rst", "lineno": 283, "status": "working", "code": 0, "uri": "../HowTo/BuildStreaM/deploy_gitlab.rst", "info": ""}
+{"filename": "Troubleshooting\\buildstream.rst", "lineno": 284, "status": "working", "code": 0, "uri": "../HowTo/BuildStreaM/update_catalog_pipeline.rst", "info": ""}
+{"filename": "Operations\\oim_cleanup.rst", "lineno": 161, "status": "working", "code": 0, "uri": "../HowTo/Setup/deploy_omnia_core.rst", "info": ""}
+{"filename": "Operations\\reprovision_cluster.rst", "lineno": 46, "status": "working", "code": 0, "uri": "../HowTo/Setup/build_cluster_images.rst", "info": ""}
+{"filename": "Operations\\oim_cleanup.rst", "lineno": 162, "status": "working", "code": 0, "uri": "../HowTo/Setup/configure_credentials.rst", "info": ""}
+{"filename": "Operations\\oim_cleanup.rst", "lineno": 162, "status": "working", "code": 0, "uri": "../HowTo/Setup/configure_inputs.rst", "info": ""}
+{"filename": "Operations\\best_practices_checklist.rst", "lineno": 74, "status": "working", "code": 0, "uri": "../HowTo/Kubernetes/deploy_powerscale_csi.rst", "info": ""}
+{"filename": "Operations\\add_remove_nodes.rst", "lineno": 25, "status": "working", "code": 0, "uri": "../HowTo/Setup/discover_nodes.rst", "info": ""}
+{"filename": "Operations\\oim_cleanup.rst", "lineno": 160, "status": "working", "code": 0, "uri": "../HowTo/Setup/prepare_oim.rst", "info": ""}
+{"filename": "Troubleshooting\\slurm.rst", "lineno": 423, "status": "working", "code": 0, "uri": "../HowTo/Slurm/setup_slurm.rst", "info": ""}
+{"filename": "Operations\\add_remove_nodes.rst", "lineno": 25, "status": "working", "code": 0, "uri": "../HowTo/Setup/pxe_boot_nodes.rst", "info": ""}
+{"filename": "Operations\\reprovision_cluster.rst", "lineno": 42, "status": "working", "code": 0, "uri": "../HowTo/Setup/verify_oim_services.rst", "info": ""}
+{"filename": "Operations\\add_remove_nodes.rst", "lineno": 206, "status": "working", "code": 0, "uri": "../HowTo/Slurm/add_slurm_nodes.rst", "info": ""}
+{"filename": "Operations\\add_remove_nodes.rst", "lineno": 207, "status": "working", "code": 0, "uri": "../HowTo/Slurm/remove_slurm_nodes.rst", "info": ""}
+{"filename": "Troubleshooting\\slurm.rst", "lineno": 424, "status": "working", "code": 0, "uri": "../HowTo/Slurm/slurm_with_gpu.rst", "info": ""}
+{"filename": "Operations\\best_practices_checklist.rst", "lineno": 77, "status": "working", "code": 0, "uri": "../HowTo/Storage/configure_nfs.rst", "info": ""}
+{"filename": "Reference\\Configuration\\telemetry_config.rst", "lineno": 259, "status": "working", "code": 0, "uri": "../Metrics/gpu_metrics.rst", "info": ""}
+{"filename": "Troubleshooting\\telemetry.rst", "lineno": 379, "status": "working", "code": 0, "uri": "../HowTo/Telemetry/verify_telemetry.rst", "info": ""}
+{"filename": "Reference\\Configuration\\telemetry_config.rst", "lineno": 207, "status": "working", "code": 0, "uri": "../Metrics/ldms_metrics.rst", "info": ""}
+{"filename": "Operations\\best_practices_checklist.rst", "lineno": 50, "status": "working", "code": 0, "uri": "../HowTo/index.rst", "info": ""}
+{"filename": "HowTo\\Setup\\pxe_boot_nodes.rst", "lineno": 189, "status": "working", "code": 0, "uri": "../Kubernetes/setup_service_k8s.rst", "info": ""}
+{"filename": "Reference\\Configuration\\telemetry_config.rst", "lineno": 257, "status": "working", "code": 0, "uri": "../Metrics/idrac_metrics.rst", "info": ""}
+{"filename": "Operations\\best_practices_checklist.rst", "lineno": 71, "status": "working", "code": 0, "uri": "../HowTo/Telemetry/setup_telemetry.rst", "info": ""}
+{"filename": "HowTo\\Slurm\\run_hpc_benchmarks.rst", "lineno": 226, "status": "working", "code": 0, "uri": "../Networking/configure_infiniband.rst", "info": ""}
+{"filename": "Troubleshooting\\slurm.rst", "lineno": 425, "status": "working", "code": 0, "uri": "../Operations/add_remove_nodes.rst", "info": ""}
+{"filename": "Troubleshooting\\known_limitations.rst", "lineno": 128, "status": "working", "code": 0, "uri": "../Operations/best_practices_checklist.rst", "info": ""}
+{"filename": "Troubleshooting\\general.rst", "lineno": 324, "status": "working", "code": 0, "uri": "../Operations/log_management.rst", "info": ""}
+{"filename": "Troubleshooting\\general.rst", "lineno": 326, "status": "working", "code": 0, "uri": "../Operations/oim_cleanup.rst", "info": ""}
+{"filename": "Troubleshooting\\authentication.rst", "lineno": 373, "status": "working", "code": 0, "uri": "../Operations/security_hardening.rst", "info": ""}
+{"filename": "GetStarted\\slurm_quickstart.rst", "lineno": 625, "status": "working", "code": 0, "uri": "../Overview/index.rst", "info": ""}
+{"filename": "Reference\\Appendices\\hostname_requirements.rst", "lineno": 170, "status": "working", "code": 0, "uri": "../SampleFiles/pxe_mapping_file.rst", "info": ""}
+{"filename": "Troubleshooting\\known_limitations.rst", "lineno": 212, "status": "working", "code": 0, "uri": "../Overview/release_notes.rst", "info": ""}
+{"filename": "GetStarted\\k8s_telemetry_only.rst", "lineno": 710, "status": "working", "code": 0, "uri": "../Overview/telemetry_architecture.rst", "info": ""}
+{"filename": "Reference\\Configuration\\software_config.rst", "lineno": 132, "status": "working", "code": 0, "uri": "../SampleFiles/software_config_json.rst", "info": ""}
+{"filename": "Reference\\Configuration\\buildstream_config.rst", "lineno": 170, "status": "working", "code": 0, "uri": "../Playbooks/playbook_reference.rst", "info": ""}
+{"filename": "Reference\\Configuration\\omnia_config.rst", "lineno": 46, "status": "working", "code": 0, "uri": "../SampleFiles/slurm_conf.rst", "info": ""}
+{"filename": "Troubleshooting\\known_limitations.rst", "lineno": 215, "status": "working", "code": 0, "uri": "../Overview/network_topologies.rst", "info": ""}
+{"filename": "HowTo\\Slurm\\setup_slurm.rst", "lineno": 37, "status": "working", "code": 0, "uri": "../Setup/configure_credentials.rst", "info": ""}
+{"filename": "HowTo\\Authentication\\replicate_ldap.rst", "lineno": 244, "status": "working", "code": 0, "uri": "../Slurm/setup_slurm.rst", "info": ""}
+{"filename": "HowTo\\Containers\\deploy_additional_packages.rst", "lineno": 38, "status": "working", "code": 0, "uri": "../Setup/create_local_repos.rst", "info": ""}
+{"filename": "HowTo\\Containers\\deploy_additional_packages.rst", "lineno": 269, "status": "working", "code": 0, "uri": "../Slurm/run_hpc_benchmarks.rst", "info": ""}
+{"filename": "HowTo\\Containers\\use_apptainer.rst", "lineno": 42, "status": "working", "code": 0, "uri": "../Slurm/slurm_with_gpu.rst", "info": ""}
+{"filename": "Reference\\Configuration\\network_spec.rst", "lineno": 269, "status": "working", "code": 0, "uri": "../SupportMatrix/network_topologies.rst", "info": ""}
+{"filename": "HowTo\\Authentication\\setup_openldap.rst", "lineno": 36, "status": "working", "code": 0, "uri": "../Storage/configure_nfs.rst", "info": ""}
+{"filename": "HowTo\\Slurm\\setup_slurm.rst", "lineno": 32, "status": "working", "code": 0, "uri": "../Setup/verify_cluster.rst", "info": ""}
+{"filename": "Reference\\Configuration\\network_spec.rst", "lineno": 271, "status": "working", "code": 0, "uri": "../SupportMatrix/nics.rst", "info": ""}
+{"filename": "Reference\\Appendices\\beegfs_server_setup.rst", "lineno": 269, "status": "working", "code": 0, "uri": "../SupportMatrix/storage.rst", "info": ""}
+{"filename": "HowTo\\Kubernetes\\configure_ha.rst", "lineno": 253, "status": "working", "code": 0, "uri": "../Telemetry/setup_telemetry.rst", "info": ""}
+{"filename": "HowTo\\Authentication\\setup_openldap.rst", "lineno": 32, "status": "working", "code": 0, "uri": "../Setup/prepare_oim.rst", "info": ""}
+{"filename": "Reference\\SampleFiles\\software_config_json.rst", "lineno": 275, "status": "working", "code": 0, "uri": "../SupportMatrix/installed_software.rst", "info": ""}
+{"filename": "Operations\\security_hardening.rst", "lineno": 347, "status": "working", "code": 0, "uri": "../Troubleshooting/authentication.rst", "info": ""}
+{"filename": "Operations\\best_practices_checklist.rst", "lineno": 95, "status": "working", "code": 0, "uri": "../Troubleshooting/general.rst", "info": ""}
+{"filename": "index.rst", "lineno": 132, "status": "working", "code": 0, "uri": "Reference/SupportMatrix/installed_software.rst", "info": ""}
+{"filename": "Operations\\reprovision_cluster.rst", "lineno": 213, "status": "working", "code": 0, "uri": "add_remove_nodes.rst", "info": ""}
+{"filename": "HowTo\\Slurm\\remove_slurm_nodes.rst", "lineno": 177, "status": "working", "code": 0, "uri": "add_slurm_nodes.rst", "info": ""}
+{"filename": "Overview\\components.rst", "lineno": 254, "status": "working", "code": 0, "uri": "architecture.rst", "info": ""}
+{"filename": "Operations\\log_management.rst", "lineno": 429, "status": "working", "code": 0, "uri": "best_practices_checklist.rst", "info": ""}
+{"filename": "HowTo\\Setup\\create_local_repos.rst", "lineno": 176, "status": "working", "code": 0, "uri": "build_cluster_images.rst", "info": ""}
+{"filename": "GetStarted\\full_deployment.rst", "lineno": 779, "status": "working", "code": 0, "uri": "buildstream_deployment.rst", "info": ""}
+{"filename": "HowTo\\BuildStreaM\\deploy_gitlab.rst", "lineno": 277, "status": "working", "code": 0, "uri": "buildstream_troubleshooting.rst", "info": ""}
+{"filename": "HowTo\\Setup\\configure_inputs.rst", "lineno": 271, "status": "working", "code": 0, "uri": "configure_credentials.rst", "info": ""}
+{"filename": "HowTo\\Telemetry\\configure_ldms.rst", "lineno": 242, "status": "working", "code": 0, "uri": "configure_external_kafka.rst", "info": ""}
+{"filename": "HowTo\\Telemetry\\configure_external_kafka.rst", "lineno": 190, "status": "working", "code": 0, "uri": "configure_external_victoria.rst", "info": ""}
+{"filename": "Overview\\architecture.rst", "lineno": 177, "status": "working", "code": 0, "uri": "composable_roles.rst", "info": ""}
+{"filename": "Overview\\architecture.rst", "lineno": 281, "status": "working", "code": 0, "uri": "components.rst", "info": ""}
+{"filename": "HowTo\\Storage\\configure_powervault.rst", "lineno": 247, "status": "working", "code": 0, "uri": "configure_nfs.rst", "info": ""}
+{"filename": "HowTo\\Networking\\configure_roce.rst", "lineno": 293, "status": "working", "code": 0, "uri": "configure_infiniband.rst", "info": ""}
+{"filename": "HowTo\\Setup\\configure_credentials.rst", "lineno": 36, "status": "working", "code": 0, "uri": "configure_inputs.rst", "info": ""}
+{"filename": "HowTo\\Telemetry\\setup_telemetry.rst", "lineno": 210, "status": "working", "code": 0, "uri": "configure_ldms.rst", "info": ""}
+{"filename": "HowTo\\Kubernetes\\setup_service_k8s.rst", "lineno": 235, "status": "working", "code": 0, "uri": "configure_ha.rst", "info": ""}
+{"filename": "HowTo\\Storage\\configure_nfs.rst", "lineno": 242, "status": "working", "code": 0, "uri": "configure_powervault.rst", "info": ""}
+{"filename": "HowTo\\Networking\\configure_infiniband.rst", "lineno": 280, "status": "working", "code": 0, "uri": "configure_roce.rst", "info": ""}
+{"filename": "HowTo\\Setup\\build_cluster_images.rst", "lineno": 35, "status": "working", "code": 0, "uri": "create_local_repos.rst", "info": ""}
+{"filename": "HowTo\\Setup\\build_cluster_images.rst", "lineno": 37, "status": "working", "code": 0, "uri": "create_mapping_file.rst", "info": ""}
+{"filename": "HowTo\\Containers\\use_apptainer.rst", "lineno": 227, "status": "working", "code": 0, "uri": "deploy_additional_packages.rst", "info": ""}
+{"filename": "HowTo\\Authentication\\replicate_ldap.rst", "lineno": 243, "status": "working", "code": 0, "uri": "deploy_external_ldap.rst", "info": ""}
+{"filename": "HowTo\\BuildStreaM\\buildstream_troubleshooting.rst", "lineno": 25, "status": "working", "code": 0, "uri": "deploy_gitlab.rst", "info": ""}
+{"filename": "HowTo\\Setup\\configure_credentials.rst", "lineno": 35, "status": "working", "code": 0, "uri": "deploy_omnia_core.rst", "info": ""}
+{"filename": "HowTo\\Kubernetes\\configure_ha.rst", "lineno": 252, "status": "working", "code": 0, "uri": "deploy_powerscale_csi.rst", "info": ""}
+{"filename": "HowTo\\Setup\\build_cluster_images.rst", "lineno": 173, "status": "working", "code": 0, "uri": "discover_nodes.rst", "info": ""}
+{"filename": "Reference\\ClusterRequirements\\minimum_nodes.rst", "lineno": 133, "status": "working", "code": 0, "uri": "disk_space.rst", "info": ""}
+{"filename": "GetStarted\\buildstream_deployment.rst", "lineno": 250, "status": "working", "code": 0, "uri": "full_deployment.rst", "info": ""}
+{"filename": "Reference\\Metrics\\idrac_metrics.rst", "lineno": 262, "status": "working", "code": 0, "uri": "gpu_metrics.rst", "info": ""}
+{"filename": "Reference\\Configuration\\omnia_config.rst", "lineno": 205, "status": "working", "code": 0, "uri": "ha_config.rst", "info": ""}
+{"filename": "Contributing\\index.rst", "lineno": 51, "status": "broken", "code": 0, "uri": "https://github.com/dell/omnia", "info": "HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /dell/omnia (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "HowTo\\BuildStreaM\\buildstream_troubleshooting.rst", "lineno": 349, "status": "broken", "code": 0, "uri": "https://docs.gitlab.com/", "info": "HTTPSConnectionPool(host='docs.gitlab.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Overview\\security_model.rst", "lineno": 389, "status": "broken", "code": 0, "uri": "https://docs.ansible.com/ansible/latest/vault_guide/index.html", "info": "HTTPSConnectionPool(host='docs.ansible.com', port=443): Max retries exceeded with url: /ansible/latest/vault_guide/index.html (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Overview\\security_model.rst", "lineno": 386, "status": "broken", "code": 0, "uri": "https://docs.ansible.com/ansible/latest/dev_guide/developing_modules_best_practices.html#module-security", "info": "HTTPSConnectionPool(host='docs.ansible.com', port=443): Max retries exceeded with url: /ansible/latest/dev_guide/developing_modules_best_practices.html (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Reference\\Appendices\\beegfs_server_setup.rst", "lineno": 270, "status": "broken", "code": 0, "uri": "https://doc.beegfs.io/latest/", "info": "HTTPSConnectionPool(host='doc.beegfs.io', port=443): Max retries exceeded with url: /latest/ (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Overview\\security_model.rst", "lineno": 431, "status": "broken", "code": 0, "uri": "https://github.com/dell/omnia#readme", "info": "HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /dell/omnia (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "index.rst", "lineno": 2, "status": "broken", "code": 0, "uri": "https://github.com/dell/omnia/blob/main/LICENSE", "info": "HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /dell/omnia/blob/main/LICENSE (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "index.rst", "lineno": 2, "status": "broken", "code": 0, "uri": "https://github.com/dell/omnia/commits", "info": "HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /dell/omnia/commits (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Contributing\\index.rst", "lineno": 93, "status": "broken", "code": 0, "uri": "https://github.com/dell/omnia/discussions", "info": "HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /dell/omnia/discussions (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "index.rst", "lineno": 2, "status": "broken", "code": 0, "uri": "https://github.com/dell/omnia/graphs/contributors", "info": "HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /dell/omnia/graphs/contributors (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Contributing\\index.rst", "lineno": 27, "status": "broken", "code": 0, "uri": "https://github.com/dell/omnia/issues", "info": "HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /dell/omnia/issues (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "index.rst", "lineno": 2, "status": "broken", "code": 0, "uri": "https://github.com/dell/omnia/network/members", "info": "HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /dell/omnia/network/members (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "index.rst", "lineno": 2, "status": "broken", "code": 0, "uri": "https://github.com/dell/omnia/releases", "info": "HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /dell/omnia/releases (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "index.rst", "lineno": 20, "status": "broken", "code": 0, "uri": "https://img.shields.io/github/contributors/dell/omnia", "info": "HTTPSConnectionPool(host='img.shields.io', port=443): Max retries exceeded with url: /github/contributors/dell/omnia (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Overview\\telemetry_architecture.rst", "lineno": 200, "status": "working", "code": 0, "uri": "https://grafana.com/", "info": ""}
+{"filename": "index.rst", "lineno": 10, "status": "broken", "code": 0, "uri": "https://img.shields.io/github/downloads/dell/omnia/total", "info": "HTTPSConnectionPool(host='img.shields.io', port=443): Max retries exceeded with url: /github/downloads/dell/omnia/total (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "index.rst", "lineno": 25, "status": "broken", "code": 0, "uri": "https://img.shields.io/github/forks/dell/omnia", "info": "HTTPSConnectionPool(host='img.shields.io', port=443): Max retries exceeded with url: /github/forks/dell/omnia (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "index.rst", "lineno": 15, "status": "broken", "code": 0, "uri": "https://img.shields.io/github/last-commit/dell/omnia", "info": "HTTPSConnectionPool(host='img.shields.io', port=443): Max retries exceeded with url: /github/last-commit/dell/omnia (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "index.rst", "lineno": 30, "status": "broken", "code": 0, "uri": "https://img.shields.io/github/license/dell/omnia", "info": "HTTPSConnectionPool(host='img.shields.io', port=443): Max retries exceeded with url: /github/license/dell/omnia (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "index.rst", "lineno": 5, "status": "broken", "code": 0, "uri": "https://img.shields.io/github/v/release/dell/omnia?include_prereleases", "info": "HTTPSConnectionPool(host='img.shields.io', port=443): Max retries exceeded with url: /github/v/release/dell/omnia?include_prereleases (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Overview\\blogs.rst", "lineno": 7, "status": "working", "code": 0, "uri": "https://infohub.delltechnologies.com/p/omnia-open-source-deployment-of-high-performance-clusters-to-run-simulation-ai-and-data-analytics-workloads/", "info": ""}
+{"filename": "Overview\\blogs.rst", "lineno": 11, "status": "working", "code": 0, "uri": "https://infohub.delltechnologies.com/section-assets/omnia-solution-brief", "info": ""}
+{"filename": "Overview\\blogs.rst", "lineno": 10, "status": "working", "code": 0, "uri": "https://infohub.delltechnologies.com/section-assets/omnia-solution-overview", "info": ""}
+{"filename": "Overview\\blogs.rst", "lineno": 9, "status": "working", "code": 0, "uri": "https://infohub.delltechnologies.com/p/containerized-hpc-workloads-made-easy-with-omnia-and-singularity/", "info": ""}
+{"filename": "Overview\\blogs.rst", "lineno": 8, "status": "working", "code": 0, "uri": "https://infohub.delltechnologies.com/p/taming-the-accelerator-cambrian-explosion-with-omnia/", "info": ""}
+{"filename": "index.rst", "lineno": 141, "status": "broken", "code": 0, "uri": "https://omnia-doc.readthedocs.io/en/latest/index.html", "info": "HTTPSConnectionPool(host='omnia-doc.readthedocs.io', port=443): Max retries exceeded with url: /en/latest/index.html (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Overview\\telemetry_architecture.rst", "lineno": 122, "status": "working", "code": 0, "uri": "https://kafka.apache.org/", "info": ""}
+{"filename": "Overview\\security_model.rst", "lineno": 432, "status": "broken", "code": 0, "uri": "https://omnia.readthedocs.io/en/latest/OmniaInstallGuide/index.html", "info": "HTTPSConnectionPool(host='omnia.readthedocs.io', port=443): Max retries exceeded with url: /en/latest/OmniaInstallGuide/index.html (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "index.rst", "lineno": 142, "status": "broken", "code": 0, "uri": "https://omnia.readthedocs.io/en/latest/index.html", "info": "HTTPSConnectionPool(host='omnia.readthedocs.io', port=443): Max retries exceeded with url: /en/latest/index.html (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "index.rst", "lineno": 127, "status": "broken", "code": 0, "uri": "https://opensource.org/licenses/Apache-2.0", "info": "HTTPSConnectionPool(host='opensource.org', port=443): Max retries exceeded with url: /licenses/Apache-2.0 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Operations\\security_hardening.rst", "lineno": 97, "status": "broken", "code": 0, "uri": "https://smallstep.com/docs/step-ca/", "info": "HTTPSConnectionPool(host='smallstep.com', port=443): Max retries exceeded with url: /docs/step-ca/ (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Overview\\architecture.rst", "lineno": 140, "status": "broken", "code": 0, "uri": "https://slurm.schedmd.com/", "info": "HTTPSConnectionPool(host='slurm.schedmd.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Reference\\SampleFiles\\slurmdbd_conf.rst", "lineno": 180, "status": "broken", "code": 0, "uri": "https://slurm.schedmd.com/slurmdbd.conf.html", "info": "HTTPSConnectionPool(host='slurm.schedmd.com', port=443): Max retries exceeded with url: /slurmdbd.conf.html (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Reference\\SampleFiles\\slurm_conf.rst", "lineno": 175, "status": "broken", "code": 0, "uri": "https://slurm.schedmd.com/slurm.conf.html", "info": "HTTPSConnectionPool(host='slurm.schedmd.com', port=443): Max retries exceeded with url: /slurm.conf.html (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Overview\\components.rst", "lineno": 143, "status": "broken", "code": 0, "uri": "https://pulpproject.org/", "info": "HTTPSConnectionPool(host='pulpproject.org', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Overview\\telemetry_architecture.rst", "lineno": 164, "status": "broken", "code": 0, "uri": "https://victoriametrics.com/", "info": "HTTPSConnectionPool(host='victoriametrics.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Contributing\\index.rst", "lineno": 6, "status": "working", "code": 0, "uri": "https://www.apache.org/licenses/LICENSE-2.0", "info": ""}
+{"filename": "Overview\\blogs.rst", "lineno": 6, "status": "working", "code": 0, "uri": "https://www.dell.com/en-us/blog/dell-joins-the-openchami-project/", "info": ""}
+{"filename": "Reference\\SupportMatrix\\switches.rst", "lineno": 142, "status": "working", "code": 0, "uri": "https://www.dell.com/support/home/", "info": ""}
+{"filename": "Overview\\security_model.rst", "lineno": 448, "status": "working", "code": 0, "uri": "https://www.dell.com/support/home/en-us", "info": ""}
+{"filename": "GetStarted\\prerequisites_checklist.rst", "lineno": 241, "status": "redirected", "code": 301, "uri": "https://www.dell.com/support", "info": "https://www.dell.com/support/home/en-us"}
+{"filename": "Overview\\security_model.rst", "lineno": 447, "status": "working", "code": 0, "uri": "https://www.dell.com/support/security/en-us", "info": ""}
+{"filename": "Reference\\Metrics\\gpu_metrics.rst", "lineno": 369, "status": "working", "code": 0, "uri": "idrac_metrics.rst", "info": ""}
+{"filename": "GetStarted\\prerequisites_checklist.rst", "lineno": 333, "status": "working", "code": 0, "uri": "index.rst", "info": ""}
+{"filename": "GetStarted\\full_deployment.rst", "lineno": 787, "status": "working", "code": 0, "uri": "k8s_telemetry_only.rst", "info": ""}
+{"filename": "Reference\\Metrics\\gpu_metrics.rst", "lineno": 370, "status": "working", "code": 0, "uri": "ldms_metrics.rst", "info": ""}
+{"filename": "Reference\\Configuration\\software_config.rst", "lineno": 189, "status": "working", "code": 0, "uri": "local_repo_config.rst", "info": ""}
+{"filename": "Operations\\best_practices_checklist.rst", "lineno": 135, "status": "working", "code": 0, "uri": "log_management.rst", "info": ""}
+{"filename": "Contributing\\index.rst", "lineno": 1, "status": "unchecked", "code": 0, "uri": "mailto:omnia.readme@dell.com", "info": ""}
+{"filename": "Overview\\security_model.rst", "lineno": 450, "status": "unchecked", "code": 0, "uri": "mailto:security@dell.com", "info": ""}
+{"filename": "Reference\\ClusterRequirements\\disk_space.rst", "lineno": 154, "status": "working", "code": 0, "uri": "minimum_nodes.rst", "info": ""}
+{"filename": "Reference\\Configuration\\provision_config.rst", "lineno": 132, "status": "working", "code": 0, "uri": "network_spec.rst", "info": ""}
+{"filename": "Overview\\architecture.rst", "lineno": 283, "status": "working", "code": 0, "uri": "network_topologies.rst", "info": ""}
+{"filename": "Reference\\SupportMatrix\\network_topologies.rst", "lineno": 183, "status": "working", "code": 0, "uri": "nics.rst", "info": ""}
+{"filename": "Operations\\reprovision_cluster.rst", "lineno": 214, "status": "working", "code": 0, "uri": "oim_cleanup.rst", "info": ""}
+{"filename": "Reference\\Configuration\\ha_config.rst", "lineno": 113, "status": "working", "code": 0, "uri": "omnia_config.rst", "info": ""}
+{"filename": "Reference\\SupportMatrix\\servers.rst", "lineno": 210, "status": "working", "code": 0, "uri": "operating_systems.rst", "info": ""}
+{"filename": "Reference\\ClusterRequirements\\minimum_nodes.rst", "lineno": 134, "status": "working", "code": 0, "uri": "ports.rst", "info": ""}
+{"filename": "HowTo\\Setup\\configure_credentials.rst", "lineno": 178, "status": "working", "code": 0, "uri": "prepare_oim.rst", "info": ""}
+{"filename": "GetStarted\\buildstream_deployment.rst", "lineno": 66, "status": "working", "code": 0, "uri": "prerequisites_checklist.rst", "info": ""}
+{"filename": "Reference\\Configuration\\network_spec.rst", "lineno": 267, "status": "working", "code": 0, "uri": "provision_config.rst", "info": ""}
+{"filename": "HowTo\\Setup\\build_cluster_images.rst", "lineno": 174, "status": "working", "code": 0, "uri": "pxe_boot_nodes.rst", "info": ""}
+{"filename": "Reference\\SampleFiles\\software_config_json.rst", "lineno": 264, "status": "working", "code": 0, "uri": "pxe_mapping_file.rst", "info": ""}
+{"filename": "HowTo\\Slurm\\slurm_config_backup.rst", "lineno": 231, "status": "working", "code": 0, "uri": "remove_slurm_nodes.rst", "info": ""}
+{"filename": "HowTo\\Authentication\\deploy_external_ldap.rst", "lineno": 288, "status": "working", "code": 0, "uri": "replicate_ldap.rst", "info": ""}
+{"filename": "Operations\\add_remove_nodes.rst", "lineno": 208, "status": "working", "code": 0, "uri": "reprovision_cluster.rst", "info": ""}
+{"filename": "HowTo\\Slurm\\slurm_with_gpu.rst", "lineno": 245, "status": "working", "code": 0, "uri": "run_hpc_benchmarks.rst", "info": ""}
+{"filename": "Operations\\best_practices_checklist.rst", "lineno": 32, "status": "working", "code": 0, "uri": "security_hardening.rst", "info": ""}
+{"filename": "Overview\\components.rst", "lineno": 252, "status": "working", "code": 0, "uri": "security_model.rst", "info": ""}
+{"filename": "Reference\\SupportMatrix\\operating_systems.rst", "lineno": 146, "status": "working", "code": 0, "uri": "servers.rst", "info": ""}
+{"filename": "HowTo\\Authentication\\replicate_ldap.rst", "lineno": 31, "status": "working", "code": 0, "uri": "setup_openldap.rst", "info": ""}
+{"filename": "HowTo\\Authentication\\deploy_external_ldap.rst", "lineno": 289, "status": "working", "code": 0, "uri": "setup_openldap_proxy.rst", "info": ""}
+{"filename": "HowTo\\Kubernetes\\configure_ha.rst", "lineno": 29, "status": "working", "code": 0, "uri": "setup_service_k8s.rst", "info": ""}
+{"filename": "HowTo\\Slurm\\add_slurm_nodes.rst", "lineno": 29, "status": "working", "code": 0, "uri": "setup_slurm.rst", "info": ""}
+{"filename": "HowTo\\Telemetry\\configure_external_kafka.rst", "lineno": 35, "status": "working", "code": 0, "uri": "setup_telemetry.rst", "info": ""}
+{"filename": "Reference\\SampleFiles\\slurmdbd_conf.rst", "lineno": 176, "status": "working", "code": 0, "uri": "slurm_conf.rst", "info": ""}
+{"filename": "HowTo\\Slurm\\remove_slurm_nodes.rst", "lineno": 178, "status": "working", "code": 0, "uri": "slurm_config_backup.rst", "info": ""}
+{"filename": "GetStarted\\buildstream_deployment.rst", "lineno": 854, "status": "working", "code": 0, "uri": "slurm_quickstart.rst", "info": ""}
+{"filename": "HowTo\\Slurm\\add_slurm_nodes.rst", "lineno": 164, "status": "working", "code": 0, "uri": "slurm_with_gpu.rst", "info": ""}
+{"filename": "Reference\\SampleFiles\\slurm_conf.rst", "lineno": 173, "status": "working", "code": 0, "uri": "slurmdbd_conf.rst", "info": ""}
+{"filename": "Reference\\Configuration\\local_repo_config.rst", "lineno": 211, "status": "working", "code": 0, "uri": "software_config.rst", "info": ""}
+{"filename": "Reference\\SupportMatrix\\network_topologies.rst", "lineno": 182, "status": "working", "code": 0, "uri": "switches.rst", "info": ""}
+{"filename": "Overview\\architecture.rst", "lineno": 248, "status": "working", "code": 0, "uri": "telemetry_architecture.rst", "info": ""}
+{"filename": "HowTo\\Telemetry\\configure_external_victoria.rst", "lineno": 182, "status": "working", "code": 0, "uri": "telemetry_from_ome.rst", "info": ""}
+{"filename": "HowTo\\BuildStreaM\\buildstream_troubleshooting.rst", "lineno": 26, "status": "working", "code": 0, "uri": "update_catalog_pipeline.rst", "info": ""}
+{"filename": "HowTo\\Containers\\deploy_additional_packages.rst", "lineno": 268, "status": "working", "code": 0, "uri": "use_apptainer.rst", "info": ""}
+{"filename": "HowTo\\Setup\\discover_nodes.rst", "lineno": 174, "status": "working", "code": 0, "uri": "verify_cluster.rst", "info": ""}
+{"filename": "HowTo\\Setup\\build_cluster_images.rst", "lineno": 41, "status": "working", "code": 0, "uri": "verify_oim_services.rst", "info": ""}
+{"filename": "HowTo\\Telemetry\\configure_external_kafka.rst", "lineno": 191, "status": "working", "code": 0, "uri": "verify_telemetry.rst", "info": ""}
+{"filename": "Overview\\security_model.rst", "lineno": 438, "status": "working", "code": 0, "uri": "https://www.dell.com/support/contents/en-in/article/product-support/self-support-knowledgebase/security-antivirus/alerts-vulnerabilities/dell-vulnerability-response-policy", "info": ""}
+{"filename": "Overview\\security_model.rst", "lineno": 267, "status": "broken", "code": 0, "uri": "https://www.ory.sh/hydra/", "info": "HTTPSConnectionPool(host='www.ory.sh', port=443): Max retries exceeded with url: /hydra/ (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "HowTo\\Slurm\\build_slurm_repo.rst", "lineno": 35, "status": "broken", "code": 0, "uri": "https://www.schedmd.com/downloads.php", "info": "HTTPSConnectionPool(host='www.schedmd.com', port=443): Max retries exceeded with url: /downloads.php (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}
+{"filename": "Reference\\Appendices\\timezones.rst", "lineno": 7, "status": "broken", "code": 0, "uri": "https://www.iana.org/time-zones", "info": "HTTPSConnectionPool(host='www.iana.org', port=443): Max retries exceeded with url: /time-zones (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1000)')))"}

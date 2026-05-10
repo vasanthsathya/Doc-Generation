@@ -253,3 +253,126 @@ h2 {
         gap: 1rem;
     }
 }
+
+/* PyData Sphinx Theme specific styling */
+/* First row: Logo, search, and repository icon */
+.bd-header .navbar-header-items__start {
+    background-color: #001D3D;
+    padding: 0.3rem 2rem 0.3rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between !important;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 50px;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* Remove padding from logo container */
+.bd-header .navbar-header-items__start .navbar-item {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* Repository icon styling */
+.bd-header .navbar-icon-links {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Second row: Navigation menu */
+.bd-header .navbar-header-items {
+    background-color: #003566;
+    padding: 0.3rem 0 0.3rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* Ensure consistent container alignment across all elements */
+.bd-container,
+.bd-page-width,
+.bd-content,
+.bd-sidebar-primary,
+.bd-footer,
+footer,
+.prev-next-footer {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+/* Ensure main content area aligns with navigation */
+.bd-main {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.bd-header .navbar-header-items__center {
+    justify-content: space-between !important;
+}
+
+/* Logo styling */
+.bd-header .navbar-brand {
+    color: white !important;
+    padding-left: 0 !important;
+}
+
+.bd-header .navbar-brand:hover {
+    color: white !important;
+}
+
+/* Navigation links styling */
+.bd-header .bd-navbar-elements {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    padding-left: 0 !important;
+    justify-content: space-between !important;
+}
+
+/* Main index files (captions and top-level) - Dell blue */
+.bd-sidebar-primary .caption,
+.bd-sidebar-primary .toctree-l1 > .reference.internal[href*="index.html"] {
+    color: #0076CE !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+}
+
+/* Sub-index files (nested levels) - dark blue */
+.bd-sidebar-primary .toctree-l2 .reference.internal[href*="index.html"],
+.bd-sidebar-primary .toctree-l3 .reference.internal[href*="index.html"] {
+    color: #001D3D !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+}
+
+/* Align all navigation items to the left */
+.bd-sidebar-primary .bd-sidenav,
+.bd-sidebar-primary .toctree-l1,
+.bd-sidebar-primary .toctree-l2,
+.bd-sidebar-primary .toctree-l3,
+.bd-sidebar-primary .toctree-l4 {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+.bd-sidebar-primary .toctree-l1,
+.bd-sidebar-primary .toctree-l2,
+.bd-sidebar-primary .toctree-l3,
+.bd-sidebar-primary .toctree-l4 {
+    margin-left: 0 !important;
+}
+
+.bd-sidebar-primary .toctree-l1 ul,
+.bd-sidebar-primary .toctree-l2 ul,
+.bd-sidebar-primary .toctree-l3 ul {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}

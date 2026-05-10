@@ -5,6 +5,12 @@ let lastScrollTop = 0;
 let scrollTimeout;
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Force sidebar to always be visible on wide screens
+  forceSidebarVisible();
+  
+  // Also run after a short delay to ensure theme JS has loaded
+  setTimeout(forceSidebarVisible, 500);
+
   const header = document.querySelector('.bd-header');
   
   if (header) {
@@ -37,14 +43,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const endItems = headerInner.querySelector('.navbar-header-items__end');
     
     if (startItems && endItems) {
-      // Add custom theme switch button first (before search)
-      addThemeSwitchButton(startItems);
-      
       // Move search button container from end to start
       const searchContainer = endItems.querySelector('.navbar-persistent--container');
       if (searchContainer) {
         startItems.appendChild(searchContainer);
       }
+      
+      // Add theme switch button (between search and github)
+      addThemeSwitchButton(startItems);
       
       // Move repository icon links container from end to start
       const iconLinks = endItems.querySelector('.navbar-icon-links');
@@ -309,4 +315,39 @@ function formatNumber(num) {
     return (num / 1000).toFixed(1) + 'k';
   }
   return num.toString();
+}
+
+// Force sidebar to always be visible on wide screens
+function forceSidebarVisible() {
+  const sidebar = document.getElementById('pst-primary-sidebar');
+  if (sidebar) {
+    // Remove the hide-on-wide class
+    sidebar.classList.remove('hide-on-wide');
+    
+    // Use a MutationObserver to prevent the class from being added back
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        if (mutation.attributeName === 'class') {
+          const target = mutation.target;
+          if (target.classList.contains('hide-on-wide')) {
+            target.classList.remove('hide-on-wide');
+          }
+        }
+      });
+    });
+    
+    observer.observe(sidebar, { attributes: true, attributeFilter: ['class'] });
+  }
+  
+  // Hide the collapse button
+  const collapseButton = document.getElementById('pst-collapse-sidebar-button');
+  if (collapseButton) {
+    collapseButton.style.display = 'none';
+  }
+  
+  // Force all navigation items to be expanded
+  const navItems = document.querySelectorAll('.bd-sidebar-primary .toctree-l1, .bd-sidebar-primary .toctree-l2, .bd-sidebar-primary .toctree-l3, .bd-sidebar-primary .toctree-l4');
+  navItems.forEach(function(item) {
+    item.style.display = 'block';
+  });
 }
