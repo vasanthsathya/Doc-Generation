@@ -1,7 +1,35 @@
 // Custom JavaScript for pydata-sphinx-theme
 
-// Fetch GitHub repository data and update icon links with counts
+// Navbar scroll hide/show behavior
+let lastScrollTop = 0;
+let scrollTimeout;
+
 document.addEventListener('DOMContentLoaded', function() {
+  const header = document.querySelector('.bd-header');
+  
+  if (header) {
+    window.addEventListener('scroll', function() {
+      const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Clear previous timeout
+      clearTimeout(scrollTimeout);
+      
+      // Add small delay to prevent flickering
+      scrollTimeout = setTimeout(function() {
+        if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+          // Scrolling down - hide navbar
+          header.classList.add('nav-hidden');
+          header.classList.remove('nav-visible');
+        } else {
+          // Scrolling up - show navbar
+          header.classList.remove('nav-hidden');
+          header.classList.add('nav-visible');
+        }
+        lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+      }, 10);
+    }, false);
+  }
+  
   const headerInner = document.querySelector('.bd-header__inner');
   
   if (headerInner) {
@@ -42,7 +70,8 @@ function addThemeSwitchButton(container) {
   themeSwitchButton.className = 'btn btn-sm nav-link theme-switch-button-custom';
   themeSwitchButton.setAttribute('aria-label', 'Color mode');
   themeSwitchButton.setAttribute('title', 'Toggle dark/light mode');
-  themeSwitchButton.innerHTML = '<i class="fa-solid fa-moon"></i>';
+  // Use SVG icon instead of FontAwesome with increased size
+  themeSwitchButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2rem" height="2rem" fill="white"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>`;
   
   // Add click handler to toggle theme
   themeSwitchButton.addEventListener('click', function() {
@@ -62,11 +91,13 @@ function toggleTheme(button) {
   
   if (currentTheme === 'dark') {
     html.setAttribute('data-theme', 'light');
-    button.innerHTML = '<i class="fa-solid fa-moon"></i>';
+    // Moon icon for light mode (opposite behavior)
+    button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2rem" height="2rem" fill="white"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>`;
     localStorage.setItem('theme', 'light');
   } else {
     html.setAttribute('data-theme', 'dark');
-    button.innerHTML = '<i class="fa-solid fa-sun"></i>';
+    // Sun icon for dark mode (opposite behavior)
+    button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2rem" height="2rem" fill="white"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/></svg>`;
     localStorage.setItem('theme', 'dark');
   }
 }
@@ -77,10 +108,12 @@ function setInitialTheme(button) {
   
   if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
     document.documentElement.setAttribute('data-theme', 'dark');
-    button.innerHTML = '<i class="fa-solid fa-sun"></i>';
+    // Sun icon for dark mode (opposite behavior)
+    button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2rem" height="2rem" fill="white"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/></svg>`;
   } else {
     document.documentElement.setAttribute('data-theme', 'light');
-    button.innerHTML = '<i class="fa-solid fa-moon"></i>';
+    // Moon icon for light mode (opposite behavior)
+    button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="2rem" height="2rem" fill="white"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>`;
   }
 }
 
@@ -110,7 +143,8 @@ async function fetchGitHubData() {
 }
 
 function showBasicGitHubIcon() {
-  const githubLink = document.querySelector('.navbar-icon-links .nav-link[title="GitHub"]') ||
+  const githubLink = document.querySelector('.navbar-icon-links .nav-link.pst-navbar-icon[title="GitHub"]') ||
+                       document.querySelector('.navbar-icon-links .nav-link[title="GitHub"]') ||
                        document.querySelector('.navbar-icon-links a[title="GitHub"]') ||
                        document.querySelector('.navbar-icon-links a.pst-navbar-icon[title="GitHub"]') ||
                        document.querySelector('.navbar-icon-links a[href*="github.com/dell/omnia"]') ||
@@ -125,8 +159,8 @@ function showBasicGitHubIcon() {
     const iconColumn = document.createElement('div');
     iconColumn.className = 'github-icon-column';
     
-    const icon = document.createElement('i');
-    icon.className = 'fa-brands fa-github github-main-icon';
+    const icon = document.createElement('div');
+    icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.8rem" height="1.8rem" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>`;
     icon.style.fontSize = '1.8rem';
     icon.style.color = 'white';
     
@@ -136,15 +170,11 @@ function showBasicGitHubIcon() {
     const infoColumn = document.createElement('div');
     infoColumn.className = 'github-info-column';
     
-    const repoRow = document.createElement('div');
-    repoRow.className = 'github-repo-row';
-    
-    const repoName = document.createElement('span');
+    const repoName = document.createElement('div');
     repoName.className = 'github-repo-name';
     repoName.textContent = 'dell/omnia';
     
-    repoRow.appendChild(repoName);
-    infoColumn.appendChild(repoRow);
+    infoColumn.appendChild(repoName);
     
     githubContainer.appendChild(iconColumn);
     githubContainer.appendChild(infoColumn);
@@ -159,7 +189,8 @@ function showBasicGitHubIcon() {
 
 function updateGitHubLink(repoData, releaseData) {
   // Try multiple selectors to find the GitHub link
-  const githubLink = document.querySelector('.navbar-icon-links .nav-link[title="GitHub"]') ||
+  const githubLink = document.querySelector('.navbar-icon-links .nav-link.pst-navbar-icon[title="GitHub"]') ||
+                       document.querySelector('.navbar-icon-links .nav-link[title="GitHub"]') ||
                        document.querySelector('.navbar-icon-links a[title="GitHub"]') ||
                        document.querySelector('.navbar-icon-links a.pst-navbar-icon[title="GitHub"]') ||
                        document.querySelector('.navbar-icon-links a[href*="github.com/dell/omnia"]') ||
@@ -170,7 +201,7 @@ function updateGitHubLink(repoData, releaseData) {
   console.log('Release data:', releaseData);
   
   if (githubLink) {
-    // Create a container for the stacked layout
+    // Create a container for the layout
     const githubContainer = document.createElement('div');
     githubContainer.className = 'github-info-container';
     
@@ -179,29 +210,25 @@ function updateGitHubLink(repoData, releaseData) {
     iconColumn.className = 'github-icon-column';
     
     // Create GitHub icon directly instead of cloning
-    const icon = document.createElement('i');
-    icon.className = 'fa-brands fa-github github-main-icon';
+    const icon = document.createElement('div');
+    icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1.8rem" height="1.8rem" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>`;
     icon.style.fontSize = '1.8rem';
     icon.style.color = 'white';
     console.log('Created GitHub icon element:', icon);
     
     iconColumn.appendChild(icon);
     
-    // Create info column (right side)
+    // Create info column (right side) - single row with repo name, stats on next line
     const infoColumn = document.createElement('div');
     infoColumn.className = 'github-info-column';
     
-    // Create repository name row
-    const repoRow = document.createElement('div');
-    repoRow.className = 'github-repo-row';
-    
-    const repoName = document.createElement('span');
+    // Repository name (first line)
+    const repoName = document.createElement('div');
     repoName.className = 'github-repo-name';
     repoName.textContent = 'dell/omnia';
+    infoColumn.appendChild(repoName);
     
-    repoRow.appendChild(repoName);
-    
-    // Create stats row
+    // Stats (version, stars, forks) - second line
     const statsRow = document.createElement('div');
     statsRow.className = 'github-stats-row';
     
@@ -232,7 +259,6 @@ function updateGitHubLink(repoData, releaseData) {
       console.log('No fork count available');
     }
     
-    infoColumn.appendChild(repoRow);
     infoColumn.appendChild(statsRow);
     
     githubContainer.appendChild(iconColumn);
@@ -255,8 +281,18 @@ function createStatItem(iconClass, text, url) {
   statItem.target = '_blank';
   statItem.rel = 'noopener';
   
-  const statIcon = document.createElement('i');
-  statIcon.className = iconClass;
+  // Create SVG icon based on iconClass
+  let svgIcon = '';
+  if (iconClass.includes('fa-tag')) {
+    svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="0.85rem" height="0.85rem" fill="white"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>`;
+  } else if (iconClass.includes('fa-star')) {
+    svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="0.85rem" height="0.85rem" fill="white"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
+  } else if (iconClass.includes('fa-code-fork')) {
+    svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="0.85rem" height="0.85rem" fill="white"><path d="M6 2c-1.1 0-2 .9-2 2s.9 2 2 2c.55 0 1.05-.22 1.41-.59l5.59 5.59c-.37.36-.59.86-.59 1.41 0 1.1.9 2 2 2s2-.9 2-2c0-.55-.22-1.05-.59-1.41l5.59-5.59c.36.37.86.59 1.41.59 1.1 0 2-.9 2-2s-.9-2-2-2c-.55 0-1.05.22-1.41.59L12 5.17 6.41 10.76C6.05 11.12 5.55 10.9 5 10.9c-1.1 0-2 .9-2 2s.9 2 2 2c.55 0 1.05-.22 1.41-.59L12 9.17l5.59 5.59c-.36.36-.59.86-.59 1.41 0 1.1.9 2 2 2s2-.9 2-2c0-.55-.22-1.05-.59-1.41L12 9.17 6.41 3.59C6.77 3.23 6.55 2.73 6.55 2.18c0-1.1-.9-2-2-2z"/></svg>`;
+  }
+  
+  const statIcon = document.createElement('div');
+  statIcon.innerHTML = svgIcon;
   
   const statText = document.createElement('span');
   statText.className = 'github-stat-text';
