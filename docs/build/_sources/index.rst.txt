@@ -95,6 +95,7 @@ How This Documentation is Organized
 .. toctree::
    :hidden:
 
+   Home <self>
    Overview/index
    GetStarted/index
    HowTo/index

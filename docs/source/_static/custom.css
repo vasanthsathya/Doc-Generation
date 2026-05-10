@@ -3,7 +3,7 @@
 /* Two-row navbar styling */
 .bd-header {
     flex-direction: column !important;
-    background-color: #007db8 !important;
+    background-color: #001D3D !important;
 }
 
 .bd-header__inner {
@@ -27,7 +27,7 @@
 
 /* First row: Logo, search, and repository icon */
 .bd-header .navbar-header-items__start {
-    background-color: #007db8;
+    background-color: #001D3D;
     padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
@@ -53,9 +53,9 @@
 
 /* Second row: Navigation menu */
 .bd-header .navbar-header-items {
-    background-color: #f8f9fa;
+    background-color: #001D3D;
     padding: 0.5rem 1rem;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .bd-header .navbar-header-items__center {
@@ -96,19 +96,21 @@
 
 /* Navigation links styling */
 .bd-header .bd-navbar-elements .nav-link {
-    color: #333 !important;
+    color: #B3C3D1 !important;
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    text-transform: uppercase;
 }
 
 .bd-header .bd-navbar-elements .nav-link:hover {
-    background-color: #e0e0e0;
+    color: #FFFFFF !important;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .bd-header .bd-navbar-elements .nav-link.active {
-    background-color: #007db8;
-    color: white !important;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF !important;
 }
 
 /* Adjust main content to account for two-row navbar */
