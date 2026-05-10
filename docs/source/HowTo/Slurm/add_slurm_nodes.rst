@@ -26,7 +26,7 @@ Prerequisites
 -------------
 
 
-- A working Slurm cluster deployed via `Setup Slurm <setup_slurm.md>`_.
+- A working Slurm cluster deployed via `Setup Slurm <setup_slurm.rst>`_.
 - New server(s) are physically racked, cabled, and have BMC connectivity.
 - The new server(s) have been provisioned and are reachable on the admin
   network.
@@ -151,10 +151,10 @@ Next Steps
 ----------
 
 
-- `Slurm With Gpu <slurm_with_gpu.md>`_ -- Configure GPU support on the new nodes if they have
+- `Slurm With Gpu <slurm_with_gpu.rst>`_ -- Configure GPU support on the new nodes if they have
   GPUs.
-- `Configure Nfs <../Storage/configure_nfs.md>`_ -- Mount shared storage on new nodes.
-- `Setup Openldap <../Authentication/setup_openldap.md>`_ -- Ensure LDAP clients are
+- `Configure Nfs <../Storage/configure_nfs.rst>`_ -- Mount shared storage on new nodes.
+- `Setup Openldap <../Authentication/setup_openldap.rst>`_ -- Ensure LDAP clients are
   configured on new nodes.
 
 

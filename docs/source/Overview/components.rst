@@ -99,7 +99,7 @@ Boot Script Service (BSS)
 
 
 BSS dynamically generates boot scripts for each node based on its hardware
-profile and the role assigned to it in the `Composable Roles <composable_roles.md>`_ mapping file.
+profile and the role assigned to it in the `Composable Roles <composable_roles.rst>`_ mapping file.
 When a node PXE-boots, the following sequence occurs:
 
 #. The node's NIC sends a DHCP request; **CoreDHCP** responds with an IP
@@ -249,9 +249,9 @@ integrates with virtually every Linux distribution and application.
 .. note::
 
 
-   - `Security Model <security_model.md>`_ -- How Omnia protects credentials and manages TLS
+   - `Security Model <security_model.rst>`_ -- How Omnia protects credentials and manages TLS
      certificates.
-   - `Architecture <architecture.md>`_ -- Where each component runs in the three-cluster
+   - `Architecture <architecture.rst>`_ -- Where each component runs in the three-cluster
      model.
 
 
@@ -279,7 +279,7 @@ supporting services:
    * - **AWX** *(optional)*
      - Web-based UI and REST API for Ansible Tower. Provides a graphical interface for running playbooks, managing inventories, and scheduling jobs.
    * - **step-ca**
-     - Internal certificate authority for issuing TLS certificates to cluster services. See `Security Model <security_model.md>`_.
+     - Internal certificate authority for issuing TLS certificates to cluster services. See `Security Model <security_model.rst>`_.
    * - **Hydra**
      - OAuth 2.0 and OpenID Connect (OIDC) provider for token-based authentication between services.
 
@@ -288,6 +288,6 @@ supporting services:
 .. note::
 
 
-   `Architecture <architecture.md>`_ for a visual diagram of how these components are
+   `Architecture <architecture.rst>`_ for a visual diagram of how these components are
    deployed across the OIM, Slurm, and Kubernetes clusters.
 

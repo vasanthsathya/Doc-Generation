@@ -270,8 +270,8 @@ Next Steps
 ----------
 
 
-- `Replicate Ldap <replicate_ldap.md>`_ -- Replicate the external LDAP for redundancy.
-- `Setup Openldap Proxy <setup_openldap_proxy.md>`_ -- Proxy an existing directory through Omnia.
+- `Replicate Ldap <replicate_ldap.rst>`_ -- Replicate the external LDAP for redundancy.
+- `Setup Openldap Proxy <setup_openldap_proxy.rst>`_ -- Proxy an existing directory through Omnia.
 
 
 

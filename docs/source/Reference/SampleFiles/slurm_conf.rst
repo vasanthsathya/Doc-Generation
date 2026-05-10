@@ -169,8 +169,8 @@ Key parameter reference
 .. note::
 
 
-   - `Slurmdbd Conf <slurmdbd_conf.md>`_ -- Companion ``slurmdbd.conf`` configuration.
-   - `Omnia Config <../Configuration/omnia_config.md>`_ -- Omnia-level Slurm settings.
+   - `Slurmdbd Conf <slurmdbd_conf.rst>`_ -- Companion ``slurmdbd.conf`` configuration.
+   - `Omnia Config <../Configuration/omnia_config.rst>`_ -- Omnia-level Slurm settings.
    - `Slurm documentation <https://slurm.schedmd.com/slurm.conf.html>`_ --
      Upstream parameter reference.
 

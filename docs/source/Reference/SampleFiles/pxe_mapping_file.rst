@@ -39,7 +39,7 @@ Column reference
      - Service tag of the parent chassis for multi-node systems (e.g., C6620, C6625). Leave blank for standalone servers.
    * - ``HOSTNAME``
      - Yes
-     - Hostname to assign to the node. Must comply with hostname rules (see `Hostname Requirements <../Appendices/hostname_requirements.md>`_).
+     - Hostname to assign to the node. Must comply with hostname rules (see `Hostname Requirements <../Appendices/hostname_requirements.rst>`_).
    * - ``ADMIN_MAC``
      - Yes
      - MAC address of the admin network NIC (used for PXE boot). Format: ``AA:BB:CC:DD:EE:FF``.
@@ -134,7 +134,7 @@ Annotated breakdown
 
 - Runs the Kubernetes API server, etcd, scheduler, and controller-manager.
 - For HA, use 3 control plane nodes (see
-  `Ha Config <../Configuration/ha_config.md>`_).
+  `Ha Config <../Configuration/ha_config.rst>`_).
 
 **Kubernetes worker nodes**
 
@@ -184,7 +184,7 @@ Validation rules
    * - Valid ``FUNCTIONAL_GROUP_NAME``
      - Must be one of the recognized group names listed above.
    * - Hostname format
-     - Lowercase, no domain suffix, RFC 952/1123 compliant. See `Hostname Requirements <../Appendices/hostname_requirements.md>`_.
+     - Lowercase, no domain suffix, RFC 952/1123 compliant. See `Hostname Requirements <../Appendices/hostname_requirements.rst>`_.
    * - IP within subnet
      - ``ADMIN_IP`` must fall within the admin network subnet and outside the ``dynamic_range``. ``BMC_IP`` must fall within the BMC subnet.
 
@@ -202,9 +202,9 @@ Validation rules
 .. note::
 
 
-   - `Provision Config <../Configuration/provision_config.md>`_ -- Where the mapping
+   - `Provision Config <../Configuration/provision_config.rst>`_ -- Where the mapping
      file path is specified.
-   - `Software Config <../Configuration/software_config.md>`_ -- Software packages
+   - `Software Config <../Configuration/software_config.rst>`_ -- Software packages
      per functional group.
-   - `Hostname Requirements <../Appendices/hostname_requirements.md>`_ -- Hostname rules.
+   - `Hostname Requirements <../Appendices/hostname_requirements.rst>`_ -- Hostname rules.
 

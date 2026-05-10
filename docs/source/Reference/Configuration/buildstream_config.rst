@@ -166,8 +166,8 @@ Usage example
 .. note::
 
 
-   - `Playbook Reference <../Playbooks/playbook_reference.md>`_ -- BuildStreaM-related
+   - `Playbook Reference <../Playbooks/playbook_reference.rst>`_ -- BuildStreaM-related
      playbooks.
-   - `Minimum Nodes <../ClusterRequirements/minimum_nodes.md>`_ -- Minimum nodes
+   - `Minimum Nodes <../ClusterRequirements/minimum_nodes.rst>`_ -- Minimum nodes
      for BuildStreaM deployments (8+).
 

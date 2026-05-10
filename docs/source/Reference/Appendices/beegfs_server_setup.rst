@@ -258,9 +258,9 @@ clients:
 .. note::
 
 
-   - `Storage Config <../Configuration/storage_config.md>`_ -- BeeGFS client
+   - `Storage Config <../Configuration/storage_config.rst>`_ -- BeeGFS client
      configuration parameters.
-   - `Storage <../SupportMatrix/storage.md>`_ -- Supported storage platforms.
+   - `Storage <../SupportMatrix/storage.rst>`_ -- Supported storage platforms.
    - `BeeGFS Documentation <https://doc.beegfs.io/latest/>`_ -- Official
      BeeGFS documentation.
 

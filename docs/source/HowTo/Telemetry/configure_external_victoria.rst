@@ -33,7 +33,7 @@ Prerequisites
   operational and accessible.
 - The VictoriaMetrics write endpoint (``/api/v1/write``) is reachable from
   the K8s service cluster.
-- The `Setup Telemetry <setup_telemetry.md>`_ procedure has been reviewed.
+- The `Setup Telemetry <setup_telemetry.rst>`_ procedure has been reviewed.
 
 
 
@@ -169,8 +169,8 @@ Next Steps
 ----------
 
 
-- `Verify Telemetry <verify_telemetry.md>`_ -- End-to-end telemetry verification.
-- `Telemetry From Ome <telemetry_from_ome.md>`_ -- Add OME telemetry to the external instance.
+- `Verify Telemetry <verify_telemetry.rst>`_ -- End-to-end telemetry verification.
+- `Telemetry From Ome <telemetry_from_ome.rst>`_ -- Add OME telemetry to the external instance.
 
 
 

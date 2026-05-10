@@ -48,7 +48,7 @@ PowerScale (OneFS) integration
    * - Access zone
      - Configure a dedicated access zone for HPC exports to isolate permissions and authentication.
    * - Protocol
-     - NFS v3 or NFS v4.x -- configured in ``storage_config.yml`` (see `Storage Config <../Configuration/storage_config.md>`_).
+     - NFS v3 or NFS v4.x -- configured in ``storage_config.yml`` (see `Storage Config <../Configuration/storage_config.rst>`_).
    * - Authentication
      - Local, LDAP, or Active Directory. Must match the cluster authentication method configured in ``security_config.yml``.
    * - SMB support
@@ -115,10 +115,10 @@ defined parallel filesystem running on cluster nodes.
 .. note::
 
 
-   - `Storage Config <../Configuration/storage_config.md>`_ -- Storage configuration
+   - `Storage Config <../Configuration/storage_config.rst>`_ -- Storage configuration
      parameters.
-   - `Beegfs Server Setup <../Appendices/beegfs_server_setup.md>`_ -- BeeGFS server setup
+   - `Beegfs Server Setup <../Appendices/beegfs_server_setup.rst>`_ -- BeeGFS server setup
      reference.
-   - `Disk Space <../ClusterRequirements/disk_space.md>`_ -- Disk space requirements
+   - `Disk Space <../ClusterRequirements/disk_space.rst>`_ -- Disk space requirements
      for storage nodes.
 

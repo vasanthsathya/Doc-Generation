@@ -159,8 +159,8 @@ All playbooks are executed from within the ``omnia_core`` container on the OIM:
 .. note::
 
 
-   - `Provision Config <../Configuration/provision_config.md>`_ -- Provisioning parameters.
-   - `Omnia Config <../Configuration/omnia_config.md>`_ -- Cluster deployment
+   - `Provision Config <../Configuration/provision_config.rst>`_ -- Provisioning parameters.
+   - `Omnia Config <../Configuration/omnia_config.rst>`_ -- Cluster deployment
      parameters.
-   - `Pxe Mapping File <../SampleFiles/pxe_mapping_file.md>`_ -- PXE mapping CSV format.
+   - `Pxe Mapping File <../SampleFiles/pxe_mapping_file.rst>`_ -- PXE mapping CSV format.
 

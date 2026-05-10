@@ -23,13 +23,13 @@ BIOS and firmware
      - Reference
    * - ☐
      - **Disable PowerCap** on all compute nodes to ensure maximum CPU performance. PowerCap can throttle compute-intensive HPC workloads.
-     - `Prerequisites Checklist <../GetStarted/prerequisites_checklist.md>`_
+     - `Prerequisites Checklist <../GetStarted/prerequisites_checklist.rst>`_
    * - ☐
      - **Set BIOS to Performance mode** on all compute nodes. The ``Performance`` power profile maximizes clock speeds and disables power-saving C-states that introduce latency.
-     - `Prerequisites Checklist <../GetStarted/prerequisites_checklist.md>`_
+     - `Prerequisites Checklist <../GetStarted/prerequisites_checklist.rst>`_
    * - ☐
      - **Keep iDRAC firmware current** on all nodes. Firmware updates fix bugs, improve Redfish API reliability, and patch security vulnerabilities. Use Dell Repository Manager or ``racadm`` for updates.
-     - `Security Hardening <security_hardening.md>`_
+     - `Security Hardening <security_hardening.rst>`_
 
 
 
@@ -47,10 +47,10 @@ Playbook execution
      - Reference
    * - ☐
      - **Run playbooks from their directory** using ``cd``. Omnia playbooks use relative paths for roles and configuration files. Always ``cd /omnia`` before running ``ansible-playbook``.
-     - `Index <../HowTo/index.md>`_
+     - `Index <../HowTo/index.rst>`_
    * - ☐
      - **Review prerequisites before running playbooks.** Each playbook has specific input files and environment requirements. Check the corresponding how-to guide before execution.
-     - `Index <../HowTo/index.md>`_
+     - `Index <../HowTo/index.rst>`_
 
 
 
@@ -68,13 +68,13 @@ Storage and telemetry
      - Reference
    * - ☐
      - **Provision sufficient NFS storage for telemetry.** The telemetry pipeline (VictoriaMetrics, Kafka) can generate significant data volumes. Allocate at least 500 GB of NFS-backed persistent storage for telemetry retention.
-     - `Setup Telemetry <../HowTo/Telemetry/setup_telemetry.md>`_
+     - `Setup Telemetry <../HowTo/Telemetry/setup_telemetry.rst>`_
    * - ☐
      - **Prefer the PowerScale CSI driver over external NFS** for Kubernetes persistent volumes. The CSI driver provides dynamic provisioning, better performance, and snapshot support compared to static NFS mounts.
-     - `Deploy Powerscale Csi <../HowTo/Kubernetes/deploy_powerscale_csi.md>`_
+     - `Deploy Powerscale Csi <../HowTo/Kubernetes/deploy_powerscale_csi.rst>`_
    * - ☐
      - **Ensure external NFS is accessible via the admin network.** If using external NFS (not PowerScale), verify that the NFS server is reachable from all nodes on the admin network and that firewall rules allow NFS traffic (ports 2049, 111).
-     - `Configure Nfs <../HowTo/Storage/configure_nfs.md>`_
+     - `Configure Nfs <../HowTo/Storage/configure_nfs.rst>`_
 
 
 
@@ -92,16 +92,16 @@ System administration
      - Reference
    * - ☐
      - **Minimize OIM reboots.** The OIM hosts critical Podman containers that provide provisioning, DHCP, and management services. Rebooting the OIM interrupts these services and may cause hostname or IP changes. Plan reboots during maintenance windows only.
-     - `General <../Troubleshooting/general.md>`_
+     - `General <../Troubleshooting/general.rst>`_
    * - ☐
      - **Keep Firefox updated on RHEL OIM.** If you use the AWX web UI on the OIM, ensure Firefox (the default RHEL browser) is updated to avoid TLS compatibility and rendering issues.
-     - `Security Hardening <security_hardening.md>`_
+     - `Security Hardening <security_hardening.rst>`_
    * - ☐
      - **Run** ``yum update --security`` **routinely.** Apply security patches on the OIM and all cluster nodes on a regular schedule (monthly recommended). Drain Slurm nodes before applying updates.
-     - `Security Hardening <security_hardening.md>`_
+     - `Security Hardening <security_hardening.rst>`_
    * - ☐
      - **Sync system time across the OIM and all nodes.** Use ``chrony`` or ``ntpd`` to maintain synchronized clocks. Time drift causes Kerberos authentication failures, Slurm scheduling issues, and inaccurate telemetry timestamps.
-     - `Prerequisites Checklist <../GetStarted/prerequisites_checklist.md>`_
+     - `Prerequisites Checklist <../GetStarted/prerequisites_checklist.rst>`_
 
 
 
@@ -129,8 +129,8 @@ deployment:
 .. note::
 
 
-   - `Prerequisites Checklist <../GetStarted/prerequisites_checklist.md>`_ -- Detailed prerequisites for
+   - `Prerequisites Checklist <../GetStarted/prerequisites_checklist.rst>`_ -- Detailed prerequisites for
      all deployment paths.
-   - `Security Hardening <security_hardening.md>`_ -- Full security hardening procedures.
-   - `Log Management <log_management.md>`_ -- Log monitoring and rotation configuration.
+   - `Security Hardening <security_hardening.rst>`_ -- Full security hardening procedures.
+   - `Log Management <log_management.rst>`_ -- Log monitoring and rotation configuration.
 

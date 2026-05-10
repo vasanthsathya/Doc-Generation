@@ -28,7 +28,7 @@ Prerequisites
 -------------
 
 
-- The `Setup Openldap <setup_openldap.md>`_ procedure is complete (primary OpenLDAP is
+- The `Setup Openldap <setup_openldap.rst>`_ procedure is complete (primary OpenLDAP is
   running in the ``omnia_auth`` container).
 - A secondary server (or container) is available to host the replica.
 - Network connectivity between the primary and replica LDAP servers.
@@ -227,8 +227,8 @@ Next Steps
 ----------
 
 
-- `Deploy External Ldap <deploy_external_ldap.md>`_ -- Deploy a fully external LDAP setup.
-- `Setup Slurm <../Slurm/setup_slurm.md>`_ -- Slurm users authenticate via the
+- `Deploy External Ldap <deploy_external_ldap.rst>`_ -- Deploy a fully external LDAP setup.
+- `Setup Slurm <../Slurm/setup_slurm.rst>`_ -- Slurm users authenticate via the
   replicated LDAP.
 
 

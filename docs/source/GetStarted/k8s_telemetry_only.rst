@@ -59,7 +59,7 @@ with no HPC job scheduler required.
 .. note::
 
 
-   Complete the `Prerequisites Checklist <prerequisites_checklist.md>`_ before proceeding. Pay
+   Complete the `Prerequisites Checklist <prerequisites_checklist.rst>`_ before proceeding. Pay
    particular attention to the **iDRAC Settings** section (Datacenter
    license required for telemetry) and **Service Kubernetes Requirements**
    (3 control-plane nodes with 64 GB RAM each).
@@ -653,7 +653,7 @@ Your K8s telemetry cluster is operational. Common next steps:
    ``telemetry_config.yml`` and re-run ``telemetry.yml``.
 
 **Add Slurm later**
-   Follow `Full Deployment <full_deployment.md>`_ (Path B) to add Slurm head, compute,
+   Follow `Full Deployment <full_deployment.rst>`_ (Path B) to add Slurm head, compute,
    and login nodes to this existing deployment. The K8s telemetry cluster
    you built here will seamlessly monitor the Slurm nodes.
 
@@ -675,7 +675,7 @@ Your K8s telemetry cluster is operational. Common next steps:
 .. note::
 
 
-   - `Full Deployment <full_deployment.md>`_ -- Add Slurm to this K8s deployment
-   - `Prerequisites Checklist <prerequisites_checklist.md>`_ -- Master checklist
-   - `Telemetry Architecture <../Overview/telemetry_architecture.md>`_ -- Deep dive into the telemetry pipeline
+   - `Full Deployment <full_deployment.rst>`_ -- Add Slurm to this K8s deployment
+   - `Prerequisites Checklist <prerequisites_checklist.rst>`_ -- Master checklist
+   - `Telemetry Architecture <../Overview/telemetry_architecture.rst>`_ -- Deep dive into the telemetry pipeline
 

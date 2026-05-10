@@ -28,7 +28,7 @@ Prerequisites
 -------------
 
 
-- The `Prepare Oim <../Setup/prepare_oim.md>`_ procedure is complete.
+- The `Prepare Oim <../Setup/prepare_oim.rst>`_ procedure is complete.
 - At least 8 GB RAM available for the GitLab container (16 GB recommended).
 - At least 50 GB disk space for GitLab data.
 - A DNS name or IP address for GitLab access.
@@ -262,8 +262,8 @@ Next Steps
 ----------
 
 
-- `Update Catalog Pipeline <update_catalog_pipeline.md>`_ -- Update the catalog and run pipelines.
-- `Buildstream Troubleshooting <buildstream_troubleshooting.md>`_ -- Troubleshoot pipeline issues.
+- `Update Catalog Pipeline <update_catalog_pipeline.rst>`_ -- Update the catalog and run pipelines.
+- `Buildstream Troubleshooting <buildstream_troubleshooting.rst>`_ -- Troubleshoot pipeline issues.
 
 
 

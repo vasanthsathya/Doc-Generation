@@ -448,9 +448,9 @@ Firewall rule summary
 .. note::
 
 
-   - `Security Config <../Configuration/security_config.md>`_ -- Firewall and security
+   - `Security Config <../Configuration/security_config.rst>`_ -- Firewall and security
      settings.
-   - `Telemetry Config <../Configuration/telemetry_config.md>`_ -- Telemetry port
+   - `Telemetry Config <../Configuration/telemetry_config.rst>`_ -- Telemetry port
      configuration.
-   - `Minimum Nodes <minimum_nodes.md>`_ -- Node counts per deployment scenario.
+   - `Minimum Nodes <minimum_nodes.rst>`_ -- Node counts per deployment scenario.
 

@@ -26,7 +26,7 @@ Prerequisites
 -------------
 
 
-- A working Slurm cluster deployed via `Setup Slurm <setup_slurm.md>`_.
+- A working Slurm cluster deployed via `Setup Slurm <setup_slurm.rst>`_.
 - ``root`` or ``sudo`` access to the Slurm control node and the target
   compute node(s).
 - Identify which node(s) to remove (hostname and IP address).
@@ -163,8 +163,8 @@ Next Steps
 ----------
 
 
-- `Add Slurm Nodes <add_slurm_nodes.md>`_ -- Add replacement nodes if needed.
-- `Slurm Config Backup <slurm_config_backup.md>`_ -- Back up the updated Slurm configuration.
+- `Add Slurm Nodes <add_slurm_nodes.rst>`_ -- Add replacement nodes if needed.
+- `Slurm Config Backup <slurm_config_backup.rst>`_ -- Back up the updated Slurm configuration.
 
 
 

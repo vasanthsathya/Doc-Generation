@@ -258,7 +258,7 @@ Slurm cluster with AMD Instinct GPU nodes instead of NVIDIA.
    - The ``version`` field is optional. When omitted, Omnia installs the
      default version bundled with the release.
    - Every ``functional_group_name`` must match an entry in the PXE mapping
-     CSV (see `Pxe Mapping File <pxe_mapping_file.md>`_).
+     CSV (see `Pxe Mapping File <pxe_mapping_file.rst>`_).
    - Groups not listed in the JSON receive only base OS packages.
 
 
@@ -266,8 +266,8 @@ Slurm cluster with AMD Instinct GPU nodes instead of NVIDIA.
 .. note::
 
 
-   - `Software Config <../Configuration/software_config.md>`_ -- Full schema reference.
-   - `Pxe Mapping File <pxe_mapping_file.md>`_ -- PXE mapping CSV that defines functional groups.
-   - `Installed Software <../SupportMatrix/installed_software.md>`_ -- Complete software
+   - `Software Config <../Configuration/software_config.rst>`_ -- Full schema reference.
+   - `Pxe Mapping File <pxe_mapping_file.rst>`_ -- PXE mapping CSV that defines functional groups.
+   - `Installed Software <../SupportMatrix/installed_software.rst>`_ -- Complete software
      bill of materials.
 

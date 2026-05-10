@@ -329,4 +329,4 @@ Run these commands on the OIM **before** starting any deployment path:
    deep in the Ansible playbook execution.
 
 
-You are now ready to choose your deployment path. Return to `Index <index.md>`_.
+You are now ready to choose your deployment path. Return to `Index <index.rst>`_.

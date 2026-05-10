@@ -25,7 +25,7 @@ Before you start
       on changes that may not align with the project's direction.
    
    3. **Read the architecture documentation.** Familiarize yourself with Omnia's
-      [Architecture](../Overview/architecture.md) and [Index](../Overview/index.md) to understand how
+      [Architecture](../Overview/architecture.rst) and [Index](../Overview/index.rst) to understand how
       components interact.
    
    
@@ -297,7 +297,7 @@ Before you start
    
    !!! info
    
-       - [Index](index.md) -- Overview of contribution options.
+       - [Index](index.rst) -- Overview of contribution options.
        - [Omnia GitHub repository](https://github.com/dell/omnia) -- Source code
          and issue tracker.
    

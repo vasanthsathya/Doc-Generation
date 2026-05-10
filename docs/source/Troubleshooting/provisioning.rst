@@ -401,7 +401,7 @@ Nodes not appearing after discovery
 .. note::
 
 
-   - `Discover Nodes <../HowTo/Setup/discover_nodes.md>`_ -- Full node discovery procedure.
-   - `Pxe Boot Nodes <../HowTo/Setup/pxe_boot_nodes.md>`_ -- PXE boot configuration guide.
-   - `Log Management <../Operations/log_management.md>`_ -- Log locations for deeper diagnosis.
+   - `Discover Nodes <../HowTo/Setup/discover_nodes.rst>`_ -- Full node discovery procedure.
+   - `Pxe Boot Nodes <../HowTo/Setup/pxe_boot_nodes.rst>`_ -- PXE boot configuration guide.
+   - `Log Management <../Operations/log_management.rst>`_ -- Log locations for deeper diagnosis.
 

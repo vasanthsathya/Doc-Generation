@@ -29,7 +29,7 @@ Prerequisites
 -------------
 
 
-- The `Prepare Oim <../Setup/prepare_oim.md>`_ procedure is complete (``omnia_auth``
+- The `Prepare Oim <../Setup/prepare_oim.rst>`_ procedure is complete (``omnia_auth``
   container is running).
 - You have the external LDAP server's connection details:
 
@@ -181,8 +181,8 @@ Next Steps
 ----------
 
 
-- `Replicate Ldap <replicate_ldap.md>`_ -- Set up replication for the proxy.
-- `Setup Slurm <../Slurm/setup_slurm.md>`_ -- Slurm will authenticate users via the
+- `Replicate Ldap <replicate_ldap.rst>`_ -- Set up replication for the proxy.
+- `Setup Slurm <../Slurm/setup_slurm.rst>`_ -- Slurm will authenticate users via the
   LDAP proxy.
 
 

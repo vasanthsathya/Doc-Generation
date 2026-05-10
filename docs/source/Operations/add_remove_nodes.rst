@@ -23,7 +23,7 @@ Prerequisites
 
 
 - The new nodes have been provisioned with an operating system via
-  `Discover Nodes <../HowTo/Setup/discover_nodes.md>`_ and `Pxe Boot Nodes <../HowTo/Setup/pxe_boot_nodes.md>`_.
+  `Discover Nodes <../HowTo/Setup/discover_nodes.rst>`_ and `Pxe Boot Nodes <../HowTo/Setup/pxe_boot_nodes.rst>`_.
 - Network connectivity between the OIM and the new nodes is verified (SSH
   access works).
 - The Slurm cluster is already operational (``slurmctld`` is running on the
@@ -202,7 +202,7 @@ After adding or removing nodes, confirm the cluster state:
 .. note::
 
 
-   - `Add Slurm Nodes <../HowTo/Slurm/add_slurm_nodes.md>`_ -- Detailed how-to for adding Slurm nodes.
-   - `Remove Slurm Nodes <../HowTo/Slurm/remove_slurm_nodes.md>`_ -- Detailed how-to for removing Slurm nodes.
-   - `Reprovision Cluster <reprovision_cluster.md>`_ -- Re-image nodes instead of just adding/removing them.
+   - `Add Slurm Nodes <../HowTo/Slurm/add_slurm_nodes.rst>`_ -- Detailed how-to for adding Slurm nodes.
+   - `Remove Slurm Nodes <../HowTo/Slurm/remove_slurm_nodes.rst>`_ -- Detailed how-to for removing Slurm nodes.
+   - `Reprovision Cluster <reprovision_cluster.rst>`_ -- Re-image nodes instead of just adding/removing them.
 

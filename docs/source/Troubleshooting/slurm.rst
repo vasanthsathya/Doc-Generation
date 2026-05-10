@@ -420,7 +420,7 @@ GPU not detected by Slurm
 .. note::
 
 
-   - `Setup Slurm <../HowTo/Slurm/setup_slurm.md>`_ -- Slurm cluster setup guide.
-   - `Slurm With Gpu <../HowTo/Slurm/slurm_with_gpu.md>`_ -- GPU configuration for Slurm.
-   - `Add Remove Nodes <../Operations/add_remove_nodes.md>`_ -- Adding or removing Slurm nodes.
+   - `Setup Slurm <../HowTo/Slurm/setup_slurm.rst>`_ -- Slurm cluster setup guide.
+   - `Slurm With Gpu <../HowTo/Slurm/slurm_with_gpu.rst>`_ -- GPU configuration for Slurm.
+   - `Add Remove Nodes <../Operations/add_remove_nodes.rst>`_ -- Adding or removing Slurm nodes.
 

@@ -22,8 +22,8 @@ Prerequisites
 -------------
 
 
-- GitLab is deployed (see `Deploy Gitlab <deploy_gitlab.md>`_).
-- A BuildStreaM catalog is configured (see `Update Catalog Pipeline <update_catalog_pipeline.md>`_).
+- GitLab is deployed (see `Deploy Gitlab <deploy_gitlab.rst>`_).
+- A BuildStreaM catalog is configured (see `Update Catalog Pipeline <update_catalog_pipeline.rst>`_).
 - ``root`` or ``sudo`` access to the OIM host and the omnia_core container.
 
 
@@ -310,8 +310,8 @@ Next Steps
 ----------
 
 
-- `Update Catalog Pipeline <update_catalog_pipeline.md>`_ -- Resume catalog-driven deployments.
-- `Deploy Gitlab <deploy_gitlab.md>`_ -- Reconfigure GitLab if needed.
+- `Update Catalog Pipeline <update_catalog_pipeline.rst>`_ -- Resume catalog-driven deployments.
+- `Deploy Gitlab <deploy_gitlab.rst>`_ -- Reconfigure GitLab if needed.
 
 
 

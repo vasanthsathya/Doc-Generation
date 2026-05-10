@@ -63,7 +63,7 @@ multi-hour process into a repeatable, version-controlled workflow.
 .. note::
 
 
-   Complete the `Prerequisites Checklist <prerequisites_checklist.md>`_ before proceeding. In
+   Complete the `Prerequisites Checklist <prerequisites_checklist.rst>`_ before proceeding. In
    addition, BuildStreaM requires:
 
    - A GitLab instance (deployed in Step 4 below, or an existing one).
@@ -240,7 +240,7 @@ initial OIM setup.
 **3c. Edit network and provisioning inputs**
 
 Edit ``network_spec.yml``, ``provision_config.yml``, and ``ha_config.yml``
-as described in `Full Deployment <full_deployment.md>`_ Steps 5a--5c.
+as described in `Full Deployment <full_deployment.rst>`_ Steps 5a--5c.
 
 **3d. Set credentials**
 
@@ -819,7 +819,7 @@ What's Next?
 .. note::
 
 
-   - `Full Deployment <full_deployment.md>`_ -- Manual equivalent of this automated path
-   - `Prerequisites Checklist <prerequisites_checklist.md>`_ -- Master checklist
-   - `Slurm Quickstart <slurm_quickstart.md>`_ -- Simplified manual deployment for comparison
+   - `Full Deployment <full_deployment.rst>`_ -- Manual equivalent of this automated path
+   - `Prerequisites Checklist <prerequisites_checklist.rst>`_ -- Master checklist
+   - `Slurm Quickstart <slurm_quickstart.rst>`_ -- Simplified manual deployment for comparison
 

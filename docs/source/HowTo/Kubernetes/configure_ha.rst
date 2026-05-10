@@ -27,7 +27,7 @@ Prerequisites
 
 
 - A Kubernetes cluster deployed with 3 control-plane nodes (see
-  `Setup Service K8S <setup_service_k8s.md>`_).
+  `Setup Service K8S <setup_service_k8s.rst>`_).
 - A free IP address on the admin network subnet for the VIP.
 - The VIP address must not be in the MetalLB address range or assigned to any
   other device.
@@ -235,8 +235,8 @@ Next Steps
 ----------
 
 
-- `Deploy Powerscale Csi <deploy_powerscale_csi.md>`_ -- Deploy enterprise storage integration.
-- `Setup Telemetry <../Telemetry/setup_telemetry.md>`_ -- Deploy telemetry on the HA
+- `Deploy Powerscale Csi <deploy_powerscale_csi.rst>`_ -- Deploy enterprise storage integration.
+- `Setup Telemetry <../Telemetry/setup_telemetry.rst>`_ -- Deploy telemetry on the HA
   cluster.
 
 

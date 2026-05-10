@@ -28,12 +28,12 @@ Prerequisites
 -------------
 
 
-- Slurm is deployed and operational (see `Setup Slurm <setup_slurm.md>`_).
+- Slurm is deployed and operational (see `Setup Slurm <setup_slurm.rst>`_).
 - Apptainer is installed on compute nodes (included in ``software_config.json``
   with ``{"name": "apptainer"}``).
 - NFS shared storage is available at ``/home`` or a dedicated benchmark
-  directory (see `Configure Nfs <../Storage/configure_nfs.md>`_).
-- For GPU benchmarks: GPU drivers are installed (see `Slurm With Gpu <slurm_with_gpu.md>`_).
+  directory (see `Configure Nfs <../Storage/configure_nfs.rst>`_).
+- For GPU benchmarks: GPU drivers are installed (see `Slurm With Gpu <slurm_with_gpu.rst>`_).
 
 
 
@@ -209,9 +209,9 @@ Next Steps
 ----------
 
 
-- `Use Apptainer <../Containers/use_apptainer.md>`_ -- Learn more about using Apptainer
+- `Use Apptainer <../Containers/use_apptainer.rst>`_ -- Learn more about using Apptainer
   containers in your cluster.
-- `Configure Infiniband <../Networking/configure_infiniband.md>`_ -- Optimize network performance
+- `Configure Infiniband <../Networking/configure_infiniband.rst>`_ -- Optimize network performance
   for HPC workloads.
 
 

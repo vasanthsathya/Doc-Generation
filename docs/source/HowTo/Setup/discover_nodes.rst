@@ -30,12 +30,12 @@ Prerequisites
 -------------
 
 
-- The `Prepare Oim <prepare_oim.md>`_ procedure is complete (OpenCHAMI and DHCP are
+- The `Prepare Oim <prepare_oim.rst>`_ procedure is complete (OpenCHAMI and DHCP are
   running).
-- The `Build Cluster Images <build_cluster_images.md>`_ procedure is complete (boot images are in
+- The `Build Cluster Images <build_cluster_images.rst>`_ procedure is complete (boot images are in
   MinIO).
-- The `Create Mapping File <create_mapping_file.md>`_ procedure is complete.
-- The `Configure Credentials <configure_credentials.md>`_ procedure is complete (BMC credentials
+- The `Create Mapping File <create_mapping_file.rst>`_ procedure is complete.
+- The `Configure Credentials <configure_credentials.rst>`_ procedure is complete (BMC credentials
   configured).
 - BMC/iDRAC interfaces on target servers are connected to the BMC network and
   have IP addresses assigned (either static or via existing DHCP).
@@ -162,9 +162,9 @@ Next Steps
 ----------
 
 
-- `Pxe Boot Nodes <pxe_boot_nodes.md>`_ -- Ensure all nodes complete provisioning.
-- `Verify Cluster <verify_cluster.md>`_ -- Verify the cluster is operational.
-- `Setup Slurm <../Slurm/setup_slurm.md>`_ -- Deploy Slurm on discovered nodes.
+- `Pxe Boot Nodes <pxe_boot_nodes.rst>`_ -- Ensure all nodes complete provisioning.
+- `Verify Cluster <verify_cluster.rst>`_ -- Verify the cluster is operational.
+- `Setup Slurm <../Slurm/setup_slurm.rst>`_ -- Deploy Slurm on discovered nodes.
 
 
 

@@ -321,7 +321,7 @@ Ansible Vault encrypted file issues
 .. note::
 
 
-   - `Log Management <../Operations/log_management.md>`_ -- Where to find logs for deeper
+   - `Log Management <../Operations/log_management.rst>`_ -- Where to find logs for deeper
      diagnosis.
-   - `Oim Cleanup <../Operations/oim_cleanup.md>`_ -- Full OIM reset if issues persist.
+   - `Oim Cleanup <../Operations/oim_cleanup.rst>`_ -- Full OIM reset if issues persist.
 

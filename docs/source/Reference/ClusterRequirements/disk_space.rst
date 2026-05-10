@@ -151,9 +151,9 @@ Filesystem recommendations
 .. note::
 
 
-   - `Minimum Nodes <minimum_nodes.md>`_ -- Minimum node counts per scenario.
-   - `Storage Config <../Configuration/storage_config.md>`_ -- NFS and BeeGFS mount
+   - `Minimum Nodes <minimum_nodes.rst>`_ -- Minimum node counts per scenario.
+   - `Storage Config <../Configuration/storage_config.rst>`_ -- NFS and BeeGFS mount
      configuration.
-   - `Local Repo Config <../Configuration/local_repo_config.md>`_ -- Pulp repository
+   - `Local Repo Config <../Configuration/local_repo_config.rst>`_ -- Pulp repository
      storage path.
 

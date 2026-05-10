@@ -103,6 +103,15 @@ html_theme_options = {
     'globaltoc_depth': 3,
     'globaltoc_collapse': False,
     'globaltoc_includehidden': True,
+    'nav_links': [
+        {'href': 'Overview/index', 'title': 'Overview', 'internal': True},
+        {'href': 'GetStarted/index', 'title': 'Get Started', 'internal': True},
+        {'href': 'HowTo/index', 'title': 'How-to Guides', 'internal': True},
+        {'href': 'Operations/index', 'title': 'Operations', 'internal': True},
+        {'href': 'Reference/index', 'title': 'Reference', 'internal': True},
+        {'href': 'Troubleshooting/index', 'title': 'Troubleshooting', 'internal': True},
+        {'href': 'Contributing/index', 'title': 'Contributing', 'internal': True},
+    ],
 }
 
 # Add any paths that contain custom themes here, relative to this directory.

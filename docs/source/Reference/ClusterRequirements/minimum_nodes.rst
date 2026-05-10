@@ -130,7 +130,7 @@ Scaling guidelines
 .. note::
 
 
-   - `Disk Space <disk_space.md>`_ -- Disk requirements per node role.
-   - `Ports <ports.md>`_ -- Network ports required per role.
-   - `Ha Config <../Configuration/ha_config.md>`_ -- Kubernetes HA settings.
+   - `Disk Space <disk_space.rst>`_ -- Disk requirements per node role.
+   - `Ports <ports.rst>`_ -- Network ports required per role.
+   - `Ha Config <../Configuration/ha_config.rst>`_ -- Kubernetes HA settings.
 

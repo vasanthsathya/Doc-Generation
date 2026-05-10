@@ -32,13 +32,13 @@ Prerequisites
 -------------
 
 
-- The `Create Local Repos <create_local_repos.md>`_ procedure is complete (local repositories are
+- The `Create Local Repos <create_local_repos.rst>`_ procedure is complete (local repositories are
   synced).
-- The `Create Mapping File <create_mapping_file.md>`_ procedure is complete (mapping file defines
+- The `Create Mapping File <create_mapping_file.rst>`_ procedure is complete (mapping file defines
   target nodes).
 - The OS ISO file is available at the path specified in
   ``provision_config.yml`` (``iso_file_path``).
-- MinIO is running and accessible (verified via `Verify Oim Services <verify_oim_services.md>`_).
+- MinIO is running and accessible (verified via `Verify Oim Services <verify_oim_services.rst>`_).
 
 
 
@@ -161,8 +161,8 @@ Next Steps
 ----------
 
 
-- `Discover Nodes <discover_nodes.md>`_ -- Run node discovery using the built images.
-- `Pxe Boot Nodes <pxe_boot_nodes.md>`_ -- PXE boot target servers with the new images.
+- `Discover Nodes <discover_nodes.rst>`_ -- Run node discovery using the built images.
+- `Pxe Boot Nodes <pxe_boot_nodes.rst>`_ -- PXE boot target servers with the new images.
 
 
 

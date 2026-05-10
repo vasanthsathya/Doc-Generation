@@ -38,7 +38,7 @@ Omnia is an open-source project licensed under the `Apache License 2.0
    
    **Code contributions**
       Fix bugs, implement features, or improve existing functionality. See
-      [Pull Requests](pull_requests.md) for guidelines on submitting code changes.
+      [Pull Requests](pull_requests.rst) for guidelines on submitting code changes.
    
    **Testing**
       Test Omnia on different hardware configurations, OS versions, or network
@@ -78,7 +78,7 @@ Omnia is an open-source project licensed under the `Apache License 2.0
    
    
    5. **Open a pull request** on GitHub from your feature branch to the `main`
-      branch of the upstream repository. See [Pull Requests](pull_requests.md) for detailed
+      branch of the upstream repository. See [Pull Requests](pull_requests.rst) for detailed
       guidelines.
    
    

@@ -270,7 +270,7 @@ Pod scheduling failures
        !!! tip
    
            For production environments, use the PowerScale CSI driver instead of
-           external NFS. See [Deploy Powerscale Csi](../HowTo/Kubernetes/deploy_powerscale_csi.md).
+           external NFS. See [Deploy Powerscale Csi](../HowTo/Kubernetes/deploy_powerscale_csi.rst).
    
    
    ## Calico networking issues
@@ -333,7 +333,7 @@ Pod scheduling failures
    
    !!! info
    
-       - [Setup Service K8S](../HowTo/Kubernetes/setup_service_k8s.md) -- Kubernetes cluster setup.
-       - [Configure Ha](../HowTo/Kubernetes/configure_ha.md) -- High availability configuration.
-       - [Add Remove Nodes](../Operations/add_remove_nodes.md) -- Adding worker nodes.
+       - [Setup Service K8S](../HowTo/Kubernetes/setup_service_k8s.rst) -- Kubernetes cluster setup.
+       - [Configure Ha](../HowTo/Kubernetes/configure_ha.rst) -- High availability configuration.
+       - [Add Remove Nodes](../Operations/add_remove_nodes.rst) -- Adding worker nodes.
    

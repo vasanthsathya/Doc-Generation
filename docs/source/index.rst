@@ -51,49 +51,58 @@ How This Documentation is Organized
 -----------------------------------
 
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Main Documentation
 
-.. raw:: html
+   Overview/index
+   GetStarted/index
+   HowTo/index
+   Operations/index
+   Reference/index
+   Troubleshooting/index
+   Contributing/index
 
-   <div class="grid cards" markdown>
-   
-   -   :material-book-open-variant: **[Overview](Overview/index.md)**
-   
-       ---
-   
-       Architecture, components, network topologies, and design concepts. Start here if you are new to Omnia.
-   
-   -   :material-book-open-variant: **[Get Started](GetStarted/index.md)**
-   
-       ---
-   
-       End-to-end tutorials that take you from a bare set of PowerEdge servers to a fully operational cluster. Choose from Slurm-only, full deployment, Kubernetes + telemetry, or BuildStreaM paths.
-   
-   -   :material-book-open-variant: **[How-to Guides](HowTo/index.md)**
-   
-       ---
-   
-       Task-oriented procedures for provisioning, configuring Slurm, Kubernetes, storage, networking, authentication, telemetry, and BuildStreaM.
-   
-   -   :material-book-open-variant: **[Reference](Reference/index.md)**
-   
-       ---
-   
-       Configuration parameters, support matrices, playbook references, API documentation, and network port listings.
-   
-   -   :material-book-open-variant: **[Operations & Maintenance](Operations/index.md)**
-   
-       ---
-   
-       Day-2 operations: adding and removing nodes, re-provisioning, OIM cleanup, log management, security hardening, and best practices.
-   
-   -   :material-book-open-variant: **[Troubleshooting](Troubleshooting/index.md)**
-   
-       ---
-   
-       Symptom-driven guides for diagnosing and resolving issues with provisioning, Slurm, Kubernetes, telemetry, authentication, and more.
-   
-   </div>
 
+.. grid:: 2 2 2 2
+   :gutter: 3
+   :class-container: sd-mb-4
+
+   .. grid-item-card:: :material-book-open-variant: Overview
+      :link: Overview/index
+      :link-type: doc
+
+      Architecture, components, network topologies, and design concepts. Start here if you are new to Omnia.
+
+   .. grid-item-card:: :material-book-open-variant: Get Started  
+      :link: GetStarted/index
+      :link-type: doc
+
+      End-to-end tutorials that take you from a bare set of PowerEdge servers to a fully operational cluster. Choose from Slurm-only, full deployment, Kubernetes + telemetry, or BuildStreaM paths.
+
+   .. grid-item-card:: :material-book-open-variant: How-to Guides
+      :link: HowTo/index
+      :link-type: doc
+
+      Task-oriented procedures for provisioning, configuring Slurm, Kubernetes, storage, networking, authentication, telemetry, and BuildStreaM.
+
+   .. grid-item-card:: :material-book-open-variant: Reference
+      :link: Reference/index
+      :link-type: doc
+
+      Configuration parameters, support matrices, playbook references, API documentation, and network port listings.
+
+   .. grid-item-card:: :material-book-open-variant: Operations & Maintenance
+      :link: Operations/index
+      :link-type: doc
+
+      Day-2 operations: adding and removing nodes, re-provisioning, OIM cleanup, log management, security hardening, and best practices.
+
+   .. grid-item-card:: :material-book-open-variant: Troubleshooting
+      :link: Troubleshooting/index
+      :link-type: doc
+
+      Symptom-driven guides for diagnosing and resolving issues with provisioning, Slurm, Kubernetes, telemetry, authentication, and more.
 
 
 Quick Links
@@ -107,13 +116,13 @@ Quick Links
 
    * - Resource
      - Description
-   * - `Slurm Quickstart <GetStarted/slurm_quickstart.md>`_
+   * - `Slurm Quickstart <GetStarted/slurm_quickstart.rst>`_
      - Fastest path to a working Slurm cluster (~2 hours, 4 nodes).
-   * - `Full Deployment <GetStarted/full_deployment.md>`_
+   * - `Full Deployment <GetStarted/full_deployment.rst>`_
      - Production deployment with Slurm, Kubernetes, telemetry, and LDAP.
-   * - `Servers <Reference/SupportMatrix/servers.md>`_
+   * - `Servers <Reference/SupportMatrix/servers.rst>`_
      - Supported OS versions, hardware, firmware, and software combinations.
-   * - `Provision Config <Reference/Configuration/provision_config.md>`_
+   * - `Provision Config <Reference/Configuration/provision_config.rst>`_
      - Complete reference for all Omnia input configuration files.
 
 
@@ -126,7 +135,7 @@ Omnia is made available under the `Apache 2.0 license <https://opensource.org/li
 
 .. note::
 
-   Omnia playbooks are licensed under the Apache 2.0 license. Once an end-user initiates Omnia, that end-user will deploy other open-source and/or third-party software that is licensed separately by their respective developer communities and/or third parties. For a comprehensive list of software and their licenses, `click here <Reference/SupportMatrix/installed_software.md>`_. Dell (or any other contributors) shall have no liability regarding (and no responsibility to provide support for) an end-user's use of any open-source and/or third-party software and Omnia users are solely responsible for ensuring that they are complying with all such licenses. Omnia is provided "as is" without any warranty, express or implied. Dell (or any other contributors) shall have no liability for any direct, indirect, incidental, punitive, special, or consequential damages for an end-user's use of Omnia.
+   Omnia playbooks are licensed under the Apache 2.0 license. Once an end-user initiates Omnia, that end-user will deploy other open-source and/or third-party software that is licensed separately by their respective developer communities and/or third parties. For a comprehensive list of software and their licenses, `click here <Reference/SupportMatrix/installed_software.rst>`_. Dell (or any other contributors) shall have no liability regarding (and no responsibility to provide support for) an end-user's use of any open-source and/or third-party software and Omnia users are solely responsible for ensuring that they are complying with all such licenses. Omnia is provided "as is" without any warranty, express or implied. Dell (or any other contributors) shall have no liability for any direct, indirect, incidental, punitive, special, or consequential damages for an end-user's use of Omnia.
 
 
 
@@ -148,19 +157,12 @@ Previous Versions
 Omnia Community Members
 -----------------------
 
-
-.. raw:: html
-
-   <div class="community-logos" style="display: flex; flex-wrap: wrap; align-items: center; gap: 2rem; margin: 1rem 0;">
-     <a href="https://www.dell.com"><img src="assets/images/delltech.png" alt="Dell Technologies" style="height: 60px;"></a>
-     <a href="https://www.intel.com"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Intel_logo_%282020%2C_light_blue%29.svg" alt="Intel" style="height: 40px;"></a>
-     <a href="https://www.unipi.it"><img src="assets/images/pisa.png" alt="University of Pisa" style="height: 60px;"></a>
-     <img src="https://user-images.githubusercontent.com/83095575/117071024-64956c80-ace3-11eb-9d90-2dac7daef11c.png" alt="Community Member" style="height: 60px;">
-     <img src="https://images.squarespace-cdn.com/content/v1/660f1a48587dbb2769709a33/9ac5520f-a308-4751-80f4-415d07a23473/VIZIAS+Blue.png" alt="VIZIAS" style="height: 60px;">
-     <img src="https://user-images.githubusercontent.com/5414112/153955170-0a4b199a-54f0-42af-939c-03eac76881c0.png" alt="Community Member" style="height: 60px;">
-     <a href="https://www.liqid.com"><img src="assets/images/Liqid.png" alt="Liqid" style="height: 50px;"></a>
-   </div>
-
+* Dell Technologies: https://www.dell.com
+* Intel: https://www.intel.com  
+* University of Pisa: https://www.unipi.it
+* Community Members
+* VIZIAS
+* Liqid: https://www.liqid.com
 
 
 ----

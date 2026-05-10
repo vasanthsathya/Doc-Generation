@@ -131,7 +131,7 @@ VLAN configuration summary
 
    VLAN IDs shown above are examples. Use values that conform to your
    datacenter standards. Configure matching VLANs in ``network_spec.yml``
-   (`Network Spec <../Configuration/network_spec.md>`_).
+   (`Network Spec <../Configuration/network_spec.rst>`_).
 
 
 
@@ -147,9 +147,9 @@ latest recommended OS10 version for each switch model.
 .. note::
 
 
-   - `Nics <nics.md>`_ -- NIC models connected to these switches.
-   - `Network Topologies <network_topologies.md>`_ -- How switches integrate into Omnia network
+   - `Nics <nics.rst>`_ -- NIC models connected to these switches.
+   - `Network Topologies <network_topologies.rst>`_ -- How switches integrate into Omnia network
      topologies.
-   - `Network Spec <../Configuration/network_spec.md>`_ -- VLAN and subnet
+   - `Network Spec <../Configuration/network_spec.rst>`_ -- VLAN and subnet
      configuration.
 

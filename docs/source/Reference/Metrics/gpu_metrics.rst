@@ -362,10 +362,10 @@ All GPU metrics include the following common labels:
 .. note::
 
 
-   - `Telemetry Config <../Configuration/telemetry_config.md>`_ -- Telemetry pipeline
+   - `Telemetry Config <../Configuration/telemetry_config.rst>`_ -- Telemetry pipeline
      configuration.
-   - `Omnia Config <../Configuration/omnia_config.md>`_ -- GPU deployment settings
+   - `Omnia Config <../Configuration/omnia_config.rst>`_ -- GPU deployment settings
      (``enable_nvidia_gpu``, ``enable_amd_gpu``).
-   - `Idrac Metrics <idrac_metrics.md>`_ -- Server-level hardware metrics.
-   - `Ldms Metrics <ldms_metrics.md>`_ -- OS-level metrics from LDMS.
+   - `Idrac Metrics <idrac_metrics.rst>`_ -- Server-level hardware metrics.
+   - `Ldms Metrics <ldms_metrics.rst>`_ -- OS-level metrics from LDMS.
 

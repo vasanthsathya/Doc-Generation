@@ -247,8 +247,8 @@ machine, with the remaining two servers handling compute workloads.
 .. note::
 
 
-   - `Architecture <architecture.md>`_ -- How the three cluster types map to functional
+   - `Architecture <architecture.rst>`_ -- How the three cluster types map to functional
      groups.
-   - `Network Topologies <network_topologies.md>`_ -- How Admin and BMC IP addresses in the mapping
+   - `Network Topologies <network_topologies.rst>`_ -- How Admin and BMC IP addresses in the mapping
      file relate to network segments.
 
