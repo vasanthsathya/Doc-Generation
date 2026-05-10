@@ -29,11 +29,9 @@ sys.path.insert(0, os.path.abspath("../"))
 # ones.
 extensions = ["sphinx_design",]
 
-html_css_files = ["theme.css"]
-html_js_files = [
-    'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js',
-    '_static/flyout.js'
-]
+# Custom CSS and JS files for Material theme
+html_css_files = []
+html_js_files = []
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -89,12 +87,23 @@ pygments_style = "sphinx" # pylint: disable=invalid-name
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = "sphinx_rtd_theme" # pylint: disable=invalid-name
+html_theme = "sphinx_material" # pylint: disable=invalid-name
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-# html_theme_options = {}
+html_theme_options = {
+    'nav_title': 'Dell Omnia',
+    'logo_icon': 'images/omnia-logo.png',
+    'color_primary': 'blue-grey',
+    'color_accent': 'blue',
+    'repo_url': 'https://github.com/dell/omnia',
+    'repo_name': 'dell/omnia',
+    'repo_type': 'github',
+    'globaltoc_depth': 3,
+    'globaltoc_collapse': False,
+    'globaltoc_includehidden': True,
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
 # html_theme_path = ["_themes", ]
@@ -113,7 +122,7 @@ html_logo = "images/omnia-logo.png" # pylint: disable=invalid-name
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
-# html_favicon = None
+# html_favicon = "images/favicon.png" # pylint: disable=invalid-name
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -134,11 +143,12 @@ html_static_path = ["_static"]
 # html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-html_sidebars = {'**': ['globaltoc.html', 'sourcelink.html', 'searchbox.html']}
+# Not used for Material theme
+# html_sidebars = {'**': ['globaltoc.html', 'sourcelink.html', 'searchbox.html']}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
-# html_additional_pages = {"index": "index.html"}
+# 
 
 # If false, no module index is generated.
 # html_domain_indices = True
@@ -170,14 +180,3 @@ html_sidebars = {'**': ['globaltoc.html', 'sourcelink.html', 'searchbox.html']}
 htmlhelp_basename = "Omnia" # pylint: disable=invalid-name
 
 
-
-# This function sets up the Sphinx application by adding custom CSS styles.
-def setup(app):
-    """
-    Add sphinx-argparse.css to the Sphinx application.
-
-    Parameters:
-    app (sphinx.application.Application): The Sphinx application instance.
-    """
-    # Add sphinx-argparse.css to the list of CSS files used by the application.
-    app.add_css_file("sphinx-argparse.css")

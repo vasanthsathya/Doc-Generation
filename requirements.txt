@@ -1,5 +1,5 @@
 sphinx-tabs
-sphinx-rtd-theme==1.2.2
+sphinx-material
 sphinxcontrib-napoleon
 sphinx-argparse
 docutils
