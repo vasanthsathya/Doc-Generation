@@ -105,3 +105,14 @@ Every path assumes you have completed the items in
    Print or bookmark the `Prerequisites Checklist <prerequisites_checklist.rst>`_ -- it doubles as a
    day-of-deployment runbook you can hand to a datacenter technician.
 
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Get Started
+
+   prerequisites_checklist
+   slurm_quickstart
+   full_deployment
+   k8s_telemetry_only
+   buildstream_deployment
+

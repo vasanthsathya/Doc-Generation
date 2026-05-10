@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=d498e0f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4c429340" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=72410a45" />
   
   <!-- So that users can add custom icons -->
@@ -48,10 +48,11 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'GetStarted/index';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/custom.js?v=5dc88ff4"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="How-to Guides" href="../HowTo/index.html" />
+    <link rel="next" title="Prerequisites Checklist" href="prerequisites_checklist.html" />
     <link rel="prev" title="Blogs about Omnia" href="../Overview/blogs.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -326,7 +327,15 @@
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"></div>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="prerequisites_checklist.html">Prerequisites Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slurm_quickstart.html">Path A: Slurm Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="full_deployment.html">Path B: Full Deployment (Slurm + K8s + Telemetry)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="k8s_telemetry_only.html">Path C: Kubernetes + Telemetry Only</a></li>
+<li class="toctree-l1"><a class="reference internal" href="buildstream_deployment.html">Path D: BuildStreaM Automated Deployment</a></li>
+</ul>
+</div>
 </nav></div>
     </div>
   
@@ -472,6 +481,86 @@ entire lifecycle through GitLab pipelines and a declarative catalog.</p>
 <p class="admonition-title">Tip</p>
 <p>Print or bookmark the <a class="reference external" href="prerequisites_checklist.rst">Prerequisites Checklist</a> – it doubles as a
 day-of-deployment runbook you can hand to a datacenter technician.</p>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prerequisites_checklist.html">Prerequisites Checklist</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites_checklist.html#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites_checklist.html#oim-management-node-requirements">OIM (Management Node) Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites_checklist.html#networking-prerequisites">Networking Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites_checklist.html#nfs-storage-prerequisites">NFS / Storage Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites_checklist.html#rhel-subscriptions-and-repositories">RHEL Subscriptions and Repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites_checklist.html#bios-settings-on-target-nodes">BIOS Settings on Target Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites_checklist.html#idrac-settings">iDRAC Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites_checklist.html#service-kubernetes-k8s-requirements">Service Kubernetes (K8s) Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites_checklist.html#final-pre-flight-checks">Final Pre-Flight Checks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="slurm_quickstart.html">Path A: Slurm Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="slurm_quickstart.html#step-1-deploy-the-omnia-core-container">Step 1 – Deploy the omnia_core Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm_quickstart.html#step-2-create-the-mapping-file">Step 2 – Create the Mapping File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm_quickstart.html#step-3-provide-inputs">Step 3 – Provide Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm_quickstart.html#step-4-set-credentials">Step 4 – Set Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm_quickstart.html#step-5-prepare-the-oim">Step 5 – Prepare the OIM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm_quickstart.html#step-6-verify-oim-services">Step 6 – Verify OIM Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm_quickstart.html#step-7-create-local-repositories">Step 7 – Create Local Repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm_quickstart.html#step-8-build-node-images">Step 8 – Build Node Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm_quickstart.html#step-9-discover-and-provision-nodes">Step 9 – Discover and Provision Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm_quickstart.html#step-10-deploy-slurm">Step 10 – Deploy Slurm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm_quickstart.html#step-11-verify-the-cluster">Step 11 – Verify the Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm_quickstart.html#what-s-next">What’s Next?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="full_deployment.html">Path B: Full Deployment (Slurm + K8s + Telemetry)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#step-1-deploy-the-omnia-core-container">Step 1 – Deploy the omnia_core Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#step-2-create-the-mapping-file">Step 2 – Create the Mapping File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#step-3-provide-inputs">Step 3 – Provide Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#step-4-set-credentials">Step 4 – Set Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#step-5-prepare-the-oim">Step 5 – Prepare the OIM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#step-6-verify-oim-services">Step 6 – Verify OIM Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#step-7-set-up-authentication">Step 7 – Set Up Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#step-8-configure-telemetry">Step 8 – Configure Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#step-9-create-local-repositories">Step 9 – Create Local Repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#step-10-set-up-service-kubernetes-cluster">Step 10 – Set Up Service Kubernetes Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#step-11-build-node-images">Step 11 – Build Node Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#step-12-discover-and-provision-nodes">Step 12 – Discover and Provision Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#step-13-deploy-slurm">Step 13 – Deploy Slurm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#step-14-initialize-telemetry">Step 14 – Initialize Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#step-15-verify-the-full-deployment">Step 15 – Verify the Full Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_deployment.html#what-s-next">What’s Next?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="k8s_telemetry_only.html">Path C: Kubernetes + Telemetry Only</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="k8s_telemetry_only.html#step-1-deploy-the-omnia-core-container">Step 1 – Deploy the omnia_core Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="k8s_telemetry_only.html#step-2-create-the-mapping-file">Step 2 – Create the Mapping File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="k8s_telemetry_only.html#step-3-provide-inputs">Step 3 – Provide Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="k8s_telemetry_only.html#step-4-set-credentials">Step 4 – Set Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="k8s_telemetry_only.html#step-5-prepare-the-oim">Step 5 – Prepare the OIM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="k8s_telemetry_only.html#step-6-verify-oim-services">Step 6 – Verify OIM Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="k8s_telemetry_only.html#step-7-configure-telemetry">Step 7 – Configure Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="k8s_telemetry_only.html#step-8-create-local-repositories">Step 8 – Create Local Repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="k8s_telemetry_only.html#step-9-build-node-images">Step 9 – Build Node Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="k8s_telemetry_only.html#step-10-discover-and-provision-nodes">Step 10 – Discover and Provision Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="k8s_telemetry_only.html#step-11-deploy-service-kubernetes-cluster">Step 11 – Deploy Service Kubernetes Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="k8s_telemetry_only.html#step-12-deploy-telemetry">Step 12 – Deploy Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="k8s_telemetry_only.html#step-13-verify-the-telemetry-pipeline">Step 13 – Verify the Telemetry Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="k8s_telemetry_only.html#what-s-next">What’s Next?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="buildstream_deployment.html">Path D: BuildStreaM Automated Deployment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="buildstream_deployment.html#step-1-deploy-the-omnia-core-container">Step 1 – Deploy the omnia_core Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildstream_deployment.html#step-2-enable-buildstream">Step 2 – Enable BuildStreaM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildstream_deployment.html#step-3-prepare-the-oim-and-infrastructure">Step 3 – Prepare the OIM and Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildstream_deployment.html#step-4-deploy-gitlab-on-the-service-cluster">Step 4 – Deploy GitLab on the Service Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildstream_deployment.html#step-5-create-the-cluster-catalog">Step 5 – Create the Cluster Catalog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildstream_deployment.html#step-6-push-the-catalog-and-trigger-the-pipeline">Step 6 – Push the Catalog and Trigger the Pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildstream_deployment.html#step-7-verify-the-deployment">Step 7 – Verify the Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildstream_deployment.html#day-2-operations-with-buildstream">Day-2 Operations with BuildStreaM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildstream_deployment.html#what-s-next">What’s Next?</a></li>
+</ul>
+</li>
+</ul>
 </div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>

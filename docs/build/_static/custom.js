@@ -1,58 +1,52 @@
-// Custom JavaScript for sphinx-rtd-theme
+// Custom JavaScript for pydata-sphinx-theme
 
-// Add custom top navigation bar
+// Restructure navbar into two rows
 document.addEventListener('DOMContentLoaded', function() {
-  // Get the current page depth to construct correct relative paths
-  const currentPath = window.location.pathname;
-  const depth = currentPath.split('/').filter(part => part && part !== 'docs' && part !== 'build' && !part.endsWith('.html')).length;
+  const header = document.querySelector('.bd-header');
+  const headerInner = document.querySelector('.bd-header__inner');
   
-  // Construct the relative path to root (e.g., '../', '../../', etc.)
-  let rootPath = '';
-  for (let i = 0; i < depth; i++) {
-    rootPath += '../';
+  if (header && headerInner) {
+    // Get the navbar elements
+    const startItems = headerInner.querySelector('.navbar-header-items__start');
+    const centerItems = headerInner.querySelector('.navbar-header-items__center');
+    const endItems = headerInner.querySelector('.navbar-header-items__end');
+    
+    if (startItems && centerItems) {
+      // Create top row with logo and search
+      const topRow = document.createElement('div');
+      topRow.className = 'navbar-top-row';
+      
+      // Clone the start items (logo and sidebar toggle)
+      const startClone = startItems.cloneNode(true);
+      topRow.appendChild(startClone);
+      
+      // Add search to top row if available
+      const searchField = endItems ? endItems.querySelector('.search-field') : null;
+      if (searchField) {
+        const searchContainer = document.createElement('div');
+        searchContainer.className = 'navbar-search-container';
+        searchContainer.appendChild(searchField);
+        topRow.appendChild(searchContainer);
+      }
+      
+      // Create bottom row with navigation menu
+      const bottomRow = document.createElement('div');
+      bottomRow.className = 'navbar-bottom-row';
+      
+      // Clone the center items (navigation menu)
+      const centerClone = centerItems.cloneNode(true);
+      bottomRow.appendChild(centerClone);
+      
+      // Clear the original header inner
+      headerInner.innerHTML = '';
+      
+      // Add the new rows
+      headerInner.appendChild(topRow);
+      headerInner.appendChild(bottomRow);
+      
+      // Remove the original elements
+      startItems.remove();
+      centerItems.remove();
+    }
   }
-  // If we're at the root, no prefix needed
-  if (rootPath === '' && !currentPath.endsWith('index.html') && !currentPath.endsWith('/')) {
-    rootPath = './';
-  }
-  
-  // Create the navigation bar
-  const navBar = document.createElement('div');
-  navBar.className = 'custom-top-nav';
-  
-  // Create logo link
-  const logoLink = document.createElement('a');
-  logoLink.href = rootPath + 'index.html';
-  logoLink.className = 'logo-link';
-  logoLink.innerHTML = '<img src="' + rootPath + '_static/omnia-logo.png" alt="Logo" /> Dell Omnia';
-  
-  // Create nav links container
-  const navLinks = document.createElement('div');
-  navLinks.className = 'nav-links';
-  
-  // Add navigation links
-  const links = [
-    { href: 'Overview/index.html', text: 'Overview' },
-    { href: 'GetStarted/index.html', text: 'Get Started' },
-    { href: 'HowTo/index.html', text: 'How-to Guides' },
-    { href: 'Operations/index.html', text: 'Operations' },
-    { href: 'Reference/index.html', text: 'Reference' },
-    { href: 'Troubleshooting/index.html', text: 'Troubleshooting' },
-    { href: 'Contributing/index.html', text: 'Contributing' }
-  ];
-  
-  links.forEach(link => {
-    const a = document.createElement('a');
-    a.href = rootPath + link.href;
-    a.textContent = link.text;
-    navLinks.appendChild(a);
-  });
-  
-  // Assemble the navigation bar
-  navBar.appendChild(logoLink);
-  navBar.appendChild(navLinks);
-  
-  // Insert at the beginning of body
-  const body = document.body;
-  body.insertBefore(navBar, body.firstChild);
 });

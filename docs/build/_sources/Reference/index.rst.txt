@@ -64,3 +64,16 @@ Appendices
 
 Supplementary reference material: naming rules, timezone values, and
 filesystem configuration details.
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Reference
+
+   SupportMatrix/index
+   Configuration/index
+   ClusterRequirements/index
+   SampleFiles/index
+   Playbooks/index
+   Metrics/index
+   Appendices/index

@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=d498e0f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4c429340" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=72410a45" />
   
   <!-- So that users can add custom icons -->
@@ -48,11 +48,12 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Troubleshooting/index';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/custom.js?v=5dc88ff4"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Contributing to Omnia" href="../Contributing/index.html" />
-    <link rel="prev" title="Reference" href="../Reference/index.html" />
+    <link rel="next" title="General Issues" href="general.html" />
+    <link rel="prev" title="Supported Timezone Values" href="../Reference/Appendices/timezones.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -326,7 +327,18 @@
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"></div>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="general.html">General Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provisioning.html">Provisioning Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slurm.html">Slurm Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="buildstream.html">BuildStreaM Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="known_limitations.html">Known Limitations</a></li>
+</ul>
+</div>
 </nav></div>
     </div>
   
@@ -423,6 +435,70 @@ browser’s search (Ctrl+F) to find your symptom.</p></li>
 <p>If you cannot resolve an issue using this guide, open an issue on the
 <a class="reference external" href="https://github.com/dell/omnia/issues">Omnia GitHub repository</a> with
 the relevant log output and a description of your environment.</p>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Troubleshooting</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="general.html">General Issues</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="general.html#hostname-changes-after-oim-reboot">Hostname changes after OIM reboot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general.html#ssh-key-mismatches">SSH key mismatches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general.html#container-startup-failures">Container startup failures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="general.html#ssh-omnia-core-fails-after-sudo"><cite>ssh omnia_core</cite> fails after <cite>sudo</cite></a></li>
+<li class="toctree-l2"><a class="reference internal" href="general.html#ansible-vault-encrypted-file-issues">Ansible Vault encrypted file issues</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="provisioning.html">Provisioning Issues</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="provisioning.html#pxe-boot-failures">PXE boot failures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provisioning.html#cloud-init-issues">cloud-init issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provisioning.html#discovery-yml-failures"><cite>discovery.yml</cite> failures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provisioning.html#nodes-not-appearing-after-discovery">Nodes not appearing after discovery</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication Issues</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#ldap-bind-failures">LDAP bind failures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#user-login-fails-on-cluster-nodes">User login fails on cluster nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#omnia-auth-container-not-starting"><cite>omnia_auth</cite> container not starting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#certificate-errors">Certificate errors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="slurm.html">Slurm Issues</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="slurm.html#slurmctld-not-starting"><cite>slurmctld</cite> not starting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm.html#nodes-stuck-in-down-state">Nodes stuck in DOWN state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm.html#job-submission-failures">Job submission failures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm.html#slurmdbd-connection-issues"><cite>slurmdbd</cite> connection issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm.html#gpu-not-detected-by-slurm">GPU not detected by Slurm</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes Issues</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kubernetes.html#control-plane-not-initializing">Control plane not initializing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kubernetes.html#pod-scheduling-failures">Pod scheduling failures</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Issues</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html#idrac-not-sending-telemetry-data">iDRAC not sending telemetry data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html#ldms-sampler-failures">LDMS sampler failures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html#kafka-connection-issues">Kafka connection issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html#victoriametrics-not-receiving-data">VictoriaMetrics not receiving data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="telemetry.html#grafana-dashboards-empty">Grafana dashboards empty</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="buildstream.html">BuildStreaM Issues</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="buildstream.html#gitlab-pipeline-failures">GitLab pipeline failures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildstream.html#registry-push-failures">Registry push failures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildstream.html#catalog-parse-errors">Catalog parse errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buildstream.html#oauth-credential-issues">OAuth credential issues</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="known_limitations.html">Known Limitations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="known_limitations.html#supported-operating-systems">Supported operating systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="known_limitations.html#hardware-requirements">Hardware requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="known_limitations.html#single-oim-no-management-plane-ha">Single OIM (no management-plane HA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="known_limitations.html#network-topology-constraints">Network topology constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="known_limitations.html#known-incompatibilities">Known incompatibilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="known_limitations.html#other-limitations">Other limitations</a></li>
+</ul>
+</li>
+</ul>
 </div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>

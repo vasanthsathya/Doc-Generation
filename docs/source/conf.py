@@ -41,6 +41,9 @@ html_css_files = [
     'custom.css',
     'dell-brand.css',
 ]
+html_js_files = [
+    'custom.js',
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -103,6 +106,7 @@ html_theme = "pydata_sphinx_theme" # pylint: disable=invalid-name
 # documentation.
 html_theme_options = {
     'navbar_start': ["navbar-logo"],
+    'navbar_center': ["navbar-nav"],
     'navbar_end': ["navbar-icon-links"],
     'show_prev_next': False,
     'show_toc_level': 4,
@@ -110,12 +114,10 @@ html_theme_options = {
     'collapse_navigation': False,
     'header_links_before_dropdown': 7,
     'use_edit_page_button': False,
-    'show_version_warning': False,
     'announcement': None,
     'pygments_light_style': 'default',
     'pygments_dark_style': 'material',
     'secondary_sidebar_items': ["page-toc", "edit-this-page"],
-    'sidebar_width': '300px',
 }
 
 # Add any paths that contain custom themes here, relative to this directory.

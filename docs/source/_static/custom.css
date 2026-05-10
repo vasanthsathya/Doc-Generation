@@ -1,5 +1,80 @@
 /* Custom CSS for pydata-sphinx-theme with Dell branding */
 
+/* Two-row navbar styling */
+.navbar-top-row {
+    background-color: #007db8;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-bottom-row {
+    background-color: #f8f9fa;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.navbar-top-row .navbar-brand {
+    color: white !important;
+}
+
+.navbar-top-row .navbar-brand:hover {
+    color: white !important;
+}
+
+.navbar-top-row .navbar-brand img {
+    height: 30px;
+    width: auto;
+}
+
+.navbar-top-row .sidebar-toggle {
+    color: white !important;
+    border: none;
+    background: transparent;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.navbar-top-row .sidebar-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-search-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Navigation links styling */
+.navbar-bottom-row .bd-navbar-elements .nav-link {
+    color: #333 !important;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease;
+}
+
+.navbar-bottom-row .bd-navbar-elements .nav-link:hover {
+    background-color: #e0e0e0;
+}
+
+.navbar-bottom-row .bd-navbar-elements .nav-link.active {
+    background-color: #007db8;
+    color: white !important;
+}
+
+/* Search field styling in top row */
+.navbar-top-row .search-button {
+    color: white !important;
+}
+
+/* Adjust main content to account for two-row navbar */
+.bd-content {
+    margin-top: 0;
+}
+
 /* Grid cards styling to match expected output */
 .grid.cards {
     display: grid;

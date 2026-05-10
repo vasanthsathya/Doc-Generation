@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=d498e0f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4c429340" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=72410a45" />
   
   <!-- So that users can add custom icons -->
@@ -48,10 +48,12 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Contributing/index';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/custom.js?v=5dc88ff4"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Troubleshooting" href="../Troubleshooting/index.html" />
+    <link rel="next" title="Pull Request Guidelines" href="pull_requests.html" />
+    <link rel="prev" title="Known Limitations" href="../Troubleshooting/known_limitations.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -321,7 +323,11 @@
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"></div>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Contributing to Omnia</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pull_requests.html">Pull Request Guidelines</a></li>
+</ul>
+</div>
 </nav></div>
     </div>
   
@@ -379,94 +385,83 @@
                   
   <section id="contributing-to-omnia">
 <h1>Contributing to Omnia<a class="headerlink" href="#contributing-to-omnia" title="Link to this heading">#</a></h1>
-<p>Omnia is an open-source project licensed under the <a href="#id1"><span class="problematic" id="id2">`</span></a>Apache License 2.0</p>
-<https://www.apache.org/licenses/LICENSE-2.0>`_. Contributions from the
-community are welcome and encouraged---whether you are fixing a typo in the
+<p>Omnia is an open-source project licensed under the Apache License 2.0
+<a class="reference external" href="https://www.apache.org/licenses/LICENSE-2.0">https://www.apache.org/licenses/LICENSE-2.0</a>. Contributions from the
+community are welcome and encouraged—whether you are fixing a typo in the
 documentation, reporting a bug, proposing a new feature, or submitting a pull
-request with code changes.
-
-!!! tip
-
-    New to open-source contribution? Start with a documentation improvement or
-    bug report. These are great ways to get familiar with the project before
-    submitting code changes.
-
-## Ways to contribute
-
-
-**Documentation**
-   Improve existing documentation, fix errors, add examples, or write new
-   guides. Documentation is written in reStructuredText (RST) and built with
-   Sphinx.
-
-**Bug reports**
-   Found a bug? Open an issue on the `Omnia GitHub repository
-   <https://github.com/dell/omnia/issues>`_ with a clear description of the
-   problem, steps to reproduce, and relevant log output.
-
-**Feature requests**
-   Have an idea for a new feature or improvement? Open a GitHub issue with the
-   `enhancement` label and describe the use case, expected behavior, and any
-   design considerations.
-
-**Code contributions**
-   Fix bugs, implement features, or improve existing functionality. See
-   [Pull Requests](pull_requests.rst) for guidelines on submitting code changes.
-
-**Testing**
-   Test Omnia on different hardware configurations, OS versions, or network
-   topologies and report your findings. Community testing helps improve
-   compatibility and stability.
-
-
-## Getting started
-
-
-1. **Fork the repository** on GitHub:
-
-   https://github.com/dell/omnia
-
-2. **Clone your fork** locally:
-
-   ```bash
-   git clone https://github.com/<your_username>/omnia.git
-   cd omnia
-   ```
-
-
-3. **Create a feature branch** for your changes:
-
-   ```bash
-   git checkout -b feature/my-improvement
-   ```
-
-
-4. **Make your changes**, commit, and push:
-
-   ```bash
-   git add .
-   git commit -m "Brief description of the change"
-   git push origin feature/my-improvement
-   ```
-
-
-5. **Open a pull request** on GitHub from your feature branch to the `main`
-   branch of the upstream repository. See [Pull Requests](pull_requests.rst) for detailed
-   guidelines.
-
-
-## Code of conduct
-
-
-All contributors are expected to follow the project's code of conduct. Be
-respectful, constructive, and collaborative in all interactions.
-
-
-## Contact
-
-
-- **GitHub Issues:** https://github.com/dell/omnia/issues
-- **GitHub Discussions:** https://github.com/dell/omnia/discussions<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+request with code changes.</p>
+<p>!!! tip</p>
+<blockquote>
+<div><p>New to open-source contribution? Start with a documentation improvement or
+bug report. These are great ways to get familiar with the project before
+submitting code changes.</p>
+<p>## Ways to contribute</p>
+<dl class="simple">
+<dt><strong>Documentation</strong></dt><dd><p>Improve existing documentation, fix errors, add examples, or write new
+guides. Documentation is written in reStructuredText (RST) and built with
+Sphinx.</p>
+</dd>
+<dt><strong>Bug reports</strong></dt><dd><p>Found a bug? Open an issue on the <a class="reference external" href="https://github.com/dell/omnia/issues">Omnia GitHub repository</a> with a clear description of the
+problem, steps to reproduce, and relevant log output.</p>
+</dd>
+<dt><strong>Feature requests</strong></dt><dd><p>Have an idea for a new feature or improvement? Open a GitHub issue with the
+<cite>enhancement</cite> label and describe the use case, expected behavior, and any
+design considerations.</p>
+</dd>
+<dt><strong>Code contributions</strong></dt><dd><p>Fix bugs, implement features, or improve existing functionality. See
+[Pull Requests](pull_requests.rst) for guidelines on submitting code changes.</p>
+</dd>
+<dt><strong>Testing</strong></dt><dd><p>Test Omnia on different hardware configurations, OS versions, or network
+topologies and report your findings. Community testing helps improve
+compatibility and stability.</p>
+</dd>
+</dl>
+<p>## Getting started</p>
+<ol class="arabic">
+<li><p><strong>Fork the repository</strong> on GitHub:</p>
+<p><a class="github reference external" href="https://github.com/dell/omnia">dell/omnia</a></p>
+</li>
+<li><p><strong>Clone your fork</strong> locally:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/&lt;your_username&gt;/omnia.git</span>
+<span class="pre">cd</span> <span class="pre">omnia</span>
+<span class="pre">`</span></code></p>
+</li>
+<li><p><strong>Create a feature branch</strong> for your changes:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">feature/my-improvement</span>
+<span class="pre">`</span></code></p>
+</li>
+<li><p><strong>Make your changes</strong>, commit, and push:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">git</span> <span class="pre">add</span> <span class="pre">.</span>
+<span class="pre">git</span> <span class="pre">commit</span> <span class="pre">-m</span> <span class="pre">&quot;Brief</span> <span class="pre">description</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">change&quot;</span>
+<span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">feature/my-improvement</span>
+<span class="pre">`</span></code></p>
+</li>
+<li><p><strong>Open a pull request</strong> on GitHub from your feature branch to the <cite>main</cite>
+branch of the upstream repository. See [Pull Requests](pull_requests.rst) for detailed
+guidelines.</p></li>
+</ol>
+<p>## Code of conduct</p>
+<p>All contributors are expected to follow the project’s code of conduct. Be
+respectful, constructive, and collaborative in all interactions.</p>
+<p>## Contact</p>
+<ul class="simple">
+<li><p><strong>GitHub Issues:</strong> <a class="github reference external" href="https://github.com/dell/omnia/issues">dell/omnia#issues</a></p></li>
+<li><p><strong>GitHub Discussions:</strong> <a class="github reference external" href="https://github.com/dell/omnia/discussions">dell/omnia#discussions</a></p></li>
+</ul>
+</div></blockquote>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contributing to Omnia</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pull_requests.html">Pull Request Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pull_requests.html#before-you-start">Before you start</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 
 

@@ -49,3 +49,17 @@ When you encounter an issue, follow this general diagnostic flow:
    `Omnia GitHub repository <https://github.com/dell/omnia/issues>`_ with
    the relevant log output and a description of your environment.
 
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Troubleshooting
+
+   general
+   provisioning
+   authentication
+   slurm
+   kubernetes
+   telemetry
+   buildstream
+   known_limitations
+

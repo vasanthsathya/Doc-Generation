@@ -86,3 +86,18 @@ BuildStreaM (CI/CD)
 
 Automate cluster deployment using GitLab CI/CD pipelines and the
 BuildStreaM catalog-driven workflow.
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: How-to Guides
+
+   Setup/index
+   Slurm/index
+   Kubernetes/index
+   Storage/index
+   Networking/index
+   Authentication/index
+   Telemetry/index
+   Containers/index
+   BuildStreaM/index

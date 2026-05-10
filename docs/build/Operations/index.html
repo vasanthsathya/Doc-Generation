@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=d498e0f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=4c429340" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=72410a45" />
   
   <!-- So that users can add custom icons -->
@@ -48,11 +48,12 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Operations/index';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/custom.js?v=5dc88ff4"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Reference" href="../Reference/index.html" />
-    <link rel="prev" title="How-to Guides" href="../HowTo/index.html" />
+    <link rel="next" title="Best Practices Checklist" href="best_practices_checklist.html" />
+    <link rel="prev" title="Update Catalog &amp; Pipelines" href="../HowTo/BuildStreaM/update_catalog_pipeline.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -322,7 +323,16 @@
 <nav class="bd-docs-nav bd-links"
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
-  <div class="bd-toc-item navbar-nav"></div>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Operations &amp; Maintenance</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="best_practices_checklist.html">Best Practices Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="add_remove_nodes.html">Add and Remove Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reprovision_cluster.html">Re-provision Cluster Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log_management.html">Log Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security_hardening.html">Security Hardening</a></li>
+<li class="toctree-l1"><a class="reference internal" href="oim_cleanup.html">OIM Cleanup</a></li>
+</ul>
+</div>
 </nav></div>
     </div>
   
@@ -389,6 +399,58 @@ security, and cleaning up the OIM when a fresh start is needed.</p>
 <p>If you have not yet deployed your cluster, start with the
 <a class="reference external" href="../GetStarted/index.rst">Index</a> tutorials. The procedures in this section assume a
 working Omnia environment.</p>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Operations &amp; Maintenance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="best_practices_checklist.html">Best Practices Checklist</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="best_practices_checklist.html#bios-and-firmware">BIOS and firmware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices_checklist.html#playbook-execution">Playbook execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices_checklist.html#storage-and-telemetry">Storage and telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices_checklist.html#system-administration">System administration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best_practices_checklist.html#pre-deployment-summary">Pre-deployment summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="add_remove_nodes.html">Add and Remove Nodes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="add_remove_nodes.html#adding-compute-nodes">Adding compute nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add_remove_nodes.html#removing-compute-nodes">Removing compute nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add_remove_nodes.html#verification">Verification</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reprovision_cluster.html">Re-provision Cluster Nodes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reprovision_cluster.html#when-to-re-provision">When to re-provision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reprovision_cluster.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reprovision_cluster.html#procedure">Procedure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reprovision_cluster.html#verification">Verification</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="log_management.html">Log Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="log_management.html#log-locations">Log locations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="log_management.html#logrotate-configuration">Logrotate configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="log_management.html#sample-log-output">Sample log output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="log_management.html#logging-format">Logging format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="log_management.html#troubleshooting-log-issues">Troubleshooting log issues</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="security_hardening.html">Security Hardening</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="security_hardening.html#credential-rotation">Credential rotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security_hardening.html#tls-certificate-management">TLS certificate management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security_hardening.html#firewall-rules">Firewall rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security_hardening.html#ldap-hardening">LDAP hardening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security_hardening.html#disable-unnecessary-services">Disable unnecessary services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security_hardening.html#routine-security-updates">Routine security updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security_hardening.html#additional-recommendations">Additional recommendations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="oim_cleanup.html">OIM Cleanup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="oim_cleanup.html#when-to-use-oim-cleanup">When to use OIM cleanup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oim_cleanup.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oim_cleanup.html#procedure">Procedure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oim_cleanup.html#selective-cleanup-options">Selective cleanup options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oim_cleanup.html#post-cleanup-steps">Post-cleanup steps</a></li>
+</ul>
+</li>
+</ul>
 </div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
