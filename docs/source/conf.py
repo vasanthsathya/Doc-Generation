@@ -106,7 +106,6 @@ html_theme = "sphinx_material" # pylint: disable=invalid-name
 # documentation.
 html_theme_options = {
     'nav_title': 'Dell Omnia',
-    'logo_icon': 'images/omnia-logo.png',
     'color_primary': 'blue-grey',
     'color_accent': 'blue',
     'repo_url': 'https://github.com/dell/omnia',
@@ -155,7 +154,7 @@ html_logo = "images/omnia-logo.png" # pylint: disable=invalid-name
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
-# html_favicon = "images/favicon.png" # pylint: disable=invalid-name
+html_favicon = "images/favicon.png" # pylint: disable=invalid-name
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

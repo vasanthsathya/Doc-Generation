@@ -1,4 +1,9 @@
 
+.. image:: images/omnia-logo.png
+   :alt: Dell Omnia Logo
+   :align: center
+   :width: 200px
+
 Omnia Documentation
 ===================
 
