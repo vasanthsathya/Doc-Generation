@@ -28,7 +28,7 @@
 /* First row: Logo, search, and repository icon */
 .bd-header .navbar-header-items__start {
     background-color: #001D3D;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -62,7 +62,7 @@
     margin-right: 1rem;
     background: transparent !important;
     border: none !important;
-    padding: 0.5rem;
+    padding: 0.25rem;
 }
 
 .bd-header .theme-switch-button-custom:hover {
@@ -213,7 +213,7 @@
 /* Second row: Navigation menu */
 .bd-header .navbar-header-items {
     background-color: #003566;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 1rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -231,7 +231,7 @@
 }
 
 .bd-header .navbar-brand img {
-    height: 30px;
+    height: 24px;
     width: auto;
 }
 
@@ -240,7 +240,7 @@
     color: white !important;
     border: none;
     background: transparent;
-    padding: 0.5rem;
+    padding: 0.25rem;
     cursor: pointer;
 }
 
@@ -272,7 +272,7 @@
 /* Navigation links styling */
 .bd-header .bd-navbar-elements .nav-link {
     color: #B3C3D1 !important;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 0.75rem;
     border-radius: 0.25rem;
     transition: background-color 0.2s ease, color 0.2s ease;
     text-transform: uppercase;
