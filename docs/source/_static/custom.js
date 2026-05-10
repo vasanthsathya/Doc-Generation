@@ -40,40 +40,82 @@ async function fetchGitHubData() {
     const releaseResponse = await fetch('https://api.github.com/repos/dell/omnia/releases/latest');
     const releaseData = await releaseResponse.json();
     
-    // Update icon links with counts
-    updateIconLinks(repoData, releaseData);
+    // Update GitHub link with repository info and stats
+    updateGitHubLink(repoData, releaseData);
   } catch (error) {
     console.error('Error fetching GitHub data:', error);
   }
 }
 
-function updateIconLinks(repoData, releaseData) {
-  const iconLinks = document.querySelectorAll('.navbar-icon-links .nav-link');
+function updateGitHubLink(repoData, releaseData) {
+  const githubLink = document.querySelector('.navbar-icon-links .nav-link[title="GitHub"]');
   
-  iconLinks.forEach(link => {
-    const title = link.getAttribute('title');
-    const icon = link.querySelector('i');
+  if (githubLink) {
+    // Create a container for the stacked layout
+    const githubContainer = document.createElement('div');
+    githubContainer.className = 'github-info-container';
     
-    if (title === 'Stars' && repoData.stargazers_count !== undefined) {
-      // Add star count
-      const countSpan = document.createElement('span');
-      countSpan.className = 'github-count';
-      countSpan.textContent = formatNumber(repoData.stargazers_count);
-      link.appendChild(countSpan);
-    } else if (title === 'Forks' && repoData.forks_count !== undefined) {
-      // Add fork count
-      const countSpan = document.createElement('span');
-      countSpan.className = 'github-count';
-      countSpan.textContent = formatNumber(repoData.forks_count);
-      link.appendChild(countSpan);
-    } else if (title === 'Version' && releaseData.tag_name !== undefined) {
-      // Add version number
-      const versionSpan = document.createElement('span');
-      versionSpan.className = 'github-count';
-      versionSpan.textContent = releaseData.tag_name;
-      link.appendChild(versionSpan);
+    // Create repository name row
+    const repoRow = document.createElement('div');
+    repoRow.className = 'github-repo-row';
+    
+    const icon = githubLink.querySelector('i');
+    const repoName = document.createElement('span');
+    repoName.className = 'github-repo-name';
+    repoName.textContent = 'dell/omnia';
+    
+    repoRow.appendChild(icon.cloneNode(true));
+    repoRow.appendChild(repoName);
+    
+    // Create stats row
+    const statsRow = document.createElement('div');
+    statsRow.className = 'github-stats-row';
+    
+    // Version
+    if (releaseData.tag_name !== undefined) {
+      const versionStat = createStatItem('fa-solid fa-tag', releaseData.tag_name, 'https://github.com/dell/omnia/releases');
+      statsRow.appendChild(versionStat);
     }
-  });
+    
+    // Stars
+    if (repoData.stargazers_count !== undefined) {
+      const starsStat = createStatItem('fa-solid fa-star', formatNumber(repoData.stargazers_count), 'https://github.com/dell/omnia/stargazers');
+      statsRow.appendChild(starsStat);
+    }
+    
+    // Forks
+    if (repoData.forks_count !== undefined) {
+      const forksStat = createStatItem('fa-solid fa-code-fork', formatNumber(repoData.forks_count), 'https://github.com/dell/omnia/network/members');
+      statsRow.appendChild(forksStat);
+    }
+    
+    githubContainer.appendChild(repoRow);
+    githubContainer.appendChild(statsRow);
+    
+    // Clear the original link content and replace with our container
+    githubLink.innerHTML = '';
+    githubLink.appendChild(githubContainer);
+  }
+}
+
+function createStatItem(iconClass, text, url) {
+  const statItem = document.createElement('a');
+  statItem.href = url;
+  statItem.className = 'github-stat-item';
+  statItem.target = '_blank';
+  statItem.rel = 'noopener';
+  
+  const statIcon = document.createElement('i');
+  statIcon.className = iconClass;
+  
+  const statText = document.createElement('span');
+  statText.className = 'github-stat-text';
+  statText.textContent = text;
+  
+  statItem.appendChild(statIcon);
+  statItem.appendChild(statText);
+  
+  return statItem;
 }
 
 function formatNumber(num) {
