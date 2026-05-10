@@ -1,5 +1,5 @@
 sphinx-tabs
-sphinx-rtd-theme
+pydata-sphinx-theme
 sphinxcontrib-napoleon
 sphinx-argparse
 docutils

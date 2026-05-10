@@ -36,13 +36,10 @@ extensions = [
     "myst_parser",
 ]
 
-# Custom CSS and JS files for sphinx-rtd-theme
+# Custom CSS and JS files for pydata-sphinx-theme
 html_css_files = [
     'custom.css',
     'dell-brand.css',
-]
-html_js_files = [
-    'custom.js',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -99,17 +96,26 @@ pygments_style = "sphinx" # pylint: disable=invalid-name
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = "sphinx_rtd_theme" # pylint: disable=invalid-name
+html_theme = "pydata_sphinx_theme" # pylint: disable=invalid-name
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-    'collapse_navigation': False,  # Show expandable sections
-    'navigation_depth': 4,          # Show 4 levels deep
-    'includehidden': True,          # Include hidden toctrees
-    'sticky_navigation': True,      # Keep nav visible while scrolling
-    'titles_only': False,
+    'navbar_start': ["navbar-logo"],
+    'navbar_end': ["navbar-icon-links"],
+    'show_prev_next': False,
+    'show_toc_level': 4,
+    'navigation_depth': 4,
+    'collapse_navigation': False,
+    'header_links_before_dropdown': 7,
+    'use_edit_page_button': False,
+    'show_version_warning': False,
+    'announcement': None,
+    'pygments_light_style': 'default',
+    'pygments_dark_style': 'material',
+    'secondary_sidebar_items': ["page-toc", "edit-this-page"],
+    'sidebar_width': '300px',
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -130,6 +136,12 @@ html_logo = "images/omnia-logo.png" # pylint: disable=invalid-name
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
 html_favicon = "images/favicon.png" # pylint: disable=invalid-name
+
+# pydata-sphinx-theme logo configuration
+html_theme_options['logo'] = {
+    'link': 'https://dell.com',
+    'alt_text': 'Dell Omnia',
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
