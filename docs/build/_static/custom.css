@@ -45,10 +45,23 @@
     color: white !important;
     font-size: 1.2rem;
     transition: opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 }
 
 .bd-header .navbar-icon-links a:hover {
     opacity: 0.8;
+}
+
+.github-count {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    min-width: 2.5rem;
+    text-align: center;
 }
 
 /* Second row: Navigation menu */

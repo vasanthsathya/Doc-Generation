@@ -124,6 +124,21 @@ html_theme_options = {
             'url': 'https://github.com/dell/omnia',
             'icon': 'fa-brands fa-github',
         },
+        {
+            'name': 'Version',
+            'url': 'https://github.com/dell/omnia/releases',
+            'icon': 'fa-solid fa-tag',
+        },
+        {
+            'name': 'Stars',
+            'url': 'https://github.com/dell/omnia/stargazers',
+            'icon': 'fa-solid fa-star',
+        },
+        {
+            'name': 'Forks',
+            'url': 'https://github.com/dell/omnia/network/members',
+            'icon': 'fa-solid fa-code-fork',
+        },
     ],
 }
 
