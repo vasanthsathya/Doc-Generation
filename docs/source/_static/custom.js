@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Fetch GitHub API data after DOM manipulation is complete
-  setTimeout(fetchGitHubData, 500);
+  // Fetch GitHub API data immediately after DOM manipulation is complete
+  fetchGitHubData();
 });
 
 function addThemeSwitchButton(container) {
@@ -87,12 +87,17 @@ function setInitialTheme(button) {
 async function fetchGitHubData() {
   try {
     console.log('Fetching GitHub data...');
-    // Fetch repository data
-    const repoResponse = await fetch('https://api.github.com/repos/dell/omnia');
-    const repoData = await repoResponse.json();
     
-    // Fetch latest release data
-    const releaseResponse = await fetch('https://api.github.com/repos/dell/omnia/releases/latest');
+    // Show basic GitHub icon immediately while loading
+    showBasicGitHubIcon();
+    
+    // Fetch repository data and release data in parallel
+    const [repoResponse, releaseResponse] = await Promise.all([
+      fetch('https://api.github.com/repos/dell/omnia'),
+      fetch('https://api.github.com/repos/dell/omnia/releases/latest')
+    ]);
+    
+    const repoData = await repoResponse.json();
     const releaseData = await releaseResponse.json();
     
     console.log('GitHub data fetched:', repoData, releaseData);
@@ -104,14 +109,65 @@ async function fetchGitHubData() {
   }
 }
 
+function showBasicGitHubIcon() {
+  const githubLink = document.querySelector('.navbar-icon-links .nav-link[title="GitHub"]') ||
+                       document.querySelector('.navbar-icon-links a[title="GitHub"]') ||
+                       document.querySelector('.navbar-icon-links a.pst-navbar-icon[title="GitHub"]') ||
+                       document.querySelector('.navbar-icon-links a[href*="github.com/dell/omnia"]') ||
+                       document.querySelector('a[title="GitHub"][href*="github.com/dell/omnia"]');
+  
+  if (githubLink) {
+    // Create a container for the basic icon
+    const githubContainer = document.createElement('div');
+    githubContainer.className = 'github-info-container';
+    
+    // Create GitHub icon column
+    const iconColumn = document.createElement('div');
+    iconColumn.className = 'github-icon-column';
+    
+    const icon = document.createElement('i');
+    icon.className = 'fa-brands fa-github github-main-icon';
+    icon.style.fontSize = '1.8rem';
+    icon.style.color = 'white';
+    
+    iconColumn.appendChild(icon);
+    
+    // Create info column with repo name only
+    const infoColumn = document.createElement('div');
+    infoColumn.className = 'github-info-column';
+    
+    const repoRow = document.createElement('div');
+    repoRow.className = 'github-repo-row';
+    
+    const repoName = document.createElement('span');
+    repoName.className = 'github-repo-name';
+    repoName.textContent = 'dell/omnia';
+    
+    repoRow.appendChild(repoName);
+    infoColumn.appendChild(repoRow);
+    
+    githubContainer.appendChild(iconColumn);
+    githubContainer.appendChild(infoColumn);
+    
+    // Clear the original link content and replace with our container
+    githubLink.innerHTML = '';
+    githubLink.appendChild(githubContainer);
+    
+    console.log('Basic GitHub icon shown');
+  }
+}
+
 function updateGitHubLink(repoData, releaseData) {
   // Try multiple selectors to find the GitHub link
   const githubLink = document.querySelector('.navbar-icon-links .nav-link[title="GitHub"]') ||
                        document.querySelector('.navbar-icon-links a[title="GitHub"]') ||
                        document.querySelector('.navbar-icon-links a.pst-navbar-icon[title="GitHub"]') ||
-                       document.querySelector('.navbar-icon-links a[href*="github.com/dell/omnia"]');
+                       document.querySelector('.navbar-icon-links a[href*="github.com/dell/omnia"]') ||
+                       document.querySelector('a[title="GitHub"][href*="github.com/dell/omnia"]');
   
   console.log('GitHub link found:', githubLink);
+  console.log('Repo data:', repoData);
+  console.log('Release data:', releaseData);
   
   if (githubLink) {
     // Create a container for the stacked layout
@@ -153,18 +209,27 @@ function updateGitHubLink(repoData, releaseData) {
     if (releaseData && releaseData.tag_name !== undefined) {
       const versionStat = createStatItem('fa-solid fa-tag', releaseData.tag_name, 'https://github.com/dell/omnia/releases');
       statsRow.appendChild(versionStat);
+      console.log('Added version:', releaseData.tag_name);
+    } else {
+      console.log('No release data available');
     }
     
     // Stars
     if (repoData && repoData.stargazers_count !== undefined) {
       const starsStat = createStatItem('fa-solid fa-star', formatNumber(repoData.stargazers_count), 'https://github.com/dell/omnia/stargazers');
       statsRow.appendChild(starsStat);
+      console.log('Added stars:', repoData.stargazers_count);
+    } else {
+      console.log('No star count available');
     }
     
     // Forks
     if (repoData && repoData.forks_count !== undefined) {
       const forksStat = createStatItem('fa-solid fa-code-fork', formatNumber(repoData.forks_count), 'https://github.com/dell/omnia/network/members');
       statsRow.appendChild(forksStat);
+      console.log('Added forks:', repoData.forks_count);
+    } else {
+      console.log('No fork count available');
     }
     
     infoColumn.appendChild(repoRow);
