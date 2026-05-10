@@ -34,7 +34,6 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.githubpages",
     "myst_parser",
-    "sphinx_rtd_theme",
 ]
 
 # Custom CSS and JS files for sphinx-rtd-theme
