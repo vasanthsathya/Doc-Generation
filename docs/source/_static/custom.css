@@ -54,8 +54,109 @@
     opacity: 0.8;
 }
 
+/* Theme switch button styling */
+.bd-header .theme-switch-button-custom {
+    color: white !important;
+    font-size: 1.2rem;
+    transition: opacity 0.2s ease;
+    margin-right: 1rem;
+    background: transparent !important;
+    border: none !important;
+    padding: 0.5rem;
+}
+
+.bd-header .theme-switch-button-custom:hover {
+    opacity: 0.8;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.bd-header .theme-switch-button-custom i {
+    color: white !important;
+}
+
+/* Dark theme styles */
+[data-theme="dark"] body {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .bd-content {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .bd-header .navbar-header-items {
+    background-color: #002244;
+}
+
+[data-theme="dark"] .bd-header .navbar-header-items__start {
+    background-color: #001D3D;
+}
+
+[data-theme="dark"] a {
+    color: #4a9eff;
+}
+
+[data-theme="dark"] a:hover {
+    color: #6bb3ff;
+}
+
+[data-theme="dark"] .grid.cards li {
+    background-color: #2a2a2a;
+    border-color: #444;
+}
+
+[data-theme="dark"] .grid.cards li:hover {
+    border-color: #4a9eff;
+}
+
+[data-theme="dark"] code {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] pre {
+    background-color: #2a2a2a;
+}
+
+[data-theme="dark"] table th,
+[data-theme="dark"] table td {
+    border-color: #444;
+}
+
+[data-theme="dark"] table th {
+    background-color: #333;
+}
+
 /* GitHub info container - stacked layout */
 .github-info-container {
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.github-icon-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.github-main-icon {
+    font-size: 1.8rem !important;
+    color: white;
+}
+
+.github-info-column {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
@@ -67,6 +168,11 @@
     gap: 0.5rem;
     font-size: 0.9rem;
     font-weight: 600;
+}
+
+.github-repo-row i {
+    font-size: 1rem;
+    color: white;
 }
 
 .github-repo-name {
