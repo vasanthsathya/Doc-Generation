@@ -248,9 +248,25 @@
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Search field styling */
-.bd-header .search-button {
-    color: white !important;
+/* Remove collapse button from left sidebar */
+.sidebar-toggle.primary-toggle,
+.sidebar-toggle.secondary-toggle {
+    display: none !important;
+}
+
+/* Hide "Section Navigation" title */
+.bd-links__title {
+    display: none !important;
+}
+
+/* Hide sidebar header items that might contain navigation titles */
+.sidebar-header-items {
+    display: none !important;
+}
+
+/* Force sidebar to always be visible on wide screens */
+.bd-sidebar-primary.hide-on-wide {
+    display: block !important;
 }
 
 /* Navigation links styling */
