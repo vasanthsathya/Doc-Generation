@@ -27,11 +27,23 @@ sys.path.insert(0, os.path.abspath("../"))
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx_design",]
+extensions = [
+    "sphinx_design",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.todo",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.githubpages",
+    "myst_parser",
+]
 
 # Custom CSS and JS files for Material theme
-html_css_files = []
-html_js_files = []
+html_css_files = [
+    'custom.css',
+    'dell-brand.css',
+]
+html_js_files = [
+    'custom.js',
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -103,6 +115,7 @@ html_theme_options = {
     'globaltoc_depth': 3,
     'globaltoc_collapse': False,
     'globaltoc_includehidden': True,
+    'master_doc': False,
     'nav_links': [
         {'href': 'Overview/index', 'title': 'Overview', 'internal': True},
         {'href': 'GetStarted/index', 'title': 'Get Started', 'internal': True},
@@ -112,6 +125,17 @@ html_theme_options = {
         {'href': 'Troubleshooting/index', 'title': 'Troubleshooting', 'internal': True},
         {'href': 'Contributing/index', 'title': 'Contributing', 'internal': True},
     ],
+    'plugins': [
+        'search',
+        'highlight',
+        'links',
+        'pretty',
+        'meta',
+    ],
+    'html_minify': True,
+    'html_prettify': False,
+    'css_minify': True,
+    'js_minify': True,
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
