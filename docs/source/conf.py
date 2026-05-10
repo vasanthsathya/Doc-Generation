@@ -176,8 +176,8 @@ html_static_path = ["_static"]
 # html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-# Not used for Material theme
-# html_sidebars = {'**': ['globaltoc.html', 'sourcelink.html', 'searchbox.html']}
+# Note: sphinx_material theme includes sidebar by default in layout.html
+# html_sidebars configuration is not needed for this theme
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.

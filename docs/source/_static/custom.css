@@ -364,3 +364,26 @@ section {
         padding: 1rem;
     }
 }
+
+/* Left sidebar visibility - force sidebar to be visible on desktop */
+.md-sidebar--primary {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+    z-index: 10;
+}
+
+/* Main content adjustment for sidebar */
+.md-main {
+    margin-left: 280px;
+}
+
+/* Secondary sidebar (TOC) styling */
+.md-sidebar--secondary {
+    display: block !important;
+}
