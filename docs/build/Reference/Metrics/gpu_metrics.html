@@ -1,1 +1,671 @@
-<!DOCTYPE html> <html lang=en > <meta charset=utf-8  /> <meta name=viewport  content="width=device-width, initial-scale=1.0" /><meta name=generator  content="Docutils 0.18.1: http://docutils.sourceforge.net/" /> <meta name=viewport  content="width=device-width,initial-scale=1"> <meta http-equiv=x-ua-compatible  content="ie=edge"> <meta name="lang:clipboard.copy" content="Copy to clipboard"> <meta name="lang:clipboard.copied" content="Copied to clipboard"> <meta name="lang:search.language" content=en > <meta name="lang:search.pipeline.stopwords" content=True > <meta name="lang:search.pipeline.trimmer" content=True > <meta name="lang:search.result.none" content="No matching documents"> <meta name="lang:search.result.one" content="1 matching document"> <meta name="lang:search.result.other" content="# matching documents"> <meta name="lang:search.tokenizer" content="[\s\-]+"> <link href="https://fonts.gstatic.com/" rel=preconnect  crossorigin> <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel=stylesheet > <style> body, input { font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif } code, kbd, pre { font-family: "Roboto Mono", "Courier New", Courier, monospace } </style> <link rel=stylesheet  href="../../_static/stylesheets/application.css"/> <link rel=stylesheet  href="../../_static/stylesheets/application-palette.css"/> <link rel=stylesheet  href="../../_static/stylesheets/application-fixes.css"/> <link rel=stylesheet  href="../../_static/fonts/material-icons.css"/> <meta name=theme-color  content="#3f51b5"> <script src="../../_static/javascripts/modernizr.js"></script> <title>GPU Metrics &#8212; Dell/Omnia</title> <link rel=stylesheet  type="text/css" href="../../_static/pygments.css" /> <link rel=stylesheet  type="text/css" href="../../_static/material.css" /> <link rel=stylesheet  type="text/css" href="../../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" /> <link rel=stylesheet  type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" /> <link rel=stylesheet  type="text/css" href="../../_static/custom.css" /> <link rel=stylesheet  type="text/css" href="../../_static/dell-brand.css" /> <script data-url_root="../../" id=documentation_options  src="../../_static/documentation_options.js"></script> <script src="../../_static/doctools.js"></script> <script src="../../_static/sphinx_highlight.js"></script> <script src="../../_static/design-tabs.js"></script> <script src="../../_static/custom.js"></script> <link rel=icon  href="../../_static/favicon.png"/> <link rel=index  title=Index  href="../../genindex.html" /> <link rel=search  title=Search  href="../../search.html" /> <body dir=ltr data-md-color-primary=blue-grey data-md-color-accent=blue> <svg class=md-svg > <defs data-children-count=0 > <svg xmlns="http://www.w3.org/2000/svg" width=416  height=448  viewBox="0 0 416 448" id=__github ><path fill=currentColor  d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg> </defs> </svg> <input class=md-toggle  data-md-toggle=drawer  type=checkbox  id=__drawer > <input class=md-toggle  data-md-toggle=search  type=checkbox  id=__search > <label class=md-overlay  data-md-component=overlay  for=__drawer ></label> <a href="#Reference/Metrics/gpu_metrics" tabindex=1  class=md-skip > Skip to content </a> <header class=md-header  data-md-component=header > <nav class="md-header-nav md-grid"> <div class="md-flex navheader"> <div class="md-flex__cell md-flex__cell--shrink"> <a href="../../index.html" title="Dell/Omnia" class="md-header-nav__button md-logo"> &nbsp; </a> </div> <div class="md-flex__cell md-flex__cell--shrink"> <label class="md-icon md-icon--menu md-header-nav__button" for=__drawer ></label> </div> <div class="md-flex__cell md-flex__cell--stretch"> <div class="md-flex__ellipsis md-header-nav__title" data-md-component=title > <span class=md-header-nav__topic >Dell Omnia</span> <span class=md-header-nav__topic > GPU Metrics </span> </div> </div> <div class="md-flex__cell md-flex__cell--shrink"> <label class="md-icon md-icon--search md-header-nav__button" for=__search ></label> <div class=md-search  data-md-component=search  role=dialog > <label class=md-search__overlay  for=__search ></label> <div class=md-search__inner  role=search > <form class=md-search__form  action="../../search.html" method=get  name=search > <input type=text  class=md-search__input  name=q  placeholder=""Search"" autocapitalize=off  autocomplete=off  spellcheck=false  data-md-component=query  data-md-state=active > <label class="md-icon md-search__icon" for=__search ></label> <button type=reset  class="md-icon md-search__icon" data-md-component=reset  tabindex=-1 > &#xE5CD; </button> </form> <div class=md-search__output > <div class=md-search__scrollwrap  data-md-scrollfix> <div class=md-search-result  data-md-component=result > <div class=md-search-result__meta > Type to start searching </div> <ol class=md-search-result__list ></ol> </div> </div> </div> </div> </div> </div> <div class="md-flex__cell md-flex__cell--shrink"> <div class=md-header-nav__source > <a href="https://github.com/dell/omnia" title="Go to repository" class=md-source  data-md-source=github > <div class=md-source__icon > <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width=28  height=28 > <use xlink:href="#__github" width=24  height=24 ></use> </svg> </div> <div class=md-source__repository > dell/omnia </div> </a> </div> </div> <script src="../../_static/javascripts/version_dropdown.js"></script> <script> var json_loc = "../../"versions.json"", target_loc = "../../../", text = "Versions"; $( document ).ready( add_version_dropdown(json_loc, target_loc, text)); </script> </div> </nav> </header> <div class=md-container > <nav class=md-tabs  data-md-component=tabs > <div class="md-tabs__inner md-grid"> <ul class=md-tabs__list > <li class=md-tabs__item ><a href="../../Overview/index.html" class=md-tabs__link >Overview</a> <li class=md-tabs__item ><a href="../../GetStarted/index.html" class=md-tabs__link >Get Started</a> <li class=md-tabs__item ><a href="../../HowTo/index.html" class=md-tabs__link >How-to Guides</a> <li class=md-tabs__item ><a href="../../Operations/index.html" class=md-tabs__link >Operations</a> <li class=md-tabs__item ><a href="../index.html" class=md-tabs__link >Reference</a> <li class=md-tabs__item ><a href="../../Troubleshooting/index.html" class=md-tabs__link >Troubleshooting</a> <li class=md-tabs__item ><a href="../../Contributing/index.html" class=md-tabs__link >Contributing</a> </ul> </div> </nav> <main class=md-main > <div class="md-main__inner md-grid" data-md-component=container > <div class="md-sidebar md-sidebar--primary" data-md-component=navigation > <div class=md-sidebar__scrollwrap > <div class=md-sidebar__inner > <nav class="md-nav md-nav--primary" data-md-level=0 > <label class="md-nav__title md-nav__title--site" for=__drawer > <a href="../../index.html" title="Dell/Omnia" class="md-nav__button md-logo"> <img src="../../_static/" alt=" logo" width=48  height=48 > </a> <a href="../../index.html" title="Dell/Omnia">Dell Omnia</a> </label> <div class=md-nav__source > <a href="https://github.com/dell/omnia" title="Go to repository" class=md-source  data-md-source=github > <div class=md-source__icon > <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width=28  height=28 > <use xlink:href="#__github" width=24  height=24 ></use> </svg> </div> <div class=md-source__repository > dell/omnia </div> </a> </div> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/index.html" class=md-nav__link >Overview</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/architecture.html" class=md-nav__link >Architecture</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/architecture.html#why-three-cluster-types" class=md-nav__link >Why three cluster types?</a> <li class=md-nav__item > <a href="../../Overview/architecture.html#oim-the-management-node" class=md-nav__link >OIM – The management node</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/architecture.html#what-runs-on-the-oim" class=md-nav__link >What runs on the OIM</a> <li class=md-nav__item > <a href="../../Overview/architecture.html#oim-minimum-requirements" class=md-nav__link >OIM minimum requirements</a> </ul> <li class=md-nav__item > <a href="../../Overview/architecture.html#slurm-cluster" class=md-nav__link >Slurm cluster</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/architecture.html#node-roles" class=md-nav__link >Node roles</a> </ul> <li class=md-nav__item > <a href="../../Overview/architecture.html#kubernetes-cluster" class=md-nav__link >Kubernetes cluster</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/architecture.html#id1" class=md-nav__link >Node roles</a> <li class=md-nav__item > <a href="../../Overview/architecture.html#pre-installed-kubernetes-components" class=md-nav__link >Pre-installed Kubernetes components</a> </ul> <li class=md-nav__item > <a href="../../Overview/architecture.html#how-the-clusters-interact" class=md-nav__link >How the clusters interact</a> <li class=md-nav__item > <a href="../../Overview/architecture.html#design-rationale" class=md-nav__link >Design rationale</a> </ul> <li class=md-nav__item > <a href="../../Overview/components.html" class=md-nav__link >Components</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/components.html#omnia-core-container" class=md-nav__link >omnia_core container</a> <li class=md-nav__item > <a href="../../Overview/components.html#openchami" class=md-nav__link >OpenCHAMI</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/components.html#state-manager-daemon-smd" class=md-nav__link >State Manager Daemon (SMD)</a> <li class=md-nav__item > <a href="../../Overview/components.html#boot-script-service-bss" class=md-nav__link >Boot Script Service (BSS)</a> <li class=md-nav__item > <a href="../../Overview/components.html#ochami-cli" class=md-nav__link >ochami-cli</a> </ul> <li class=md-nav__item > <a href="../../Overview/components.html#pulp" class=md-nav__link >Pulp</a> <li class=md-nav__item > <a href="../../Overview/components.html#buildstream" class=md-nav__link >BuildStreaM</a> <li class=md-nav__item > <a href="../../Overview/components.html#omnia-auth" class=md-nav__link >Omnia Auth</a> <li class=md-nav__item > <a href="../../Overview/components.html#supporting-services" class=md-nav__link >Supporting services</a> </ul> <li class=md-nav__item > <a href="../../Overview/network_topologies.html" class=md-nav__link >Network Topologies</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/network_topologies.html#network-segments" class=md-nav__link >Network segments</a> <li class=md-nav__item > <a href="../../Overview/network_topologies.html#dedicated-topology" class=md-nav__link >Dedicated topology</a> <li class=md-nav__item > <a href="../../Overview/network_topologies.html#shared-lom-topology" class=md-nav__link >Shared LOM topology</a> <li class=md-nav__item > <a href="../../Overview/network_topologies.html#hybrid-topology" class=md-nav__link >Hybrid topology</a> <li class=md-nav__item > <a href="../../Overview/network_topologies.html#choosing-a-topology" class=md-nav__link >Choosing a topology</a> <li class=md-nav__item > <a href="../../Overview/network_topologies.html#ip-addressing-and-dhcp" class=md-nav__link >IP addressing and DHCP</a> </ul> <li class=md-nav__item > <a href="../../Overview/composable_roles.html" class=md-nav__link >Composable Roles</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/composable_roles.html#what-are-composable-roles" class=md-nav__link >What are composable roles?</a> <li class=md-nav__item > <a href="../../Overview/composable_roles.html#functional-groups" class=md-nav__link >Functional groups</a> <li class=md-nav__item > <a href="../../Overview/composable_roles.html#groups-based-on-physical-characteristics" class=md-nav__link >Groups based on physical characteristics</a> <li class=md-nav__item > <a href="../../Overview/composable_roles.html#the-mapping-file" class=md-nav__link >The mapping file</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/composable_roles.html#format" class=md-nav__link >Format</a> <li class=md-nav__item > <a href="../../Overview/composable_roles.html#example" class=md-nav__link >Example</a> </ul> <li class=md-nav__item > <a href="../../Overview/composable_roles.html#how-omnia-processes-the-mapping-file" class=md-nav__link >How Omnia processes the mapping file</a> <li class=md-nav__item > <a href="../../Overview/composable_roles.html#design-rationale" class=md-nav__link >Design rationale</a> </ul> <li class=md-nav__item > <a href="../../Overview/security_model.html" class=md-nav__link >Security Model</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/security_model.html#security-profiles" class=md-nav__link >Security profiles</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#security-controls-map" class=md-nav__link >Security Controls Map</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#security-principles" class=md-nav__link >Security principles</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#credential-encryption-with-ansible-vault" class=md-nav__link >Credential encryption with Ansible Vault</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/security_model.html#how-it-works" class=md-nav__link >How it works</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#login-security-settings" class=md-nav__link >Login security settings</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#credential-utility" class=md-nav__link >Credential utility</a> </ul> <li class=md-nav__item > <a href="../../Overview/security_model.html#centralized-authentication-with-openldap" class=md-nav__link >Centralized authentication with OpenLDAP</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/security_model.html#sssd-integration" class=md-nav__link >SSSD integration</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#configuration" class=md-nav__link >Configuration</a> </ul> <li class=md-nav__item > <a href="../../Overview/security_model.html#tls-certificate-management" class=md-nav__link >TLS certificate management</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/security_model.html#step-ca-internal-certificate-authority" class=md-nav__link >step-ca – Internal certificate authority</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#acme-protocol" class=md-nav__link >ACME protocol</a> </ul> <li class=md-nav__item > <a href="../../Overview/security_model.html#oauth-2-0-and-oidc-with-hydra" class=md-nav__link >OAuth 2.0 and OIDC with Hydra</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#security-configuration-reference" class=md-nav__link >Security configuration reference</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#security-best-practices" class=md-nav__link >Security best practices</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#authentication-types-and-setup" class=md-nav__link >Authentication types and setup</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/security_model.html#key-based-authentication" class=md-nav__link >Key-based authentication</a> </ul> <li class=md-nav__item > <a href="../../Overview/security_model.html#authentication-to-external-systems" class=md-nav__link >Authentication to external systems</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#network-vulnerability-scanning" class=md-nav__link >Network vulnerability scanning</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#ansible-security" class=md-nav__link >Ansible security</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#legal-disclaimers" class=md-nav__link >Legal disclaimers</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#scope" class=md-nav__link >Scope</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#document-references" class=md-nav__link >Document references</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#reporting-security-vulnerabilities" class=md-nav__link >Reporting security vulnerabilities</a> </ul> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html" class=md-nav__link >Telemetry Architecture</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#data-collection" class=md-nav__link >Data collection</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#idrac-telemetry-out-of-band" class=md-nav__link >iDRAC telemetry (out-of-band)</a> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#ldms-telemetry-in-band" class=md-nav__link >LDMS telemetry (in-band)</a> </ul> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#message-transport-apache-kafka" class=md-nav__link >Message transport – Apache Kafka</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#external-kafka-integration" class=md-nav__link >External Kafka integration</a> </ul> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#storage-victoriametrics" class=md-nav__link >Storage – VictoriaMetrics</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#external-victoriametrics-integration" class=md-nav__link >External VictoriaMetrics integration</a> </ul> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#visualization-grafana" class=md-nav__link >Visualization – Grafana</a> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#ome-and-sfm-telemetry" class=md-nav__link >OME and SFM telemetry</a> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#air-gapped-telemetry" class=md-nav__link >Air-gapped telemetry</a> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#design-rationale" class=md-nav__link >Design rationale</a> </ul> <li class=md-nav__item > <a href="../../Overview/glossary.html" class=md-nav__link >Glossary</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html" class=md-nav__link >Release Notes</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/release_notes.html#omnia-2-1-0-0" class=md-nav__link >Omnia 2.1.0.0</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/release_notes.html#buildstream-gitlab-ci-automation" class=md-nav__link >BuildStreaM – GitLab CI automation</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#additional-packages-and-software" class=md-nav__link >Additional packages and software</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#slurm-cluster-management" class=md-nav__link >Slurm cluster management</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#telemetry-enhancements" class=md-nav__link >Telemetry enhancements</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#storage-integration" class=md-nav__link >Storage integration</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#network-enhancements" class=md-nav__link >Network enhancements</a> </ul> <li class=md-nav__item > <a href="../../Overview/release_notes.html#omnia-2-0-0-0" class=md-nav__link >Omnia 2.0.0.0</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/release_notes.html#podman-containerization" class=md-nav__link >Podman containerization</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#local-repository-management-with-pulp" class=md-nav__link >Local repository management with Pulp</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#centralized-authentication" class=md-nav__link >Centralized authentication</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#telemetry-pipeline" class=md-nav__link >Telemetry pipeline</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#kubernetes-high-availability" class=md-nav__link >Kubernetes high availability</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#composable-functional-groups" class=md-nav__link >Composable functional groups</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#stateless-boot" class=md-nav__link >Stateless boot</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#gpu-and-accelerator-support" class=md-nav__link >GPU and accelerator support</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#security-enhancements" class=md-nav__link >Security enhancements</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#multi-architecture-support" class=md-nav__link >Multi-architecture support</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#input-templates-and-validator" class=md-nav__link >Input templates and validator</a> </ul> <li class=md-nav__item > <a href="../../Overview/release_notes.html#supported-platforms" class=md-nav__link >Supported platforms</a> </ul> <li class=md-nav__item > <a href="../../Overview/blogs.html" class=md-nav__link >Blogs about Omnia</a> </ul> <li class=md-nav__item > <a href="../../GetStarted/index.html" class=md-nav__link >Get Started</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../GetStarted/index.html#deployment-paths-at-a-glance" class=md-nav__link >Deployment Paths at a Glance</a> <li class=md-nav__item > <a href="../../GetStarted/index.html#which-path-should-i-choose" class=md-nav__link >Which Path Should I Choose?</a> <li class=md-nav__item > <a href="../../GetStarted/index.html#before-you-begin" class=md-nav__link >Before You Begin</a> </ul> <li class=md-nav__item > <a href="../../HowTo/index.html" class=md-nav__link >How-to Guides</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../HowTo/index.html#initial-setup-provisioning" class=md-nav__link >Initial Setup & Provisioning</a> <li class=md-nav__item > <a href="../../HowTo/index.html#slurm-job-scheduling" class=md-nav__link >Slurm Job Scheduling</a> <li class=md-nav__item > <a href="../../HowTo/index.html#kubernetes-services" class=md-nav__link >Kubernetes Services</a> <li class=md-nav__item > <a href="../../HowTo/index.html#storage" class=md-nav__link >Storage</a> <li class=md-nav__item > <a href="../../HowTo/index.html#networking" class=md-nav__link >Networking</a> <li class=md-nav__item > <a href="../../HowTo/index.html#authentication" class=md-nav__link >Authentication</a> <li class=md-nav__item > <a href="../../HowTo/index.html#telemetry-monitoring" class=md-nav__link >Telemetry & Monitoring</a> <li class=md-nav__item > <a href="../../HowTo/index.html#containers-packages" class=md-nav__link >Containers & Packages</a> <li class=md-nav__item > <a href="../../HowTo/index.html#buildstream-ci-cd" class=md-nav__link >BuildStreaM (CI/CD)</a> </ul> <li class=md-nav__item > <a href="../../Operations/index.html" class=md-nav__link >Operations & Maintenance</a> <li class=md-nav__item > <a href="../index.html" class=md-nav__link >Reference</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../index.html#support-matrix" class=md-nav__link >Support Matrix</a> <li class=md-nav__item > <a href="../index.html#configuration-file-reference" class=md-nav__link >Configuration File Reference</a> <li class=md-nav__item > <a href="../index.html#sample-files" class=md-nav__link >Sample Files</a> <li class=md-nav__item > <a href="../index.html#cluster-requirements" class=md-nav__link >Cluster Requirements</a> <li class=md-nav__item > <a href="../index.html#playbook-reference" class=md-nav__link >Playbook Reference</a> <li class=md-nav__item > <a href="../index.html#telemetry-metrics-reference" class=md-nav__link >Telemetry Metrics Reference</a> <li class=md-nav__item > <a href="../index.html#appendices" class=md-nav__link >Appendices</a> </ul> <li class=md-nav__item > <a href="../../Troubleshooting/index.html" class=md-nav__link >Troubleshooting</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Troubleshooting/index.html#troubleshooting-approach" class=md-nav__link >Troubleshooting approach</a> </ul> <li class=md-nav__item > <a href="../../Contributing/index.html" class=md-nav__link >Contributing to Omnia</a> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=toc > <div class=md-sidebar__scrollwrap > <div class=md-sidebar__inner > <nav class="md-nav md-nav--secondary"> <ul class=md-nav__list  data-md-scrollfix=""> <li class=md-nav__item ><a class=md-nav__extra_link  href="../../_sources/Reference/Metrics/gpu_metrics.rst.txt">Show Source</a> <li id=searchbox  class=md-nav__item > </ul> </nav> </div> </div> </div> <div class=md-content > <article class="md-content__inner md-typeset" role=main > <section id=gpu-metrics > <h1 id=reference-metrics-gpu-metrics--page-root >GPU Metrics<a class=headerlink  href="#reference-metrics-gpu-metrics--page-root" title="Permalink to this heading">¶</a></h1> <p>This page catalogs the GPU telemetry metrics collected by the Omnia telemetry pipeline. Metrics are available for both NVIDIA and AMD GPUs.</p> <section id=collection-method > <h2 id=collection-method >Collection method<a class=headerlink  href="#collection-method" title="Permalink to this heading">¶</a></h2> <table> <thead> <tr class=row-odd ><th class=head ><p>Property</p> <th class=head ><p>NVIDIA</p> <th class=head ><p>AMD</p> <tr class=row-even ><td><p><strong>Collection tool</strong></p> <td><p>DCGM (Data Center GPU Manager) or <code class="docutils literal notranslate"><span class=pre >nvidia-smi</span></code></p> <td><p><code class="docutils literal notranslate"><span class=pre >rocm-smi</span></code> or ROCm SMI library</p> <tr class=row-odd ><td><p><strong>Protocol</strong></p> <td><p>DCGM exporter (Prometheus-compatible) or Kafka producer</p> <td><p>ROCm exporter (Prometheus-compatible) or Kafka producer</p> <tr class=row-even ><td><p><strong>Default interval</strong></p> <td><p>10 seconds</p> <td><p>10 seconds</p> <tr class=row-odd ><td><p><strong>Kafka topic</strong></p> <td><p><code class="docutils literal notranslate"><span class=pre >gpu_telemetry</span></code></p> <td><p><code class="docutils literal notranslate"><span class=pre >gpu_telemetry</span></code></p> <tr class=row-even ><td><p><strong>Storage</strong></p> <td><p>VictoriaMetrics</p> <td><p>VictoriaMetrics</p> </table> </section> <section id=nvidia-gpu-metrics > <h2 id=nvidia-gpu-metrics >NVIDIA GPU metrics<a class=headerlink  href="#nvidia-gpu-metrics" title="Permalink to this heading">¶</a></h2> <section id=utilization-metrics > <h3 id=utilization-metrics >Utilization metrics<a class=headerlink  href="#utilization-metrics" title="Permalink to this heading">¶</a></h3> <table> <thead> <tr class=row-odd ><th class=head ><p>Metric</p> <th class=head ><p>Unit</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_utilization</span></code></p> <td><p>Percent</p> <td><p>Percentage of time the GPU was executing one or more kernels over the sampling interval.</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_memory_utilization</span></code></p> <td><p>Percent</p> <td><p>Percentage of time the GPU memory controller was active.</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_encoder_utilization</span></code></p> <td><p>Percent</p> <td><p>Hardware video encoder utilization (if applicable).</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_decoder_utilization</span></code></p> <td><p>Percent</p> <td><p>Hardware video decoder utilization (if applicable).</p> </table> </section> <section id=temperature-metrics > <h3 id=temperature-metrics >Temperature metrics<a class=headerlink  href="#temperature-metrics" title="Permalink to this heading">¶</a></h3> <table> <thead> <tr class=row-odd ><th class=head ><p>Metric</p> <th class=head ><p>Unit</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_temperature</span></code></p> <td><p>Celsius</p> <td><p>Current GPU die temperature.</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_memory_temperature</span></code></p> <td><p>Celsius</p> <td><p>HBM (High Bandwidth Memory) temperature. Available on A100, H100, and similar data center GPUs.</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_temperature_threshold_shutdown</span></code></p> <td><p>Celsius</p> <td><p>Temperature at which the GPU will trigger a thermal shutdown.</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_temperature_threshold_slowdown</span></code></p> <td><p>Celsius</p> <td><p>Temperature at which the GPU begins throttling clocks.</p> </table> </section> <section id=memory-metrics > <h3 id=memory-metrics >Memory metrics<a class=headerlink  href="#memory-metrics" title="Permalink to this heading">¶</a></h3> <table> <thead> <tr class=row-odd ><th class=head ><p>Metric</p> <th class=head ><p>Unit</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_memory_total</span></code></p> <td><p>MiB</p> <td><p>Total GPU memory (e.g., 40960 MiB for A100 40GB).</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_memory_used</span></code></p> <td><p>MiB</p> <td><p>GPU memory currently allocated by processes.</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_memory_free</span></code></p> <td><p>MiB</p> <td><p>GPU memory available for allocation.</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_bar1_memory_total</span></code></p> <td><p>MiB</p> <td><p>Total BAR1 memory (used for CPU-GPU memory mapping).</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_bar1_memory_used</span></code></p> <td><p>MiB</p> <td><p>BAR1 memory currently in use.</p> </table> </section> <section id=power-metrics > <h3 id=power-metrics >Power metrics<a class=headerlink  href="#power-metrics" title="Permalink to this heading">¶</a></h3> <table> <thead> <tr class=row-odd ><th class=head ><p>Metric</p> <th class=head ><p>Unit</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_power_draw</span></code></p> <td><p>Watts</p> <td><p>Current GPU power consumption.</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_power_limit</span></code></p> <td><p>Watts</p> <td><p>Current power limit (may be software-configured).</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_power_default_limit</span></code></p> <td><p>Watts</p> <td><p>Factory default power limit.</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_power_max_limit</span></code></p> <td><p>Watts</p> <td><p>Maximum power limit configurable for this GPU.</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_energy_consumption</span></code></p> <td><p>Joules</p> <td><p>Cumulative energy consumed since last driver reload.</p> </table> </section> <section id=clock-and-performance-metrics > <h3 id=clock-and-performance-metrics >Clock and performance metrics<a class=headerlink  href="#clock-and-performance-metrics" title="Permalink to this heading">¶</a></h3> <table> <thead> <tr class=row-odd ><th class=head ><p>Metric</p> <th class=head ><p>Unit</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_clock_sm</span></code></p> <td><p>MHz</p> <td><p>Current SM (Streaming Multiprocessor) clock frequency.</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_clock_memory</span></code></p> <td><p>MHz</p> <td><p>Current memory clock frequency.</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_pstate</span></code></p> <td><p>Enum</p> <td><p>GPU performance state (P0 = maximum performance, P12 = idle).</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_throttle_reason</span></code></p> <td><p>Bitmask</p> <td><p>Active clock throttle reasons (thermal, power, API-initiated).</p> </table> </section> <section id=error-metrics > <h3 id=error-metrics >Error metrics<a class=headerlink  href="#error-metrics" title="Permalink to this heading">¶</a></h3> <table> <thead> <tr class=row-odd ><th class=head ><p>Metric</p> <th class=head ><p>Unit</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_ecc_errors_corrected</span></code></p> <td><p>Count</p> <td><p>Corrected (single-bit) ECC errors. Per-memory type (SRAM, DRAM).</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_ecc_errors_uncorrected</span></code></p> <td><p>Count</p> <td><p>Uncorrected (double-bit) ECC errors. Indicates potential data corruption.</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_retired_pages_single_bit</span></code></p> <td><p>Count</p> <td><p>GPU memory pages retired due to single-bit ECC errors.</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_retired_pages_double_bit</span></code></p> <td><p>Count</p> <td><p>GPU memory pages retired due to double-bit ECC errors.</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >nvidia_gpu_xid_errors</span></code></p> <td><p>Count</p> <td><p>NVIDIA Xid error events (logged by the GPU driver).</p> </table> </section> </section> <section id=amd-gpu-metrics > <h2 id=amd-gpu-metrics >AMD GPU metrics<a class=headerlink  href="#amd-gpu-metrics" title="Permalink to this heading">¶</a></h2> <section id=id1 > <h3 id=id1 >Utilization metrics<a class=headerlink  href="#id1" title="Permalink to this heading">¶</a></h3> <table> <thead> <tr class=row-odd ><th class=head ><p>Metric</p> <th class=head ><p>Unit</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >amd_gpu_utilization</span></code></p> <td><p>Percent</p> <td><p>GPU compute unit utilization over the sampling interval.</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >amd_gpu_memory_utilization</span></code></p> <td><p>Percent</p> <td><p>GPU memory controller utilization.</p> </table> </section> <section id=id2 > <h3 id=id2 >Temperature metrics<a class=headerlink  href="#id2" title="Permalink to this heading">¶</a></h3> <table> <thead> <tr class=row-odd ><th class=head ><p>Metric</p> <th class=head ><p>Unit</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >amd_gpu_temperature_edge</span></code></p> <td><p>Celsius</p> <td><p>GPU edge temperature.</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >amd_gpu_temperature_junction</span></code></p> <td><p>Celsius</p> <td><p>GPU junction (hotspot) temperature.</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >amd_gpu_temperature_memory</span></code></p> <td><p>Celsius</p> <td><p>HBM temperature.</p> </table> </section> <section id=id3 > <h3 id=id3 >Memory metrics<a class=headerlink  href="#id3" title="Permalink to this heading">¶</a></h3> <table> <thead> <tr class=row-odd ><th class=head ><p>Metric</p> <th class=head ><p>Unit</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >amd_gpu_memory_total</span></code></p> <td><p>MiB</p> <td><p>Total GPU memory.</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >amd_gpu_memory_used</span></code></p> <td><p>MiB</p> <td><p>GPU memory currently allocated.</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >amd_gpu_memory_free</span></code></p> <td><p>MiB</p> <td><p>Available GPU memory.</p> </table> </section> <section id=id4 > <h3 id=id4 >Power metrics<a class=headerlink  href="#id4" title="Permalink to this heading">¶</a></h3> <table> <thead> <tr class=row-odd ><th class=head ><p>Metric</p> <th class=head ><p>Unit</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >amd_gpu_power_draw</span></code></p> <td><p>Watts</p> <td><p>Current GPU power consumption.</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >amd_gpu_power_cap</span></code></p> <td><p>Watts</p> <td><p>Current power cap.</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >amd_gpu_power_cap_default</span></code></p> <td><p>Watts</p> <td><p>Factory default power cap.</p> </table> </section> <section id=clock-metrics > <h3 id=clock-metrics >Clock metrics<a class=headerlink  href="#clock-metrics" title="Permalink to this heading">¶</a></h3> <table> <thead> <tr class=row-odd ><th class=head ><p>Metric</p> <th class=head ><p>Unit</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >amd_gpu_clock_sclk</span></code></p> <td><p>MHz</p> <td><p>Current GPU engine (shader) clock frequency.</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >amd_gpu_clock_mclk</span></code></p> <td><p>MHz</p> <td><p>Current memory clock frequency.</p> </table> </section> </section> <section id=metric-labels > <h2 id=metric-labels >Metric labels<a class=headerlink  href="#metric-labels" title="Permalink to this heading">¶</a></h2> <p>All GPU metrics include the following common labels:</p> <table> <thead> <tr class=row-odd ><th class=head ><p>Label</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >host</span></code></p> <td><p>Hostname of the compute node.</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >gpu_index</span></code></p> <td><p>GPU index on the node (0, 1, 2, …).</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >gpu_uuid</span></code></p> <td><p>Unique identifier for the GPU.</p> <tr class=row-odd ><td><p><code class="docutils literal notranslate"><span class=pre >gpu_model</span></code></p> <td><p>GPU model name (e.g., <code class="docutils literal notranslate"><span class=pre >NVIDIA</span> <span class=pre >A100-SXM4-80GB</span></code>, <code class="docutils literal notranslate"><span class=pre >AMD</span> <span class=pre >Instinct</span> <span class=pre >MI250X</span></code>).</p> <tr class=row-even ><td><p><code class="docutils literal notranslate"><span class=pre >pci_bus_id</span></code></p> <td><p>PCI bus address of the GPU.</p> </table> <div class="admonition note"> <p class=admonition-title >Note</p> <ul class=simple > <li><p><a class="reference external" href="../Configuration/telemetry_config.rst">Telemetry Config</a> – Telemetry pipeline configuration.</p> <li><p><a class="reference external" href="../Configuration/omnia_config.rst">Omnia Config</a> – GPU deployment settings (<code class="docutils literal notranslate"><span class=pre >enable_nvidia_gpu</span></code>, <code class="docutils literal notranslate"><span class=pre >enable_amd_gpu</span></code>).</p> <li><p><a class="reference external" href=idrac_metrics.rst >Idrac Metrics</a> – Server-level hardware metrics.</p> <li><p><a class="reference external" href=ldms_metrics.rst >Ldms Metrics</a> – OS-level metrics from LDMS.</p> </ul> </div> <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia.readme%40dell.com">omnia<span>.</span>readme<span>@</span>dell<span>.</span>com</a>.</p> </section> </section> </article> </div> </div> </main> </div> <footer class=md-footer > <div class=md-footer-nav > <nav class="md-footer-nav__inner md-grid"> </a> </nav> </div> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-copyright > <div class=md-footer-copyright__highlight > &#169; Copyright 2025, Dell Technologies. </div> Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 6.2.1. and <a href="https://github.com/bashtage/sphinx-material/">Material for Sphinx</a> </div> </div> </div> </footer> <script src="../../_static/javascripts/application.js"></script> <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPU Metrics &mdash; Dell/Omnia</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/dell-brand.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/custom.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Omnia
+              <img src="../../_static/omnia-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Overview/index.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/architecture.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/architecture.html#why-three-cluster-types">Why three cluster types?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/architecture.html#oim-the-management-node">OIM – The management node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/architecture.html#what-runs-on-the-oim">What runs on the OIM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/architecture.html#oim-minimum-requirements">OIM minimum requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/architecture.html#slurm-cluster">Slurm cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/architecture.html#node-roles">Node roles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/architecture.html#kubernetes-cluster">Kubernetes cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/architecture.html#id1">Node roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/architecture.html#pre-installed-kubernetes-components">Pre-installed Kubernetes components</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/architecture.html#how-the-clusters-interact">How the clusters interact</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/architecture.html#design-rationale">Design rationale</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/components.html">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/components.html#omnia-core-container">omnia_core container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/components.html#openchami">OpenCHAMI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/components.html#state-manager-daemon-smd">State Manager Daemon (SMD)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/components.html#boot-script-service-bss">Boot Script Service (BSS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/components.html#ochami-cli">ochami-cli</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/components.html#pulp">Pulp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/components.html#buildstream">BuildStreaM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/components.html#omnia-auth">Omnia Auth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/components.html#supporting-services">Supporting services</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/network_topologies.html">Network Topologies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/network_topologies.html#network-segments">Network segments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/network_topologies.html#dedicated-topology">Dedicated topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/network_topologies.html#shared-lom-topology">Shared LOM topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/network_topologies.html#hybrid-topology">Hybrid topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/network_topologies.html#choosing-a-topology">Choosing a topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/network_topologies.html#ip-addressing-and-dhcp">IP addressing and DHCP</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/composable_roles.html">Composable Roles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/composable_roles.html#what-are-composable-roles">What are composable roles?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/composable_roles.html#functional-groups">Functional groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/composable_roles.html#groups-based-on-physical-characteristics">Groups based on physical characteristics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/composable_roles.html#the-mapping-file">The mapping file</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/composable_roles.html#format">Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/composable_roles.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/composable_roles.html#how-omnia-processes-the-mapping-file">How Omnia processes the mapping file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/composable_roles.html#design-rationale">Design rationale</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/security_model.html">Security Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#security-profiles">Security profiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#security-controls-map">Security Controls Map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#security-principles">Security principles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#credential-encryption-with-ansible-vault">Credential encryption with Ansible Vault</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#how-it-works">How it works</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#login-security-settings">Login security settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#credential-utility">Credential utility</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#centralized-authentication-with-openldap">Centralized authentication with OpenLDAP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#sssd-integration">SSSD integration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#tls-certificate-management">TLS certificate management</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#step-ca-internal-certificate-authority">step-ca – Internal certificate authority</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#acme-protocol">ACME protocol</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#oauth-2-0-and-oidc-with-hydra">OAuth 2.0 and OIDC with Hydra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#security-configuration-reference">Security configuration reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#security-best-practices">Security best practices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#authentication-types-and-setup">Authentication types and setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#key-based-authentication">Key-based authentication</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#authentication-to-external-systems">Authentication to external systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#network-vulnerability-scanning">Network vulnerability scanning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#ansible-security">Ansible security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#legal-disclaimers">Legal disclaimers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#scope">Scope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#document-references">Document references</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#reporting-security-vulnerabilities">Reporting security vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/telemetry_architecture.html">Telemetry Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/telemetry_architecture.html#data-collection">Data collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/telemetry_architecture.html#idrac-telemetry-out-of-band">iDRAC telemetry (out-of-band)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/telemetry_architecture.html#ldms-telemetry-in-band">LDMS telemetry (in-band)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/telemetry_architecture.html#message-transport-apache-kafka">Message transport – Apache Kafka</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/telemetry_architecture.html#external-kafka-integration">External Kafka integration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/telemetry_architecture.html#storage-victoriametrics">Storage – VictoriaMetrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/telemetry_architecture.html#external-victoriametrics-integration">External VictoriaMetrics integration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/telemetry_architecture.html#visualization-grafana">Visualization – Grafana</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/telemetry_architecture.html#ome-and-sfm-telemetry">OME and SFM telemetry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/telemetry_architecture.html#air-gapped-telemetry">Air-gapped telemetry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/telemetry_architecture.html#design-rationale">Design rationale</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/glossary.html">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/release_notes.html#omnia-2-1-0-0">Omnia 2.1.0.0</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#buildstream-gitlab-ci-automation">BuildStreaM – GitLab CI automation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#additional-packages-and-software">Additional packages and software</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#slurm-cluster-management">Slurm cluster management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#telemetry-enhancements">Telemetry enhancements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#storage-integration">Storage integration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#network-enhancements">Network enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/release_notes.html#omnia-2-0-0-0">Omnia 2.0.0.0</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#podman-containerization">Podman containerization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#local-repository-management-with-pulp">Local repository management with Pulp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#centralized-authentication">Centralized authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#telemetry-pipeline">Telemetry pipeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#kubernetes-high-availability">Kubernetes high availability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#composable-functional-groups">Composable functional groups</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#stateless-boot">Stateless boot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#gpu-and-accelerator-support">GPU and accelerator support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#security-enhancements">Security enhancements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#multi-architecture-support">Multi-architecture support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#input-templates-and-validator">Input templates and validator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/release_notes.html#supported-platforms">Supported platforms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/blogs.html">Blogs about Omnia</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../GetStarted/index.html">Get Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../GetStarted/index.html#deployment-paths-at-a-glance">Deployment Paths at a Glance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../GetStarted/index.html#which-path-should-i-choose">Which Path Should I Choose?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../GetStarted/index.html#before-you-begin">Before You Begin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../HowTo/index.html">How-to Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#initial-setup-provisioning">Initial Setup &amp; Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#slurm-job-scheduling">Slurm Job Scheduling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#kubernetes-services">Kubernetes Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#storage">Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#networking">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#telemetry-monitoring">Telemetry &amp; Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#containers-packages">Containers &amp; Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#buildstream-ci-cd">BuildStreaM (CI/CD)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Operations/index.html">Operations &amp; Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#support-matrix">Support Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#configuration-file-reference">Configuration File Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#sample-files">Sample Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#cluster-requirements">Cluster Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#playbook-reference">Playbook Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#telemetry-metrics-reference">Telemetry Metrics Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#appendices">Appendices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Troubleshooting/index.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Troubleshooting/index.html#troubleshooting-approach">Troubleshooting approach</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contributing/index.html">Contributing to Omnia</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Omnia</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">GPU Metrics</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/Reference/Metrics/gpu_metrics.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gpu-metrics">
+<h1>GPU Metrics<a class="headerlink" href="#gpu-metrics" title="Permalink to this heading"></a></h1>
+<p>This page catalogs the GPU telemetry metrics collected by the Omnia telemetry
+pipeline. Metrics are available for both NVIDIA and AMD GPUs.</p>
+<section id="collection-method">
+<h2>Collection method<a class="headerlink" href="#collection-method" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Property</p></th>
+<th class="head"><p>NVIDIA</p></th>
+<th class="head"><p>AMD</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Collection tool</strong></p></td>
+<td><p>DCGM (Data Center GPU Manager) or <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">rocm-smi</span></code> or ROCm SMI library</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Protocol</strong></p></td>
+<td><p>DCGM exporter (Prometheus-compatible) or Kafka producer</p></td>
+<td><p>ROCm exporter (Prometheus-compatible) or Kafka producer</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Default interval</strong></p></td>
+<td><p>10 seconds</p></td>
+<td><p>10 seconds</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Kafka topic</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gpu_telemetry</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gpu_telemetry</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Storage</strong></p></td>
+<td><p>VictoriaMetrics</p></td>
+<td><p>VictoriaMetrics</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="nvidia-gpu-metrics">
+<h2>NVIDIA GPU metrics<a class="headerlink" href="#nvidia-gpu-metrics" title="Permalink to this heading"></a></h2>
+<section id="utilization-metrics">
+<h3>Utilization metrics<a class="headerlink" href="#utilization-metrics" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_utilization</span></code></p></td>
+<td><p>Percent</p></td>
+<td><p>Percentage of time the GPU was executing one or more kernels over the sampling interval.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_memory_utilization</span></code></p></td>
+<td><p>Percent</p></td>
+<td><p>Percentage of time the GPU memory controller was active.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_encoder_utilization</span></code></p></td>
+<td><p>Percent</p></td>
+<td><p>Hardware video encoder utilization (if applicable).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_decoder_utilization</span></code></p></td>
+<td><p>Percent</p></td>
+<td><p>Hardware video decoder utilization (if applicable).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="temperature-metrics">
+<h3>Temperature metrics<a class="headerlink" href="#temperature-metrics" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_temperature</span></code></p></td>
+<td><p>Celsius</p></td>
+<td><p>Current GPU die temperature.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_memory_temperature</span></code></p></td>
+<td><p>Celsius</p></td>
+<td><p>HBM (High Bandwidth Memory) temperature. Available on A100, H100, and similar data center GPUs.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_temperature_threshold_shutdown</span></code></p></td>
+<td><p>Celsius</p></td>
+<td><p>Temperature at which the GPU will trigger a thermal shutdown.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_temperature_threshold_slowdown</span></code></p></td>
+<td><p>Celsius</p></td>
+<td><p>Temperature at which the GPU begins throttling clocks.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="memory-metrics">
+<h3>Memory metrics<a class="headerlink" href="#memory-metrics" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_memory_total</span></code></p></td>
+<td><p>MiB</p></td>
+<td><p>Total GPU memory (e.g., 40960 MiB for A100 40GB).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_memory_used</span></code></p></td>
+<td><p>MiB</p></td>
+<td><p>GPU memory currently allocated by processes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_memory_free</span></code></p></td>
+<td><p>MiB</p></td>
+<td><p>GPU memory available for allocation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_bar1_memory_total</span></code></p></td>
+<td><p>MiB</p></td>
+<td><p>Total BAR1 memory (used for CPU-GPU memory mapping).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_bar1_memory_used</span></code></p></td>
+<td><p>MiB</p></td>
+<td><p>BAR1 memory currently in use.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="power-metrics">
+<h3>Power metrics<a class="headerlink" href="#power-metrics" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_power_draw</span></code></p></td>
+<td><p>Watts</p></td>
+<td><p>Current GPU power consumption.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_power_limit</span></code></p></td>
+<td><p>Watts</p></td>
+<td><p>Current power limit (may be software-configured).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_power_default_limit</span></code></p></td>
+<td><p>Watts</p></td>
+<td><p>Factory default power limit.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_power_max_limit</span></code></p></td>
+<td><p>Watts</p></td>
+<td><p>Maximum power limit configurable for this GPU.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_energy_consumption</span></code></p></td>
+<td><p>Joules</p></td>
+<td><p>Cumulative energy consumed since last driver reload.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="clock-and-performance-metrics">
+<h3>Clock and performance metrics<a class="headerlink" href="#clock-and-performance-metrics" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_clock_sm</span></code></p></td>
+<td><p>MHz</p></td>
+<td><p>Current SM (Streaming Multiprocessor) clock frequency.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_clock_memory</span></code></p></td>
+<td><p>MHz</p></td>
+<td><p>Current memory clock frequency.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_pstate</span></code></p></td>
+<td><p>Enum</p></td>
+<td><p>GPU performance state (P0 = maximum performance, P12 = idle).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_throttle_reason</span></code></p></td>
+<td><p>Bitmask</p></td>
+<td><p>Active clock throttle reasons (thermal, power, API-initiated).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="error-metrics">
+<h3>Error metrics<a class="headerlink" href="#error-metrics" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_ecc_errors_corrected</span></code></p></td>
+<td><p>Count</p></td>
+<td><p>Corrected (single-bit) ECC errors. Per-memory type (SRAM, DRAM).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_ecc_errors_uncorrected</span></code></p></td>
+<td><p>Count</p></td>
+<td><p>Uncorrected (double-bit) ECC errors. Indicates potential data corruption.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_retired_pages_single_bit</span></code></p></td>
+<td><p>Count</p></td>
+<td><p>GPU memory pages retired due to single-bit ECC errors.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_retired_pages_double_bit</span></code></p></td>
+<td><p>Count</p></td>
+<td><p>GPU memory pages retired due to double-bit ECC errors.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nvidia_gpu_xid_errors</span></code></p></td>
+<td><p>Count</p></td>
+<td><p>NVIDIA Xid error events (logged by the GPU driver).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="amd-gpu-metrics">
+<h2>AMD GPU metrics<a class="headerlink" href="#amd-gpu-metrics" title="Permalink to this heading"></a></h2>
+<section id="id1">
+<h3>Utilization metrics<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">amd_gpu_utilization</span></code></p></td>
+<td><p>Percent</p></td>
+<td><p>GPU compute unit utilization over the sampling interval.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">amd_gpu_memory_utilization</span></code></p></td>
+<td><p>Percent</p></td>
+<td><p>GPU memory controller utilization.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id2">
+<h3>Temperature metrics<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">amd_gpu_temperature_edge</span></code></p></td>
+<td><p>Celsius</p></td>
+<td><p>GPU edge temperature.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">amd_gpu_temperature_junction</span></code></p></td>
+<td><p>Celsius</p></td>
+<td><p>GPU junction (hotspot) temperature.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">amd_gpu_temperature_memory</span></code></p></td>
+<td><p>Celsius</p></td>
+<td><p>HBM temperature.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id3">
+<h3>Memory metrics<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">amd_gpu_memory_total</span></code></p></td>
+<td><p>MiB</p></td>
+<td><p>Total GPU memory.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">amd_gpu_memory_used</span></code></p></td>
+<td><p>MiB</p></td>
+<td><p>GPU memory currently allocated.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">amd_gpu_memory_free</span></code></p></td>
+<td><p>MiB</p></td>
+<td><p>Available GPU memory.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id4">
+<h3>Power metrics<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">amd_gpu_power_draw</span></code></p></td>
+<td><p>Watts</p></td>
+<td><p>Current GPU power consumption.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">amd_gpu_power_cap</span></code></p></td>
+<td><p>Watts</p></td>
+<td><p>Current power cap.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">amd_gpu_power_cap_default</span></code></p></td>
+<td><p>Watts</p></td>
+<td><p>Factory default power cap.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="clock-metrics">
+<h3>Clock metrics<a class="headerlink" href="#clock-metrics" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">amd_gpu_clock_sclk</span></code></p></td>
+<td><p>MHz</p></td>
+<td><p>Current GPU engine (shader) clock frequency.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">amd_gpu_clock_mclk</span></code></p></td>
+<td><p>MHz</p></td>
+<td><p>Current memory clock frequency.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="metric-labels">
+<h2>Metric labels<a class="headerlink" href="#metric-labels" title="Permalink to this heading"></a></h2>
+<p>All GPU metrics include the following common labels:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Label</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">host</span></code></p></td>
+<td><p>Hostname of the compute node.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gpu_index</span></code></p></td>
+<td><p>GPU index on the node (0, 1, 2, …).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gpu_uuid</span></code></p></td>
+<td><p>Unique identifier for the GPU.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gpu_model</span></code></p></td>
+<td><p>GPU model name (e.g., <code class="docutils literal notranslate"><span class="pre">NVIDIA</span> <span class="pre">A100-SXM4-80GB</span></code>, <code class="docutils literal notranslate"><span class="pre">AMD</span> <span class="pre">Instinct</span> <span class="pre">MI250X</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pci_bus_id</span></code></p></td>
+<td><p>PCI bus address of the GPU.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><a class="reference external" href="../Configuration/telemetry_config.rst">Telemetry Config</a> – Telemetry pipeline
+configuration.</p></li>
+<li><p><a class="reference external" href="../Configuration/omnia_config.rst">Omnia Config</a> – GPU deployment settings
+(<code class="docutils literal notranslate"><span class="pre">enable_nvidia_gpu</span></code>, <code class="docutils literal notranslate"><span class="pre">enable_amd_gpu</span></code>).</p></li>
+<li><p><a class="reference external" href="idrac_metrics.rst">Idrac Metrics</a> – Server-level hardware metrics.</p></li>
+<li><p><a class="reference external" href="ldms_metrics.rst">Ldms Metrics</a> – OS-level metrics from LDMS.</p></li>
+</ul>
+</div>
+<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Dell Technologies.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

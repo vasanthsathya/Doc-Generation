@@ -1,71 +1,6 @@
-/* Custom CSS to match MkDocs Material theme styling */
+/* Custom CSS for sphinx-rtd-theme with Dell branding */
 
-/* Logo and header styling */
-.md-header__button.md-logo,
-.md-logo {
-    display: flex !important;
-    align-items: center;
-}
-
-.md-header__button.md-logo img,
-.md-logo img {
-    height: 48px;
-    width: auto;
-    max-width: 200px;
-    object-fit: contain;
-}
-
-/* Ensure logo container is visible */
-.md-header__inner.md-grid {
-    align-items: center;
-}
-
-/* Add logo to header if not present via theme */
-.md-header__title::before {
-    content: "";
-    background-image: url("_static/omnia-logo.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: left center;
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-    vertical-align: middle;
-}
-
-/* Alternative: Add logo to nav title */
-.md-header-nav__topic:first-child::before {
-    content: "";
-    background-image: url("_static/omnia-logo.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: left center;
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-    vertical-align: middle;
-}
-
-/* Navigation tabs styling */
-.md-tabs {
-    background-color: #f5f5f5;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-/* Main content area styling */
-.md-content {
-    padding: 1.2rem;
-}
-
-/* Header styling */
-.md-header {
-    background-color: #0288d1;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* Grid cards styling to match MkDocs Material */
+/* Grid cards styling to match expected output */
 .grid.cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -79,7 +14,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    display: contents; /* This allows grid items to be direct children of grid container */
+    display: contents;
 }
 
 .grid.cards li {
@@ -93,16 +28,16 @@
     flex-direction: column;
     height: 100%;
     min-height: 200px;
-    float: none; /* Prevent floating */
-    clear: none; /* Prevent clearing issues */
-    width: 100%; /* Ensure full width */
-    box-sizing: border-box; /* Include padding in width calculation */
+    float: none;
+    clear: none;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .grid.cards li:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     transform: translateY(-2px);
-    border-color: #0288d1;
+    border-color: #007db8;
 }
 
 .grid.cards li p {
@@ -114,7 +49,7 @@
 }
 
 .grid.cards li strong {
-    color: #0288d1;
+    color: #007db8;
     font-size: 1.25rem;
     font-weight: 600;
 }
@@ -139,7 +74,7 @@
     height: 1.5rem;
     margin-right: 0.5rem;
     vertical-align: middle;
-    fill: #0288d1;
+    fill: #007db8;
 }
 
 /* Grid container styling */
@@ -160,7 +95,7 @@
 .sd-card-icon {
     font-size: 2rem;
     margin-bottom: 0.5rem;
-    color: #0288d1;
+    color: #007db8;
 }
 
 /* Specific grid card styling */
@@ -180,13 +115,13 @@
 .grid-card:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     transform: translateY(-2px);
-    border-color: #0288d1;
+    border-color: #007db8;
 }
 
 .grid-card h3 {
     margin-top: 0;
     margin-bottom: 0.75rem;
-    color: #0288d1;
+    color: #007db8;
     font-size: 1.25rem;
     font-weight: 600;
     display: flex;
@@ -209,15 +144,9 @@
     text-decoration: none;
 }
 
-/* Material icon styling in cards */
-.material-icons {
-    font-size: 1.5rem;
-    color: #0288d1;
-}
-
-/* Admonition styling to match MkDocs Material */
+/* Admonition styling */
 .admonition {
-    border-left: 4px solid #0288d1;
+    border-left: 4px solid #007db8;
     background-color: #f5f9ff;
     padding: 1rem;
     margin: 1rem 0;
@@ -225,7 +154,7 @@
 }
 
 .admonition.note {
-    border-left-color: #0288d1;
+    border-left-color: #007db8;
     background-color: #f5f9ff;
 }
 
@@ -282,26 +211,9 @@ pre {
     overflow-x: auto;
 }
 
-/* Search box styling */
-.wy-side-nav-search {
-    background-color: #0288d1;
-}
-
-.wy-side-nav-search input[type="text"] {
-    border-color: #0288d1;
-}
-
-/* Footer styling */
-footer {
-    background-color: #f5f5f5;
-    padding: 2rem 0;
-    margin-top: 2rem;
-    border-top: 1px solid #e0e0e0;
-}
-
 /* Link styling */
 a {
-    color: #0288d1;
+    color: #007db8;
     text-decoration: none;
 }
 
@@ -317,7 +229,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    border-bottom: 2px solid #0288d1;
+    border-bottom: 2px solid #007db8;
     padding-bottom: 0.5rem;
 }
 
@@ -341,19 +253,6 @@ section {
     margin-top: 1.5rem;
 }
 
-/* TOC styling */
-.wy-nav-side {
-    background-color: #f5f5f5;
-}
-
-.wy-menu-vertical a {
-    color: #333;
-}
-
-.wy-menu-vertical a:hover {
-    background-color: #e0e0e0;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .grid-cards {
@@ -363,71 +262,4 @@ section {
     .md-content {
         padding: 1rem;
     }
-}
-
-/* Left sidebar visibility - force sidebar to be visible on desktop */
-.md-sidebar--primary {
-    display: block !important;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 280px;
-    height: 100vh;
-    overflow-y: auto;
-    background-color: #f5f5f5;
-    z-index: 10;
-}
-
-/* Main content adjustment for sidebar */
-.md-main {
-    margin-left: 280px;
-}
-
-/* Secondary sidebar (TOC) styling */
-.md-sidebar--secondary {
-    display: block !important;
-}
-
-/* Section navigation styling */
-.section-nav {
-    background-color: #f5f5f5;
-    border: 1px solid #e0e0e0;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin: 2rem 0;
-}
-
-.section-nav h3 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    color: #0288d1;
-    font-size: 1.25rem;
-    font-weight: 600;
-    border-bottom: 2px solid #0288d1;
-    padding-bottom: 0.5rem;
-}
-
-.section-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.section-nav li {
-    margin-bottom: 0.75rem;
-}
-
-.section-nav a {
-    color: #333;
-    text-decoration: none;
-    display: block;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.section-nav a:hover {
-    background-color: #e0e0e0;
-    color: #0288d1;
-    text-decoration: none;
 }

@@ -1,1 +1,789 @@
-<!DOCTYPE html> <html lang=en > <meta charset=utf-8  /> <meta name=viewport  content="width=device-width, initial-scale=1.0" /><meta name=generator  content="Docutils 0.18.1: http://docutils.sourceforge.net/" /> <meta name=viewport  content="width=device-width,initial-scale=1"> <meta http-equiv=x-ua-compatible  content="ie=edge"> <meta name="lang:clipboard.copy" content="Copy to clipboard"> <meta name="lang:clipboard.copied" content="Copied to clipboard"> <meta name="lang:search.language" content=en > <meta name="lang:search.pipeline.stopwords" content=True > <meta name="lang:search.pipeline.trimmer" content=True > <meta name="lang:search.result.none" content="No matching documents"> <meta name="lang:search.result.one" content="1 matching document"> <meta name="lang:search.result.other" content="# matching documents"> <meta name="lang:search.tokenizer" content="[\s\-]+"> <link href="https://fonts.gstatic.com/" rel=preconnect  crossorigin> <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel=stylesheet > <style> body, input { font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif } code, kbd, pre { font-family: "Roboto Mono", "Courier New", Courier, monospace } </style> <link rel=stylesheet  href="../../_static/stylesheets/application.css"/> <link rel=stylesheet  href="../../_static/stylesheets/application-palette.css"/> <link rel=stylesheet  href="../../_static/stylesheets/application-fixes.css"/> <link rel=stylesheet  href="../../_static/fonts/material-icons.css"/> <meta name=theme-color  content="#3f51b5"> <script src="../../_static/javascripts/modernizr.js"></script> <title>Required Ports &#8212; Dell/Omnia</title> <link rel=stylesheet  type="text/css" href="../../_static/pygments.css" /> <link rel=stylesheet  type="text/css" href="../../_static/material.css" /> <link rel=stylesheet  type="text/css" href="../../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" /> <link rel=stylesheet  type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" /> <link rel=stylesheet  type="text/css" href="../../_static/custom.css" /> <link rel=stylesheet  type="text/css" href="../../_static/dell-brand.css" /> <script data-url_root="../../" id=documentation_options  src="../../_static/documentation_options.js"></script> <script src="../../_static/doctools.js"></script> <script src="../../_static/sphinx_highlight.js"></script> <script src="../../_static/design-tabs.js"></script> <script src="../../_static/custom.js"></script> <link rel=icon  href="../../_static/favicon.png"/> <link rel=index  title=Index  href="../../genindex.html" /> <link rel=search  title=Search  href="../../search.html" /> <body dir=ltr data-md-color-primary=blue-grey data-md-color-accent=blue> <svg class=md-svg > <defs data-children-count=0 > <svg xmlns="http://www.w3.org/2000/svg" width=416  height=448  viewBox="0 0 416 448" id=__github ><path fill=currentColor  d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg> </defs> </svg> <input class=md-toggle  data-md-toggle=drawer  type=checkbox  id=__drawer > <input class=md-toggle  data-md-toggle=search  type=checkbox  id=__search > <label class=md-overlay  data-md-component=overlay  for=__drawer ></label> <a href="#Reference/ClusterRequirements/ports" tabindex=1  class=md-skip > Skip to content </a> <header class=md-header  data-md-component=header > <nav class="md-header-nav md-grid"> <div class="md-flex navheader"> <div class="md-flex__cell md-flex__cell--shrink"> <a href="../../index.html" title="Dell/Omnia" class="md-header-nav__button md-logo"> &nbsp; </a> </div> <div class="md-flex__cell md-flex__cell--shrink"> <label class="md-icon md-icon--menu md-header-nav__button" for=__drawer ></label> </div> <div class="md-flex__cell md-flex__cell--stretch"> <div class="md-flex__ellipsis md-header-nav__title" data-md-component=title > <span class=md-header-nav__topic >Dell Omnia</span> <span class=md-header-nav__topic > Required Ports </span> </div> </div> <div class="md-flex__cell md-flex__cell--shrink"> <label class="md-icon md-icon--search md-header-nav__button" for=__search ></label> <div class=md-search  data-md-component=search  role=dialog > <label class=md-search__overlay  for=__search ></label> <div class=md-search__inner  role=search > <form class=md-search__form  action="../../search.html" method=get  name=search > <input type=text  class=md-search__input  name=q  placeholder=""Search"" autocapitalize=off  autocomplete=off  spellcheck=false  data-md-component=query  data-md-state=active > <label class="md-icon md-search__icon" for=__search ></label> <button type=reset  class="md-icon md-search__icon" data-md-component=reset  tabindex=-1 > &#xE5CD; </button> </form> <div class=md-search__output > <div class=md-search__scrollwrap  data-md-scrollfix> <div class=md-search-result  data-md-component=result > <div class=md-search-result__meta > Type to start searching </div> <ol class=md-search-result__list ></ol> </div> </div> </div> </div> </div> </div> <div class="md-flex__cell md-flex__cell--shrink"> <div class=md-header-nav__source > <a href="https://github.com/dell/omnia" title="Go to repository" class=md-source  data-md-source=github > <div class=md-source__icon > <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width=28  height=28 > <use xlink:href="#__github" width=24  height=24 ></use> </svg> </div> <div class=md-source__repository > dell/omnia </div> </a> </div> </div> <script src="../../_static/javascripts/version_dropdown.js"></script> <script> var json_loc = "../../"versions.json"", target_loc = "../../../", text = "Versions"; $( document ).ready( add_version_dropdown(json_loc, target_loc, text)); </script> </div> </nav> </header> <div class=md-container > <nav class=md-tabs  data-md-component=tabs > <div class="md-tabs__inner md-grid"> <ul class=md-tabs__list > <li class=md-tabs__item ><a href="../../Overview/index.html" class=md-tabs__link >Overview</a> <li class=md-tabs__item ><a href="../../GetStarted/index.html" class=md-tabs__link >Get Started</a> <li class=md-tabs__item ><a href="../../HowTo/index.html" class=md-tabs__link >How-to Guides</a> <li class=md-tabs__item ><a href="../../Operations/index.html" class=md-tabs__link >Operations</a> <li class=md-tabs__item ><a href="../index.html" class=md-tabs__link >Reference</a> <li class=md-tabs__item ><a href="../../Troubleshooting/index.html" class=md-tabs__link >Troubleshooting</a> <li class=md-tabs__item ><a href="../../Contributing/index.html" class=md-tabs__link >Contributing</a> </ul> </div> </nav> <main class=md-main > <div class="md-main__inner md-grid" data-md-component=container > <div class="md-sidebar md-sidebar--primary" data-md-component=navigation > <div class=md-sidebar__scrollwrap > <div class=md-sidebar__inner > <nav class="md-nav md-nav--primary" data-md-level=0 > <label class="md-nav__title md-nav__title--site" for=__drawer > <a href="../../index.html" title="Dell/Omnia" class="md-nav__button md-logo"> <img src="../../_static/" alt=" logo" width=48  height=48 > </a> <a href="../../index.html" title="Dell/Omnia">Dell Omnia</a> </label> <div class=md-nav__source > <a href="https://github.com/dell/omnia" title="Go to repository" class=md-source  data-md-source=github > <div class=md-source__icon > <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width=28  height=28 > <use xlink:href="#__github" width=24  height=24 ></use> </svg> </div> <div class=md-source__repository > dell/omnia </div> </a> </div> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/index.html" class=md-nav__link >Overview</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/architecture.html" class=md-nav__link >Architecture</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/architecture.html#why-three-cluster-types" class=md-nav__link >Why three cluster types?</a> <li class=md-nav__item > <a href="../../Overview/architecture.html#oim-the-management-node" class=md-nav__link >OIM – The management node</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/architecture.html#what-runs-on-the-oim" class=md-nav__link >What runs on the OIM</a> <li class=md-nav__item > <a href="../../Overview/architecture.html#oim-minimum-requirements" class=md-nav__link >OIM minimum requirements</a> </ul> <li class=md-nav__item > <a href="../../Overview/architecture.html#slurm-cluster" class=md-nav__link >Slurm cluster</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/architecture.html#node-roles" class=md-nav__link >Node roles</a> </ul> <li class=md-nav__item > <a href="../../Overview/architecture.html#kubernetes-cluster" class=md-nav__link >Kubernetes cluster</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/architecture.html#id1" class=md-nav__link >Node roles</a> <li class=md-nav__item > <a href="../../Overview/architecture.html#pre-installed-kubernetes-components" class=md-nav__link >Pre-installed Kubernetes components</a> </ul> <li class=md-nav__item > <a href="../../Overview/architecture.html#how-the-clusters-interact" class=md-nav__link >How the clusters interact</a> <li class=md-nav__item > <a href="../../Overview/architecture.html#design-rationale" class=md-nav__link >Design rationale</a> </ul> <li class=md-nav__item > <a href="../../Overview/components.html" class=md-nav__link >Components</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/components.html#omnia-core-container" class=md-nav__link >omnia_core container</a> <li class=md-nav__item > <a href="../../Overview/components.html#openchami" class=md-nav__link >OpenCHAMI</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/components.html#state-manager-daemon-smd" class=md-nav__link >State Manager Daemon (SMD)</a> <li class=md-nav__item > <a href="../../Overview/components.html#boot-script-service-bss" class=md-nav__link >Boot Script Service (BSS)</a> <li class=md-nav__item > <a href="../../Overview/components.html#ochami-cli" class=md-nav__link >ochami-cli</a> </ul> <li class=md-nav__item > <a href="../../Overview/components.html#pulp" class=md-nav__link >Pulp</a> <li class=md-nav__item > <a href="../../Overview/components.html#buildstream" class=md-nav__link >BuildStreaM</a> <li class=md-nav__item > <a href="../../Overview/components.html#omnia-auth" class=md-nav__link >Omnia Auth</a> <li class=md-nav__item > <a href="../../Overview/components.html#supporting-services" class=md-nav__link >Supporting services</a> </ul> <li class=md-nav__item > <a href="../../Overview/network_topologies.html" class=md-nav__link >Network Topologies</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/network_topologies.html#network-segments" class=md-nav__link >Network segments</a> <li class=md-nav__item > <a href="../../Overview/network_topologies.html#dedicated-topology" class=md-nav__link >Dedicated topology</a> <li class=md-nav__item > <a href="../../Overview/network_topologies.html#shared-lom-topology" class=md-nav__link >Shared LOM topology</a> <li class=md-nav__item > <a href="../../Overview/network_topologies.html#hybrid-topology" class=md-nav__link >Hybrid topology</a> <li class=md-nav__item > <a href="../../Overview/network_topologies.html#choosing-a-topology" class=md-nav__link >Choosing a topology</a> <li class=md-nav__item > <a href="../../Overview/network_topologies.html#ip-addressing-and-dhcp" class=md-nav__link >IP addressing and DHCP</a> </ul> <li class=md-nav__item > <a href="../../Overview/composable_roles.html" class=md-nav__link >Composable Roles</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/composable_roles.html#what-are-composable-roles" class=md-nav__link >What are composable roles?</a> <li class=md-nav__item > <a href="../../Overview/composable_roles.html#functional-groups" class=md-nav__link >Functional groups</a> <li class=md-nav__item > <a href="../../Overview/composable_roles.html#groups-based-on-physical-characteristics" class=md-nav__link >Groups based on physical characteristics</a> <li class=md-nav__item > <a href="../../Overview/composable_roles.html#the-mapping-file" class=md-nav__link >The mapping file</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/composable_roles.html#format" class=md-nav__link >Format</a> <li class=md-nav__item > <a href="../../Overview/composable_roles.html#example" class=md-nav__link >Example</a> </ul> <li class=md-nav__item > <a href="../../Overview/composable_roles.html#how-omnia-processes-the-mapping-file" class=md-nav__link >How Omnia processes the mapping file</a> <li class=md-nav__item > <a href="../../Overview/composable_roles.html#design-rationale" class=md-nav__link >Design rationale</a> </ul> <li class=md-nav__item > <a href="../../Overview/security_model.html" class=md-nav__link >Security Model</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/security_model.html#security-profiles" class=md-nav__link >Security profiles</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#security-controls-map" class=md-nav__link >Security Controls Map</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#security-principles" class=md-nav__link >Security principles</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#credential-encryption-with-ansible-vault" class=md-nav__link >Credential encryption with Ansible Vault</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/security_model.html#how-it-works" class=md-nav__link >How it works</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#login-security-settings" class=md-nav__link >Login security settings</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#credential-utility" class=md-nav__link >Credential utility</a> </ul> <li class=md-nav__item > <a href="../../Overview/security_model.html#centralized-authentication-with-openldap" class=md-nav__link >Centralized authentication with OpenLDAP</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/security_model.html#sssd-integration" class=md-nav__link >SSSD integration</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#configuration" class=md-nav__link >Configuration</a> </ul> <li class=md-nav__item > <a href="../../Overview/security_model.html#tls-certificate-management" class=md-nav__link >TLS certificate management</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/security_model.html#step-ca-internal-certificate-authority" class=md-nav__link >step-ca – Internal certificate authority</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#acme-protocol" class=md-nav__link >ACME protocol</a> </ul> <li class=md-nav__item > <a href="../../Overview/security_model.html#oauth-2-0-and-oidc-with-hydra" class=md-nav__link >OAuth 2.0 and OIDC with Hydra</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#security-configuration-reference" class=md-nav__link >Security configuration reference</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#security-best-practices" class=md-nav__link >Security best practices</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#authentication-types-and-setup" class=md-nav__link >Authentication types and setup</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/security_model.html#key-based-authentication" class=md-nav__link >Key-based authentication</a> </ul> <li class=md-nav__item > <a href="../../Overview/security_model.html#authentication-to-external-systems" class=md-nav__link >Authentication to external systems</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#network-vulnerability-scanning" class=md-nav__link >Network vulnerability scanning</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#ansible-security" class=md-nav__link >Ansible security</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#legal-disclaimers" class=md-nav__link >Legal disclaimers</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#scope" class=md-nav__link >Scope</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#document-references" class=md-nav__link >Document references</a> <li class=md-nav__item > <a href="../../Overview/security_model.html#reporting-security-vulnerabilities" class=md-nav__link >Reporting security vulnerabilities</a> </ul> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html" class=md-nav__link >Telemetry Architecture</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#data-collection" class=md-nav__link >Data collection</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#idrac-telemetry-out-of-band" class=md-nav__link >iDRAC telemetry (out-of-band)</a> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#ldms-telemetry-in-band" class=md-nav__link >LDMS telemetry (in-band)</a> </ul> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#message-transport-apache-kafka" class=md-nav__link >Message transport – Apache Kafka</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#external-kafka-integration" class=md-nav__link >External Kafka integration</a> </ul> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#storage-victoriametrics" class=md-nav__link >Storage – VictoriaMetrics</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#external-victoriametrics-integration" class=md-nav__link >External VictoriaMetrics integration</a> </ul> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#visualization-grafana" class=md-nav__link >Visualization – Grafana</a> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#ome-and-sfm-telemetry" class=md-nav__link >OME and SFM telemetry</a> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#air-gapped-telemetry" class=md-nav__link >Air-gapped telemetry</a> <li class=md-nav__item > <a href="../../Overview/telemetry_architecture.html#design-rationale" class=md-nav__link >Design rationale</a> </ul> <li class=md-nav__item > <a href="../../Overview/glossary.html" class=md-nav__link >Glossary</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html" class=md-nav__link >Release Notes</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/release_notes.html#omnia-2-1-0-0" class=md-nav__link >Omnia 2.1.0.0</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/release_notes.html#buildstream-gitlab-ci-automation" class=md-nav__link >BuildStreaM – GitLab CI automation</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#additional-packages-and-software" class=md-nav__link >Additional packages and software</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#slurm-cluster-management" class=md-nav__link >Slurm cluster management</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#telemetry-enhancements" class=md-nav__link >Telemetry enhancements</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#storage-integration" class=md-nav__link >Storage integration</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#network-enhancements" class=md-nav__link >Network enhancements</a> </ul> <li class=md-nav__item > <a href="../../Overview/release_notes.html#omnia-2-0-0-0" class=md-nav__link >Omnia 2.0.0.0</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Overview/release_notes.html#podman-containerization" class=md-nav__link >Podman containerization</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#local-repository-management-with-pulp" class=md-nav__link >Local repository management with Pulp</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#centralized-authentication" class=md-nav__link >Centralized authentication</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#telemetry-pipeline" class=md-nav__link >Telemetry pipeline</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#kubernetes-high-availability" class=md-nav__link >Kubernetes high availability</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#composable-functional-groups" class=md-nav__link >Composable functional groups</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#stateless-boot" class=md-nav__link >Stateless boot</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#gpu-and-accelerator-support" class=md-nav__link >GPU and accelerator support</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#security-enhancements" class=md-nav__link >Security enhancements</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#multi-architecture-support" class=md-nav__link >Multi-architecture support</a> <li class=md-nav__item > <a href="../../Overview/release_notes.html#input-templates-and-validator" class=md-nav__link >Input templates and validator</a> </ul> <li class=md-nav__item > <a href="../../Overview/release_notes.html#supported-platforms" class=md-nav__link >Supported platforms</a> </ul> <li class=md-nav__item > <a href="../../Overview/blogs.html" class=md-nav__link >Blogs about Omnia</a> </ul> <li class=md-nav__item > <a href="../../GetStarted/index.html" class=md-nav__link >Get Started</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../GetStarted/index.html#deployment-paths-at-a-glance" class=md-nav__link >Deployment Paths at a Glance</a> <li class=md-nav__item > <a href="../../GetStarted/index.html#which-path-should-i-choose" class=md-nav__link >Which Path Should I Choose?</a> <li class=md-nav__item > <a href="../../GetStarted/index.html#before-you-begin" class=md-nav__link >Before You Begin</a> </ul> <li class=md-nav__item > <a href="../../HowTo/index.html" class=md-nav__link >How-to Guides</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../HowTo/index.html#initial-setup-provisioning" class=md-nav__link >Initial Setup & Provisioning</a> <li class=md-nav__item > <a href="../../HowTo/index.html#slurm-job-scheduling" class=md-nav__link >Slurm Job Scheduling</a> <li class=md-nav__item > <a href="../../HowTo/index.html#kubernetes-services" class=md-nav__link >Kubernetes Services</a> <li class=md-nav__item > <a href="../../HowTo/index.html#storage" class=md-nav__link >Storage</a> <li class=md-nav__item > <a href="../../HowTo/index.html#networking" class=md-nav__link >Networking</a> <li class=md-nav__item > <a href="../../HowTo/index.html#authentication" class=md-nav__link >Authentication</a> <li class=md-nav__item > <a href="../../HowTo/index.html#telemetry-monitoring" class=md-nav__link >Telemetry & Monitoring</a> <li class=md-nav__item > <a href="../../HowTo/index.html#containers-packages" class=md-nav__link >Containers & Packages</a> <li class=md-nav__item > <a href="../../HowTo/index.html#buildstream-ci-cd" class=md-nav__link >BuildStreaM (CI/CD)</a> </ul> <li class=md-nav__item > <a href="../../Operations/index.html" class=md-nav__link >Operations & Maintenance</a> <li class=md-nav__item > <a href="../index.html" class=md-nav__link >Reference</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../index.html#support-matrix" class=md-nav__link >Support Matrix</a> <li class=md-nav__item > <a href="../index.html#configuration-file-reference" class=md-nav__link >Configuration File Reference</a> <li class=md-nav__item > <a href="../index.html#sample-files" class=md-nav__link >Sample Files</a> <li class=md-nav__item > <a href="../index.html#cluster-requirements" class=md-nav__link >Cluster Requirements</a> <li class=md-nav__item > <a href="../index.html#playbook-reference" class=md-nav__link >Playbook Reference</a> <li class=md-nav__item > <a href="../index.html#telemetry-metrics-reference" class=md-nav__link >Telemetry Metrics Reference</a> <li class=md-nav__item > <a href="../index.html#appendices" class=md-nav__link >Appendices</a> </ul> <li class=md-nav__item > <a href="../../Troubleshooting/index.html" class=md-nav__link >Troubleshooting</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../../Troubleshooting/index.html#troubleshooting-approach" class=md-nav__link >Troubleshooting approach</a> </ul> <li class=md-nav__item > <a href="../../Contributing/index.html" class=md-nav__link >Contributing to Omnia</a> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=toc > <div class=md-sidebar__scrollwrap > <div class=md-sidebar__inner > <nav class="md-nav md-nav--secondary"> <ul class=md-nav__list  data-md-scrollfix=""> <li class=md-nav__item ><a class=md-nav__extra_link  href="../../_sources/Reference/ClusterRequirements/ports.rst.txt">Show Source</a> <li id=searchbox  class=md-nav__item > </ul> </nav> </div> </div> </div> <div class=md-content > <article class="md-content__inner md-typeset" role=main > <section id=required-ports > <h1 id=reference-clusterrequirements-ports--page-root >Required Ports<a class=headerlink  href="#reference-clusterrequirements-ports--page-root" title="Permalink to this heading">¶</a></h1> <p>This page lists all TCP and UDP ports used by Omnia services across the OIM and cluster nodes. Open these ports in firewalld or your network firewall before deploying.</p> <section id=oim-management-node-ports > <h2 id=oim-management-node-ports >OIM (Management Node) ports<a class=headerlink  href="#oim-management-node-ports" title="Permalink to this heading">¶</a></h2> <table> <thead> <tr class=row-odd ><th class=head ><p>Port</p> <th class=head ><p>Protocol</p> <th class=head ><p>Service</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p>67</p> <td><p>UDP</p> <td><p>CoreDHCP (server)</p> <td><p>DHCP server for node provisioning. OIM listens for DHCP requests.</p> <tr class=row-odd ><td><p>68</p> <td><p>UDP</p> <td><p>CoreDHCP (client)</p> <td><p>DHCP client responses.</p> <tr class=row-even ><td><p>69</p> <td><p>UDP</p> <td><p>TFTP</p> <td><p>Trivial File Transfer Protocol for PXE boot file delivery.</p> <tr class=row-odd ><td><p>80</p> <td><p>TCP</p> <td><p>HTTP</p> <td><p>HTTP service for provisioning images, kickstart files, and repository metadata.</p> <tr class=row-even ><td><p>443</p> <td><p>TCP</p> <td><p>HTTPS</p> <td><p>Secure HTTP for Pulp API, AWX web interface, and repository access.</p> <tr class=row-odd ><td><p>8443</p> <td><p>TCP</p> <td><p>OpenCHAMI API</p> <td><p>RESTful API for node lifecycle management and inventory queries.</p> <tr class=row-even ><td><p>8444</p> <td><p>TCP</p> <td><p>OpenCHAMI BSS</p> <td><p>Boot Script Service API for iPXE boot script generation.</p> <tr class=row-odd ><td><p>5432</p> <td><p>TCP</p> <td><p>PostgreSQL</p> <td><p>Database backend for Pulp and OpenCHAMI (local connections only).</p> <tr class=row-even ><td><p>6817</p> <td><p>TCP</p> <td><p>Slurm (srun)</p> <td><p>Slurm srun command communication (if Slurm client on OIM).</p> </table> </section> <section id=podman-container-and-service-ports > <h2 id=podman-container-and-service-ports >Podman container and service ports<a class=headerlink  href="#podman-container-and-service-ports" title="Permalink to this heading">¶</a></h2> <table> <thead> <tr class=row-odd ><th class=head ><p>Port</p> <th class=head ><p>Protocol</p> <th class=head ><p>Container Name / Service</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p>2222</p> <td><p>TCP</p> <td><p>omnia_core</p> <td><p>SSH access to the Omnia core container.</p> <tr class=row-odd ><td><p>2225</p> <td><p>TCP</p> <td><p>pulp</p> <td><p>Pulp repository container.</p> <tr class=row-even ><td><p>5001</p> <td><p>TCP</p> <td><p>Omnia nerdctl registry</p> <td><p>Container image registry for Omnia services.</p> <tr class=row-odd ><td><p>636, 389</p> <td><p>TCP</p> <td><p>omnia_auth</p> <td><p>OpenLDAP authentication container (LDAPS and LDAP).</p> </table> </section> <section id=slurm-cluster-ports > <h2 id=slurm-cluster-ports >Slurm cluster ports<a class=headerlink  href="#slurm-cluster-ports" title="Permalink to this heading">¶</a></h2> <table> <thead> <tr class=row-odd ><th class=head ><p>Port</p> <th class=head ><p>Protocol</p> <th class=head ><p>Service</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p>6817</p> <td><p>TCP</p> <td><p>slurmctld</p> <td><p>Slurm controller daemon. Accepts job submissions and scheduling requests from slurmd and client commands.</p> <tr class=row-odd ><td><p>6818</p> <td><p>TCP</p> <td><p>slurmd</p> <td><p>Slurm compute daemon. Receives job launch instructions from slurmctld.</p> <tr class=row-even ><td><p>6819</p> <td><p>TCP</p> <td><p>slurmdbd</p> <td><p>Slurm database daemon. Handles job accounting queries from slurmctld.</p> <tr class=row-odd ><td><p>3306</p> <td><p>TCP</p> <td><p>MariaDB / MySQL</p> <td><p>Database for slurmdbd job accounting. Local connections from slurmdbd only.</p> <tr class=row-even ><td><p>22</p> <td><p>TCP</p> <td><p>SSH</p> <td><p>Remote access for administration and user login (login nodes).</p> <tr class=row-odd ><td><p>111</p> <td><p>TCP/UDP</p> <td><p>rpcbind</p> <td><p>RPC port mapper for NFS. Required when using NFS-shared Slurm configuration.</p> <tr class=row-even ><td><p>2049</p> <td><p>TCP/UDP</p> <td><p>NFS</p> <td><p>NFS file sharing for shared /home, /scratch, and Slurm configuration (<code class="docutils literal notranslate"><span class=pre >nfs_share</span></code> installation type).</p> <tr class=row-odd ><td><p>88</p> <td><p>TCP/UDP</p> <td><p>Kerberos KDC</p> <td><p>Kerberos Key Distribution Center (if Kerberos is enabled).</p> <tr class=row-even ><td><p>389</p> <td><p>TCP</p> <td><p>LDAP</p> <td><p>OpenLDAP directory service (unencrypted).</p> <tr class=row-odd ><td><p>636</p> <td><p>TCP</p> <td><p>LDAPS</p> <td><p>OpenLDAP with TLS encryption.</p> </table> </section> <section id=kubernetes-cluster-ports > <h2 id=kubernetes-cluster-ports >Kubernetes cluster ports<a class=headerlink  href="#kubernetes-cluster-ports" title="Permalink to this heading">¶</a></h2> <table> <thead> <tr class=row-odd ><th class=head ><p>Port</p> <th class=head ><p>Protocol</p> <th class=head ><p>Service</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p>6443</p> <td><p>TCP</p> <td><p>K8s API server</p> <td><p>Kubernetes API server. Used by kubectl, kubelet, and all K8s components.</p> <tr class=row-odd ><td><p>2379</p> <td><p>TCP</p> <td><p>etcd (client)</p> <td><p>etcd client communication. Used by the API server to read/write cluster state.</p> <tr class=row-even ><td><p>2380</p> <td><p>TCP</p> <td><p>etcd (peer)</p> <td><p>etcd peer communication for cluster replication.</p> <tr class=row-odd ><td><p>10250</p> <td><p>TCP</p> <td><p>kubelet</p> <td><p>kubelet API. Used by the API server to communicate with node agents.</p> <tr class=row-even ><td><p>10259</p> <td><p>TCP</p> <td><p>kube-scheduler</p> <td><p>Kubernetes scheduler HTTPS endpoint.</p> <tr class=row-odd ><td><p>10257</p> <td><p>TCP</p> <td><p>kube-controller-manager</p> <td><p>Controller manager HTTPS endpoint.</p> <tr class=row-even ><td><p>30000–32767</p> <td><p>TCP</p> <td><p>NodePort services</p> <td><p>Default range for Kubernetes NodePort services.</p> <tr class=row-odd ><td><p>179</p> <td><p>TCP</p> <td><p>Calico (BGP)</p> <td><p>BGP peering for Calico pod network routing.</p> <tr class=row-even ><td><p>4789</p> <td><p>UDP</p> <td><p>Calico (VXLAN)</p> <td><p>VXLAN overlay network for Calico (if VXLAN mode is used).</p> <tr class=row-odd ><td><p>5473</p> <td><p>TCP</p> <td><p>Calico (Typha)</p> <td><p>Calico Typha daemon for large-cluster performance.</p> <tr class=row-even ><td><p>7472</p> <td><p>TCP/UDP</p> <td><p>MetalLB</p> <td><p>MetalLB memberlist for speaker-to-speaker communication.</p> <tr class=row-odd ><td><p>7946</p> <td><p>TCP/UDP</p> <td><p>MetalLB</p> <td><p>MetalLB node discovery.</p> <tr class=row-even ><td><p>8285</p> <td><p>UDP</p> <td><p>Flannel (UDP)</p> <td><p>Flannel UDP backend for pod network overlay.</p> <tr class=row-odd ><td><p>8472</p> <td><p>UDP</p> <td><p>Flannel (VXLAN)</p> <td><p>Flannel VXLAN backend for pod network overlay.</p> </table> </section> <section id=telemetry-ports > <h2 id=telemetry-ports >Telemetry ports<a class=headerlink  href="#telemetry-ports" title="Permalink to this heading">¶</a></h2> <table> <thead> <tr class=row-odd ><th class=head ><p>Port</p> <th class=head ><p>Protocol</p> <th class=head ><p>Service</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p>8161</p> <td><p>TCP</p> <td><p>ActiveMQ console</p> <td><p>ActiveMQ web management console.</p> <tr class=row-odd ><td><p>61613</p> <td><p>TCP</p> <td><p>ActiveMQ message broker</p> <td><p>ActiveMQ STOMP message broker for telemetry data.</p> <tr class=row-even ><td><p>3306, 33060</p> <td><p>TCP</p> <td><p>MySQL</p> <td><p>MySQL database for telemetry data storage.</p> <tr class=row-odd ><td><p>9092</p> <td><p>TCP</p> <td><p>Apache Kafka</p> <td><p>Kafka broker for telemetry data streaming.</p> <tr class=row-even ><td><p>9093</p> <td><p>TCP</p> <td><p>Apache Kafka (TLS)</p> <td><p>Kafka broker TLS port.</p> <tr class=row-odd ><td><p>9094</p> <td><p>TCP</p> <td><p>Kafka LoadBalancer</p> <td><p>Kafka LoadBalancer service port.</p> <tr class=row-even ><td><p>2181</p> <td><p>TCP</p> <td><p>ZooKeeper</p> <td><p>ZooKeeper coordination service for Kafka (if applicable).</p> <tr class=row-odd ><td><p>8428</p> <td><p>TCP</p> <td><p>VictoriaMetrics</p> <td><p>VictoriaMetrics HTTP API for metric ingestion and queries.</p> <tr class=row-even ><td><p>8443</p> <td><p>TCP</p> <td><p>VictoriaMetrics service</p> <td><p>VictoriaMetrics HTTPS service port.</p> <tr class=row-odd ><td><p>8480</p> <td><p>TCP</p> <td><p>VictoriaMetrics LB (insert)</p> <td><p>VictoriaMetrics LoadBalancer insert service.</p> <tr class=row-even ><td><p>8481</p> <td><p>TCP</p> <td><p>VictoriaMetrics LB (query)</p> <td><p>VictoriaMetrics LoadBalancer query service.</p> <tr class=row-odd ><td><p>3000</p> <td><p>TCP</p> <td><p>Grafana</p> <td><p>Grafana web interface for dashboards and visualization.</p> <tr class=row-even ><td><p>9100</p> <td><p>TCP</p> <td><p>Node Exporter</p> <td><p>Prometheus-compatible node metrics exporter.</p> <tr class=row-odd ><td><p>6001–6100</p> <td><p>TCP</p> <td><p>LDMS Aggregator</p> <td><p>LDMS aggregator daemon for collecting node-level metrics.</p> <tr class=row-even ><td><p>6001–6100</p> <td><p>TCP</p> <td><p>LDMS Store Daemon</p> <td><p>LDMS store daemon port.</p> <tr class=row-odd ><td><p>10001–10100</p> <td><p>TCP</p> <td><p>LDMS Sampler</p> <td><p>LDMS sampler daemon on compute nodes.</p> </table> </section> <section id=authentication-ports > <h2 id=authentication-ports >Authentication ports<a class=headerlink  href="#authentication-ports" title="Permalink to this heading">¶</a></h2> <table> <thead> <tr class=row-odd ><th class=head ><p>Port</p> <th class=head ><p>Protocol</p> <th class=head ><p>Service</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p>389</p> <td><p>TCP</p> <td><p>LDAP</p> <td><p>OpenLDAP directory queries (unencrypted).</p> <tr class=row-odd ><td><p>636</p> <td><p>TCP</p> <td><p>LDAPS</p> <td><p>OpenLDAP directory queries (TLS-encrypted).</p> <tr class=row-even ><td><p>88</p> <td><p>TCP/UDP</p> <td><p>Kerberos KDC</p> <td><p>Kerberos authentication ticket requests.</p> <tr class=row-odd ><td><p>464</p> <td><p>TCP/UDP</p> <td><p>Kerberos kpasswd</p> <td><p>Kerberos password change service.</p> <tr class=row-even ><td><p>749</p> <td><p>TCP</p> <td><p>Kerberos kadmin</p> <td><p>Kerberos administration daemon.</p> <tr class=row-odd ><td><p>80 / 443</p> <td><p>TCP</p> <td><p>FreeIPA Web UI</p> <td><p>FreeIPA web interface and API (if FreeIPA is deployed).</p> </table> </section> <section id=buildstream-gitlab-ports > <h2 id=buildstream-gitlab-ports >BuildStreaM / GitLab ports<a class=headerlink  href="#buildstream-gitlab-ports" title="Permalink to this heading">¶</a></h2> <table> <thead> <tr class=row-odd ><th class=head ><p>Port</p> <th class=head ><p>Protocol</p> <th class=head ><p>Service</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p>443</p> <td><p>TCP</p> <td><p>GitLab HTTPS</p> <td><p>GitLab web interface, API, and Git HTTPS operations.</p> <tr class=row-odd ><td><p>22</p> <td><p>TCP</p> <td><p>GitLab SSH</p> <td><p>Git SSH operations (push/pull).</p> <tr class=row-even ><td><p>8093</p> <td><p>TCP</p> <td><p>GitLab Runner</p> <td><p>Runner communication with the GitLab server.</p> </table> </section> <section id=openchami-ports > <h2 id=openchami-ports >OpenCHAMI ports<a class=headerlink  href="#openchami-ports" title="Permalink to this heading">¶</a></h2> <table> <thead> <tr class=row-odd ><th class=head ><p>Port</p> <th class=head ><p>Protocol</p> <th class=head ><p>Service</p> <th class=head ><p>Description</p> <tr class=row-even ><td><p>9000, 9001</p> <td><p>TCP</p> <td><p>minio-server</p> <td><p>MinIO S3-compatible object storage for OpenCHAMI.</p> <tr class=row-odd ><td><p>5000</p> <td><p>TCP</p> <td><p>registry</p> <td><p>Container image registry for OpenCHAMI services.</p> <tr class=row-even ><td><p>9000</p> <td><p>TCP</p> <td><p>step-ca</p> <td><p>Internal certificate authority for TLS certificate issuance.</p> <tr class=row-odd ><td><p>5432</p> <td><p>TCP</p> <td><p>postgres</p> <td><p>PostgreSQL database for OpenCHAMI state management.</p> <tr class=row-even ><td><p>27779</p> <td><p>TCP</p> <td><p>smd</p> <td><p>State Manager Daemon for node inventory and hardware discovery.</p> <tr class=row-odd ><td><p>27778</p> <td><p>TCP</p> <td><p>bss</p> <td><p>Boot Script Service for iPXE boot script generation.</p> <tr class=row-even ><td><p>80, 443</p> <td><p>TCP</p> <td><p>haproxy</p> <td><p>HAProxy load balancer for OpenCHAMI services.</p> <tr class=row-odd ><td><p>22</p> <td><p>UDP</p> <td><p>ssh-udp</p> <td><p>SSH over UDP.</p> <tr class=row-even ><td><p>67</p> <td><p>UDP</p> <td><p>dhcp-udp</p> <td><p>DHCP service for node provisioning.</p> <tr class=row-odd ><td><p>68</p> <td><p>UDP</p> <td><p>bootpc</p> <td><p>BOOTP client responses.</p> <tr class=row-even ><td><p>69</p> <td><p>UDP</p> <td><p>tftp-udp</p> <td><p>TFTP for PXE boot file delivery.</p> </table> </section> <section id=firewall-rule-summary > <h2 id=firewall-rule-summary >Firewall rule summary<a class=headerlink  href="#firewall-rule-summary" title="Permalink to this heading">¶</a></h2> <div class="admonition note"> <p class=admonition-title >Note</p> <p>When <code class="docutils literal notranslate"><span class=pre >enable_firewall:</span> <span class=pre >true</span></code> is set in <code class="docutils literal notranslate"><span class=pre >security_config.yml</span></code>, Omnia automatically configures firewalld rules for all required ports on each node based on its assigned role. Manual firewall configuration is only necessary when using external firewalls (e.g., network-level ACLs on switches).</p> </div> <div class="admonition note"> <p class=admonition-title >Note</p> <ul class=simple > <li><p><a class="reference external" href="../Configuration/security_config.rst">Security Config</a> – Firewall and security settings.</p> <li><p><a class="reference external" href="../Configuration/telemetry_config.rst">Telemetry Config</a> – Telemetry port configuration.</p> <li><p><a class="reference external" href=minimum_nodes.rst >Minimum Nodes</a> – Node counts per deployment scenario.</p> </ul> </div> <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia.readme%40dell.com">omnia<span>.</span>readme<span>@</span>dell<span>.</span>com</a>.</p> </section> </section> </article> </div> </div> </main> </div> <footer class=md-footer > <div class=md-footer-nav > <nav class="md-footer-nav__inner md-grid"> </a> </nav> </div> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-copyright > <div class=md-footer-copyright__highlight > &#169; Copyright 2025, Dell Technologies. </div> Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 6.2.1. and <a href="https://github.com/bashtage/sphinx-material/">Material for Sphinx</a> </div> </div> </div> </footer> <script src="../../_static/javascripts/application.js"></script> <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Required Ports &mdash; Dell/Omnia</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/dell-brand.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/custom.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Omnia
+              <img src="../../_static/omnia-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Overview/index.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/architecture.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/architecture.html#why-three-cluster-types">Why three cluster types?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/architecture.html#oim-the-management-node">OIM – The management node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/architecture.html#what-runs-on-the-oim">What runs on the OIM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/architecture.html#oim-minimum-requirements">OIM minimum requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/architecture.html#slurm-cluster">Slurm cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/architecture.html#node-roles">Node roles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/architecture.html#kubernetes-cluster">Kubernetes cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/architecture.html#id1">Node roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/architecture.html#pre-installed-kubernetes-components">Pre-installed Kubernetes components</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/architecture.html#how-the-clusters-interact">How the clusters interact</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/architecture.html#design-rationale">Design rationale</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/components.html">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/components.html#omnia-core-container">omnia_core container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/components.html#openchami">OpenCHAMI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/components.html#state-manager-daemon-smd">State Manager Daemon (SMD)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/components.html#boot-script-service-bss">Boot Script Service (BSS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/components.html#ochami-cli">ochami-cli</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/components.html#pulp">Pulp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/components.html#buildstream">BuildStreaM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/components.html#omnia-auth">Omnia Auth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/components.html#supporting-services">Supporting services</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/network_topologies.html">Network Topologies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/network_topologies.html#network-segments">Network segments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/network_topologies.html#dedicated-topology">Dedicated topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/network_topologies.html#shared-lom-topology">Shared LOM topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/network_topologies.html#hybrid-topology">Hybrid topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/network_topologies.html#choosing-a-topology">Choosing a topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/network_topologies.html#ip-addressing-and-dhcp">IP addressing and DHCP</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/composable_roles.html">Composable Roles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/composable_roles.html#what-are-composable-roles">What are composable roles?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/composable_roles.html#functional-groups">Functional groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/composable_roles.html#groups-based-on-physical-characteristics">Groups based on physical characteristics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/composable_roles.html#the-mapping-file">The mapping file</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/composable_roles.html#format">Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/composable_roles.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/composable_roles.html#how-omnia-processes-the-mapping-file">How Omnia processes the mapping file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/composable_roles.html#design-rationale">Design rationale</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/security_model.html">Security Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#security-profiles">Security profiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#security-controls-map">Security Controls Map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#security-principles">Security principles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#credential-encryption-with-ansible-vault">Credential encryption with Ansible Vault</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#how-it-works">How it works</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#login-security-settings">Login security settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#credential-utility">Credential utility</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#centralized-authentication-with-openldap">Centralized authentication with OpenLDAP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#sssd-integration">SSSD integration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#tls-certificate-management">TLS certificate management</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#step-ca-internal-certificate-authority">step-ca – Internal certificate authority</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#acme-protocol">ACME protocol</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#oauth-2-0-and-oidc-with-hydra">OAuth 2.0 and OIDC with Hydra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#security-configuration-reference">Security configuration reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#security-best-practices">Security best practices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#authentication-types-and-setup">Authentication types and setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/security_model.html#key-based-authentication">Key-based authentication</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#authentication-to-external-systems">Authentication to external systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#network-vulnerability-scanning">Network vulnerability scanning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#ansible-security">Ansible security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#legal-disclaimers">Legal disclaimers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#scope">Scope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#document-references">Document references</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/security_model.html#reporting-security-vulnerabilities">Reporting security vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/telemetry_architecture.html">Telemetry Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/telemetry_architecture.html#data-collection">Data collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/telemetry_architecture.html#idrac-telemetry-out-of-band">iDRAC telemetry (out-of-band)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/telemetry_architecture.html#ldms-telemetry-in-band">LDMS telemetry (in-band)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/telemetry_architecture.html#message-transport-apache-kafka">Message transport – Apache Kafka</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/telemetry_architecture.html#external-kafka-integration">External Kafka integration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/telemetry_architecture.html#storage-victoriametrics">Storage – VictoriaMetrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/telemetry_architecture.html#external-victoriametrics-integration">External VictoriaMetrics integration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/telemetry_architecture.html#visualization-grafana">Visualization – Grafana</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/telemetry_architecture.html#ome-and-sfm-telemetry">OME and SFM telemetry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/telemetry_architecture.html#air-gapped-telemetry">Air-gapped telemetry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/telemetry_architecture.html#design-rationale">Design rationale</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/glossary.html">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/release_notes.html#omnia-2-1-0-0">Omnia 2.1.0.0</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#buildstream-gitlab-ci-automation">BuildStreaM – GitLab CI automation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#additional-packages-and-software">Additional packages and software</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#slurm-cluster-management">Slurm cluster management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#telemetry-enhancements">Telemetry enhancements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#storage-integration">Storage integration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#network-enhancements">Network enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/release_notes.html#omnia-2-0-0-0">Omnia 2.0.0.0</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#podman-containerization">Podman containerization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#local-repository-management-with-pulp">Local repository management with Pulp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#centralized-authentication">Centralized authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#telemetry-pipeline">Telemetry pipeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#kubernetes-high-availability">Kubernetes high availability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#composable-functional-groups">Composable functional groups</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#stateless-boot">Stateless boot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#gpu-and-accelerator-support">GPU and accelerator support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#security-enhancements">Security enhancements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#multi-architecture-support">Multi-architecture support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../Overview/release_notes.html#input-templates-and-validator">Input templates and validator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../Overview/release_notes.html#supported-platforms">Supported platforms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../Overview/blogs.html">Blogs about Omnia</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../GetStarted/index.html">Get Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../GetStarted/index.html#deployment-paths-at-a-glance">Deployment Paths at a Glance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../GetStarted/index.html#which-path-should-i-choose">Which Path Should I Choose?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../GetStarted/index.html#before-you-begin">Before You Begin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../HowTo/index.html">How-to Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#initial-setup-provisioning">Initial Setup &amp; Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#slurm-job-scheduling">Slurm Job Scheduling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#kubernetes-services">Kubernetes Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#storage">Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#networking">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#telemetry-monitoring">Telemetry &amp; Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#containers-packages">Containers &amp; Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../HowTo/index.html#buildstream-ci-cd">BuildStreaM (CI/CD)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Operations/index.html">Operations &amp; Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#support-matrix">Support Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#configuration-file-reference">Configuration File Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#sample-files">Sample Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#cluster-requirements">Cluster Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#playbook-reference">Playbook Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#telemetry-metrics-reference">Telemetry Metrics Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#appendices">Appendices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Troubleshooting/index.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../Troubleshooting/index.html#troubleshooting-approach">Troubleshooting approach</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contributing/index.html">Contributing to Omnia</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Omnia</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Required Ports</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/Reference/ClusterRequirements/ports.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="required-ports">
+<h1>Required Ports<a class="headerlink" href="#required-ports" title="Permalink to this heading"></a></h1>
+<p>This page lists all TCP and UDP ports used by Omnia services across the OIM
+and cluster nodes. Open these ports in firewalld or your network firewall
+before deploying.</p>
+<section id="oim-management-node-ports">
+<h2>OIM (Management Node) ports<a class="headerlink" href="#oim-management-node-ports" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Port</p></th>
+<th class="head"><p>Protocol</p></th>
+<th class="head"><p>Service</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>67</p></td>
+<td><p>UDP</p></td>
+<td><p>CoreDHCP (server)</p></td>
+<td><p>DHCP server for node provisioning. OIM listens for DHCP requests.</p></td>
+</tr>
+<tr class="row-odd"><td><p>68</p></td>
+<td><p>UDP</p></td>
+<td><p>CoreDHCP (client)</p></td>
+<td><p>DHCP client responses.</p></td>
+</tr>
+<tr class="row-even"><td><p>69</p></td>
+<td><p>UDP</p></td>
+<td><p>TFTP</p></td>
+<td><p>Trivial File Transfer Protocol for PXE boot file delivery.</p></td>
+</tr>
+<tr class="row-odd"><td><p>80</p></td>
+<td><p>TCP</p></td>
+<td><p>HTTP</p></td>
+<td><p>HTTP service for provisioning images, kickstart files, and repository metadata.</p></td>
+</tr>
+<tr class="row-even"><td><p>443</p></td>
+<td><p>TCP</p></td>
+<td><p>HTTPS</p></td>
+<td><p>Secure HTTP for Pulp API, AWX web interface, and repository access.</p></td>
+</tr>
+<tr class="row-odd"><td><p>8443</p></td>
+<td><p>TCP</p></td>
+<td><p>OpenCHAMI API</p></td>
+<td><p>RESTful API for node lifecycle management and inventory queries.</p></td>
+</tr>
+<tr class="row-even"><td><p>8444</p></td>
+<td><p>TCP</p></td>
+<td><p>OpenCHAMI BSS</p></td>
+<td><p>Boot Script Service API for iPXE boot script generation.</p></td>
+</tr>
+<tr class="row-odd"><td><p>5432</p></td>
+<td><p>TCP</p></td>
+<td><p>PostgreSQL</p></td>
+<td><p>Database backend for Pulp and OpenCHAMI (local connections only).</p></td>
+</tr>
+<tr class="row-even"><td><p>6817</p></td>
+<td><p>TCP</p></td>
+<td><p>Slurm (srun)</p></td>
+<td><p>Slurm srun command communication (if Slurm client on OIM).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="podman-container-and-service-ports">
+<h2>Podman container and service ports<a class="headerlink" href="#podman-container-and-service-ports" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Port</p></th>
+<th class="head"><p>Protocol</p></th>
+<th class="head"><p>Container Name / Service</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2222</p></td>
+<td><p>TCP</p></td>
+<td><p>omnia_core</p></td>
+<td><p>SSH access to the Omnia core container.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2225</p></td>
+<td><p>TCP</p></td>
+<td><p>pulp</p></td>
+<td><p>Pulp repository container.</p></td>
+</tr>
+<tr class="row-even"><td><p>5001</p></td>
+<td><p>TCP</p></td>
+<td><p>Omnia nerdctl registry</p></td>
+<td><p>Container image registry for Omnia services.</p></td>
+</tr>
+<tr class="row-odd"><td><p>636, 389</p></td>
+<td><p>TCP</p></td>
+<td><p>omnia_auth</p></td>
+<td><p>OpenLDAP authentication container (LDAPS and LDAP).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="slurm-cluster-ports">
+<h2>Slurm cluster ports<a class="headerlink" href="#slurm-cluster-ports" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Port</p></th>
+<th class="head"><p>Protocol</p></th>
+<th class="head"><p>Service</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>6817</p></td>
+<td><p>TCP</p></td>
+<td><p>slurmctld</p></td>
+<td><p>Slurm controller daemon. Accepts job submissions and scheduling requests from slurmd and client commands.</p></td>
+</tr>
+<tr class="row-odd"><td><p>6818</p></td>
+<td><p>TCP</p></td>
+<td><p>slurmd</p></td>
+<td><p>Slurm compute daemon. Receives job launch instructions from slurmctld.</p></td>
+</tr>
+<tr class="row-even"><td><p>6819</p></td>
+<td><p>TCP</p></td>
+<td><p>slurmdbd</p></td>
+<td><p>Slurm database daemon. Handles job accounting queries from slurmctld.</p></td>
+</tr>
+<tr class="row-odd"><td><p>3306</p></td>
+<td><p>TCP</p></td>
+<td><p>MariaDB / MySQL</p></td>
+<td><p>Database for slurmdbd job accounting. Local connections from slurmdbd only.</p></td>
+</tr>
+<tr class="row-even"><td><p>22</p></td>
+<td><p>TCP</p></td>
+<td><p>SSH</p></td>
+<td><p>Remote access for administration and user login (login nodes).</p></td>
+</tr>
+<tr class="row-odd"><td><p>111</p></td>
+<td><p>TCP/UDP</p></td>
+<td><p>rpcbind</p></td>
+<td><p>RPC port mapper for NFS. Required when using NFS-shared Slurm configuration.</p></td>
+</tr>
+<tr class="row-even"><td><p>2049</p></td>
+<td><p>TCP/UDP</p></td>
+<td><p>NFS</p></td>
+<td><p>NFS file sharing for shared /home, /scratch, and Slurm configuration (<code class="docutils literal notranslate"><span class="pre">nfs_share</span></code> installation type).</p></td>
+</tr>
+<tr class="row-odd"><td><p>88</p></td>
+<td><p>TCP/UDP</p></td>
+<td><p>Kerberos KDC</p></td>
+<td><p>Kerberos Key Distribution Center (if Kerberos is enabled).</p></td>
+</tr>
+<tr class="row-even"><td><p>389</p></td>
+<td><p>TCP</p></td>
+<td><p>LDAP</p></td>
+<td><p>OpenLDAP directory service (unencrypted).</p></td>
+</tr>
+<tr class="row-odd"><td><p>636</p></td>
+<td><p>TCP</p></td>
+<td><p>LDAPS</p></td>
+<td><p>OpenLDAP with TLS encryption.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="kubernetes-cluster-ports">
+<h2>Kubernetes cluster ports<a class="headerlink" href="#kubernetes-cluster-ports" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Port</p></th>
+<th class="head"><p>Protocol</p></th>
+<th class="head"><p>Service</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>6443</p></td>
+<td><p>TCP</p></td>
+<td><p>K8s API server</p></td>
+<td><p>Kubernetes API server. Used by kubectl, kubelet, and all K8s components.</p></td>
+</tr>
+<tr class="row-odd"><td><p>2379</p></td>
+<td><p>TCP</p></td>
+<td><p>etcd (client)</p></td>
+<td><p>etcd client communication. Used by the API server to read/write cluster state.</p></td>
+</tr>
+<tr class="row-even"><td><p>2380</p></td>
+<td><p>TCP</p></td>
+<td><p>etcd (peer)</p></td>
+<td><p>etcd peer communication for cluster replication.</p></td>
+</tr>
+<tr class="row-odd"><td><p>10250</p></td>
+<td><p>TCP</p></td>
+<td><p>kubelet</p></td>
+<td><p>kubelet API. Used by the API server to communicate with node agents.</p></td>
+</tr>
+<tr class="row-even"><td><p>10259</p></td>
+<td><p>TCP</p></td>
+<td><p>kube-scheduler</p></td>
+<td><p>Kubernetes scheduler HTTPS endpoint.</p></td>
+</tr>
+<tr class="row-odd"><td><p>10257</p></td>
+<td><p>TCP</p></td>
+<td><p>kube-controller-manager</p></td>
+<td><p>Controller manager HTTPS endpoint.</p></td>
+</tr>
+<tr class="row-even"><td><p>30000–32767</p></td>
+<td><p>TCP</p></td>
+<td><p>NodePort services</p></td>
+<td><p>Default range for Kubernetes NodePort services.</p></td>
+</tr>
+<tr class="row-odd"><td><p>179</p></td>
+<td><p>TCP</p></td>
+<td><p>Calico (BGP)</p></td>
+<td><p>BGP peering for Calico pod network routing.</p></td>
+</tr>
+<tr class="row-even"><td><p>4789</p></td>
+<td><p>UDP</p></td>
+<td><p>Calico (VXLAN)</p></td>
+<td><p>VXLAN overlay network for Calico (if VXLAN mode is used).</p></td>
+</tr>
+<tr class="row-odd"><td><p>5473</p></td>
+<td><p>TCP</p></td>
+<td><p>Calico (Typha)</p></td>
+<td><p>Calico Typha daemon for large-cluster performance.</p></td>
+</tr>
+<tr class="row-even"><td><p>7472</p></td>
+<td><p>TCP/UDP</p></td>
+<td><p>MetalLB</p></td>
+<td><p>MetalLB memberlist for speaker-to-speaker communication.</p></td>
+</tr>
+<tr class="row-odd"><td><p>7946</p></td>
+<td><p>TCP/UDP</p></td>
+<td><p>MetalLB</p></td>
+<td><p>MetalLB node discovery.</p></td>
+</tr>
+<tr class="row-even"><td><p>8285</p></td>
+<td><p>UDP</p></td>
+<td><p>Flannel (UDP)</p></td>
+<td><p>Flannel UDP backend for pod network overlay.</p></td>
+</tr>
+<tr class="row-odd"><td><p>8472</p></td>
+<td><p>UDP</p></td>
+<td><p>Flannel (VXLAN)</p></td>
+<td><p>Flannel VXLAN backend for pod network overlay.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="telemetry-ports">
+<h2>Telemetry ports<a class="headerlink" href="#telemetry-ports" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Port</p></th>
+<th class="head"><p>Protocol</p></th>
+<th class="head"><p>Service</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>8161</p></td>
+<td><p>TCP</p></td>
+<td><p>ActiveMQ console</p></td>
+<td><p>ActiveMQ web management console.</p></td>
+</tr>
+<tr class="row-odd"><td><p>61613</p></td>
+<td><p>TCP</p></td>
+<td><p>ActiveMQ message broker</p></td>
+<td><p>ActiveMQ STOMP message broker for telemetry data.</p></td>
+</tr>
+<tr class="row-even"><td><p>3306, 33060</p></td>
+<td><p>TCP</p></td>
+<td><p>MySQL</p></td>
+<td><p>MySQL database for telemetry data storage.</p></td>
+</tr>
+<tr class="row-odd"><td><p>9092</p></td>
+<td><p>TCP</p></td>
+<td><p>Apache Kafka</p></td>
+<td><p>Kafka broker for telemetry data streaming.</p></td>
+</tr>
+<tr class="row-even"><td><p>9093</p></td>
+<td><p>TCP</p></td>
+<td><p>Apache Kafka (TLS)</p></td>
+<td><p>Kafka broker TLS port.</p></td>
+</tr>
+<tr class="row-odd"><td><p>9094</p></td>
+<td><p>TCP</p></td>
+<td><p>Kafka LoadBalancer</p></td>
+<td><p>Kafka LoadBalancer service port.</p></td>
+</tr>
+<tr class="row-even"><td><p>2181</p></td>
+<td><p>TCP</p></td>
+<td><p>ZooKeeper</p></td>
+<td><p>ZooKeeper coordination service for Kafka (if applicable).</p></td>
+</tr>
+<tr class="row-odd"><td><p>8428</p></td>
+<td><p>TCP</p></td>
+<td><p>VictoriaMetrics</p></td>
+<td><p>VictoriaMetrics HTTP API for metric ingestion and queries.</p></td>
+</tr>
+<tr class="row-even"><td><p>8443</p></td>
+<td><p>TCP</p></td>
+<td><p>VictoriaMetrics service</p></td>
+<td><p>VictoriaMetrics HTTPS service port.</p></td>
+</tr>
+<tr class="row-odd"><td><p>8480</p></td>
+<td><p>TCP</p></td>
+<td><p>VictoriaMetrics LB (insert)</p></td>
+<td><p>VictoriaMetrics LoadBalancer insert service.</p></td>
+</tr>
+<tr class="row-even"><td><p>8481</p></td>
+<td><p>TCP</p></td>
+<td><p>VictoriaMetrics LB (query)</p></td>
+<td><p>VictoriaMetrics LoadBalancer query service.</p></td>
+</tr>
+<tr class="row-odd"><td><p>3000</p></td>
+<td><p>TCP</p></td>
+<td><p>Grafana</p></td>
+<td><p>Grafana web interface for dashboards and visualization.</p></td>
+</tr>
+<tr class="row-even"><td><p>9100</p></td>
+<td><p>TCP</p></td>
+<td><p>Node Exporter</p></td>
+<td><p>Prometheus-compatible node metrics exporter.</p></td>
+</tr>
+<tr class="row-odd"><td><p>6001–6100</p></td>
+<td><p>TCP</p></td>
+<td><p>LDMS Aggregator</p></td>
+<td><p>LDMS aggregator daemon for collecting node-level metrics.</p></td>
+</tr>
+<tr class="row-even"><td><p>6001–6100</p></td>
+<td><p>TCP</p></td>
+<td><p>LDMS Store Daemon</p></td>
+<td><p>LDMS store daemon port.</p></td>
+</tr>
+<tr class="row-odd"><td><p>10001–10100</p></td>
+<td><p>TCP</p></td>
+<td><p>LDMS Sampler</p></td>
+<td><p>LDMS sampler daemon on compute nodes.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="authentication-ports">
+<h2>Authentication ports<a class="headerlink" href="#authentication-ports" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Port</p></th>
+<th class="head"><p>Protocol</p></th>
+<th class="head"><p>Service</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>389</p></td>
+<td><p>TCP</p></td>
+<td><p>LDAP</p></td>
+<td><p>OpenLDAP directory queries (unencrypted).</p></td>
+</tr>
+<tr class="row-odd"><td><p>636</p></td>
+<td><p>TCP</p></td>
+<td><p>LDAPS</p></td>
+<td><p>OpenLDAP directory queries (TLS-encrypted).</p></td>
+</tr>
+<tr class="row-even"><td><p>88</p></td>
+<td><p>TCP/UDP</p></td>
+<td><p>Kerberos KDC</p></td>
+<td><p>Kerberos authentication ticket requests.</p></td>
+</tr>
+<tr class="row-odd"><td><p>464</p></td>
+<td><p>TCP/UDP</p></td>
+<td><p>Kerberos kpasswd</p></td>
+<td><p>Kerberos password change service.</p></td>
+</tr>
+<tr class="row-even"><td><p>749</p></td>
+<td><p>TCP</p></td>
+<td><p>Kerberos kadmin</p></td>
+<td><p>Kerberos administration daemon.</p></td>
+</tr>
+<tr class="row-odd"><td><p>80 / 443</p></td>
+<td><p>TCP</p></td>
+<td><p>FreeIPA Web UI</p></td>
+<td><p>FreeIPA web interface and API (if FreeIPA is deployed).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="buildstream-gitlab-ports">
+<h2>BuildStreaM / GitLab ports<a class="headerlink" href="#buildstream-gitlab-ports" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Port</p></th>
+<th class="head"><p>Protocol</p></th>
+<th class="head"><p>Service</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>443</p></td>
+<td><p>TCP</p></td>
+<td><p>GitLab HTTPS</p></td>
+<td><p>GitLab web interface, API, and Git HTTPS operations.</p></td>
+</tr>
+<tr class="row-odd"><td><p>22</p></td>
+<td><p>TCP</p></td>
+<td><p>GitLab SSH</p></td>
+<td><p>Git SSH operations (push/pull).</p></td>
+</tr>
+<tr class="row-even"><td><p>8093</p></td>
+<td><p>TCP</p></td>
+<td><p>GitLab Runner</p></td>
+<td><p>Runner communication with the GitLab server.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="openchami-ports">
+<h2>OpenCHAMI ports<a class="headerlink" href="#openchami-ports" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Port</p></th>
+<th class="head"><p>Protocol</p></th>
+<th class="head"><p>Service</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>9000, 9001</p></td>
+<td><p>TCP</p></td>
+<td><p>minio-server</p></td>
+<td><p>MinIO S3-compatible object storage for OpenCHAMI.</p></td>
+</tr>
+<tr class="row-odd"><td><p>5000</p></td>
+<td><p>TCP</p></td>
+<td><p>registry</p></td>
+<td><p>Container image registry for OpenCHAMI services.</p></td>
+</tr>
+<tr class="row-even"><td><p>9000</p></td>
+<td><p>TCP</p></td>
+<td><p>step-ca</p></td>
+<td><p>Internal certificate authority for TLS certificate issuance.</p></td>
+</tr>
+<tr class="row-odd"><td><p>5432</p></td>
+<td><p>TCP</p></td>
+<td><p>postgres</p></td>
+<td><p>PostgreSQL database for OpenCHAMI state management.</p></td>
+</tr>
+<tr class="row-even"><td><p>27779</p></td>
+<td><p>TCP</p></td>
+<td><p>smd</p></td>
+<td><p>State Manager Daemon for node inventory and hardware discovery.</p></td>
+</tr>
+<tr class="row-odd"><td><p>27778</p></td>
+<td><p>TCP</p></td>
+<td><p>bss</p></td>
+<td><p>Boot Script Service for iPXE boot script generation.</p></td>
+</tr>
+<tr class="row-even"><td><p>80, 443</p></td>
+<td><p>TCP</p></td>
+<td><p>haproxy</p></td>
+<td><p>HAProxy load balancer for OpenCHAMI services.</p></td>
+</tr>
+<tr class="row-odd"><td><p>22</p></td>
+<td><p>UDP</p></td>
+<td><p>ssh-udp</p></td>
+<td><p>SSH over UDP.</p></td>
+</tr>
+<tr class="row-even"><td><p>67</p></td>
+<td><p>UDP</p></td>
+<td><p>dhcp-udp</p></td>
+<td><p>DHCP service for node provisioning.</p></td>
+</tr>
+<tr class="row-odd"><td><p>68</p></td>
+<td><p>UDP</p></td>
+<td><p>bootpc</p></td>
+<td><p>BOOTP client responses.</p></td>
+</tr>
+<tr class="row-even"><td><p>69</p></td>
+<td><p>UDP</p></td>
+<td><p>tftp-udp</p></td>
+<td><p>TFTP for PXE boot file delivery.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="firewall-rule-summary">
+<h2>Firewall rule summary<a class="headerlink" href="#firewall-rule-summary" title="Permalink to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">enable_firewall:</span> <span class="pre">true</span></code> is set in <code class="docutils literal notranslate"><span class="pre">security_config.yml</span></code>, Omnia
+automatically configures firewalld rules for all required ports on each
+node based on its assigned role. Manual firewall configuration is only
+necessary when using external firewalls (e.g., network-level ACLs on
+switches).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><a class="reference external" href="../Configuration/security_config.rst">Security Config</a> – Firewall and security
+settings.</p></li>
+<li><p><a class="reference external" href="../Configuration/telemetry_config.rst">Telemetry Config</a> – Telemetry port
+configuration.</p></li>
+<li><p><a class="reference external" href="minimum_nodes.rst">Minimum Nodes</a> – Node counts per deployment scenario.</p></li>
+</ul>
+</div>
+<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Dell Technologies.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

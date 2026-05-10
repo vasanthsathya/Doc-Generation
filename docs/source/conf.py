@@ -34,11 +34,11 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.githubpages",
     "myst_parser",
+    "sphinx_rtd_theme",
 ]
 
-# Custom CSS and JS files for Material theme
+# Custom CSS and JS files for sphinx-rtd-theme
 html_css_files = [
-    'https://fonts.googleapis.com/icon?family=Material+Icons',
     'custom.css',
     'dell-brand.css',
 ]
@@ -100,42 +100,17 @@ pygments_style = "sphinx" # pylint: disable=invalid-name
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = "sphinx_material" # pylint: disable=invalid-name
+html_theme = "sphinx_rtd_theme" # pylint: disable=invalid-name
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-    'nav_title': 'Dell Omnia',
-    'color_primary': 'blue-grey',
-    'color_accent': 'blue',
-    'repo_url': 'https://github.com/dell/omnia',
-    'repo_name': 'dell/omnia',
-    'repo_type': 'github',
-    'globaltoc_depth': 4,
-    'globaltoc_collapse': False,
-    'globaltoc_includehidden': True,
-    'master_doc': False,
-    'nav_links': [
-        {'href': 'Overview/index', 'title': 'Overview', 'internal': True},
-        {'href': 'GetStarted/index', 'title': 'Get Started', 'internal': True},
-        {'href': 'HowTo/index', 'title': 'How-to Guides', 'internal': True},
-        {'href': 'Operations/index', 'title': 'Operations', 'internal': True},
-        {'href': 'Reference/index', 'title': 'Reference', 'internal': True},
-        {'href': 'Troubleshooting/index', 'title': 'Troubleshooting', 'internal': True},
-        {'href': 'Contributing/index', 'title': 'Contributing', 'internal': True},
-    ],
-    'plugins': [
-        'search',
-        'highlight',
-        'links',
-        'pretty',
-        'meta',
-    ],
-    'html_minify': True,
-    'html_prettify': False,
-    'css_minify': True,
-    'js_minify': True,
+    'collapse_navigation': False,  # Show expandable sections
+    'navigation_depth': 4,          # Show 4 levels deep
+    'includehidden': True,          # Include hidden toctrees
+    'sticky_navigation': True,      # Keep nav visible while scrolling
+    'titles_only': False,
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -176,8 +151,8 @@ html_static_path = ["_static"]
 # html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-# For Material theme, must explicitly include globaltoc.html for sidebar to appear
-html_sidebars = {'**': ['globaltoc.html', 'pagetoc.html', 'searchbox.html']}
+# sphinx-rtd-theme handles navigation automatically
+# html_sidebars configuration not needed
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.

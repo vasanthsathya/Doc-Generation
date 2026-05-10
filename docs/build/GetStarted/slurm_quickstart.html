@@ -1,1 +1,579 @@
-<!DOCTYPE html> <html lang=en > <meta charset=utf-8  /> <meta name=viewport  content="width=device-width, initial-scale=1.0" /><meta name=generator  content="Docutils 0.18.1: http://docutils.sourceforge.net/" /> <meta name=viewport  content="width=device-width,initial-scale=1"> <meta http-equiv=x-ua-compatible  content="ie=edge"> <meta name="lang:clipboard.copy" content="Copy to clipboard"> <meta name="lang:clipboard.copied" content="Copied to clipboard"> <meta name="lang:search.language" content=en > <meta name="lang:search.pipeline.stopwords" content=True > <meta name="lang:search.pipeline.trimmer" content=True > <meta name="lang:search.result.none" content="No matching documents"> <meta name="lang:search.result.one" content="1 matching document"> <meta name="lang:search.result.other" content="# matching documents"> <meta name="lang:search.tokenizer" content="[\s\-]+"> <link href="https://fonts.gstatic.com/" rel=preconnect  crossorigin> <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel=stylesheet > <style> body, input { font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif } code, kbd, pre { font-family: "Roboto Mono", "Courier New", Courier, monospace } </style> <link rel=stylesheet  href="../_static/stylesheets/application.css"/> <link rel=stylesheet  href="../_static/stylesheets/application-palette.css"/> <link rel=stylesheet  href="../_static/stylesheets/application-fixes.css"/> <link rel=stylesheet  href="../_static/fonts/material-icons.css"/> <meta name=theme-color  content="#3f51b5"> <script src="../_static/javascripts/modernizr.js"></script> <title>Path A: Slurm Quick Start &#8212; Dell/Omnia</title> <link rel=stylesheet  type="text/css" href="../_static/pygments.css" /> <link rel=stylesheet  type="text/css" href="../_static/material.css" /> <link rel=stylesheet  type="text/css" href="../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" /> <link rel=stylesheet  type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" /> <link rel=stylesheet  type="text/css" href="../_static/custom.css" /> <link rel=stylesheet  type="text/css" href="../_static/dell-brand.css" /> <script data-url_root="../" id=documentation_options  src="../_static/documentation_options.js"></script> <script src="../_static/doctools.js"></script> <script src="../_static/sphinx_highlight.js"></script> <script src="../_static/design-tabs.js"></script> <script src="../_static/custom.js"></script> <link rel=icon  href="../_static/favicon.png"/> <link rel=index  title=Index  href="../genindex.html" /> <link rel=search  title=Search  href="../search.html" /> <body dir=ltr data-md-color-primary=blue-grey data-md-color-accent=blue> <svg class=md-svg > <defs data-children-count=0 > <svg xmlns="http://www.w3.org/2000/svg" width=416  height=448  viewBox="0 0 416 448" id=__github ><path fill=currentColor  d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg> </defs> </svg> <input class=md-toggle  data-md-toggle=drawer  type=checkbox  id=__drawer > <input class=md-toggle  data-md-toggle=search  type=checkbox  id=__search > <label class=md-overlay  data-md-component=overlay  for=__drawer ></label> <a href="#GetStarted/slurm_quickstart" tabindex=1  class=md-skip > Skip to content </a> <header class=md-header  data-md-component=header > <nav class="md-header-nav md-grid"> <div class="md-flex navheader"> <div class="md-flex__cell md-flex__cell--shrink"> <a href="../index.html" title="Dell/Omnia" class="md-header-nav__button md-logo"> &nbsp; </a> </div> <div class="md-flex__cell md-flex__cell--shrink"> <label class="md-icon md-icon--menu md-header-nav__button" for=__drawer ></label> </div> <div class="md-flex__cell md-flex__cell--stretch"> <div class="md-flex__ellipsis md-header-nav__title" data-md-component=title > <span class=md-header-nav__topic >Dell Omnia</span> <span class=md-header-nav__topic > Path A: Slurm Quick Start </span> </div> </div> <div class="md-flex__cell md-flex__cell--shrink"> <label class="md-icon md-icon--search md-header-nav__button" for=__search ></label> <div class=md-search  data-md-component=search  role=dialog > <label class=md-search__overlay  for=__search ></label> <div class=md-search__inner  role=search > <form class=md-search__form  action="../search.html" method=get  name=search > <input type=text  class=md-search__input  name=q  placeholder=""Search"" autocapitalize=off  autocomplete=off  spellcheck=false  data-md-component=query  data-md-state=active > <label class="md-icon md-search__icon" for=__search ></label> <button type=reset  class="md-icon md-search__icon" data-md-component=reset  tabindex=-1 > &#xE5CD; </button> </form> <div class=md-search__output > <div class=md-search__scrollwrap  data-md-scrollfix> <div class=md-search-result  data-md-component=result > <div class=md-search-result__meta > Type to start searching </div> <ol class=md-search-result__list ></ol> </div> </div> </div> </div> </div> </div> <div class="md-flex__cell md-flex__cell--shrink"> <div class=md-header-nav__source > <a href="https://github.com/dell/omnia" title="Go to repository" class=md-source  data-md-source=github > <div class=md-source__icon > <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width=28  height=28 > <use xlink:href="#__github" width=24  height=24 ></use> </svg> </div> <div class=md-source__repository > dell/omnia </div> </a> </div> </div> <script src="../_static/javascripts/version_dropdown.js"></script> <script> var json_loc = "../"versions.json"", target_loc = "../../", text = "Versions"; $( document ).ready( add_version_dropdown(json_loc, target_loc, text)); </script> </div> </nav> </header> <div class=md-container > <nav class=md-tabs  data-md-component=tabs > <div class="md-tabs__inner md-grid"> <ul class=md-tabs__list > <li class=md-tabs__item ><a href="../Overview/index.html" class=md-tabs__link >Overview</a> <li class=md-tabs__item ><a href=index.html  class=md-tabs__link >Get Started</a> <li class=md-tabs__item ><a href="../HowTo/index.html" class=md-tabs__link >How-to Guides</a> <li class=md-tabs__item ><a href="../Operations/index.html" class=md-tabs__link >Operations</a> <li class=md-tabs__item ><a href="../Reference/index.html" class=md-tabs__link >Reference</a> <li class=md-tabs__item ><a href="../Troubleshooting/index.html" class=md-tabs__link >Troubleshooting</a> <li class=md-tabs__item ><a href="../Contributing/index.html" class=md-tabs__link >Contributing</a> </ul> </div> </nav> <main class=md-main > <div class="md-main__inner md-grid" data-md-component=container > <div class="md-sidebar md-sidebar--primary" data-md-component=navigation > <div class=md-sidebar__scrollwrap > <div class=md-sidebar__inner > <nav class="md-nav md-nav--primary" data-md-level=0 > <label class="md-nav__title md-nav__title--site" for=__drawer > <a href="../index.html" title="Dell/Omnia" class="md-nav__button md-logo"> <img src="../_static/" alt=" logo" width=48  height=48 > </a> <a href="../index.html" title="Dell/Omnia">Dell Omnia</a> </label> <div class=md-nav__source > <a href="https://github.com/dell/omnia" title="Go to repository" class=md-source  data-md-source=github > <div class=md-source__icon > <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width=28  height=28 > <use xlink:href="#__github" width=24  height=24 ></use> </svg> </div> <div class=md-source__repository > dell/omnia </div> </a> </div> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/index.html" class=md-nav__link >Overview</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/architecture.html" class=md-nav__link >Architecture</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/architecture.html#why-three-cluster-types" class=md-nav__link >Why three cluster types?</a> <li class=md-nav__item > <a href="../Overview/architecture.html#oim-the-management-node" class=md-nav__link >OIM – The management node</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/architecture.html#what-runs-on-the-oim" class=md-nav__link >What runs on the OIM</a> <li class=md-nav__item > <a href="../Overview/architecture.html#oim-minimum-requirements" class=md-nav__link >OIM minimum requirements</a> </ul> <li class=md-nav__item > <a href="../Overview/architecture.html#slurm-cluster" class=md-nav__link >Slurm cluster</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/architecture.html#node-roles" class=md-nav__link >Node roles</a> </ul> <li class=md-nav__item > <a href="../Overview/architecture.html#kubernetes-cluster" class=md-nav__link >Kubernetes cluster</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/architecture.html#id1" class=md-nav__link >Node roles</a> <li class=md-nav__item > <a href="../Overview/architecture.html#pre-installed-kubernetes-components" class=md-nav__link >Pre-installed Kubernetes components</a> </ul> <li class=md-nav__item > <a href="../Overview/architecture.html#how-the-clusters-interact" class=md-nav__link >How the clusters interact</a> <li class=md-nav__item > <a href="../Overview/architecture.html#design-rationale" class=md-nav__link >Design rationale</a> </ul> <li class=md-nav__item > <a href="../Overview/components.html" class=md-nav__link >Components</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/components.html#omnia-core-container" class=md-nav__link >omnia_core container</a> <li class=md-nav__item > <a href="../Overview/components.html#openchami" class=md-nav__link >OpenCHAMI</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/components.html#state-manager-daemon-smd" class=md-nav__link >State Manager Daemon (SMD)</a> <li class=md-nav__item > <a href="../Overview/components.html#boot-script-service-bss" class=md-nav__link >Boot Script Service (BSS)</a> <li class=md-nav__item > <a href="../Overview/components.html#ochami-cli" class=md-nav__link >ochami-cli</a> </ul> <li class=md-nav__item > <a href="../Overview/components.html#pulp" class=md-nav__link >Pulp</a> <li class=md-nav__item > <a href="../Overview/components.html#buildstream" class=md-nav__link >BuildStreaM</a> <li class=md-nav__item > <a href="../Overview/components.html#omnia-auth" class=md-nav__link >Omnia Auth</a> <li class=md-nav__item > <a href="../Overview/components.html#supporting-services" class=md-nav__link >Supporting services</a> </ul> <li class=md-nav__item > <a href="../Overview/network_topologies.html" class=md-nav__link >Network Topologies</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/network_topologies.html#network-segments" class=md-nav__link >Network segments</a> <li class=md-nav__item > <a href="../Overview/network_topologies.html#dedicated-topology" class=md-nav__link >Dedicated topology</a> <li class=md-nav__item > <a href="../Overview/network_topologies.html#shared-lom-topology" class=md-nav__link >Shared LOM topology</a> <li class=md-nav__item > <a href="../Overview/network_topologies.html#hybrid-topology" class=md-nav__link >Hybrid topology</a> <li class=md-nav__item > <a href="../Overview/network_topologies.html#choosing-a-topology" class=md-nav__link >Choosing a topology</a> <li class=md-nav__item > <a href="../Overview/network_topologies.html#ip-addressing-and-dhcp" class=md-nav__link >IP addressing and DHCP</a> </ul> <li class=md-nav__item > <a href="../Overview/composable_roles.html" class=md-nav__link >Composable Roles</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/composable_roles.html#what-are-composable-roles" class=md-nav__link >What are composable roles?</a> <li class=md-nav__item > <a href="../Overview/composable_roles.html#functional-groups" class=md-nav__link >Functional groups</a> <li class=md-nav__item > <a href="../Overview/composable_roles.html#groups-based-on-physical-characteristics" class=md-nav__link >Groups based on physical characteristics</a> <li class=md-nav__item > <a href="../Overview/composable_roles.html#the-mapping-file" class=md-nav__link >The mapping file</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/composable_roles.html#format" class=md-nav__link >Format</a> <li class=md-nav__item > <a href="../Overview/composable_roles.html#example" class=md-nav__link >Example</a> </ul> <li class=md-nav__item > <a href="../Overview/composable_roles.html#how-omnia-processes-the-mapping-file" class=md-nav__link >How Omnia processes the mapping file</a> <li class=md-nav__item > <a href="../Overview/composable_roles.html#design-rationale" class=md-nav__link >Design rationale</a> </ul> <li class=md-nav__item > <a href="../Overview/security_model.html" class=md-nav__link >Security Model</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/security_model.html#security-profiles" class=md-nav__link >Security profiles</a> <li class=md-nav__item > <a href="../Overview/security_model.html#security-controls-map" class=md-nav__link >Security Controls Map</a> <li class=md-nav__item > <a href="../Overview/security_model.html#security-principles" class=md-nav__link >Security principles</a> <li class=md-nav__item > <a href="../Overview/security_model.html#credential-encryption-with-ansible-vault" class=md-nav__link >Credential encryption with Ansible Vault</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/security_model.html#how-it-works" class=md-nav__link >How it works</a> <li class=md-nav__item > <a href="../Overview/security_model.html#login-security-settings" class=md-nav__link >Login security settings</a> <li class=md-nav__item > <a href="../Overview/security_model.html#credential-utility" class=md-nav__link >Credential utility</a> </ul> <li class=md-nav__item > <a href="../Overview/security_model.html#centralized-authentication-with-openldap" class=md-nav__link >Centralized authentication with OpenLDAP</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/security_model.html#sssd-integration" class=md-nav__link >SSSD integration</a> <li class=md-nav__item > <a href="../Overview/security_model.html#configuration" class=md-nav__link >Configuration</a> </ul> <li class=md-nav__item > <a href="../Overview/security_model.html#tls-certificate-management" class=md-nav__link >TLS certificate management</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/security_model.html#step-ca-internal-certificate-authority" class=md-nav__link >step-ca – Internal certificate authority</a> <li class=md-nav__item > <a href="../Overview/security_model.html#acme-protocol" class=md-nav__link >ACME protocol</a> </ul> <li class=md-nav__item > <a href="../Overview/security_model.html#oauth-2-0-and-oidc-with-hydra" class=md-nav__link >OAuth 2.0 and OIDC with Hydra</a> <li class=md-nav__item > <a href="../Overview/security_model.html#security-configuration-reference" class=md-nav__link >Security configuration reference</a> <li class=md-nav__item > <a href="../Overview/security_model.html#security-best-practices" class=md-nav__link >Security best practices</a> <li class=md-nav__item > <a href="../Overview/security_model.html#authentication-types-and-setup" class=md-nav__link >Authentication types and setup</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/security_model.html#key-based-authentication" class=md-nav__link >Key-based authentication</a> </ul> <li class=md-nav__item > <a href="../Overview/security_model.html#authentication-to-external-systems" class=md-nav__link >Authentication to external systems</a> <li class=md-nav__item > <a href="../Overview/security_model.html#network-vulnerability-scanning" class=md-nav__link >Network vulnerability scanning</a> <li class=md-nav__item > <a href="../Overview/security_model.html#ansible-security" class=md-nav__link >Ansible security</a> <li class=md-nav__item > <a href="../Overview/security_model.html#legal-disclaimers" class=md-nav__link >Legal disclaimers</a> <li class=md-nav__item > <a href="../Overview/security_model.html#scope" class=md-nav__link >Scope</a> <li class=md-nav__item > <a href="../Overview/security_model.html#document-references" class=md-nav__link >Document references</a> <li class=md-nav__item > <a href="../Overview/security_model.html#reporting-security-vulnerabilities" class=md-nav__link >Reporting security vulnerabilities</a> </ul> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html" class=md-nav__link >Telemetry Architecture</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#data-collection" class=md-nav__link >Data collection</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#idrac-telemetry-out-of-band" class=md-nav__link >iDRAC telemetry (out-of-band)</a> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#ldms-telemetry-in-band" class=md-nav__link >LDMS telemetry (in-band)</a> </ul> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#message-transport-apache-kafka" class=md-nav__link >Message transport – Apache Kafka</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#external-kafka-integration" class=md-nav__link >External Kafka integration</a> </ul> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#storage-victoriametrics" class=md-nav__link >Storage – VictoriaMetrics</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#external-victoriametrics-integration" class=md-nav__link >External VictoriaMetrics integration</a> </ul> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#visualization-grafana" class=md-nav__link >Visualization – Grafana</a> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#ome-and-sfm-telemetry" class=md-nav__link >OME and SFM telemetry</a> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#air-gapped-telemetry" class=md-nav__link >Air-gapped telemetry</a> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#design-rationale" class=md-nav__link >Design rationale</a> </ul> <li class=md-nav__item > <a href="../Overview/glossary.html" class=md-nav__link >Glossary</a> <li class=md-nav__item > <a href="../Overview/release_notes.html" class=md-nav__link >Release Notes</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/release_notes.html#omnia-2-1-0-0" class=md-nav__link >Omnia 2.1.0.0</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/release_notes.html#buildstream-gitlab-ci-automation" class=md-nav__link >BuildStreaM – GitLab CI automation</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#additional-packages-and-software" class=md-nav__link >Additional packages and software</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#slurm-cluster-management" class=md-nav__link >Slurm cluster management</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#telemetry-enhancements" class=md-nav__link >Telemetry enhancements</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#storage-integration" class=md-nav__link >Storage integration</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#network-enhancements" class=md-nav__link >Network enhancements</a> </ul> <li class=md-nav__item > <a href="../Overview/release_notes.html#omnia-2-0-0-0" class=md-nav__link >Omnia 2.0.0.0</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/release_notes.html#podman-containerization" class=md-nav__link >Podman containerization</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#local-repository-management-with-pulp" class=md-nav__link >Local repository management with Pulp</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#centralized-authentication" class=md-nav__link >Centralized authentication</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#telemetry-pipeline" class=md-nav__link >Telemetry pipeline</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#kubernetes-high-availability" class=md-nav__link >Kubernetes high availability</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#composable-functional-groups" class=md-nav__link >Composable functional groups</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#stateless-boot" class=md-nav__link >Stateless boot</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#gpu-and-accelerator-support" class=md-nav__link >GPU and accelerator support</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#security-enhancements" class=md-nav__link >Security enhancements</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#multi-architecture-support" class=md-nav__link >Multi-architecture support</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#input-templates-and-validator" class=md-nav__link >Input templates and validator</a> </ul> <li class=md-nav__item > <a href="../Overview/release_notes.html#supported-platforms" class=md-nav__link >Supported platforms</a> </ul> <li class=md-nav__item > <a href="../Overview/blogs.html" class=md-nav__link >Blogs about Omnia</a> </ul> <li class=md-nav__item > <a href=index.html  class=md-nav__link >Get Started</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="index.html#deployment-paths-at-a-glance" class=md-nav__link >Deployment Paths at a Glance</a> <li class=md-nav__item > <a href="index.html#which-path-should-i-choose" class=md-nav__link >Which Path Should I Choose?</a> <li class=md-nav__item > <a href="index.html#before-you-begin" class=md-nav__link >Before You Begin</a> </ul> <li class=md-nav__item > <a href="../HowTo/index.html" class=md-nav__link >How-to Guides</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../HowTo/index.html#initial-setup-provisioning" class=md-nav__link >Initial Setup & Provisioning</a> <li class=md-nav__item > <a href="../HowTo/index.html#slurm-job-scheduling" class=md-nav__link >Slurm Job Scheduling</a> <li class=md-nav__item > <a href="../HowTo/index.html#kubernetes-services" class=md-nav__link >Kubernetes Services</a> <li class=md-nav__item > <a href="../HowTo/index.html#storage" class=md-nav__link >Storage</a> <li class=md-nav__item > <a href="../HowTo/index.html#networking" class=md-nav__link >Networking</a> <li class=md-nav__item > <a href="../HowTo/index.html#authentication" class=md-nav__link >Authentication</a> <li class=md-nav__item > <a href="../HowTo/index.html#telemetry-monitoring" class=md-nav__link >Telemetry & Monitoring</a> <li class=md-nav__item > <a href="../HowTo/index.html#containers-packages" class=md-nav__link >Containers & Packages</a> <li class=md-nav__item > <a href="../HowTo/index.html#buildstream-ci-cd" class=md-nav__link >BuildStreaM (CI/CD)</a> </ul> <li class=md-nav__item > <a href="../Operations/index.html" class=md-nav__link >Operations & Maintenance</a> <li class=md-nav__item > <a href="../Reference/index.html" class=md-nav__link >Reference</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Reference/index.html#support-matrix" class=md-nav__link >Support Matrix</a> <li class=md-nav__item > <a href="../Reference/index.html#configuration-file-reference" class=md-nav__link >Configuration File Reference</a> <li class=md-nav__item > <a href="../Reference/index.html#sample-files" class=md-nav__link >Sample Files</a> <li class=md-nav__item > <a href="../Reference/index.html#cluster-requirements" class=md-nav__link >Cluster Requirements</a> <li class=md-nav__item > <a href="../Reference/index.html#playbook-reference" class=md-nav__link >Playbook Reference</a> <li class=md-nav__item > <a href="../Reference/index.html#telemetry-metrics-reference" class=md-nav__link >Telemetry Metrics Reference</a> <li class=md-nav__item > <a href="../Reference/index.html#appendices" class=md-nav__link >Appendices</a> </ul> <li class=md-nav__item > <a href="../Troubleshooting/index.html" class=md-nav__link >Troubleshooting</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Troubleshooting/index.html#troubleshooting-approach" class=md-nav__link >Troubleshooting approach</a> </ul> <li class=md-nav__item > <a href="../Contributing/index.html" class=md-nav__link >Contributing to Omnia</a> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=toc > <div class=md-sidebar__scrollwrap > <div class=md-sidebar__inner > <nav class="md-nav md-nav--secondary"> <ul class=md-nav__list  data-md-scrollfix=""> <li class=md-nav__item ><a class=md-nav__extra_link  href="../_sources/GetStarted/slurm_quickstart.rst.txt">Show Source</a> <li id=searchbox  class=md-nav__item > </ul> </nav> </div> </div> </div> <div class=md-content > <article class="md-content__inner md-typeset" role=main > <section id=path-a-slurm-quick-start > <h1 id=getstarted-slurm-quickstart--page-root >Path A: Slurm Quick Start<a class=headerlink  href="#getstarted-slurm-quickstart--page-root" title="Permalink to this heading">¶</a></h1> <p>Deploy a 4-node Slurm HPC cluster in approximately 2 hours. This is the fastest path to a working Omnia environment and the recommended starting point for first-time users.</p> <p><strong>What you will build:</strong></p> <table> <thead> <tr class=row-odd ><th class=head ><p>Role</p> <th class=head ><p>Functional Group</p> <th class=head ><p>Purpose</p> <tr class=row-even ><td><p>OIM (management)</p> <td><p>–</p> <td><p>Runs the <code class="docutils literal notranslate"><span class=pre >omnia_core</span></code> container; executes all Ansible playbooks. Does <strong>not</strong> join the Slurm cluster.</p> <tr class=row-odd ><td><p>Head node</p> <td><p><code class="docutils literal notranslate"><span class=pre >slurm_control_node</span></code></p> <td><p>Runs <code class="docutils literal notranslate"><span class=pre >slurmctld</span></code> (Slurm controller daemon) and <code class="docutils literal notranslate"><span class=pre >slurmdbd</span></code> (accounting database).</p> <tr class=row-even ><td><p>Compute node</p> <td><p><code class="docutils literal notranslate"><span class=pre >slurm_node</span></code></p> <td><p>Runs <code class="docutils literal notranslate"><span class=pre >slurmd</span></code>; executes jobs submitted to the cluster.</p> <tr class=row-odd ><td><p>Login node</p> <td><p><code class="docutils literal notranslate"><span class=pre >login_node</span></code></p> <td><p>User-facing SSH gateway for job submission. Does not run <code class="docutils literal notranslate"><span class=pre >slurmd</span></code>.</p> </table> <p><strong>Estimated time:</strong> ~2 hours (varies with network speed and node count).</p> <div class="admonition note"> <p class=admonition-title >Note</p> <p>This tutorial assumes you have completed every item on the <a class="reference external" href=prerequisites_checklist.rst >Prerequisites Checklist</a>. If you have not, stop here and finish that first.</p> </div> <section id=step-1-deploy-the-omnia-core-container > <h2 id=step-1-deploy-the-omnia-core-container >Step 1 – Deploy the omnia_core Container<a class=headerlink  href="#step-1-deploy-the-omnia-core-container" title="Permalink to this heading">¶</a></h2> <p>Clone the Omnia repository, build the container images, and install the <code class="docutils literal notranslate"><span class=pre >omnia_core</span></code> Podman container on the OIM.</p> <p><strong>Run on OIM (as root)</strong></p> <div class="admonition tip"> <p class=admonition-title >Tip</p> <p><code class="docutils literal notranslate"><span class=pre >build_images.sh</span></code> creates the <code class="docutils literal notranslate"><span class=pre >omnia_core</span></code> and supporting images. It takes 5–10 minutes on a fast connection. Watch for any <code class="docutils literal notranslate"><span class=pre >FAILED</span></code> messages in the output.</p> </div> <p><strong>Run on OIM (as root)</strong></p> <p>You should see <code class="docutils literal notranslate"><span class=pre >active</span> <span class=pre >(running)</span></code> in the output. If the service is <code class="docutils literal notranslate"><span class=pre >failed</span></code>, check <code class="docutils literal notranslate"><span class=pre >journalctl</span> <span class=pre >-u</span> <span class=pre >omnia_core</span></code> for errors.</p> <p><strong>Run on OIM (as root)</strong></p> </section> <section id=step-2-create-the-mapping-file > <h2 id=step-2-create-the-mapping-file >Step 2 – Create the Mapping File<a class=headerlink  href="#step-2-create-the-mapping-file" title="Permalink to this heading">¶</a></h2> <p>The mapping file tells Omnia which physical servers map to which cluster roles. Create a CSV at <code class="docutils literal notranslate"><span class=pre >/opt/omnia/input/project_default/mapping.csv</span></code>.</p> <p><strong>Run on OIM (as root)</strong></p> <div class="admonition warning"> <p class=admonition-title >Warning</p> <p>Replace the placeholder values (<code class="docutils literal notranslate"><span class=pre >SERVICE_TAG</span></code>, <code class="docutils literal notranslate"><span class=pre >ADMIN_MAC</span></code>, <code class="docutils literal notranslate"><span class=pre >ADMIN_IP</span></code>, <code class="docutils literal notranslate"><span class=pre >BMC_IP</span></code>) with the actual values from your servers. Collect service tags from the server pull-out tab or iDRAC. Collect MAC addresses from <code class="docutils literal notranslate"><span class=pre >iDRAC</span> <span class=pre >&gt;</span> <span class=pre >Network</span> <span class=pre >&gt;</span> <span class=pre >NIC</span> <span class=pre >Selection</span></code> or by running <code class="docutils literal notranslate"><span class=pre >ip</span> <span class=pre >link</span></code> on each node.</p> </div> <p><strong>Field reference:</strong></p> <ul class=simple > <li><p><strong>FUNCTIONAL_GROUP_NAME</strong> – The Omnia role: <code class="docutils literal notranslate"><span class=pre >slurm_control_node</span></code>, <code class="docutils literal notranslate"><span class=pre >slurm_node</span></code>, or <code class="docutils literal notranslate"><span class=pre >login_node</span></code>.</p> <li><p><strong>GROUP_NAME</strong> – An arbitrary cluster group label (e.g., <code class="docutils literal notranslate"><span class=pre >slurm</span></code>).</p> <li><p><strong>SERVICE_TAG</strong> – The Dell service tag printed on the server chassis.</p> <li><p><strong>PARENT_SERVICE_TAG</strong> – Leave empty unless using modular chassis (MX).</p> <li><p><strong>HOSTNAME</strong> – Desired hostname; Omnia configures this during provisioning.</p> <li><p><strong>ADMIN_MAC</strong> – MAC address of the PXE-boot NIC on the admin network.</p> <li><p><strong>ADMIN_IP</strong> – Desired static IP on the admin network.</p> <li><p><strong>BMC_MAC</strong> – (Optional) iDRAC MAC address.</p> <li><p><strong>BMC_IP</strong> – iDRAC IP on the BMC network.</p> </ul> </section> <section id=step-3-provide-inputs > <h2 id=step-3-provide-inputs >Step 3 – Provide Inputs<a class=headerlink  href="#step-3-provide-inputs" title="Permalink to this heading">¶</a></h2> <p>Omnia ships example input templates for common deployment patterns. Copy the bare-metal Slurm template (without service K8s) and customize it.</p> <p><strong>Run on OIM (inside omnia_core container)</strong></p> <p>You should see these key input files:</p> <ul class=simple > <li><p><code class="docutils literal notranslate"><span class=pre >network_spec.yml</span></code> – Network CIDRs and interfaces</p> <li><p><code class="docutils literal notranslate"><span class=pre >provision_config.yml</span></code> – OS provisioning settings (ISO path, timezone)</p> <li><p><code class="docutils literal notranslate"><span class=pre >software_config.json</span></code> – Software stack selections</p> <li><p><code class="docutils literal notranslate"><span class=pre >omnia_config.yml</span></code> – Slurm and cluster configuration</p> <li><p><code class="docutils literal notranslate"><span class=pre >security_config.yml</span></code> – Authentication settings</p> <li><p><code class="docutils literal notranslate"><span class=pre >storage_config.yml</span></code> – NFS mount configuration</p> <li><p><code class="docutils literal notranslate"><span class=pre >local_repo_config.yml</span></code> – Repository mirror settings</p> </ul> <div class="admonition tip"> <p class=admonition-title >Tip</p> <p>Each file is heavily commented with inline documentation. Read the comments before changing values. When in doubt, keep the defaults – they work for the vast majority of deployments.</p> </div> </section> <section id=step-4-set-credentials > <h2 id=step-4-set-credentials >Step 4 – Set Credentials<a class=headerlink  href="#step-4-set-credentials" title="Permalink to this heading">¶</a></h2> <p>Run the <code class="docutils literal notranslate"><span class=pre >credentials_utility.yml</span></code> playbook to securely store passwords for iDRAC, the provisioning OS, and other services. This playbook prompts you interactively.</p> <p><strong>Run on OIM (inside omnia_core container)</strong></p> <p>You will be prompted to set:</p> <ul class=simple > <li><p><strong>Provisioning OS password</strong> – root password for provisioned nodes.</p> <li><p><strong>iDRAC credentials</strong> – username and password for out-of-band access.</p> <li><p><strong>MySQL/MariaDB password</strong> – used by <code class="docutils literal notranslate"><span class=pre >slurmdbd</span></code> for Slurm accounting.</p> </ul> <div class="admonition warning"> <p class=admonition-title >Warning</p> <p>Store these credentials in a password manager. You will need the iDRAC credentials if you ever need to access the BMC console, and the provisioning password for emergency SSH access to nodes.</p> </div> </section> <section id=step-5-prepare-the-oim > <h2 id=step-5-prepare-the-oim >Step 5 – Prepare the OIM<a class=headerlink  href="#step-5-prepare-the-oim" title="Permalink to this heading">¶</a></h2> <p>Edit the two critical network-related input files, then run <code class="docutils literal notranslate"><span class=pre >prepare_oim.yml</span></code> to configure the OIM’s networking, DHCP, TFTP, and HTTP services.</p> <section id=a-edit-network-spec-yml > <h3 id=a-edit-network-spec-yml ><strong>5a. Edit</strong> <cite>network_spec.yml</cite><a class=headerlink  href="#a-edit-network-spec-yml" title="Permalink to this heading">¶</a></h3> <p><strong>Run on OIM (inside omnia_core container)</strong></p> <p>Set the following values (adjust to match your environment):</p> <p><strong>Example network_spec.yml excerpt</strong></p> </section> <section id=b-edit-provision-config-yml > <h3 id=b-edit-provision-config-yml ><strong>5b. Edit</strong> <cite>provision_config.yml</cite><a class=headerlink  href="#b-edit-provision-config-yml" title="Permalink to this heading">¶</a></h3> <p><strong>Run on OIM (inside omnia_core container)</strong></p> <p>Key fields to verify or set:</p> <p><strong>Example provision_config.yml excerpt</strong></p> </section> <section id=c-run-prepare-oim-yml > <h3 id=c-run-prepare-oim-yml ><strong>5c. Run</strong> <cite>prepare_oim.yml</cite><a class=headerlink  href="#c-run-prepare-oim-yml" title="Permalink to this heading">¶</a></h3> <p><strong>Run on OIM (inside omnia_core container)</strong></p> <div class="admonition tip"> <p class=admonition-title >Tip</p> <p><code class="docutils literal notranslate"><span class=pre >prepare_oim.yml</span></code> takes 10–15 minutes. It configures DHCP, TFTP, HTTP, and NFS services on the OIM. If it fails, re-read the error message carefully – most failures are caused by incorrect NIC names or CIDR values in <code class="docutils literal notranslate"><span class=pre >network_spec.yml</span></code>.</p> </div> </section> </section> <section id=step-6-verify-oim-services > <h2 id=step-6-verify-oim-services >Step 6 – Verify OIM Services<a class=headerlink  href="#step-6-verify-oim-services" title="Permalink to this heading">¶</a></h2> <p>After <code class="docutils literal notranslate"><span class=pre >prepare_oim.yml</span></code> completes, verify that all Omnia-managed services are running.</p> <p><strong>Run on OIM (inside omnia_core container)</strong></p> <p>Every listed service should show a green dot (<code class="docutils literal notranslate"><span class=pre >●</span></code>) indicating <code class="docutils literal notranslate"><span class=pre >active</span></code>. Key services to verify:</p> <ul class=simple > <li><p><code class="docutils literal notranslate"><span class=pre >dhcpd.service</span></code> – DHCP server for PXE boot</p> <li><p><code class="docutils literal notranslate"><span class=pre >tftp.socket</span></code> – TFTP for PXE boot loader delivery</p> <li><p><code class="docutils literal notranslate"><span class=pre >httpd.service</span></code> – HTTP for kickstart/autoinstall files</p> <li><p><code class="docutils literal notranslate"><span class=pre >nfs-server.service</span></code> – NFS for shared storage</p> </ul> <p><strong>Run on OIM (inside omnia_core container)</strong></p> </section> <section id=step-7-create-local-repositories > <h2 id=step-7-create-local-repositories >Step 7 – Create Local Repositories<a class=headerlink  href="#step-7-create-local-repositories" title="Permalink to this heading">¶</a></h2> <p>Build local mirrors of OS packages, Python packages, and container images so that node provisioning does not depend on external internet access.</p> <p><strong>Run on OIM (inside omnia_core container)</strong></p> <div class="admonition warning"> <p class=admonition-title >Warning</p> <p><code class="docutils literal notranslate"><span class=pre >local_repo.yml</span></code> can take <strong>30–60 minutes</strong> depending on internet bandwidth. It downloads several GB of packages. Ensure the OIM has sufficient disk space (see <a class="reference external" href=prerequisites_checklist.rst >Prerequisites Checklist</a>) and a stable internet connection.</p> </div> <p>When the playbook finishes, verify that the local repo is accessible:</p> <p><strong>Run on OIM (inside omnia_core container)</strong></p> </section> <section id=step-8-build-node-images > <h2 id=step-8-build-node-images >Step 8 – Build Node Images<a class=headerlink  href="#step-8-build-node-images" title="Permalink to this heading">¶</a></h2> <p>Build the provisioning image that Omnia will PXE-boot onto target nodes.</p> <p><strong>Run on OIM (inside omnia_core container)</strong></p> <p>This playbook creates a customized OS image with pre-installed Slurm packages, Omnia agents, and configuration. The image is stored in the local S3-compatible object store.</p> <p><strong>Run on OIM (inside omnia_core container)</strong></p> <p>You should see at least one <code class="docutils literal notranslate"><span class=pre >.qcow2</span></code> or <code class="docutils literal notranslate"><span class=pre >.raw</span></code> image file listed.</p> <div class="admonition tip"> <p class=admonition-title >Tip</p> <p>If <code class="docutils literal notranslate"><span class=pre >build_image_x86_64.yml</span></code> fails with a disk-space error, free space under <code class="docutils literal notranslate"><span class=pre >/opt</span></code> and re-run. The image build process requires ~50 GB of temporary space.</p> </div> </section> <section id=step-9-discover-and-provision-nodes > <h2 id=step-9-discover-and-provision-nodes >Step 9 – Discover and Provision Nodes<a class=headerlink  href="#step-9-discover-and-provision-nodes" title="Permalink to this heading">¶</a></h2> <p>Power on your target nodes (or ensure they are powered on with PXE boot priority). Then run the discovery playbook.</p> <p><strong>Run on OIM (inside omnia_core container)</strong></p> <p><code class="docutils literal notranslate"><span class=pre >discovery.yml</span></code> performs the following:</p> <ol class="arabic simple"> <li><p>Sends Wake-on-LAN magic packets to MACs listed in <code class="docutils literal notranslate"><span class=pre >mapping.csv</span></code>.</p> <li><p>Boots each node via PXE from the OIM’s TFTP/HTTP services.</p> <li><p>Installs the base OS image built in Step 8.</p> <li><p>Configures networking (hostname, admin IP, BMC IP) per the mapping file.</p> <li><p>Registers each node in the Omnia inventory.</p> </ol> <div class="admonition warning"> <p class=admonition-title >Warning</p> <p>Discovery can take <strong>20–40 minutes</strong> per node depending on network speed and hardware POST time. Monitor progress in the Ansible output. If a node fails to PXE boot, verify:</p> <ul class=simple > <li><p>The node’s BIOS boot order (NIC first).</p> <li><p>The admin NIC MAC in <code class="docutils literal notranslate"><span class=pre >mapping.csv</span></code> matches the physical NIC.</p> <li><p>The admin switch port is on the correct VLAN.</p> </ul> </div> <p>After discovery completes, verify all nodes are reachable:</p> <p><strong>Run on OIM (inside omnia_core container)</strong></p> </section> <section id=step-10-deploy-slurm > <h2 id=step-10-deploy-slurm >Step 10 – Deploy Slurm<a class=headerlink  href="#step-10-deploy-slurm" title="Permalink to this heading">¶</a></h2> <p>Run the main Omnia playbook to install and configure Slurm across the cluster.</p> <p><strong>Run on OIM (inside omnia_core container)</strong></p> <p><code class="docutils literal notranslate"><span class=pre >omnia.yml</span></code> orchestrates:</p> <ul class=simple > <li><p>Slurm controller (<code class="docutils literal notranslate"><span class=pre >slurmctld</span></code>) installation on the head node.</p> <li><p>Slurm database daemon (<code class="docutils literal notranslate"><span class=pre >slurmdbd</span></code>) setup with MariaDB.</p> <li><p>Slurm compute daemon (<code class="docutils literal notranslate"><span class=pre >slurmd</span></code>) on all compute nodes.</p> <li><p>Munge key distribution for authentication.</p> <li><p>NFS home directory mounts (if configured in <code class="docutils literal notranslate"><span class=pre >storage_config.yml</span></code>).</p> <li><p>Login node configuration (SSH access, <code class="docutils literal notranslate"><span class=pre >srun</span></code>/<code class="docutils literal notranslate"><span class=pre >sbatch</span></code> clients).</p> </ul> <div class="admonition tip"> <p class=admonition-title >Tip</p> <p><code class="docutils literal notranslate"><span class=pre >omnia.yml</span></code> typically takes 15–30 minutes. If it fails partway through, fix the reported error and <strong>re-run the same command</strong> – Omnia playbooks are idempotent and will skip already-completed tasks.</p> </div> </section> <section id=step-11-verify-the-cluster > <h2 id=step-11-verify-the-cluster >Step 11 – Verify the Cluster<a class=headerlink  href="#step-11-verify-the-cluster" title="Permalink to this heading">¶</a></h2> <p>Congratulations! Your Slurm cluster should now be operational. Run these verification commands.</p> <p><strong>Run on OIM (inside omnia_core container)</strong></p> <p><strong>Run on head node (head01)</strong></p> <p>Expected <code class="docutils literal notranslate"><span class=pre >sinfo</span></code> output:</p> <p><strong>Expected output</strong></p> <p><strong>Run on head node (head01)</strong></p> <p><strong>Run on login node (login01)</strong></p> <p>If all commands succeed, your Slurm cluster is fully operational.</p> <div class="admonition tip"> <p class=admonition-title >Tip</p> <p>Run <code class="docutils literal notranslate"><span class=pre >srun</span> <span class=pre >-N</span> <span class=pre >1</span> <span class=pre >--pty</span> <span class=pre >bash</span></code> to get an interactive shell on a compute node – useful for debugging and verifying software installations.</p> </div> </section> <section id=what-s-next > <h2 id=what-s-next >What’s Next?<a class=headerlink  href="#what-s-next" title="Permalink to this heading">¶</a></h2> <p>Your 4-node Slurm cluster is ready for workloads. Here are common next steps:</p> <dl class=simple > <dt><strong>Add more compute nodes</strong><dd><p>Edit <code class="docutils literal notranslate"><span class=pre >mapping.csv</span></code> to add additional <code class="docutils literal notranslate"><span class=pre >slurm_node</span></code> entries, re-run <code class="docutils literal notranslate"><span class=pre >discovery.yml</span></code> and then <code class="docutils literal notranslate"><span class=pre >omnia.yml</span></code>.</p> <dt><strong>Enable telemetry and monitoring</strong><dd><p>Follow <a class="reference external" href=full_deployment.rst >Full Deployment</a> (Path B) starting from the telemetry sections to add Grafana dashboards and iDRAC metrics collection.</p> <dt><strong>Configure authentication (LDAP/FreeIPA)</strong><dd><p>Edit <code class="docutils literal notranslate"><span class=pre >security_config.yml</span></code> to enable FreeIPA or LDAP, then run <code class="docutils literal notranslate"><span class=pre >auth.yml</span></code>. See the <a class="reference external" href=full_deployment.rst >Full Deployment</a> guide for details.</p> <dt><strong>Set up shared storage</strong><dd><p>Edit <code class="docutils literal notranslate"><span class=pre >storage_config.yml</span></code> to configure NFS mounts from PowerScale or other storage appliances, then re-run <code class="docutils literal notranslate"><span class=pre >omnia.yml</span></code>.</p> <dt><strong>Submit real workloads</strong><dd><p>Users can SSH to <code class="docutils literal notranslate"><span class=pre >login01</span></code> and use standard Slurm commands (<code class="docutils literal notranslate"><span class=pre >sbatch</span></code>, <code class="docutils literal notranslate"><span class=pre >srun</span></code>, <code class="docutils literal notranslate"><span class=pre >squeue</span></code>, <code class="docutils literal notranslate"><span class=pre >scancel</span></code>) to submit jobs.</p> </dl> <div class="admonition note"> <p class=admonition-title >Note</p> <ul class=simple > <li><p><a class="reference external" href="../Overview/index.rst">Index</a> – Architecture and component overview</p> <li><p><a class="reference external" href=full_deployment.rst >Full Deployment</a> – Add K8s and telemetry to this cluster</p> <li><p><a class="reference external" href=prerequisites_checklist.rst >Prerequisites Checklist</a> – Return to the master checklist</p> </ul> </div> <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia.readme%40dell.com">omnia<span>.</span>readme<span>@</span>dell<span>.</span>com</a>.</p> </section> </section> </article> </div> </div> </main> </div> <footer class=md-footer > <div class=md-footer-nav > <nav class="md-footer-nav__inner md-grid"> </a> </nav> </div> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-copyright > <div class=md-footer-copyright__highlight > &#169; Copyright 2025, Dell Technologies. </div> Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 6.2.1. and <a href="https://github.com/bashtage/sphinx-material/">Material for Sphinx</a> </div> </div> </div> </footer> <script src="../_static/javascripts/application.js"></script> <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Path A: Slurm Quick Start &mdash; Dell/Omnia</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/dell-brand.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/custom.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Omnia
+              <img src="../_static/omnia-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Overview/index.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/architecture.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/architecture.html#why-three-cluster-types">Why three cluster types?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/architecture.html#oim-the-management-node">OIM – The management node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/architecture.html#what-runs-on-the-oim">What runs on the OIM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/architecture.html#oim-minimum-requirements">OIM minimum requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/architecture.html#slurm-cluster">Slurm cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/architecture.html#node-roles">Node roles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/architecture.html#kubernetes-cluster">Kubernetes cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/architecture.html#id1">Node roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/architecture.html#pre-installed-kubernetes-components">Pre-installed Kubernetes components</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/architecture.html#how-the-clusters-interact">How the clusters interact</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/architecture.html#design-rationale">Design rationale</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/components.html">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/components.html#omnia-core-container">omnia_core container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/components.html#openchami">OpenCHAMI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/components.html#state-manager-daemon-smd">State Manager Daemon (SMD)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/components.html#boot-script-service-bss">Boot Script Service (BSS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/components.html#ochami-cli">ochami-cli</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/components.html#pulp">Pulp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/components.html#buildstream">BuildStreaM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/components.html#omnia-auth">Omnia Auth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/components.html#supporting-services">Supporting services</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/network_topologies.html">Network Topologies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/network_topologies.html#network-segments">Network segments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/network_topologies.html#dedicated-topology">Dedicated topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/network_topologies.html#shared-lom-topology">Shared LOM topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/network_topologies.html#hybrid-topology">Hybrid topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/network_topologies.html#choosing-a-topology">Choosing a topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/network_topologies.html#ip-addressing-and-dhcp">IP addressing and DHCP</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/composable_roles.html">Composable Roles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/composable_roles.html#what-are-composable-roles">What are composable roles?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/composable_roles.html#functional-groups">Functional groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/composable_roles.html#groups-based-on-physical-characteristics">Groups based on physical characteristics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/composable_roles.html#the-mapping-file">The mapping file</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/composable_roles.html#format">Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/composable_roles.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/composable_roles.html#how-omnia-processes-the-mapping-file">How Omnia processes the mapping file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/composable_roles.html#design-rationale">Design rationale</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/security_model.html">Security Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#security-profiles">Security profiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#security-controls-map">Security Controls Map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#security-principles">Security principles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#credential-encryption-with-ansible-vault">Credential encryption with Ansible Vault</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#how-it-works">How it works</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#login-security-settings">Login security settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#credential-utility">Credential utility</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#centralized-authentication-with-openldap">Centralized authentication with OpenLDAP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#sssd-integration">SSSD integration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#tls-certificate-management">TLS certificate management</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#step-ca-internal-certificate-authority">step-ca – Internal certificate authority</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#acme-protocol">ACME protocol</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#oauth-2-0-and-oidc-with-hydra">OAuth 2.0 and OIDC with Hydra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#security-configuration-reference">Security configuration reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#security-best-practices">Security best practices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#authentication-types-and-setup">Authentication types and setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#key-based-authentication">Key-based authentication</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#authentication-to-external-systems">Authentication to external systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#network-vulnerability-scanning">Network vulnerability scanning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#ansible-security">Ansible security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#legal-disclaimers">Legal disclaimers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#scope">Scope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#document-references">Document references</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#reporting-security-vulnerabilities">Reporting security vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/telemetry_architecture.html">Telemetry Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/telemetry_architecture.html#data-collection">Data collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/telemetry_architecture.html#idrac-telemetry-out-of-band">iDRAC telemetry (out-of-band)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/telemetry_architecture.html#ldms-telemetry-in-band">LDMS telemetry (in-band)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/telemetry_architecture.html#message-transport-apache-kafka">Message transport – Apache Kafka</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/telemetry_architecture.html#external-kafka-integration">External Kafka integration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/telemetry_architecture.html#storage-victoriametrics">Storage – VictoriaMetrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/telemetry_architecture.html#external-victoriametrics-integration">External VictoriaMetrics integration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/telemetry_architecture.html#visualization-grafana">Visualization – Grafana</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/telemetry_architecture.html#ome-and-sfm-telemetry">OME and SFM telemetry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/telemetry_architecture.html#air-gapped-telemetry">Air-gapped telemetry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/telemetry_architecture.html#design-rationale">Design rationale</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/glossary.html">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/release_notes.html#omnia-2-1-0-0">Omnia 2.1.0.0</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#buildstream-gitlab-ci-automation">BuildStreaM – GitLab CI automation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#additional-packages-and-software">Additional packages and software</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#slurm-cluster-management">Slurm cluster management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#telemetry-enhancements">Telemetry enhancements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#storage-integration">Storage integration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#network-enhancements">Network enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/release_notes.html#omnia-2-0-0-0">Omnia 2.0.0.0</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#podman-containerization">Podman containerization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#local-repository-management-with-pulp">Local repository management with Pulp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#centralized-authentication">Centralized authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#telemetry-pipeline">Telemetry pipeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#kubernetes-high-availability">Kubernetes high availability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#composable-functional-groups">Composable functional groups</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#stateless-boot">Stateless boot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#gpu-and-accelerator-support">GPU and accelerator support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#security-enhancements">Security enhancements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#multi-architecture-support">Multi-architecture support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#input-templates-and-validator">Input templates and validator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/release_notes.html#supported-platforms">Supported platforms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/blogs.html">Blogs about Omnia</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Get Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#deployment-paths-at-a-glance">Deployment Paths at a Glance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#which-path-should-i-choose">Which Path Should I Choose?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#before-you-begin">Before You Begin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../HowTo/index.html">How-to Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#initial-setup-provisioning">Initial Setup &amp; Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#slurm-job-scheduling">Slurm Job Scheduling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#kubernetes-services">Kubernetes Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#storage">Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#networking">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#telemetry-monitoring">Telemetry &amp; Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#containers-packages">Containers &amp; Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#buildstream-ci-cd">BuildStreaM (CI/CD)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Operations/index.html">Operations &amp; Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Reference/index.html#support-matrix">Support Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reference/index.html#configuration-file-reference">Configuration File Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reference/index.html#sample-files">Sample Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reference/index.html#cluster-requirements">Cluster Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reference/index.html#playbook-reference">Playbook Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reference/index.html#telemetry-metrics-reference">Telemetry Metrics Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reference/index.html#appendices">Appendices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Troubleshooting/index.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Troubleshooting/index.html#troubleshooting-approach">Troubleshooting approach</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Contributing/index.html">Contributing to Omnia</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Omnia</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Path A: Slurm Quick Start</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/GetStarted/slurm_quickstart.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="path-a-slurm-quick-start">
+<h1>Path A: Slurm Quick Start<a class="headerlink" href="#path-a-slurm-quick-start" title="Permalink to this heading"></a></h1>
+<p>Deploy a 4-node Slurm HPC cluster in approximately 2 hours. This is the
+fastest path to a working Omnia environment and the recommended starting
+point for first-time users.</p>
+<p><strong>What you will build:</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Role</p></th>
+<th class="head"><p>Functional Group</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OIM (management)</p></td>
+<td><p>–</p></td>
+<td><p>Runs the <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> container; executes all Ansible playbooks. Does <strong>not</strong> join the Slurm cluster.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Head node</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">slurm_control_node</span></code></p></td>
+<td><p>Runs <code class="docutils literal notranslate"><span class="pre">slurmctld</span></code> (Slurm controller daemon) and <code class="docutils literal notranslate"><span class="pre">slurmdbd</span></code> (accounting database).</p></td>
+</tr>
+<tr class="row-even"><td><p>Compute node</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">slurm_node</span></code></p></td>
+<td><p>Runs <code class="docutils literal notranslate"><span class="pre">slurmd</span></code>; executes jobs submitted to the cluster.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Login node</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">login_node</span></code></p></td>
+<td><p>User-facing SSH gateway for job submission. Does not run <code class="docutils literal notranslate"><span class="pre">slurmd</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Estimated time:</strong> ~2 hours (varies with network speed and node count).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tutorial assumes you have completed every item on the
+<a class="reference external" href="prerequisites_checklist.rst">Prerequisites Checklist</a>. If you have not, stop here and finish
+that first.</p>
+</div>
+<section id="step-1-deploy-the-omnia-core-container">
+<h2>Step 1 – Deploy the omnia_core Container<a class="headerlink" href="#step-1-deploy-the-omnia-core-container" title="Permalink to this heading"></a></h2>
+<p>Clone the Omnia repository, build the container images, and install the
+<code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> Podman container on the OIM.</p>
+<p><strong>Run on OIM (as root)</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><code class="docutils literal notranslate"><span class="pre">build_images.sh</span></code> creates the <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> and supporting images.
+It takes 5–10 minutes on a fast connection. Watch for any <code class="docutils literal notranslate"><span class="pre">FAILED</span></code>
+messages in the output.</p>
+</div>
+<p><strong>Run on OIM (as root)</strong></p>
+<p>You should see <code class="docutils literal notranslate"><span class="pre">active</span> <span class="pre">(running)</span></code> in the output. If the service is
+<code class="docutils literal notranslate"><span class="pre">failed</span></code>, check <code class="docutils literal notranslate"><span class="pre">journalctl</span> <span class="pre">-u</span> <span class="pre">omnia_core</span></code> for errors.</p>
+<p><strong>Run on OIM (as root)</strong></p>
+</section>
+<section id="step-2-create-the-mapping-file">
+<h2>Step 2 – Create the Mapping File<a class="headerlink" href="#step-2-create-the-mapping-file" title="Permalink to this heading"></a></h2>
+<p>The mapping file tells Omnia which physical servers map to which cluster
+roles. Create a CSV at <code class="docutils literal notranslate"><span class="pre">/opt/omnia/input/project_default/mapping.csv</span></code>.</p>
+<p><strong>Run on OIM (as root)</strong></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Replace the placeholder values (<code class="docutils literal notranslate"><span class="pre">SERVICE_TAG</span></code>, <code class="docutils literal notranslate"><span class="pre">ADMIN_MAC</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ADMIN_IP</span></code>, <code class="docutils literal notranslate"><span class="pre">BMC_IP</span></code>) with the actual values from your servers.
+Collect service tags from the server pull-out tab or iDRAC. Collect
+MAC addresses from <code class="docutils literal notranslate"><span class="pre">iDRAC</span> <span class="pre">&gt;</span> <span class="pre">Network</span> <span class="pre">&gt;</span> <span class="pre">NIC</span> <span class="pre">Selection</span></code> or by running
+<code class="docutils literal notranslate"><span class="pre">ip</span> <span class="pre">link</span></code> on each node.</p>
+</div>
+<p><strong>Field reference:</strong></p>
+<ul class="simple">
+<li><p><strong>FUNCTIONAL_GROUP_NAME</strong> – The Omnia role: <code class="docutils literal notranslate"><span class="pre">slurm_control_node</span></code>,
+<code class="docutils literal notranslate"><span class="pre">slurm_node</span></code>, or <code class="docutils literal notranslate"><span class="pre">login_node</span></code>.</p></li>
+<li><p><strong>GROUP_NAME</strong> – An arbitrary cluster group label (e.g., <code class="docutils literal notranslate"><span class="pre">slurm</span></code>).</p></li>
+<li><p><strong>SERVICE_TAG</strong> – The Dell service tag printed on the server chassis.</p></li>
+<li><p><strong>PARENT_SERVICE_TAG</strong> – Leave empty unless using modular chassis (MX).</p></li>
+<li><p><strong>HOSTNAME</strong> – Desired hostname; Omnia configures this during provisioning.</p></li>
+<li><p><strong>ADMIN_MAC</strong> – MAC address of the PXE-boot NIC on the admin network.</p></li>
+<li><p><strong>ADMIN_IP</strong> – Desired static IP on the admin network.</p></li>
+<li><p><strong>BMC_MAC</strong> – (Optional) iDRAC MAC address.</p></li>
+<li><p><strong>BMC_IP</strong> – iDRAC IP on the BMC network.</p></li>
+</ul>
+</section>
+<section id="step-3-provide-inputs">
+<h2>Step 3 – Provide Inputs<a class="headerlink" href="#step-3-provide-inputs" title="Permalink to this heading"></a></h2>
+<p>Omnia ships example input templates for common deployment patterns. Copy
+the bare-metal Slurm template (without service K8s) and customize it.</p>
+<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<p>You should see these key input files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">network_spec.yml</span></code> – Network CIDRs and interfaces</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">provision_config.yml</span></code> – OS provisioning settings (ISO path, timezone)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">software_config.json</span></code> – Software stack selections</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code> – Slurm and cluster configuration</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">security_config.yml</span></code> – Authentication settings</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage_config.yml</span></code> – NFS mount configuration</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">local_repo_config.yml</span></code> – Repository mirror settings</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Each file is heavily commented with inline documentation. Read the
+comments before changing values. When in doubt, keep the defaults –
+they work for the vast majority of deployments.</p>
+</div>
+</section>
+<section id="step-4-set-credentials">
+<h2>Step 4 – Set Credentials<a class="headerlink" href="#step-4-set-credentials" title="Permalink to this heading"></a></h2>
+<p>Run the <code class="docutils literal notranslate"><span class="pre">credentials_utility.yml</span></code> playbook to securely store passwords
+for iDRAC, the provisioning OS, and other services. This playbook prompts
+you interactively.</p>
+<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<p>You will be prompted to set:</p>
+<ul class="simple">
+<li><p><strong>Provisioning OS password</strong> – root password for provisioned nodes.</p></li>
+<li><p><strong>iDRAC credentials</strong> – username and password for out-of-band access.</p></li>
+<li><p><strong>MySQL/MariaDB password</strong> – used by <code class="docutils literal notranslate"><span class="pre">slurmdbd</span></code> for Slurm accounting.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Store these credentials in a password manager. You will need the iDRAC
+credentials if you ever need to access the BMC console, and the
+provisioning password for emergency SSH access to nodes.</p>
+</div>
+</section>
+<section id="step-5-prepare-the-oim">
+<h2>Step 5 – Prepare the OIM<a class="headerlink" href="#step-5-prepare-the-oim" title="Permalink to this heading"></a></h2>
+<p>Edit the two critical network-related input files, then run
+<code class="docutils literal notranslate"><span class="pre">prepare_oim.yml</span></code> to configure the OIM’s networking, DHCP, TFTP,
+and HTTP services.</p>
+<section id="a-edit-network-spec-yml">
+<h3><strong>5a. Edit</strong> <cite>network_spec.yml</cite><a class="headerlink" href="#a-edit-network-spec-yml" title="Permalink to this heading"></a></h3>
+<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<p>Set the following values (adjust to match your environment):</p>
+<p><strong>Example network_spec.yml excerpt</strong></p>
+</section>
+<section id="b-edit-provision-config-yml">
+<h3><strong>5b. Edit</strong> <cite>provision_config.yml</cite><a class="headerlink" href="#b-edit-provision-config-yml" title="Permalink to this heading"></a></h3>
+<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<p>Key fields to verify or set:</p>
+<p><strong>Example provision_config.yml excerpt</strong></p>
+</section>
+<section id="c-run-prepare-oim-yml">
+<h3><strong>5c. Run</strong> <cite>prepare_oim.yml</cite><a class="headerlink" href="#c-run-prepare-oim-yml" title="Permalink to this heading"></a></h3>
+<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><code class="docutils literal notranslate"><span class="pre">prepare_oim.yml</span></code> takes 10–15 minutes. It configures DHCP, TFTP,
+HTTP, and NFS services on the OIM. If it fails, re-read the error
+message carefully – most failures are caused by incorrect NIC names or
+CIDR values in <code class="docutils literal notranslate"><span class="pre">network_spec.yml</span></code>.</p>
+</div>
+</section>
+</section>
+<section id="step-6-verify-oim-services">
+<h2>Step 6 – Verify OIM Services<a class="headerlink" href="#step-6-verify-oim-services" title="Permalink to this heading"></a></h2>
+<p>After <code class="docutils literal notranslate"><span class="pre">prepare_oim.yml</span></code> completes, verify that all Omnia-managed
+services are running.</p>
+<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<p>Every listed service should show a green dot (<code class="docutils literal notranslate"><span class="pre">●</span></code>) indicating
+<code class="docutils literal notranslate"><span class="pre">active</span></code>. Key services to verify:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dhcpd.service</span></code> – DHCP server for PXE boot</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tftp.socket</span></code> – TFTP for PXE boot loader delivery</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">httpd.service</span></code> – HTTP for kickstart/autoinstall files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nfs-server.service</span></code> – NFS for shared storage</p></li>
+</ul>
+<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+</section>
+<section id="step-7-create-local-repositories">
+<h2>Step 7 – Create Local Repositories<a class="headerlink" href="#step-7-create-local-repositories" title="Permalink to this heading"></a></h2>
+<p>Build local mirrors of OS packages, Python packages, and container images
+so that node provisioning does not depend on external internet access.</p>
+<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code class="docutils literal notranslate"><span class="pre">local_repo.yml</span></code> can take <strong>30–60 minutes</strong> depending on internet
+bandwidth. It downloads several GB of packages. Ensure the OIM has
+sufficient disk space (see <a class="reference external" href="prerequisites_checklist.rst">Prerequisites Checklist</a>) and a stable
+internet connection.</p>
+</div>
+<p>When the playbook finishes, verify that the local repo is accessible:</p>
+<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+</section>
+<section id="step-8-build-node-images">
+<h2>Step 8 – Build Node Images<a class="headerlink" href="#step-8-build-node-images" title="Permalink to this heading"></a></h2>
+<p>Build the provisioning image that Omnia will PXE-boot onto target nodes.</p>
+<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<p>This playbook creates a customized OS image with pre-installed Slurm
+packages, Omnia agents, and configuration. The image is stored in the
+local S3-compatible object store.</p>
+<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<p>You should see at least one <code class="docutils literal notranslate"><span class="pre">.qcow2</span></code> or <code class="docutils literal notranslate"><span class="pre">.raw</span></code> image file listed.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">build_image_x86_64.yml</span></code> fails with a disk-space error, free space
+under <code class="docutils literal notranslate"><span class="pre">/opt</span></code> and re-run. The image build process requires ~50 GB of
+temporary space.</p>
+</div>
+</section>
+<section id="step-9-discover-and-provision-nodes">
+<h2>Step 9 – Discover and Provision Nodes<a class="headerlink" href="#step-9-discover-and-provision-nodes" title="Permalink to this heading"></a></h2>
+<p>Power on your target nodes (or ensure they are powered on with PXE boot
+priority). Then run the discovery playbook.</p>
+<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">discovery.yml</span></code> performs the following:</p>
+<ol class="arabic simple">
+<li><p>Sends Wake-on-LAN magic packets to MACs listed in <code class="docutils literal notranslate"><span class="pre">mapping.csv</span></code>.</p></li>
+<li><p>Boots each node via PXE from the OIM’s TFTP/HTTP services.</p></li>
+<li><p>Installs the base OS image built in Step 8.</p></li>
+<li><p>Configures networking (hostname, admin IP, BMC IP) per the mapping file.</p></li>
+<li><p>Registers each node in the Omnia inventory.</p></li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Discovery can take <strong>20–40 minutes</strong> per node depending on network
+speed and hardware POST time. Monitor progress in the Ansible output.
+If a node fails to PXE boot, verify:</p>
+<ul class="simple">
+<li><p>The node’s BIOS boot order (NIC first).</p></li>
+<li><p>The admin NIC MAC in <code class="docutils literal notranslate"><span class="pre">mapping.csv</span></code> matches the physical NIC.</p></li>
+<li><p>The admin switch port is on the correct VLAN.</p></li>
+</ul>
+</div>
+<p>After discovery completes, verify all nodes are reachable:</p>
+<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+</section>
+<section id="step-10-deploy-slurm">
+<h2>Step 10 – Deploy Slurm<a class="headerlink" href="#step-10-deploy-slurm" title="Permalink to this heading"></a></h2>
+<p>Run the main Omnia playbook to install and configure Slurm across the
+cluster.</p>
+<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">omnia.yml</span></code> orchestrates:</p>
+<ul class="simple">
+<li><p>Slurm controller (<code class="docutils literal notranslate"><span class="pre">slurmctld</span></code>) installation on the head node.</p></li>
+<li><p>Slurm database daemon (<code class="docutils literal notranslate"><span class="pre">slurmdbd</span></code>) setup with MariaDB.</p></li>
+<li><p>Slurm compute daemon (<code class="docutils literal notranslate"><span class="pre">slurmd</span></code>) on all compute nodes.</p></li>
+<li><p>Munge key distribution for authentication.</p></li>
+<li><p>NFS home directory mounts (if configured in <code class="docutils literal notranslate"><span class="pre">storage_config.yml</span></code>).</p></li>
+<li><p>Login node configuration (SSH access, <code class="docutils literal notranslate"><span class="pre">srun</span></code>/<code class="docutils literal notranslate"><span class="pre">sbatch</span></code> clients).</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><code class="docutils literal notranslate"><span class="pre">omnia.yml</span></code> typically takes 15–30 minutes. If it fails partway
+through, fix the reported error and <strong>re-run the same command</strong> – Omnia
+playbooks are idempotent and will skip already-completed tasks.</p>
+</div>
+</section>
+<section id="step-11-verify-the-cluster">
+<h2>Step 11 – Verify the Cluster<a class="headerlink" href="#step-11-verify-the-cluster" title="Permalink to this heading"></a></h2>
+<p>Congratulations! Your Slurm cluster should now be operational. Run these
+verification commands.</p>
+<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<p><strong>Run on head node (head01)</strong></p>
+<p>Expected <code class="docutils literal notranslate"><span class="pre">sinfo</span></code> output:</p>
+<p><strong>Expected output</strong></p>
+<p><strong>Run on head node (head01)</strong></p>
+<p><strong>Run on login node (login01)</strong></p>
+<p>If all commands succeed, your Slurm cluster is fully operational.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Run <code class="docutils literal notranslate"><span class="pre">srun</span> <span class="pre">-N</span> <span class="pre">1</span> <span class="pre">--pty</span> <span class="pre">bash</span></code> to get an interactive shell on a compute
+node – useful for debugging and verifying software installations.</p>
+</div>
+</section>
+<section id="what-s-next">
+<h2>What’s Next?<a class="headerlink" href="#what-s-next" title="Permalink to this heading"></a></h2>
+<p>Your 4-node Slurm cluster is ready for workloads. Here are common next
+steps:</p>
+<dl class="simple">
+<dt><strong>Add more compute nodes</strong></dt><dd><p>Edit <code class="docutils literal notranslate"><span class="pre">mapping.csv</span></code> to add additional <code class="docutils literal notranslate"><span class="pre">slurm_node</span></code> entries, re-run
+<code class="docutils literal notranslate"><span class="pre">discovery.yml</span></code> and then <code class="docutils literal notranslate"><span class="pre">omnia.yml</span></code>.</p>
+</dd>
+<dt><strong>Enable telemetry and monitoring</strong></dt><dd><p>Follow <a class="reference external" href="full_deployment.rst">Full Deployment</a> (Path B) starting from the telemetry
+sections to add Grafana dashboards and iDRAC metrics collection.</p>
+</dd>
+<dt><strong>Configure authentication (LDAP/FreeIPA)</strong></dt><dd><p>Edit <code class="docutils literal notranslate"><span class="pre">security_config.yml</span></code> to enable FreeIPA or LDAP, then run
+<code class="docutils literal notranslate"><span class="pre">auth.yml</span></code>. See the <a class="reference external" href="full_deployment.rst">Full Deployment</a> guide for details.</p>
+</dd>
+<dt><strong>Set up shared storage</strong></dt><dd><p>Edit <code class="docutils literal notranslate"><span class="pre">storage_config.yml</span></code> to configure NFS mounts from PowerScale or
+other storage appliances, then re-run <code class="docutils literal notranslate"><span class="pre">omnia.yml</span></code>.</p>
+</dd>
+<dt><strong>Submit real workloads</strong></dt><dd><p>Users can SSH to <code class="docutils literal notranslate"><span class="pre">login01</span></code> and use standard Slurm commands
+(<code class="docutils literal notranslate"><span class="pre">sbatch</span></code>, <code class="docutils literal notranslate"><span class="pre">srun</span></code>, <code class="docutils literal notranslate"><span class="pre">squeue</span></code>, <code class="docutils literal notranslate"><span class="pre">scancel</span></code>) to submit jobs.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><a class="reference external" href="../Overview/index.rst">Index</a> – Architecture and component overview</p></li>
+<li><p><a class="reference external" href="full_deployment.rst">Full Deployment</a> – Add K8s and telemetry to this cluster</p></li>
+<li><p><a class="reference external" href="prerequisites_checklist.rst">Prerequisites Checklist</a> – Return to the master checklist</p></li>
+</ul>
+</div>
+<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Dell Technologies.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

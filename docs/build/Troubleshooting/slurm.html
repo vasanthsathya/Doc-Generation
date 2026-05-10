@@ -1,157 +1,635 @@
-<!DOCTYPE html> <html lang=en > <meta charset=utf-8  /> <meta name=viewport  content="width=device-width, initial-scale=1.0" /><meta name=generator  content="Docutils 0.18.1: http://docutils.sourceforge.net/" /> <meta name=viewport  content="width=device-width,initial-scale=1"> <meta http-equiv=x-ua-compatible  content="ie=edge"> <meta name="lang:clipboard.copy" content="Copy to clipboard"> <meta name="lang:clipboard.copied" content="Copied to clipboard"> <meta name="lang:search.language" content=en > <meta name="lang:search.pipeline.stopwords" content=True > <meta name="lang:search.pipeline.trimmer" content=True > <meta name="lang:search.result.none" content="No matching documents"> <meta name="lang:search.result.one" content="1 matching document"> <meta name="lang:search.result.other" content="# matching documents"> <meta name="lang:search.tokenizer" content="[\s\-]+"> <link href="https://fonts.gstatic.com/" rel=preconnect  crossorigin> <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700|Roboto:300,400,400i,700&display=fallback" rel=stylesheet > <style> body, input { font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif } code, kbd, pre { font-family: "Roboto Mono", "Courier New", Courier, monospace } </style> <link rel=stylesheet  href="../_static/stylesheets/application.css"/> <link rel=stylesheet  href="../_static/stylesheets/application-palette.css"/> <link rel=stylesheet  href="../_static/stylesheets/application-fixes.css"/> <link rel=stylesheet  href="../_static/fonts/material-icons.css"/> <meta name=theme-color  content="#3f51b5"> <script src="../_static/javascripts/modernizr.js"></script> <title>Slurm Issues &#8212; Dell/Omnia</title> <link rel=stylesheet  type="text/css" href="../_static/pygments.css" /> <link rel=stylesheet  type="text/css" href="../_static/material.css" /> <link rel=stylesheet  type="text/css" href="../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" /> <link rel=stylesheet  type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" /> <link rel=stylesheet  type="text/css" href="../_static/custom.css" /> <link rel=stylesheet  type="text/css" href="../_static/dell-brand.css" /> <script data-url_root="../" id=documentation_options  src="../_static/documentation_options.js"></script> <script src="../_static/doctools.js"></script> <script src="../_static/sphinx_highlight.js"></script> <script src="../_static/design-tabs.js"></script> <script src="../_static/custom.js"></script> <link rel=icon  href="../_static/favicon.png"/> <link rel=index  title=Index  href="../genindex.html" /> <link rel=search  title=Search  href="../search.html" /> <body dir=ltr data-md-color-primary=blue-grey data-md-color-accent=blue> <svg class=md-svg > <defs data-children-count=0 > <svg xmlns="http://www.w3.org/2000/svg" width=416  height=448  viewBox="0 0 416 448" id=__github ><path fill=currentColor  d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg> </defs> </svg> <input class=md-toggle  data-md-toggle=drawer  type=checkbox  id=__drawer > <input class=md-toggle  data-md-toggle=search  type=checkbox  id=__search > <label class=md-overlay  data-md-component=overlay  for=__drawer ></label> <a href="#Troubleshooting/slurm" tabindex=1  class=md-skip > Skip to content </a> <header class=md-header  data-md-component=header > <nav class="md-header-nav md-grid"> <div class="md-flex navheader"> <div class="md-flex__cell md-flex__cell--shrink"> <a href="../index.html" title="Dell/Omnia" class="md-header-nav__button md-logo"> &nbsp; </a> </div> <div class="md-flex__cell md-flex__cell--shrink"> <label class="md-icon md-icon--menu md-header-nav__button" for=__drawer ></label> </div> <div class="md-flex__cell md-flex__cell--stretch"> <div class="md-flex__ellipsis md-header-nav__title" data-md-component=title > <span class=md-header-nav__topic >Dell Omnia</span> <span class=md-header-nav__topic > Slurm Issues </span> </div> </div> <div class="md-flex__cell md-flex__cell--shrink"> <label class="md-icon md-icon--search md-header-nav__button" for=__search ></label> <div class=md-search  data-md-component=search  role=dialog > <label class=md-search__overlay  for=__search ></label> <div class=md-search__inner  role=search > <form class=md-search__form  action="../search.html" method=get  name=search > <input type=text  class=md-search__input  name=q  placeholder=""Search"" autocapitalize=off  autocomplete=off  spellcheck=false  data-md-component=query  data-md-state=active > <label class="md-icon md-search__icon" for=__search ></label> <button type=reset  class="md-icon md-search__icon" data-md-component=reset  tabindex=-1 > &#xE5CD; </button> </form> <div class=md-search__output > <div class=md-search__scrollwrap  data-md-scrollfix> <div class=md-search-result  data-md-component=result > <div class=md-search-result__meta > Type to start searching </div> <ol class=md-search-result__list ></ol> </div> </div> </div> </div> </div> </div> <div class="md-flex__cell md-flex__cell--shrink"> <div class=md-header-nav__source > <a href="https://github.com/dell/omnia" title="Go to repository" class=md-source  data-md-source=github > <div class=md-source__icon > <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width=28  height=28 > <use xlink:href="#__github" width=24  height=24 ></use> </svg> </div> <div class=md-source__repository > dell/omnia </div> </a> </div> </div> <script src="../_static/javascripts/version_dropdown.js"></script> <script> var json_loc = "../"versions.json"", target_loc = "../../", text = "Versions"; $( document ).ready( add_version_dropdown(json_loc, target_loc, text)); </script> </div> </nav> </header> <div class=md-container > <nav class=md-tabs  data-md-component=tabs > <div class="md-tabs__inner md-grid"> <ul class=md-tabs__list > <li class=md-tabs__item ><a href="../Overview/index.html" class=md-tabs__link >Overview</a> <li class=md-tabs__item ><a href="../GetStarted/index.html" class=md-tabs__link >Get Started</a> <li class=md-tabs__item ><a href="../HowTo/index.html" class=md-tabs__link >How-to Guides</a> <li class=md-tabs__item ><a href="../Operations/index.html" class=md-tabs__link >Operations</a> <li class=md-tabs__item ><a href="../Reference/index.html" class=md-tabs__link >Reference</a> <li class=md-tabs__item ><a href=index.html  class=md-tabs__link >Troubleshooting</a> <li class=md-tabs__item ><a href="../Contributing/index.html" class=md-tabs__link >Contributing</a> </ul> </div> </nav> <main class=md-main > <div class="md-main__inner md-grid" data-md-component=container > <div class="md-sidebar md-sidebar--primary" data-md-component=navigation > <div class=md-sidebar__scrollwrap > <div class=md-sidebar__inner > <nav class="md-nav md-nav--primary" data-md-level=0 > <label class="md-nav__title md-nav__title--site" for=__drawer > <a href="../index.html" title="Dell/Omnia" class="md-nav__button md-logo"> <img src="../_static/" alt=" logo" width=48  height=48 > </a> <a href="../index.html" title="Dell/Omnia">Dell Omnia</a> </label> <div class=md-nav__source > <a href="https://github.com/dell/omnia" title="Go to repository" class=md-source  data-md-source=github > <div class=md-source__icon > <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" width=28  height=28 > <use xlink:href="#__github" width=24  height=24 ></use> </svg> </div> <div class=md-source__repository > dell/omnia </div> </a> </div> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/index.html" class=md-nav__link >Overview</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/architecture.html" class=md-nav__link >Architecture</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/architecture.html#why-three-cluster-types" class=md-nav__link >Why three cluster types?</a> <li class=md-nav__item > <a href="../Overview/architecture.html#oim-the-management-node" class=md-nav__link >OIM – The management node</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/architecture.html#what-runs-on-the-oim" class=md-nav__link >What runs on the OIM</a> <li class=md-nav__item > <a href="../Overview/architecture.html#oim-minimum-requirements" class=md-nav__link >OIM minimum requirements</a> </ul> <li class=md-nav__item > <a href="../Overview/architecture.html#slurm-cluster" class=md-nav__link >Slurm cluster</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/architecture.html#node-roles" class=md-nav__link >Node roles</a> </ul> <li class=md-nav__item > <a href="../Overview/architecture.html#kubernetes-cluster" class=md-nav__link >Kubernetes cluster</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/architecture.html#id1" class=md-nav__link >Node roles</a> <li class=md-nav__item > <a href="../Overview/architecture.html#pre-installed-kubernetes-components" class=md-nav__link >Pre-installed Kubernetes components</a> </ul> <li class=md-nav__item > <a href="../Overview/architecture.html#how-the-clusters-interact" class=md-nav__link >How the clusters interact</a> <li class=md-nav__item > <a href="../Overview/architecture.html#design-rationale" class=md-nav__link >Design rationale</a> </ul> <li class=md-nav__item > <a href="../Overview/components.html" class=md-nav__link >Components</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/components.html#omnia-core-container" class=md-nav__link >omnia_core container</a> <li class=md-nav__item > <a href="../Overview/components.html#openchami" class=md-nav__link >OpenCHAMI</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/components.html#state-manager-daemon-smd" class=md-nav__link >State Manager Daemon (SMD)</a> <li class=md-nav__item > <a href="../Overview/components.html#boot-script-service-bss" class=md-nav__link >Boot Script Service (BSS)</a> <li class=md-nav__item > <a href="../Overview/components.html#ochami-cli" class=md-nav__link >ochami-cli</a> </ul> <li class=md-nav__item > <a href="../Overview/components.html#pulp" class=md-nav__link >Pulp</a> <li class=md-nav__item > <a href="../Overview/components.html#buildstream" class=md-nav__link >BuildStreaM</a> <li class=md-nav__item > <a href="../Overview/components.html#omnia-auth" class=md-nav__link >Omnia Auth</a> <li class=md-nav__item > <a href="../Overview/components.html#supporting-services" class=md-nav__link >Supporting services</a> </ul> <li class=md-nav__item > <a href="../Overview/network_topologies.html" class=md-nav__link >Network Topologies</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/network_topologies.html#network-segments" class=md-nav__link >Network segments</a> <li class=md-nav__item > <a href="../Overview/network_topologies.html#dedicated-topology" class=md-nav__link >Dedicated topology</a> <li class=md-nav__item > <a href="../Overview/network_topologies.html#shared-lom-topology" class=md-nav__link >Shared LOM topology</a> <li class=md-nav__item > <a href="../Overview/network_topologies.html#hybrid-topology" class=md-nav__link >Hybrid topology</a> <li class=md-nav__item > <a href="../Overview/network_topologies.html#choosing-a-topology" class=md-nav__link >Choosing a topology</a> <li class=md-nav__item > <a href="../Overview/network_topologies.html#ip-addressing-and-dhcp" class=md-nav__link >IP addressing and DHCP</a> </ul> <li class=md-nav__item > <a href="../Overview/composable_roles.html" class=md-nav__link >Composable Roles</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/composable_roles.html#what-are-composable-roles" class=md-nav__link >What are composable roles?</a> <li class=md-nav__item > <a href="../Overview/composable_roles.html#functional-groups" class=md-nav__link >Functional groups</a> <li class=md-nav__item > <a href="../Overview/composable_roles.html#groups-based-on-physical-characteristics" class=md-nav__link >Groups based on physical characteristics</a> <li class=md-nav__item > <a href="../Overview/composable_roles.html#the-mapping-file" class=md-nav__link >The mapping file</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/composable_roles.html#format" class=md-nav__link >Format</a> <li class=md-nav__item > <a href="../Overview/composable_roles.html#example" class=md-nav__link >Example</a> </ul> <li class=md-nav__item > <a href="../Overview/composable_roles.html#how-omnia-processes-the-mapping-file" class=md-nav__link >How Omnia processes the mapping file</a> <li class=md-nav__item > <a href="../Overview/composable_roles.html#design-rationale" class=md-nav__link >Design rationale</a> </ul> <li class=md-nav__item > <a href="../Overview/security_model.html" class=md-nav__link >Security Model</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/security_model.html#security-profiles" class=md-nav__link >Security profiles</a> <li class=md-nav__item > <a href="../Overview/security_model.html#security-controls-map" class=md-nav__link >Security Controls Map</a> <li class=md-nav__item > <a href="../Overview/security_model.html#security-principles" class=md-nav__link >Security principles</a> <li class=md-nav__item > <a href="../Overview/security_model.html#credential-encryption-with-ansible-vault" class=md-nav__link >Credential encryption with Ansible Vault</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/security_model.html#how-it-works" class=md-nav__link >How it works</a> <li class=md-nav__item > <a href="../Overview/security_model.html#login-security-settings" class=md-nav__link >Login security settings</a> <li class=md-nav__item > <a href="../Overview/security_model.html#credential-utility" class=md-nav__link >Credential utility</a> </ul> <li class=md-nav__item > <a href="../Overview/security_model.html#centralized-authentication-with-openldap" class=md-nav__link >Centralized authentication with OpenLDAP</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/security_model.html#sssd-integration" class=md-nav__link >SSSD integration</a> <li class=md-nav__item > <a href="../Overview/security_model.html#configuration" class=md-nav__link >Configuration</a> </ul> <li class=md-nav__item > <a href="../Overview/security_model.html#tls-certificate-management" class=md-nav__link >TLS certificate management</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/security_model.html#step-ca-internal-certificate-authority" class=md-nav__link >step-ca – Internal certificate authority</a> <li class=md-nav__item > <a href="../Overview/security_model.html#acme-protocol" class=md-nav__link >ACME protocol</a> </ul> <li class=md-nav__item > <a href="../Overview/security_model.html#oauth-2-0-and-oidc-with-hydra" class=md-nav__link >OAuth 2.0 and OIDC with Hydra</a> <li class=md-nav__item > <a href="../Overview/security_model.html#security-configuration-reference" class=md-nav__link >Security configuration reference</a> <li class=md-nav__item > <a href="../Overview/security_model.html#security-best-practices" class=md-nav__link >Security best practices</a> <li class=md-nav__item > <a href="../Overview/security_model.html#authentication-types-and-setup" class=md-nav__link >Authentication types and setup</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/security_model.html#key-based-authentication" class=md-nav__link >Key-based authentication</a> </ul> <li class=md-nav__item > <a href="../Overview/security_model.html#authentication-to-external-systems" class=md-nav__link >Authentication to external systems</a> <li class=md-nav__item > <a href="../Overview/security_model.html#network-vulnerability-scanning" class=md-nav__link >Network vulnerability scanning</a> <li class=md-nav__item > <a href="../Overview/security_model.html#ansible-security" class=md-nav__link >Ansible security</a> <li class=md-nav__item > <a href="../Overview/security_model.html#legal-disclaimers" class=md-nav__link >Legal disclaimers</a> <li class=md-nav__item > <a href="../Overview/security_model.html#scope" class=md-nav__link >Scope</a> <li class=md-nav__item > <a href="../Overview/security_model.html#document-references" class=md-nav__link >Document references</a> <li class=md-nav__item > <a href="../Overview/security_model.html#reporting-security-vulnerabilities" class=md-nav__link >Reporting security vulnerabilities</a> </ul> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html" class=md-nav__link >Telemetry Architecture</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#data-collection" class=md-nav__link >Data collection</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#idrac-telemetry-out-of-band" class=md-nav__link >iDRAC telemetry (out-of-band)</a> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#ldms-telemetry-in-band" class=md-nav__link >LDMS telemetry (in-band)</a> </ul> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#message-transport-apache-kafka" class=md-nav__link >Message transport – Apache Kafka</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#external-kafka-integration" class=md-nav__link >External Kafka integration</a> </ul> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#storage-victoriametrics" class=md-nav__link >Storage – VictoriaMetrics</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#external-victoriametrics-integration" class=md-nav__link >External VictoriaMetrics integration</a> </ul> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#visualization-grafana" class=md-nav__link >Visualization – Grafana</a> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#ome-and-sfm-telemetry" class=md-nav__link >OME and SFM telemetry</a> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#air-gapped-telemetry" class=md-nav__link >Air-gapped telemetry</a> <li class=md-nav__item > <a href="../Overview/telemetry_architecture.html#design-rationale" class=md-nav__link >Design rationale</a> </ul> <li class=md-nav__item > <a href="../Overview/glossary.html" class=md-nav__link >Glossary</a> <li class=md-nav__item > <a href="../Overview/release_notes.html" class=md-nav__link >Release Notes</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/release_notes.html#omnia-2-1-0-0" class=md-nav__link >Omnia 2.1.0.0</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/release_notes.html#buildstream-gitlab-ci-automation" class=md-nav__link >BuildStreaM – GitLab CI automation</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#additional-packages-and-software" class=md-nav__link >Additional packages and software</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#slurm-cluster-management" class=md-nav__link >Slurm cluster management</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#telemetry-enhancements" class=md-nav__link >Telemetry enhancements</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#storage-integration" class=md-nav__link >Storage integration</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#network-enhancements" class=md-nav__link >Network enhancements</a> </ul> <li class=md-nav__item > <a href="../Overview/release_notes.html#omnia-2-0-0-0" class=md-nav__link >Omnia 2.0.0.0</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Overview/release_notes.html#podman-containerization" class=md-nav__link >Podman containerization</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#local-repository-management-with-pulp" class=md-nav__link >Local repository management with Pulp</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#centralized-authentication" class=md-nav__link >Centralized authentication</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#telemetry-pipeline" class=md-nav__link >Telemetry pipeline</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#kubernetes-high-availability" class=md-nav__link >Kubernetes high availability</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#composable-functional-groups" class=md-nav__link >Composable functional groups</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#stateless-boot" class=md-nav__link >Stateless boot</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#gpu-and-accelerator-support" class=md-nav__link >GPU and accelerator support</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#security-enhancements" class=md-nav__link >Security enhancements</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#multi-architecture-support" class=md-nav__link >Multi-architecture support</a> <li class=md-nav__item > <a href="../Overview/release_notes.html#input-templates-and-validator" class=md-nav__link >Input templates and validator</a> </ul> <li class=md-nav__item > <a href="../Overview/release_notes.html#supported-platforms" class=md-nav__link >Supported platforms</a> </ul> <li class=md-nav__item > <a href="../Overview/blogs.html" class=md-nav__link >Blogs about Omnia</a> </ul> <li class=md-nav__item > <a href="../GetStarted/index.html" class=md-nav__link >Get Started</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../GetStarted/index.html#deployment-paths-at-a-glance" class=md-nav__link >Deployment Paths at a Glance</a> <li class=md-nav__item > <a href="../GetStarted/index.html#which-path-should-i-choose" class=md-nav__link >Which Path Should I Choose?</a> <li class=md-nav__item > <a href="../GetStarted/index.html#before-you-begin" class=md-nav__link >Before You Begin</a> </ul> <li class=md-nav__item > <a href="../HowTo/index.html" class=md-nav__link >How-to Guides</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../HowTo/index.html#initial-setup-provisioning" class=md-nav__link >Initial Setup & Provisioning</a> <li class=md-nav__item > <a href="../HowTo/index.html#slurm-job-scheduling" class=md-nav__link >Slurm Job Scheduling</a> <li class=md-nav__item > <a href="../HowTo/index.html#kubernetes-services" class=md-nav__link >Kubernetes Services</a> <li class=md-nav__item > <a href="../HowTo/index.html#storage" class=md-nav__link >Storage</a> <li class=md-nav__item > <a href="../HowTo/index.html#networking" class=md-nav__link >Networking</a> <li class=md-nav__item > <a href="../HowTo/index.html#authentication" class=md-nav__link >Authentication</a> <li class=md-nav__item > <a href="../HowTo/index.html#telemetry-monitoring" class=md-nav__link >Telemetry & Monitoring</a> <li class=md-nav__item > <a href="../HowTo/index.html#containers-packages" class=md-nav__link >Containers & Packages</a> <li class=md-nav__item > <a href="../HowTo/index.html#buildstream-ci-cd" class=md-nav__link >BuildStreaM (CI/CD)</a> </ul> <li class=md-nav__item > <a href="../Operations/index.html" class=md-nav__link >Operations & Maintenance</a> <li class=md-nav__item > <a href="../Reference/index.html" class=md-nav__link >Reference</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="../Reference/index.html#support-matrix" class=md-nav__link >Support Matrix</a> <li class=md-nav__item > <a href="../Reference/index.html#configuration-file-reference" class=md-nav__link >Configuration File Reference</a> <li class=md-nav__item > <a href="../Reference/index.html#sample-files" class=md-nav__link >Sample Files</a> <li class=md-nav__item > <a href="../Reference/index.html#cluster-requirements" class=md-nav__link >Cluster Requirements</a> <li class=md-nav__item > <a href="../Reference/index.html#playbook-reference" class=md-nav__link >Playbook Reference</a> <li class=md-nav__item > <a href="../Reference/index.html#telemetry-metrics-reference" class=md-nav__link >Telemetry Metrics Reference</a> <li class=md-nav__item > <a href="../Reference/index.html#appendices" class=md-nav__link >Appendices</a> </ul> <li class=md-nav__item > <a href=index.html  class=md-nav__link >Troubleshooting</a> <ul class=md-nav__list > <li class=md-nav__item > <a href="index.html#troubleshooting-approach" class=md-nav__link >Troubleshooting approach</a> </ul> <li class=md-nav__item > <a href="../Contributing/index.html" class=md-nav__link >Contributing to Omnia</a> </ul> </nav> </div> </div> </div> <div class="md-sidebar md-sidebar--secondary" data-md-component=toc > <div class=md-sidebar__scrollwrap > <div class=md-sidebar__inner > <nav class="md-nav md-nav--secondary"> <ul class=md-nav__list  data-md-scrollfix=""> <li class=md-nav__item ><a class=md-nav__extra_link  href="../_sources/Troubleshooting/slurm.rst.txt">Show Source</a> <li id=searchbox  class=md-nav__item > </ul> </nav> </div> </div> </div> <div class=md-content > <article class="md-content__inner md-typeset" role=main > <section id=slurm-issues > <h1 id=troubleshooting-slurm--page-root >Slurm Issues<a class=headerlink  href="#troubleshooting-slurm--page-root" title="Permalink to this heading">¶</a></h1> <p>Issues related to the Slurm job scheduler, including controller failures, node state problems, job submission errors, and GPU detection.</p> <section id=slurmctld-not-starting > <h2 id=slurmctld-not-starting ><cite>slurmctld</cite> not starting<a class=headerlink  href="#slurmctld-not-starting" title="Permalink to this heading">¶</a></h2> <p>???+ note “Symptom”</p> <blockquote> <div><p>The Slurm controller daemon fails to start. Running <code class="docutils literal notranslate"><span class=pre >systemctl</span> <span class=pre >status</span> <span class=pre >slurmctld</span></code> shows the service as <code class="docutils literal notranslate"><span class=pre >failed</span></code> or <code class="docutils literal notranslate"><span class=pre >inactive</span></code>.</p> </div></blockquote> <p>??? note “Cause”</p> <blockquote> <div><ul class=simple > <li><p>The <code class="docutils literal notranslate"><span class=pre >slurm.conf</span></code> file has syntax errors or references non-existent nodes.</p> <li><p>The <code class="docutils literal notranslate"><span class=pre >munge</span></code> authentication service is not running.</p> <li><p>File permissions on <code class="docutils literal notranslate"><span class=pre >/var/spool/slurmctld/</span></code> are incorrect.</p> <li><p>The Slurm database daemon (<code class="docutils literal notranslate"><span class=pre >slurmdbd</span></code>) is unreachable and <code class="docutils literal notranslate"><span class=pre >AccountingStorageEnforce</span></code> is set.</p> </ul> </div></blockquote> <p>??? note “Resolution”</p> <blockquote> <div><ol class="arabic simple"> <li><p>Check the slurmctld log for specific errors:</p> </ol> </div></blockquote> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>tail<span class=w > </span>-100<span class=w > </span>/var/log/slurm/slurmctld.log
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slurm Issues &mdash; Dell/Omnia</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/dell-brand.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/custom.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Omnia
+              <img src="../_static/omnia-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../Overview/index.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/architecture.html">Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/architecture.html#why-three-cluster-types">Why three cluster types?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/architecture.html#oim-the-management-node">OIM – The management node</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/architecture.html#what-runs-on-the-oim">What runs on the OIM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/architecture.html#oim-minimum-requirements">OIM minimum requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/architecture.html#slurm-cluster">Slurm cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/architecture.html#node-roles">Node roles</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/architecture.html#kubernetes-cluster">Kubernetes cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/architecture.html#id1">Node roles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/architecture.html#pre-installed-kubernetes-components">Pre-installed Kubernetes components</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/architecture.html#how-the-clusters-interact">How the clusters interact</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/architecture.html#design-rationale">Design rationale</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/components.html">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/components.html#omnia-core-container">omnia_core container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/components.html#openchami">OpenCHAMI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/components.html#state-manager-daemon-smd">State Manager Daemon (SMD)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/components.html#boot-script-service-bss">Boot Script Service (BSS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/components.html#ochami-cli">ochami-cli</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/components.html#pulp">Pulp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/components.html#buildstream">BuildStreaM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/components.html#omnia-auth">Omnia Auth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/components.html#supporting-services">Supporting services</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/network_topologies.html">Network Topologies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/network_topologies.html#network-segments">Network segments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/network_topologies.html#dedicated-topology">Dedicated topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/network_topologies.html#shared-lom-topology">Shared LOM topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/network_topologies.html#hybrid-topology">Hybrid topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/network_topologies.html#choosing-a-topology">Choosing a topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/network_topologies.html#ip-addressing-and-dhcp">IP addressing and DHCP</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/composable_roles.html">Composable Roles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/composable_roles.html#what-are-composable-roles">What are composable roles?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/composable_roles.html#functional-groups">Functional groups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/composable_roles.html#groups-based-on-physical-characteristics">Groups based on physical characteristics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/composable_roles.html#the-mapping-file">The mapping file</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/composable_roles.html#format">Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/composable_roles.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/composable_roles.html#how-omnia-processes-the-mapping-file">How Omnia processes the mapping file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/composable_roles.html#design-rationale">Design rationale</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/security_model.html">Security Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#security-profiles">Security profiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#security-controls-map">Security Controls Map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#security-principles">Security principles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#credential-encryption-with-ansible-vault">Credential encryption with Ansible Vault</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#how-it-works">How it works</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#login-security-settings">Login security settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#credential-utility">Credential utility</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#centralized-authentication-with-openldap">Centralized authentication with OpenLDAP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#sssd-integration">SSSD integration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#tls-certificate-management">TLS certificate management</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#step-ca-internal-certificate-authority">step-ca – Internal certificate authority</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#acme-protocol">ACME protocol</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#oauth-2-0-and-oidc-with-hydra">OAuth 2.0 and OIDC with Hydra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#security-configuration-reference">Security configuration reference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#security-best-practices">Security best practices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#authentication-types-and-setup">Authentication types and setup</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/security_model.html#key-based-authentication">Key-based authentication</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#authentication-to-external-systems">Authentication to external systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#network-vulnerability-scanning">Network vulnerability scanning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#ansible-security">Ansible security</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#legal-disclaimers">Legal disclaimers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#scope">Scope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#document-references">Document references</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/security_model.html#reporting-security-vulnerabilities">Reporting security vulnerabilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/telemetry_architecture.html">Telemetry Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/telemetry_architecture.html#data-collection">Data collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/telemetry_architecture.html#idrac-telemetry-out-of-band">iDRAC telemetry (out-of-band)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/telemetry_architecture.html#ldms-telemetry-in-band">LDMS telemetry (in-band)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/telemetry_architecture.html#message-transport-apache-kafka">Message transport – Apache Kafka</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/telemetry_architecture.html#external-kafka-integration">External Kafka integration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/telemetry_architecture.html#storage-victoriametrics">Storage – VictoriaMetrics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/telemetry_architecture.html#external-victoriametrics-integration">External VictoriaMetrics integration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/telemetry_architecture.html#visualization-grafana">Visualization – Grafana</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/telemetry_architecture.html#ome-and-sfm-telemetry">OME and SFM telemetry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/telemetry_architecture.html#air-gapped-telemetry">Air-gapped telemetry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/telemetry_architecture.html#design-rationale">Design rationale</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/glossary.html">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/release_notes.html">Release Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/release_notes.html#omnia-2-1-0-0">Omnia 2.1.0.0</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#buildstream-gitlab-ci-automation">BuildStreaM – GitLab CI automation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#additional-packages-and-software">Additional packages and software</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#slurm-cluster-management">Slurm cluster management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#telemetry-enhancements">Telemetry enhancements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#storage-integration">Storage integration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#network-enhancements">Network enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/release_notes.html#omnia-2-0-0-0">Omnia 2.0.0.0</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#podman-containerization">Podman containerization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#local-repository-management-with-pulp">Local repository management with Pulp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#centralized-authentication">Centralized authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#telemetry-pipeline">Telemetry pipeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#kubernetes-high-availability">Kubernetes high availability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#composable-functional-groups">Composable functional groups</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#stateless-boot">Stateless boot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#gpu-and-accelerator-support">GPU and accelerator support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#security-enhancements">Security enhancements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#multi-architecture-support">Multi-architecture support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Overview/release_notes.html#input-templates-and-validator">Input templates and validator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Overview/release_notes.html#supported-platforms">Supported platforms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Overview/blogs.html">Blogs about Omnia</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../GetStarted/index.html">Get Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../GetStarted/index.html#deployment-paths-at-a-glance">Deployment Paths at a Glance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GetStarted/index.html#which-path-should-i-choose">Which Path Should I Choose?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GetStarted/index.html#before-you-begin">Before You Begin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../HowTo/index.html">How-to Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#initial-setup-provisioning">Initial Setup &amp; Provisioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#slurm-job-scheduling">Slurm Job Scheduling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#kubernetes-services">Kubernetes Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#storage">Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#networking">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#telemetry-monitoring">Telemetry &amp; Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#containers-packages">Containers &amp; Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowTo/index.html#buildstream-ci-cd">BuildStreaM (CI/CD)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Operations/index.html">Operations &amp; Maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Reference/index.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Reference/index.html#support-matrix">Support Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reference/index.html#configuration-file-reference">Configuration File Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reference/index.html#sample-files">Sample Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reference/index.html#cluster-requirements">Cluster Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reference/index.html#playbook-reference">Playbook Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reference/index.html#telemetry-metrics-reference">Telemetry Metrics Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Reference/index.html#appendices">Appendices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#troubleshooting-approach">Troubleshooting approach</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Contributing/index.html">Contributing to Omnia</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Omnia</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Slurm Issues</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/Troubleshooting/slurm.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="slurm-issues">
+<h1>Slurm Issues<a class="headerlink" href="#slurm-issues" title="Permalink to this heading"></a></h1>
+<p>Issues related to the Slurm job scheduler, including controller failures, node
+state problems, job submission errors, and GPU detection.</p>
+<section id="slurmctld-not-starting">
+<h2><cite>slurmctld</cite> not starting<a class="headerlink" href="#slurmctld-not-starting" title="Permalink to this heading"></a></h2>
+<p>???+ note “Symptom”</p>
+<blockquote>
+<div><p>The Slurm controller daemon fails to start. Running <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">status</span>
+<span class="pre">slurmctld</span></code> shows the service as <code class="docutils literal notranslate"><span class="pre">failed</span></code> or <code class="docutils literal notranslate"><span class="pre">inactive</span></code>.</p>
+</div></blockquote>
+<p>??? note “Cause”</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">slurm.conf</span></code> file has syntax errors or references non-existent nodes.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">munge</span></code> authentication service is not running.</p></li>
+<li><p>File permissions on <code class="docutils literal notranslate"><span class="pre">/var/spool/slurmctld/</span></code> are incorrect.</p></li>
+<li><p>The Slurm database daemon (<code class="docutils literal notranslate"><span class="pre">slurmdbd</span></code>) is unreachable and
+<code class="docutils literal notranslate"><span class="pre">AccountingStorageEnforce</span></code> is set.</p></li>
+</ul>
+</div></blockquote>
+<p>??? note “Resolution”</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Check the slurmctld log for specific errors:</p></li>
+</ol>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>tail<span class="w"> </span>-100<span class="w"> </span>/var/log/slurm/slurmctld.log
 
 
 
-<span class=c1 >#. Verify munge is running:</span>
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >   </span>systemctl<span class=w > </span>status<span class=w > </span>munge
+<span class="c1">#. Verify munge is running:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>systemctl<span class="w"> </span>status<span class="w"> </span>munge
 
 
 
-If<span class=w > </span>munge<span class=w > </span>is<span class=w > </span>not<span class=w > </span>running,<span class=w > </span>start<span class=w > </span>it:
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>systemctl<span class=w > </span>start<span class=w > </span>munge
+If<span class="w"> </span>munge<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>running,<span class="w"> </span>start<span class="w"> </span>it:
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>systemctl<span class="w"> </span>start<span class="w"> </span>munge
 
 
 
-<span class=c1 >#. Validate the Slurm configuration:</span>
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>slurmd<span class=w > </span>-C<span class=w >    </span><span class=c1 ># Show computed configuration</span>
-<span class=w >      </span>slurmctld<span class=w > </span>-Dvvv<span class=w >    </span><span class=c1 ># Run in foreground with verbose logging</span>
+<span class="c1">#. Validate the Slurm configuration:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>slurmd<span class="w"> </span>-C<span class="w">    </span><span class="c1"># Show computed configuration</span>
+<span class="w">      </span>slurmctld<span class="w"> </span>-Dvvv<span class="w">    </span><span class="c1"># Run in foreground with verbose logging</span>
 
 
 
-<span class=c1 >#. Fix spool directory permissions:</span>
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>chown<span class=w > </span>-R<span class=w > </span>slurm:slurm<span class=w > </span>/var/spool/slurmctld/
-<span class=w >      </span>chmod<span class=w > </span><span class=m >755</span><span class=w > </span>/var/spool/slurmctld/
+<span class="c1">#. Fix spool directory permissions:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>chown<span class="w"> </span>-R<span class="w"> </span>slurm:slurm<span class="w"> </span>/var/spool/slurmctld/
+<span class="w">      </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>/var/spool/slurmctld/
 
 
 
-<span class=c1 >#. If slurmdbd is the issue, see the ``slurmdbd connection issues``_ section</span>
-<span class=w >   </span>below.
-</pre></div> </div> </section> <section id=nodes-stuck-in-down-state > <h2 id=nodes-stuck-in-down-state >Nodes stuck in DOWN state<a class=headerlink  href="#nodes-stuck-in-down-state" title="Permalink to this heading">¶</a></h2> <p>???+ note “Symptom”</p> <blockquote> <div><p><code class="docutils literal notranslate"><span class=pre >sinfo</span></code> shows one or more nodes in <code class="docutils literal notranslate"><span class=pre >down</span></code> or <code class="docutils literal notranslate"><span class=pre >down*</span></code> state:</p> </div></blockquote> <div class="highlight-text notranslate"><div class=highlight ><pre><span></span>PARTITION  AVAIL  TIMELIMIT  NODES  STATE  NODELIST
+<span class="c1">#. If slurmdbd is the issue, see the ``slurmdbd connection issues``_ section</span>
+<span class="w">   </span>below.
+</pre></div>
+</div>
+</section>
+<section id="nodes-stuck-in-down-state">
+<h2>Nodes stuck in DOWN state<a class="headerlink" href="#nodes-stuck-in-down-state" title="Permalink to this heading"></a></h2>
+<p>???+ note “Symptom”</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">sinfo</span></code> shows one or more nodes in <code class="docutils literal notranslate"><span class="pre">down</span></code> or <code class="docutils literal notranslate"><span class="pre">down*</span></code> state:</p>
+</div></blockquote>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>PARTITION  AVAIL  TIMELIMIT  NODES  STATE  NODELIST
 normal*       up   infinite      1  down*  compute-03
-</pre></div> </div> <p>??? note “Cause”</p> <blockquote> <div><ul class=simple > <li><p>The <code class="docutils literal notranslate"><span class=pre >slurmd</span></code> service on the compute node is not running.</p> <li><p>Network connectivity between the control node and the compute node is broken.</p> <li><p>The node was manually set to DOWN and not resumed.</p> <li><p>Hardware issues (memory errors, disk failures) triggered an automatic drain.</p> </ul> </div></blockquote> <p>??? note “Resolution”</p> <blockquote> <div><ol class="arabic simple"> <li><p>Check why the node is down:</p> </ol> </div></blockquote> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>scontrol<span class=w > </span>show<span class=w > </span>node<span class=w > </span>compute-03<span class=w > </span><span class=p >|</span><span class=w > </span>grep<span class=w > </span>-i<span class=w > </span>reason
+</pre></div>
+</div>
+<p>??? note “Cause”</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">slurmd</span></code> service on the compute node is not running.</p></li>
+<li><p>Network connectivity between the control node and the compute node is
+broken.</p></li>
+<li><p>The node was manually set to DOWN and not resumed.</p></li>
+<li><p>Hardware issues (memory errors, disk failures) triggered an automatic
+drain.</p></li>
+</ul>
+</div></blockquote>
+<p>??? note “Resolution”</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Check why the node is down:</p></li>
+</ol>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>scontrol<span class="w"> </span>show<span class="w"> </span>node<span class="w"> </span>compute-03<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>reason
 
 
 
-<span class=c1 >#. Verify ``slurmd`` is running on the compute node:</span>
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >   </span>ssh<span class=w > </span>compute-03<span class=w > </span>systemctl<span class=w > </span>status<span class=w > </span>slurmd
+<span class="c1">#. Verify ``slurmd`` is running on the compute node:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ssh<span class="w"> </span>compute-03<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd
 
 
 
-If<span class=w > </span>not<span class=w > </span>running:
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>ssh<span class=w > </span>compute-03<span class=w > </span>systemctl<span class=w > </span>start<span class=w > </span>slurmd
+If<span class="w"> </span>not<span class="w"> </span>running:
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>compute-03<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>slurmd
 
 
 
-<span class=c1 >#. Test network connectivity:</span>
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>ping<span class=w > </span>compute-03
-<span class=w >      </span>ssh<span class=w > </span>compute-03<span class=w > </span>hostname
+<span class="c1">#. Test network connectivity:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ping<span class="w"> </span>compute-03
+<span class="w">      </span>ssh<span class="w"> </span>compute-03<span class="w"> </span>hostname
 
 
 
-<span class=c1 >#. Resume the node after fixing the underlying issue:</span>
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>scontrol<span class=w > </span>update<span class=w > </span><span class=nv >NodeName</span><span class=o >=</span>compute-03<span class=w > </span><span class=nv >State</span><span class=o >=</span>RESUME
+<span class="c1">#. Resume the node after fixing the underlying issue:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">NodeName</span><span class="o">=</span>compute-03<span class="w"> </span><span class="nv">State</span><span class="o">=</span>RESUME
 
 
 
-<span class=c1 >#. Verify the node returns to ``idle``:</span>
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span>sinfo<span class=w > </span>-n<span class=w > </span>compute-03
-</pre></div> </div> </section> <section id=job-submission-failures > <h2 id=job-submission-failures >Job submission failures<a class=headerlink  href="#job-submission-failures" title="Permalink to this heading">¶</a></h2> <p>???+ note “Symptom”</p> <blockquote> <div><p>Submitting a job with <code class="docutils literal notranslate"><span class=pre >sbatch</span></code> or <code class="docutils literal notranslate"><span class=pre >srun</span></code> fails with errors such as:</p> </div></blockquote> <div class="highlight-text notranslate"><div class=highlight ><pre><span></span>sbatch: error: Batch job submission failed: Invalid account or account/partition combination specified
+<span class="c1">#. Verify the node returns to ``idle``:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sinfo<span class="w"> </span>-n<span class="w"> </span>compute-03
+</pre></div>
+</div>
+</section>
+<section id="job-submission-failures">
+<h2>Job submission failures<a class="headerlink" href="#job-submission-failures" title="Permalink to this heading"></a></h2>
+<p>???+ note “Symptom”</p>
+<blockquote>
+<div><p>Submitting a job with <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> or <code class="docutils literal notranslate"><span class="pre">srun</span></code> fails with errors such as:</p>
+</div></blockquote>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sbatch: error: Batch job submission failed: Invalid account or account/partition combination specified
 srun: error: Unable to allocate resources: No partition specified or system default partition
-</pre></div> </div> <p>??? note “Cause”</p> <blockquote> <div><ul class=simple > <li><p>The user’s account is not configured in Slurm accounting.</p> <li><p>No default partition is defined in <code class="docutils literal notranslate"><span class=pre >slurm.conf</span></code>.</p> <li><p>The requested resources exceed what is available in the cluster.</p> </ul> </div></blockquote> <p>??? note “Resolution”</p> <blockquote> <div><ol class="arabic simple"> <li><p>Check available partitions:</p> </ol> </div></blockquote> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>sinfo
+</pre></div>
+</div>
+<p>??? note “Cause”</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The user’s account is not configured in Slurm accounting.</p></li>
+<li><p>No default partition is defined in <code class="docutils literal notranslate"><span class="pre">slurm.conf</span></code>.</p></li>
+<li><p>The requested resources exceed what is available in the cluster.</p></li>
+</ul>
+</div></blockquote>
+<p>??? note “Resolution”</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Check available partitions:</p></li>
+</ol>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>sinfo
 
 
 
-<span class=c1 >#. Verify the user's Slurm account:</span>
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >   </span>sacctmgr<span class=w > </span>show<span class=w > </span>user<span class=w > </span>&lt;username&gt;
+<span class="c1">#. Verify the user&#39;s Slurm account:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>sacctmgr<span class="w"> </span>show<span class="w"> </span>user<span class="w"> </span>&lt;username&gt;
 
 
 
-If<span class=w > </span>the<span class=w > </span>user<span class=w > </span>is<span class=w > </span>not<span class=w > </span>configured:
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>sacctmgr<span class=w > </span>add<span class=w > </span>user<span class=w > </span>&lt;username&gt;<span class=w > </span><span class=nv >account</span><span class=o >=</span>default
+If<span class="w"> </span>the<span class="w"> </span>user<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>configured:
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>sacctmgr<span class="w"> </span>add<span class="w"> </span>user<span class="w"> </span>&lt;username&gt;<span class="w"> </span><span class="nv">account</span><span class="o">=</span>default
 
 
 
-<span class=c1 >#. Verify a default partition exists in ``slurm.conf``:</span>
-</pre></div> </div> <div class="highlight-text notranslate"><div class=highlight ><pre><span></span>      # /etc/slurm/slurm.conf
+<span class="c1">#. Verify a default partition exists in ``slurm.conf``:</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>      # /etc/slurm/slurm.conf
       PartitionName=normal Nodes=compute-[01-10] Default=YES MaxTime=INFINITE State=UP
 
 
 
 #. If resources are the issue, check available resources:
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span>sinfo<span class=w > </span>-N<span class=w > </span>-l
-squeue<span class=w >    </span><span class=c1 ># Check for jobs consuming resources</span>
-</pre></div> </div> </section> <section id=slurmdbd-connection-issues > <h2 id=slurmdbd-connection-issues ><cite>slurmdbd</cite> connection issues<a class=headerlink  href="#slurmdbd-connection-issues" title="Permalink to this heading">¶</a></h2> <p>???+ note “Symptom”</p> <blockquote> <div><p><code class="docutils literal notranslate"><span class=pre >slurmctld</span></code> logs show errors connecting to the Slurm database daemon:</p> </div></blockquote> <div class="highlight-text notranslate"><div class=highlight ><pre><span></span>error: slurmdbd: Sending PersistInit msg: CONNECTION REFUSED
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sinfo<span class="w"> </span>-N<span class="w"> </span>-l
+squeue<span class="w">    </span><span class="c1"># Check for jobs consuming resources</span>
+</pre></div>
+</div>
+</section>
+<section id="slurmdbd-connection-issues">
+<h2><cite>slurmdbd</cite> connection issues<a class="headerlink" href="#slurmdbd-connection-issues" title="Permalink to this heading"></a></h2>
+<p>???+ note “Symptom”</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">slurmctld</span></code> logs show errors connecting to the Slurm database daemon:</p>
+</div></blockquote>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>error: slurmdbd: Sending PersistInit msg: CONNECTION REFUSED
 error: slurmdbd: DBD_ID_REGISTER failed
-</pre></div> </div> <p>??? note “Cause”</p> <blockquote> <div><ul class=simple > <li><p>The <code class="docutils literal notranslate"><span class=pre >slurmdbd</span></code> service is not running.</p> <li><p>The MySQL/MariaDB database backend is down.</p> <li><p>Network or firewall issues between the controller and the database node.</p> <li><p>Incorrect database credentials in <code class="docutils literal notranslate"><span class=pre >slurmdbd.conf</span></code>.</p> </ul> </div></blockquote> <p>??? note “Resolution”</p> <blockquote> <div><ol class="arabic simple"> <li><p>Check <code class="docutils literal notranslate"><span class=pre >slurmdbd</span></code> status:</p> </ol> </div></blockquote> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>systemctl<span class=w > </span>status<span class=w > </span>slurmdbd
+</pre></div>
+</div>
+<p>??? note “Cause”</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">slurmdbd</span></code> service is not running.</p></li>
+<li><p>The MySQL/MariaDB database backend is down.</p></li>
+<li><p>Network or firewall issues between the controller and the database node.</p></li>
+<li><p>Incorrect database credentials in <code class="docutils literal notranslate"><span class="pre">slurmdbd.conf</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<p>??? note “Resolution”</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">slurmdbd</span></code> status:</p></li>
+</ol>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmdbd
 
 
 
-<span class=c1 >#. Check the database backend:</span>
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>systemctl<span class=w > </span>status<span class=w > </span>mariadb<span class=w >    </span><span class=c1 ># or mysql</span>
+<span class="c1">#. Check the database backend:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>systemctl<span class="w"> </span>status<span class="w"> </span>mariadb<span class="w">    </span><span class="c1"># or mysql</span>
 
 
 
-<span class=c1 >#. Verify ``slurmdbd.conf`` settings:</span>
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>grep<span class=w > </span>-i<span class=w > </span>storage<span class=w > </span>/etc/slurm/slurmdbd.conf
+<span class="c1">#. Verify ``slurmdbd.conf`` settings:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>grep<span class="w"> </span>-i<span class="w"> </span>storage<span class="w"> </span>/etc/slurm/slurmdbd.conf
 
 
 
-<span class=c1 >#. Test database connectivity:</span>
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>mysql<span class=w > </span>-u<span class=w > </span>slurm<span class=w > </span>-p<span class=w > </span>-h<span class=w > </span>localhost<span class=w > </span>slurm_acct_db<span class=w > </span>-e<span class=w > </span><span class=s2 >"SELECT 1;"</span>
+<span class="c1">#. Test database connectivity:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>mysql<span class="w"> </span>-u<span class="w"> </span>slurm<span class="w"> </span>-p<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>slurm_acct_db<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SELECT 1;&quot;</span>
 
 
 
-<span class=c1 >#. Check the ``slurmdbd`` log:</span>
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>tail<span class=w > </span>-100<span class=w > </span>/var/log/slurm/slurmdbd.log
+<span class="c1">#. Check the ``slurmdbd`` log:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>tail<span class="w"> </span>-100<span class="w"> </span>/var/log/slurm/slurmdbd.log
 
 
 
-<span class=c1 >#. If credentials changed, update ``slurmdbd.conf`` and restart:</span>
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span>systemctl<span class=w > </span>restart<span class=w > </span>slurmdbd
-systemctl<span class=w > </span>restart<span class=w > </span>slurmctld
-</pre></div> </div> </section> <section id=gpu-not-detected-by-slurm > <h2 id=gpu-not-detected-by-slurm >GPU not detected by Slurm<a class=headerlink  href="#gpu-not-detected-by-slurm" title="Permalink to this heading">¶</a></h2> <p>???+ note “Symptom”</p> <blockquote> <div><p>GPU nodes are provisioned but Slurm does not show GPU resources. Running <code class="docutils literal notranslate"><span class=pre >scontrol</span> <span class=pre >show</span> <span class=pre >node</span> <span class=pre >&lt;gpu_node&gt;</span></code> shows no <code class="docutils literal notranslate"><span class=pre >Gres</span></code> entries, or GPU jobs fail with:</p> </div></blockquote> <div class="highlight-text notranslate"><div class=highlight ><pre><span></span>srun: error: Unable to allocate resources: Requested node configuration is not available
-</pre></div> </div> <p>??? note “Cause”</p> <blockquote> <div><ul class=simple > <li><p>GPU drivers (CUDA or ROCm) are not installed on the compute node.</p> <li><p>The <code class="docutils literal notranslate"><span class=pre >gres.conf</span></code> file does not list the GPUs.</p> <li><p>The <code class="docutils literal notranslate"><span class=pre >slurm.conf</span></code> does not define GRES for the GPU nodes.</p> <li><p>The <code class="docutils literal notranslate"><span class=pre >nvidia-smi</span></code> or <code class="docutils literal notranslate"><span class=pre >rocm-smi</span></code> tool does not detect the GPU hardware.</p> </ul> </div></blockquote> <p>??? note “Resolution”</p> <blockquote> <div><ol class="arabic simple"> <li><p>Verify the GPU is visible to the OS:</p> </ol> </div></blockquote> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span><span class=c1 ># NVIDIA</span>
-<span class=w >      </span>ssh<span class=w > </span>&lt;gpu_node&gt;<span class=w > </span>nvidia-smi
+<span class="c1">#. If credentials changed, update ``slurmdbd.conf`` and restart:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>slurmdbd
+systemctl<span class="w"> </span>restart<span class="w"> </span>slurmctld
+</pre></div>
+</div>
+</section>
+<section id="gpu-not-detected-by-slurm">
+<h2>GPU not detected by Slurm<a class="headerlink" href="#gpu-not-detected-by-slurm" title="Permalink to this heading"></a></h2>
+<p>???+ note “Symptom”</p>
+<blockquote>
+<div><p>GPU nodes are provisioned but Slurm does not show GPU resources. Running
+<code class="docutils literal notranslate"><span class="pre">scontrol</span> <span class="pre">show</span> <span class="pre">node</span> <span class="pre">&lt;gpu_node&gt;</span></code> shows no <code class="docutils literal notranslate"><span class="pre">Gres</span></code> entries, or GPU jobs
+fail with:</p>
+</div></blockquote>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>srun: error: Unable to allocate resources: Requested node configuration is not available
+</pre></div>
+</div>
+<p>??? note “Cause”</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>GPU drivers (CUDA or ROCm) are not installed on the compute node.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">gres.conf</span></code> file does not list the GPUs.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">slurm.conf</span></code> does not define GRES for the GPU nodes.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> or <code class="docutils literal notranslate"><span class="pre">rocm-smi</span></code> tool does not detect the GPU hardware.</p></li>
+</ul>
+</div></blockquote>
+<p>??? note “Resolution”</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Verify the GPU is visible to the OS:</p></li>
+</ol>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span><span class="c1"># NVIDIA</span>
+<span class="w">      </span>ssh<span class="w"> </span>&lt;gpu_node&gt;<span class="w"> </span>nvidia-smi
 
-<span class=w >      </span><span class=c1 ># AMD</span>
-<span class=w >      </span>ssh<span class=w > </span>&lt;gpu_node&gt;<span class=w > </span>rocm-smi
+<span class="w">      </span><span class="c1"># AMD</span>
+<span class="w">      </span>ssh<span class="w"> </span>&lt;gpu_node&gt;<span class="w"> </span>rocm-smi
 
 
 
-<span class=c1 >#. If the GPU driver is not installed, re-run the Omnia playbook with GPU</span>
-<span class=w >   </span>tags:
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span>ssh<span class=w > </span>omnia_core
-<span class=w >      </span><span class=nb >cd</span><span class=w > </span>/omnia
-<span class=w >      </span>ansible-playbook<span class=w > </span>playbooks/omnia.yml<span class=w > </span>--tags<span class=w > </span>gpu
+<span class="c1">#. If the GPU driver is not installed, re-run the Omnia playbook with GPU</span>
+<span class="w">   </span>tags:
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>omnia_core
+<span class="w">      </span><span class="nb">cd</span><span class="w"> </span>/omnia
+<span class="w">      </span>ansible-playbook<span class="w"> </span>playbooks/omnia.yml<span class="w"> </span>--tags<span class="w"> </span>gpu
 
 
 
-<span class=c1 >#. Verify ``gres.conf`` on the compute node:</span>
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >   </span>ssh<span class=w > </span>&lt;gpu_node&gt;<span class=w > </span>cat<span class=w > </span>/etc/slurm/gres.conf
+<span class="c1">#. Verify ``gres.conf`` on the compute node:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ssh<span class="w"> </span>&lt;gpu_node&gt;<span class="w"> </span>cat<span class="w"> </span>/etc/slurm/gres.conf
 
 
 
-Expected<span class=w > </span>content:
-</pre></div> </div> <div class="highlight-text notranslate"><div class=highlight ><pre><span></span>      # /etc/slurm/gres.conf
+Expected<span class="w"> </span>content:
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>      # /etc/slurm/gres.conf
       NodeName=gpu-01 Name=gpu Type=a100 File=/dev/nvidia[0-3]
 
 
 
 #. Verify ``slurm.conf`` includes GRES definitions:
-</pre></div> </div> <div class="highlight-text notranslate"><div class=highlight ><pre><span></span>      GresTypes=gpu
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>      GresTypes=gpu
       NodeName=gpu-01 Gres=gpu:a100:4 ...
 
 
 
 #. After updating configuration files, restart Slurm services:
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span><span class=w >      </span><span class=c1 ># On the control node</span>
-<span class=w >      </span>systemctl<span class=w > </span>restart<span class=w > </span>slurmctld
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span><span class="c1"># On the control node</span>
+<span class="w">      </span>systemctl<span class="w"> </span>restart<span class="w"> </span>slurmctld
 
-<span class=w >      </span><span class=c1 ># On the GPU compute node</span>
-<span class=w >      </span>ssh<span class=w > </span>&lt;gpu_node&gt;<span class=w > </span>systemctl<span class=w > </span>restart<span class=w > </span>slurmd
+<span class="w">      </span><span class="c1"># On the GPU compute node</span>
+<span class="w">      </span>ssh<span class="w"> </span>&lt;gpu_node&gt;<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>slurmd
 
 
 
-<span class=c1 >#. Confirm GPUs are registered:</span>
-</pre></div> </div> <div class="highlight-bash notranslate"><div class=highlight ><pre><span></span>scontrol<span class=w > </span>show<span class=w > </span>node<span class=w > </span>&lt;gpu_node&gt;<span class=w > </span><span class=p >|</span><span class=w > </span>grep<span class=w > </span>Gres
-</pre></div> </div> <div class="admonition note"> <p class=admonition-title >Note</p> <ul class=simple > <li><p><a class="reference external" href="../HowTo/Slurm/setup_slurm.rst">Setup Slurm</a> – Slurm cluster setup guide.</p> <li><p><a class="reference external" href="../HowTo/Slurm/slurm_with_gpu.rst">Slurm With Gpu</a> – GPU configuration for Slurm.</p> <li><p><a class="reference external" href="../Operations/add_remove_nodes.rst">Add Remove Nodes</a> – Adding or removing Slurm nodes.</p> </ul> </div> <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia.readme%40dell.com">omnia<span>.</span>readme<span>@</span>dell<span>.</span>com</a>.</p> </section> </section> </article> </div> </div> </main> </div> <footer class=md-footer > <div class=md-footer-nav > <nav class="md-footer-nav__inner md-grid"> </a> </nav> </div> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <div class=md-footer-copyright > <div class=md-footer-copyright__highlight > &#169; Copyright 2025, Dell Technologies. </div> Created using <a href="http://www.sphinx-doc.org/">Sphinx</a> 6.2.1. and <a href="https://github.com/bashtage/sphinx-material/">Material for Sphinx</a> </div> </div> </div> </footer> <script src="../_static/javascripts/application.js"></script> <script>app.initialize({version: "1.0.4", url: {base: ".."}})</script>
+<span class="c1">#. Confirm GPUs are registered:</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>show<span class="w"> </span>node<span class="w"> </span>&lt;gpu_node&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Gres
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><a class="reference external" href="../HowTo/Slurm/setup_slurm.rst">Setup Slurm</a> – Slurm cluster setup guide.</p></li>
+<li><p><a class="reference external" href="../HowTo/Slurm/slurm_with_gpu.rst">Slurm With Gpu</a> – GPU configuration for Slurm.</p></li>
+<li><p><a class="reference external" href="../Operations/add_remove_nodes.rst">Add Remove Nodes</a> – Adding or removing Slurm nodes.</p></li>
+</ul>
+</div>
+<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Dell Technologies.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
