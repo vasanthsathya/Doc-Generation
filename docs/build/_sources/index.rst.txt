@@ -155,19 +155,19 @@ Omnia Community Members
 
    <div class="community-logos">
      <a href="https://www.dell.com" target="_blank" rel="noopener noreferrer">
-       <img src="assets/images/delltech.png" alt="Dell Technologies" style="height: 60px;">
+       <img src="_static/images/delltech.png" alt="Dell Technologies" style="height: 60px;">
      </a>
      <a href="https://www.intel.com" target="_blank" rel="noopener noreferrer">
        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Intel_logo_%282020%2C_light_blue%29.svg" alt="Intel" style="height: 40px;">
      </a>
      <a href="https://www.unipi.it" target="_blank" rel="noopener noreferrer">
-       <img src="assets/images/pisa.png" alt="University of Pisa" style="height: 60px;">
+       <img src="_static/images/pisa.png" alt="University of Pisa" style="height: 60px;">
      </a>
      <img src="https://user-images.githubusercontent.com/83095575/117071024-64956c80-ace3-11eb-9d90-2dac7daef11c.png" alt="Community Member" style="height: 60px;">
      <img src="https://images.squarespace-cdn.com/content/v1/660f1a48587dbb2769709a33/9ac5520f-a308-4751-80f4-415d07a23473/VIZIAS+Blue.png" alt="VIZIAS" style="height: 60px;">
      <img src="https://user-images.githubusercontent.com/5414112/153955170-0a4b199a-54f0-42af-939c-03eac76881c0.png" alt="Community Member" style="height: 60px;">
      <a href="https://www.liqid.com" target="_blank" rel="noopener noreferrer">
-       <img src="assets/images/Liqid.png" alt="Liqid" style="height: 50px;">
+       <img src="_static/images/Liqid.png" alt="Liqid" style="height: 50px;">
      </a>
    </div>
 

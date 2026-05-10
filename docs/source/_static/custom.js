@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Fetch GitHub API data
-  fetchGitHubData();
+  // Fetch GitHub API data after DOM manipulation is complete
+  setTimeout(fetchGitHubData, 100);
 });
 
 async function fetchGitHubData() {
@@ -95,6 +95,10 @@ function updateGitHubLink(repoData, releaseData) {
     // Clear the original link content and replace with our container
     githubLink.innerHTML = '';
     githubLink.appendChild(githubContainer);
+    
+    console.log('GitHub link updated successfully');
+  } else {
+    console.error('GitHub link not found');
   }
 }
 
