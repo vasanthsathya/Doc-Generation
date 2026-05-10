@@ -38,6 +38,7 @@ extensions = [
 
 # Custom CSS and JS files for Material theme
 html_css_files = [
+    'https://fonts.googleapis.com/icon?family=Material+Icons',
     'custom.css',
     'dell-brand.css',
 ]
