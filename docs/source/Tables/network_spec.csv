@@ -1,0 +1,53 @@
+﻿Network Name,Parameters for the network,Parameter details
+"``admin_network``
+
+
+
+
+.. note:: This name cannot be modified. This is mandatory for discovery and provisioning of the cluster nodes.","**oim_nic_name**
+
+``string``
+
+Mandatory",The name of the NIC on which the administrative network is accessible to the OIM. **Default value**: ``eno1``
+,"**netmask_bits**
+
+``integer``
+
+Mandatory",The 32-bit “mask” used to divide an IP address into subnets and specify the network’s available hosts. **Default value**: ``24``
+,"**primary_oim_admin_ip**
+
+``IP address``
+
+Mandatory",The admin IP address of the OIM server. **Default value**: ``172.16.107.254``
+,"**primary_oim_bmc_ip**
+
+``IP address``
+
+Conditional mandatory","* The iDRAC  IP address of the OIM server
+* Mandatory only if ``idrac_telemetry`` is set to ``true`` and telemetry data needs to be collected.
+* This field can be omitted if iDRAC telemetry is not required."
+,"**dynamic_range**
+
+``IP address range``
+
+Mandatory",The dynamic range of IPs to be provisioned on target nodes. **Default value**: ``172.16.107.201-172.16.107.250``
+,"**dns**
+
+``IP address``
+
+Optional","External DNS server IP addresses for the admin network.
+ "
+"ib_network
+
+.. note:: This network is used for the InfiniBand (IB) interface configuration. Provide the subnet and netmask only if IB configuration is desirable.","**Subnet**
+
+``IP address``
+
+Mandatory","The subnet address for the InfiniBand network. 
+Default value: 192.168.0.0"
+,"**netmask_bits**
+
+``integer``
+
+Mandatory","* The 32-bit “mask” used to divide an IP address into subnets and specify the network’s available hosts. Default value: 24
+* Netmask bits of ib_network should match the netmask bits of the admin network."
