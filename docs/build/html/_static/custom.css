@@ -293,28 +293,70 @@ footer,
 .prev-next-footer {
     margin-left: auto;
     margin-right: auto;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+/* Decrease padding of prev-next-footer d-print-none */
+.prev-next-footer.d-print-none {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    max-width: 800px !important;
 }
 
 /* Increase article container width */
 .bd-page-width,
-.bd-content {
-    max-width: 1600px;
+.bd-content,
+.bd-article {
+    max-width: 1800px;
 }
 
 /* Move sidebar to the left with less padding */
 .bd-sidebar-primary {
     margin-left: auto;
     margin-right: auto;
-    padding-left: 0.5rem;
-    padding-right: 1rem;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 220px;
+    max-width: 220px;
+}
+
+.pst-primary-sidebar {
+    padding: 0 !important;
+    width: 220px !important;
+    max-width: 220px !important;
+}
+
+.bd-container__inner.bd-page-width {
+    padding-left: 16px !important;
+}
+
+/* Decrease font size for reference internal links */
+.reference.internal {
+    font-size: 0.85rem !important;
+}
+
+/* Decrease font size for navigation labels and items */
+.bd-sidebar-primary .caption,
+.bd-sidebar-primary .toctree-l1 > .reference.internal,
+.bd-sidebar-primary .toctree-l2 > .reference.internal,
+.bd-sidebar-primary .toctree-l3 > .reference.internal,
+.bd-sidebar-primary .toctree-l4 > .reference.internal,
+.bd-sidebar-primary .nav-link,
+.bd-sidebar-primary .nav-label {
+    font-size: 0.8rem !important;
+}
+
+/* Increase width of sidebar primary items */
+.bd-sidebar-primary .sidebar-primary-item {
+    width: 100% !important;
+    max-width: 100% !important;
 }
 
 /* Ensure main content area aligns with navigation */
 .bd-main {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .bd-header .navbar-header-items__center {
