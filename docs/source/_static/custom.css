@@ -301,7 +301,7 @@ footer,
 .prev-next-footer.d-print-none {
     padding-left: 20px !important;
     padding-right: 20px !important;
-    max-width: 800px !important;
+    max-width: 1800px !important;
 }
 
 /* Increase article container width */
@@ -861,7 +861,7 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1800px;
     margin: 0 auto;
     padding: 0 1rem;
     gap: 1rem;
