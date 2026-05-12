@@ -207,4 +207,3 @@ Related Topics
 * :doc:`set_pxe_boot_order_buildstream`
 * :doc:`how-to-update-catalog-pipeline`
 * :doc:`buildstream-architecture`
-* :doc:`buildstream-pipelines`

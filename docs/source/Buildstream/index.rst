@@ -20,7 +20,6 @@ To build your own custom workflows, you can use the BuildStreaM REST API. The Bu
    :caption: BuildStreaM Architecture and Concepts
 
    buildstream-architecture
-   buildstream-pipelines
    buildstream-resume-retry
 
 .. toctree::

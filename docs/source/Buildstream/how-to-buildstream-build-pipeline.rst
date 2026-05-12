@@ -245,4 +245,3 @@ Related Topics
 * :doc:`how-to-buildstream-validate-pipeline`
 * :doc:`how-to-update-catalog-pipeline`
 * :doc:`buildstream-architecture`
-* :doc:`buildstream-pipelines`

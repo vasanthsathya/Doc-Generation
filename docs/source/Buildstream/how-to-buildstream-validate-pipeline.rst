@@ -246,4 +246,3 @@ Related Topics
 * :doc:`buildstream-troubleshooting`
 * :doc:`how-to-update-catalog-pipeline`
 * :doc:`buildstream-architecture`
-* :doc:`buildstream-pipelines`
