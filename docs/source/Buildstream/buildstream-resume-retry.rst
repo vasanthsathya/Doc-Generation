@@ -1,14 +1,14 @@
 .. _buildstream-resume-retry:
 
-BuildStream Resume and Retry
+BuildStreaM Resume and Retry
 ===========================
 
-BuildStream introduces intelligent execution management through Resume and Retry capabilities. This feature allows failed stages to be retried and deploy stages to be re-executed with changed inputs, eliminating the need for complete job restarts and enabling flexible deployment management.
+BuildStreaM introduces intelligent execution management through Resume and Retry capabilities. This feature allows failed stages to be retried and deploy stages to be re-executed with changed inputs, eliminating the need for complete job restarts and enabling flexible deployment management.
 
 What Is Resume and Retry?
 --------------------------
 
-Resume and Retry is a capability that enables intelligent execution management for BuildStream pipelines. It provides:
+Resume and Retry is a capability that enables intelligent execution management for BuildStreaM pipelines. It provides:
 
 - **Retry after failure** - Failed stages can be retried without restarting the entire job
 - **Smart resume** - Build stages skip already-completed work on retry
@@ -17,9 +17,9 @@ Resume and Retry is a capability that enables intelligent execution management f
 
 **Stage Execution Patterns:**
 
-BuildStream classifies stages into two execution patterns:
+BuildStreaM classifies stages into two execution patterns:
 
-| Stage Type | Retry After Failure | Re-run After Success | Example Stages |C:\Working Folder\TOK\TOK\source
+| Stage Type | Retry After Failure | Re-run After Success | Example Stages |
 |------------|---------------------|---------------------|----------------|
 | **Build Stages** | ✅ Yes (smart resume) | ❌ No (immutable) | parse-catalog, generate-input-files, create-local-repository, build-image |
 | **Deploy Stages** | ✅ Yes (simple retry) | ✅ Yes (inputs can change) | deploy, restart, validate |
@@ -57,7 +57,7 @@ How Resume and Retry Works
 Stage Guard Decision Logic
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-BuildStream enforces stage execution rules through guard logic that determines whether a stage can be executed based on its current state.
+BuildStreaM enforces stage execution rules through guard logic that determines whether a stage can be executed based on its current state.
 
 **Build Stage Guard Logic:**
 
@@ -191,7 +191,7 @@ Deploy stages track input changes via hash to enable re-execution:
 Attempt Number Tracking
 ~~~~~~~~~~~~~~~~~~~~~~
 
-BuildStream maintains a complete audit trail of stage executions through attempt number tracking:
+BuildStreaM maintains a complete audit trail of stage executions through attempt number tracking:
 
 **Database Schema:**
 
@@ -471,7 +471,7 @@ State Precondition Checks
 Attempt Limits
 ~~~~~~~~~~~~
 
-BuildStream does not enforce hard limits on retry attempts. However:
+BuildStreaM does not enforce hard limits on retry attempts. However:
 
    - Image retention limit: Maximum 50 non-CLEANED Image Groups
    - Automated cleanup: Validation-failed images cleaned up after 24 hours
@@ -515,11 +515,10 @@ Related Topics
 --------------
 
 * :doc:`buildstream-architecture`
-* :doc:`buildstream-api-reference`
 * :doc:`buildstream-pipelines`
 * :doc:`buildstream_troubleshooting`
 
 .. note::
-   Resume and Retry capabilities are automatically available in BuildStream. No special configuration required. For pipeline execution procedures, see :doc:`buildstream-pipelines`. For troubleshooting, see :doc:`buildstream_troubleshooting`.
+   Resume and Retry capabilities are automatically available in BuildStreaM. No special configuration required. For pipeline execution procedures, see :doc:`buildstream-pipelines`. For troubleshooting, see :doc:`buildstream_troubleshooting`.
 
-.. [SME VALIDATION REQUIRED: Verify all resume and retry logic, stage guard rules, and attempt tracking against actual BuildStream implementation]
+.. [SME VALIDATION REQUIRED: Verify all resume and retry logic, stage guard rules, and attempt tracking against actual BuildStreaM implementation]

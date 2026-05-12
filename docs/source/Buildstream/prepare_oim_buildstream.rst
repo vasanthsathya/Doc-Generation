@@ -112,7 +112,7 @@ Add necessary inputs to the ``telemetry_config.yml`` file for the telemetry conf
 **BuildStreaM Additional Configuration**
 --------------------------------------------------
 
-BuildStreaM introduces additional configuration parameters for OAuth 2.0 authentication, automation framework setup, and storage backend selection.
+BuildStreaM introduces additional configuration parameters for storage backend selection.
 
 ``build_stream_config.yml`` ( Parameters)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -125,18 +125,13 @@ Add the following parameters to ``build_stream_config.yml``:
    build_stream_port: 5001
    # ... other parameters ...
 
-   # OAuth configuration parameters
-   oauth_enabled: true
-   oauth_client_id: "buildstream_client"
-   oauth_client_secret: "[TO BE PROVIDED: OAuth client secret]"
-   oauth_token_url: "https://oauth-server.example.com/oauth/token"
    image_retention_limit: 50
    storage_backend: "nfs"  # or "powerscale"
    automated_cleanup_enabled: true
    automated_cleanup_schedule: "0 2 * * *"  # Daily at 2 AM
 
 .. note::
-   OAuth 2.0 authentication is required for BuildStreaM . The OAuth client registration process varies depending on your OAuth provider (Hydra, Keycloak, Auth0, etc.). See :doc:`buildstream-release2-migration` for OAuth client registration procedures.
+   OAuth 2.0 authentication parameters are configured separately. For OAuth configuration details, see :doc:`buildstream-architecture`.
 
 ``storage_config.yml`` ( Storage Backend Selection)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -232,7 +227,7 @@ its dependent services are running correctly.
 
 5. Review the status of the dependent services in the following tree output. 
 
-   .. note:: The ``prepare_oim.yml`` deploys the following on the OIM node only when BuildStream is enabled on the ``build_stream_config.yml``.
+   .. note:: The ``prepare_oim.yml`` deploys the following on the OIM node only when BuildStreaM is enabled on the ``build_stream_config.yml``.
 
       * PostgreSQL database container
       * BuildStreaM API container 
@@ -287,19 +282,6 @@ its dependent services are running correctly.
       ls -la /opt/omnia/automation/
 
    Expected directories: ``.venv/``, ``automation_library/``, ``molecule/``, ``run_molecule.sh``, ``setup_env.sh``, ``omnia_test_config.yml``
-
-9. Verify OAuth authentication configuration ( only):
-
-   .. code-block:: bash
-
-      # Test OAuth token retrieval
-      curl -X POST https://<oauth-server>:4444/oauth/token \
-        -d "grant_type=client_credentials" \
-        -d "client_id=<buildstream_client_id>" \
-        -d "client_secret=<buildstream_client_secret>" \
-        -d "scope=buildstream:read buildstream:write"
-
-   Expected output: JWT access token
 
 View Usage Instructions for OpenCHAMI Containers
 --------------------------------------------------

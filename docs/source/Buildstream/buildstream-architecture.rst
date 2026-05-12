@@ -1,16 +1,16 @@
 .. _buildstream-architecture:
 
-BuildStream Architecture Overview
+BuildStreaM Architecture Overview
 ==================================
 
 BuildStream provides a three-pipeline architecture that separates build, deployment, and validation workflows. This overview explains the key architectural concepts, components, and benefits for HPC infrastructure automation.
 
-What Is BuildStream?
+What Is BuildStreaM?
 --------------------
 
-BuildStream is a RESTful API service that automates the end-to-end workflow for building, deploying, validating, and managing Omnia OS images. It provides a programmatic interface for both human operators and CI/CD pipelines to orchestrate the image lifecycle through a decoupled, event-driven architecture.
+BuildStreaM is a RESTful API service that automates the end-to-end workflow for building, deploying, validating, and managing Omnia OS images. It provides a programmatic interface for both human operators and CI/CD pipelines to orchestrate the image lifecycle through a decoupled, event-driven architecture.
 
-Why BuildStream Architecture Matters
+Why BuildStreaM Architecture Matters
 -------------------------------------
 
 The three-pipeline architecture provides several key benefits:
@@ -18,7 +18,7 @@ The three-pipeline architecture provides several key benefits:
 **Independent Pipeline Execution**
 
    - Build pipeline can run independently of deployment activities
-   - Deploy & Validate pipeline can be triggered separately based on infrastructure readiness
+   - Deploy and Validate pipeline can be triggered separately based on infrastructure readiness
    - CleanUp pipeline can be scheduled independently for maintenance
 
 **Improved Resource Management**
@@ -45,9 +45,9 @@ How BuildStream Architecture Works
 Three-Pipeline Model
 ~~~~~~~~~~~~~~~~~~~~
 
-BuildStream organizes workflows into three distinct pipelines:
+BuildStreaM organizes workflows into three distinct pipelines:
 
-**Build Pipeline (``.gitlab-ci-build.yml``)**
+**Build Pipeline (``/de.gitlab-ci-build.yml``)**
 
    - Triggered by catalog or configuration file changes
    - Creates Job and Image Group entities
@@ -55,7 +55,7 @@ BuildStream organizes workflows into three distinct pipelines:
    - Establishes the 1:1 Job ID ↔ Image Group ID mapping
    - Produces OS images as output artifacts
 
-**Deploy & Validate Pipeline (``.gitlab-ci-deploy.yml``)**
+**Deploy and Validate Pipeline (``.gitlab-ci-deploy.yml``)**
 
    - Triggered by PXE mapping file changes
    - Selects existing Job ID via ``ListImages`` API
@@ -120,11 +120,11 @@ BUILT → DEPLOYING → DEPLOYED → RESTARTING → RESTARTED → VALIDATING →
 OAuth 2.0 Authentication
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-BuildStream uses OAuth 2.0 client credentials flow for authentication:
+BuildStreaM uses OAuth 2.0 client credentials flow for authentication:
 
 **Authentication Flow:**
 
-1. Client registers with BuildStream API (System Administrator task)
+1. Client registers with BuildStreaM API (System Administrator task)
 2. Client receives ``client_id`` and ``client_secret``
 3. Client requests JWT token from OAuth authorization server
 4. Client includes JWT bearer token in ``Authorization`` header
@@ -140,7 +140,7 @@ BuildStream uses OAuth 2.0 client credentials flow for authentication:
 Resume and Retry Capabilities
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-BuildStream provides intelligent execution management:
+BuildStreaM provides intelligent execution management:
 
 **Build Stage Resume:**
 
@@ -176,12 +176,12 @@ BuildStream configuration includes the following parameters:
 GitLab CI/CD Pipeline Structure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-BuildStream uses a parent router with dynamic child pipelines:
+BuildStreaM uses a parent router with dynamic child pipelines:
 
 **Pipeline Files:**
 
    - ``.gitlab-ci-build.yml`` — Build pipeline (catalog/config triggers)
-   - ``.gitlab-ci-deploy.yml`` — Deploy & Validate pipeline (PXE mapping triggers)
+   - ``.gitlab-ci-deploy.yml`` — Deploy and Validate pipeline (PXE mapping triggers)
    - ``.gitlab-ci-cleanup.yml`` — CleanUp pipeline (manual or scheduled triggers)
    - ``.gitlab-ci.yml`` — Parent pipeline router
 
@@ -200,6 +200,6 @@ Related Topics
 * :doc:`buildstream_tables`
 
 .. note::
-   This topic provides an architectural overview of BuildStream. For detailed API documentation, see :doc:`buildstream-api-reference`. For pipeline execution procedures, see :doc:`buildstream-pipelines`.
+   This topic provides an architectural overview of BuildStreaM. For pipeline execution procedures, see :doc:`buildstream-pipelines`.
 
-.. [SME VALIDATION REQUIRED: Verify all architectural details against actual BuildStream implementation]
+.. [SME VALIDATION REQUIRED: Verify all architectural details against actual BuildStreaM implementation]

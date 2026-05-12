@@ -10,12 +10,12 @@ Stage: Health Check
 
 **Possible Cause**: This issue indicates one of the following problems:
 
-   - GitLab target IP and host IP of the BuildStream API server should be reachable from each other.
-   - BuildStream containers are not running properly.
+   - GitLab target IP and host IP of the BuildStreaM API server should be reachable from each other.
+   - BuildStreaM containers are not running properly.
 
 **Resolution**:
 
-1. Ensure the GitLab target IP and BuildStream API server are in the same subnet.
+1. Ensure the GitLab target IP and BuildStreaM API server are in the same subnet.
 
 2. Verify that the ``omnia_build_stream`` container and the ``omnia_postgres`` and ``playbook_watcher`` services are running on the OIM node. To check the status of the containers, run the following command:
  
@@ -196,7 +196,7 @@ OAuth Authentication Issues
 
       journalctl -u omnia_auth --no-pager
 
-**Issue**: Pipeline fails with ``insufficient_scope`` error when accessing BuildStream API.
+**Issue**: Pipeline fails with ``insufficient_scope`` error when accessing BuildStreaM API.
 
 **Possible Cause**: OAuth token does not have the required scopes (``buildstream:read`` or ``buildstream:write``).
 
@@ -336,7 +336,7 @@ Resume and Retry Issues
 
 **Resolution**:
 
-1. Verify the pipeline execution state in the BuildStream database:
+1. Verify the pipeline execution state in the BuildStreaM database:
 
    .. code-block:: bash
 

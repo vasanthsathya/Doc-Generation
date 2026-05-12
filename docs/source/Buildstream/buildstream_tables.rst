@@ -126,7 +126,7 @@ The following table describes the OAuth 2.0 configuration parameters added in Bu
      - Description
      - Default Value
    * - ``oauth_enabled``
-     - Enable or disable OAuth 2.0 authentication for BuildStream API access. Set to ``true`` to enable OAuth, ``false`` to use legacy authentication.
+     - Enable or disable OAuth 2.0 authentication for BuildStreaM API access. Set to ``true`` to enable OAuth, ``false`` to use legacy authentication.
      - ``false``
    * - ``oauth_client_id``
      - OAuth 2.0 client identifier registered with the Omnia Auth service. This client ID is used to obtain JWT access tokens for API authentication.
@@ -160,7 +160,7 @@ BuildStreaM supports multiple storage backends for build artifacts. The followin
      - Description
      - Default Value
    * - ``storage_backend``
-     - Storage backend type for BuildStream artifacts. Valid values: ``nfs`` (Network File System) or ``powerscale`` (Dell PowerScale).
+     - Storage backend type for BuildStreaM artifacts. Valid values: ``nfs`` (Network File System) or ``powerscale`` (Dell PowerScale).
      - ``nfs``
    * - ``nfs_server``
      - NFS server hostname or IP address (required when ``storage_backend`` is ``nfs``).
@@ -175,7 +175,7 @@ BuildStreaM supports multiple storage backends for build artifacts. The followin
      - Dell PowerScale port number for API access (required when ``storage_backend`` is ``powerscale``).
      - ``8080``
    * - ``powerscale_access_zone``
-     - PowerScale access zone for BuildStream artifacts (required when ``storage_backend`` is ``powerscale``).
+     - PowerScale access zone for BuildStreaM artifacts (required when ``storage_backend`` is ``powerscale``).
      - ``System``
    * - ``powerscale_username``
      - PowerScale username for authentication (required when ``storage_backend`` is ``powerscale``).

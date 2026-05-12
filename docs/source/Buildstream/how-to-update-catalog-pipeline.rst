@@ -1,41 +1,48 @@
 .. _how-to-buildstream-update-catalog-pipeline:
 
-Step 5: Update Catalog and Execute Omnia BuildStreaM Pipeline
-===============================================================
-Update the ``catalog_rhel.json`` file and monitor pipeline execution through GitLab. This procedure covers catalog modifications, automatic pipeline triggering, and verification of pipeline status and job execution.
+Updating BuildStreaM Catalogs and Managing Pipelines
+====================================================
+
+Update the ``catalog_rhel.json`` file to trigger BuildStreaM pipelines and monitor execution through GitLab. This procedure covers catalog modifications, pipeline type selection, and GitLab CI/CD integration.
+
+.. contents:: On This Page
+   :local:
+   :depth: 2
 
 Prerequisites
 -------------
 
-Before updating catalogs and checking pipelines:
+Before updating catalogs and managing pipelines:
 
-* Deploy and Configure BuildStreaM Container on OIM Node (see :doc:`prepare_oim_buildstream`)
-* GitLab deployment for BuildStreaM is completed (see :doc:`how-to-gitlab-deployment`)
-* Confirm that you can access GitLab project repository
+* Deploy and configure BuildStreaM container on OIM node (see :doc:`prepare_oim_buildstream`)
+* Complete GitLab deployment for BuildStreaM (see :doc:`how-to-gitlab-deployment`)
+* Verify access to the GitLab project repository
 
 BuildStreaM Catalog Structure
 ----------------------------------------
 
-BuildStreaM introduces an enhanced catalog structure with support for pipeline type selection and OAuth authentication:
+BuildStreaM uses an enhanced catalog structure with support for pipeline type selection:
 
 **Pipeline Type Selection**
 
    The catalog metadata includes a ``pipeline_type`` parameter that determines which child pipeline is triggered:
 
-   - ``build`` - Triggers the BUILD pipeline (Prepare, Build, Verify stages)
-   - ``deploy`` - Triggers the DEPLOY pipeline (Prepare, Deploy, Verify stages)
+   - ``build`` - Triggers the BUILD pipeline (see :doc:`how-to-buildstream-build-pipeline`)
+   - ``deploy`` - Triggers the DEPLOY pipeline (see :doc:`how-to-buildstream-deploy-pipeline`)
    - ``cleanup`` - Triggers the CLEANUP pipeline (removes stale artifacts)
 
 **OAuth Authentication Configuration**
 
-   If OAuth 2.0 is enabled in the BuildStream configuration, include the following parameters in the catalog metadata:
+   If OAuth 2.0 is enabled in the BuildStreaM configuration, include the following parameters in the catalog metadata:
 
    - ``oauth_enabled`` - Set to ``true`` to enable OAuth authentication
    - ``oauth_client_id`` - OAuth client identifier (configured in ``omnia_auth.service``)
    - ``oauth_token_url`` - OAuth token endpoint URL (typically ``https://<oim_host>:<auth_port>/oauth/token``)
    - ``oauth_scope`` - OAuth token scope (e.g., ``buildstream:read buildstream:write``)
 
-** Catalog Example**
+   For OAuth configuration details, see :doc:`buildstream-architecture`.
+
+**Catalog Example**
 
    .. code-block:: json
 
@@ -59,28 +66,26 @@ BuildStreaM introduces an enhanced catalog structure with support for pipeline t
         ]
       }
 
-**Pipeline Stages**
-
-   BuildStreaM uses the following pipeline stages:
-
-   - **Prepare** - Sets up the build environment and validates catalog entries
-   - **Build** - Builds the specified images (BUILD pipeline only)
-   - **Deploy** - Deploys images to cluster nodes (DEPLOY pipeline only)
-   - **Verify** - Validates the build or deployment results
-   - **Cleanup** - Removes stale artifacts and frees storage (CLEANUP pipeline only)
-
 Procedure
 ---------
 
-1. Go to the GitLab project URL::
+#. **Navigate to the GitLab project URL**
 
-    https://<gitlab_host>:<gitlab_https_port>/root/<gitlab_project_name>
+   Navigate to:
 
-2. Go to **Code** → **Repository**.
-3. Locate the catalog file ``catalog_rhel.json``.
-4. Modify the ``catalog_rhel.json`` file to define your build requirements.
+   .. code-block:: text
 
-.. note:: Ensure that the catalog file is updated with valid functional group names, architecture types, operating system types and versions, and package types. The pipeline fails if invalid details are provided.
+      https://<gitlab_host>:<gitlab_https_port>/root/<gitlab_project_name>
+
+#. **Locate the catalog file**
+
+   Go to **Code** → **Repository** and locate the catalog file ``catalog_rhel.json``.
+
+#. **Modify the catalog file**
+
+   Modify the ``catalog_rhel.json`` file to define your build requirements.
+
+   .. note:: Ensure that the catalog file is updated with valid functional group names, architecture types, operating system types and versions, and package types. The pipeline fails if invalid details are provided.
 
    The following are the supported values:
       - **Functional group names**: For supported functional group names, see :ref:`functional-groups-section`.
@@ -88,36 +93,53 @@ Procedure
       - **OS type**: ``RHEL``, see :ref:`supported OS types and versions <redhat-support-matrix>`.
       - **OS version**: ``10.0``, see :ref:`supported OS types and versions <redhat-support-matrix>`.
       - **Package types**: ``rpm``, ``rpm_repo``, ``image``, ``iso``, ``tarball``, ``pip_module``, ``git``, ``manifest``.
-       
 
-5. To trigger the pipeline, commit and push catalog changes.
+#. **Set the pipeline type**
 
-.. note::
-   * BuildStreaM uses a three-pipeline architecture (parent router + dynamic child pipelines). The parent pipeline (``.gitlab-ci.yml``) analyzes the catalog and triggers the appropriate child pipeline (BUILD, DEPLOY, or CLEANUP) based on the ``pipeline_type`` parameter.
-   * Each child pipeline processes the catalog entries independently and executes the corresponding workflow stages.
-   * BuildStream pipeline behaviour is controlled by the GitLab CI/CD configuration in your environment.   
+   Configure the ``pipeline_type`` parameter in the catalog metadata to trigger the appropriate pipeline:
 
-The following image shows the BuildStreaM pipeline is currently running and the stages are being executed:
+   - Set to ``build`` to trigger the build pipeline
+   - Set to ``deploy`` to trigger the deploy pipeline
+   - Set to ``cleanup`` to trigger the cleanup pipeline
+
+#. **Commit and push catalog changes**
+
+   To trigger the pipeline, commit and push catalog changes.
+
+   .. note::
+      BuildStreaM uses a three-pipeline architecture (parent router + dynamic child pipelines). The parent pipeline (``.gitlab-ci.yml``) analyzes the catalog and triggers the appropriate child pipeline (BUILD, DEPLOY, or CLEANUP) based on the ``pipeline_type`` parameter.
+      Each child pipeline processes the catalog entries independently and executes the corresponding workflow stages.
+      BuildStreaM pipeline behaviour is controlled by the GitLab CI/CD configuration in your environment.
+
+Monitoring Pipeline Execution
+-----------------------------
+
+#. **Track pipeline progress through GitLab**
+
+   The following image shows the BuildStreaM pipeline currently running and the stages being executed:
 
    .. image:: ../images/buildstream_pipeline_running.png
-   
-6. Perform the following steps to track the pipeline progress through the GitLab web interface:
 
-      a. Navigate to **Build** → **Pipeline**.
-      b. Click on the running pipeline to view details.
-      c. Monitor the parent pipeline status and the triggered child pipeline:
+   Perform the following steps to track the pipeline progress through the GitLab web interface:
 
-         **Parent Pipeline Stages**:
-            - **parse-catalog**: Parses catalog file and determines pipeline type
-            - **trigger-child-pipeline**: Triggers the appropriate child pipeline based on ``pipeline_type``
+   a. Navigate to **Build** → **Pipeline**.
+   b. Click on the running pipeline to view details.
+   c. Monitor the parent pipeline status and the triggered child pipeline:
 
-         **Child Pipeline Stages**:
-            - **BUILD Pipeline**: Prepare → Build → Verify
-            - **DEPLOY Pipeline**: Prepare → Deploy → Verify
-            - **CLEANUP Pipeline**: Cleanup
+      **Parent Pipeline Stages**:
+         - **parse-catalog**: Parses catalog file and determines pipeline type
+         - **trigger-child-pipeline**: Triggers the appropriate child pipeline based on ``pipeline_type``
 
-The following image shows each stage of the BuildStreaM pipeline and its status:
-   .. image:: ../images/buildstream_pipeline_stages.png  
+      **Child Pipeline Stages**:
+         - **BUILD Pipeline**: Prepare → Build → Verify
+         - **DEPLOY Pipeline**: Prepare → Deploy → Verify
+         - **CLEANUP Pipeline**: Cleanup
+
+#. **Review stage status**
+
+   The following image shows each stage of the BuildStreaM pipeline and its status:
+
+   .. image:: ../images/buildstream_pipeline_stages.png
 
    Expected pipeline status indicators:
       - |success| **Green checkmark**: Stage completed successfully
@@ -128,9 +150,12 @@ The following image shows each stage of the BuildStreaM pipeline and its status:
 .. |failed| image:: ../images/Icons/red_x.png
 .. |running| image:: ../images/Icons/blue_circle.png
 
-The following image shows overall pipeline status:
+#. **Check overall pipeline status**
+
+   The following image shows overall pipeline status:
+
    .. image:: ../images/buildstream_pipeline_passed.png
-      
+
 Verification
 ------------
 
@@ -146,10 +171,21 @@ After the pipeline is completed, you can check the overall pipeline status and j
 Next Steps
 -----------
 
-After successful execution of the pipeline, do one of the following:
+After successful execution of the pipeline:
 
-* Manually PXE boot the nodes to deploy the images.
+* For build pipelines, proceed to deployment (see :doc:`how-to-buildstream-deploy-pipeline`)
+* For deploy pipelines, proceed to validation (see :doc:`how-to-buildstream-validate-pipeline`)
+* Manually PXE boot the nodes to deploy the images if needed
 * Use the PXE boot utility to deploy the images. See :doc:`set_pxe_boot_order_buildstream` for detailed instructions.
 
 .. note::
-   BuildStreaM introduces a three-pipeline architecture with simplified stages (Prepare, Build, Deploy, Verify, Cleanup) and OAuth 2.0 authentication support. For detailed information on  pipeline architecture and catalog configuration, see :doc:`buildstream-release2-pipelines` and :doc:`buildstream-release2-api-reference`.
+   BuildStreaM uses a three-pipeline architecture with parent router and dynamic child pipelines. For detailed information on pipeline architecture and GitLab configuration, see :doc:`buildstream-pipelines`. For OAuth configuration details, see :doc:`buildstream-architecture`.
+
+Related Topics
+--------------
+
+* :doc:`how-to-buildstream-build-pipeline`
+* :doc:`how-to-buildstream-deploy-pipeline`
+* :doc:`how-to-buildstream-validate-pipeline`
+* :doc:`buildstream-architecture`
+* :doc:`buildstream-pipelines`

@@ -1,479 +1,43 @@
 .. _buildstream-pipelines:
 
-BuildStream Pipeline Workflows
-==============================
+BuildStreaM GitLab CI/CD Pipeline Configuration
+===============================================
 
-BuildStream introduces a three-pipeline architecture that separates build, deployment, and validation workflows. This guide provides step-by-step instructions for executing each pipeline type.
+This guide provides GitLab CI/CD pipeline configuration examples for BuildStreaM. For step-by-step execution procedures, see the pipeline-specific how-to guides: :doc:`how-to-buildstream-build-pipeline`, :doc:`how-to-buildstream-deploy-pipeline`, and :doc:`how-to-buildstream-validate-pipeline`.
+
+.. contents:: On This Page
+   :local:
+   :depth: 2
 
 Prerequisites
 -------------
 
-Before executing BuildStream pipelines, ensure the following:
+Before configuring BuildStreaM GitLab CI/CD pipelines:
 
-- **BuildStream API Service Running**
-  - BuildStream container is running and accessible
-  - PostgreSQL database is operational
-  - Playbook watcher service is active
+* BuildStreaM API service running and accessible
+* GitLab instance deployed and configured (see :doc:`how-to-gitlab-deployment`)
+* OAuth 2.0 client credentials configured (if OAuth authentication is enabled)
+* BuildStreaM project repository created in GitLab
 
-- **OAuth Authentication**
-  - OAuth client credentials configured
-  - Valid JWT token available for API requests
+Pipeline Architecture Overview
+-----------------------------
 
-- **GitLab CI/CD Configuration**
-  - Three-pipeline GitLab CI/CD configuration deployed
-  - Parent pipeline router configured
-  - Dynamic child pipeline generation enabled
+BuildStreaM uses a parent pipeline router with dynamic child pipeline generation. For detailed architectural information, see :doc:`buildstream-architecture`.
 
-- **Input Files Prepared**
-  - Catalog JSON file (``catalog_rhel.json``) for build pipeline
-  - Configuration files for build pipeline
-  - PXE mapping file (``pxe_mapping_file.csv``) for deploy pipeline
+**Parent Pipeline Router**
 
-Build Pipeline Workflow
-----------------------
+The parent pipeline (``.gitlab-ci.yml``) acts as a router that analyzes the catalog file and dynamically generates child pipelines based on the ``pipeline_type`` parameter in the catalog metadata.
 
-The Build Pipeline creates OS images from catalog definitions and configuration files. It is triggered by changes to catalog or configuration files.
+**Dynamic Child Pipelines**
 
-Step 1: Create Job
-~~~~~~~~~~~~~~~~~~
+* **BUILD Pipeline** (``.gitlab-ci-build.yml``) — Triggered by ``pipeline_type: build``
+* **DEPLOY Pipeline** (``.gitlab-ci-deploy.yml``) — Triggered by ``pipeline_type: deploy``
+* **CLEANUP Pipeline** (``.gitlab-ci-cleanup.yml``) — Triggered by ``pipeline_type: cleanup``
 
-Create a new Job to track the build pipeline execution.
+Parent Pipeline Configuration (.gitlab-ci.yml)
+--------------------------------------------
 
-.. code-block:: bash
-
-   curl -X POST https://<buildstream-host>:5001/api/v1/jobs \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci" \
-     -H "X-Correlation-Id: build-001" \
-     -H "Idempotency-Key: build-$(date +%Y%m%d-%H%M%S)" \
-     -H "Content-Type: application/json" \
-     -d '{
-       "client_id": "gitlab-ci",
-       "client_name": "GitLab CI/CD Pipeline"
-     }'
-
-**Expected Response:**
-
-.. code-block:: json
-
-   {
-     "job_id": "018f3c4b-7b5b-4c4e-9c4e-3b5b4c4e9c4e",
-     "state": "CREATED",
-     "stages": [
-       {"name": "parse-catalog", "state": "PENDING"},
-       {"name": "generate-input-files", "state": "PENDING"},
-       {"name": "create-local-repository", "state": "PENDING"},
-       {"name": "build-image", "state": "PENDING"}
-     ],
-     "created_at": "2026-05-11T10:00:00Z",
-     "client_id": "gitlab-ci"
-   }
-
-Record the ``job_id`` for subsequent steps.
-
-Step 2: Upload Input Files
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Upload catalog and configuration files to the BuildStream input directory.
-
-.. code-block:: bash
-
-   curl -X PUT https://<buildstream-host>:5001/api/v1/jobs/{job_id}/upload \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci" \
-     -H "X-Correlation-Id: build-002" \
-     -F "catalog=@catalog_rhel.json" \
-     -F "network_config=@network_config.yml" \
-     -F "local_repo_config=@local_repo_config.yml"
-
-**File Upload Constraints:**
-
-   - Maximum file size: 5 MB per file
-   - Maximum archive size: 50 MB uncompressed
-   - Allowed file types: JSON, YAML, CSV, TXT
-   - Path traversal sequences (``../``) are rejected
-
-Step 3: Execute Parse Catalog Stage
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Parse the catalog JSON file to generate adapter policy output.
-
-.. code-block:: bash
-
-   curl -X POST https://<buildstream-host>:5001/api/v1/jobs/{job_id}/stages/parse-catalog \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci" \
-     -H "X-Correlation-Id: build-003" \
-     -H "Content-Type: multipart/form-data" \
-     -F "catalog=@catalog_rhel.json"
-
-**Expected Response (202 Accepted):**
-
-.. code-block:: json
-
-   {
-     "job_id": "018f3c4b-7b5b-4c4e-9c4e-3b5b4c4e9c4e",
-     "stage": "parse-catalog",
-     "status": "accepted",
-     "submitted_at": "2026-05-11T10:01:00Z",
-     "correlation_id": "build-003"
-   }
-
-Step 4: Execute Generate Input Files Stage
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Generate input files from the parsed catalog output.
-
-.. code-block:: bash
-
-   curl -X POST https://<buildstream-host>:5001/api/v1/jobs/{job_id}/stages/generate-input-files \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci" \
-     -H "X-Correlation-Id: build-004"
-
-**Expected Response (202 Accepted):**
-
-.. code-block:: json
-
-   {
-     "job_id": "018f3c4b-7b5b-4c4e-9c4e-3b5b4c4e9c4e",
-     "stage": "generate-input-files",
-     "status": "accepted",
-     "submitted_at": "2026-05-11T10:02:00Z",
-     "correlation_id": "build-004"
-   }
-
-Step 5: Execute Create Local Repository Stage
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Create a local package repository from input files via Ansible playbook.
-
-.. code-block:: bash
-
-   curl -X POST https://<buildstream-host>:5001/api/v1/jobs/{job_id}/stages/create-local-repository \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci" \
-     -H "X-Correlation-Id: build-005"
-
-**Expected Response (202 Accepted):**
-
-.. code-block:: json
-
-   {
-     "job_id": "018f3c4b-7b5b-4c4e-9c4e-3b5b4c4e9c4e",
-     "stage": "create-local-repository",
-     "status": "accepted",
-     "submitted_at": "2026-05-11T10:03:00Z",
-     "correlation_id": "build-005"
-   }
-
-Step 6: Execute Build Image Stage
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Build the OS image using the local repository and parsed catalog output.
-
-.. code-block:: bash
-
-   curl -X POST https://<buildstream-host>:5001/api/v1/jobs/{job_id}/stages/build-image \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci" \
-     -H "X-Correlation-Id: build-006"
-
-**Expected Response (202 Accepted):**
-
-.. code-block:: json
-
-   {
-     "job_id": "018f3c4b-7b5b-4c4e-9c4e-3b5b4c4e9c4e",
-     "stage": "build-image",
-     "status": "accepted",
-     "submitted_at": "2026-05-11T10:04:00Z",
-     "correlation_id": "build-006"
-   }
-
-Step 7: Monitor Job Status
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Monitor the Job status and stage execution progress.
-
-.. code-block:: bash
-
-   curl -X GET https://<buildstream-host>:5001/api/v1/jobs/{job_id} \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci"
-
-**Expected Response (COMPLETED):**
-
-.. code-block:: json
-
-   {
-     "job_id": "018f3c4b-7b5b-4c4e-9c4e-3b5b4c4e9c4e",
-     "state": "COMPLETED",
-     "stages": [
-       {"name": "parse-catalog", "state": "COMPLETED"},
-       {"name": "generate-input-files", "state": "COMPLETED"},
-       {"name": "create-local-repository", "state": "COMPLETED"},
-       {"name": "build-image", "state": "COMPLETED"}
-     ],
-     "created_at": "2026-05-11T10:00:00Z",
-     "updated_at": "2026-05-11T10:30:00Z",
-     "client_id": "gitlab-ci"
-   }
-
-Step 8: Verify Build Completion
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Verify that the Image Group was created successfully.
-
-.. code-block:: bash
-
-   curl -X GET "https://<buildstream-host>:5001/api/v1/images?status=BUILT" \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci"
-
-**Expected Response:**
-
-.. code-block:: json
-
-   {
-     "image_groups": [
-       {
-         "image_group_id": "image-build19",
-         "job_id": "018f3c4b-7b5b-4c4e-9c4e-3b5b4c4e9c4e",
-         "status": "BUILT",
-         "created_at": "2026-05-11T10:30:00Z",
-         "constituent_images": [...]
-       }
-     ],
-     "total_count": 1
-   }
-
-Deploy & Validate Pipeline Workflow
----------------------------------
-
-The Deploy & Validate Pipeline deploys built images to target nodes, restarts nodes via PXE boot, and validates the deployment. It is triggered by PXE mapping file changes.
-
-Step 1: Select Image Group
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-List available Image Groups and select the one to deploy.
-
-.. code-block:: bash
-
-   curl -X GET "https://<buildstream-host>:5001/api/v1/images?status=BUILT" \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci"
-
-Record the ``image_group_id`` and ``job_id`` for deployment.
-
-Step 2: Upload Updated Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Upload updated configuration files for deployment.
-
-.. code-block:: bash
-
-   curl -X PUT https://<buildstream-host>:5001/api/v1/jobs/{job_id}/upload \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci" \
-     -F "pxe_mapping=@pxe_mapping_file.csv"
-
-Step 3: Execute Deploy Stage
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Deploy the Image Group to target nodes.
-
-.. code-block:: bash
-
-   curl -X POST https://<buildstream-host>:5001/api/v1/jobs/{job_id}/stages/deploy \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci" \
-     -H "Content-Type: application/json" \
-     -d '{"image_group_id": "image-build19"}'
-
-**Expected Response (202 Accepted):**
-
-.. code-block:: json
-
-   {
-     "job_id": "018f3c4b-7b5b-4c4e-9c4e-3b5b4c4e9c4e",
-     "stage": "deploy",
-     "status": "accepted",
-     "submitted_at": "2026-05-11T11:00:00Z",
-     "correlation_id": "deploy-001"
-   }
-
-**Image Group State Transition:** ``BUILT`` → ``DEPLOYING`` → ``DEPLOYED``
-
-Step 4: Execute Restart Stage
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Restart target nodes via PXE boot with node diff handling.
-
-.. code-block:: bash
-
-   curl -X POST https://<buildstream-host>:5001/api/v1/jobs/{job_id}/stages/restart \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci" \
-     -H "Content-Type: application/json" \
-     -d '{"disable_pxe_boot": false}'
-
-**Request Parameters:**
-
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| ``disable_pxe_boot`` | boolean | No | ``false`` | If ``true``, skip PXE boot for this restart request |
-
-**Expected Response (202 Accepted):**
-
-.. code-block:: json
-
-   {
-     "job_id": "018f3c4b-7b5b-4c4e-9c4e-3b5b4c4e9c4e",
-     "stage": "restart",
-     "status": "accepted",
-     "submitted_at": "2026-05-11T11:15:00Z",
-     "correlation_id": "deploy-002"
-   }
-
-**Image Group State Transition:** ``DEPLOYED`` → ``RESTARTING`` → ``RESTARTED``
-
-**Node Diff Logic:** Only newly added nodes (not previously booted with the current image) are PXE-booted.
-
-Step 5: Execute Validate Stage
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Validate the deployment via Molecule test framework.
-
-.. code-block:: bash
-
-   curl -X POST https://<buildstream-host>:5001/api/v1/jobs/{job_id}/stages/validate \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci" \
-     -H "Content-Type: application/json" \
-     -d '{"test_suite": "basic", "timeout": 600}'
-
-**Request Parameters:**
-
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| ``test_suite`` | string | No | All basic tests | Specific test suite to run (``smoke``, ``sanity``, ``regression``) |
-| ``timeout`` | integer | No | 600 | Timeout in seconds |
-
-**Expected Response (202 Accepted):**
-
-.. code-block:: json
-
-   {
-     "job_id": "018f3c4b-7b5b-4c4e-9c4e-3b5b4c4e9c4e",
-     "stage": "validate",
-     "status": "accepted",
-     "submitted_at": "2026-05-11T11:30:00Z",
-     "correlation_id": "deploy-003"
-   }
-
-**Image Group State Transition:** ``RESTARTED`` → ``VALIDATING`` → ``PASSED`` or ``FAILED``
-
-Step 6: Monitor Deployment Status
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Monitor the Job status to track deployment progress.
-
-.. code-block:: bash
-
-   curl -X GET https://<buildstream-host>:5001/api/v1/jobs/{job_id} \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci"
-
-**Expected Response (PASSED):**
-
-.. code-block:: json
-
-   {
-     "job_id": "018f3c4b-7b5b-4c4e-9c4e-3b5b4c4e9c4e",
-     "state": "COMPLETED",
-     "stages": [
-       {"name": "deploy", "state": "COMPLETED"},
-       {"name": "restart", "state": "COMPLETED"},
-       {"name": "validate", "state": "COMPLETED"}
-     ],
-     "created_at": "2026-05-11T11:00:00Z",
-     "updated_at": "2026-05-11T12:00:00Z",
-     "client_id": "gitlab-ci"
-   }
-
-CleanUp Pipeline Workflow
-------------------------
-
-The CleanUp Pipeline removes artifacts and images for completed or failed Jobs. It can be triggered manually or via scheduled automation.
-
-Step 1: Select Job for Cleanup
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-List Jobs and select the one to clean up.
-
-.. code-block:: bash
-
-   curl -X GET "https://<buildstream-host>:5001/api/v1/images" \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci"
-
-Step 2: Execute CleanUp
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-Delete the Job and perform cleanup of associated artifacts and images.
-
-.. code-block:: bash
-
-   curl -X DELETE https://<buildstream-host>:5001/api/v1/jobs/{job_id} \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci" \
-     -H "X-Correlation-Id: cleanup-001"
-
-**Expected Response (204 No Content):**
-
-No response body on success.
-
-**Cleanup Actions:**
-
-   - Deletes all built OS images from S3 storage (``s3://boot-images``)
-   - Removes NFS artifact files (config files, catalog JSON, generated inputs)
-   - Transitions Image Group to ``CLEANED`` state
-   - Marks Job status as ``CLEANED``
-   - Records audit event with cleanup details
-
-**Image Group State Transition:** Any state → ``CLEANED``
-
-Step 3: Verify Cleanup
-~~~~~~~~~~~~~~~~~~~~~
-
-Verify that the Job and Image Group are in ``CLEANED`` state.
-
-.. code-block:: bash
-
-   curl -X GET https://<buildstream-host>:5001/api/v1/jobs/{job_id} \
-     -H "Authorization: Bearer <jwt_token>" \
-     -H "X-Client-Id: gitlab-ci"
-
-**Expected Response:**
-
-.. code-block:: json
-
-   {
-     "job_id": "018f3c4b-7b5b-4c4e-9c4e-3b5b4c4e9c4e",
-     "state": "CLEANED",
-     "created_at": "2026-05-11T10:00:00Z",
-     "updated_at": "2026-05-11T14:00:00Z",
-     "client_id": "gitlab-ci"
-   }
-
-GitLab CI/CD Pipeline Configuration
----------------------------------
-
-BuildStream uses a parent pipeline router with dynamic child pipeline generation.
-
-Parent Pipeline (.gitlab-ci.yml)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The parent pipeline routes to appropriate child pipelines based on catalog changes.
 
 .. code-block:: yaml
 
@@ -520,8 +84,10 @@ Parent Pipeline (.gitlab-ci.yml)
            ref: main
      when: manual
 
-Build Pipeline (.gitlab-ci-build.yml)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Build Pipeline Configuration (.gitlab-ci-build.yml)
+--------------------------------------------------
+
+The build pipeline executes the image build workflow through sequential stages.
 
 .. code-block:: yaml
 
@@ -540,7 +106,11 @@ Build Pipeline (.gitlab-ci-build.yml)
      stage: initialization
      script:
        - echo "Initializing build pipeline"
-       - curl -X POST $BUILDSTREAM_API/jobs -H "Authorization: Bearer $JWT_TOKEN" -d '{"client_id": "gitlab-ci"}'
+       - curl -X POST $BUILDSTREAM_API/jobs \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci" \
+         -H "Content-Type: application/json" \
+         -d '{"client_id": "gitlab-ci", "client_name": "GitLab CI/CD Pipeline"}'
      artifacts:
        reports:
          job_artifact: job_id.json
@@ -549,15 +119,61 @@ Build Pipeline (.gitlab-ci-build.yml)
      stage: parse-catalog
      script:
        - JOB_ID=$(cat job_id.json | jq -r '.job_id')
-       - curl -X PUT $BUILDSTREAM_API/jobs/$JOB_ID/upload -F "catalog=@catalog_rhel.json"
-       - curl -X POST $BUILDSTREAM_API/jobs/$JOB_ID/stages/parse-catalog -F "catalog=@catalog_rhel.json"
+       - curl -X PUT $BUILDSTREAM_API/jobs/$JOB_ID/upload \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci" \
+         -F "catalog=@catalog_rhel.json"
+       - curl -X POST $BUILDSTREAM_API/jobs/$JOB_ID/stages/parse-catalog \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci" \
+         -F "catalog=@catalog_rhel.json"
      dependencies:
        - initialization
 
-   # ... additional stages ...
+   generate-input-files:
+     stage: generate-input-files
+     script:
+       - JOB_ID=$(cat job_id.json | jq -r '.job_id')
+       - curl -X POST $BUILDSTREAM_API/jobs/$JOB_ID/stages/generate-input-files \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci"
+     dependencies:
+       - parse-catalog
 
-Deploy Pipeline (.gitlab-ci-deploy.yml)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   create-local-repository:
+     stage: create-local-repository
+     script:
+       - JOB_ID=$(cat job_id.json | jq -r '.job_id')
+       - curl -X POST $BUILDSTREAM_API/jobs/$JOB_ID/stages/create-local-repository \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci"
+     dependencies:
+       - generate-input-files
+
+   build-image:
+     stage: build-image
+     script:
+       - JOB_ID=$(cat job_id.json | jq -r '.job_id')
+       - curl -X POST $BUILDSTREAM_API/jobs/$JOB_ID/stages/build-image \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci"
+     dependencies:
+       - create-local-repository
+
+   summary:
+     stage: summary
+     script:
+       - JOB_ID=$(cat job_id.json | jq -r '.job_id')
+       - curl -X GET $BUILDSTREAM_API/jobs/$JOB_ID \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci"
+     dependencies:
+       - build-image
+
+Deploy Pipeline Configuration (.gitlab-ci-deploy.yml)
+----------------------------------------------------
+
+The deploy pipeline executes the deployment workflow through deploy, restart, and validate stages.
 
 .. code-block:: yaml
 
@@ -575,7 +191,9 @@ Deploy Pipeline (.gitlab-ci-deploy.yml)
      stage: select-image
      script:
        - echo "Selecting image for deployment"
-       - curl -X GET "$BUILDSTREAM_API/images?status=BUILT" -H "Authorization: Bearer $JWT_TOKEN" > images.json
+       - curl -X GET "$BUILDSTREAM_API/images?status=BUILT" \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci" > images.json
        - cat images.json
      artifacts:
        reports:
@@ -586,59 +204,181 @@ Deploy Pipeline (.gitlab-ci-deploy.yml)
      script:
        - IMAGE_GROUP_ID=$(cat images.json | jq -r '.image_groups[0].image_group_id')
        - JOB_ID=$(cat images.json | jq -r '.image_groups[0].job_id')
-       - curl -X PUT $BUILDSTREAM_API/jobs/$JOB_ID/upload -F "pxe_mapping=@pxe_mapping_file.csv"
-       - curl -X POST $BUILDSTREAM_API/jobs/$JOB_ID/stages/deploy -d "{\"image_group_id\": \"$IMAGE_GROUP_ID\"}"
+       - curl -X PUT $BUILDSTREAM_API/jobs/$JOB_ID/upload \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci" \
+         -F "pxe_mapping=@pxe_mapping_file.csv"
+       - curl -X POST $BUILDSTREAM_API/jobs/$JOB_ID/stages/deploy \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci" \
+         -H "Content-Type: application/json" \
+         -d "{\"image_group_id\": \"$IMAGE_GROUP_ID\"}"
      dependencies:
        - select-image
 
-   # ... additional stages ...
+   restart:
+     stage: restart
+     script:
+       - JOB_ID=$(cat images.json | jq -r '.image_groups[0].job_id')
+       - curl -X POST $BUILDSTREAM_API/jobs/$JOB_ID/stages/restart \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci" \
+         -H "Content-Type: application/json" \
+         -d '{"disable_pxe_boot": false}'
+     dependencies:
+       - deploy
 
-Verification
-------------
+   validate:
+     stage: validate
+     script:
+       - JOB_ID=$(cat images.json | jq -r '.image_groups[0].job_id')
+       - curl -X POST $BUILDSTREAM_API/jobs/$JOB_ID/stages/validate \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci" \
+         -H "Content-Type: application/json" \
+         -d '{"test_suite": "basic", "timeout": 600}'
+     dependencies:
+       - restart
 
-After executing any pipeline, verify the following:
+   summary:
+     stage: summary
+     script:
+       - JOB_ID=$(cat images.json | jq -r '.image_groups[0].job_id')
+       - curl -X GET $BUILDSTREAM_API/jobs/$JOB_ID \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci"
+     dependencies:
+       - validate
 
-**Build Pipeline Verification:**
+Cleanup Pipeline Configuration (.gitlab-ci-cleanup.yml)
+------------------------------------------------------
 
-   - [ ] Job state is ``COMPLETED``
-   - [ ] All stages show ``COMPLETED`` status
-   - [ ] Image Group created with ``BUILT`` status
-   - [ ] Constituent images listed in Image Group
-   - [ ] S3 storage contains built images
+The cleanup pipeline removes artifacts and images for specified jobs.
 
-**Deploy Pipeline Verification:**
+.. code-block:: yaml
 
-   - [ ] Job state is ``COMPLETED``
-   - [ ] All stages show ``COMPLETED`` status
-   - [ ] Image Group status is ``PASSED``
-   - [ ] Target nodes are accessible
-   - [ ] Services are running on deployed nodes
+   stages:
+     - select-job
+     - cleanup
+     - verify
 
-**CleanUp Pipeline Verification:**
+   variables:
+     PIPELINE_TYPE: "cleanup"
 
-   - [ ] Job state is ``CLEANED``
-   - [ ] Image Group status is ``CLEANED``
-   - [ ] S3 storage no longer contains Job images
-   - [ ] NFS artifacts removed
-   - [ ] Audit event recorded
+   select-job:
+     stage: select-job
+     script:
+       - echo "Selecting job for cleanup"
+       - curl -X GET "$BUILDSTREAM_API/images" \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci" > images.json
+       - cat images.json
+     artifacts:
+       reports:
+         job_artifact: images.json
 
-**Next Steps**
+   cleanup:
+     stage: cleanup
+     script:
+       - JOB_ID=$(cat images.json | jq -r '.image_groups[0].job_id')
+       - curl -X DELETE $BUILDSTREAM_API/jobs/$JOB_ID \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci"
+     dependencies:
+       - select-job
 
-After successful pipeline execution:
+   verify:
+     stage: verify
+     script:
+       - JOB_ID=$(cat images.json | jq -r '.image_groups[0].job_id')
+       - curl -X GET $BUILDSTREAM_API/jobs/$JOB_ID \
+         -H "Authorization: Bearer $JWT_TOKEN" \
+         -H "X-Client-Id: gitlab-ci"
+     dependencies:
+       - cleanup
 
-   - **Build Pipeline:** Proceed to deploy the built images using the Deploy Pipeline
-   - **Deploy Pipeline:** Monitor cluster performance and validate node functionality
-   - **CleanUp Pipeline:** Verify storage cleanup and audit trail completeness
+OAuth Authentication Integration
+------------------------------
+
+If OAuth 2.0 authentication is enabled, include token retrieval in your pipeline configuration.
+
+.. code-block:: yaml
+
+   before_script:
+     - |
+       # Obtain OAuth token
+       JWT_TOKEN=$(curl -X POST $OAUTH_TOKEN_URL \
+         -d "grant_type=client_credentials" \
+         -d "client_id=$BS_OAUTH_CLIENT_ID" \
+         -d "client_secret=$BS_OAUTH_CLIENT_SECRET" \
+         -d "scope=buildstream:read buildstream:write" \
+         | jq -r '.access_token')
+       export JWT_TOKEN
+
+Environment Variables
+---------------------
+
+Configure the following environment variables in your GitLab project settings:
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| ``BUILDSTREAM_API`` | BuildStreaM API endpoint | ``https://<oim-host>:5001/api/v1`` |
+| ``JWT_TOKEN`` | OAuth access token (if OAuth enabled) | Obtained via OAuth flow |
+| ``BS_OAUTH_CLIENT_ID`` | OAuth client ID | ``buildstream-client`` |
+| ``BS_OAUTH_CLIENT_SECRET`` | OAuth client secret | ``[your-secret]`` |
+| ``OAUTH_TOKEN_URL`` | OAuth token endpoint | ``https://<oim-host>:8443/oauth/token`` |
+
+Pipeline Execution
+------------------
+
+**Triggering Pipelines**
+
+* **Build Pipeline**: Commit changes to ``catalog_rhel.json`` or configuration files
+* **Deploy Pipeline**: Commit changes to ``pxe_mapping_file.csv``
+* **Cleanup Pipeline**: Manually trigger from GitLab web interface
+
+**Monitoring Pipeline Execution**
+
+1. Navigate to **Build** → **Pipelines** in GitLab
+2. Click on the running pipeline to view details
+3. Monitor parent pipeline status and triggered child pipeline
+4. Access job logs for each stage
+
+**Pipeline Artifacts**
+
+* Job ID and image group information stored as pipeline artifacts
+* Build logs and test results available as job artifacts
+* Artifacts retained according to GitLab retention policy
+
+Troubleshooting
+---------------
+
+**Pipeline Fails to Start**
+
+* Verify BuildStreaM API is accessible from GitLab runner
+* Check OAuth token retrieval (if OAuth enabled)
+* Ensure required environment variables are configured
+
+**Stage Fails with Authentication Error**
+
+* Verify JWT token is valid and not expired
+* Check OAuth client credentials are correct
+* Ensure token has required scopes (``buildstream:read``, ``buildstream:write``)
+
+**Child Pipeline Not Triggered**
+
+* Verify parent pipeline configuration is correct
+* Check catalog ``pipeline_type`` parameter matches expected values
+* Review GitLab trigger rules and conditions
 
 Related Topics
 --------------
 
 * :doc:`buildstream-architecture`
-* :doc:`buildstream-api-reference`
+* :doc:`how-to-buildstream-build-pipeline`
+* :doc:`how-to-buildstream-deploy-pipeline`
+* :doc:`how-to-buildstream-validate-pipeline`
 * :doc:`buildstream-resume-retry`
-* :doc:`buildstream_troubleshooting`
 
 .. note::
-   This guide covers BuildStream pipeline workflows. For architectural details, see :doc:`buildstream-architecture`.
-
-.. [SME VALIDATION REQUIRED: Verify all pipeline steps, stage names, and API usage against actual BuildStream implementation]
+   This guide focuses on GitLab CI/CD configuration. For architectural details, see :doc:`buildstream-architecture`. For step-by-step API usage, see the pipeline-specific how-to guides.
