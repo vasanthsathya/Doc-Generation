@@ -21,7 +21,8 @@ Authentication
 
 BuildStream uses OAuth 2.0 client credentials for authentication. Clients must obtain a JWT token before making API requests.
 
-### OAuth 2.0 Client Credentials Flow
+OAuth 2.0 Client Credentials Flow
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Token Request:**
 
@@ -44,7 +45,8 @@ BuildStream uses OAuth 2.0 client credentials for authentication. Clients must o
      "scope": "buildstream:read buildstream:write"
    }
 
-### Using JWT Tokens in API Requests
+Using JWT Tokens in API Requests
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Include the JWT token in the ``Authorization`` header:
 
@@ -55,7 +57,8 @@ Include the JWT token in the ``Authorization`` header:
    Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
    Content-Type: application/json
 
-### Common Request Headers
+Common Request Headers
+~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
@@ -80,7 +83,8 @@ Include the JWT token in the ``Authorization`` header:
      - Yes
      - Unique key for request deduplication
 
-### Common Response Codes
+Common Response Codes
+~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
@@ -110,7 +114,8 @@ Include the JWT token in the ``Authorization`` header:
 Job Management Endpoints
 -------------------------
 
-### POST /api/v1/jobs
+POST /api/v1/jobs
+~~~~~~~~~~~~~~
 
 Create a new build Job.
 
@@ -167,7 +172,8 @@ Create a new build Job.
 - ``401 Unauthorized`` - Invalid or missing JWT token
 - ``409 Conflict`` - Duplicate ``Idempotency-Key``
 
-### GET /api/v1/jobs/{job_id}
+GET /api/v1/jobs/{job_id}
+~~~~~~~~~~~~~~~~~~~~~~
 
 Retrieve the current status of a Job by Job ID.
 
@@ -215,7 +221,8 @@ Retrieve the current status of a Job by Job ID.
 - ``403 Forbidden`` - Client does not own this Job
 - ``404 Not Found`` - Job does not exist
 
-### DELETE /api/v1/jobs/{job_id}
+DELETE /api/v1/jobs/{job_id}
+~~~~~~~~~~~~~~~~~~~~~~
 
 Delete a Job and perform cleanup of associated artifacts and images.
 
@@ -242,7 +249,8 @@ No response body on success.
 File Management Endpoints
 -------------------------
 
-### PUT /api/v1/jobs/{job_id}/upload
+PUT /api/v1/jobs/{job_id}/upload
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Upload configuration files and catalogs for the build pipeline.
 
@@ -291,7 +299,8 @@ Upload configuration files and catalogs for the build pipeline.
 - ``404 Not Found`` - Job does not exist
 - ``422 Unprocessable Entity`` - File validation failed
 
-### GET /api/v1/jobs/{job_id}/artifacts/{label}
+GET /api/v1/jobs/{job_id}/artifacts/{label}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Retrieve artifacts generated during pipeline execution.
 
@@ -320,7 +329,8 @@ Returns the artifact file content.
 Image Management Endpoints
 -------------------------
 
-### GET /api/v1/images
+GET /api/v1/images
+~~~~~~~~~~~~
 
 List all built Image Groups with constituent image details.
 
@@ -397,7 +407,8 @@ List all built Image Groups with constituent image details.
 Stage Execution Endpoints
 -------------------------
 
-### POST /api/v1/jobs/{job_id}/stages/{stage_name}
+POST /api/v1/jobs/{job_id}/stages/{stage_name}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Execute a specific pipeline stage.
 
@@ -462,7 +473,8 @@ Execute a specific pipeline stage.
 - ``409 Conflict`` - Stage prerequisites not met or stage already active
 - ``422 Unprocessable Entity`` - Invalid request body for stage type
 
-### Stage-Specific Error Codes
+Stage-Specific Error Codes
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Deploy Stage:**
 
@@ -484,7 +496,8 @@ Execute a specific pipeline stage.
 Error Handling
 -------------
 
-### Error Response Format
+Error Response Format
+~~~~~~~~~~~~~~~~~~~
 
 All error responses follow this format:
 
@@ -500,7 +513,8 @@ All error responses follow this format:
      "timestamp": "2026-05-11T10:00:00Z"
    }
 
-### Common Error Codes
+Common Error Codes
+~~~~~~~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
@@ -567,7 +581,8 @@ All error responses follow this format:
      - 500
      - Internal server error
 
-### Idempotency
+Idempotency
+~~~~~~~~~~
 
 BuildStream API supports idempotent operations using the ``Idempotency-Key`` header. When a request with the same ``Idempotency-Key`` and ``client_id`` is received, the API returns the original response without creating a duplicate resource.
 
@@ -616,7 +631,8 @@ When rate limits are exceeded, the API returns:
 API Usage Examples
 -----------------
 
-### Complete Build Workflow Example
+Complete Build Workflow Example
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **1. Create Job:**
 
@@ -673,7 +689,8 @@ API Usage Examples
      -H "Authorization: Bearer <jwt_token>" \
      -H "X-Client-Id: gitlab-ci"
 
-### Deploy Workflow Example
+Deploy Workflow Example
+~~~~~~~~~~~~~~~~~~~~
 
 **1. List Available Images:**
 

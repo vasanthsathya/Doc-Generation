@@ -28,29 +28,34 @@ Why Resume and Retry Matters
 ----------------------------
 
 **Operational Efficiency**
-- Save time by skipping already-completed work during retries
-- Reduce resource consumption by avoiding redundant operations
-- Enable faster recovery from transient failures
+
+   - Save time by skipping already-completed work during retries
+   - Reduce resource consumption by avoiding redundant operations
+   - Enable faster recovery from transient failures
 
 **Deployment Flexibility**
-- Re-run deploy stages when infrastructure changes (e.g., adding nodes)
-- Update configurations without rebuilding images
-- Support iterative deployment processes
+
+   - Re-run deploy stages when infrastructure changes (e.g., adding nodes)
+   - Update configurations without rebuilding images
+   - Support iterative deployment processes
 
 **Improved Reliability**
-- Automatic recovery from transient network or storage failures
-- Complete audit trail of all execution attempts
-- Better debugging with attempt-numbered log files
+
+   - Automatic recovery from transient network or storage failures
+   - Complete audit trail of all execution attempts
+   - Better debugging with attempt-numbered log files
 
 **Resource Optimization**
-- Build stages skip successfully built images on retry
-- Deploy stages use input hash tracking to detect changes
-- Automated cleanup prevents resource accumulation
+
+   - Build stages skip successfully built images on retry
+   - Deploy stages use input hash tracking to detect changes
+   - Automated cleanup prevents resource accumulation
 
 How Resume and Retry Works
 --------------------------
 
-### Stage Guard Decision Logic
+Stage Guard Decision Logic
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 BuildStream enforces stage execution rules through guard logic that determines whether a stage can be executed based on its current state.
 
@@ -104,7 +109,8 @@ IF status == RUNNING → Reject (409 Conflict - Already running)
    style RejectRunning1 fill:#FFB6C1
    style RejectRunning2 fill:#FFB6C1
 
-### Build Stage Resume Logic
+Build Stage Resume Logic
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Build stages implement intelligent resume to skip already-completed work:
 
@@ -162,7 +168,8 @@ Build stages implement intelligent resume to skip already-completed work:
 
 **Time Savings:** 50% (2 of 4 images reused)
 
-### Deploy Stage Re-run Logic
+Deploy Stage Re-run Logic
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Deploy stages track input changes via hash to enable re-execution:
 
@@ -181,17 +188,18 @@ Deploy stages track input changes via hash to enable re-execution:
 - Re-run: 4 nodes deployed (PXE mapping updated)
 - Result: No rebuild required
 
-### Attempt Number Tracking
+Attempt Number Tracking
+~~~~~~~~~~~~~~~~~~~~~~
 
 BuildStream maintains a complete audit trail of stage executions through attempt number tracking:
 
 **Database Schema:**
 
-- ``job_stages`` table with single record per stage
-- ``attempt_number`` field tracks execution count
-- ``started_at`` records first execution start time
-- ``last_attempt_at`` records most recent execution time
-- ``result_detail`` JSONB stores execution metadata
+   - ``job_stages`` table with single record per stage
+   - ``attempt_number`` field tracks execution count
+   - ``started_at`` records first execution start time
+   - ``last_attempt_at`` records most recent execution time
+   - ``result_detail`` JSONB stores execution metadata
 
 **Log File Naming:**
 
@@ -253,7 +261,8 @@ Examples:
 Usage Examples
 ---------------
 
-### Retry Failed Build Stage
+Retry Failed Build Stage
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Scenario:** Build image stage fails (2 of 5 images built successfully)
 
@@ -307,7 +316,8 @@ Usage Examples
 
 **Result:** Successfully built 3 new images, skipped 2 existing images
 
-### Re-run Deploy Stage
+Re-run Deploy Stage
+~~~~~~~~~~~~~~~~~
 
 **Scenario:** Add 2 nodes to existing 4-node deployment
 
@@ -366,7 +376,8 @@ Update ``pxe_mapping_file.csv`` to include 2 new nodes.
 
 **Result:** Deployed 2 additional nodes without rebuilding images
 
-### Retry Failed Validation
+Retry Failed Validation
+~~~~~~~~~~~~~~~~~~~~
 
 **Scenario:** Validation tests fail
 
@@ -424,62 +435,68 @@ Update ``pxe_mapping_file.csv`` to include 2 new nodes.
 Error Handling and Constraints
 -----------------------------
 
-### Immutability Constraints
+Immutability Constraints
+~~~~~~~~~~~~~~~~~~~~~~
 
 **Build Stages:**
-- Once ``COMPLETED``, build stages cannot be re-run
-- Images are considered immutable after successful build
-- To rebuild images, create a new Job
+
+   - Once ``COMPLETED``, build stages cannot be re-run
+   - Images are considered immutable after successful build
+   - To rebuild images, create a new Job
 
 **Deploy Stages:**
-- Can be re-run after ``COMPLETED`` (inputs may change)
-- Useful for adding nodes or updating configurations
-- Input hash tracking detects configuration changes
 
-### State Precondition Checks
+   - Can be re-run after ``COMPLETED`` (inputs may change)
+   - Useful for adding nodes or updating configurations
+   - Input hash tracking detects configuration changes
+
+State Precondition Checks
+~~~~~~~~~~~~~~~~~~~~~~
 
 **Deploy Stage Precondition:**
 
-- Image Group must be in ``BUILT`` state or intermediate states (``DEPLOYING``, ``DEPLOYED``, ``RESTARTING``, ``RESTARTED``, ``VALIDATING``, ``FAILED``)
-- ``PASSED`` and ``CLEANED`` states block deploy (require fresh build)
+   - Image Group must be in ``BUILT`` state or intermediate states (``DEPLOYING``, ``DEPLOYED``, ``RESTARTING``, ``RESTARTED``, ``VALIDATING``, ``FAILED``)
+   - ``PASSED`` and ``CLEANED`` states block deploy (require fresh build)
 
 **Restart Stage Precondition:**
 
-- Image Group must be in ``DEPLOYED`` state
-- PXE mapping file must exist
+   - Image Group must be in ``DEPLOYED`` state
+   - PXE mapping file must exist
 
 **Validate Stage Precondition:**
 
-- Image Group must be in ``RESTARTED`` state
-- Molecule framework must be configured
+   - Image Group must be in ``RESTARTED`` state
+   - Molecule framework must be configured
 
-### Attempt Limits
+Attempt Limits
+~~~~~~~~~~~~
 
 BuildStream does not enforce hard limits on retry attempts. However:
 
-- Image retention limit: Maximum 50 non-CLEANED Image Groups
-- Automated cleanup: Validation-failed images cleaned up after 24 hours
-- Log storage: Attempt-numbered logs preserved until Job cleanup
+   - Image retention limit: Maximum 50 non-CLEANED Image Groups
+   - Automated cleanup: Validation-failed images cleaned up after 24 hours
+   - Log storage: Attempt-numbered logs preserved until Job cleanup
 
-### Log Preservation
+Log Preservation
+~~~~~~~~~~~~~~
 
 All attempt logs are preserved until Job cleanup:
 
-- Log location: ``/opt/omnia/build_stream_root/artifacts/{job_id}/``
-- Naming pattern: ``<stage_name>_<job_id>_attempt<attempt_number>.log``
-- Complete history available for debugging
-- Logs included in cleanup artifact deletion
+   - Log location: ``/opt/omnia/build_stream_root/artifacts/{job_id}/``
+   - Naming pattern: ``<stage_name>_<job_id>_attempt<attempt_number>.log``
+   - Complete history available for debugging
+   - Logs included in cleanup artifact deletion
 
 Benefits and Best Practices
 ---------------------------
 
 **Benefits:**
 
-- **Time Savings:** Smart resume skips completed work, reducing build times by 30-50%
-- **Resource Efficiency:** Avoid redundant image builds and deployments
-- **Operational Flexibility:** Re-run deploy stages without rebuilding images
-- **Complete Audit Trail:** Attempt-numbered logs provide complete execution history
-- **Better Debugging:** Separate logs per attempt simplify troubleshooting
+   - **Time Savings:** Smart resume skips completed work, reducing build times by 30-50%
+   - **Resource Efficiency:** Avoid redundant image builds and deployments
+   - **Operational Flexibility:** Re-run deploy stages without rebuilding images
+   - **Complete Audit Trail:** Attempt-numbered logs provide complete execution history
+   - **Better Debugging:** Separate logs per attempt simplify troubleshooting
 
 **Best Practices:**
 
@@ -491,8 +508,8 @@ Benefits and Best Practices
 
 **When to Retry vs. Create New Job:**
 
-- **Retry:** Transient failures, network issues, partial build failures
-- **New Job:** Fundamental configuration changes, catalog updates, architecture changes
+   - **Retry:** Transient failures, network issues, partial build failures
+   - **New Job:** Fundamental configuration changes, catalog updates, architecture changes
 
 Related Topics
 --------------

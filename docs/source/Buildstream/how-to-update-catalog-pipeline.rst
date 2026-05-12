@@ -19,6 +19,7 @@ BuildStreaM Catalog Structure
 BuildStreaM introduces an enhanced catalog structure with support for pipeline type selection and OAuth authentication:
 
 **Pipeline Type Selection**
+
    The catalog metadata includes a ``pipeline_type`` parameter that determines which child pipeline is triggered:
 
    - ``build`` - Triggers the BUILD pipeline (Prepare, Build, Verify stages)
@@ -26,6 +27,7 @@ BuildStreaM introduces an enhanced catalog structure with support for pipeline t
    - ``cleanup`` - Triggers the CLEANUP pipeline (removes stale artifacts)
 
 **OAuth Authentication Configuration**
+
    If OAuth 2.0 is enabled in the BuildStream configuration, include the following parameters in the catalog metadata:
 
    - ``oauth_enabled`` - Set to ``true`` to enable OAuth authentication
@@ -58,6 +60,7 @@ BuildStreaM introduces an enhanced catalog structure with support for pipeline t
       }
 
 **Pipeline Stages**
+
    BuildStreaM uses the following pipeline stages:
 
    - **Prepare** - Sets up the build environment and validates catalog entries

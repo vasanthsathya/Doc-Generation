@@ -34,7 +34,8 @@ Build Pipeline Workflow
 
 The Build Pipeline creates OS images from catalog definitions and configuration files. It is triggered by changes to catalog or configuration files.
 
-### Step 1: Create Job
+Step 1: Create Job
+~~~~~~~~~~~~~~~~~~
 
 Create a new Job to track the build pipeline execution.
 
@@ -70,7 +71,8 @@ Create a new Job to track the build pipeline execution.
 
 Record the ``job_id`` for subsequent steps.
 
-### Step 2: Upload Input Files
+Step 2: Upload Input Files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Upload catalog and configuration files to the BuildStream input directory.
 
@@ -86,12 +88,13 @@ Upload catalog and configuration files to the BuildStream input directory.
 
 **File Upload Constraints:**
 
-- Maximum file size: 5 MB per file
-- Maximum archive size: 50 MB uncompressed
-- Allowed file types: JSON, YAML, CSV, TXT
-- Path traversal sequences (``../``) are rejected
+   - Maximum file size: 5 MB per file
+   - Maximum archive size: 50 MB uncompressed
+   - Allowed file types: JSON, YAML, CSV, TXT
+   - Path traversal sequences (``../``) are rejected
 
-### Step 3: Execute Parse Catalog Stage
+Step 3: Execute Parse Catalog Stage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Parse the catalog JSON file to generate adapter policy output.
 
@@ -116,7 +119,8 @@ Parse the catalog JSON file to generate adapter policy output.
      "correlation_id": "build-003"
    }
 
-### Step 4: Execute Generate Input Files Stage
+Step 4: Execute Generate Input Files Stage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Generate input files from the parsed catalog output.
 
@@ -139,7 +143,8 @@ Generate input files from the parsed catalog output.
      "correlation_id": "build-004"
    }
 
-### Step 5: Execute Create Local Repository Stage
+Step 5: Execute Create Local Repository Stage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Create a local package repository from input files via Ansible playbook.
 
@@ -162,7 +167,8 @@ Create a local package repository from input files via Ansible playbook.
      "correlation_id": "build-005"
    }
 
-### Step 6: Execute Build Image Stage
+Step 6: Execute Build Image Stage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Build the OS image using the local repository and parsed catalog output.
 
@@ -185,7 +191,8 @@ Build the OS image using the local repository and parsed catalog output.
      "correlation_id": "build-006"
    }
 
-### Step 7: Monitor Job Status
+Step 7: Monitor Job Status
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Monitor the Job status and stage execution progress.
 
@@ -213,7 +220,8 @@ Monitor the Job status and stage execution progress.
      "client_id": "gitlab-ci"
    }
 
-### Step 8: Verify Build Completion
+Step 8: Verify Build Completion
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Verify that the Image Group was created successfully.
 
@@ -245,7 +253,8 @@ Deploy & Validate Pipeline Workflow
 
 The Deploy & Validate Pipeline deploys built images to target nodes, restarts nodes via PXE boot, and validates the deployment. It is triggered by PXE mapping file changes.
 
-### Step 1: Select Image Group
+Step 1: Select Image Group
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 List available Image Groups and select the one to deploy.
 
@@ -257,7 +266,8 @@ List available Image Groups and select the one to deploy.
 
 Record the ``image_group_id`` and ``job_id`` for deployment.
 
-### Step 2: Upload Updated Configuration
+Step 2: Upload Updated Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Upload updated configuration files for deployment.
 
@@ -268,7 +278,8 @@ Upload updated configuration files for deployment.
      -H "X-Client-Id: gitlab-ci" \
      -F "pxe_mapping=@pxe_mapping_file.csv"
 
-### Step 3: Execute Deploy Stage
+Step 3: Execute Deploy Stage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Deploy the Image Group to target nodes.
 
@@ -294,7 +305,8 @@ Deploy the Image Group to target nodes.
 
 **Image Group State Transition:** ``BUILT`` → ``DEPLOYING`` → ``DEPLOYED``
 
-### Step 4: Execute Restart Stage
+Step 4: Execute Restart Stage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Restart target nodes via PXE boot with node diff handling.
 
@@ -328,7 +340,8 @@ Restart target nodes via PXE boot with node diff handling.
 
 **Node Diff Logic:** Only newly added nodes (not previously booted with the current image) are PXE-booted.
 
-### Step 5: Execute Validate Stage
+Step 5: Execute Validate Stage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Validate the deployment via Molecule test framework.
 
@@ -361,7 +374,8 @@ Validate the deployment via Molecule test framework.
 
 **Image Group State Transition:** ``RESTARTED`` → ``VALIDATING`` → ``PASSED`` or ``FAILED``
 
-### Step 6: Monitor Deployment Status
+Step 6: Monitor Deployment Status
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Monitor the Job status to track deployment progress.
 
@@ -393,7 +407,8 @@ CleanUp Pipeline Workflow
 
 The CleanUp Pipeline removes artifacts and images for completed or failed Jobs. It can be triggered manually or via scheduled automation.
 
-### Step 1: Select Job for Cleanup
+Step 1: Select Job for Cleanup
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 List Jobs and select the one to clean up.
 
@@ -403,7 +418,8 @@ List Jobs and select the one to clean up.
      -H "Authorization: Bearer <jwt_token>" \
      -H "X-Client-Id: gitlab-ci"
 
-### Step 2: Execute CleanUp
+Step 2: Execute CleanUp
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Delete the Job and perform cleanup of associated artifacts and images.
 
@@ -420,15 +436,16 @@ No response body on success.
 
 **Cleanup Actions:**
 
-- Deletes all built OS images from S3 storage (``s3://boot-images``)
-- Removes NFS artifact files (config files, catalog JSON, generated inputs)
-- Transitions Image Group to ``CLEANED`` state
-- Marks Job status as ``CLEANED``
-- Records audit event with cleanup details
+   - Deletes all built OS images from S3 storage (``s3://boot-images``)
+   - Removes NFS artifact files (config files, catalog JSON, generated inputs)
+   - Transitions Image Group to ``CLEANED`` state
+   - Marks Job status as ``CLEANED``
+   - Records audit event with cleanup details
 
 **Image Group State Transition:** Any state → ``CLEANED``
 
-### Step 3: Verify Cleanup
+Step 3: Verify Cleanup
+~~~~~~~~~~~~~~~~~~~~~
 
 Verify that the Job and Image Group are in ``CLEANED`` state.
 
@@ -455,7 +472,8 @@ GitLab CI/CD Pipeline Configuration
 
 BuildStream uses a parent pipeline router with dynamic child pipeline generation.
 
-### Parent Pipeline (.gitlab-ci.yml)
+Parent Pipeline (.gitlab-ci.yml)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: yaml
 
@@ -502,7 +520,8 @@ BuildStream uses a parent pipeline router with dynamic child pipeline generation
            ref: main
      when: manual
 
-### Build Pipeline (.gitlab-ci-build.yml)
+Build Pipeline (.gitlab-ci-build.yml)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: yaml
 
@@ -537,7 +556,8 @@ BuildStream uses a parent pipeline router with dynamic child pipeline generation
 
    # ... additional stages ...
 
-### Deploy Pipeline (.gitlab-ci-deploy.yml)
+Deploy Pipeline (.gitlab-ci-deploy.yml)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: yaml
 
@@ -580,35 +600,35 @@ After executing any pipeline, verify the following:
 
 **Build Pipeline Verification:**
 
-- [ ] Job state is ``COMPLETED``
-- [ ] All stages show ``COMPLETED`` status
-- [ ] Image Group created with ``BUILT`` status
-- [ ] Constituent images listed in Image Group
-- [ ] S3 storage contains built images
+   - [ ] Job state is ``COMPLETED``
+   - [ ] All stages show ``COMPLETED`` status
+   - [ ] Image Group created with ``BUILT`` status
+   - [ ] Constituent images listed in Image Group
+   - [ ] S3 storage contains built images
 
 **Deploy Pipeline Verification:**
 
-- [ ] Job state is ``COMPLETED``
-- [ ] All stages show ``COMPLETED`` status
-- [ ] Image Group status is ``PASSED``
-- [ ] Target nodes are accessible
-- [ ] Services are running on deployed nodes
+   - [ ] Job state is ``COMPLETED``
+   - [ ] All stages show ``COMPLETED`` status
+   - [ ] Image Group status is ``PASSED``
+   - [ ] Target nodes are accessible
+   - [ ] Services are running on deployed nodes
 
 **CleanUp Pipeline Verification:**
 
-- [ ] Job state is ``CLEANED``
-- [ ] Image Group status is ``CLEANED``
-- [ ] S3 storage no longer contains Job images
-- [ ] NFS artifacts removed
-- [ ] Audit event recorded
+   - [ ] Job state is ``CLEANED``
+   - [ ] Image Group status is ``CLEANED``
+   - [ ] S3 storage no longer contains Job images
+   - [ ] NFS artifacts removed
+   - [ ] Audit event recorded
 
 **Next Steps**
 
 After successful pipeline execution:
 
-- **Build Pipeline:** Proceed to deploy the built images using the Deploy Pipeline
-- **Deploy Pipeline:** Monitor cluster performance and validate node functionality
-- **CleanUp Pipeline:** Verify storage cleanup and audit trail completeness
+   - **Build Pipeline:** Proceed to deploy the built images using the Deploy Pipeline
+   - **Deploy Pipeline:** Monitor cluster performance and validate node functionality
+   - **CleanUp Pipeline:** Verify storage cleanup and audit trail completeness
 
 Related Topics
 --------------

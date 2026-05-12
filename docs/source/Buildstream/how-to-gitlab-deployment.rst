@@ -29,9 +29,11 @@ BuildStreaM Pipeline Architecture
 BuildStreaM introduces a three-pipeline CI/CD architecture that provides better separation of concerns and improved automation:
 
 **Parent Pipeline Router**
+
    The parent pipeline (``.gitlab-ci.yml``) acts as a router that analyzes the catalog file and dynamically generates child pipelines based on the requested operation type. It determines which child pipeline to trigger based on the ``pipeline_type`` parameter in the catalog metadata.
 
 **Dynamic Child Pipelines**
+
    The parent pipeline generates child pipelines dynamically for each image in the catalog:
 
    - **BUILD Pipeline** (``build-pipeline.yml``) - Processes catalog entries with ``pipeline_type: build``. Executes the build workflow through Prepare, Build, and Verify stages to create OS images.
@@ -39,6 +41,7 @@ BuildStreaM introduces a three-pipeline CI/CD architecture that provides better 
    - **CLEANUP Pipeline** (``cleanup-pipeline.yml``) - Processes catalog entries with ``pipeline_type: cleanup``. Executes the cleanup workflow to remove stale artifacts and free storage resources.
 
 **OAuth Integration**
+
    BuildStreaM uses OAuth 2.0 authentication for GitLab pipeline access to the BuildStream API. The pipeline includes the following OAuth configuration steps:
 
    - Obtains JWT access token from the Omnia Auth service using client credentials
@@ -47,6 +50,7 @@ BuildStreaM introduces a three-pipeline CI/CD architecture that provides better 
    - Validates token scopes (``buildstream:read``, ``buildstream:write``) before API access
 
 This architecture enables:
+
    - Parallel execution of independent image builds
    - Pipeline type selection through catalog metadata
    - Secure API access with OAuth authentication

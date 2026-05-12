@@ -9,8 +9,9 @@ Stage: Health Check
 **Issue**: Health Check stage is failing.
 
 **Possible Cause**: This issue indicates one of the following problems:
-- GitLab target IP and host IP of the BuildStream API server should be reachable from each other.
-- BuildStream containers are not running properly.
+
+   - GitLab target IP and host IP of the BuildStream API server should be reachable from each other.
+   - BuildStream containers are not running properly.
 
 **Resolution**:
 
@@ -37,14 +38,16 @@ Stage: API Registration
 **Issue**: API-Registration stage is failing.
 
 **Possible Cause**: This issue indicates one of the following problems:
-- Maximum client limit reached for BuildStreaM API server registration.
-- Other API registration errors.
+
+   - Maximum client limit reached for BuildStreaM API server registration.
+   - Other API registration errors.
 
 .. note:: Currently, only one client can be registered with the BuildStreaM API server.
 
 **Resolution**:
 
 1. If you encounter the ``max_clients_limit_reached`` error, do the following:
+
    - Either run the pipeline from the already registered client.
    - Or perform the ``gitlab_cleanup`` and reconfigure GitLab using the playbook.
 
@@ -56,8 +59,9 @@ Stage: Token Generation
 **Issue**: Token-Generation stage is failing.
 
 **Possible Cause**: This issue indicates one of the following problems:
-- Token generation failed due to authentication issues.
-- Token generation failed due to network issues.
+
+   - Token generation failed due to authentication issues.
+   - Token generation failed due to network issues.
 
 **Resolution**:
 
@@ -69,8 +73,9 @@ Stage: Parse Catalog
 **Issue**: Parse-Catalog stage is failing.
 
 **Possible Cause**: This issue indicates one of the following problems:
-- Invalid JSON schema format.
-- The ``catalog_rhel.json`` structure does not match the expected catalog schema.
+
+   - Invalid JSON schema format.
+   - The ``catalog_rhel.json`` structure does not match the expected catalog schema.
 
 **Resolution**:
 
@@ -86,8 +91,9 @@ Stage: Create Local Repo
 **Issue**: Create-Local-Repo stage is failing.
 
 **Possible Cause**: This issue indicates one of the following problems:
-- Playbook execution failed.
-- Configuration issues in ``local_repo_config.yml``.
+
+   - Playbook execution failed.
+   - Configuration issues in ``local_repo_config.yml``.
 
 **Resolution**:
 
@@ -117,8 +123,9 @@ Stage: Build Images
 **Issue**: Build Images stage is failing.
 
 **Possible Cause**: This issue indicates one of the following problems:
-- Playbook execution failed.
-- Catalog does not have predefined functional groups.
+
+   - Playbook execution failed.
+   - Catalog does not have predefined functional groups.
 
 **Resolution**:
 
@@ -134,8 +141,9 @@ Stage: Deploy Images
 **Issue**: Deploy Images stage is failing.
 
 **Possible Cause**: This issue indicates one of the following problems:
-- Playbook execution failed.
-- The functional groups listed in the PXE mapping file do not adhere to functional groups in the ``catalog_rhel.json``.
+
+   - Playbook execution failed.
+   - The functional groups listed in the PXE mapping file do not adhere to functional groups in the ``catalog_rhel.json``.
 
 **Resolution**:
 
@@ -157,9 +165,10 @@ OAuth Authentication Issues
 **Issue**: OAuth token generation fails with ``invalid_client`` or ``invalid_grant`` error.
 
 **Possible Cause**: This issue indicates one of the following problems:
-- OAuth client credentials (client_id or client_secret) are incorrect or expired
-- OAuth client is not registered with the Omnia Auth service
-- Token endpoint URL is misconfigured or unreachable
+
+   - OAuth client credentials (client_id or client_secret) are incorrect or expired
+   - OAuth client is not registered with the Omnia Auth service
+   - Token endpoint URL is misconfigured or unreachable
 
 **Resolution**:
 
@@ -206,9 +215,10 @@ Storage Backend Issues
 **Issue**: Pipeline fails with ``nfs_mount_failed`` error when using NFS storage backend.
 
 **Possible Cause**: This issue indicates one of the following problems:
-- NFS server is unreachable from the OIM node
-- NFS export path is incorrect or not exported
-- Network firewall is blocking NFS traffic (ports 2049, 111)
+
+   - NFS server is unreachable from the OIM node
+   - NFS export path is incorrect or not exported
+   - Network firewall is blocking NFS traffic (ports 2049, 111)
 
 **Resolution**:
 
@@ -236,10 +246,11 @@ Storage Backend Issues
 **Issue**: Pipeline fails with ``powerscale_connection_failed`` error when using PowerScale storage backend.
 
 **Possible Cause**: This issue indicates one of the following problems:
-- PowerScale host is unreachable from the OIM node
-- PowerScale API port (default 8080) is blocked by firewall
-- PowerScale credentials are incorrect or expired
-- Access zone does not exist or user lacks permissions
+
+   - PowerScale host is unreachable from the OIM node
+   - PowerScale API port (default 8080) is blocked by firewall
+   - PowerScale credentials are incorrect or expired
+   - Access zone does not exist or user lacks permissions
 
 **Resolution**:
 
@@ -271,9 +282,10 @@ Pipeline Architecture Issues
 **Issue**: Parent pipeline fails to trigger child pipeline with ``child_pipeline_generation_failed`` error.
 
 **Possible Cause**: This issue indicates one of the following problems:
-- ``pipeline_type`` parameter is missing or invalid in catalog metadata
-- Child pipeline template file (``build-pipeline.yml``, ``deploy-pipeline.yml``, or ``cleanup-pipeline.yml``) is missing or misconfigured
-- GitLab CI/CD configuration does not allow dynamic child pipeline generation
+
+   - ``pipeline_type`` parameter is missing or invalid in catalog metadata
+   - Child pipeline template file (``build-pipeline.yml``, ``deploy-pipeline.yml``, or ``cleanup-pipeline.yml``) is missing or misconfigured
+   - GitLab CI/CD configuration does not allow dynamic child pipeline generation
 
 **Resolution**:
 
@@ -317,9 +329,10 @@ Resume and Retry Issues
 **Issue**: Resume operation fails with ``resume_state_not_found`` error.
 
 **Possible Cause**: This issue indicates one of the following problems:
-- Pipeline execution state was not persisted to the database
-- Resume operation is attempted for a pipeline that completed successfully
-- Resume operation is attempted for a pipeline that was not interrupted
+
+   - Pipeline execution state was not persisted to the database
+   - Resume operation is attempted for a pipeline that completed successfully
+   - Resume operation is attempted for a pipeline that was not interrupted
 
 **Resolution**:
 
@@ -350,9 +363,10 @@ Resume and Retry Issues
 **Issue**: Resume operation succeeds but pipeline fails at a different stage.
 
 **Possible Cause**: This issue indicates one of the following problems:
-- Pipeline state corruption during the interruption
-- Dependency issues between stages that were not handled correctly
-- Resource availability changed between the original execution and resume
+
+   - Pipeline state corruption during the interruption
+   - Dependency issues between stages that were not handled correctly
+   - Resource availability changed between the original execution and resume
 
 **Resolution**:
 
