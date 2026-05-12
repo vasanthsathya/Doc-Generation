@@ -29,11 +29,22 @@ The BuildStreaM build pipeline automates the end-to-end image build process thro
 
 BuildStreaM executes the following build stages in mandatory sequential order:
 
-| Stage | API Endpoint | Description |
-|-------|-------------|-------------|
-| ``create-local-repository`` | ``POST /api/v1/jobs/{job_id}/stages/create-local-repository`` | Creates a local package repository from input files via Ansible playbook |
-| ``parse-catalog`` | ``POST /api/v1/jobs/{job_id}/stages/parse-catalog`` | Uploads and parses a Dell catalog JSON file to generate adapter policy output |
-| ``build-image`` | ``POST /api/v1/jobs/{job_id}/stages/build-image`` | Builds the OS image using the local repository and parsed catalog output |
+.. list-table:: Build Pipeline Stages
+   :widths: 25 40 35
+   :header-rows: 1
+
+   * - Stage
+     - API Endpoint
+     - Description
+   * - ``create-local-repository``
+     - ``POST /api/v1/jobs/{job_id}/stages/create-local-repository``
+     - Creates a local package repository from input files via Ansible playbook
+   * - ``parse-catalog``
+     - ``POST /api/v1/jobs/{job_id}/stages/parse-catalog``
+     - Uploads and parses a Dell catalog JSON file to generate adapter policy output
+   * - ``build-image``
+     - ``POST /api/v1/jobs/{job_id}/stages/build-image``
+     - Builds the OS image using the local repository and parsed catalog output
 
 **Sequential Enforcement**
 

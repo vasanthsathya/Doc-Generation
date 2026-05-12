@@ -250,4 +250,4 @@ The following table describes the pipeline configuration parameters added in Bui
      - ``true``
    * - ``max_retry_attempts``
      - Maximum number of retry attempts for failed pipeline stages.
-     - ``3``:
+     - ``3``

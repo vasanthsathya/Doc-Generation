@@ -424,13 +424,28 @@ Environment Variables
 
 Configure the following environment variables in your GitLab project settings:
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| ``BUILDSTREAM_API`` | BuildStreaM API endpoint | ``https://<oim-host>:5001/api/v1`` |
-| ``JWT_TOKEN`` | OAuth access token (if OAuth enabled) | Obtained via OAuth flow |
-| ``BS_OAUTH_CLIENT_ID`` | OAuth client ID | ``buildstream-client`` |
-| ``BS_OAUTH_CLIENT_SECRET`` | OAuth client secret | ``[your-secret]`` |
-| ``OAUTH_TOKEN_URL`` | OAuth token endpoint | ``https://<oim-host>:8443/oauth/token`` |
+.. list-table:: GitLab Environment Variables
+   :widths: 30 50 20
+   :header-rows: 1
+
+   * - Variable
+     - Description
+     - Example
+   * - ``BUILDSTREAM_API``
+     - BuildStreaM API endpoint
+     - ``https://<oim-host>:5001/api/v1``
+   * - ``JWT_TOKEN``
+     - OAuth access token (if OAuth enabled)
+     - Obtained via OAuth flow
+   * - ``BS_OAUTH_CLIENT_ID``
+     - OAuth client ID
+     - ``buildstream-client``
+   * - ``BS_OAUTH_CLIENT_SECRET``
+     - OAuth client secret
+     - ``[your-secret]``
+   * - ``OAUTH_TOKEN_URL``
+     - OAuth token endpoint
+     - ``https://<oim-host>:8443/oauth/token``
 
 Monitoring Pipeline Execution
 -----------------------------

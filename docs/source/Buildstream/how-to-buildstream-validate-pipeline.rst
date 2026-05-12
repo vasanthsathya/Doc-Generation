@@ -30,9 +30,16 @@ The BuildStreaM validate pipeline executes automated tests to verify cluster dep
 
 BuildStreaM executes the following validate stage:
 
-| Stage | API Endpoint | Description |
-|-------|-------------|-------------|
-| ``validate`` | ``POST /api/v1/jobs/{job_id}/validate`` | Runs Molecule-based infrastructure tests on deployed nodes |
+.. list-table:: Validate Pipeline Stage
+   :widths: 25 40 35
+   :header-rows: 1
+
+   * - Stage
+     - API Endpoint
+     - Description
+   * - ``validate``
+     - ``POST /api/v1/jobs/{job_id}/validate``
+     - Runs Molecule-based infrastructure tests on deployed nodes
 
 **Image Group Lifecycle**
 
@@ -77,10 +84,25 @@ Procedure
           "timeout": 600
         }'
 
-   | Field | Type | Required | Default | Description |
-   |-------|------|----------|---------|-------------|
-   | ``test_suite`` | string | No | All basic tests | Specific test suite to run |
-   | ``timeout`` | integer | No | System-defined (600s) | Timeout in seconds |
+   .. list-table:: Validation Request Parameters
+      :widths: 20 10 10 20 40
+      :header-rows: 1
+
+      * - Field
+        - Type
+        - Required
+        - Default
+        - Description
+      * - ``test_suite``
+        - string
+        - No
+        - All basic tests
+        - Specific test suite to run
+      * - ``timeout``
+        - integer
+        - No
+        - System-defined (600s)
+        - Timeout in seconds
 
    The image group transitions: ``RESTARTED → VALIDATING``.
 

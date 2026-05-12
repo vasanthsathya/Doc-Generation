@@ -19,10 +19,22 @@ Resume and Retry is a capability that enables intelligent execution management f
 
 BuildStreaM classifies stages into two execution patterns:
 
-| Stage Type | Retry After Failure | Re-run After Success | Example Stages |
-|------------|---------------------|---------------------|----------------|
-| **Build Stages** | ✅ Yes (smart resume) | ❌ No (immutable) | parse-catalog, generate-input-files, create-local-repository, build-image |
-| **Deploy Stages** | ✅ Yes (simple retry) | ✅ Yes (inputs can change) | deploy, restart, validate |
+.. list-table:: Stage Execution Patterns
+   :widths: 20 25 25 30
+   :header-rows: 1
+
+   * - Stage Type
+     - Retry After Failure
+     - Re-run After Success
+     - Example Stages
+   * - **Build Stages**
+     - Yes (smart resume)
+     - No (immutable)
+     - parse-catalog, generate-input-files, create-local-repository, build-image
+   * - **Deploy Stages**
+     - Yes (simple retry)
+     - Yes (inputs can change)
+     - deploy, restart, validate
 
 Why Resume and Retry Matters
 ----------------------------
@@ -159,12 +171,30 @@ Build stages implement intelligent resume to skip already-completed work:
 
 **Resume Example:**
 
-| Image | Attempt 1 | Attempt 2 | Result |
-|-------|-----------|-----------|--------|
-| image-1 | ✅ Built | ⏭️ Skipped | Reused |
-| image-2 | ✅ Built | ⏭️ Skipped | Reused |
-| image-3 | ❌ Failed | ✅ Built | New |
-| image-4 | ⏸️ Not started | ✅ Built | New |
+.. list-table:: Resume Example
+   :widths: 15 20 20 20
+   :header-rows: 1
+
+   * - Image
+     - Attempt 1
+     - Attempt 2
+     - Result
+   * - image-1
+     - Built
+     - Skipped
+     - Reused
+   * - image-2
+     - Built
+     - Skipped
+     - Reused
+   * - image-3
+     - Failed
+     - Built
+     - New
+   * - image-4
+     - Not started
+     - Built
+     - New
 
 **Time Savings:** 50% (2 of 4 images reused)
 

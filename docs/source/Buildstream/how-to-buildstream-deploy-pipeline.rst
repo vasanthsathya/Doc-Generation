@@ -29,10 +29,19 @@ The BuildStreaM deploy pipeline manages image deployment through sequential stag
 
 BuildStreaM executes the following deploy stages:
 
-| Stage | API Endpoint | Description |
-|-------|-------------|-------------|
-| ``deploy`` | ``POST /api/v1/jobs/{job_id}/deploy`` | Deploys built images to target nodes via Ansible playbook |
-| ``pxe_boot`` | ``POST /api/v1/jobs/{job_id}/restart`` | PXE boots target nodes after image deployment |
+.. list-table:: Deploy Pipeline Stages
+   :widths: 25 40 35
+   :header-rows: 1
+
+   * - Stage
+     - API Endpoint
+     - Description
+   * - ``deploy``
+     - ``POST /api/v1/jobs/{job_id}/deploy``
+     - Deploys built images to target nodes via Ansible playbook
+   * - ``pxe_boot``
+     - ``POST /api/v1/jobs/{job_id}/restart``
+     - PXE boots target nodes after image deployment
 
 **Image Group Lifecycle**
 
@@ -114,9 +123,20 @@ Procedure
           "disable_pxe_boot": false
         }'
 
-   | Field | Type | Required | Default | Description |
-   |-------|------|----------|---------|-------------|
-   | ``disable_pxe_boot`` | boolean | No | ``false`` | If ``true``, skip PXE boot for this restart request |
+   .. list-table:: PXE Boot Request Parameters
+      :widths: 20 10 10 15 35
+      :header-rows: 1
+
+      * - Field
+        - Type
+        - Required
+        - Default
+        - Description
+      * - ``disable_pxe_boot``
+        - boolean
+        - No
+        - ``false``
+        - If ``true``, skip PXE boot for this restart request
 
    The system consumes the PXE mapping file to determine target nodes and uses node diff logic to only PXE-boot newly added nodes.
 

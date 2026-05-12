@@ -113,29 +113,32 @@ Recommended Software by Functional Groups
 
 .. caution:: Ensure that the ``software_config.json`` file contains all required inputs for the software to be deployed on each functional group.  For more information, see `Input parameters for Local Repositories <https://omnia-devel.readthedocs.io/en/latest/OmniaInstallGuide/RHEL_new/CreateLocalRepo/InputParameters.html>`_.
 
-The following table lists the functional groups along with the recommended software to be deployed on each group.  
+The following table lists the functional groups along with the recommended software to be deployed on each group.
 
-+-----------------------------------------+--------------------------------------------------------------------------------------+
-| Functional Group Name                   | Recommended Software                                                                 |
-+=========================================+======================================================================================+
-| service_kube_control_plane_x86_64       | service_k8s.json                                                                     |
-+-----------------------------------------+--------------------------------------------------------------------------------------+
-| service_kube_node_x86_64                | service_k8s.json                                                                     |
-+-----------------------------------------+--------------------------------------------------------------------------------------+
-| slurm_control_node_x86_64               | slurm_custom.json, openldap.json, ldms.json                                          |
-+-----------------------------------------+--------------------------------------------------------------------------------------+
-| slurm_node_x86_64                       | slurm_custom.json, openldap.json, ldms.json                                          |
-+-----------------------------------------+--------------------------------------------------------------------------------------+
-| slurm_node_aarch64                      | slurm_custom.json, openldap.json, ldms.json                                          |
-+-----------------------------------------+--------------------------------------------------------------------------------------+
-| login_node_x86_64                       | slurm_custom.json, openldap.json, ldms.json                                          |
-+-----------------------------------------+--------------------------------------------------------------------------------------+
-| login_node_aarch64                      | slurm_custom.json, openldap.json, ldms.json                                          |
-+-----------------------------------------+--------------------------------------------------------------------------------------+
-| login_compiler_node_x86_64              | slurm_custom.json, openldap.json, ucx.json, openmpi.json, ldms.json                  |
-+-----------------------------------------+--------------------------------------------------------------------------------------+
-| login_compiler_node_aarch64             | slurm_custom.json, openldap.json, ucx.json, openmpi.json, ldms.json                  |
-+-----------------------------------------+--------------------------------------------------------------------------------------+
+.. list-table:: Functional Groups and Recommended Software
+   :widths: 40 60
+   :header-rows: 1
+
+   * - Functional Group Name
+     - Recommended Software
+   * - service_kube_control_plane_x86_64
+     - service_k8s.json
+   * - service_kube_node_x86_64
+     - service_k8s.json
+   * - slurm_control_node_x86_64
+     - slurm_custom.json, openldap.json, ldms.json
+   * - slurm_node_x86_64
+     - slurm_custom.json, openldap.json, ldms.json
+   * - slurm_node_aarch64
+     - slurm_custom.json, openldap.json, ldms.json
+   * - login_node_x86_64
+     - slurm_custom.json, openldap.json, ldms.json
+   * - login_node_aarch64
+     - slurm_custom.json, openldap.json, ldms.json
+   * - login_compiler_node_x86_64
+     - slurm_custom.json, openldap.json, ucx.json, openmpi.json, ldms.json
+   * - login_compiler_node_aarch64
+     - slurm_custom.json, openldap.json, ucx.json, openmpi.json, ldms.json
 
 
 Verification
