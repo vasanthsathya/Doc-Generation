@@ -30,7 +30,7 @@ status: active
 |------------------|--------------------------------------------|
 | Product          | Omnia                                      |
 | Version          | 2.1.0.0-rc2                                |
-| Last Updated     | 2026-02-25                                 |
+| Last Updated     | 2026-05-11                                 |
 | Owner            | Vasanth Sathya                             |
 | SME Reviewers    | [List of technical reviewers]              |
 | Repository       | https://github.com/vasanthsathya/omnia-artifactory/tree/omnia-docs-v2.1.0.0-rc2 |
@@ -46,6 +46,7 @@ status: active
 The AI must reference this document during the **COLLECT** phase (before writing anything):
 
 **During COLLECT (before writing anything):**
+- **PRIORITY STEP: Always analyze existing documentation first** — Before planning any new content, examine the current documentation structure to identify what already exists, what can be updated, and what gaps truly exist. This prevents duplication and ensures efficient use of documentation resources.
 - Use §3 (Target Audiences) to determine depth and tone
 - Use §4 (Information Map) to understand where the new content fits
 - Use §5 (Source-to-Doc Mapping) to identify which source assets (Behaviour Spec, Engineering Specification, Component Specification, HLD, Engineering Notes, Demo Transcriptions, Unit Tests, Existing Docs) apply
@@ -53,14 +54,14 @@ The AI must reference this document during the **COLLECT** phase (before writing
 - Use §7 (Progressive Development) when sources lack sufficient customer-focused content
 
 **Source Asset Priority Order (when inputs conflict):**
-1. Behaviour Spec - Customer interaction details and victoria logs section for doc generation
-2. Engineering Specification - Technical architecture and implementation approach
-3. Component Specification - Details of each component in engineering specs
-4. HLD (High-Level Design) - Technical ground truth and architecture
-5. Engineering Notes - Implementation details and configuration parameters
-6. Demo Transcriptions - User-facing behavior and language
-7. Unit Tests - Practical workflow validation and observable behaviors
-8. Existing documentation (style and precedent)
+1. **Existing Documentation Analysis** — **PRIORITY**: Always analyze existing docs first to identify what exists, what can be updated, and what gaps truly exist. Prevents duplication and ensures efficient documentation resource use.
+2. Behaviour Spec - Customer interaction details and victoria logs section for doc generation
+3. Engineering Specification - Technical architecture and implementation approach
+4. Component Specification - Details of each component in engineering specs
+5. HLD (High-Level Design) - Technical ground truth and architecture
+6. Engineering Notes - Implementation details and configuration parameters
+7. Demo Transcriptions - User-facing behavior and language
+8. Unit Tests - Practical workflow validation and observable behaviors
 
 **Style Guide Reference:**
 
@@ -204,37 +205,70 @@ Every new `.rst` file **must** be registered in the `toctree` of its parent `ind
 
 ### Source Priority When Inputs Conflict
 
-1. **Behaviour Spec** — Customer interaction details and victoria logs section for doc generation. Always wins on customer-facing behavior and workflows.
-2. **Engineering Specification** — Technical architecture and implementation approach. Wins on configuration parameters, CLI commands, and technical constraints.
-3. **Component Specification** — Details of each component in engineering specs. Wins on component-specific implementation details.
-4. **HLD** — Technical ground truth and architecture. Always wins on implementation details and system design.
-5. **Engineering Notes** — Implementation specifics. Wins on configuration parameters, CLI commands, and technical constraints.
-6. **Demo Transcripts** — User-facing language and workflows. Wins on how to describe behavior to end users.
-7. **Unit Tests** — Practical validation. Wins on observable behaviors and workflow steps.
-8. **Existing Docs** — Style and placement precedent only.
+1. **Existing Documentation Analysis** — **PRIORITY**: Always analyze existing docs first to identify what exists, what can be updated, and what gaps truly exist. This prevents duplication and ensures efficient documentation resource use.
+2. **Behaviour Spec** — Customer interaction details and victoria logs section for doc generation. Always wins on customer-facing behavior and workflows.
+3. **Engineering Specification** — Technical architecture and implementation approach. Wins on configuration parameters, CLI commands, and technical constraints.
+4. **Component Specification** — Details of each component in engineering specs. Wins on component-specific implementation details.
+5. **HLD** — Technical ground truth and architecture. Always wins on implementation details and system design.
+6. **Engineering Notes** — Implementation specifics. Wins on configuration parameters, CLI commands, and technical constraints.
+7. **Demo Transcripts** — User-facing language and workflows. Wins on how to describe behavior to end users.
+8. **Unit Tests** — Practical validation. Wins on observable behaviors and workflow steps.
+
+### Existing Documentation Analysis Process
+
+Before creating any new documentation, the AI MUST:
+
+1. **Search the existing documentation structure**
+   - Use `find` and `grep` to locate existing files on the topic
+   - Examine directory structure and file organization
+   - Review existing index files and toctrees
+
+2. **Classify existing content**
+   - **Keep**: Content that remains valid and requires no changes
+   - **Update**: Content that requires modifications for new features
+   - **Replace**: Content that is outdated and needs complete rewriting
+
+3. **Perform gap analysis**
+   - Identify what features/capabilities are NOT documented
+   - Identify what existing content needs updating for new versions
+   - Focus content plan on NEW and CHANGED features only
+   - Avoid duplicating existing valid content
+
+4. **Create targeted content plan**
+   - New topics only for genuinely missing content
+   - Update tasks for existing content that requires modification
+   - Migration guidance when moving between major versions
+   - Clear distinction between new vs. updated content
 
 ### Content Type Decision Tree
 
 ```
-New feature signal received?
+Documentation request received?
 │
-├─ Does an HLD exist? → YES → Use as primary source for technical accuracy
-│                    → NO  → Flag for SME review; use Engineering Notes only
+├─ **PRIORITY: Analyze existing documentation**
+│  → Search docs/ directory for existing content on the topic
+│  → Identify what already exists, what needs updates, what gaps remain
+│  → Classify existing content as: Keep, Update, or Replace
+│  → Create gap analysis focusing on NEW/CHANGED features only
 │
-├─ Are there Engineering Notes? → YES → Extract implementation details and configuration
-│                             → NO  → Derive from HLD architecture
-│
-├─ Is there a Demo Transcript? → YES → Extract user-facing language and key workflows
-│                              → NO  → Derive from HLD and Engineering Notes
-│
-├─ Are there Unit Tests? → YES → Validate workflow steps and observable behaviors
-│                         → NO  → Use HLD and Engineering Notes for validation
-│
-├─ Is this an update to existing content?
-│   → YES → Load existing RST file, identify changed sections only
-│   → NO  → Determine content type and placement (§4)
-│
-└─ Generate draft → Run CHECK against checklists → Output with review markers
+├─ New feature signal received?
+│  ├─ Does an HLD exist? → YES → Use as primary source for technical accuracy
+│  │                    → NO  → Flag for SME review; use Engineering Notes only
+│  │
+│  ├─ Are there Engineering Notes? → YES → Extract implementation details and configuration
+│  │                             → NO  → Derive from HLD architecture
+│  │
+│  ├─ Is there a Demo Transcript? → YES → Extract user-facing language and key workflows
+│  │                              → NO  → Derive from HLD and Engineering Notes
+│  │
+│  ├─ Are there Unit Tests? → YES → Validate workflow steps and observable behaviors
+│  │                         → NO  → Use HLD and Engineering Notes for validation
+│  │
+│  ├─ Is this an update to existing content?
+│  │   → YES → Load existing RST file, identify changed sections only
+│  │   → NO  → Determine content type and placement (§4)
+│  │
+│  └─ Generate draft → Run CHECK against checklists → Output with review markers
 ```
 
 ### Prompt-Based Signal Mapping
@@ -258,6 +292,10 @@ Since Omnia documentation is not triggered by GitHub signals, all documentation 
 
 Use these prompts to extract knowledge from HLD, Engineering Notes, Demo Transcriptions, Unit Tests, or other source materials before generating the Content Plan:
 
+**PRIORITY PROMPT - Existing Documentation Analysis:**
+0. "Analyze the existing documentation structure in the docs/ directory. Search for all files related to the topic/feature. Classify existing content as Keep (valid, no changes needed), Update (requires modifications for new features), or Replace (outdated, needs rewriting). Identify specific gaps where NEW documentation is needed. Provide a detailed gap analysis focusing only on NEW and CHANGED features, avoiding duplication of existing valid content."
+
+**Source Material Extraction Prompts:**
 1. "From these HLD documents, identify any customer-impacting functionality, architectural decisions, or system behaviors that would affect how customers deploy or use the product."
 
 2. "From these engineering notes, extract configuration parameters, CLI commands, Ansible playbook references, and any technical constraints that customers need to understand."
@@ -764,4 +802,8 @@ When gaps are identified, flag them for additional source gathering before proce
 
 - **[SKILL_BUILD.md](SKILL_BUILD.md)** — Build phase documentation generation rules
 - **[SKILL_CHECK.md](SKILL_CHECK.md)** — Check phase validation and review rules
+
+---
+
+**Change Log (2026-05-11):** Added existing documentation analysis as PRIORITY STEP in COLLECT phase to prevent duplication and ensure efficient documentation resource use. Updated Source Priority Order, Content Type Decision Tree, and added dedicated Existing Documentation Analysis Process section.
 - **[SKILL.md](SKILL.md)** — Main skill document (overview and all phases)

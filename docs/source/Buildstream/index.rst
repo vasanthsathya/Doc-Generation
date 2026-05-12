@@ -10,8 +10,19 @@ BuildStreaM addresses the key challenges in HPC cluster image management:
    - **Automation**: Eliminates manual build and deployment processes
    - **Integration**: Works seamlessly with existing Omnia deployments
    - **Traceability**: Provides complete audit trails for all build operations
-   
+
+BuildStreaM uses a three-pipeline architecture (Build, Deploy & Validate, CleanUp), OAuth 2.0 authentication, and enhanced resume and retry capabilities.
+
 To build your own custom workflows, you can use the BuildStreaM REST API. The BuildStreaM API documentation is available at `Omnia BuildStreaM API Documentation <https://developer.dell.com/apis/ea677050-f49b-49e1-a4b9-1cdd563415d9/versions/2.1.0/docs/Introduction.md>`_.
+
+.. toctree::
+   :maxdepth: 1
+   :caption: BuildStreaM Architecture and Concepts
+
+   buildstream-architecture
+   buildstream-api-reference
+   buildstream-pipelines
+   buildstream-resume-retry
 
 .. toctree::
    :maxdepth: 1
@@ -27,6 +38,4 @@ To build your own custom workflows, you can use the BuildStreaM REST API. The Bu
    buildstream_verify_telmetry_1
    buildstream_tables
    buildstream_troubleshooting
-   
-
 
