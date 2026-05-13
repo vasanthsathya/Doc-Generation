@@ -18,7 +18,7 @@ The BuildStream deploy pipeline automates the deployment of built images to targ
 * **restart**: Restarts the nodes to load the deployed images
 * **validate**: Validates that the deployment was successful
 
-The deploy pipeline is automatically triggered after the build pipeline completes successfully, or can be manually initiated through the GitLab interface.
+The deploy pipeline is automatically triggered when you update the PXE mapping file (``pxe_mapping_file.csv``) in the GitLab repository, or can be manually initiated through the GitLab interface.
 
 Prerequisites
 ------------
@@ -27,7 +27,8 @@ Before executing the deploy pipeline, ensure the following:
 
 * Build pipeline has completed successfully and images are available
 * Target nodes are powered on and accessible via BMC
-* PXE mapping file is correctly configured with target node information
+* PXE mapping file (``pxe_mapping_file.csv``) is correctly configured with target node information
+* PXE mapping file is present in the GitLab repository ``input/`` folder for automatic triggering
 * GitLab project is accessible and the runner is active
 * BuildStream API server is reachable from the GitLab node
 
@@ -43,9 +44,9 @@ Trigger Deploy Pipeline
 
 #. Trigger the deploy pipeline using one of the following methods:
 
-   **Automatic Trigger**:
+   **Automatic Trigger (PXE Mapping File Update)**:
    
-   The deploy pipeline is automatically triggered after the build pipeline completes successfully.
+   Update the ``pxe_mapping_file.csv`` file in the GitLab repository and commit the changes. The parent router (``.gitlab-ci.yml``) detects the PXE mapping file change and automatically triggers the deploy pipeline.
 
    **Manual Trigger**:
    
@@ -53,9 +54,12 @@ Trigger Deploy Pipeline
    
    b. Click **New Pipeline**.
    
-   c. In the pipeline configuration dialog, enter ``deploy`` as the pipeline type.
+   c. In the pipeline configuration dialog, select ``build`` from the dropdown list.
    
-   d. Click **Run Pipeline** to execute the deploy pipeline.
+   d. Run the deploy stage.
+   
+.. note::
+   The parent router (``.gitlab-ci.yml``) uses file change detection to automatically trigger the appropriate child pipeline. Changes to ``input/pxe_mapping_file.csv`` trigger the deploy pipeline, while changes to ``catalog_rhel.json`` trigger the build pipeline.
 
 Monitor Deploy Pipeline Progress
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -123,4 +127,5 @@ Related Topics
 
 * :doc:`../build/executing-build-pipeline` - Execute Build Pipeline
 * :doc:`deploy/configuring-pxe-boot` - Configure PXE Boot
+* :doc:`../../reference/buildstream/pipeline-stages` - Pipeline Stages Reference
 * :doc:`../../reference/buildstream/configuration-tables` - Configuration Reference

@@ -46,7 +46,9 @@ Manual Cleanup
 
 #. Click **New Pipeline**.
 
-#. In the pipeline configuration dialog, enter ``clean`` as the pipeline type.
+#. In the pipeline configuration dialog, select ``build`` from the dropdown list.
+
+#. Run the clean stage.
 
 #. Click **Run Pipeline** to execute the cleanup pipeline.
 
@@ -134,6 +136,8 @@ Troubleshooting
 
 **Cleanup fails to remove Image Groups (GitLab Pipeline)**:
 * Verify GitLab runner is active and accessible
+* Check that "build" is selected from the dropdown list
+* Verify the clean stage is selected for execution
 * Check BuildStream API server connectivity from GitLab node
 * Verify cleanup pipeline configuration in GitLab CI/CD
 * Review pipeline logs in GitLab for specific error messages
@@ -154,4 +158,5 @@ Related Topics
 
 * :doc:`../management/resuming-pipelines` - Resume Pipeline Operations
 * :doc:`../management/retrying-pipelines` - Retry Pipeline Operations
+* :doc:`../../reference/buildstream/pipeline-stages` - Pipeline Stages Reference
 * :doc:`../../reference/buildstream/configuration-tables` - Configuration Reference

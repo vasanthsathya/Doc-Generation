@@ -49,9 +49,11 @@ Update Catalog and Trigger Pipeline
    
    b. Click **New Pipeline**.
    
-   c. In the pipeline configuration dialog, enter ``build`` as the pipeline type.
+   c. In the pipeline configuration dialog, select ``build`` from the dropdown list.
    
-   d. Click **Run Pipeline** to execute the build pipeline.
+   d. Run the build stage.
+   
+   e. Click **Run Pipeline** to execute the build pipeline.
 
 .. note:: 
    * Currently, BuildStream supports only one catalog file and one pipeline trigger. BuildStream pipeline behaviour is controlled by the GitLab CI/CD configuration in your environment.
@@ -118,3 +120,5 @@ Next Steps
 -----------
 
 After successful execution of the build pipeline, proceed with deploying the images to cluster nodes. See :doc:`../deploy/executing-deploy-pipeline` for detailed instructions on executing the deploy pipeline.
+
+For comprehensive information about all BuildStream pipelines and stages, see :doc:`../../reference/buildstream/pipeline-stages`.

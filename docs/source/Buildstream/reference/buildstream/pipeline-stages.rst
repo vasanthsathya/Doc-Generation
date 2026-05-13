@@ -18,6 +18,26 @@ BuildStream pipelines are organized into sequential stages that perform specific
 * **Deploy Pipeline Stages**: deploy, restart, validate
 * **Stage Dependencies**: Each stage depends on successful completion of previous stages
 
+Supported Pipelines
+-------------------
+
+BuildStream supports the following pipeline types that can be executed through GitLab:
+
+|| Pipeline Type | Purpose | Trigger Method | Automatic Trigger |
+|---------------|---------|----------------|-------------------|
+| **build** | Creates diskless images based on catalog specifications | GitLab: New Pipeline → enter "build" | Yes (on catalog commit) |
+| **deploy** | Deploys built images to target cluster nodes | GitLab: New Pipeline → enter "deploy" | Yes (on PXE mapping file update) |
+| **clean** | Removes old Image Groups based on retention policy | GitLab: New Pipeline → enter "clean" | No (manual only) |
+
+**Pipeline Execution**:
+
+* **build**: Executes the build pipeline stages (create-local-repository → parse-catalog → generate-input-files → build-image)
+* **deploy**: Executes the deploy pipeline stages (deploy → restart → validate)
+* **clean**: Executes the cleanup stage to remove Image Groups based on configured retention policy
+
+.. note::
+   Pipelines can be executed through GitLab by navigating to **Build** → **Pipelines** → **New Pipeline** and entering the pipeline type (build, deploy, or clean). Additionally, the build pipeline is automatically triggered on catalog commit, and the deploy pipeline is automatically triggered on PXE mapping file update.
+
 Build Pipeline Stages
 ----------------------
 
@@ -238,4 +258,5 @@ Related Topics
 
 * :doc:`../build/executing-build-pipeline` - Execute Build Pipeline
 * :doc:`../deploy/executing-deploy-pipeline` - Execute Deploy Pipeline
+* :doc:`../management/performing-cleanup-operations` - Perform Cleanup Operations
 * :doc:`../../troubleshooting/buildstream/common-pipeline-issues` - Troubleshooting Guide

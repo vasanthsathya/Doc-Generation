@@ -5,12 +5,20 @@ Omnia BuildStreaM: Catalog-Driven Build Automation
 
 Omnia BuildStreaM provides a comprehensive automation solution for managing infrastructure build workflows. It uses a catalog-driven approach where you define your build requirements in a structured catalog file, and BuildStreaM executes automated pipelines to create and deploy images according to your specifications.
 
+BuildStreaM supports three pipeline types that can be executed through GitLab:
+
+* **build**: Creates diskless images based on catalog specifications (automatically triggered on catalog commit)
+* **deploy**: Deploys built images to target cluster nodes (automatically triggered on PXE mapping file update)
+* **clean**: Removes old Image Groups based on retention policy (manual trigger only)
+
 BuildStreaM addresses the key challenges in HPC cluster image management:
 
    - **Automation**: Eliminates manual build and deployment processes
    - **Integration**: Works seamlessly with existing Omnia deployments
    - **Traceability**: Provides complete audit trails for all build operations
    
+For detailed information about supported pipelines and stages, see :doc:`reference/buildstream/pipeline-stages`.
+
 To build your own custom workflows, you can use the BuildStreaM REST API. The BuildStreaM API documentation is available at `Omnia BuildStreaM API Documentation <https://developer.dell.com/apis/ea677050-f49b-49e1-a4b9-1cdd563415d9/versions/2.1.0/docs/Introduction.md>`_.
 
 .. toctree::
