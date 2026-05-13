@@ -30,7 +30,7 @@ To build your own custom workflows, you can use the BuildStreaM REST API. The Bu
    composable_roles_buildstream
    prepare_oim_buildstream
    how-to-gitlab-deployment
-   how-to-update-catalog-pipeline
+   managing-buildstream-catalogs-and-pipelines
    set_pxe_boot_order_buildstream
    buildstream_telemetry_1
    buildstream_verify_telmetry_1

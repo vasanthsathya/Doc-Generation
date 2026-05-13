@@ -3,7 +3,7 @@
 Deploying Omnia Images with BuildStreaM
 ========================================
 
-Deploy built Omnia OS images to target nodes using the BuildStreaM deploy pipeline. This procedure covers deploying images, PXE booting nodes, and monitoring the deployment process.
+Deploy built Omnia OS images to target nodes using the BuildStreaM deploy pipeline. This procedure covers the GitLab CI/CD workflow for deploying images through catalog updates, with an alternative direct API method for advanced users.
 
 .. contents:: On This Page
    :local:
@@ -18,7 +18,6 @@ Before deploying images with BuildStreaM:
 * Verify the image group is in ``BUILT`` state
 * Ensure target nodes are discovered and available in the inventory
 * Configure PXE boot infrastructure
-* Set up OAuth 2.0 client credentials (if OAuth authentication is enabled)
 
 Deploy Pipeline Overview
 ------------------------
@@ -30,17 +29,14 @@ The BuildStreaM deploy pipeline manages image deployment through sequential stag
 BuildStreaM executes the following deploy stages:
 
 .. list-table:: Deploy Pipeline Stages
-   :widths: 25 40 35
+   :widths: 30 70
    :header-rows: 1
 
    * - Stage
-     - API Endpoint
      - Description
    * - ``deploy``
-     - ``POST /api/v1/jobs/{job_id}/deploy``
      - Deploys built images to target nodes via Ansible playbook
    * - ``pxe_boot``
-     - ``POST /api/v1/jobs/{job_id}/restart``
      - PXE boots target nodes after image deployment
 
 **Image Group Lifecycle**
@@ -70,130 +66,64 @@ The deploy pipeline is part of the BuildStreaM three-pipeline architecture:
 Procedure
 ---------
 
-#. **Deploy Images to Target Nodes**
+**GitLab CI/CD Workflow**
 
-   Deploy the built images to the target nodes.
+#. **Navigate to the GitLab project URL**
 
-   .. code-block:: bash
+   Navigate to:
 
-      curl -X POST https://<oim_host>:5001/api/v1/jobs/{job_id}/deploy \
-        -H "Authorization: Bearer <jwt_token>" \
-        -H "X-Client-Id: <client_id>" \
-        -H "Content-Type: application/json" \
-        -d '{
-          "image_group_id": "<image_group_id>"
-        }'
+   .. code-block:: text
 
-   BuildStreaM validates that the image group exists, belongs to the specified job, and is in ``BUILT`` state.
+      https://<gitlab_host>:<gitlab_https_port>/root/<gitlab_project_name>
+
+#. **Locate the catalog file**
+
+   Go to **Code** → **Repository** and locate the catalog file ``catalog_rhel.json``.
+
+#. **Configure the catalog for deploy pipeline**
+
+   Modify the ``catalog_rhel.json`` file to set the pipeline type to deploy:
 
    .. code-block:: json
 
       {
-        "job_id": "uuid",
-        "image_group_id": "<image_group_id>",
-        "status": "DEPLOYING",
-        "submitted_at": "2026-04-08T11:00:00Z"
+        "metadata": {
+          "pipeline_type": "deploy"
+        },
+        "images": [
+          {
+            "name": "rhel-10.0-compute",
+            "functional_group": "compute",
+            "architecture": "x86_64",
+            "os_type": "RHEL",
+            "os_version": "10.0",
+            "package_type": "image"
+          }
+        ]
       }
 
-   The image group transitions: ``BUILT → DEPLOYING → DEPLOYED``.
+#. **Commit and push catalog changes**
 
-#. **Monitor Deploy Status**
+   Commit and push the catalog changes to trigger the DEPLOY pipeline automatically.
 
-   Query the job status to monitor deployment progress.
+   BuildStreaM uses a three-pipeline architecture (parent router + dynamic child pipelines). The parent pipeline analyzes the catalog and triggers the DEPLOY child pipeline based on the ``pipeline_type: deploy`` parameter.
 
-   .. code-block:: bash
+**Alternative: Direct API Access**
 
-      curl -X GET https://<oim_host>:5001/api/v1/jobs/{job_id} \
-        -H "Authorization: Bearer <jwt_token>" \
-        -H "X-Client-Id: <client_id>"
-
-   The response shows the current state of the deploy stage.
-
-#. **PXE Boot Target Nodes**
-
-   After deployment completes, PXE boot the target nodes to provision the images.
-
-   .. code-block:: bash
-
-      curl -X POST https://<oim_host>:5001/api/v1/jobs/{job_id}/restart \
-        -H "Authorization: Bearer <jwt_token>" \
-        -H "X-Client-Id: <client_id>" \
-        -H "Content-Type: application/json" \
-        -d '{
-          "disable_pxe_boot": false
-        }'
-
-   .. list-table:: PXE Boot Request Parameters
-      :widths: 20 10 10 15 35
-      :header-rows: 1
-
-      * - Field
-        - Type
-        - Required
-        - Default
-        - Description
-      * - ``disable_pxe_boot``
-        - boolean
-        - No
-        - ``false``
-        - If ``true``, skip PXE boot for this restart request
-
-   The system consumes the PXE mapping file to determine target nodes and uses node diff logic to only PXE-boot newly added nodes.
-
-   The image group transitions: ``DEPLOYED → RESTARTING → RESTARTED``.
-
-#. **Monitor PXE Boot Status**
-
-   Query the job status to monitor PXE boot progress.
-
-   .. code-block:: bash
-
-      curl -X GET https://<oim_host>:5001/api/v1/jobs/{job_id} \
-        -H "Authorization: Bearer <jwt_token>" \
-        -H "X-Client-Id: <client_id>"
-
-   The response includes per-node status showing which nodes were restarted and which were skipped.
-
-**Alternative: GitLab CI/CD Pipeline**
-
-To trigger the deploy pipeline using GitLab CI/CD:
-
-#. Navigate to the GitLab project URL: ``https://<gitlab_host>:<gitlab_https_port>/root/<gitlab_project_name>``
-#. Go to **Code** → **Repository**
-#. Locate the catalog file ``catalog_rhel.json``
-#. Set ``pipeline_type`` to ``deploy`` in the catalog metadata
-#. Commit and push the catalog changes to trigger the DEPLOY pipeline
+For advanced users who require direct API access instead of GitLab CI/CD, see the `BuildStreaM API Documentation <https://developer.dell.com/apis/ea677050-f49b-49e1-a4b9-1cdd563415d9/versions/2.1.0/docs/Introduction.md>`_ for detailed API endpoints and technical specifications.
 
 Verification
 ------------
 
 After the deploy pipeline completes, verify the deployment:
 
-#. **Check Image Group Status**
+#. **Check Pipeline Status**
 
-   Confirm that the image group is in ``RESTARTED`` state.
+   Navigate to **Build** → **Pipelines** in GitLab to confirm the pipeline status is ``passed``.
 
-   .. code-block:: bash
+#. **Review Job Logs**
 
-      curl -X GET https://<oim_host>:5001/api/v1/images \
-        -H "Authorization: Bearer <jwt_token>" \
-        -H "X-Client-Id: <client_id>"
-
-#. **Verify Node Connectivity**
-
-   Check that target nodes are reachable and responding.
-
-   .. code-block:: bash
-
-      ping <node_ip_address>
-
-#. **Check Node Status**
-
-   Verify that nodes have booted with the deployed image.
-
-   .. code-block:: bash
-
-      ssh <node_ip_address> "cat /etc/os-release"
+   Click on individual jobs to view execution logs and resource usage.
 
 Troubleshooting
 ---------------
@@ -225,5 +155,5 @@ Related Topics
 * :doc:`how-to-buildstream-build-pipeline`
 * :doc:`how-to-buildstream-validate-pipeline`
 * :doc:`set_pxe_boot_order_buildstream`
-* :doc:`how-to-update-catalog-pipeline`
+* :doc:`managing-buildstream-catalogs-and-pipelines`
 * :doc:`buildstream-architecture`

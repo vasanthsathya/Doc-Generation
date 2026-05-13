@@ -1,4 +1,4 @@
-.. _how-to-buildstream-update-catalog-pipeline:
+.. _managing-buildstream-catalogs-and-pipelines:
 
 Managing BuildStreaM Catalogs and Pipelines
 ===========================================

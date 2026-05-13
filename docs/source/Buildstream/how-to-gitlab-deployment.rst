@@ -102,7 +102,7 @@ After the installation of GitLab complete, verify the following:
 Next Steps
 ----------
 
-After completing GitLab deployment, update the catalog file to automatically trigger the pipeline. See :doc:`how-to-update-catalog-pipeline`.
+After completing GitLab deployment, update the catalog file to automatically trigger the pipeline. See :doc:`managing-buildstream-catalogs-and-pipelines`.
 
 .. note::
    For detailed information on BuildStreaM pipeline architecture and GitLab configuration, see :doc:`buildstream-pipelines`.

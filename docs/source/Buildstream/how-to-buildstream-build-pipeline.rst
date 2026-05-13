@@ -3,7 +3,7 @@
 Building Omnia Images with BuildStreaM
 =======================================
 
-Build Omnia OS images using the BuildStreaM build pipeline. This procedure covers creating build jobs, executing build stages, and monitoring the build process through GitLab CI/CD or direct API calls.
+Build Omnia OS images using the BuildStreaM build pipeline. This procedure covers the GitLab CI/CD workflow for building images through catalog updates, with an alternative direct API method for advanced users.
 
 .. contents:: On This Page
    :local:
@@ -18,7 +18,6 @@ Before building images with BuildStreaM:
 * Complete GitLab deployment for BuildStreaM (see :doc:`how-to-gitlab-deployment`)
 * Verify access to the GitLab project repository
 * Ensure input files are available in the build directory
-* Configure OAuth 2.0 client credentials (if OAuth authentication is enabled)
 
 Build Pipeline Overview
 -----------------------
@@ -30,20 +29,16 @@ The BuildStreaM build pipeline automates the end-to-end image build process thro
 BuildStreaM executes the following build stages in mandatory sequential order:
 
 .. list-table:: Build Pipeline Stages
-   :widths: 25 40 35
+   :widths: 30 70
    :header-rows: 1
 
    * - Stage
-     - API Endpoint
      - Description
    * - ``create-local-repository``
-     - ``POST /api/v1/jobs/{job_id}/stages/create-local-repository``
      - Creates a local package repository from input files via Ansible playbook
    * - ``parse-catalog``
-     - ``POST /api/v1/jobs/{job_id}/stages/parse-catalog``
      - Uploads and parses a Dell catalog JSON file to generate adapter policy output
    * - ``build-image``
-     - ``POST /api/v1/jobs/{job_id}/stages/build-image``
      - Builds the OS image using the local repository and parsed catalog output
 
 **Sequential Enforcement**
@@ -69,165 +64,66 @@ The ``pipeline_type`` parameter in the catalog metadata determines which child p
 Procedure
 ---------
 
-#. **Create a Build Job**
+**GitLab CI/CD Workflow**
 
-   Create a new build job to initiate the build pipeline.
+#. **Navigate to the GitLab project URL**
 
-   .. code-block:: bash
+   Navigate to:
 
-      curl -X POST https://<oim_host>:5001/api/v1/jobs \
-        -H "Authorization: Bearer <jwt_token>" \
-        -H "X-Client-Id: <client_id>" \
-        -H "X-Correlation-Id: <correlation_id>" \
-        -H "Idempotency-Key: <unique_key>" \
-        -H "Content-Type: application/json" \
-        -d '{
-          "client_id": "<client_id>",
-          "client_name": "<client_name>"
-        }'
+   .. code-block:: text
 
-   The response includes the ``job_id`` and initial stage states:
+      https://<gitlab_host>:<gitlab_https_port>/root/<gitlab_project_name>
 
-   .. code-block:: json
+#. **Locate the catalog file**
 
-      {
-        "job_id": "uuid",
-        "state": "CREATED",
-        "stages": [
-          { "name": "create-local-repository", "state": "PENDING" },
-          { "name": "parse-catalog", "state": "PENDING" },
-          { "name": "build-image", "state": "PENDING" }
-        ],
-        "created_at": "2026-04-08T10:00:00Z",
-        "client_id": "<client_id>"
-      }
+   Go to **Code** → **Repository** and locate the catalog file ``catalog_rhel.json``.
 
-#. **Upload Input Files**
+#. **Configure the catalog for build pipeline**
 
-   Upload the required input files for the build pipeline.
-
-   .. code-block:: bash
-
-      curl -X PUT https://<oim_host>:5001/api/v1/jobs/{job_id}/upload \
-        -H "Authorization: Bearer <jwt_token>" \
-        -H "X-Client-Id: <client_id>" \
-        -F "input_files=@/path/to/input_files.tar.gz"
-
-   .. note::
-      BuildStreaM validates file names and formats against an allowlist. Maximum upload size is 5 MB per file.
-
-#. **Execute create-local-repository Stage**
-
-   Trigger the first build stage to create the local repository.
-
-   .. code-block:: bash
-
-      curl -X POST https://<oim_host>:5001/api/v1/jobs/{job_id}/stages/create-local-repository \
-        -H "Authorization: Bearer <jwt_token>" \
-        -H "X-Client-Id: <client_id>"
-
-   The stage transitions to ``IN_PROGRESS`` and returns ``202 Accepted``.
+   Modify the ``catalog_rhel.json`` file to set the pipeline type to build:
 
    .. code-block:: json
 
       {
-        "job_id": "uuid",
-        "stage": "create-local-repository",
-        "status": "accepted",
-        "submitted_at": "2026-04-08T10:01:00Z",
-        "correlation_id": "string"
+        "metadata": {
+          "pipeline_type": "build"
+        },
+        "images": [
+          {
+            "name": "rhel-10.0-compute",
+            "functional_group": "compute",
+            "architecture": "x86_64",
+            "os_type": "RHEL",
+            "os_version": "10.0",
+            "package_type": "image"
+          }
+        ]
       }
 
-#. **Execute parse-catalog Stage**
+   .. note:: Ensure that the catalog file is updated with valid functional group names, architecture types, operating system types and versions, and package types. The pipeline fails if invalid details are provided.
 
-   Upload and parse the catalog JSON file.
+#. **Commit and push catalog changes**
 
-   .. code-block:: bash
+   Commit and push the catalog changes to trigger the BUILD pipeline automatically.
 
-      curl -X POST https://<oim_host>:5001/api/v1/jobs/{job_id}/stages/parse-catalog \
-        -H "Authorization: Bearer <jwt_token>" \
-        -H "X-Client-Id: <client_id>" \
-        -F "catalog=@/path/to/catalog_rhel.json"
+   BuildStreaM uses a three-pipeline architecture (parent router + dynamic child pipelines). The parent pipeline analyzes the catalog and triggers the BUILD child pipeline based on the ``pipeline_type: build`` parameter.
 
-   BuildStreaM validates the JSON structure and processes the catalog to generate adapter policy output files.
+**Alternative: Direct API Access**
 
-#. **Execute build-image Stage**
-
-   Build the OS image using the local repository and parsed catalog output.
-
-   .. code-block:: bash
-
-      curl -X POST https://<oim_host>:5001/api/v1/jobs/{job_id}/stages/build-image \
-        -H "Authorization: Bearer <jwt_token>" \
-        -H "X-Client-Id: <client_id>"
-
-   This stage produces one or more OS images as output artifacts and tags successful builds with a build identifier.
-
-#. **Monitor Job Progress**
-
-   Query the job status to monitor progress.
-
-   .. code-block:: bash
-
-      curl -X GET https://<oim_host>:5001/api/v1/jobs/{job_id} \
-        -H "Authorization: Bearer <jwt_token>" \
-        -H "X-Client-Id: <client_id>"
-
-   The response shows the current state of all stages:
-
-   .. code-block:: json
-
-      {
-        "job_id": "uuid",
-        "state": "IN_PROGRESS",
-        "stages": [
-          { "name": "create-local-repository", "state": "COMPLETED" },
-          { "name": "parse-catalog", "state": "IN_PROGRESS" },
-          { "name": "build-image", "state": "PENDING" }
-        ],
-        "created_at": "2026-04-08T10:00:00Z",
-        "updated_at": "2026-04-08T10:05:00Z",
-        "client_id": "<client_id>"
-      }
-
-**Alternative: GitLab CI/CD Pipeline**
-
-To trigger the build pipeline using GitLab CI/CD:
-
-#. Navigate to the GitLab project URL: ``https://<gitlab_host>:<gitlab_https_port>/root/<gitlab_project_name>``
-#. Go to **Code** → **Repository**
-#. Locate the catalog file ``catalog_rhel.json``
-#. Set ``pipeline_type`` to ``build`` in the catalog metadata
-#. Commit and push the catalog changes to trigger the BUILD pipeline
+For advanced users who require direct API access instead of GitLab CI/CD, see the `BuildStreaM API Documentation <https://developer.dell.com/apis/ea677050-f49b-49e1-a4b9-1cdd563415d9/versions/2.1.0/docs/Introduction.md>`_ for detailed API endpoints and technical specifications.
 
 Verification
 ------------
 
 After the build pipeline completes, verify the results:
 
-#. **Check Job Status**
+#. **Check Pipeline Status**
 
-   Navigate to **Build** → **Pipelines** in GitLab or query the API to confirm the job status is ``COMPLETED``.
+   Navigate to **Build** → **Pipelines** in GitLab to confirm the pipeline status is ``passed``.
 
-#. **Review Build Artifacts**
+#. **Review Job Logs**
 
-   Retrieve the built images from the artifact store.
-
-   .. code-block:: bash
-
-      curl -X GET https://<oim_host>:5001/api/v1/jobs/{job_id}/artifacts/{label} \
-        -H "Authorization: Bearer <jwt_token>" \
-        -H "X-Client-Id: <client_id>"
-
-#. **Verify Image Group Status**
-
-   Confirm that the image group is in ``BUILT`` state and ready for deployment.
-
-   .. code-block:: bash
-
-      curl -X GET https://<oim_host>:5001/api/v1/images \
-        -H "Authorization: Bearer <jwt_token>" \
-        -H "X-Client-Id: <client_id>"
+   Click on individual jobs to view execution logs and resource usage.
 
 Troubleshooting
 ---------------
@@ -254,5 +150,5 @@ Related Topics
 
 * :doc:`how-to-buildstream-deploy-pipeline`
 * :doc:`how-to-buildstream-validate-pipeline`
-* :doc:`how-to-update-catalog-pipeline`
+* :doc:`managing-buildstream-catalogs-and-pipelines`
 * :doc:`buildstream-architecture`
