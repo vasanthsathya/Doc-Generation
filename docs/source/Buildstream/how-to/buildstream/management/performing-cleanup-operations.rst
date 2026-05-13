@@ -61,9 +61,9 @@ Manual Cleanup
    - |failed| **Red X**: Stage failed (click for error details)
    - |running| **Blue circle**: Stage currently running
 
-.. |success| image:: ../../../images/Icons/green_check.png
-.. |failed| image:: ../../../images/Icons/red_x.png
-.. |running| image:: ../../../images/Icons/blue_circle.png
+.. |success| image:: ../../../../images/Icons/green_check.png
+.. |failed| image:: ../../../../images/Icons/red_x.png
+.. |running| image:: ../../../../images/Icons/blue_circle.png
 
 Verification
 ------------
@@ -79,4 +79,4 @@ Related Topics
 
 * :doc:`../management/resuming-pipelines` - Resume Pipeline Operations
 * :doc:`../management/retrying-pipelines` - Retry Pipeline Operations
-* :doc:`../../reference/buildstream/configuration-tables` - Configuration Reference
+* :doc:`../../../reference/buildstream/configuration-tables` - Configuration Reference

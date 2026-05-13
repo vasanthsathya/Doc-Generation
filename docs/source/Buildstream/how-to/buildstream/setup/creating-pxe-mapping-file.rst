@@ -32,8 +32,6 @@ assign the correct ``FUNCTIONAL_GROUP_NAME`` for each node in the mapping file.
 
 The following is the sample format of a mapping file for x86_64 cluster::
 
-.. TODO:: Add screenshot: Sample PXE mapping file format for x86_64 cluster
-
     FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
     slurm_control_node_x86_64,grp0,ABCD12,,slurm-control-node1,xx:yy:zz:aa:bb:cc,172.16.107.52,xx:yy:zz:aa:bb:dd,172.17.107.52
     slurm_node_x86_64,grp2,ABCD34,ABFL82,slurm-node1,aa:bb:cc:dd:ee:ff,172.16.107.43,aa:bb:cc:dd:ee:aa,172.17.107.43
@@ -48,8 +46,6 @@ The following is the sample format of a mapping file for x86_64 cluster::
     service_kube_node_x86_64,grp5,ABKD88,,service-kube-node2,aa:bb:cc:dd:ee:kk,172.16.107.57,xx:yy:zz:aa:bb:ff,172.17.107.57
 
 The following is the sample format of a mapping file for x86_64 and aarch64 cluster::
-
-.. TODO:: Add screenshot: Sample PXE mapping file format for x86_64 and aarch64 cluster
 
     FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
     slurm_control_node_x86_64,grp0,ABCD12,,slurm-control-node1,xx:yy:zz:aa:bb:cc,172.16.107.52,xx:yy:zz:aa:bb:dd,172.17.107.52
@@ -150,7 +146,7 @@ Ensure that the PXE mapping file is correctly formatted and that all required fi
 Next Steps
 -----------
 
-After creating the PXE mapping file, deploy the images to the target cluster nodes. See :doc:`../deploy/executing-deploy-pipeline`.
+After creating the PXE mapping file, prepare the Omnia Infrastructure Manager by following the instructions in :doc:`/Buildstream/how-to/buildstream/setup/preparing-oim-buildstream`.
 
 
 

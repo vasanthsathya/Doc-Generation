@@ -1,6 +1,6 @@
 .. _deploying-gitlab-buildstream:
 
-Deploy GitLab for BuildStream
+Step 4: Deploy GitLab for BuildStream
 ================================
 
 Deploy GitLab as the CI/CD automation engine for BuildStream, providing a three-pipeline architecture for build, deploy, and cleanup operations. This procedure covers GitLab installation, project setup with pipeline configuration files, input folder structure, and runner verification.
@@ -40,7 +40,7 @@ Procedure
 
       ssh omnia_core
 
-2. Navigate to ``/opt/omnia/input/project_default/gitlab_config.yml`` and update the ``gitlab_config.yml`` file. Use the :doc:`../../reference/buildstream/configuration-tables` for reference.
+2. Navigate to ``/opt/omnia/input/project_default/gitlab_config.yml`` and update the ``gitlab_config.yml`` file. Use the :doc:`../../../reference/buildstream/configuration-tables` for reference.
     
    .. code-block:: bash
 
@@ -54,7 +54,7 @@ Procedure
    * ``storage_config.yml`` - Storage configuration
    * ``telemetry_config.yml`` - Telemetry configuration
 
-   For detailed parameter descriptions, see :doc:`../../reference/buildstream/configuration-tables`.
+   For detailed parameter descriptions, see :doc:`../../../reference/buildstream/configuration-tables`.
 
 4. Navigate to the GitLab directory.
 
@@ -87,7 +87,7 @@ This ``gitlab.yml`` playbook performs the following tasks:
     - ``catalog_rhel.json`` - Default catalog file containing build definitions for RHEL images
   - **Input Folder**:
     - ``input/`` - Directory containing all BuildStream input configuration files
-    - The input folder includes the following configuration files (see :doc:`../../reference/buildstream/configuration-tables` for detailed parameter descriptions):
+    The input folder includes the following configuration files (see :doc:`../../../reference/buildstream/configuration-tables` for detailed parameter descriptions):
       - ``local_repo_config.yml`` - Local repository configuration
       - ``network_spec.yml`` - Network configuration
       - ``provision_config.yml`` - Provision configuration
@@ -95,7 +95,7 @@ This ``gitlab.yml`` playbook performs the following tasks:
       - ``storage_config.yml`` - Storage configuration
       - ``telemetry_config.yml`` - Telemetry configuration
 
-.. image:: ../../../images/buildstream_project.png
+.. image:: ../../../../images/buildstream_project.png
    :alt: BuildStream project structure
    
 .. note::
@@ -171,7 +171,7 @@ The input folder files are used by BuildStream pipelines in the following ways:
 * **Build Pipeline**: Reads configuration files to generate input files for image building
 * **Deploy Pipeline**: Uses PXE mapping file to determine target nodes for deployment
 * **Configuration Updates**: Modified input files can trigger corresponding pipeline stages
-* **Parameter Reference**: For detailed parameter descriptions and allowed values, see :doc:`../../reference/buildstream/configuration-tables`
+* **Parameter Reference**: For detailed parameter descriptions and allowed values, see :doc:`../../../reference/buildstream/configuration-tables`
 
 .. note::
    The input folder structure ensures that all required configuration is centrally managed in the GitLab repository, enabling version control and collaboration on BuildStream configuration changes.
@@ -179,6 +179,6 @@ The input folder files are used by BuildStream pipelines in the following ways:
 Next Steps
 ----------
 
-After completing GitLab deployment, update the catalog file to automatically trigger the pipeline. See :doc:`../build/executing-build-pipeline`.
+After completing GitLab deployment, update the catalog file to automatically trigger the build pipeline. See :doc:`../build/executing-build-pipeline`.
 
 

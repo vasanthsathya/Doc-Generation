@@ -17,9 +17,6 @@ Before updating catalogs and checking pipelines:
 Procedure
 ---------
 
-Update Catalog and Trigger Pipeline
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 1. Go to the GitLab project URL::
 
     https://<gitlab_host>:<gitlab_https_port>/root/<gitlab_project_name>
@@ -50,20 +47,10 @@ Update Catalog and Trigger Pipeline
 Manual Pipeline Retry After Failure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If the build pipeline fails, you can update the input parameters in the input files and manually retry the pipeline. Use this procedure when you need to modify configuration parameters after a pipeline failure.
+If the build pipeline fails, you can update the input parameters in the input files and manually retry the pipeline. 
 
-When to Use Manual Retry
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-Use the manual retry procedure when:
-
-* Pipeline fails due to configuration errors in input files
-* Network or resource issues caused transient failures
-* You need to modify catalog metadata or input file parameters
-* You want to retry the pipeline with updated parameters
-
-Procedure for Manual Retry
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Procedure
+---------
 
 #. Identify the failure reason by reviewing the pipeline logs in GitLab.
 
@@ -99,7 +86,7 @@ Procedure for Manual Retry
    
    c. Commit and push the changes.
 
-   For detailed parameter descriptions, see :doc:`../../reference/buildstream/configuration-tables`.
+   For detailed parameter descriptions, see :doc:`../../../reference/buildstream/configuration-tables`.
 
 #. Manually trigger the pipeline with the updated parameters.
 
@@ -118,10 +105,10 @@ Procedure for Manual Retry
    a. Click on the running pipeline to view details.
    
    b. Monitor each stage as it progresses:
-      - **parse-catalog**: Parses the catalog file
-      - **generate-input-files**: Generates input files for image building
-      - **create-local-repository**: Creates and configures the local repository
-      - **build-image**: Builds the diskless images
+         - **parse-catalog**: Parses the catalog file
+         - **generate-input-files**: Generates input files for image building
+         - **create-local-repository**: Creates and configures the local repository
+         - **build-image**: Builds the diskless images
 
 .. note::
    When using manual retry, ensure that only the necessary parameters are updated. Unnecessary changes may cause additional pipeline failures.
@@ -130,12 +117,12 @@ For troubleshooting common pipeline issues, see :doc:`../../troubleshooting/buil
 
 The following image shows the BuildStreaM pipeline is currently running and the stages are being executed:
 
-   .. image:: ../../../images/buildstream_pipeline_running.png
+   .. image:: ../../../../images/buildstream_pipeline_running.png
    
 Monitor Pipeline Progress
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. Monitor the build pipeline progress through the GitLab web interface:
+1. Monitor the build pipeline progress through the GitLab web interface:
 
    .. TODO:: Add screenshot: GitLab pipeline detail view showing stage progress
 
@@ -144,21 +131,21 @@ Monitor Pipeline Progress
    b. Click on the running pipeline to view details.
    
    c. Monitor each stage as it progresses:
-      - **create-local-repository**: Creates and configures the local repository for build artifacts
-      - **parse-catalog**: Parses and validates the catalog file for build requirements
-      - **generate-input-files**: Generates input files and configuration data for image building
-      - **build-image**: Builds the diskless images based on catalog specifications
+         - **create-local-repository**: Creates and configures the local repository for build artifacts
+         - **parse-catalog**: Parses and validates the catalog file for build requirements
+         - **generate-input-files**: Generates input files and configuration data for image building
+         - **build-image**: Builds the diskless images based on catalog specifications
 
-#. Review the stage status indicators:
+2. Review the stage status indicators:
    - |success| **Green checkmark**: Stage completed successfully
    - |failed| **Red X**: Stage failed (click for error details)
    - |running| **Blue circle**: Stage currently running
 
-.. |success| image:: ../../../images/Icons/green_check.png
-.. |failed| image:: ../../../images/Icons/red_x.png
-.. |running| image:: ../../../images/Icons/blue_circle.png
+.. |success| image:: ../../../../images/Icons/green_check.png
+.. |failed| image:: ../../../../images/Icons/red_x.png
+.. |running| image:: ../../../../images/Icons/blue_circle.png
 
-#. If any stage fails, review the error logs by clicking on the failed job.
+3. If any stage fails, review the error logs by clicking on the failed job.
 
 .. note::
    The build pipeline uses the catalog file to determine which images to build based on functional group assignments.

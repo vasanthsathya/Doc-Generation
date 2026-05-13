@@ -97,7 +97,7 @@ Procedure for Manual Retry
    
    c. Commit and push the changes.
 
-   For detailed parameter descriptions, see :doc:`../../reference/buildstream/configuration-tables`.
+   For detailed parameter descriptions, see :doc:`../../../reference/buildstream/configuration-tables`.
 
 #. Manually trigger the pipeline with the updated parameters.
 
@@ -144,9 +144,9 @@ Monitor Deploy Pipeline Progress
    - |failed| **Red X**: Stage failed (click for error details)
    - |running| **Blue circle**: Stage currently running
 
-.. |success| image:: ../../../images/Icons/green_check.png
-.. |failed| image:: ../../../images/Icons/red_x.png
-.. |running| image:: ../../../images/Icons/blue_circle.png
+.. |success| image:: ../../../../images/Icons/green_check.png
+.. |failed| image:: ../../../../images/Icons/red_x.png
+.. |running| image:: ../../../../images/Icons/blue_circle.png
 
 #. If any stage fails, review the error logs by clicking on the failed job.
 

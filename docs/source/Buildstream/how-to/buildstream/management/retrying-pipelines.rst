@@ -106,5 +106,5 @@ Related Topics
 
 * :doc:`../build/executing-build-pipeline` - Execute Build Pipeline
 * :doc:`../deploy/executing-deploy-pipeline` - Execute Deploy Pipeline
-* :doc:`../../reference/buildstream/configuration-tables` - Configuration Reference
+* :doc:`../../../reference/buildstream/configuration-tables` - Configuration Reference
 * :doc:`../../troubleshooting/buildstream/common-pipeline-issues` - Troubleshooting Guide

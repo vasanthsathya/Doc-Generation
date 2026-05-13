@@ -24,9 +24,9 @@ To build your own custom workflows, you can use the BuildStreaM REST API. The Bu
    :caption: BuildStreaM Documentation
 
    how-to/buildstream/setup/deploying-omnia-core
+   how-to/buildstream/setup/creating-pxe-mapping-file
    how-to/buildstream/setup/preparing-oim-buildstream
    how-to/buildstream/setup/deploying-gitlab-buildstream
-   how-to/buildstream/setup/creating-pxe-mapping-file
    how-to/buildstream/build/executing-build-pipeline
    how-to/buildstream/deploy/executing-deploy-pipeline
    how-to/buildstream/management/configuring-pxe-boot
