@@ -40,7 +40,7 @@ Procedure
 
       ssh omnia_core
 
-2. Navigate to ``/opt/omnia/input/project_default/gitlab_config.yml`` and update the ``gitlab_config.yml`` file. Use the :ref:`GitLab configuration table <buildstream-tables-gitlab-configuration>` for reference.
+2. Navigate to ``/opt/omnia/input/project_default/gitlab_config.yml`` and update the ``gitlab_config.yml`` file. Use the :doc:`../../reference/buildstream/configuration-tables` for reference.
     
    .. code-block:: bash
 
@@ -95,7 +95,7 @@ This ``gitlab.yml`` playbook performs the following tasks:
       - ``storage_config.yml`` - Storage configuration
       - ``telemetry_config.yml`` - Telemetry configuration
 
-.. image:: ../images/buildstream_project.png
+.. image:: ../../../images/buildstream_project.png
    :alt: BuildStream project structure
    
 .. note::
@@ -107,31 +107,43 @@ Verification
 ------------
 After the installation of GitLab complete, verify the following:
 
+.. TODO:: Add screenshot: GitLab project URL access showing the project page
+
 1. Verify you can access the GitLab project URL.
 
    .. code-block:: text
 
       https://<gitlab_host>:<gitlab_https_port>/root/<gitlab_project_name>
 
- The project should contain:
-  * **Pipeline Configuration Files**:
-    - ``.gitlab-ci.yml`` — Parent router pipeline that dispatches to child pipelines
-    - ``.gitlab-ci-build.yml`` — Build pipeline for creating images
-    - ``.gitlab-ci-deploy.yml`` — Deploy pipeline for deploying images to nodes
-    - ``.gitlab-ci-cleanup.yml`` — Cleanup pipeline for removing old Image Groups
-    - ``.gitlab-ci-deploy-child-template.yml`` — Dynamic child pipeline template for deploy operations
-  * **Catalog File**:
-    - ``catalog_rhel.json`` — Default catalog file containing build definitions for RHEL images
-  * **Input Folder**:
-    - ``input/`` — Directory containing all BuildStream input configuration files
-    - ``input/local_repo_config.yml`` — Local repository configuration
-    - ``input/network_spec.yml`` — Network configuration
-    - ``input/provision_config.yml`` — Provision configuration
-    - ``input/pxe_mapping_file.csv`` — PXE mapping file for node information
-    - ``input/storage_config.yml`` — Storage configuration
-    - ``input/telemetry_config.yml`` — Telemetry configuration
+   .. TODO:: Add screenshot: GitLab project structure showing pipeline files, catalog, and input folder
+
+   The project should contain:
+
+   * **Pipeline Configuration Files**:
+     
+     - ``.gitlab-ci.yml`` — Parent router pipeline that dispatches to child pipelines
+     - ``.gitlab-ci-build.yml`` — Build pipeline for creating images
+     - ``.gitlab-ci-deploy.yml`` — Deploy pipeline for deploying images to nodes
+     - ``.gitlab-ci-cleanup.yml`` — Cleanup pipeline for removing old Image Groups
+     - ``.gitlab-ci-deploy-child-template.yml`` — Dynamic child pipeline template for deploy operations
+   
+   * **Catalog File**:
+     
+     - ``catalog_rhel.json`` — Default catalog file containing build definitions for RHEL images
+   
+   * **Input Folder**:
+     
+     - ``input/`` — Directory containing all BuildStream input configuration files
+     - ``input/local_repo_config.yml`` — Local repository configuration
+     - ``input/network_spec.yml`` — Network configuration
+     - ``input/provision_config.yml`` — Provision configuration
+     - ``input/pxe_mapping_file.csv`` — PXE mapping file for node information
+     - ``input/storage_config.yml`` — Storage configuration
+     - ``input/telemetry_config.yml`` — Telemetry configuration
 
 2. Verify runner status through GitLab web interface:
+
+   .. TODO:: Add screenshot: GitLab Settings → CI/CD → Runners section showing green status indicator
 
    1. Navigate to **Settings** → **CI/CD**.
    2. Expand **Runners** section.

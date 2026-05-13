@@ -45,26 +45,22 @@ Procedure
    
    b. Identify which stage failed and review the error logs.
 
-#. Access the Omnia core container::
+#. Resume the pipeline through the GitLab interface:
 
-    ssh omnia_core
+   .. TODO:: Add screenshot: GitLab failed pipeline view showing Retry button
 
-#. Navigate to the BuildStream utilities directory::
-
-    cd /omnia/utils
-
-#. To resume the entire pipeline from the last successful stage, run::
-
-    ansible-playbook resume_pipeline.yml -e "pipeline_id=<pipeline_id>"
-
-#. To resume from a specific stage, run::
-
-    ansible-playbook resume_pipeline.yml -e "pipeline_id=<pipeline_id>" -e "from_stage=<stage_name>"
+   a. Click on the failed pipeline to view details.
+   
+   b. Click **Retry** to resume the pipeline from the last successful stage.
+   
+   c. Alternatively, to resume from a specific stage, click on the failed stage and select **Retry** for that specific stage.
 
 .. note::
-   Supported stage names for resume operations: ``create-local-repository``, ``parse-catalog``, ``generate-input-files``, ``build-image``, ``deploy``, ``restart``, ``validate``
+   Supported stages for retry operations: ``create-local-repository``, ``parse-catalog``, ``generate-input-files``, ``build-image``, ``deploy``, ``restart``, ``validate``
 
 #. Monitor the resume operation through the GitLab interface:
+
+   .. TODO:: Add screenshot: GitLab resumed pipeline view showing stage progress
 
    a. Navigate to **Build** → **Pipelines**.
    
@@ -87,24 +83,6 @@ Verification
 
 #. For deploy pipelines, verify that nodes were deployed correctly.
 
-Troubleshooting
----------------
-
-**Resume operation fails**:
-* Verify the original pipeline exists in the database
-* Check that the stage name is valid
-* Ensure the issue that caused the original failure is resolved
-* Review BuildStream API logs for detailed error information
-
-**Pipeline resumes from wrong stage**:
-* Verify the stage name spelling matches exactly
-* Check the pipeline execution history
-* Review the resume operation logs
-
-**Resume creates new Image Group**:
-* Verify the Job ID is preserved during resume
-* Check the resume operation parameters
-* Review the BuildStream API documentation for resume behavior
 
 Related Topics
 --------------

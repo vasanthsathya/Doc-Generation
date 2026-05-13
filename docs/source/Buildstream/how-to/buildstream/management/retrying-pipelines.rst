@@ -59,6 +59,8 @@ Retry Pipeline Through GitLab
 
 #. Retry the pipeline by triggering a new pipeline execution through GitLab:
 
+   .. TODO:: Add screenshot: GitLab New Pipeline dialog showing build/deploy selection
+
    a. Navigate to **Build** → **Pipelines**.
    
    b. Click **New Pipeline**.
@@ -75,6 +77,8 @@ Retry Pipeline Through GitLab
    This creates a new job and re-executes the entire pipeline from the beginning. Individual failed stages cannot be retried separately due to immutability constraints in the current BuildStream release.
 
 #. Monitor the retry operation through the GitLab interface:
+
+   .. TODO:: Add screenshot: GitLab retried pipeline view showing stage progress
 
    a. Navigate to **Build** → **Pipelines**.
    
@@ -97,35 +101,10 @@ Verification
 
 #. Compare results with the original failed pipeline to confirm the issue is resolved.
 
-Troubleshooting
----------------
-
-**Retry operation fails with same error**:
-* Verify that the root cause was properly identified and resolved
-* Check for persistent configuration errors
-* Review system logs for underlying issues
-* Verify resource availability
-
-**GitLab runner not available**:
-* Check GitLab runner status in GitLab project settings
-* Verify GitLab runner is set to "Running Always"
-* Check runner connectivity and resource availability
-
-**Pipeline fails to start**:
-* Verify GitLab project configuration
-* Check that "build" is selected from the dropdown list
-* Verify the correct stage (build/deploy) is selected for execution
-* Review GitLab pipeline logs for specific error messages
-
-**Configuration files not updated**:
-* Verify that configuration files (catalog, PXE mapping) were corrected
-* Check that files are committed to the GitLab repository
-* Verify file syntax and format
-
 Related Topics
 --------------
 
 * :doc:`../build/executing-build-pipeline` - Execute Build Pipeline
 * :doc:`../deploy/executing-deploy-pipeline` - Execute Deploy Pipeline
-* :doc:`../../reference/buildstream/pipeline-stages` - Pipeline Stages Reference
+* :doc:`../../reference/buildstream/configuration-tables` - Configuration Reference
 * :doc:`../../troubleshooting/buildstream/common-pipeline-issues` - Troubleshooting Guide

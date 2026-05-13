@@ -25,6 +25,9 @@ Update Catalog and Trigger Pipeline
     https://<gitlab_host>:<gitlab_https_port>/root/<gitlab_project_name>
 
 2. Go to **Code** → **Repository**.
+
+   .. TODO:: Add screenshot: GitLab Code → Repository view showing catalog file location
+
 3. Locate the catalog file ``catalog_rhel.json``.
 4. Modify the ``catalog_rhel.json`` file to define your build requirements.
 
@@ -37,80 +40,141 @@ Update Catalog and Trigger Pipeline
       - **OS version**: ``10.0``, see :ref:`supported OS types and versions <redhat-support-matrix>`.
       - **Package types**: ``rpm``, ``rpm_repo``, ``image``, ``iso``, ``tarball``, ``pip_module``, ``git``, ``manifest``.
 
-5. Trigger the build pipeline using one of the following methods:
+5. Trigger the build pipeline by committing and pushing the catalog changes. The pipeline triggers automatically when catalog changes are committed.
 
-   **Automatic Trigger (Recommended)**:
-   
-   Commit and push the catalog changes. The pipeline triggers automatically when catalog changes are committed.
+.. note:: 
+   * Currently, BuildStreaM supports only one catalog file and one pipeline trigger. BuildStreaM pipeline behaviour is controlled by the GitLab CI/CD configuration in your environment.
+   * Each pipeline processes the catalog changes independently and builds the specified images according to the catalog requirements.   
+   * If the pipeline fails, you can use the manual retry procedure to update input parameters and retry the pipeline.
 
-   **Manual Trigger**:
+Manual Pipeline Retry After Failure
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If the build pipeline fails, you can update the input parameters in the input files and manually retry the pipeline. Use this procedure when you need to modify configuration parameters after a pipeline failure.
+
+When to Use Manual Retry
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the manual retry procedure when:
+
+* Pipeline fails due to configuration errors in input files
+* Network or resource issues caused transient failures
+* You need to modify catalog metadata or input file parameters
+* You want to retry the pipeline with updated parameters
+
+Procedure for Manual Retry
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#. Identify the failure reason by reviewing the pipeline logs in GitLab.
+
+   .. TODO:: Add screenshot: GitLab failed pipeline view showing error logs
+
+   a. Navigate to **Build** → **Pipelines**.
    
+   b. Click on the failed pipeline.
+   
+   c. Click on the failed stage to view error logs.
+
+#. Update the input parameters in the GitLab repository.
+
+   **Update Catalog File**:
+   
+   a. Navigate to the GitLab project repository.
+   
+   b. Edit the ``catalog_rhel.json`` file to fix catalog-related issues.
+   
+   c. Commit and push the changes.
+
+   **Update Input Configuration Files**:
+   
+   a. Navigate to the ``input/`` folder in the GitLab repository.
+   
+   b. Edit the relevant configuration file:
+      
+      - ``local_repo_config.yml`` - Local repository configuration
+      - ``network_spec.yml`` - Network configuration
+      - ``provision_config.yml`` - Provision configuration
+      - ``storage_config.yml`` - Storage configuration
+      - ``telemetry_config.yml`` - Telemetry configuration
+   
+   c. Commit and push the changes.
+
+   For detailed parameter descriptions, see :doc:`../../reference/buildstream/configuration-tables`.
+
+#. Manually trigger the pipeline with the updated parameters.
+
+   .. TODO:: Add screenshot: GitLab New Pipeline dialog showing build selection
+
    a. Navigate to **Build** → **Pipelines**.
    
    b. Click **New Pipeline**.
    
    c. In the pipeline configuration dialog, select ``build`` from the dropdown list.
    
-   d. Run the build stage.
-   
-   e. Click **Run Pipeline** to execute the build pipeline.
+   d. Click **Run Pipeline** to execute the build pipeline.
 
-.. note:: 
-   * Currently, BuildStream supports only one catalog file and one pipeline trigger. BuildStream pipeline behaviour is controlled by the GitLab CI/CD configuration in your environment.
-   * Each pipeline processes the catalog changes independently and builds the specified images according to the catalog requirements.   
-   * Manual trigger is useful when you want to execute the pipeline without making catalog changes.
+#. Monitor the pipeline progress to ensure it completes successfully.
+
+   a. Click on the running pipeline to view details.
+   
+   b. Monitor each stage as it progresses:
+      - **parse-catalog**: Parses the catalog file
+      - **generate-input-files**: Generates input files for image building
+      - **create-local-repository**: Creates and configures the local repository
+      - **build-image**: Builds the diskless images
+
+.. note::
+   When using manual retry, ensure that only the necessary parameters are updated. Unnecessary changes may cause additional pipeline failures.
+
+For troubleshooting common pipeline issues, see :doc:`../../troubleshooting/buildstream/common-pipeline-issues`.
 
 The following image shows the BuildStreaM pipeline is currently running and the stages are being executed:
 
-   .. image:: ../images/buildstream_pipeline_running.png
+   .. image:: ../../../images/buildstream_pipeline_running.png
    
 Monitor Pipeline Progress
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-6. Perform the following steps to track the pipeline progress through the GitLab web interface:
+#. Monitor the build pipeline progress through the GitLab web interface:
 
-      a. Navigate to **Build** → **Pipeline**.
-      b. Click on the running pipeline to view details.
-      c. Monitor each stage as it progresses:
-            - **create-local-repository**: Creates and configures the local repository for build artifacts
-            - **parse-catalog**: Parses and validates the catalog file for build requirements
-            - **generate-input-files**: Generates input files and configuration data for image building
-            - **build-image**: Builds the diskless images based on catalog specifications
+   .. TODO:: Add screenshot: GitLab pipeline detail view showing stage progress
 
-The following image shows each stage of the BuildStreaM pipeline and its status:
-   .. image:: ../images/buildstream_pipeline_stages.png  
+   a. Navigate to **Build** → **Pipeline**.
+   
+   b. Click on the running pipeline to view details.
+   
+   c. Monitor each stage as it progresses:
+      - **create-local-repository**: Creates and configures the local repository for build artifacts
+      - **parse-catalog**: Parses and validates the catalog file for build requirements
+      - **generate-input-files**: Generates input files and configuration data for image building
+      - **build-image**: Builds the diskless images based on catalog specifications
 
-   Expected pipeline status indicators:
-      - |success| **Green checkmark**: Stage completed successfully
-      - |failed| **Red X**: Stage failed (click for error details)
-      - |running| **Blue circle**: Stage currently running
+#. Review the stage status indicators:
+   - |success| **Green checkmark**: Stage completed successfully
+   - |failed| **Red X**: Stage failed (click for error details)
+   - |running| **Blue circle**: Stage currently running
 
-.. |success| image:: ../images/Icons/green_check.png
-.. |failed| image:: ../images/Icons/red_x.png
-.. |running| image:: ../images/Icons/blue_circle.png
+.. |success| image:: ../../../images/Icons/green_check.png
+.. |failed| image:: ../../../images/Icons/red_x.png
+.. |running| image:: ../../../images/Icons/blue_circle.png
 
-The following image shows overall pipeline status:
-   .. image:: ../images/buildstream_pipeline_passed.png
+#. If any stage fails, review the error logs by clicking on the failed job.
 
-Image Groups Overview
-~~~~~~~~~~~~~~~~~~~~~
+.. note::
+   The build pipeline uses the catalog file to determine which images to build based on functional group assignments.
 
-BuildStream uses **Image Groups** to organize and manage the images created during the build process. Each Image Group has a 1:1 mapping with a Job ID, ensuring traceability and management of built images.
-
-* **Image Group**: A collection of constituent images built for a specific functional group
-* **Job ID**: Unique identifier for the build pipeline execution
-* **Constituent Images**: Individual images within an Image Group (e.g., base image, package images)
-* **Functional Group Mapping**: Image Groups are mapped to functional groups for deployment
-
-The build pipeline automatically creates Image Groups based on the catalog specifications. You can view Image Group details through the BuildStream API or GitLab pipeline logs.
-      
 Verification
 ------------
 
 After the pipeline is completed, you can check the overall pipeline status and job execution.
 
+.. TODO:: Add screenshot: GitLab Pipelines list showing completed pipeline status
+
 1. Navigate to **Build** → **Pipelines**
 2. Review the job list and status.
+
+.. TODO:: Add screenshot: GitLab job detail view showing execution logs and resource usage
+
 3. Click on individual jobs to view:
       - Execution logs
       - Resource usage
@@ -120,5 +184,3 @@ Next Steps
 -----------
 
 After successful execution of the build pipeline, proceed with deploying the images to cluster nodes. See :doc:`../deploy/executing-deploy-pipeline` for detailed instructions on executing the deploy pipeline.
-
-For comprehensive information about all BuildStream pipelines and stages, see :doc:`../../reference/buildstream/pipeline-stages`.

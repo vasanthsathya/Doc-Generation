@@ -42,29 +42,95 @@ Trigger Deploy Pipeline
 
     https://<gitlab_host>:<gitlab_https_port>/root/<gitlab_project_name>
 
-#. Trigger the deploy pipeline using one of the following methods:
+#. Trigger the deploy pipeline by updating the ``pxe_mapping_file.csv`` file in the GitLab repository and committing the changes. The parent router (``.gitlab-ci.yml``) detects the PXE mapping file change and automatically triggers the deploy pipeline.
 
-   **Automatic Trigger (PXE Mapping File Update)**:
-   
-   Update the ``pxe_mapping_file.csv`` file in the GitLab repository and commit the changes. The parent router (``.gitlab-ci.yml``) detects the PXE mapping file change and automatically triggers the deploy pipeline.
+.. note::
+   The parent router (``.gitlab-ci.yml``) uses file change detection to automatically trigger the appropriate child pipeline. Changes to ``input/pxe_mapping_file.csv`` trigger the deploy pipeline, while changes to ``catalog_rhel.json`` trigger the build pipeline.
+   * If the pipeline fails, you can use the manual retry procedure to update input parameters and retry the pipeline.
 
-   **Manual Trigger**:
+Manual Pipeline Retry After Failure
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If the deploy pipeline fails, you can update the input parameters in the input files and manually retry the pipeline. Use this procedure when you need to modify configuration parameters after a pipeline failure.
+
+When to Use Manual Retry
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the manual retry procedure when:
+
+* Pipeline fails due to invalid parameters configured in the input files
+* Network or resource issues caused transient failures
+* You need to modify PXE mapping file parameters
+* You want to retry the pipeline with updated parameters
+
+Procedure for Manual Retry
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#. Identify the failure reason by reviewing the pipeline logs in GitLab.
+
+   .. TODO:: Add screenshot: GitLab failed pipeline view showing deploy stage error logs
+
+   a. Navigate to **Build** → **Pipelines**.
    
+   b. Click on the failed pipeline.
+   
+   c. Click on the failed stage to view error logs.
+
+#. Update the input parameters in the GitLab repository.
+
+   **Update PXE Mapping File**:
+   
+   a. Navigate to the GitLab project repository.
+   
+   b. Edit the ``input/pxe_mapping_file.csv`` file to fix PXE mapping-related issues.
+   
+   c. Commit and push the changes.
+
+   **Update Input Configuration Files**:
+   
+   a. Navigate to the ``input/`` folder in the GitLab repository.
+   
+   b. Edit the relevant configuration file:
+      
+      - ``network_spec.yml`` - Network configuration
+      - ``storage_config.yml`` - Storage configuration
+   
+   c. Commit and push the changes.
+
+   For detailed parameter descriptions, see :doc:`../../reference/buildstream/configuration-tables`.
+
+#. Manually trigger the pipeline with the updated parameters.
+
+   .. TODO:: Add screenshot: GitLab New Pipeline dialog showing deploy selection
+
    a. Navigate to **Build** → **Pipelines**.
    
    b. Click **New Pipeline**.
    
-   c. In the pipeline configuration dialog, select ``build`` from the dropdown list.
+   c. In the pipeline configuration dialog, select ``deploy`` from the dropdown list.
    
-   d. Run the deploy stage.
+   d. Click **Run Pipeline** to execute the deploy pipeline.
+
+#. Monitor the pipeline progress to ensure it completes successfully.
+
+   a. Click on the running pipeline to view details.
    
+   b. Monitor each stage as it progresses:
+      - **deploy**: Deploys images to target nodes based on catalog specifications
+      - **restart**: Restarts nodes to load the deployed images
+      - **validate**: Validates that nodes are running the correct images
+
 .. note::
-   The parent router (``.gitlab-ci.yml``) uses file change detection to automatically trigger the appropriate child pipeline. Changes to ``input/pxe_mapping_file.csv`` trigger the deploy pipeline, while changes to ``catalog_rhel.json`` trigger the build pipeline.
+   When using manual retry, ensure that only the necessary parameters are updated. Unnecessary changes may cause additional pipeline failures.
+
+For troubleshooting common pipeline issues, see :doc:`../../troubleshooting/buildstream/common-pipeline-issues`.
 
 Monitor Deploy Pipeline Progress
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. Monitor the deploy pipeline progress through the GitLab web interface:
+
+   .. TODO:: Add screenshot: GitLab deploy pipeline detail view showing stage progress
 
    a. Click on the running pipeline to view details.
    
@@ -78,9 +144,9 @@ Monitor Deploy Pipeline Progress
    - |failed| **Red X**: Stage failed (click for error details)
    - |running| **Blue circle**: Stage currently running
 
-.. |success| image:: ../../images/Icons/green_check.png
-.. |failed| image:: ../../images/Icons/red_x.png
-.. |running| image:: ../../images/Icons/blue_circle.png
+.. |success| image:: ../../../images/Icons/green_check.png
+.. |failed| image:: ../../../images/Icons/red_x.png
+.. |running| image:: ../../../images/Icons/blue_circle.png
 
 #. If any stage fails, review the error logs by clicking on the failed job.
 
@@ -92,40 +158,18 @@ Verification
 
 After the deploy pipeline completes, verify the deployment:
 
+.. TODO:: Add screenshot: GitLab deploy pipeline completed status showing all stages passed
+
 #. Check the overall pipeline status in GitLab to ensure all stages passed.
 
 #. Verify that the target nodes have restarted and are accessible.
 
 #. Log in to a sample of deployed nodes to verify the correct image is loaded.
 
-#. Check the BuildStream API for deployment status and image group information.
+#. Check the BuildStreaM API for deployment status and image group information.
 
-Troubleshooting
----------------
+Next Steps
+----------
 
-If the deploy pipeline fails:
+After successful deployment, configure PXE boot for the target nodes to load the deployed images. See :doc:`../management/configuring-pxe-boot`.
 
-1. **Deploy stage fails**: 
-   - Verify that the build pipeline completed successfully
-   - Check that images are available in the local repository
-   - Verify PXE mapping file configuration
-
-2. **Restart stage fails**:
-   - Verify BMC connectivity from the OIM
-   - Check that nodes are powered on
-   - Verify iDRAC credentials and permissions
-
-3. **Validate stage fails**:
-   - Verify network connectivity to nodes
-   - Check that nodes completed the boot process
-   - Review cloud-init logs on target nodes
-
-For detailed troubleshooting guidance, see :doc:`../../troubleshooting/buildstream/common-pipeline-issues`.
-
-Related Topics
---------------
-
-* :doc:`../build/executing-build-pipeline` - Execute Build Pipeline
-* :doc:`deploy/configuring-pxe-boot` - Configure PXE Boot
-* :doc:`../../reference/buildstream/pipeline-stages` - Pipeline Stages Reference
-* :doc:`../../reference/buildstream/configuration-tables` - Configuration Reference

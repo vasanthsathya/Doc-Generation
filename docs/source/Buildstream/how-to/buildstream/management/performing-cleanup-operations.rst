@@ -3,24 +3,17 @@
 Perform Cleanup Operations
 ============================
 
-Manage BuildStream resources by performing manual and automated cleanup operations to remove old Image Groups and maintain system performance.
-
-.. contents:: On This Page
-   :local:
-   :depth: 2
+Manage BuildStreaM resources by performing manual cleanup operations to remove old Image Groups and maintain system performance.
 
 Overview
 --------
 
-BuildStream cleanup operations remove old Image Groups and associated resources to free up disk space and maintain system performance. Cleanup can be performed manually through GitLab pipelines or configured to run automatically on a scheduled basis.
+BuildStreaM cleanup operations remove old Image Groups and associated resources to free up disk space and maintain system performance. Cleanup is performed manually through GitLab pipeline execution.
 
 * **Manual Cleanup**: On-demand removal using GitLab pipeline execution
-* **Automated Cleanup**: Scheduled cleanup using cron jobs with configurable retention policies
-
-The automated cleanup retains a maximum of 50 Image Groups and runs every 24 hours by default.
 
 .. important::
-   The cleanup pipeline cannot be triggered automatically. It must be manually triggered through GitLab using the procedure below.
+   The cleanup pipeline must be manually triggered through GitLab using the procedure below.
 
 Prerequisites
 ------------
@@ -46,14 +39,15 @@ Manual Cleanup
 
 #. Click **New Pipeline**.
 
-#. In the pipeline configuration dialog, select ``build`` from the dropdown list.
+#. In the pipeline configuration dialog, select ``clean`` from the dropdown list.
 
-#. Run the clean stage.
+.. TODO:: Add screenshot: GitLab New Pipeline dialog showing clean selection
 
 #. Click **Run Pipeline** to execute the cleanup pipeline.
 
-.. note::
-   The cleanup pipeline will remove Image Groups based on the configured retention policy in the BuildStream configuration. It does not require specific Image Group IDs to be specified.
+#. In the Run Pipeline dialog, select the image group(s) to be cleaned up.
+
+.. TODO:: Add screenshot: Run Pipeline dialog showing image group selection
 
 #. Monitor the cleanup pipeline progress through the GitLab web interface:
 
@@ -67,96 +61,22 @@ Manual Cleanup
    - |failed| **Red X**: Stage failed (click for error details)
    - |running| **Blue circle**: Stage currently running
 
-.. |success| image:: ../../images/Icons/green_check.png
-.. |failed| image:: ../../images/Icons/red_x.png
-.. |running| image:: ../../images/Icons/blue_circle.png
-
-Automated Cleanup
-~~~~~~~~~~~~~~~~~
-
-#. Access the Omnia core container::
-
-    ssh omnia_core
-
-#. Navigate to the BuildStream configuration directory::
-
-    cd /opt/omnia/input/project_default
-
-#. Edit the ``build_stream_config.yml`` file to configure automated cleanup settings::
-
-    cleanup:
-      enabled: true
-      schedule: "0 2 * * *"  # Runs daily at 2 AM
-      retention_limit: 50     # Maximum number of Image Groups to retain
-
-#. Set up the cron job for automated cleanup::
-
-    crontab -e
-
-#. Add the following line to schedule the cleanup pipeline::
-
-    0 2 * * * cd /omnia/utils && ansible-playbook cleanup_image_groups.yml >> /var/log/buildstream_cleanup.log 2>&1
-
-#. Save the crontab and exit.
-
-.. note::
-   The automated cleanup job will remove Image Groups beyond the retention limit, starting with the oldest Image Groups first.
+.. |success| image:: ../../../images/Icons/green_check.png
+.. |failed| image:: ../../../images/Icons/red_x.png
+.. |running| image:: ../../../images/Icons/blue_circle.png
 
 Verification
 ------------
 
-Manual Cleanup Verification
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 #. Check the GitLab pipeline status to ensure the cleanup stage passed.
-
-#. Check the BuildStream API to verify Image Groups were removed::
-
-    curl -X GET http://<oim_ip>:<build_stream_port>/api/image-groups
 
 #. Verify the Image Group count is within the configured retention limit.
 
 #. Review the cleanup pipeline logs in GitLab for specific details about which Image Groups were removed.
-
-Automated Cleanup Verification
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#. Check the cron job log file to verify the cleanup executed::
-
-    tail -f /var/log/buildstream_cleanup.log
-
-#. Verify the cron job is scheduled::
-
-    crontab -l
-
-#. Monitor the Image Group count over time to ensure it stays within the retention limit.
-
-Troubleshooting
----------------
-
-**Cleanup fails to remove Image Groups (GitLab Pipeline)**:
-* Verify GitLab runner is active and accessible
-* Check that "build" is selected from the dropdown list
-* Verify the clean stage is selected for execution
-* Check BuildStream API server connectivity from GitLab node
-* Verify cleanup pipeline configuration in GitLab CI/CD
-* Review pipeline logs in GitLab for specific error messages
-
-**Automated cleanup not running**:
-* Verify cron service is running: ``systemctl status cron``
-* Check crontab syntax
-* Review cron logs: ``journalctl -u cron``
-* Verify playbook path and permissions
-
-**Disk space not freed after cleanup**:
-* Verify Image Groups were actually removed from database
-* Check for orphaned files on disk
-* Review local repository storage
 
 Related Topics
 --------------
 
 * :doc:`../management/resuming-pipelines` - Resume Pipeline Operations
 * :doc:`../management/retrying-pipelines` - Retry Pipeline Operations
-* :doc:`../../reference/buildstream/pipeline-stages` - Pipeline Stages Reference
 * :doc:`../../reference/buildstream/configuration-tables` - Configuration Reference
