@@ -8,7 +8,7 @@ BuildStream provides a three-pipeline architecture that separates build, deploym
 What Is BuildStreaM?
 --------------------
 
-BuildStreaM is an automation service that manages the end-to-end workflow for building, deploying, and validating Omnia OS images. It provides a catalog-driven interface for orchestrating the image lifecycle through a decoupled, event-driven architecture.
+BuildStreaM is a RESTful API service that automates the end-to-end workflow for building, deploying, validating, and managing Omnia OS images. It provides a programmatic interface for both human operators and CI/CD pipelines to orchestrate the image lifecycle through a decoupled, event-driven architecture.
 
 Why BuildStreaM Architecture Matters
 -------------------------------------
@@ -77,7 +77,7 @@ Job and Image Group Concepts
 **Job**
 
    - A unique unit of work representing a complete build pipeline execution
-   - Identified by a unique ID that persists across all three pipelines
+   - Identified by a UUID v7 that persists across all three pipelines
    - Contains stage execution history and attempt tracking
    - Owned by a specific client with access control
 
@@ -92,6 +92,7 @@ Job and Image Group Concepts
 
    - Individual OS images within an Image Group
    - Each identified by a functional role name
+   - Stored in the ``images`` table with S3 path references
    - Enable role-specific image management
 
 Image Group Lifecycle State Machine
@@ -124,10 +125,10 @@ BuildStreaM uses OAuth 2.0 client credentials flow for authentication:
 **Authentication Flow:**
 
 1. Client registers with BuildStreaM API (System Administrator task)
-2. Client receives client credentials
-3. Client requests access token from OAuth authorization server
-4. Client includes access token in Authorization header
-5. BuildStreaM API validates token and processes request
+2. Client receives ``client_id`` and ``client_secret``
+3. Client requests JWT token from OAuth authorization server
+4. Client includes JWT bearer token in ``Authorization`` header
+5. BuildStream API validates token and processes request
 
 **Benefits:**
 
@@ -151,39 +152,53 @@ BuildStreaM provides intelligent execution management:
 **Deploy Stage Re-run:**
 
    - Deploy stages can be re-run after completion (inputs may change)
-   - Configuration change detection
-   - Prevents redundant PXE boots
+   - Input hash tracking detects configuration changes
+   - Node diff logic prevents redundant PXE boots
    - Supports adding nodes to existing deployments
 
-**Stage Execution Logic:**
+**Stage Guard Logic:**
 
-   - Build stages: Completed stages cannot be re-run (immutable)
-   - Deploy stages: Completed stages can be re-run (inputs may change)
+   - Build stages: ``PENDING`` → Allow (initial), ``FAILED`` → Allow (retry), ``COMPLETED`` → Reject (immutable)
+   - Deploy stages: ``PENDING`` → Allow (initial), ``FAILED`` → Allow (retry), ``COMPLETED`` → Allow (re-run)
    - Prevents invalid state transitions and data corruption
 
-GitLab CI/CD Integration
+Configuration Parameters
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+BuildStream configuration includes the following parameters:
+
+   - OAuth 2.0 client credentials (``client_id``, ``client_secret``)
+   - Image retention limit (maximum 50 non-CLEANED Image Groups)
+   - Storage backend selection (NFS or PowerScale)
+   - Automation framework configuration for Molecule validation
+   - Pipeline orchestration parameters for parent router
+
+GitLab CI/CD Pipeline Structure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-BuildStreaM integrates with GitLab CI/CD for automated pipeline execution:
+BuildStreaM uses a parent router with dynamic child pipelines:
 
-**Pipeline Structure:**
+**Pipeline Files:**
 
-   - Parent pipeline router analyzes catalog and triggers appropriate child pipeline
-   - Build pipeline triggered by catalog changes
-   - Deploy and Validate pipeline triggered by PXE mapping changes
-   - CleanUp pipeline triggered manually or on schedule
+   - ``.gitlab-ci-build.yml`` — Build pipeline (catalog/config triggers)
+   - ``.gitlab-ci-deploy.yml`` — Deploy and Validate pipeline (PXE mapping triggers)
+   - ``.gitlab-ci-cleanup.yml`` — CleanUp pipeline (manual or scheduled triggers)
+   - ``.gitlab-ci.yml`` — Parent pipeline router
 
 **Dynamic Child Pipelines:**
 
-   - Parent router dispatches to appropriate child pipeline based on pipeline type
+   - Image selection via actual ``image_group`` names (e.g., ``image-build19``)
+   - Parent router dispatches to appropriate child pipeline
    - Improved user experience with meaningful pipeline names
 
 Related Topics
 --------------
 
-* :doc:`managing-buildstream-catalogs-and-pipelines`
+* :doc:`buildstream-pipelines`
 * :doc:`buildstream-resume-retry`
 * :doc:`buildstream_tables`
 
 .. note::
-   This topic provides an architectural overview of BuildStreaM. For pipeline execution procedures, see :doc:`managing-buildstream-catalogs-and-pipelines`.
+   This topic provides an architectural overview of BuildStreaM. For pipeline execution procedures, see :doc:`buildstream-pipelines`.
+
+.. [SME VALIDATION REQUIRED: Verify all architectural details against actual BuildStreaM implementation]

@@ -15,23 +15,22 @@ BuildStreaM uses a three-pipeline architecture (Build, Deploy, and  Validate), O
 
 To build your own custom workflows, you can use the BuildStreaM REST API. The BuildStreaM API documentation is available at `Omnia BuildStreaM API Documentation <https://developer.dell.com/apis/ea677050-f49b-49e1-a4b9-1cdd563415d9/versions/2.1.0/docs/Introduction.md>`_.
 
-.. toctree::
-   :maxdepth: 1
-   :caption: BuildStreaM Architecture and Concepts
-
-   buildstream-architecture
-   buildstream-resume-retry
 
 .. toctree::
    :maxdepth: 1
    :caption: BuildStreaM Deployment Workflow
 
+   buildstream-architecture
    omnia_startup_buildstream
    composable_roles_buildstream
    prepare_oim_buildstream
    how-to-gitlab-deployment
    managing-buildstream-catalogs-and-pipelines
+   how-to-buildstream-build-pipeline
+   how-to-buildstream-deploy-pipeline
+   how-to-buildstream-validate-pipeline
    set_pxe_boot_order_buildstream
+   buildstream-resume-retry
    buildstream_telemetry_1
    buildstream_verify_telmetry_1
    buildstream_tables
