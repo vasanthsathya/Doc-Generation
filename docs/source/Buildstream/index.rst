@@ -10,29 +10,30 @@ BuildStreaM addresses the key challenges in HPC cluster image management:
    - **Automation**: Eliminates manual build and deployment processes
    - **Integration**: Works seamlessly with existing Omnia deployments
    - **Traceability**: Provides complete audit trails for all build operations
-
-BuildStreaM uses a three-pipeline architecture (Build, Deploy, and  Validate), OAuth 2.0 authentication, and enhanced resume and retry capabilities.
-
+   
 To build your own custom workflows, you can use the BuildStreaM REST API. The BuildStreaM API documentation is available at `Omnia BuildStreaM API Documentation <https://developer.dell.com/apis/ea677050-f49b-49e1-a4b9-1cdd563415d9/versions/2.1.0/docs/Introduction.md>`_.
 
-
 .. toctree::
-   :maxdepth: 1
-   :caption: BuildStreaM Deployment Workflow
+   :maxdepth: 2
+   :caption: BuildStreaM Documentation
 
-   buildstream-architecture
-   omnia_startup_buildstream
-   composable_roles_buildstream
-   prepare_oim_buildstream
-   how-to-gitlab-deployment
-   managing-buildstream-catalogs-and-pipelines
-   how-to-buildstream-build-pipeline
-   how-to-buildstream-deploy-pipeline
-   how-to-buildstream-validate-pipeline
-   set_pxe_boot_order_buildstream
-   buildstream-resume-retry
-   buildstream_telemetry_1
-   buildstream_verify_telmetry_1
-   buildstream_tables
-   buildstream_troubleshooting
+   how-to/buildstream/setup/deploying-omnia-core
+   how-to/buildstream/setup/preparing-oim-buildstream
+   how-to/buildstream/setup/deploying-gitlab-buildstream
+   how-to/buildstream/setup/creating-pxe-mapping-file
+   how-to/buildstream/build/executing-build-pipeline
+   how-to/buildstream/deploy/executing-deploy-pipeline
+   how-to/buildstream/deploy/configuring-pxe-boot
+   how-to/buildstream/management/performing-cleanup-operations
+   how-to/buildstream/management/resuming-pipelines
+   how-to/buildstream/management/retrying-pipelines
+   how-to/buildstream/monitoring/initializing-telemetry
+   how-to/buildstream/monitoring/verifying-telemetry-services
+   reference/buildstream/configuration-tables
+   reference/buildstream/catalog-schema
+   reference/buildstream/upload-validation-rules
+   reference/buildstream/pipeline-stages
+   troubleshooting/buildstream/common-pipeline-issues
+   
+
 

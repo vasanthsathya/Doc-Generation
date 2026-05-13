@@ -109,37 +109,3 @@ GitLab Configuration
    :file: ../Tables/build_stream_gitlab_config.csv
    :header-rows: 1
    :keepspace:
-
-
-.. _buildstream-tables-oauth-configuration:
-
-BuildStreaM OAuth 2.0 Configuration
-----------------------------------------------
-
-The following table describes the OAuth 2.0 configuration parameters configured in the ``software_config.json`` file under the ``omnia_auth`` section.
-
-.. list-table:: OAuth 2.0 Configuration Parameters
-   :widths: 25 50 25
-   :header-rows: 1
-
-   * - Parameter
-     - Description
-     - Default Value
-   * - ``oauth_enabled``
-     - Enable or disable OAuth 2.0 authentication for BuildStreaM API access. Set to ``true`` to enable OAuth, ``false`` to use legacy authentication.
-     - ``false``
-   * - ``oauth_client_id``
-     - OAuth 2.0 client identifier registered with the Omnia Auth service. This client ID is used to obtain JWT access tokens for API authentication.
-     - ``buildstream-client``
-   * - ``oauth_client_secret``
-     - OAuth 2.0 client secret corresponding to the client ID. This secret is used to authenticate the client when requesting access tokens.
-     - (generated during setup)
-   * - ``oauth_token_url``
-     - URL endpoint for obtaining OAuth 2.0 access tokens. Typically points to the Omnia Auth service token endpoint.
-     - ``https://<oim_host>:8443/oauth/token``
-   * - ``oauth_scope``
-     - OAuth 2.0 token scope defining the permissions granted to the access token. Valid scopes include ``buildstream:read`` and ``buildstream:write``.
-     - ``buildstream:read buildstream:write``
-   * - ``oauth_token_expiry``
-     - Access token expiry time in seconds. After this time, the token must be refreshed.
-     - ``3600``

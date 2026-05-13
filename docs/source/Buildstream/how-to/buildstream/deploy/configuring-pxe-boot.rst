@@ -47,6 +47,6 @@ The playbook will:
 
 Next Steps
 ----------
-(Optional) Initialize telemetry collection for the nodes. See :doc:`buildstream_telemetry` for detailed instructions.
+(Optional) Initialize telemetry collection for the nodes. See :doc:`../monitoring/initializing-telemetry` for detailed instructions.
 
 

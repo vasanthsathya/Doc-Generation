@@ -107,66 +107,7 @@ Add necessary inputs to the ``storage_config.yml`` file for the storage configur
 ``telemetry_config.yml``
 ------------------------
 
-Add necessary inputs to the ``telemetry_config.yml`` file for the telemetry configuration. Use the :ref:`telemetry configuration table <buildstream-tables-telemetry-configuration>` for guidance when configuring these parameters.
-
-**BuildStreaM Additional Configuration**
---------------------------------------------------
-
-BuildStreaM introduces additional configuration parameters for storage backend selection.
-
-``build_stream_config.yml`` ( Parameters)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Add the following parameters to ``build_stream_config.yml``:
-
-.. code-block:: yaml
-
-   # BuildStream configuration parameters
-   build_stream_port: 5001
-   # ... other parameters ...
-
-   image_retention_limit: 50
-   storage_backend: "nfs"  # or "powerscale"
-   automated_cleanup_enabled: true
-   automated_cleanup_schedule: "0 2 * * *"  # Daily at 2 AM
-
-.. note::
-   OAuth 2.0 authentication parameters are configured separately. For OAuth configuration details, see :doc:`buildstream-architecture`.
-
-``storage_config.yml`` ( Storage Backend Selection)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-BuildStreaM supports both NFS and Dell PowerScale storage backends for artifact storage.
-
-.. code-block:: yaml
-
-   # Existing storage configuration
-   nfs_enabled: true
-   nfs_share_path: "/opt/omnia/build_stream_root/artifacts"
-
-   #  storage backend selection
-   powerscale_enabled: false  # Set to true to use PowerScale
-   powerscale_host: "[TO BE PROVIDED: PowerScale host]"
-   powerscale_export_path: "/buildstream_artifacts"
-   powerscale_mount_options: "rw,sync,hard,intr"
-
-.. important::
-   Only one storage backend (NFS or PowerScale) should be enabled at a time. The storage backend cannot be changed after preparing the OIM without cleanup and re-preparation.
-
-**BuildStreaM Automation Framework Setup**
---------------------------------------------------
-
-BuildStreaM requires the automation framework for Molecule-based validation. This is automatically configured during ``prepare_oim.yml`` execution.
-
-The ``prepare_oim.yml`` playbook performs the following  specific tasks:
-
-1. **Clone automation repository** - Clones the automation repo (branch ``automation-v2.1.0.0``) to ``/opt/omnia/automation/``
-2. **Install Molecule dependencies** - Runs ``setup_env.sh`` to install Molecule, pytest-testinfra, paramiko, and other test dependencies into a Python virtual environment (``.venv``)
-3. **Generate test configuration** - Creates ``omnia_test_config.yml`` configured for local execution mode (``oim_server_ip`` left empty)
-4. **Verify installation** - Validates that Molecule can be invoked successfully
-
-.. note::
-   The automation framework executes directly on the OIM host, not inside the BuildStreaM container. This ensures proper access to container management commands and target node SSH connectivity. 
+Add necessary inputs to the ``telemetry_config.yml`` file for the telemetry configuration. Use the :ref:`telemetry configuration table <buildstream-tables-telemetry-configuration>` for guidance when configuring these parameters. 
 
 
 2. After updating the input files, run the ``prepare_oim.yml`` playbook::
@@ -227,7 +168,7 @@ its dependent services are running correctly.
 
 5. Review the status of the dependent services in the following tree output. 
 
-   .. note:: The ``prepare_oim.yml`` deploys the following on the OIM node only when BuildStreaM is enabled on the ``build_stream_config.yml``.
+   .. note:: The ``prepare_oim.yml`` deploys the following on the OIM node only when BuildStream is enabled on the ``build_stream_config.yml``.
 
       * PostgreSQL database container
       * BuildStreaM API container 
@@ -256,32 +197,21 @@ its dependent services are running correctly.
       ●   ├─haproxy.service
       ●   ├─hydra-gen-jwks.service
       ●   ├─hydra-migrate.service
+      ●   ├─hydra.service
+      ●   ├─opaal-idp.service
+      ●   ├─opaal.service
+      ●   ├─openchami-cert-trust.service
+      ●   ├─postgres.service
+      ●   ├─smd.service
+      ●   └─step-ca.service
 
-**BuildStreaM Additional Verification**
+   * A **green circle** indicates that the service is running.
+   * A **grey circle** indicates that the service is not running.
+   * A **circle with a cross** indicates that the service failed to start.
 
-6. Verify the automation framework installation ( only):
-
-   .. code-block:: bash
-
-      /opt/omnia/automation/.venv/bin/python3 -m molecule --version
-
-   Expected output: Molecule version information (e.g., ``molecule 25.12.0`` using python 3.11``)
-
-7. Verify automation framework configuration:
-
-   .. code-block:: bash
-
-      /opt/omnia/automation/.venv/bin/python3 -c "from automation_library.core import load_omnia_test_config; load_omnia_test_config()"
-
-   Expected output: No errors (configuration loads successfully)
-
-8. Verify automation directory structure:
-
-   .. code-block:: bash
-
-      ls -la /opt/omnia/automation/
-
-   Expected directories: ``.venv/``, ``automation_library/``, ``molecule/``, ``run_molecule.sh``, ``setup_env.sh``, ``omnia_test_config.yml``
+   .. note::  The ``omnia_auth.service`` runs only when OpenLDAP is specified in the ``/opt/omnia/input/project_default/software_config.json``.
+   .. note::  The ``omnia_build_stream.service``, ``omnia_postgres.service``, and ``playbook_watcher_service`` run only when BuildStreaM is enabled in the ``/opt/omnia/input/project_default/build_stream_config.yml``.
+    
 
 View Usage Instructions for OpenCHAMI Containers
 --------------------------------------------------
