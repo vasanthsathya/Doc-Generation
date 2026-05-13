@@ -5,10 +5,6 @@ Retry Pipeline Operations
 
 Retry failed BuildStream pipelines by creating a new job and re-executing the full pipeline through GitLab. This procedure covers pipeline retry through GitLab when stages fail and cannot be individually re-run.
 
-.. contents:: On This Page
-   :local:
-   :depth: 2
-
 Overview
 --------
 
@@ -23,17 +19,12 @@ Prerequisites
 
 Before retrying pipeline operations, ensure the following:
 
-* Pipeline has failed
+* A Job exists with one or more stages in `FAILED` state
 * The issue that caused the failure has been identified and resolved
-* GitLab project is accessible
-* GitLab runner is active and available
-* Configuration files (catalog, PXE mapping, etc.) have been corrected if needed
+* Configuration files (catalog, PXE mapping, and input files) have been corrected if needed
 
 Procedure
 ---------
-
-Retry Pipeline Through GitLab
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. Identify the failed pipeline by checking the GitLab project:
 
@@ -65,13 +56,12 @@ Retry Pipeline Through GitLab
    
    b. Click **New Pipeline**.
    
-   c. In the pipeline configuration dialog, select ``build`` from the dropdown list.
+   c. In the pipeline configuration dialog, select the appropriate pipeline type from the dropdown list:
+      
+      - For build pipeline retry: select ``build``
+      - For deploy pipeline retry: select ``deploy``
    
-   d. For build pipeline retry: Run the build stage
-   
-   e. For deploy pipeline retry: Run the deploy stage
-   
-   f. Click **Run Pipeline** to execute the pipeline retry.
+   d. Click **Run Pipeline** to execute the pipeline retry.
 
 .. note::
    This creates a new job and re-executes the entire pipeline from the beginning. Individual failed stages cannot be retried separately due to immutability constraints in the current BuildStream release.

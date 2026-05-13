@@ -5,18 +5,11 @@ Execute Deploy Pipeline
 
 Execute the BuildStream deploy pipeline to deploy images to cluster nodes. This procedure covers the three deploy stages: deploy, restart, and validate.
 
-.. contents:: On This Page
-   :local:
-   :depth: 2
-
-Overview
---------
-
 The BuildStream deploy pipeline automates the deployment of built images to target cluster nodes. The pipeline consists of three sequential stages:
 
 * **deploy**: Deploys the built images to the target nodes
 * **restart**: Restarts the nodes to load the deployed images
-* **validate**: Validates that the deployment was successful
+* **validate**: Executes Molecule-based infrastructure tests to verify cluster deployment, network connectivity, and service health
 
 The deploy pipeline is automatically triggered when you update the PXE mapping file (``pxe_mapping_file.csv``) in the GitLab repository, or can be manually initiated through the GitLab interface.
 
@@ -118,7 +111,7 @@ Procedure for Manual Retry
    b. Monitor each stage as it progresses:
       - **deploy**: Deploys images to target nodes based on catalog specifications
       - **restart**: Restarts nodes to load the deployed images
-      - **validate**: Validates that nodes are running the correct images
+      - **validate**: Executes Molecule-based infrastructure tests to verify cluster deployment, network connectivity, and service health
 
 .. note::
    When using manual retry, ensure that only the necessary parameters are updated. Unnecessary changes may cause additional pipeline failures.
@@ -137,7 +130,7 @@ Monitor Deploy Pipeline Progress
    b. Monitor each stage as it progresses:
       - **deploy**: Deploys images to target nodes based on catalog specifications
       - **restart**: Restarts nodes to load the deployed images
-      - **validate**: Validates that nodes are running the correct images
+      - **validate**: Executes Molecule-based infrastructure tests to verify cluster deployment, network connectivity, and service health
 
 #. Review the stage status indicators:
    - |success| **Green checkmark**: Stage completed successfully

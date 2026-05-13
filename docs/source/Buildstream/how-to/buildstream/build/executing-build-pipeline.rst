@@ -5,6 +5,15 @@ Execute Build Pipeline
 
 Update the ``catalog_rhel.json`` file and execute the Omnia BuildStreaM build pipeline through GitLab. This procedure covers catalog modifications, pipeline triggering (automatic and manual), and verification of pipeline status and job execution.
 
+The BuildStream build pipeline automates the creation of diskless images based on catalog specifications. The pipeline consists of four sequential stages:
+
+* **parse-catalog**: Parses and validates the catalog file for build requirements
+* **create-local-repository**: Creates and configures the local repository for build artifacts
+* **generate-input-files**: Generates input files and configuration data for image building
+* **build-image**: Builds the diskless images based on catalog specifications
+
+The build pipeline is automatically triggered when you update the ``catalog_rhel.json`` file in the GitLab repository, or can be manually initiated through the GitLab interface.
+
 Prerequisites
 -------------
 
@@ -38,6 +47,8 @@ Procedure
       - **Package types**: ``rpm``, ``rpm_repo``, ``image``, ``iso``, ``tarball``, ``pip_module``, ``git``, ``manifest``.
 
 5. Trigger the build pipeline by committing and pushing the catalog changes. The pipeline triggers automatically when catalog changes are committed.
+
+6. Monitor the pipeline progress to ensure it completes successfully. See :ref:`Monitor Pipeline Progress <monitor-pipeline-progress>` for detailed instructions.
 
 .. note:: 
    * Currently, BuildStreaM supports only one catalog file and one pipeline trigger. BuildStreaM pipeline behaviour is controlled by the GitLab CI/CD configuration in your environment.
@@ -100,52 +111,43 @@ Procedure
    
    d. Click **Run Pipeline** to execute the build pipeline.
 
-#. Monitor the pipeline progress to ensure it completes successfully.
-
-   a. Click on the running pipeline to view details.
-   
-   b. Monitor each stage as it progresses:
-         - **parse-catalog**: Parses the catalog file
-         - **generate-input-files**: Generates input files for image building
-         - **create-local-repository**: Creates and configures the local repository
-         - **build-image**: Builds the diskless images
-
-.. note::
-   When using manual retry, ensure that only the necessary parameters are updated. Unnecessary changes may cause additional pipeline failures.
+#. Monitor the pipeline progress to ensure it completes successfully. See :ref:`Monitor Pipeline Progress <monitor-pipeline-progress>` for detailed instructions.
 
 For troubleshooting common pipeline issues, see :doc:`../../troubleshooting/buildstream/common-pipeline-issues`.
 
-The following image shows the BuildStreaM pipeline is currently running and the stages are being executed:
+.. _monitor-pipeline-progress:
 
-   .. image:: ../../../../images/buildstream_pipeline_running.png
-   
 Monitor Pipeline Progress
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Monitor the build pipeline progress through the GitLab web interface:
+Monitor the build pipeline progress through the GitLab web interface to track stage execution and identify any issues.
 
-   .. TODO:: Add screenshot: GitLab pipeline detail view showing stage progress
+.. TODO:: Add screenshot: GitLab pipeline detail view showing stage progress
 
-   a. Navigate to **Build** → **Pipeline**.
+1. Navigate to **Build** → **Pipeline**.
    
-   b. Click on the running pipeline to view details.
+2. Click on the running pipeline to view details.
    
-   c. Monitor each stage as it progresses:
-         - **create-local-repository**: Creates and configures the local repository for build artifacts
-         - **parse-catalog**: Parses and validates the catalog file for build requirements
-         - **generate-input-files**: Generates input files and configuration data for image building
-         - **build-image**: Builds the diskless images based on catalog specifications
+3. Monitor each stage as it progresses:
+   - **parse-catalog**: Parses and validates the catalog file for build requirements
+   - **create-local-repository**: Creates and configures the local repository for build artifacts
+   - **generate-input-files**: Generates input files and configuration data for image building
+   - **build-image**: Builds the diskless images based on catalog specifications
 
-2. Review the stage status indicators:
+4. Review the stage status indicators:
    - |success| **Green checkmark**: Stage completed successfully
    - |failed| **Red X**: Stage failed (click for error details)
    - |running| **Blue circle**: Stage currently running
+
+5. If any stage fails, review the error logs by clicking on the failed job.
 
 .. |success| image:: ../../../../images/Icons/green_check.png
 .. |failed| image:: ../../../../images/Icons/red_x.png
 .. |running| image:: ../../../../images/Icons/blue_circle.png
 
-3. If any stage fails, review the error logs by clicking on the failed job.
+The following image shows the BuildStreaM pipeline is currently running and the stages are being executed:
+
+   .. image:: ../../../../images/buildstream_pipeline_running.png
 
 .. note::
    The build pipeline uses the catalog file to determine which images to build based on functional group assignments.

@@ -3,17 +3,7 @@
 Perform Cleanup Operations
 ============================
 
-Manage BuildStreaM resources by performing manual cleanup operations to remove old Image Groups and maintain system performance.
-
-Overview
---------
-
 BuildStreaM cleanup operations remove old Image Groups and associated resources to free up disk space and maintain system performance. Cleanup is performed manually through GitLab pipeline execution.
-
-* **Manual Cleanup**: On-demand removal using GitLab pipeline execution
-
-.. important::
-   The cleanup pipeline must be manually triggered through GitLab using the procedure below.
 
 Prerequisites
 ------------
@@ -27,9 +17,6 @@ Before performing cleanup operations, ensure the following:
 
 Procedure
 ---------
-
-Manual Cleanup
-~~~~~~~~~~~~~~
 
 #. Navigate to the GitLab project URL::
 
@@ -54,8 +41,7 @@ Manual Cleanup
    a. Click on the running pipeline to view details.
    
    b. Monitor the cleanup stage as it progresses:
-      - **cleanup**: Removes old Image Groups based on retention policy
-
+   
 #. Review the stage status indicators:
    - |success| **Green checkmark**: Stage completed successfully
    - |failed| **Red X**: Stage failed (click for error details)
@@ -77,6 +63,5 @@ Verification
 Related Topics
 --------------
 
-* :doc:`../management/resuming-pipelines` - Resume Pipeline Operations
 * :doc:`../management/retrying-pipelines` - Retry Pipeline Operations
 * :doc:`../../../reference/buildstream/configuration-tables` - Configuration Reference
