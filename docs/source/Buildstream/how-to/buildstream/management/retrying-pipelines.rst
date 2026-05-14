@@ -50,7 +50,7 @@ Procedure
 
 #. Open the pipeline that is failed, and click the "Retry" button.
 
-   .. image:: ../../../../../images/retry-pipeline.png
+   .. image:: ../../../../images/retry-pipeline.png
       :alt: Retry pipeline button
 
  .. note::

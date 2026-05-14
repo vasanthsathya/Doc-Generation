@@ -45,12 +45,12 @@ Procedure
 
 5. Trigger the build pipeline by committing and pushing the catalog changes. The pipeline triggers automatically when catalog changes are committed.
 
-   .. image:: ../../../../../images/buildstream-build-trigger.png
+   .. image:: ../../../../images/buildstream-build-trigger.png
       :alt: BuildStreaM Build Trigger
 
 6. Monitor the pipeline progress to ensure it completes successfully. See :ref:`Monitor Pipeline Progress <monitor-pipeline-progress>` for detailed instructions.
 
-   .. image:: ../../../../../images/buildstream-buid-success.png
+   .. image:: ../../../../images/buildstream-buid-success.png
       :alt: BuildStreaM Pipeline Execution
 
 .. note:: 
@@ -98,7 +98,7 @@ Procedure
    
    c. In the pipeline configuration dialog, select ``build`` from the dropdown list.
 
-   .. image:: ../../../../../images/gitlab-build-manual-config.png
+   .. image:: ../../../../images/gitlab-build-manual-config.png
       :alt: GitLab Build Manual Configuration
    
    d. Click **Run Pipeline** to execute the build pipeline.

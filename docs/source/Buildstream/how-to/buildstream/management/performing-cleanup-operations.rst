@@ -30,7 +30,7 @@ Procedure
 
 #. Click **Run Pipeline** to execute the cleanup pipeline.
 
-.. image:: ../../../../../images/gitlab-clean-run-pipeline.png
+.. image:: ../../../../images/gitlab-clean-run-pipeline.png
    :alt: GitLab Clean Run Pipeline
    
 #. In the Run Pipeline dialog, select the image group(s) to be cleaned up.
