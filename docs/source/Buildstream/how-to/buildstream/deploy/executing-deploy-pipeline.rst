@@ -34,7 +34,7 @@ Procedure
 
 #. Trigger the deploy pipeline by updating the ``pxe_mapping_file.csv`` file in the GitLab repository and committing the changes. The parent router (``.gitlab-ci.yml``) detects the PXE mapping file change and automatically triggers the deploy pipeline.
 
-      .. image:: ../../../../images/gitlab-deploy-trigger.png
+      .. image:: ../../../../../images/gitlab-deploy-trigger.png
          :alt: GitLab Deploy Trigger
 
 .. note::
@@ -43,12 +43,12 @@ Procedure
 
 #. In the deploy pipeline, select the image from the ``select_image`` stage.
 
-      .. image:: ../../../../images/gitlab-deploy-select-image.png
+      .. image:: ../../../../../images/gitlab-deploy-select-image.png
          :alt: GitLab Deploy Select Image
 
 #. After selecting the image, click the "Play" button to start the pipeline.
 
-      .. image:: ../../../../images/gitlab-deploy-play.png
+      .. image:: ../../../../../images/gitlab-deploy-play.png
          :alt: GitLab Deploy Play
 
 #. Monitor the pipeline progress to ensure it completes successfully. See :ref:`Monitor Deploy Pipeline Progress <monitor-deploy-pipeline-progress>` for detailed instructions.
@@ -106,7 +106,7 @@ Procedure
 #. Monitor the pipeline progress to ensure it completes successfully.  See :ref:`Monitor Deploy Pipeline Progress <monitor-deploy-pipeline-progress>` for detailed instructions.
 
 
-   .. image:: ../../../../images/gitlab-deploy-success.png
+   .. image:: ../../../../../images/gitlab-deploy-success.png
       :alt: GitLab Deploy Success
 
 .. note::
