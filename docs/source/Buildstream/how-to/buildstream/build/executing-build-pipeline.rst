@@ -45,13 +45,13 @@ Procedure
 
 5. Trigger the build pipeline by committing and pushing the catalog changes. The pipeline triggers automatically when catalog changes are committed.
 
-.. image:: ../../../images/buildstream-build-trigger.png
-   :alt: BuildStreaM Build Trigger
+   .. image:: ../../../images/buildstream-build-trigger.png
+      :alt: BuildStreaM Build Trigger
 
 6. Monitor the pipeline progress to ensure it completes successfully. See :ref:`Monitor Pipeline Progress <monitor-pipeline-progress>` for detailed instructions.
 
-.. image:: ../../../images/buildstream-buid-success.png
-   :alt: BuildStreaM Pipeline Execution
+   .. image:: ../../../images/buildstream-buid-success.png
+      :alt: BuildStreaM Pipeline Execution
 
 .. note:: 
    * Currently, BuildStreaM supports only one catalog file and one pipeline trigger. BuildStreaM pipeline behaviour is controlled by the GitLab CI/CD configuration in your environment.
@@ -136,8 +136,6 @@ Monitor the build pipeline progress through the GitLab web interface to track st
 .. |running| image:: ../../../../images/Icons/blue_circle.png
 
 The following image shows the BuildStreaM pipeline is currently running and the stages are being executed:
-
-   .. image:: ../../../../images/buildstream_pipeline_running.png
 
 .. note::
    The build pipeline uses the catalog file to determine which images to build based on functional group assignments.

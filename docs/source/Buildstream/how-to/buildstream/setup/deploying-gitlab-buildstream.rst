@@ -44,19 +44,7 @@ Procedure
 
       cat /opt/omnia/input/project_default/gitlab_config.yml
 
-3. Ensure that the BuildStream input configuration files are properly configured in ``/opt/omnia/input/project_default/``. The following files will be automatically copied to the GitLab project ``input/`` folder:
-
-   - ``build_stream_config.yml`` — BuildStream configuration file
-   - ``gitlab_config.yml`` — GitLab configuration file
-   - ``high_availability_config.yml`` — High availability configuration file
-   - ``local_repo_config.yml`` — Local repository configuration file
-   - ``network_config.yml`` — Network configuration file
-   - ``omnia_config.yml`` — Omnia configuration file
-   - ``provision_config.yml`` — Provision configuration file
-   - ``pxe_mapping_file.csv`` — PXE mapping file
-   - ``security_config.yml`` — Security configuration file
-   - ``storage_config.yml`` — Storage configuration file
-   - ``telemetry_config.yml`` — Telemetry configuration file
+3. Ensure that the BuildStream input configuration files are properly configured in ``/opt/omnia/input/project_default/``. 
 
    For detailed parameter descriptions, see :doc:`../../../reference/buildstream/configuration-tables`.
 
@@ -73,6 +61,10 @@ Procedure
       ansible-playbook gitlab.yml
 
 6. When it prompts you to enter the GitLab password, enter the password. Note the password as it is required to access the GitLab project and instance.
+
+.. note::
+   The installation may take 10-15 minutes to complete.
+
 
 This ``gitlab.yml`` playbook performs the following tasks:
 
@@ -93,22 +85,24 @@ This ``gitlab.yml`` playbook performs the following tasks:
     - ``input/`` - Directory containing all BuildStream input configuration files
 
       .. image:: ../../../../images/buildstream_project.png
-      :alt: BuildStream project structure
+      
+The input folder includes the following configuration files (see :doc:`../../../reference/buildstream/configuration-tables` for detailed parameter descriptions):
 
-    The input folder includes the following configuration files (see :doc:`../../../reference/buildstream/configuration-tables` for detailed parameter descriptions):
-      - ``local_repo_config.yml`` - Local repository configuration
-      - ``network_spec.yml`` - Network configuration
-      - ``provision_config.yml`` - Provision configuration
-      - ``pxe_mapping_file.csv`` - PXE mapping file for node information
-      - ``storage_config.yml`` - Storage configuration
-      - ``telemetry_config.yml`` - Telemetry configuration
+   - ``build_stream_config.yml`` — BuildStream configuration file
+   - ``gitlab_config.yml`` — GitLab configuration file
+   - ``high_availability_config.yml`` — High availability configuration file
+   - ``local_repo_config.yml`` — Local repository configuration file
+   - ``network_config.yml`` — Network configuration file
+   - ``omnia_config.yml`` — Omnia configuration file
+   - ``provision_config.yml`` — Provision configuration file
+   - ``pxe_mapping_file.csv`` — PXE mapping file
+   - ``security_config.yml`` — Security configuration file
+   - ``storage_config.yml`` — Storage configuration file
+   - ``telemetry_config.yml`` — Telemetry configuration file
 
-   .. image:: ../../../../images/buildstream_project_input_files.png
-         :alt: BuildStream project input files structure
+      .. image:: ../../../../images/buildstream_project_input_files.png
+            :alt: BuildStream project input files structure
    
-.. note::
-   The installation may take 10-15 minutes to complete.
-
 7. To avoid **Not Secure** warnings when accessing the GitLab instance, download and import the certificate generated in step 4 to the browser.
 
 Verification

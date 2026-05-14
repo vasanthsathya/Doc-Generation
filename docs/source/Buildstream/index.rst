@@ -13,9 +13,9 @@ BuildStreaM supports three pipeline types that can be executed through GitLab:
 
 BuildStreaM addresses the key challenges in HPC cluster image management:
 
-   - **Automation**: Eliminates manual build and deployment processes
-   - **Integration**: Works seamlessly with existing Omnia deployments
-   - **Traceability**: Provides complete audit trails for all build operations
+* **Automation**: Eliminates manual build and deployment processes
+* **Integration**: Works seamlessly with existing Omnia deployments
+* **Traceability**: Provides complete audit trails for all build operations
 
 To build your own custom workflows, you can use the BuildStreaM REST API. The BuildStreaM API documentation is available at `Omnia BuildStreaM API Documentation <https://developer.dell.com/apis/ea677050-f49b-49e1-a4b9-1cdd563415d9/versions/2.1.0/docs/Introduction.md>`_.
 
