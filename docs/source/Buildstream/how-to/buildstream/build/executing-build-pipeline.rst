@@ -1,7 +1,7 @@
 .. _executing-build-pipeline:
 
-Execute Build Pipeline
-======================
+Step 5: Execute Build Pipeline
+==============================
 
 Update the ``catalog_rhel.json`` file and execute the Omnia BuildStreaM build pipeline through GitLab. This procedure covers catalog modifications, pipeline triggering (automatic and manual), and verification of pipeline status and job execution.
 
@@ -31,9 +31,6 @@ Procedure
     https://<gitlab_host>:<gitlab_https_port>/root/<gitlab_project_name>
 
 2. Go to **Code** → **Repository**.
-
-   .. TODO:: Add screenshot: GitLab Code → Repository view showing catalog file location
-
 3. Locate the catalog file ``catalog_rhel.json``.
 4. Modify the ``catalog_rhel.json`` file to define your build requirements.
 
@@ -48,7 +45,13 @@ Procedure
 
 5. Trigger the build pipeline by committing and pushing the catalog changes. The pipeline triggers automatically when catalog changes are committed.
 
+.. image:: ../../../images/buildstream-build-trigger.png
+   :alt: BuildStreaM Build Trigger
+
 6. Monitor the pipeline progress to ensure it completes successfully. See :ref:`Monitor Pipeline Progress <monitor-pipeline-progress>` for detailed instructions.
+
+.. image:: ../../../images/buildstream-buid-success.png
+   :alt: BuildStreaM Pipeline Execution
 
 .. note:: 
    * Currently, BuildStreaM supports only one catalog file and one pipeline trigger. BuildStreaM pipeline behaviour is controlled by the GitLab CI/CD configuration in your environment.
@@ -65,25 +68,13 @@ Procedure
 
 #. Identify the failure reason by reviewing the pipeline logs in GitLab.
 
-   .. TODO:: Add screenshot: GitLab failed pipeline view showing error logs
-
    a. Navigate to **Build** → **Pipelines**.
    
    b. Click on the failed pipeline.
    
    c. Click on the failed stage to view error logs.
 
-#. Update the input parameters in the GitLab repository.
-
-   **Update Catalog File**:
-   
-   a. Navigate to the GitLab project repository.
-   
-   b. Edit the ``catalog_rhel.json`` file to fix catalog-related issues.
-   
-   c. Commit and push the changes.
-
-   **Update Input Configuration Files**:
+#. Update the input configuration files in the GitLab repository. 
    
    a. Navigate to the ``input/`` folder in the GitLab repository.
    
@@ -101,13 +92,14 @@ Procedure
 
 #. Manually trigger the pipeline with the updated parameters.
 
-   .. TODO:: Add screenshot: GitLab New Pipeline dialog showing build selection
-
    a. Navigate to **Build** → **Pipelines**.
    
    b. Click **New Pipeline**.
    
    c. In the pipeline configuration dialog, select ``build`` from the dropdown list.
+
+   .. image:: ../../../images/gitlab-build-manual-config.png
+      :alt: GitLab Build Manual Configuration
    
    d. Click **Run Pipeline** to execute the build pipeline.
 
@@ -122,8 +114,6 @@ Monitor Pipeline Progress
 
 Monitor the build pipeline progress through the GitLab web interface to track stage execution and identify any issues.
 
-.. TODO:: Add screenshot: GitLab pipeline detail view showing stage progress
-
 1. Navigate to **Build** → **Pipeline**.
    
 2. Click on the running pipeline to view details.
@@ -135,9 +125,9 @@ Monitor the build pipeline progress through the GitLab web interface to track st
    - **build-image**: Builds the diskless images based on catalog specifications
 
 4. Review the stage status indicators:
-   - |success| **Green checkmark**: Stage completed successfully
-   - |failed| **Red X**: Stage failed (click for error details)
-   - |running| **Blue circle**: Stage currently running
+      - |success| **Green checkmark**: Stage completed successfully
+      - |failed| **Red X**: Stage failed (click for error details)
+      - |running| **Blue circle**: Stage currently running
 
 5. If any stage fails, review the error logs by clicking on the failed job.
 
@@ -157,12 +147,8 @@ Verification
 
 After the pipeline is completed, you can check the overall pipeline status and job execution.
 
-.. TODO:: Add screenshot: GitLab Pipelines list showing completed pipeline status
-
 1. Navigate to **Build** → **Pipelines**
 2. Review the job list and status.
-
-.. TODO:: Add screenshot: GitLab job detail view showing execution logs and resource usage
 
 3. Click on individual jobs to view:
       - Execution logs

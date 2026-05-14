@@ -1,17 +1,15 @@
 .. _deploying-gitlab-buildstream:
 
 Step 4: Deploy GitLab for BuildStream
-================================
+======================================
 
 Deploy GitLab as the CI/CD automation engine for BuildStream, providing a three-pipeline architecture for build, deploy, and cleanup operations. This procedure covers GitLab installation, project setup with pipeline configuration files, input folder structure, and runner verification.
 
 BuildStream uses a **three-pipeline architecture** in GitLab:
 
-* **Build Pipeline** (``.gitlab-ci-build.yml``): Triggered by catalog/config changes, creates images and establishes Job ID to Image Group ID mapping
-* **Deploy Pipeline** (``.gitlab-ci-deploy.yml``): Triggered by PXE mapping changes, deploys images to cluster nodes
-* **Cleanup Pipeline** (``.gitlab-ci-cleanup.yml``): Triggered manually, removes old Image Groups based on retention policy
-
-The pipelines are coordinated by a **parent router** (``.gitlab-ci.yml``) that uses file change detection to dispatch to the appropriate child pipeline.
+* **Build Pipeline**: Triggered by catalog/config changes, creates images and establishes Job ID to Image Group ID mapping
+* **Deploy Pipeline**: Triggered by PXE mapping changes, deploys images to cluster nodes
+* **Cleanup Pipeline**: Triggered manually, removes old Image Groups based on retention policy
 
 Prerequisites
 -------------
@@ -48,11 +46,17 @@ Procedure
 
 3. Ensure that the BuildStream input configuration files are properly configured in ``/opt/omnia/input/project_default/``. The following files will be automatically copied to the GitLab project ``input/`` folder:
 
-   * ``local_repo_config.yml`` - Local repository configuration
-   * ``network_spec.yml`` - Network configuration  
-   * ``provision_config.yml`` - Provision configuration
-   * ``storage_config.yml`` - Storage configuration
-   * ``telemetry_config.yml`` - Telemetry configuration
+   - ``build_stream_config.yml`` — BuildStream configuration file
+   - ``gitlab_config.yml`` — GitLab configuration file
+   - ``high_availability_config.yml`` — High availability configuration file
+   - ``local_repo_config.yml`` — Local repository configuration file
+   - ``network_config.yml`` — Network configuration file
+   - ``omnia_config.yml`` — Omnia configuration file
+   - ``provision_config.yml`` — Provision configuration file
+   - ``pxe_mapping_file.csv`` — PXE mapping file
+   - ``security_config.yml`` — Security configuration file
+   - ``storage_config.yml`` — Storage configuration file
+   - ``telemetry_config.yml`` — Telemetry configuration file
 
    For detailed parameter descriptions, see :doc:`../../../reference/buildstream/configuration-tables`.
 
@@ -87,6 +91,10 @@ This ``gitlab.yml`` playbook performs the following tasks:
     - ``catalog_rhel.json`` - Default catalog file containing build definitions for RHEL images
   - **Input Folder**:
     - ``input/`` - Directory containing all BuildStream input configuration files
+
+      .. image:: ../../../../images/buildstream_project.png
+      :alt: BuildStream project structure
+
     The input folder includes the following configuration files (see :doc:`../../../reference/buildstream/configuration-tables` for detailed parameter descriptions):
       - ``local_repo_config.yml`` - Local repository configuration
       - ``network_spec.yml`` - Network configuration
@@ -95,8 +103,8 @@ This ``gitlab.yml`` playbook performs the following tasks:
       - ``storage_config.yml`` - Storage configuration
       - ``telemetry_config.yml`` - Telemetry configuration
 
-.. image:: ../../../../images/buildstream_project.png
-   :alt: BuildStream project structure
+   .. image:: ../../../../images/buildstream_project_input_files.png
+         :alt: BuildStream project input files structure
    
 .. note::
    The installation may take 10-15 minutes to complete.
@@ -107,74 +115,19 @@ Verification
 ------------
 After the installation of GitLab complete, verify the following:
 
-.. TODO:: Add screenshot: GitLab project URL access showing the project page
-
-1. Verify you can access the GitLab project URL.
+* Verify you can access the GitLab project URL.
 
    .. code-block:: text
 
       https://<gitlab_host>:<gitlab_https_port>/root/<gitlab_project_name>
 
-   .. TODO:: Add screenshot: GitLab project structure showing pipeline files, catalog, and input folder
-
-   The project should contain:
-
-   * **Pipeline Configuration Files**:
-     
-     - ``.gitlab-ci.yml`` — Parent router pipeline that dispatches to child pipelines
-     - ``.gitlab-ci-build.yml`` — Build pipeline for creating images
-     - ``.gitlab-ci-deploy.yml`` — Deploy pipeline for deploying images to nodes
-     - ``.gitlab-ci-cleanup.yml`` — Cleanup pipeline for removing old Image Groups
-     - ``.gitlab-ci-deploy-child-template.yml`` — Dynamic child pipeline template for deploy operations
-   
-   * **Catalog File**:
-     
-     - ``catalog_rhel.json`` — Default catalog file containing build definitions for RHEL images
-   
-   * **Input Folder**:
-     
-     - ``input/`` — Directory containing all BuildStream input configuration files
-     - ``input/local_repo_config.yml`` — Local repository configuration
-     - ``input/network_spec.yml`` — Network configuration
-     - ``input/provision_config.yml`` — Provision configuration
-     - ``input/pxe_mapping_file.csv`` — PXE mapping file for node information
-     - ``input/storage_config.yml`` — Storage configuration
-     - ``input/telemetry_config.yml`` — Telemetry configuration
-
-2. Verify runner status through GitLab web interface:
-
-   .. TODO:: Add screenshot: GitLab Settings → CI/CD → Runners section showing green status indicator
+* Verify the project contains the expected files and folders.  
+* Verify runner status through GitLab web interface:
 
    1. Navigate to **Settings** → **CI/CD**.
    2. Expand **Runners** section.
    3. Verify the runner shows a **green** status indicator.
    4. Confirm runner is set to **Running Always** with **Podman Container**.
-
-Input Folder Structure
-----------------------
-
-The ``input/`` folder in the GitLab project contains all the configuration files required for BuildStream operations. These files are automatically copied to the GitLab repository during the initial GitLab setup and are used by the BuildStream pipelines to configure the build and deploy processes.
-
-**Input File Purposes**:
-
-* **local_repo_config.yml**: Configures the local repository for storing build artifacts and packages
-* **network_spec.yml**: Defines network configuration for cluster communication
-* **provision_config.yml**: Contains provision configuration for cluster setup
-* **pxe_mapping_file.csv**: Maps nodes to functional groups for deployment
-* **storage_config.yml**: Configures storage backend (NFS or PowerScale)
-* **telemetry_config.yml**: Sets up telemetry and monitoring configuration
-
-**Input Folder Usage**:
-
-The input folder files are used by BuildStream pipelines in the following ways:
-
-* **Build Pipeline**: Reads configuration files to generate input files for image building
-* **Deploy Pipeline**: Uses PXE mapping file to determine target nodes for deployment
-* **Configuration Updates**: Modified input files can trigger corresponding pipeline stages
-* **Parameter Reference**: For detailed parameter descriptions and allowed values, see :doc:`../../../reference/buildstream/configuration-tables`
-
-.. note::
-   The input folder structure ensures that all required configuration is centrally managed in the GitLab repository, enabling version control and collaboration on BuildStream configuration changes.
 
 Next Steps
 ----------

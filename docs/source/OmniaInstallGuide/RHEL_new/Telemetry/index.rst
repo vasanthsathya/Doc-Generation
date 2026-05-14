@@ -13,10 +13,14 @@ Omnia supports the following telemetry collection to monitor and manage your HPC
 
 * **PowerScale Telemetry** collects the PowerScale Telemetry data and logs and streamed to **VictoriaMetrics** and **VictoriaLogs**, respectively.
 
+* **Vector Telemetry Pipeline** provides Kafka-to-Victoria ingestion using Vector for collecting, transforming, and routing telemetry data from LDMS and OpenManage Enterprise (OME) sources to VictoriaMetrics and VictoriaLogs.
+
 
 .. note::
 
    To enable any telemetry and log collections (iDRAC telemetry, LDMS, PowerScale telemetry, or PowerScale logs), ensure that the ``service_k8s`` entry is mentioned in the ``software_config.json`` file and ``idrac_telemetry_support`` is set to ``true`` in the ``telemetry_config.yml`` file.
+
+   To enable Vector telemetry bridges, configure the appropriate feature flags in ``telemetry_config.yml``: ``vector_ldms_support`` for LDMS metrics, ``vector_ome_support`` for OME telemetry.
 
 
 Omnia Telemetry Architecture
@@ -53,6 +57,11 @@ Hosts telemetry collection and storage services:
 - **csm-metrics** – Collects PowerScale metrics
 - **otel-collector** – Forwards metrics to Victoria Metrics and Victoria Logs
 - **CSI Driver for Dell PowerScale:** – Driver required for communication between PowerScale and service Kubernetes nodes
+- **Vector** – High-performance data pipeline tool for collecting, transforming, and routing logs and metrics
+- **Vector-LDMS** – Kafka consumer for LDMS metrics, routes to VictoriaMetrics via vmagent-vector
+- **Vector-OME** – Kafka consumer for OME telemetry, routes metrics to VictoriaMetrics and logs to VictoriaLogs
+- **vmagent-vector** – Dedicated vmagent instance as a write-buffer between Vector pods and vminsert
+- **vlagent-vector** – Dedicated VictoriaLogs forwarding agent for log/event data from Vector pods
 
 
 **Slurm Cluster**
@@ -89,9 +98,20 @@ PowerScale Telemetry Data Flows
    PowerScale Nodes forwards syslog →  vlagent → Victoria Logs
 
 
+Vector Telemetry Data Flows
+-----------------------------
+
+::
+
+   LDMS Store (store_avro_kafka) → Kafka 'ldms' topic → Vector-LDMS → vmagent-vector → vminsert → VictoriaMetrics
+   OME → Kafka 'ome.*' topics → Vector-OME → vmagent-vector (metrics) → vminsert → VictoriaMetrics
+   OME → Kafka 'ome.*' topics → Vector-OME → vlagent-vector (logs) → vlinsert → VictoriaLogs
+
+
 .. toctree::
     :maxdepth: 2
 
     service_cluster_telemetry
     ldms_telemetry
     power_scale_telemetry
+    vector_telemetry

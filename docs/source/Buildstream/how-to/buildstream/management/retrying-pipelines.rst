@@ -48,27 +48,15 @@ Procedure
    
    d. Address any other specific error conditions.
 
-#. Retry the pipeline by triggering a new pipeline execution through GitLab:
+#. Open the pipeline that is failed, and click the "Retry" button.
 
-   .. TODO:: Add screenshot: GitLab New Pipeline dialog showing build/deploy selection
+   .. image:: retry-pipeline.png
+      :alt: Retry pipeline button
 
-   a. Navigate to **Build** → **Pipelines**.
-   
-   b. Click **New Pipeline**.
-   
-   c. In the pipeline configuration dialog, select the appropriate pipeline type from the dropdown list:
-      
-      - For build pipeline retry: select ``build``
-      - For deploy pipeline retry: select ``deploy``
-   
-   d. Click **Run Pipeline** to execute the pipeline retry.
-
-.. note::
+ .. note::
    This creates a new job and re-executes the entire pipeline from the beginning. Individual failed stages cannot be retried separately due to immutability constraints in the current BuildStream release.
 
 #. Monitor the retry operation through the GitLab interface:
-
-   .. TODO:: Add screenshot: GitLab retried pipeline view showing stage progress
 
    a. Navigate to **Build** → **Pipelines**.
    

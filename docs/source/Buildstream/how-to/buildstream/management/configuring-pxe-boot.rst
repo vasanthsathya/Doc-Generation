@@ -1,6 +1,6 @@
 .. _set-pxe-boot-order:
 
-Step 6: PXE Boot the Nodes Using the PXE Boot Utility
+Step 7: PXE Boot the Nodes Using the PXE Boot Utility
 =====================================================
 
 After successful execution of the BuildStreaM deploy pipeline, use the ``set_pxe_boot.yml`` playbook utility to configure PXE boot for the target nodes. This playbook restarts the nodes and automatically loads the diskless images on the nodes.

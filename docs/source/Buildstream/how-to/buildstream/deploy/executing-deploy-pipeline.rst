@@ -1,7 +1,7 @@
 .. _executing-deploy-pipeline:
 
-Execute Deploy Pipeline
-========================
+Step 6: Execute Deploy Pipeline
+===============================
 
 Execute the BuildStream deploy pipeline to deploy images to cluster nodes. This procedure covers the three deploy stages: deploy, restart, and validate.
 
@@ -28,40 +28,41 @@ Before executing the deploy pipeline, ensure the following:
 Procedure
 ---------
 
-Trigger Deploy Pipeline
-~~~~~~~~~~~~~~~~~~~~~~~
-
 #. Navigate to the GitLab project URL::
 
     https://<gitlab_host>:<gitlab_https_port>/root/<gitlab_project_name>
 
 #. Trigger the deploy pipeline by updating the ``pxe_mapping_file.csv`` file in the GitLab repository and committing the changes. The parent router (``.gitlab-ci.yml``) detects the PXE mapping file change and automatically triggers the deploy pipeline.
 
+   .. image:: ../../../images/gitlab-deploy-trigger.png
+      :alt: GitLab Deploy Trigger
+
 .. note::
    The parent router (``.gitlab-ci.yml``) uses file change detection to automatically trigger the appropriate child pipeline. Changes to ``input/pxe_mapping_file.csv`` trigger the deploy pipeline, while changes to ``catalog_rhel.json`` trigger the build pipeline.
    * If the pipeline fails, you can use the manual retry procedure to update input parameters and retry the pipeline.
+
+#. In the deploy pipeline, select the image from the ``select_image`` stage.
+
+   .. image:: ../../../images/gitlab-deploy-select-image.png
+      :alt: GitLab Deploy Select Image
+
+#. After selecting the image, click the "Play" button to start the pipeline.
+
+   .. image:: ../../../images/gitlab-deploy-play.png
+      :alt: GitLab Deploy Play
+
+#. Monitor the pipeline progress to ensure it completes successfully. See :ref:`Monitor Deploy Pipeline Progress <monitor-deploy-pipeline-progress>` for detailed instructions.
 
 Manual Pipeline Retry After Failure
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If the deploy pipeline fails, you can update the input parameters in the input files and manually retry the pipeline. Use this procedure when you need to modify configuration parameters after a pipeline failure.
 
-When to Use Manual Retry
-~~~~~~~~~~~~~~~~~~~~~~~~
 
-Use the manual retry procedure when:
-
-* Pipeline fails due to invalid parameters configured in the input files
-* Network or resource issues caused transient failures
-* You need to modify PXE mapping file parameters
-* You want to retry the pipeline with updated parameters
-
-Procedure for Manual Retry
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+Procedure 
+~~~~~~~~~~
 
 #. Identify the failure reason by reviewing the pipeline logs in GitLab.
-
-   .. TODO:: Add screenshot: GitLab failed pipeline view showing deploy stage error logs
 
    a. Navigate to **Build** → **Pipelines**.
    
@@ -94,36 +95,31 @@ Procedure for Manual Retry
 
 #. Manually trigger the pipeline with the updated parameters.
 
-   .. TODO:: Add screenshot: GitLab New Pipeline dialog showing deploy selection
-
    a. Navigate to **Build** → **Pipelines**.
    
    b. Click **New Pipeline**.
    
    c. In the pipeline configuration dialog, select ``deploy`` from the dropdown list.
-   
+
    d. Click **Run Pipeline** to execute the deploy pipeline.
 
-#. Monitor the pipeline progress to ensure it completes successfully.
+#. Monitor the pipeline progress to ensure it completes successfully.  See :ref:`Monitor Deploy Pipeline Progress <monitor-deploy-pipeline-progress>` for detailed instructions.
 
-   a. Click on the running pipeline to view details.
-   
-   b. Monitor each stage as it progresses:
-      - **deploy**: Deploys images to target nodes based on catalog specifications
-      - **restart**: Restarts nodes to load the deployed images
-      - **validate**: Executes Molecule-based infrastructure tests to verify cluster deployment, network connectivity, and service health
+
+.. image:: ../../../images/gitlab-deploy-success.png
+   :alt: GitLab Deploy Success
 
 .. note::
    When using manual retry, ensure that only the necessary parameters are updated. Unnecessary changes may cause additional pipeline failures.
 
 For troubleshooting common pipeline issues, see :doc:`../../troubleshooting/buildstream/common-pipeline-issues`.
 
+.. _monitor-deploy-pipeline-progress:
+
 Monitor Deploy Pipeline Progress
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. Monitor the deploy pipeline progress through the GitLab web interface:
-
-   .. TODO:: Add screenshot: GitLab deploy pipeline detail view showing stage progress
 
    a. Click on the running pipeline to view details.
    
@@ -133,9 +129,9 @@ Monitor Deploy Pipeline Progress
       - **validate**: Executes Molecule-based infrastructure tests to verify cluster deployment, network connectivity, and service health
 
 #. Review the stage status indicators:
-   - |success| **Green checkmark**: Stage completed successfully
-   - |failed| **Red X**: Stage failed (click for error details)
-   - |running| **Blue circle**: Stage currently running
+      - |success| **Green checkmark**: Stage completed successfully
+      - |failed| **Red X**: Stage failed (click for error details)
+      - |running| **Blue circle**: Stage currently running
 
 .. |success| image:: ../../../../images/Icons/green_check.png
 .. |failed| image:: ../../../../images/Icons/red_x.png
@@ -150,8 +146,6 @@ Verification
 ------------
 
 After the deploy pipeline completes, verify the deployment:
-
-.. TODO:: Add screenshot: GitLab deploy pipeline completed status showing all stages passed
 
 #. Check the overall pipeline status in GitLab to ensure all stages passed.
 

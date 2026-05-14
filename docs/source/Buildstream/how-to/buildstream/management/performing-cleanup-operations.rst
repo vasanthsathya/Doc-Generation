@@ -28,24 +28,25 @@ Procedure
 
 #. In the pipeline configuration dialog, select ``clean`` from the dropdown list.
 
-.. TODO:: Add screenshot: GitLab New Pipeline dialog showing clean selection
-
 #. Click **Run Pipeline** to execute the cleanup pipeline.
 
+.. image:: ../../../images/gitlab-clean-run-pipeline.png
+   :alt: GitLab Clean Run Pipeline
+   
 #. In the Run Pipeline dialog, select the image group(s) to be cleaned up.
 
-.. TODO:: Add screenshot: Run Pipeline dialog showing image group selection
-
-#. Monitor the cleanup pipeline progress through the GitLab web interface:
+#. Monitor the pipeline progress through the GitLab web interface:
 
    a. Click on the running pipeline to view details.
    
-   b. Monitor the cleanup stage as it progresses:
+   b. Monitor the cleanup stage as it progresses to completion.
+
+      :alt: GitLab Clean Pipeline Success
    
 #. Review the stage status indicators:
-   - |success| **Green checkmark**: Stage completed successfully
-   - |failed| **Red X**: Stage failed (click for error details)
-   - |running| **Blue circle**: Stage currently running
+    - |success| **Green checkmark**: Stage completed successfully
+    - |failed| **Red X**: Stage failed (click for error details)
+    - |running| **Blue circle**: Stage currently running
 
 .. |success| image:: ../../../../images/Icons/green_check.png
 .. |failed| image:: ../../../../images/Icons/red_x.png
