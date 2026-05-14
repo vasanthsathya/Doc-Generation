@@ -8,8 +8,8 @@ Update the ``catalog_rhel.json`` file and execute the Omnia BuildStreaM build pi
 The BuildStream build pipeline automates the creation of diskless images based on catalog specifications. The pipeline consists of four sequential stages:
 
 * **parse-catalog**: Parses and validates the catalog file for build requirements
-* **create-local-repository**: Creates and configures the local repository for build artifacts
 * **generate-input-files**: Generates input files and configuration data for image building
+* **create-local-repository**: Creates and configures the local repository for build artifacts
 * **build-image**: Builds the diskless images based on catalog specifications
 
 The build pipeline is automatically triggered when you update the ``catalog_rhel.json`` file in the GitLab repository, or can be manually initiated through the GitLab interface.
@@ -78,17 +78,11 @@ Procedure
    
    a. Navigate to the ``input/`` folder in the GitLab repository.
    
-   b. Edit the relevant configuration file:
-      
-      - ``local_repo_config.yml`` - Local repository configuration
-      - ``network_spec.yml`` - Network configuration
-      - ``provision_config.yml`` - Provision configuration
-      - ``storage_config.yml`` - Storage configuration
-      - ``telemetry_config.yml`` - Telemetry configuration
-   
+   b. Edit the relevant configuration file.      
+  
    c. Commit and push the changes.
 
-   For detailed parameter descriptions, see :doc:`../../../reference/buildstream/configuration-tables`.
+   For detailed descriptions of the configuration parameters in the configuration files, see :doc:`../../../reference/buildstream/configuration-tables`.
 
 #. Manually trigger the pipeline with the updated parameters.
 
@@ -96,16 +90,16 @@ Procedure
    
    b. Click **New Pipeline**.
    
-   c. In the pipeline configuration dialog, select ``build`` from the dropdown list.
+   c. In the **Run new pipeline** dialog box, enter the variable name as **PIPELINE_TYPE** and enter the value as **build**.
 
    .. image:: ../../../../images/gitlab-build-manual-config.png
       :alt: GitLab Build Manual Configuration
-   
+
    d. Click **Run Pipeline** to execute the build pipeline.
 
 #. Monitor the pipeline progress to ensure it completes successfully. See :ref:`Monitor Pipeline Progress <monitor-pipeline-progress>` for detailed instructions.
 
-For troubleshooting common pipeline issues, see :doc:`../../troubleshooting/buildstream/common-pipeline-issues`.
+For troubleshooting common pipeline issues, see :doc:`../../../troubleshooting/buildstream/common-pipeline-issues`.
 
 .. _monitor-pipeline-progress:
 
@@ -119,15 +113,15 @@ Monitor the build pipeline progress through the GitLab web interface to track st
 2. Click on the running pipeline to view details.
    
 3. Monitor each stage as it progresses:
-   - **parse-catalog**: Parses and validates the catalog file for build requirements
-   - **create-local-repository**: Creates and configures the local repository for build artifacts
-   - **generate-input-files**: Generates input files and configuration data for image building
-   - **build-image**: Builds the diskless images based on catalog specifications
+     - **parse-catalog**: Parses and validates the catalog file for build requirements
+     - **create-local-repository**: Creates and configures the local repository for build artifacts
+     - **generate-input-files**: Generates input files and configuration data for image building
+     - **build-image**: Builds the diskless images based on catalog specifications
 
 4. Review the stage status indicators:
-      - |success| **Green checkmark**: Stage completed successfully
-      - |failed| **Red X**: Stage failed (click for error details)
-      - |running| **Blue circle**: Stage currently running
+     - |success| **Green checkmark**: Stage completed successfully
+     - |failed| **Red X**: Stage failed (click for error details)
+     - |running| **Blue circle**: Stage currently running
 
 5. If any stage fails, review the error logs by clicking on the failed job.
 

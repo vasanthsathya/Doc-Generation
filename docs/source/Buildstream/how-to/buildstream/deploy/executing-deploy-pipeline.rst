@@ -32,14 +32,12 @@ Procedure
 
     https://<gitlab_host>:<gitlab_https_port>/root/<gitlab_project_name>
 
-#. Trigger the deploy pipeline by updating the ``pxe_mapping_file.csv`` file in the GitLab repository and committing the changes. The parent router (``.gitlab-ci.yml``) detects the PXE mapping file change and automatically triggers the deploy pipeline.
+#. Trigger the deploy pipeline by updating the ``pxe_mapping_file.csv`` file in the GitLab repository and committing the changes. 
 
       .. image:: ../../../../images/gitlab-deploy-trigger.png
          :alt: GitLab Deploy Trigger
 
-.. note::
-   The parent router (``.gitlab-ci.yml``) uses file change detection to automatically trigger the appropriate child pipeline. Changes to ``input/pxe_mapping_file.csv`` trigger the deploy pipeline, while changes to ``catalog_rhel.json`` trigger the build pipeline.
-   * If the pipeline fails, you can use the manual retry procedure to update input parameters and retry the pipeline.
+.. note:: If the pipeline fails, you can use the manual retry procedure to update input parameters and retry the pipeline.
 
 #. In the deploy pipeline, select the image from the ``select_image`` stage.
 
@@ -72,26 +70,11 @@ Procedure
 
 #. Update the input parameters in the GitLab repository.
 
-   **Update PXE Mapping File**:
-   
-   a. Navigate to the GitLab project repository.
-   
-   b. Edit the ``input/pxe_mapping_file.csv`` file to fix PXE mapping-related issues.
-   
-   c. Commit and push the changes.
-
-   **Update Input Configuration Files**:
-   
    a. Navigate to the ``input/`` folder in the GitLab repository.
    
-   b. Edit the relevant configuration file:
-      
-      - ``network_spec.yml`` - Network configuration
-      - ``storage_config.yml`` - Storage configuration
+   b. Edit the relevant configuration file. For detailed parameter descriptions, see :doc:`../../../reference/buildstream/configuration-tables`.
    
    c. Commit and push the changes.
-
-   For detailed parameter descriptions, see :doc:`../../../reference/buildstream/configuration-tables`.
 
 #. Manually trigger the pipeline with the updated parameters.
 
@@ -99,7 +82,10 @@ Procedure
    
    b. Click **New Pipeline**.
    
-   c. In the pipeline configuration dialog, select ``deploy`` from the dropdown list.
+   c.  In the **Run new pipeline** dialog box, enter the variable name as **PIPELINE_TYPE** and enter the value as **deploy**.
+
+    .. image:: ../../../../images/gitlab-deploy-manual-config.png
+       :alt: GitLab Deploy Manual Configuration
 
    d. Click **Run Pipeline** to execute the deploy pipeline.
 
@@ -112,7 +98,7 @@ Procedure
 .. note::
    When using manual retry, ensure that only the necessary parameters are updated. Unnecessary changes may cause additional pipeline failures.
 
-For troubleshooting common pipeline issues, see :doc:`../../troubleshooting/buildstream/common-pipeline-issues`.
+For troubleshooting common pipeline issues, see :doc:`../../../troubleshooting/buildstream/common-pipeline-issues`.
 
 .. _monitor-deploy-pipeline-progress:
 
@@ -124,9 +110,10 @@ Monitor Deploy Pipeline Progress
    a. Click on the running pipeline to view details.
    
    b. Monitor each stage as it progresses:
-      - **deploy**: Deploys images to target nodes based on catalog specifications
-      - **restart**: Restarts nodes to load the deployed images
-      - **validate**: Executes Molecule-based infrastructure tests to verify cluster deployment, network connectivity, and service health
+
+         - **deploy**: Deploys images to target nodes based on catalog specifications
+         - **restart**: Restarts nodes to load the deployed images
+         - **validate**: Executes Molecule-based infrastructure tests to verify cluster deployment, network connectivity, and service health
 
 #. Review the stage status indicators:
       - |success| **Green checkmark**: Stage completed successfully

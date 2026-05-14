@@ -3,14 +3,13 @@
 Perform Cleanup Operations
 ============================
 
-BuildStreaM cleanup operations remove old Image Groups and associated resources to free up disk space and maintain system performance. Cleanup is performed manually through GitLab pipeline execution.
+BuildStream supports a maximum of 50 build images. When the build image count exceeds this limit, you must manually perform cleanup operations to remove old images before creating new ones.
 
 Prerequisites
 ------------
 
 Before performing cleanup operations, ensure the following:
 
-* BuildStream infrastructure is operational
 * You have administrative access to the OIM
 * BuildStream API server is running
 * PostgreSQL database is accessible
@@ -26,23 +25,24 @@ Procedure
 
 #. Click **New Pipeline**.
 
-#. In the pipeline configuration dialog, select ``clean`` from the dropdown list.
+#.  In the **Run new pipeline** dialog box, enter the variable name as **PIPELINE_TYPE** and enter the value as **cleanup**.
 
 #. Click **Run Pipeline** to execute the cleanup pipeline.
 
-.. image:: ../../../../images/gitlab-clean-run-pipeline.png
-   :alt: GitLab Clean Run Pipeline
+    .. image:: ../../../../images/gitlab-clean-run-pipeline.png
+    :alt: GitLab Clean Run Pipeline
    
-#. In the Run Pipeline dialog, select the image group(s) to be cleaned up.
+#. In the pipeline, select the image to be cleaned up from the `select_image` stage.
+
+    .. image:: ../../../../images/gitlab-clean-select-image.png
+    :alt: GitLab Clean Select Image
 
 #. Monitor the pipeline progress through the GitLab web interface:
 
    a. Click on the running pipeline to view details.
    
    b. Monitor the cleanup stage as it progresses to completion.
-
-      :alt: GitLab Clean Pipeline Success
-   
+ 
 #. Review the stage status indicators:
     - |success| **Green checkmark**: Stage completed successfully
     - |failed| **Red X**: Stage failed (click for error details)
