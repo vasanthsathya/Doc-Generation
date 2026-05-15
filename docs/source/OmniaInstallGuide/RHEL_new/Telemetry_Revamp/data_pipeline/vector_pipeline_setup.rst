@@ -1,6 +1,5 @@
-================================================
-Configure Deployment Required for Vector Telemetry 
-================================================
+Vector Pipeline Setup
+=====================
 
 Using Omnia, you can deploy Vector as a high-performance data pipeline tool for collecting, transforming, and routing telemetry data from LDMS and OpenManage Enterprise (OME) sources to VictoriaMetrics and VictoriaLogs. The deployment includes Vector-LDMS and Vector-OME pods as Kafka consumers, vmagent-vector as a dedicated write-buffer for metrics, and vlagent-vector as a log forwarding agent.
 
@@ -19,6 +18,7 @@ Vector enables the following data flows:
 - **OME metrics:** OME → Kafka 'ome.*' topics → Vector-OME → vmagent-vector → vminsert → VictoriaMetrics
 - **OME logs:** OME → Kafka 'ome.*' topics → Vector-OME → vlagent-vector → vlinsert → VictoriaLogs
 
+.. note:: Vector-iDRAC support is deferred to a future release. The current Dell iDRAC telemetry produces to a single `idrac` topic with mixed metrics and events, which is insufficient for proper Vector routing. Omnia will adopt the NERSC iDRAC collector in a future release to enable Vector-iDRAC support.
 
 Prerequisites
 ---------------
@@ -31,7 +31,7 @@ Prerequisites
 Steps
 -------
 
-1. Specify the following entries in the ``software_config.json``. If any entry is missing, Omnia skips Vector deployment and logs an informational message. 
+1. Specify the following entries in the ``software_config.json``. If any entry is missing, Omnia skips Vector deployment and logs an informational message.
    For more information, see :doc:`../CreateLocalRepo/InputParameters`.
 
 .. code-block:: json
@@ -43,7 +43,7 @@ Steps
    .. note:: Vector telemetry bridges are controlled by feature flags in ``telemetry_config.yml``. Set ``vector_ldms_support`` to enable Vector-LDMS, and ``vector_ome_support`` to enable Vector-OME.
 
     .. csv-table:: telemetry_config.yml
-        :file: ../../../Tables/telemetry_config.csv
+        :file: ../../../../Tables/telemetry_config.csv
         :header-rows: 1
         :keepspace:
 
@@ -104,7 +104,7 @@ For common Vector telemetry issues and troubleshooting steps, see :doc:`../../tr
 Related Topics
 --------------
 
-* :doc:`service_cluster_telemetry` - Service Cluster Telemetry Configuration
-* :doc:`ldms_telemetry` - LDMS Telemetry Configuration
-* :doc:`power_scale_telemetry` - PowerScale Telemetry Configuration
+* :doc:`../idrac_telemetry/idrac_configuration` - Service Cluster Telemetry Configuration
+* :doc:`../ldms_telemetry/ldms_configuration` - LDMS Telemetry Configuration
+* :doc:`../powerscale_telemetry/powerscale_configuration` - PowerScale Telemetry Configuration
 * :doc:`../../../reference/telemetry/telemetry_config` - Telemetry Configuration Reference
