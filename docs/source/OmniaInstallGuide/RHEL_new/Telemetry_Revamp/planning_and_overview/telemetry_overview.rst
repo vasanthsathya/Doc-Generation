@@ -1,7 +1,7 @@
 Telemetry Overview
 ===================
 
-Omnia supports the following telemetry collection to monitor and manage your HPC infrastructure.
+Omnia supports the following telemetry collection to monitor and manage your HPC infrastructure..
 
 * **iDRAC Telemetry** provides out-of-band system metrics from Dell servers, including
   power, thermal, and hardware health information. The iDRAC Telemetry data can be collected
