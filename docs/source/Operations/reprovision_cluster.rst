@@ -65,8 +65,8 @@ Before re-provisioning, gracefully drain all workloads from the target nodes.
 
 **Run on: Slurm control node**
 
-.. code-block:: bash
-   scontrol update NodeName=compute-03 State=DRAIN Reason="Re-provisioning"
+   .. code-block:: bash
+      scontrol update NodeName=compute-03 State=DRAIN Reason="Re-provisioning"
 
 
 
