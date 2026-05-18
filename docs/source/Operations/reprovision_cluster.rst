@@ -63,10 +63,9 @@ Before re-provisioning, gracefully drain all workloads from the target nodes.
 **For Slurm nodes:**
 
 
-**Run on: Slurm control node**
+**Run on: Slurm control node**::
 
-   .. code-block:: bash
-      scontrol update NodeName=compute-03 State=DRAIN Reason="Re-provisioning"
+   scontrol update NodeName=compute-03 State=DRAIN Reason="Re-provisioning"
 
 
 
@@ -103,9 +102,8 @@ Step 2: Update configuration
 
 
 .. code-block:: bash
-
-      ssh omnia_core
-      cd /omnia/input
+   ssh omnia_core
+   cd /omnia/input
 
 
 
@@ -117,9 +115,8 @@ Step 2: Update configuration
 
 
 .. code-block:: bash
-
-      cd /omnia
-      ansible-playbook playbooks/build_cluster_images.yml
+   cd /omnia
+   ansible-playbook playbooks/build_cluster_images.yml
 
 
 
