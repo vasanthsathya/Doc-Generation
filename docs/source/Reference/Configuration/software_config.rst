@@ -129,7 +129,7 @@ Usage example
 -------------
 
 
-See `Software Config Json <../SampleFiles/software_config_json.rst>`_ for complete annotated
+See :doc:`Software Config Json <../SampleFiles/software_config_json>` for complete annotated
 examples covering Slurm-only, Slurm + K8s, and telemetry-only scenarios.
 
 
@@ -182,9 +182,9 @@ examples covering Slurm-only, Slurm + K8s, and telemetry-only scenarios.
 .. note::
 
 
-   - `Software Config Json <../SampleFiles/software_config_json.rst>`_ -- Complete sample
+   - :doc:`Software Config Json <../SampleFiles/software_config_json>` -- Complete sample
      files for different scenarios.
-   - `Pxe Mapping File <../SampleFiles/pxe_mapping_file.rst>`_ -- PXE mapping CSV that
+   - :doc:`Pxe Mapping File <../SampleFiles/pxe_mapping_file>` -- PXE mapping CSV that
      defines functional groups.
-   - `Local Repo Config <local_repo_config.rst>`_ -- Repository sources for these packages.
+   - :doc:`Local Repo Config <local_repo_config>` -- Repository sources for these packages.
 

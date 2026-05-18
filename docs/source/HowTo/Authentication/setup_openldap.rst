@@ -29,12 +29,12 @@ Prerequisites
 -------------
 
 
-- The `Prepare Oim <../Setup/prepare_oim.rst>`_ procedure is complete (``omnia_auth``
+- The :doc:`Prepare Oim <../Setup/prepare_oim>` procedure is complete (``omnia_auth``
   container is running).
 - The ``omnia_config.yml`` file has authentication parameters configured.
 - Cluster nodes are provisioned and reachable.
 - NFS shared storage is configured for user home directories (see
-  `Configure Nfs <../Storage/configure_nfs.rst>`_).
+  :doc:`Configure Nfs <../Storage/configure_nfs>`).
 
 
 
@@ -217,10 +217,10 @@ Next Steps
 ----------
 
 
-- `Setup Openldap Proxy <setup_openldap_proxy.rst>`_ -- Configure LDAP proxy to an external
+- :doc:`Setup Openldap Proxy <setup_openldap_proxy>` -- Configure LDAP proxy to an external
   directory.
-- `Replicate Ldap <replicate_ldap.rst>`_ -- Set up LDAP replication for redundancy.
-- `Setup Slurm <../Slurm/setup_slurm.rst>`_ -- Slurm accounting will use LDAP users.
+- :doc:`Replicate Ldap <replicate_ldap>` -- Set up LDAP replication for redundancy.
+- :doc:`Setup Slurm <../Slurm/setup_slurm>` -- Slurm accounting will use LDAP users.
 
 
 

@@ -16,7 +16,7 @@ operational cluster.
 .. note::
 
 
-   Before selecting a path, complete the `Prerequisites Checklist <prerequisites_checklist.rst>`_ to
+   Before selecting a path, complete the :doc:`Prerequisites Checklist <prerequisites_checklist>` to
    ensure your hardware, networking, and software environment are ready.
 
 
@@ -37,25 +37,25 @@ Deployment Paths at a Glance
      - Time
      - Description
    * - **A**
-     - `Slurm Quickstart <slurm_quickstart.rst>`_
+     - :doc:`Slurm Quickstart <slurm_quickstart>`
      - Traditional HPC (Slurm)
      - 4
      - ~2 hrs
      - Fastest way to stand up a Slurm cluster. Deploys 1 OIM (management), 1 Slurm head node, 1 compute node, and 1 login node. No Kubernetes or telemetry. Ideal for first-time users and small-scale HPC workloads.
    * - **B**
-     - `Full Deployment <full_deployment.rst>`_
+     - :doc:`Full Deployment <full_deployment>`
      - Slurm + Service K8s + Telemetry
      - 8
      - ~4 hrs
      - Production-grade deployment with Slurm scheduling, a highly available 3-node Kubernetes service cluster, LDAP/FreeIPA authentication, and full telemetry (iDRAC, Grafana, VictoriaMetrics). Best for teams running mixed HPC/AI workloads with monitoring requirements.
    * - **C**
-     - `K8S Telemetry Only <k8s_telemetry_only.rst>`_
+     - :doc:`K8S Telemetry Only <k8s_telemetry_only>`
      - Kubernetes + Telemetry (no Slurm)
      - 5
      - ~2 hrs
      - Deploys a 3-control-plane + 1-worker Kubernetes cluster with the complete telemetry pipeline (iDRAC metrics, LDMS, Kafka, VictoriaMetrics, Grafana). No Slurm. Use this when you need infrastructure monitoring without a job scheduler.
    * - **D**
-     - `Buildstream Deployment <buildstream_deployment.rst>`_
+     - :doc:`Buildstream Deployment <buildstream_deployment>`
      - BuildStreaM (Catalog-Driven CI/CD)
      - 8+
      - ~6 hrs
@@ -68,19 +68,19 @@ Which Path Should I Choose?
 
 
 **"I just want Slurm running as fast as possible."**
-    Start with `Slurm Quickstart <slurm_quickstart.rst>`_ (Path A). You can always add
+    Start with :doc:`Slurm Quickstart <slurm_quickstart>` (Path A). You can always add
     Kubernetes and telemetry later.
 
 **"I need a production cluster with monitoring and authentication."**
-    Go with `Full Deployment <full_deployment.rst>`_ (Path B). This is the canonical Omnia
+    Go with :doc:`Full Deployment <full_deployment>` (Path B). This is the canonical Omnia
     deployment that exercises every major subsystem.
 
 **"I only need telemetry dashboards -- no job scheduler."**
-    Choose `K8S Telemetry Only <k8s_telemetry_only.rst>`_ (Path C). This gives you
+    Choose :doc:`K8S Telemetry Only <k8s_telemetry_only>` (Path C). This gives you
     iDRAC-to-Grafana visibility without the overhead of Slurm.
 
 **"I want CI/CD-driven, repeatable infrastructure."**
-    Use `Buildstream Deployment <buildstream_deployment.rst>`_ (Path D). BuildStreaM automates the
+    Use :doc:`Buildstream Deployment <buildstream_deployment>` (Path D). BuildStreaM automates the
     entire lifecycle through GitLab pipelines and a declarative catalog.
 
 
@@ -89,7 +89,7 @@ Before You Begin
 
 
 Every path assumes you have completed the items in
-`Prerequisites Checklist <prerequisites_checklist.rst>`_. That page covers:
+:doc:`Prerequisites Checklist <prerequisites_checklist>`. That page covers:
 
 - Supported hardware and firmware versions
 - OIM (management node) requirements (RAM, OS, Podman, NICs)
@@ -102,7 +102,7 @@ Every path assumes you have completed the items in
 .. tip::
 
 
-   Print or bookmark the `Prerequisites Checklist <prerequisites_checklist.rst>`_ -- it doubles as a
+   Print or bookmark the :doc:`Prerequisites Checklist <prerequisites_checklist>` -- it doubles as a
    day-of-deployment runbook you can hand to a datacenter technician.
 
 

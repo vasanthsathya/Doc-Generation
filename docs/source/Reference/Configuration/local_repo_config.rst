@@ -35,7 +35,7 @@ General settings
      - String
      - No
      - ``/opt/omnia/repo_store``
-     - Directory on the OIM where mirrored repositories are stored. Must have sufficient disk space (see `Disk Space <../ClusterRequirements/disk_space.rst>`_).
+     - Directory on the OIM where mirrored repositories are stored. Must have sufficient disk space (see :doc:`Disk Space <../ClusterRequirements/disk_space>`).
    * - ``repo_sync_on_run``
      - Boolean
      - No
@@ -204,9 +204,9 @@ Usage example
 .. note::
 
 
-   - `Playbook Reference <../Playbooks/playbook_reference.rst>`_ -- The ``local_repo.yml``
+   - :doc:`Playbook Reference <../Playbooks/playbook_reference>` -- The ``local_repo.yml``
      playbook.
-   - `Disk Space <../ClusterRequirements/disk_space.rst>`_ -- Disk space for the
+   - :doc:`Disk Space <../ClusterRequirements/disk_space>` -- Disk space for the
      repository mirror.
-   - `Software Config <software_config.rst>`_ -- Which packages are selected for installation.
+   - :doc:`Software Config <software_config>` -- Which packages are selected for installation.
 

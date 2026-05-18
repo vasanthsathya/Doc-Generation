@@ -173,10 +173,10 @@ Database prerequisites
 .. note::
 
 
-   - `Slurm Conf <slurm_conf.rst>`_ -- Companion ``slurm.conf`` configuration.
-   - `Omnia Config <../Configuration/omnia_config.rst>`_ -- Omnia-level Slurm
+   - :doc:`Slurm Conf <slurm_conf>` -- Companion ``slurm.conf`` configuration.
+   - :doc:`Omnia Config <../Configuration/omnia_config>` -- Omnia-level Slurm
      settings.
-   - `Ports <../ClusterRequirements/ports.rst>`_ -- Port 6819 for slurmdbd.
+   - :doc:`Ports <../ClusterRequirements/ports>` -- Port 6819 for slurmdbd.
    - `Slurm documentation <https://slurm.schedmd.com/slurmdbd.conf.html>`_ --
      Upstream parameter reference.
 

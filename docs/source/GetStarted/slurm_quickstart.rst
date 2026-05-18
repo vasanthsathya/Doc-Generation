@@ -38,7 +38,7 @@ point for first-time users.
 
 
    This tutorial assumes you have completed every item on the
-   `Prerequisites Checklist <prerequisites_checklist.rst>`_. If you have not, stop here and finish
+   :doc:`Prerequisites Checklist <prerequisites_checklist>`. If you have not, stop here and finish
    that first.
 
 
@@ -375,7 +375,7 @@ so that node provisioning does not depend on external internet access.
 
    ``local_repo.yml`` can take **30--60 minutes** depending on internet
    bandwidth. It downloads several GB of packages. Ensure the OIM has
-   sufficient disk space (see `Prerequisites Checklist <prerequisites_checklist.rst>`_) and a stable
+   sufficient disk space (see :doc:`Prerequisites Checklist <prerequisites_checklist>`) and a stable
    internet connection.
 
 
@@ -603,12 +603,12 @@ steps:
    ``discovery.yml`` and then ``omnia.yml``.
 
 **Enable telemetry and monitoring**
-   Follow `Full Deployment <full_deployment.rst>`_ (Path B) starting from the telemetry
+   Follow :doc:`Full Deployment <full_deployment>` (Path B) starting from the telemetry
    sections to add Grafana dashboards and iDRAC metrics collection.
 
 **Configure authentication (LDAP/FreeIPA)**
    Edit ``security_config.yml`` to enable FreeIPA or LDAP, then run
-   ``auth.yml``. See the `Full Deployment <full_deployment.rst>`_ guide for details.
+   ``auth.yml``. See the :doc:`Full Deployment <full_deployment>` guide for details.
 
 **Set up shared storage**
    Edit ``storage_config.yml`` to configure NFS mounts from PowerScale or
@@ -622,7 +622,7 @@ steps:
 .. note::
 
 
-   - `Index <../Overview/index.rst>`_ -- Architecture and component overview
-   - `Full Deployment <full_deployment.rst>`_ -- Add K8s and telemetry to this cluster
-   - `Prerequisites Checklist <prerequisites_checklist.rst>`_ -- Return to the master checklist
+   - :doc:`Index <../Overview/index>` -- Architecture and component overview
+   - :doc:`Full Deployment <full_deployment>` -- Add K8s and telemetry to this cluster
+   - :doc:`Prerequisites Checklist <prerequisites_checklist>` -- Return to the master checklist
 

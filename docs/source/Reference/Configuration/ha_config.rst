@@ -110,9 +110,9 @@ Usage example
 .. note::
 
 
-   - `Omnia Config <omnia_config.rst>`_ -- Kubernetes deployment settings.
-   - `Minimum Nodes <../ClusterRequirements/minimum_nodes.rst>`_ -- Minimum node
+   - :doc:`Omnia Config <omnia_config>` -- Kubernetes deployment settings.
+   - :doc:`Minimum Nodes <../ClusterRequirements/minimum_nodes>` -- Minimum node
      counts for HA deployments.
-   - `Ports <../ClusterRequirements/ports.rst>`_ -- Kubernetes ports including
+   - :doc:`Ports <../ClusterRequirements/ports>` -- Kubernetes ports including
      the API server.
 

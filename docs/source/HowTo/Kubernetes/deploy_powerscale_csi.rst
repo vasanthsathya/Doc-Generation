@@ -30,7 +30,7 @@ Prerequisites
 -------------
 
 
-- A Kubernetes service cluster is deployed (see `Setup Service K8S <setup_service_k8s.rst>`_).
+- A Kubernetes service cluster is deployed (see :doc:`Setup Service K8S <setup_service_k8s>`).
 - A Dell PowerScale (Isilon) cluster is accessible from the K8s worker nodes.
 - PowerScale OneFS 8.2+ or later.
 - An API user on PowerScale with appropriate permissions (ISI_PRIV_NFS,
@@ -97,7 +97,7 @@ Procedure
 
    !!! warning
 
-       Replace ``username``, ``password``, and ``endpoint`` with your actual
+       Replace ``username``, ``password``, and ``endpoint`:doc:` with your actual
        PowerScale credentials and management IP. Delete the temporary file
        after applying.
 
@@ -232,9 +232,9 @@ Next Steps
 ----------
 
 
-- `Setup Telemetry <../Telemetry/setup_telemetry.rst>`_ -- Deploy telemetry with
+- `Setup Telemetry <../Telemetry/setup_telemetry>` -- Deploy telemetry with
   PowerScale-backed persistent storage.
-- `Configure Nfs <../Storage/configure_nfs.rst>`_ -- Configure NFS for Slurm compute
+- :doc:`Configure Nfs <../Storage/configure_nfs>` -- Configure NFS for Slurm compute
   nodes to share the same PowerScale storage.
 
 

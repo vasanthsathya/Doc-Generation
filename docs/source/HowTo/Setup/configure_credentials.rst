@@ -32,8 +32,8 @@ Prerequisites
 -------------
 
 
-- The `Deploy Omnia Core <deploy_omnia_core.rst>`_ procedure is complete.
-- The `Configure Inputs <configure_inputs.rst>`_ procedure is complete (input files populated).
+- The :doc:`Deploy Omnia Core <deploy_omnia_core>` procedure is complete.
+- The :doc:`Configure Inputs <configure_inputs>` procedure is complete (input files populated).
 - You have the BMC/iDRAC administrator username and password for target
   servers.
 - You have decided on a root password for provisioned nodes.
@@ -175,8 +175,8 @@ Next Steps
 ----------
 
 
-- `Prepare Oim <prepare_oim.rst>`_ -- Prepare OIM services using the configured credentials.
-- `Discover Nodes <discover_nodes.rst>`_ -- Run node discovery (requires BMC credentials).
+- :doc:`Prepare Oim <prepare_oim>` -- Prepare OIM services using the configured credentials.
+- :doc:`Discover Nodes <discover_nodes>` -- Run node discovery (requires BMC credentials).
 
 
 

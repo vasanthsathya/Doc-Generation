@@ -264,9 +264,9 @@ Usage example
 .. note::
 
 
-   - `Provision Config <provision_config.rst>`_ -- Provisioning parameters that work alongside
+   - :doc:`Provision Config <provision_config>` -- Provisioning parameters that work alongside
      network configuration.
-   - `Network Topologies <../SupportMatrix/network_topologies.rst>`_ -- How topologies
+   - :doc:`Network Topologies <../SupportMatrix/network_topologies>` -- How topologies
      affect NIC and VLAN assignments.
-   - `Nics <../SupportMatrix/nics.rst>`_ -- Supported NIC models.
+   - :doc:`Nics <../SupportMatrix/nics>` -- Supported NIC models.
 

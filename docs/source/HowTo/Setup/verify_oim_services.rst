@@ -32,7 +32,7 @@ Prerequisites
 -------------
 
 
-- The `Prepare Oim <prepare_oim.rst>`_ procedure has been completed.
+- The :doc:`Prepare Oim <prepare_oim>` procedure has been completed.
 - You have ``root`` or ``sudo`` access to the OIM host.
 
 
@@ -225,9 +225,9 @@ Next Steps
 ----------
 
 
-- `Create Local Repos <create_local_repos.rst>`_ -- Sync RPM repositories via Pulp.
-- `Build Cluster Images <build_cluster_images.rst>`_ -- Build OS boot images.
-- `Discover Nodes <discover_nodes.rst>`_ -- Discover and provision bare-metal servers.
+- :doc:`Create Local Repos <create_local_repos>` -- Sync RPM repositories via Pulp.
+- :doc:`Build Cluster Images <build_cluster_images>` -- Build OS boot images.
+- :doc:`Discover Nodes <discover_nodes>` -- Discover and provision bare-metal servers.
 
 
 
