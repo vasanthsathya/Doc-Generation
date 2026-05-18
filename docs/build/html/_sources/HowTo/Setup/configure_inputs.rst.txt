@@ -37,7 +37,7 @@ Prerequisites
 -------------
 
 
-- The `Deploy Omnia Core <deploy_omnia_core.rst>`_ procedure is complete and ``omnia_core`` is
+- The :doc:`Deploy Omnia Core <deploy_omnia_core>` procedure is complete and ``omnia_core`` is
   running.
 - You have planned your network topology (IP ranges, VLANs, subnets).
 - You know which software stacks you want to deploy (Slurm, Kubernetes,
@@ -268,8 +268,8 @@ Next Steps
 ----------
 
 
-- `Configure Credentials <configure_credentials.rst>`_ -- Set up encrypted credentials for provisioning.
-- `Prepare Oim <prepare_oim.rst>`_ -- Prepare OIM services (OpenCHAMI, Pulp, etc.).
+- :doc:`Configure Credentials <configure_credentials>` -- Set up encrypted credentials for provisioning.
+- :doc:`Prepare Oim <prepare_oim>` -- Prepare OIM services (OpenCHAMI, Pulp, etc.).
 
 
 

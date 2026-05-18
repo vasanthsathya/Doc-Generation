@@ -29,13 +29,13 @@ Prerequisites
 -------------
 
 
-- Nodes are provisioned and reachable (see `Verify Cluster <../Setup/verify_cluster.rst>`_).
+- Nodes are provisioned and reachable (see :doc:`Verify Cluster <../Setup/verify_cluster>`).
 - The ``omnia_config.yml`` input file is configured with Slurm parameters.
 - The ``pxe_mapping_file.csv`` has nodes assigned to ``slurm_control_node``
   and ``slurm_node`` functional groups.
-- Local repositories are synced (see `Create Local Repos <../Setup/create_local_repos.rst>`_).
+- Local repositories are synced (see :doc:`Create Local Repos <../Setup/create_local_repos>`).
 - Encrypted credentials are configured (see
-  `Configure Credentials <../Setup/configure_credentials.rst>`_).
+  :doc:`Configure Credentials <../Setup/configure_credentials>`).
 
 
 
@@ -198,10 +198,10 @@ Next Steps
 ----------
 
 
-- `Add Slurm Nodes <add_slurm_nodes.rst>`_ -- Add more compute nodes to the cluster.
-- `Slurm With Gpu <slurm_with_gpu.rst>`_ -- Configure GPU support.
-- `Configure Nfs <../Storage/configure_nfs.rst>`_ -- Set up shared NFS storage.
-- `Setup Openldap <../Authentication/setup_openldap.rst>`_ -- Configure user authentication.
+- :doc:`Add Slurm Nodes <add_slurm_nodes>` -- Add more compute nodes to the cluster.
+- :doc:`Slurm With Gpu <slurm_with_gpu>` -- Configure GPU support.
+- :doc:`Configure Nfs <../Storage/configure_nfs>` -- Set up shared NFS storage.
+- :doc:`Setup Openldap <../Authentication/setup_openldap>` -- Configure user authentication.
 
 
 

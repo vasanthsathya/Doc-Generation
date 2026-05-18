@@ -29,7 +29,7 @@ Prerequisites
 
 - OME is deployed and managing the Dell servers in your cluster.
 - SFM is deployed and managing Dell networking switches (optional).
-- The `Setup Telemetry <setup_telemetry.rst>`_ procedure is complete.
+- The :doc:`Setup Telemetry <setup_telemetry>` procedure is complete.
 - Network connectivity from the K8s service cluster to OME and SFM
   management IPs.
 - OME API credentials (read-only user recommended).
@@ -175,8 +175,8 @@ Next Steps
 ----------
 
 
-- `Verify Telemetry <verify_telemetry.rst>`_ -- End-to-end telemetry verification.
-- `Configure Ldms <configure_ldms.rst>`_ -- Add LDMS metrics alongside OME data.
+- :doc:`Verify Telemetry <verify_telemetry>` -- End-to-end telemetry verification.
+- :doc:`Configure Ldms <configure_ldms>` -- Add LDMS metrics alongside OME data.
 
 
 

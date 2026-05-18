@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=438d86ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=a744f3e0" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=0e325a43" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +48,7 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'GetStarted/slurm_quickstart';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/custom.js?v=8ac8acb0"></script>
+    <script src="../_static/custom.js?v=977ea42b"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -481,7 +481,7 @@ point for first-time users.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This tutorial assumes you have completed every item on the
-<a class="reference external" href="prerequisites_checklist.rst">Prerequisites Checklist</a>. If you have not, stop here and finish
+<a class="reference internal" href="prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a>. If you have not, stop here and finish
 that first.</p>
 </div>
 <section id="step-1-deploy-the-omnia-core-container">
@@ -621,7 +621,7 @@ so that node provisioning does not depend on external internet access.</p>
 <p class="admonition-title">Warning</p>
 <p><code class="docutils literal notranslate"><span class="pre">local_repo.yml</span></code> can take <strong>30–60 minutes</strong> depending on internet
 bandwidth. It downloads several GB of packages. Ensure the OIM has
-sufficient disk space (see <a class="reference external" href="prerequisites_checklist.rst">Prerequisites Checklist</a>) and a stable
+sufficient disk space (see <a class="reference internal" href="prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a>) and a stable
 internet connection.</p>
 </div>
 <p>When the playbook finishes, verify that the local repo is accessible:</p>
@@ -716,11 +716,11 @@ steps:</p>
 <dt><strong>Add more compute nodes</strong></dt><dd><p>Edit <code class="docutils literal notranslate"><span class="pre">mapping.csv</span></code> to add additional <code class="docutils literal notranslate"><span class="pre">slurm_node</span></code> entries, re-run
 <code class="docutils literal notranslate"><span class="pre">discovery.yml</span></code> and then <code class="docutils literal notranslate"><span class="pre">omnia.yml</span></code>.</p>
 </dd>
-<dt><strong>Enable telemetry and monitoring</strong></dt><dd><p>Follow <a class="reference external" href="full_deployment.rst">Full Deployment</a> (Path B) starting from the telemetry
+<dt><strong>Enable telemetry and monitoring</strong></dt><dd><p>Follow <a class="reference internal" href="full_deployment.html"><span class="doc">Full Deployment</span></a> (Path B) starting from the telemetry
 sections to add Grafana dashboards and iDRAC metrics collection.</p>
 </dd>
 <dt><strong>Configure authentication (LDAP/FreeIPA)</strong></dt><dd><p>Edit <code class="docutils literal notranslate"><span class="pre">security_config.yml</span></code> to enable FreeIPA or LDAP, then run
-<code class="docutils literal notranslate"><span class="pre">auth.yml</span></code>. See the <a class="reference external" href="full_deployment.rst">Full Deployment</a> guide for details.</p>
+<code class="docutils literal notranslate"><span class="pre">auth.yml</span></code>. See the <a class="reference internal" href="full_deployment.html"><span class="doc">Full Deployment</span></a> guide for details.</p>
 </dd>
 <dt><strong>Set up shared storage</strong></dt><dd><p>Edit <code class="docutils literal notranslate"><span class="pre">storage_config.yml</span></code> to configure NFS mounts from PowerScale or
 other storage appliances, then re-run <code class="docutils literal notranslate"><span class="pre">omnia.yml</span></code>.</p>
@@ -732,9 +732,9 @@ other storage appliances, then re-run <code class="docutils literal notranslate"
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p><a class="reference external" href="../Overview/index.rst">Index</a> – Architecture and component overview</p></li>
-<li><p><a class="reference external" href="full_deployment.rst">Full Deployment</a> – Add K8s and telemetry to this cluster</p></li>
-<li><p><a class="reference external" href="prerequisites_checklist.rst">Prerequisites Checklist</a> – Return to the master checklist</p></li>
+<li><p><a class="reference internal" href="../Overview/index.html"><span class="doc">Index</span></a> – Architecture and component overview</p></li>
+<li><p><a class="reference internal" href="full_deployment.html"><span class="doc">Full Deployment</span></a> – Add K8s and telemetry to this cluster</p></li>
+<li><p><a class="reference internal" href="prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a> – Return to the master checklist</p></li>
 </ul>
 </div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>

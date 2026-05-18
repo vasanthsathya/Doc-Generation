@@ -375,7 +375,7 @@ Grafana dashboards empty
 .. note::
 
 
-   - `Setup Telemetry <../HowTo/Telemetry/setup_telemetry.rst>`_ -- Telemetry pipeline setup.
-   - `Verify Telemetry <../HowTo/Telemetry/verify_telemetry.rst>`_ -- Verification procedures.
-   - `Log Management <../Operations/log_management.rst>`_ -- Log locations for telemetry services.
+   - :doc:`Setup Telemetry <../HowTo/Telemetry/setup_telemetry>` -- Telemetry pipeline setup.
+   - :doc:`Verify Telemetry <../HowTo/Telemetry/verify_telemetry>` -- Verification procedures.
+   - :doc:`Log Management <../Operations/log_management>` -- Log locations for telemetry services.
 

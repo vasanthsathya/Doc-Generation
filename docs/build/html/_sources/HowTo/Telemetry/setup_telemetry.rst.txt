@@ -32,11 +32,11 @@ Prerequisites
 
 
 - A Kubernetes service cluster is deployed (see
-  `Setup Service K8S <../Kubernetes/setup_service_k8s.rst>`_).
+  :doc:`Setup Service K8S <../Kubernetes/setup_service_k8s>`).
 - The Slurm cluster is deployed (for LDMS agent deployment on compute nodes).
 - ``omnia_config.yml`` is configured with telemetry parameters.
 - iDRAC credentials are configured (see
-  `Configure Credentials <../Setup/configure_credentials.rst>`_).
+  :doc:`Configure Credentials <../Setup/configure_credentials>`).
 - The K8s cluster has persistent storage available (NFS CSI or PowerScale CSI).
 
 
@@ -207,11 +207,11 @@ Next Steps
 ----------
 
 
-- `Configure Ldms <configure_ldms.rst>`_ -- Fine-tune LDMS sampler plugins.
-- `Configure External Kafka <configure_external_kafka.rst>`_ -- Use an external Kafka cluster.
-- `Configure External Victoria <configure_external_victoria.rst>`_ -- Use an external VictoriaMetrics
+- :doc:`Configure Ldms <configure_ldms>` -- Fine-tune LDMS sampler plugins.
+- :doc:`Configure External Kafka <configure_external_kafka>` -- Use an external Kafka cluster.
+- :doc:`Configure External Victoria <configure_external_victoria>` -- Use an external VictoriaMetrics
   instance.
-- `Verify Telemetry <verify_telemetry.rst>`_ -- End-to-end telemetry verification.
+- :doc:`Verify Telemetry <verify_telemetry>` -- End-to-end telemetry verification.
 
 
 

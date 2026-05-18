@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=438d86ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=a744f3e0" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=0e325a43" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +48,7 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Operations/reprovision_cluster';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/custom.js?v=8ac8acb0"></script>
+    <script src="../_static/custom.js?v=977ea42b"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -475,11 +475,11 @@ proceeding.</p>
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>The OIM is healthy and all OIM services are running (verify with
-<a class="reference external" href="../HowTo/Setup/verify_oim_services.rst">Verify Oim Services</a>).</p></li>
+<a class="reference internal" href="../HowTo/Setup/verify_oim_services.html"><span class="doc">Verify Oim Services</span></a>).</p></li>
 <li><p>Shared storage (NFS or PowerScale) is accessible for any data that must
 survive the re-provision.</p></li>
 <li><p>Updated OS images have been built and are available in the Pulp repository
-(see <a class="reference external" href="../HowTo/Setup/build_cluster_images.rst">Build Cluster Images</a>).</p></li>
+(see <a class="reference internal" href="../HowTo/Setup/build_cluster_images.html"><span class="doc">Build Cluster Images</span></a>).</p></li>
 <li><p>The mapping file has been updated if node roles are changing.</p></li>
 </ul>
 </section>
@@ -500,23 +500,9 @@ survive the re-provision.</p></li>
 <ol class="arabic simple">
 <li><p>Review and update the input configuration files as needed:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span>ssh<span class="w"> </span>omnia_core
-<span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/omnia/input
-
-
-
--<span class="w"> </span><span class="sb">``</span>mapping_file.csv<span class="sb">``</span><span class="w"> </span>--<span class="w"> </span>Update<span class="w"> </span>node<span class="w"> </span>roles<span class="w"> </span><span class="k">if</span><span class="w"> </span>changing.
--<span class="w"> </span><span class="sb">``</span>provision_config.yml<span class="sb">``</span><span class="w"> </span>--<span class="w"> </span>Update<span class="w"> </span>OS<span class="w"> </span>image<span class="w"> </span>or<span class="w"> </span>provisioning<span class="w"> </span>parameters.
--<span class="w"> </span><span class="sb">``</span>omnia_config.yml<span class="sb">``</span><span class="w"> </span>--<span class="w"> </span>Update<span class="w"> </span>cluster-level<span class="w"> </span>settings.
-</pre></div>
-</div>
 <ol class="arabic simple">
 <li><p>If building a new OS image, run the image-build process:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
-ansible-playbook<span class="w"> </span>playbooks/build_cluster_images.yml
-</pre></div>
-</div>
 </section>
 <section id="step-3-re-image-the-nodes">
 <h3>Step 3: Re-image the nodes<a class="headerlink" href="#step-3-re-image-the-nodes" title="Link to this heading">#</a></h3>
@@ -557,9 +543,9 @@ Omnia cluster software:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p><a class="reference external" href="add_remove_nodes.rst">Add Remove Nodes</a> – Add or remove nodes without re-imaging.</p></li>
-<li><p><a class="reference external" href="oim_cleanup.rst">Oim Cleanup</a> – Full teardown and rebuild of the OIM itself.</p></li>
-<li><p><a class="reference external" href="../HowTo/Setup/discover_nodes.rst">Discover Nodes</a> – Detailed node discovery procedure.</p></li>
+<li><p><a class="reference internal" href="add_remove_nodes.html"><span class="doc">Add Remove Nodes</span></a> – Add or remove nodes without re-imaging.</p></li>
+<li><p><a class="reference internal" href="oim_cleanup.html"><span class="doc">Oim Cleanup</span></a> – Full teardown and rebuild of the OIM itself.</p></li>
+<li><p><a class="reference internal" href="../HowTo/Setup/discover_nodes.html"><span class="doc">Discover Nodes</span></a> – Detailed node discovery procedure.</p></li>
 </ul>
 </div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>

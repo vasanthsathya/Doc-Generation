@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=438d86ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=a744f3e0" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=0e325a43" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +48,7 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Operations/best_practices_checklist';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/custom.js?v=8ac8acb0"></script>
+    <script src="../_static/custom.js?v=977ea42b"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -462,15 +462,15 @@ detailed procedures.</p>
 <tbody>
 <tr class="row-even"><td><p>☐</p></td>
 <td><p><strong>Disable PowerCap</strong> on all compute nodes to ensure maximum CPU performance. PowerCap can throttle compute-intensive HPC workloads.</p></td>
-<td><p><a class="reference external" href="../GetStarted/prerequisites_checklist.rst">Prerequisites Checklist</a></p></td>
+<td><p><a class="reference internal" href="../GetStarted/prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>☐</p></td>
 <td><p><strong>Set BIOS to Performance mode</strong> on all compute nodes. The <code class="docutils literal notranslate"><span class="pre">Performance</span></code> power profile maximizes clock speeds and disables power-saving C-states that introduce latency.</p></td>
-<td><p><a class="reference external" href="../GetStarted/prerequisites_checklist.rst">Prerequisites Checklist</a></p></td>
+<td><p><a class="reference internal" href="../GetStarted/prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p>☐</p></td>
 <td><p><strong>Keep iDRAC firmware current</strong> on all nodes. Firmware updates fix bugs, improve Redfish API reliability, and patch security vulnerabilities. Use Dell Repository Manager or <code class="docutils literal notranslate"><span class="pre">racadm</span></code> for updates.</p></td>
-<td><p><a class="reference external" href="security_hardening.rst">Security Hardening</a></p></td>
+<td><p><a class="reference internal" href="security_hardening.html"><span class="doc">Security Hardening</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -488,11 +488,11 @@ detailed procedures.</p>
 <tbody>
 <tr class="row-even"><td><p>☐</p></td>
 <td><p><strong>Run playbooks from their directory</strong> using <code class="docutils literal notranslate"><span class="pre">cd</span></code>. Omnia playbooks use relative paths for roles and configuration files. Always <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/omnia</span></code> before running <code class="docutils literal notranslate"><span class="pre">ansible-playbook</span></code>.</p></td>
-<td><p><a class="reference external" href="../HowTo/index.rst">Index</a></p></td>
+<td><p><a class="reference internal" href="../HowTo/index.html"><span class="doc">Index</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>☐</p></td>
 <td><p><strong>Review prerequisites before running playbooks.</strong> Each playbook has specific input files and environment requirements. Check the corresponding how-to guide before execution.</p></td>
-<td><p><a class="reference external" href="../HowTo/index.rst">Index</a></p></td>
+<td><p><a class="reference internal" href="../HowTo/index.html"><span class="doc">Index</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -510,15 +510,15 @@ detailed procedures.</p>
 <tbody>
 <tr class="row-even"><td><p>☐</p></td>
 <td><p><strong>Provision sufficient NFS storage for telemetry.</strong> The telemetry pipeline (VictoriaMetrics, Kafka) can generate significant data volumes. Allocate at least 500 GB of NFS-backed persistent storage for telemetry retention.</p></td>
-<td><p><a class="reference external" href="../HowTo/Telemetry/setup_telemetry.rst">Setup Telemetry</a></p></td>
+<td><p><a class="reference internal" href="../HowTo/Telemetry/setup_telemetry.html"><span class="doc">Setup Telemetry</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>☐</p></td>
 <td><p><strong>Prefer the PowerScale CSI driver over external NFS</strong> for Kubernetes persistent volumes. The CSI driver provides dynamic provisioning, better performance, and snapshot support compared to static NFS mounts.</p></td>
-<td><p><a class="reference external" href="../HowTo/Kubernetes/deploy_powerscale_csi.rst">Deploy Powerscale Csi</a></p></td>
+<td><p><a class="reference internal" href="../HowTo/Kubernetes/deploy_powerscale_csi.html"><span class="doc">Deploy Powerscale Csi</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p>☐</p></td>
 <td><p><strong>Ensure external NFS is accessible via the admin network.</strong> If using external NFS (not PowerScale), verify that the NFS server is reachable from all nodes on the admin network and that firewall rules allow NFS traffic (ports 2049, 111).</p></td>
-<td><p><a class="reference external" href="../HowTo/Storage/configure_nfs.rst">Configure Nfs</a></p></td>
+<td><p><a class="reference internal" href="../HowTo/Storage/configure_nfs.html"><span class="doc">Configure Nfs</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -536,19 +536,19 @@ detailed procedures.</p>
 <tbody>
 <tr class="row-even"><td><p>☐</p></td>
 <td><p><strong>Minimize OIM reboots.</strong> The OIM hosts critical Podman containers that provide provisioning, DHCP, and management services. Rebooting the OIM interrupts these services and may cause hostname or IP changes. Plan reboots during maintenance windows only.</p></td>
-<td><p><a class="reference external" href="../Troubleshooting/general.rst">General</a></p></td>
+<td><p><a class="reference internal" href="../Troubleshooting/general.html"><span class="doc">General</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>☐</p></td>
 <td><p><strong>Keep Firefox updated on RHEL OIM.</strong> If you use the AWX web UI on the OIM, ensure Firefox (the default RHEL browser) is updated to avoid TLS compatibility and rendering issues.</p></td>
-<td><p><a class="reference external" href="security_hardening.rst">Security Hardening</a></p></td>
+<td><p><a class="reference internal" href="security_hardening.html"><span class="doc">Security Hardening</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p>☐</p></td>
 <td><p><strong>Run</strong> <code class="docutils literal notranslate"><span class="pre">yum</span> <span class="pre">update</span> <span class="pre">--security</span></code> <strong>routinely.</strong> Apply security patches on the OIM and all cluster nodes on a regular schedule (monthly recommended). Drain Slurm nodes before applying updates.</p></td>
-<td><p><a class="reference external" href="security_hardening.rst">Security Hardening</a></p></td>
+<td><p><a class="reference internal" href="security_hardening.html"><span class="doc">Security Hardening</span></a></p></td>
 </tr>
 <tr class="row-odd"><td><p>☐</p></td>
 <td><p><strong>Sync system time across the OIM and all nodes.</strong> Use <code class="docutils literal notranslate"><span class="pre">chrony</span></code> or <code class="docutils literal notranslate"><span class="pre">ntpd</span></code> to maintain synchronized clocks. Time drift causes Kerberos authentication failures, Slurm scheduling issues, and inaccurate telemetry timestamps.</p></td>
-<td><p><a class="reference external" href="../GetStarted/prerequisites_checklist.rst">Prerequisites Checklist</a></p></td>
+<td><p><a class="reference internal" href="../GetStarted/prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -573,10 +573,10 @@ deployment:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p><a class="reference external" href="../GetStarted/prerequisites_checklist.rst">Prerequisites Checklist</a> – Detailed prerequisites for
+<li><p><a class="reference internal" href="../GetStarted/prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a> – Detailed prerequisites for
 all deployment paths.</p></li>
-<li><p><a class="reference external" href="security_hardening.rst">Security Hardening</a> – Full security hardening procedures.</p></li>
-<li><p><a class="reference external" href="log_management.rst">Log Management</a> – Log monitoring and rotation configuration.</p></li>
+<li><p><a class="reference internal" href="security_hardening.html"><span class="doc">Security Hardening</span></a> – Full security hardening procedures.</p></li>
+<li><p><a class="reference internal" href="log_management.html"><span class="doc">Log Management</span></a> – Log monitoring and rotation configuration.</p></li>
 </ul>
 </div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>

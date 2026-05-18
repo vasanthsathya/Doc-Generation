@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=438d86ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=a744f3e0" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=0e325a43" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +48,7 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'GetStarted/buildstream_deployment';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/custom.js?v=8ac8acb0"></script>
+    <script src="../_static/custom.js?v=977ea42b"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -508,7 +508,7 @@ nodes where manual input-file editing is error-prone.</p></li>
 <p><strong>Estimated time:</strong> ~6 hours (includes GitLab deployment and pipeline execution).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Complete the <a class="reference external" href="prerequisites_checklist.rst">Prerequisites Checklist</a> before proceeding. In
+<p>Complete the <a class="reference internal" href="prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a> before proceeding. In
 addition, BuildStreaM requires:</p>
 <ul class="simple">
 <li><p>A GitLab instance (deployed in Step 4 below, or an existing one).</p></li>
@@ -545,7 +545,7 @@ Step 4).</p>
 <p><strong>Example build_stream_oauth_credentials.yml</strong></p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Leave <code class="docutils literal notranslate"><span class="pre">oauth_app_id</span></code> and <code class="docutils literal notranslate"><span class="pre">oauth_app_secret</span></code> empty for now if you
+<p>Leave <code class="docutils literal notranslate"><span class="pre">oauth_app_id</span></code> and <a href="#id1"><span class="problematic" id="id2">``</span></a>oauth_app_secret`:doc:` empty for now if you
 are deploying GitLab in Step 4. You will return to fill these in after
 GitLab is running and you create the OAuth application.</p>
 </div>
@@ -566,7 +566,7 @@ initial OIM setup.</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
 <p><strong>3c. Edit network and provisioning inputs</strong></p>
 <p>Edit <code class="docutils literal notranslate"><span class="pre">network_spec.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">provision_config.yml</span></code>, and <code class="docutils literal notranslate"><span class="pre">ha_config.yml</span></code>
-as described in <a class="reference external" href="full_deployment.rst">Full Deployment</a> Steps 5a–5c.</p>
+as described in <cite>Full Deployment &lt;full_deployment&gt;</cite> Steps 5a–5c.</p>
 <p><strong>3d. Set credentials</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
 <p><strong>3e. Prepare the OIM</strong></p>
@@ -769,9 +769,9 @@ Slurm job, verify Grafana data sources, check NFS mounts).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p><a class="reference external" href="full_deployment.rst">Full Deployment</a> – Manual equivalent of this automated path</p></li>
-<li><p><a class="reference external" href="prerequisites_checklist.rst">Prerequisites Checklist</a> – Master checklist</p></li>
-<li><p><a class="reference external" href="slurm_quickstart.rst">Slurm Quickstart</a> – Simplified manual deployment for comparison</p></li>
+<li><p><a class="reference internal" href="full_deployment.html"><span class="doc">Full Deployment</span></a> – Manual equivalent of this automated path</p></li>
+<li><p><a class="reference internal" href="prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a> – Master checklist</p></li>
+<li><p><a class="reference internal" href="slurm_quickstart.html"><span class="doc">Slurm Quickstart</span></a> – Simplified manual deployment for comparison</p></li>
 </ul>
 </div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>

@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=438d86ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=a744f3e0" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=0e325a43" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +48,7 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Operations/security_hardening';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/custom.js?v=8ac8acb0"></script>
+    <script src="../_static/custom.js?v=977ea42b"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -556,7 +556,7 @@ defaults.</p>
 measures:</p>
 <ol class="arabic">
 <li><p><strong>Enforce TLS for all LDAP connections:</strong></p>
-<p>Ensure <code class="docutils literal notranslate"><span class="pre">ldaps://</span></code> (port 636) is used instead of unencrypted <code class="docutils literal notranslate"><span class="pre">ldap://</span></code>
+<p>Ensure <code class="docutils literal notranslate"><span class="pre">ldaps://</span></code> (port 636) is used instead of unencrypted <a href="#id1"><span class="problematic" id="id2">``</span></a><a class="reference external" href="ldap://">ldap://</a><cite>:doc:</cite>
 (port 389). Update the LDAP client configuration on all nodes:</p>
 </li>
 </ol>
@@ -603,7 +603,7 @@ authentication server only.</p>
 <p class="admonition-title">Important</p>
 <p>Schedule security updates during maintenance windows to avoid disrupting
 running jobs. Drain Slurm nodes before applying updates, and verify cluster
-health afterward (see <a class="reference external" href="add_remove_nodes.rst">Add Remove Nodes</a> for drain procedures).</p>
+health afterward (see <cite>Add Remove Nodes &lt;add_remove_nodes&gt;</cite> for drain procedures).</p>
 </div>
 </section>
 <section id="additional-recommendations">
@@ -622,11 +622,11 @@ current.</p></li>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p><a class="reference external" href="best_practices_checklist.rst">Best Practices Checklist</a> – Consolidated checklist including
+<li><p><a class="reference internal" href="best_practices_checklist.html"><span class="doc">Best Practices Checklist</span></a> – Consolidated checklist including
 security items.</p></li>
-<li><p><a class="reference external" href="../Troubleshooting/authentication.rst">Authentication</a> – Troubleshoot LDAP and
+<li><p><a class="reference internal" href="../Troubleshooting/authentication.html"><span class="doc">Authentication</span></a> – Troubleshoot LDAP and
 authentication issues.</p></li>
-<li><p><a class="reference external" href="log_management.rst">Log Management</a> – Log monitoring for security events.</p></li>
+<li><p><a class="reference internal" href="log_management.html"><span class="doc">Log Management</span></a> – Log monitoring for security events.</p></li>
 </ul>
 </div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>

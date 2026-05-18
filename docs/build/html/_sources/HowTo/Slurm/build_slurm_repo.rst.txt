@@ -24,7 +24,7 @@ Prerequisites
 -------------
 
 
-- The `Create Local Repos <../Setup/create_local_repos.rst>`_ procedure is complete (Pulp is
+- The :doc:`Create Local Repos <../Setup/create_local_repos>` procedure is complete (Pulp is
   running and base OS repos are synced).
 - A build host with:
 
@@ -193,8 +193,8 @@ Next Steps
 ----------
 
 
-- `Setup Slurm <setup_slurm.rst>`_ -- Deploy Slurm using the custom RPMs.
-- `Create Local Repos <../Setup/create_local_repos.rst>`_ -- Integrate the custom repo with
+- :doc:`Setup Slurm <setup_slurm>` -- Deploy Slurm using the custom RPMs.
+- :doc:`Create Local Repos <../Setup/create_local_repos>` -- Integrate the custom repo with
   Omnia's repo management.
 
 

@@ -125,7 +125,7 @@ OIM itself.
 
 
 
-- Minimize OIM reboots (see `Best Practices Checklist <../Operations/best_practices_checklist.rst>`_).
+- Minimize OIM reboots (see :doc:`Best Practices Checklist <../Operations/best_practices_checklist>`).
 - Document the OIM rebuild procedure for disaster recovery.
 
 
@@ -209,8 +209,8 @@ Other limitations
 .. note::
 
 
-   - `Release Notes <../Overview/release_notes.rst>`_ -- Release notes with version-specific
+   - :doc:`Release Notes <../Overview/release_notes>` -- Release notes with version-specific
      changes and fixes.
-   - `Prerequisites Checklist <../GetStarted/prerequisites_checklist.rst>`_ -- Full prerequisite list.
-   - `Network Topologies <../Overview/network_topologies.rst>`_ -- Supported network configurations.
+   - :doc:`Prerequisites Checklist <../GetStarted/prerequisites_checklist>` -- Full prerequisite list.
+   - :doc:`Network Topologies <../Overview/network_topologies>` -- Supported network configurations.
 

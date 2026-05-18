@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
           startItems.appendChild(iconLinksContainer);
         }
       }
+
       
       // Hide the now-empty end items container
       endItems.style.display = 'none';

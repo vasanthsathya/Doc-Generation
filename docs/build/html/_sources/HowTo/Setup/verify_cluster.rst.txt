@@ -25,10 +25,10 @@ Prerequisites
 -------------
 
 
-- Nodes are provisioned and reachable (see `Pxe Boot Nodes <pxe_boot_nodes.rst>`_).
+- Nodes are provisioned and reachable (see :doc:`Pxe Boot Nodes <pxe_boot_nodes>`).
 - Slurm and/or Kubernetes have been deployed (see
-  `Setup Slurm <../Slurm/setup_slurm.rst>`_ or
-  `Setup Service K8S <../Kubernetes/setup_service_k8s.rst>`_).
+  :doc:`Setup Slurm <../Slurm/setup_slurm>` or
+  :doc:`Setup Service K8S <../Kubernetes/setup_service_k8s>`).
 
 
 
@@ -286,11 +286,11 @@ Next Steps
 ----------
 
 
-- `Slurm With Gpu <../Slurm/slurm_with_gpu.rst>`_ -- Configure GPU support for Slurm.
-- `Setup Telemetry <../Telemetry/setup_telemetry.rst>`_ -- Deploy monitoring and telemetry.
-- `Setup Openldap <../Authentication/setup_openldap.rst>`_ -- Set up centralized
+- :doc:`Slurm With Gpu <../Slurm/slurm_with_gpu>` -- Configure GPU support for Slurm.
+- :doc:`Setup Telemetry <../Telemetry/setup_telemetry>` -- Deploy monitoring and telemetry.
+- :doc:`Setup Openldap <../Authentication/setup_openldap>` -- Set up centralized
   authentication.
-- `Configure Nfs <../Storage/configure_nfs.rst>`_ -- Configure shared NFS storage.
+- :doc:`Configure Nfs <../Storage/configure_nfs>` -- Configure shared NFS storage.
 
 
 

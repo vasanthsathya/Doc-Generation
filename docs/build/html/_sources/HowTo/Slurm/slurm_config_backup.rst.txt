@@ -27,7 +27,7 @@ Prerequisites
 -------------
 
 
-- A working Slurm cluster deployed via `Setup Slurm <setup_slurm.rst>`_.
+- A working Slurm cluster deployed via :doc:`Setup Slurm <setup_slurm>`.
 - ``root`` or ``sudo`` access to the Slurm control node.
 
 
@@ -227,8 +227,8 @@ Next Steps
 ----------
 
 
-- `Add Slurm Nodes <add_slurm_nodes.rst>`_ -- Add new nodes (remember to back up before changes).
-- `Remove Slurm Nodes <remove_slurm_nodes.rst>`_ -- Remove nodes (back up first).
+- :doc:`Add Slurm Nodes <add_slurm_nodes>` -- Add new nodes (remember to back up before changes).
+- :doc:`Remove Slurm Nodes <remove_slurm_nodes>` -- Remove nodes (back up first).
 
 
 

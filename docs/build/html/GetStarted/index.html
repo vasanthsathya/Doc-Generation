@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=438d86ce" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=a744f3e0" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=0e325a43" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +48,7 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'GetStarted/index';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/custom.js?v=8ac8acb0"></script>
+    <script src="../_static/custom.js?v=977ea42b"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -450,7 +450,7 @@ tutorial that takes you from a bare set of PowerEdge servers to a fully
 operational cluster.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Before selecting a path, complete the <a class="reference external" href="prerequisites_checklist.rst">Prerequisites Checklist</a> to
+<p>Before selecting a path, complete the <a class="reference internal" href="prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a> to
 ensure your hardware, networking, and software environment are ready.</p>
 </div>
 <section id="deployment-paths-at-a-glance">
@@ -467,28 +467,28 @@ ensure your hardware, networking, and software environment are ready.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><strong>A</strong></p></td>
-<td><p><a class="reference external" href="slurm_quickstart.rst">Slurm Quickstart</a></p></td>
+<td><p><a class="reference internal" href="slurm_quickstart.html"><span class="doc">Slurm Quickstart</span></a></p></td>
 <td><p>Traditional HPC (Slurm)</p></td>
 <td><p>4</p></td>
 <td><p>~2 hrs</p></td>
 <td><p>Fastest way to stand up a Slurm cluster. Deploys 1 OIM (management), 1 Slurm head node, 1 compute node, and 1 login node. No Kubernetes or telemetry. Ideal for first-time users and small-scale HPC workloads.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>B</strong></p></td>
-<td><p><a class="reference external" href="full_deployment.rst">Full Deployment</a></p></td>
+<td><p><a class="reference internal" href="full_deployment.html"><span class="doc">Full Deployment</span></a></p></td>
 <td><p>Slurm + Service K8s + Telemetry</p></td>
 <td><p>8</p></td>
 <td><p>~4 hrs</p></td>
 <td><p>Production-grade deployment with Slurm scheduling, a highly available 3-node Kubernetes service cluster, LDAP/FreeIPA authentication, and full telemetry (iDRAC, Grafana, VictoriaMetrics). Best for teams running mixed HPC/AI workloads with monitoring requirements.</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>C</strong></p></td>
-<td><p><a class="reference external" href="k8s_telemetry_only.rst">K8S Telemetry Only</a></p></td>
+<td><p><a class="reference internal" href="k8s_telemetry_only.html"><span class="doc">K8S Telemetry Only</span></a></p></td>
 <td><p>Kubernetes + Telemetry (no Slurm)</p></td>
 <td><p>5</p></td>
 <td><p>~2 hrs</p></td>
 <td><p>Deploys a 3-control-plane + 1-worker Kubernetes cluster with the complete telemetry pipeline (iDRAC metrics, LDMS, Kafka, VictoriaMetrics, Grafana). No Slurm. Use this when you need infrastructure monitoring without a job scheduler.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>D</strong></p></td>
-<td><p><a class="reference external" href="buildstream_deployment.rst">Buildstream Deployment</a></p></td>
+<td><p><a class="reference internal" href="buildstream_deployment.html"><span class="doc">Buildstream Deployment</span></a></p></td>
 <td><p>BuildStreaM (Catalog-Driven CI/CD)</p></td>
 <td><p>8+</p></td>
 <td><p>~6 hrs</p></td>
@@ -501,16 +501,16 @@ ensure your hardware, networking, and software environment are ready.</p>
 <section id="which-path-should-i-choose">
 <h2>Which Path Should I Choose?<a class="headerlink" href="#which-path-should-i-choose" title="Link to this heading">#</a></h2>
 <dl class="simple">
-<dt><strong>“I just want Slurm running as fast as possible.”</strong></dt><dd><p>Start with <a class="reference external" href="slurm_quickstart.rst">Slurm Quickstart</a> (Path A). You can always add
+<dt><strong>“I just want Slurm running as fast as possible.”</strong></dt><dd><p>Start with <a class="reference internal" href="slurm_quickstart.html"><span class="doc">Slurm Quickstart</span></a> (Path A). You can always add
 Kubernetes and telemetry later.</p>
 </dd>
-<dt><strong>“I need a production cluster with monitoring and authentication.”</strong></dt><dd><p>Go with <a class="reference external" href="full_deployment.rst">Full Deployment</a> (Path B). This is the canonical Omnia
+<dt><strong>“I need a production cluster with monitoring and authentication.”</strong></dt><dd><p>Go with <a class="reference internal" href="full_deployment.html"><span class="doc">Full Deployment</span></a> (Path B). This is the canonical Omnia
 deployment that exercises every major subsystem.</p>
 </dd>
-<dt><strong>“I only need telemetry dashboards – no job scheduler.”</strong></dt><dd><p>Choose <a class="reference external" href="k8s_telemetry_only.rst">K8S Telemetry Only</a> (Path C). This gives you
+<dt><strong>“I only need telemetry dashboards – no job scheduler.”</strong></dt><dd><p>Choose <a class="reference internal" href="k8s_telemetry_only.html"><span class="doc">K8S Telemetry Only</span></a> (Path C). This gives you
 iDRAC-to-Grafana visibility without the overhead of Slurm.</p>
 </dd>
-<dt><strong>“I want CI/CD-driven, repeatable infrastructure.”</strong></dt><dd><p>Use <a class="reference external" href="buildstream_deployment.rst">Buildstream Deployment</a> (Path D). BuildStreaM automates the
+<dt><strong>“I want CI/CD-driven, repeatable infrastructure.”</strong></dt><dd><p>Use <a class="reference internal" href="buildstream_deployment.html"><span class="doc">Buildstream Deployment</span></a> (Path D). BuildStreaM automates the
 entire lifecycle through GitLab pipelines and a declarative catalog.</p>
 </dd>
 </dl>
@@ -518,7 +518,7 @@ entire lifecycle through GitLab pipelines and a declarative catalog.</p>
 <section id="before-you-begin">
 <h2>Before You Begin<a class="headerlink" href="#before-you-begin" title="Link to this heading">#</a></h2>
 <p>Every path assumes you have completed the items in
-<a class="reference external" href="prerequisites_checklist.rst">Prerequisites Checklist</a>. That page covers:</p>
+<a class="reference internal" href="prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a>. That page covers:</p>
 <ul class="simple">
 <li><p>Supported hardware and firmware versions</p></li>
 <li><p>OIM (management node) requirements (RAM, OS, Podman, NICs)</p></li>
@@ -529,7 +529,7 @@ entire lifecycle through GitLab pipelines and a declarative catalog.</p>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Print or bookmark the <a class="reference external" href="prerequisites_checklist.rst">Prerequisites Checklist</a> – it doubles as a
+<p>Print or bookmark the <a class="reference internal" href="prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a> – it doubles as a
 day-of-deployment runbook you can hand to a datacenter technician.</p>
 </div>
 <div class="toctree-wrapper compound">

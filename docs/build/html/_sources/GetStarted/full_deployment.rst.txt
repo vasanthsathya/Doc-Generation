@@ -51,7 +51,7 @@ every major subsystem.
 .. note::
 
 
-   Complete the `Prerequisites Checklist <prerequisites_checklist.rst>`_ before proceeding. Pay
+   Complete the :doc:`Prerequisites Checklist <prerequisites_checklist>` before proceeding. Pay
    special attention to the **Service Kubernetes Requirements** section --
    you need 3 control-plane nodes with 64 GB RAM each.
 
@@ -776,14 +776,14 @@ and authentication. Consider these enhancements:
    PagerDuty) when hardware metrics exceed thresholds.
 
 **Enable BuildStreaM for GitOps**
-   See `Buildstream Deployment <buildstream_deployment.rst>`_ (Path D) to layer CI/CD automation
+   See :doc:`Buildstream Deployment <buildstream_deployment>` (Path D) to layer CI/CD automation
    on top of this deployment.
 
 
 .. note::
 
 
-   - `Slurm Quickstart <slurm_quickstart.rst>`_ -- Simplified 4-node Slurm deployment
-   - `K8S Telemetry Only <k8s_telemetry_only.rst>`_ -- Telemetry without Slurm
-   - `Prerequisites Checklist <prerequisites_checklist.rst>`_ -- Master checklist
+   - :doc:`Slurm Quickstart <slurm_quickstart>` -- Simplified 4-node Slurm deployment
+   - :doc:`K8S Telemetry Only <k8s_telemetry_only>` -- Telemetry without Slurm
+   - :doc:`Prerequisites Checklist <prerequisites_checklist>` -- Master checklist
 

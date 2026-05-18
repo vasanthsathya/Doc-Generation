@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=438d86ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=a744f3e0" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=0e325a43" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +48,7 @@
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Reference/SampleFiles/pxe_mapping_file';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../../_static/custom.js?v=8ac8acb0"></script>
+    <script src="../../_static/custom.js?v=977ea42b"></script>
     <link rel="icon" href="../../_static/favicon.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -530,7 +530,7 @@ server plays and how it is addressed on the network.</p>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HOSTNAME</span></code></p></td>
 <td><p>Yes</p></td>
-<td><p>Hostname to assign to the node. Must comply with hostname rules (see <a class="reference external" href="../Appendices/hostname_requirements.rst">Hostname Requirements</a>).</p></td>
+<td><p>Hostname to assign to the node. Must comply with hostname rules (see <a class="reference internal" href="../Appendices/hostname_requirements.html"><span class="doc">Hostname Requirements</span></a>).</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ADMIN_MAC</span></code></p></td>
 <td><p>Yes</p></td>
@@ -584,7 +584,7 @@ partitions.</p></li>
 <ul class="simple">
 <li><p>Runs the Kubernetes API server, etcd, scheduler, and controller-manager.</p></li>
 <li><p>For HA, use 3 control plane nodes (see
-<a class="reference external" href="../Configuration/ha_config.rst">Ha Config</a>).</p></li>
+<a class="reference internal" href="../Configuration/ha_config.html"><span class="doc">Ha Config</span></a>).</p></li>
 </ul>
 <p><strong>Kubernetes worker nodes</strong></p>
 <p><strong>Example: Kubernetes worker nodes</strong></p>
@@ -623,7 +623,7 @@ partitions.</p></li>
 <td><p>Must be one of the recognized group names listed above.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Hostname format</p></td>
-<td><p>Lowercase, no domain suffix, RFC 952/1123 compliant. See <a class="reference external" href="../Appendices/hostname_requirements.rst">Hostname Requirements</a>.</p></td>
+<td><p>Lowercase, no domain suffix, RFC 952/1123 compliant. See <a class="reference internal" href="../Appendices/hostname_requirements.html"><span class="doc">Hostname Requirements</span></a>.</p></td>
 </tr>
 <tr class="row-even"><td><p>IP within subnet</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ADMIN_IP</span></code> must fall within the admin network subnet and outside the <code class="docutils literal notranslate"><span class="pre">dynamic_range</span></code>. <code class="docutils literal notranslate"><span class="pre">BMC_IP</span></code> must fall within the BMC subnet.</p></td>
@@ -640,11 +640,11 @@ identifying the offending row and column.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p><a class="reference external" href="../Configuration/provision_config.rst">Provision Config</a> – Where the mapping
+<li><p><a class="reference internal" href="../Configuration/provision_config.html"><span class="doc">Provision Config</span></a> – Where the mapping
 file path is specified.</p></li>
-<li><p><a class="reference external" href="../Configuration/software_config.rst">Software Config</a> – Software packages
+<li><p><a class="reference internal" href="../Configuration/software_config.html"><span class="doc">Software Config</span></a> – Software packages
 per functional group.</p></li>
-<li><p><a class="reference external" href="../Appendices/hostname_requirements.rst">Hostname Requirements</a> – Hostname rules.</p></li>
+<li><p><a class="reference internal" href="../Appendices/hostname_requirements.html"><span class="doc">Hostname Requirements</span></a> – Hostname rules.</p></li>
 </ul>
 </div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>

@@ -225,7 +225,7 @@ measures:
 
 #. **Enforce TLS for all LDAP connections:**
 
-   Ensure ``ldaps://`` (port 636) is used instead of unencrypted ``ldap://``
+   Ensure ``ldaps://`` (port 636) is used instead of unencrypted ``ldap://`:doc:`
    (port 389). Update the LDAP client configuration on all nodes:
 
 
@@ -319,7 +319,7 @@ Apply security patches regularly on the OIM and all cluster nodes:
 
    Schedule security updates during maintenance windows to avoid disrupting
    running jobs. Drain Slurm nodes before applying updates, and verify cluster
-   health afterward (see `Add Remove Nodes <add_remove_nodes.rst>`_ for drain procedures).
+   health afterward (see `Add Remove Nodes <add_remove_nodes>` for drain procedures).
 
 
 
@@ -342,9 +342,9 @@ Additional recommendations
 .. note::
 
 
-   - `Best Practices Checklist <best_practices_checklist.rst>`_ -- Consolidated checklist including
+   - :doc:`Best Practices Checklist <best_practices_checklist>` -- Consolidated checklist including
      security items.
-   - `Authentication <../Troubleshooting/authentication.rst>`_ -- Troubleshoot LDAP and
+   - :doc:`Authentication <../Troubleshooting/authentication>` -- Troubleshoot LDAP and
      authentication issues.
-   - `Log Management <log_management.rst>`_ -- Log monitoring for security events.
+   - :doc:`Log Management <log_management>` -- Log monitoring for security events.
 

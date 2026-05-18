@@ -224,6 +224,6 @@ Africa and Middle East
 .. note::
 
 
-   - `Provision Config <../Configuration/provision_config.rst>`_ -- Where ``timezone``
+   - :doc:`Provision Config <../Configuration/provision_config>` -- Where ``timezone``
      is configured.
 

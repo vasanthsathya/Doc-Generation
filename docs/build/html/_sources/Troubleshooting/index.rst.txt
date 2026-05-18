@@ -15,7 +15,7 @@ Troubleshooting approach
 When you encounter an issue, follow this general diagnostic flow:
 
 #. **Check logs first.** Most issues leave a clear trace in the logs. See
-   `Log Management <../Operations/log_management.rst>`_ for log locations.
+   :doc:`Log Management <../Operations/log_management>` for log locations.
 
   - Playbook logs: ``/opt/omnia/log/core/playbooks/``
   - Container logs: ``podman logs <container_name>``
@@ -23,7 +23,7 @@ When you encounter an issue, follow this general diagnostic flow:
 
 #. **Verify prerequisites.** Many failures stem from unmet prerequisites
    (missing packages, wrong OS version, misconfigured networks). Re-check the
-   `Prerequisites Checklist <../GetStarted/prerequisites_checklist.rst>`_ for your deployment path.
+   :doc:`Prerequisites Checklist <../GetStarted/prerequisites_checklist>` for your deployment path.
 
 #. **Use the ochami CLI.** For provisioning issues, the ``ochami-cli`` provides
    direct access to the OpenCHAMI state manager for inspecting node inventory,

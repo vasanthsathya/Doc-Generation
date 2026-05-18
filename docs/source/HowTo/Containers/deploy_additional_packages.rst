@@ -55,7 +55,8 @@ Approach 1: Ansible Ad-Hoc Commands
 **Run on: omnia_core container**
 
 .. code-block:: bash
-      ansible slurm_node -m dnf -a "name=htop state=present"
+
+   ansible slurm_node -m dnf -a "name=htop state=present"
 
 
 
@@ -65,7 +66,8 @@ Approach 1: Ansible Ad-Hoc Commands
 **Run on: omnia_core container**
 
 .. code-block:: bash
-      ansible slurm_node -m dnf -a "name=gcc,gcc-c++,make,cmake state=present"
+
+   ansible slurm_node -m dnf -a "name=gcc,gcc-c++,make,cmake state=present"
 
 
 
@@ -75,8 +77,9 @@ Approach 1: Ansible Ad-Hoc Commands
 **Run on: omnia_core container**
 
 .. code-block:: bash
-      # Install only on login nodes
-      ansible login_node -m dnf -a "name=emacs,vim-enhanced state=present"
+
+   # Install only on login nodes
+   ansible login_node -m dnf -a "name=emacs,vim-enhanced state=present"
 
 
 
@@ -102,51 +105,52 @@ Approach 2: Custom Ansible Playbook
 **Run on: omnia_core container**
 
 .. code-block:: bash
-      cat <<'EOF' > /omnia/custom_packages.yml
-      ---
-      - name: Deploy custom packages to compute nodes
-        hosts: slurm_node
-        become: true
-        tasks:
-          - name: Install development tools
-            dnf:
-              name:
-                - gcc
-                - gcc-c++
-                - gcc-gfortran
-                - make
-                - cmake
-                - autoconf
-                - automake
-              state: present
+
+   cat <<'EOF' > /omnia/custom_packages.yml
+   ---
+   - name: Deploy custom packages to compute nodes
+     hosts: slurm_node
+     become: true
+     tasks:
+       - name: Install development tools
+         dnf:
+           name:
+             - gcc
+             - gcc-c++
+             - gcc-gfortran
+             - make
+             - cmake
+             - autoconf
+             - automake
+           state: present
    
-          - name: Install scientific libraries
-            dnf:
-              name:
-                - openblas-devel
-                - lapack-devel
-                - fftw-devel
-                - hdf5-devel
-              state: present
+       - name: Install scientific libraries
+         dnf:
+           name:
+             - openblas-devel
+             - lapack-devel
+             - fftw-devel
+             - hdf5-devel
+           state: present
    
-          - name: Install Python scientific stack
-            pip:
-              name:
-                - numpy
-                - scipy
-                - matplotlib
-                - pandas
-              executable: pip3
+       - name: Install Python scientific stack
+         pip:
+           name:
+             - numpy
+             - scipy
+             - matplotlib
+             - pandas
+           executable: pip3
    
-          - name: Install monitoring tools
-            dnf:
-              name:
-                - htop
-                - iotop
-                - sysstat
-                - perf
-              state: present
-      EOF
+       - name: Install monitoring tools
+         dnf:
+           name:
+             - htop
+             - iotop
+             - sysstat
+             - perf
+           state: present
+   EOF
 
 
 
@@ -156,8 +160,9 @@ Approach 2: Custom Ansible Playbook
 **Run on: omnia_core container**
 
 .. code-block:: bash
-      cd /omnia
-      ansible-playbook custom_packages.yml
+
+   cd /omnia
+   ansible-playbook custom_packages.yml
 
 
 
