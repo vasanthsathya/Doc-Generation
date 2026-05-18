@@ -5,7 +5,7 @@ Deploy Additional Packages
 
 
 Install custom software packages on provisioned cluster nodes using Ansible
-ad-hoc commands, playbooks, or the Omnia local repository infrastructure.
+ad-hoc commands, playbooks, or the Omnia local repository infrastructure..
 
 
 Overview

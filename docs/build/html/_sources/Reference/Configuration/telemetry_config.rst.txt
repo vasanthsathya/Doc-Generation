@@ -204,7 +204,7 @@ LDMS settings
      - List
      - No
      - ``[meminfo, vmstat, procstat, procnetdev]``
-     - List of LDMS sampler plugins to activate. See `Ldms Metrics <../Metrics/ldms_metrics.rst>`_ for the full catalog.
+     - List of LDMS sampler plugins to activate. See :doc:`Ldms Metrics <../Metrics/ldms_metrics>` for the full catalog.
    * - ``ldms_sample_interval``
      - Integer
      - No
@@ -254,9 +254,9 @@ Usage example
 .. note::
 
 
-   - `Idrac Metrics <../Metrics/idrac_metrics.rst>`_ -- iDRAC metric catalog.
-   - `Ldms Metrics <../Metrics/ldms_metrics.rst>`_ -- LDMS sampler metric catalog.
-   - `Gpu Metrics <../Metrics/gpu_metrics.rst>`_ -- GPU metric catalog.
-   - `Ports <../ClusterRequirements/ports.rst>`_ -- Ports used by telemetry
+   - :doc:`Idrac Metrics <../Metrics/idrac_metrics>` -- iDRAC metric catalog.
+   - :doc:`Ldms Metrics <../Metrics/ldms_metrics>` -- LDMS sampler metric catalog.
+   - :doc:`Gpu Metrics <../Metrics/gpu_metrics>` -- GPU metric catalog.
+   - :doc:`Ports <../ClusterRequirements/ports>` -- Ports used by telemetry
      services.
 
