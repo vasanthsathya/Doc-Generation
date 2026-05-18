@@ -278,8 +278,8 @@ A runaway Kubernetes pod cannot starve a Slurm batch job, and vice versa.
 .. note::
 
 
-   - `Components <components.rst>`_ -- Deep dive into each software component.
-   - `Composable Roles <composable_roles.rst>`_ -- How servers are assigned to clusters and roles.
-   - `Network Topologies <network_topologies.rst>`_ -- Network design options that connect the three
+   - :doc:`components` -- Deep dive into each software component.
+   - :doc:`composable_roles` -- How servers are assigned to clusters and roles.
+   - :doc:`network_topologies` -- Network design options that connect the three
      clusters.
 
