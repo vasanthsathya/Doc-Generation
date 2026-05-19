@@ -32,7 +32,7 @@ Prerequisites
   accessible from the K8s service cluster.
 - Kafka topics for telemetry are created (or auto-create is enabled).
 - Network connectivity between the OIM, K8s cluster, and the Kafka brokers.
-- The `Setup Telemetry <setup_telemetry.rst>`_ procedure has been reviewed (understand the
+- The :doc:`Setup Telemetry <setup_telemetry>` procedure has been reviewed (understand the
   default telemetry architecture).
 
 
@@ -187,8 +187,8 @@ Next Steps
 ----------
 
 
-- `Configure External Victoria <configure_external_victoria.rst>`_ -- Use an external VictoriaMetrics.
-- `Verify Telemetry <verify_telemetry.rst>`_ -- End-to-end verification.
+- :doc:`Configure External Victoria <configure_external_victoria>` -- Use an external VictoriaMetrics.
+- :doc:`Verify Telemetry <verify_telemetry>` -- End-to-end verification.
 
 
 

@@ -29,7 +29,7 @@ Prerequisites
 -------------
 
 
-- The `Deploy Omnia Core <deploy_omnia_core.rst>`_ procedure is complete and ``omnia_core`` is
+- The :doc:`Deploy Omnia Core <deploy_omnia_core>` procedure is complete and ``omnia_core`` is
   running.
 - You have the service tag, admin MAC address, and BMC MAC address for every
   target server. These are available from:
@@ -218,9 +218,9 @@ Next Steps
 ----------
 
 
-- `Configure Inputs <configure_inputs.rst>`_ -- Configure software and cluster input files.
-- `Configure Credentials <configure_credentials.rst>`_ -- Set up encrypted provisioning credentials.
-- `Discover Nodes <discover_nodes.rst>`_ -- Run the discovery playbook using this mapping file.
+- :doc:`Configure Inputs <configure_inputs>` -- Configure software and cluster input files.
+- :doc:`Configure Credentials <configure_credentials>` -- Set up encrypted provisioning credentials.
+- :doc:`Discover Nodes <discover_nodes>` -- Run the discovery playbook using this mapping file.
 
 
 

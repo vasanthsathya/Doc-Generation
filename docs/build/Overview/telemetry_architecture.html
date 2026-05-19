@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=5e105632" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=123c2300" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=0e325a43" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +48,7 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Overview/telemetry_architecture';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/custom.js?v=8ac8acb0"></script>
+    <script src="../_static/custom.js?v=977ea42b"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -499,7 +499,7 @@ parses the Redfish JSON payloads and publishes them as structured messages to
 Kafka.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>iDRAC telemetry operates over the <a class="reference external" href="network_topologies.rst">BMC network</a>,
+<p>iDRAC telemetry operates over the <a class="reference internal" href="network_topologies.html"><span class="doc">BMC network</span></a>,
 which is separate from compute traffic. Data collection continues even when
 the host OS is unresponsive, making it invaluable for diagnosing hardware
 failures and kernel panics.</p>
@@ -682,11 +682,11 @@ cardinality, and compresses data more efficiently.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p><a class="reference external" href="architecture.rst">Architecture</a> – Where telemetry services run in the three-cluster
+<li><p><a class="reference internal" href="architecture.html"><span class="doc">Architecture</span></a> – Where telemetry services run in the three-cluster
 model.</p></li>
-<li><p><a class="reference external" href="components.rst">Components</a> – Details on each software component, including Kafka
+<li><p><a class="reference internal" href="components.html"><span class="doc">Components</span></a> – Details on each software component, including Kafka
 and VictoriaMetrics.</p></li>
-<li><p><a class="reference external" href="security_model.rst">Security Model</a> – How telemetry traffic is encrypted and
+<li><p><a class="reference internal" href="security_model.html"><span class="doc">Security Model</span></a> – How telemetry traffic is encrypted and
 authenticated.</p></li>
 </ul>
 </div>

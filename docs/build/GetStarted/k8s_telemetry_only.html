@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=5e105632" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=123c2300" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=0e325a43" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +48,7 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'GetStarted/k8s_telemetry_only';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/custom.js?v=8ac8acb0"></script>
+    <script src="../_static/custom.js?v=977ea42b"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -493,7 +493,7 @@ configurable retention.</p></li>
 <p><strong>Estimated time:</strong> ~2 hours.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Complete the <a class="reference external" href="prerequisites_checklist.rst">Prerequisites Checklist</a> before proceeding. Pay
+<p>Complete the <a class="reference internal" href="prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a> before proceeding. Pay
 particular attention to the <strong>iDRAC Settings</strong> section (Datacenter
 license required for telemetry) and <strong>Service Kubernetes Requirements</strong>
 (3 control-plane nodes with 64 GB RAM each).</p>
@@ -733,7 +733,7 @@ configure notification channels (email, Slack, PagerDuty) under
 <dt><strong>Monitor additional servers</strong></dt><dd><p>Add more BMC IPs to <code class="docutils literal notranslate"><span class="pre">additional_idrac_targets</span></code> in
 <code class="docutils literal notranslate"><span class="pre">telemetry_config.yml</span></code> and re-run <code class="docutils literal notranslate"><span class="pre">telemetry.yml</span></code>.</p>
 </dd>
-<dt><strong>Add Slurm later</strong></dt><dd><p>Follow <a class="reference external" href="full_deployment.rst">Full Deployment</a> (Path B) to add Slurm head, compute,
+<dt><strong>Add Slurm later</strong></dt><dd><p>Follow <a class="reference internal" href="full_deployment.html"><span class="doc">Full Deployment</span></a> (Path B) to add Slurm head, compute,
 and login nodes to this existing deployment. The K8s telemetry cluster
 you built here will seamlessly monitor the Slurm nodes.</p>
 </dd>
@@ -752,9 +752,9 @@ StatefulSet.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p><a class="reference external" href="full_deployment.rst">Full Deployment</a> – Add Slurm to this K8s deployment</p></li>
-<li><p><a class="reference external" href="prerequisites_checklist.rst">Prerequisites Checklist</a> – Master checklist</p></li>
-<li><p><a class="reference external" href="../Overview/telemetry_architecture.rst">Telemetry Architecture</a> – Deep dive into the telemetry pipeline</p></li>
+<li><p><a class="reference internal" href="full_deployment.html"><span class="doc">Full Deployment</span></a> – Add Slurm to this K8s deployment</p></li>
+<li><p><a class="reference internal" href="prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a> – Master checklist</p></li>
+<li><p><a class="reference internal" href="../Overview/telemetry_architecture.html"><span class="doc">Telemetry Architecture</span></a> – Deep dive into the telemetry pipeline</p></li>
 </ul>
 </div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>

@@ -63,7 +63,7 @@ multi-hour process into a repeatable, version-controlled workflow.
 .. note::
 
 
-   Complete the `Prerequisites Checklist <prerequisites_checklist.rst>`_ before proceeding. In
+   Complete the :doc:`Prerequisites Checklist <prerequisites_checklist>` before proceeding. In
    addition, BuildStreaM requires:
 
    - A GitLab instance (deployed in Step 4 below, or an existing one).
@@ -194,7 +194,7 @@ Step 4).
 .. tip::
 
 
-   Leave ``oauth_app_id`` and ``oauth_app_secret`` empty for now if you
+   Leave ``oauth_app_id`` and ``oauth_app_secret`:doc:` empty for now if you
    are deploying GitLab in Step 4. You will return to fill these in after
    GitLab is running and you create the OAuth application.
 
@@ -248,7 +248,7 @@ initial OIM setup.
 **3c. Edit network and provisioning inputs**
 
 Edit ``network_spec.yml``, ``provision_config.yml``, and ``ha_config.yml``
-as described in `Full Deployment <full_deployment.rst>`_ Steps 5a--5c.
+as described in `Full Deployment <full_deployment>` Steps 5a--5c.
 
 **3d. Set credentials**
 
@@ -849,7 +849,7 @@ What's Next?
 .. note::
 
 
-   - `Full Deployment <full_deployment.rst>`_ -- Manual equivalent of this automated path
-   - `Prerequisites Checklist <prerequisites_checklist.rst>`_ -- Master checklist
-   - `Slurm Quickstart <slurm_quickstart.rst>`_ -- Simplified manual deployment for comparison
+   - :doc:`Full Deployment <full_deployment>` -- Manual equivalent of this automated path
+   - :doc:`Prerequisites Checklist <prerequisites_checklist>` -- Master checklist
+   - :doc:`Slurm Quickstart <slurm_quickstart>` -- Simplified manual deployment for comparison
 

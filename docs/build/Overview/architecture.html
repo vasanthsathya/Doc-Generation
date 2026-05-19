@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=5e105632" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=123c2300" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=0e325a43" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +48,7 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Overview/architecture';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/custom.js?v=8ac8acb0"></script>
+    <script src="../_static/custom.js?v=977ea42b"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -594,7 +594,7 @@ framework.</p>
 <p class="admonition-title">Note</p>
 <p>A single physical server can hold multiple roles. For example, a small
 cluster might combine <code class="docutils literal notranslate"><span class="pre">slurm_control_node</span></code> and <code class="docutils literal notranslate"><span class="pre">login_node</span></code> on the same
-machine. See <a class="reference external" href="composable_roles.rst">Composable Roles</a> for details on how roles compose.</p>
+machine. See <a class="reference internal" href="composable_roles.html"><span class="doc">Composable Roles</span></a> for details on how roles compose.</p>
 </div>
 </section>
 </section>
@@ -648,12 +648,12 @@ collaborate through well-defined interfaces:</p>
 <ol class="arabic simple">
 <li><p><strong>Provisioning flow</strong> – The OIM discovers bare-metal nodes via BMC/iDRAC,
 PXE-boots them, installs the operating system, and assigns them to the Slurm
-or Kubernetes cluster based on the <a class="reference external" href="composable_roles.rst">Composable Roles</a> mapping file.</p></li>
+or Kubernetes cluster based on the <a class="reference internal" href="composable_roles.html"><span class="doc">Composable Roles</span></a> mapping file.</p></li>
 <li><p><strong>Authentication</strong> – An <code class="docutils literal notranslate"><span class="pre">auth_server</span></code> node (typically in the Slurm
 cluster) runs OpenLDAP. Both Slurm and Kubernetes nodes can be configured to
 authenticate against this central directory.</p></li>
 <li><p><strong>Telemetry</strong> – Metrics from all clusters flow into the
-<a class="reference external" href="telemetry_architecture.rst">Telemetry Architecture</a> pipeline, which may run on the Kubernetes
+<a class="reference internal" href="telemetry_architecture.html"><span class="doc">Telemetry Architecture</span></a> pipeline, which may run on the Kubernetes
 cluster (Grafana, VictoriaMetrics) or on the OIM.</p></li>
 <li><p><strong>Storage</strong> – NFS shares provisioned through the Kubernetes cluster can be
 mounted by Slurm compute nodes, providing a unified storage layer for job
@@ -677,9 +677,9 @@ A runaway Kubernetes pod cannot starve a Slurm batch job, and vice versa.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p><a class="reference external" href="components.rst">Components</a> – Deep dive into each software component.</p></li>
-<li><p><a class="reference external" href="composable_roles.rst">Composable Roles</a> – How servers are assigned to clusters and roles.</p></li>
-<li><p><a class="reference external" href="network_topologies.rst">Network Topologies</a> – Network design options that connect the three
+<li><p><a class="reference internal" href="components.html"><span class="doc">Components</span></a> – Deep dive into each software component.</p></li>
+<li><p><a class="reference internal" href="composable_roles.html"><span class="doc">Composable Roles</span></a> – How servers are assigned to clusters and roles.</p></li>
+<li><p><a class="reference internal" href="network_topologies.html"><span class="doc">Network Topologies</span></a> – Network design options that connect the three
 clusters.</p></li>
 </ul>
 </div>

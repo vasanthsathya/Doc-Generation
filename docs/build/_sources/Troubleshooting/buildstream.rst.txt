@@ -202,7 +202,7 @@ Catalog parse errors
       - ``storage``
 
     #. Verify all required fields are present in each catalog entry. Refer to
-       the `Update Catalog Pipeline <../HowTo/BuildStreaM/update_catalog_pipeline.rst>`_ guide for the
+       the :doc:`Update Catalog Pipeline <../HowTo/BuildStreaM/update_catalog_pipeline>` guide for the
        catalog schema.
 
     #. After fixing errors, commit and push to trigger a new pipeline:
@@ -280,9 +280,9 @@ OAuth credential issues
 .. note::
 
 
-   - `Deploy Gitlab <../HowTo/BuildStreaM/deploy_gitlab.rst>`_ -- GitLab deployment guide.
-   - `Update Catalog Pipeline <../HowTo/BuildStreaM/update_catalog_pipeline.rst>`_ -- Catalog and pipeline
+   - :doc:`Deploy Gitlab <../HowTo/BuildStreaM/deploy_gitlab>` -- GitLab deployment guide.
+   - :doc:`Update Catalog Pipeline <../HowTo/BuildStreaM/update_catalog_pipeline>` -- Catalog and pipeline
      configuration.
-   - `Buildstream Deployment <../GetStarted/buildstream_deployment.rst>`_ -- BuildStreaM deployment
+   - :doc:`Buildstream Deployment <../GetStarted/buildstream_deployment>` -- BuildStreaM deployment
      tutorial.
 

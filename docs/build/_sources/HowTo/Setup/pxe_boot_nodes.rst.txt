@@ -33,10 +33,10 @@ Prerequisites
 -------------
 
 
-- The `Discover Nodes <discover_nodes.rst>`_ procedure is complete.
-- The `Build Cluster Images <build_cluster_images.rst>`_ procedure is complete (boot images in MinIO).
+- The :doc:`Discover Nodes <discover_nodes>` procedure is complete.
+- The :doc:`Build Cluster Images <build_cluster_images>` procedure is complete (boot images in MinIO).
 - The OIM's DHCP, TFTP, and HTTP services are running (verified via
-  `Verify Oim Services <verify_oim_services.rst>`_).
+  :doc:`Verify Oim Services <verify_oim_services>`).
 - Physical network cables connect each server's PXE NIC to the admin network
   switch.
 
@@ -184,9 +184,9 @@ Next Steps
 ----------
 
 
-- `Verify Cluster <verify_cluster.rst>`_ -- Comprehensive cluster health check.
-- `Setup Slurm <../Slurm/setup_slurm.rst>`_ -- Deploy Slurm on provisioned nodes.
-- `Setup Service K8S <../Kubernetes/setup_service_k8s.rst>`_ -- Deploy Kubernetes on
+- :doc:`Verify Cluster <verify_cluster>` -- Comprehensive cluster health check.
+- :doc:`Setup Slurm <../Slurm/setup_slurm>` -- Deploy Slurm on provisioned nodes.
+- :doc:`Setup Service K8S <../Kubernetes/setup_service_k8s>` -- Deploy Kubernetes on
   provisioned nodes.
 
 
@@ -233,7 +233,7 @@ Troubleshooting
 
 
 
-  - Rebuild the image if necessary (see `Build Cluster Images <build_cluster_images.rst>`_).
+  - Rebuild the image if necessary (see :doc:`Build Cluster Images <build_cluster_images>`).
 
 **Node provisions but is unreachable on the admin network**
   - Check that the admin IP was correctly assigned by reviewing

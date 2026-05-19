@@ -6,7 +6,7 @@ Release Notes
 
 This page summarizes the features, enhancements, and changes introduced in each
 Omnia release. For detailed upgrade instructions, see the migration guide in
-`Index <../GetStarted/index.rst>`_.
+:doc:`Index <../GetStarted/index>`.
 
 
 Omnia 2.1.0.0
@@ -35,7 +35,7 @@ pipeline of CI/CD jobs that execute Ansible playbooks.
 - Full audit trail via GitLab commit history and merge-request reviews.
 - Idempotent re-execution---pipelines can be safely re-run.
 
-See `Components <components.rst>`_ for a detailed explanation of BuildStreaM's architecture.
+See :doc:`Components <components>` for a detailed explanation of BuildStreaM's architecture.
 
 
 Additional packages and software
@@ -116,7 +116,7 @@ the OIM:
 - No Docker daemon required; Podman is available in default RHEL / Rocky Linux
   repositories.
 
-See `Architecture <architecture.rst>`_ for the full containerization architecture.
+See :doc:`Architecture <architecture>` for the full containerization architecture.
 
 
 Local repository management with Pulp
@@ -130,7 +130,7 @@ Local repository management with Pulp
 - Repository snapshots ensure consistent package versions across all nodes.
 - Dramatically faster provisioning via local high-speed network access.
 
-See `Components <components.rst>`_ for details on Pulp's capabilities.
+See :doc:`Components <components>` for details on Pulp's capabilities.
 
 
 Centralized authentication
@@ -143,7 +143,7 @@ Centralized authentication
   local credential caching.
 - Consistent UIDs and GIDs across all cluster nodes.
 
-See `Security Model <security_model.rst>`_ for the full authentication architecture.
+See :doc:`Security Model <security_model>` for the full authentication architecture.
 
 
 Telemetry pipeline
@@ -161,7 +161,7 @@ Telemetry pipeline
 - **Grafana** with pre-built HPC dashboards for cluster, node, GPU, and job
   monitoring.
 
-See `Telemetry Architecture <telemetry_architecture.rst>`_ for the full pipeline architecture.
+See :doc:`Telemetry Architecture <telemetry_architecture>` for the full pipeline architecture.
 
 
 Kubernetes high availability
@@ -184,7 +184,7 @@ Composable functional groups
 - User-defined groups for physical characteristics (GPU type, CPU
   architecture, memory capacity).
 
-See `Composable Roles <composable_roles.rst>`_ for the full explanation.
+See :doc:`Composable Roles <composable_roles>` for the full explanation.
 
 
 Stateless boot
@@ -219,7 +219,7 @@ Security enhancements
 - Credential utility for generating, rotating, and rekeying encrypted
   passwords.
 
-See `Security Model <security_model.rst>`_ for details.
+See :doc:`Security Model <security_model>` for details.
 
 
 Multi-architecture support

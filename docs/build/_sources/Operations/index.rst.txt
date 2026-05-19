@@ -13,7 +13,7 @@ security, and cleaning up the OIM when a fresh start is needed.
 
 
    If you have not yet deployed your cluster, start with the
-   `Index <../GetStarted/index.rst>`_ tutorials. The procedures in this section assume a
+   :doc:`Index <../GetStarted/index>` tutorials. The procedures in this section assume a
    working Omnia environment.
 
 

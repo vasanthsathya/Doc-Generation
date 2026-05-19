@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=5e105632" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=123c2300" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=0e325a43" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +48,7 @@
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'HowTo/Containers/deploy_additional_packages';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../../_static/custom.js?v=8ac8acb0"></script>
+    <script src="../../_static/custom.js?v=977ea42b"></script>
     <link rel="icon" href="../../_static/favicon.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -512,7 +512,7 @@
   <section id="deploy-additional-packages">
 <h1>Deploy Additional Packages<a class="headerlink" href="#deploy-additional-packages" title="Link to this heading">#</a></h1>
 <p>Install custom software packages on provisioned cluster nodes using Ansible
-ad-hoc commands, playbooks, or the Omnia local repository infrastructure.</p>
+ad-hoc commands, playbooks, or the Omnia local repository infrastructure..</p>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
 <p>After initial cluster provisioning, you may need to install additional
@@ -536,7 +536,7 @@ infrastructure for automated deployment to new nodes.</p></li>
 <ul class="simple">
 <li><p>Cluster nodes are provisioned and reachable via Ansible.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> container has SSH access to all target nodes.</p></li>
-<li><p>Local repositories are synced (see <a class="reference external" href="../Setup/create_local_repos.rst">Create Local Repos</a>)
+<li><p>Local repositories are synced (see <a class="reference internal" href="../Setup/create_local_repos.html"><span class="doc">Create Local Repos</span></a>)
 if installing from OS repos.</p></li>
 </ul>
 </section>
@@ -548,14 +548,24 @@ if installing from OS repos.</p></li>
 <li><p><strong>Install a package on all compute nodes</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>dnf<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;name=htop state=present&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Install multiple packages at once</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>dnf<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;name=gcc,gcc-c++,make,cmake state=present&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Install on a specific group of nodes</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install only on login nodes</span>
+ansible<span class="w"> </span>login_node<span class="w"> </span>-m<span class="w"> </span>dnf<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;name=emacs,vim-enhanced state=present&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Install from a specific repository</strong>:</p></li>
 </ol>
@@ -567,10 +577,61 @@ if installing from OS repos.</p></li>
 <li><p><strong>Create a custom playbook</strong> for repeatable deployments:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /omnia/custom_packages.yml</span>
+<span class="s">---</span>
+<span class="s">- name: Deploy custom packages to compute nodes</span>
+<span class="s">  hosts: slurm_node</span>
+<span class="s">  become: true</span>
+<span class="s">  tasks:</span>
+<span class="s">    - name: Install development tools</span>
+<span class="s">      dnf:</span>
+<span class="s">        name:</span>
+<span class="s">          - gcc</span>
+<span class="s">          - gcc-c++</span>
+<span class="s">          - gcc-gfortran</span>
+<span class="s">          - make</span>
+<span class="s">          - cmake</span>
+<span class="s">          - autoconf</span>
+<span class="s">          - automake</span>
+<span class="s">        state: present</span>
+
+<span class="s">    - name: Install scientific libraries</span>
+<span class="s">      dnf:</span>
+<span class="s">        name:</span>
+<span class="s">          - openblas-devel</span>
+<span class="s">          - lapack-devel</span>
+<span class="s">          - fftw-devel</span>
+<span class="s">          - hdf5-devel</span>
+<span class="s">        state: present</span>
+
+<span class="s">    - name: Install Python scientific stack</span>
+<span class="s">      pip:</span>
+<span class="s">        name:</span>
+<span class="s">          - numpy</span>
+<span class="s">          - scipy</span>
+<span class="s">          - matplotlib</span>
+<span class="s">          - pandas</span>
+<span class="s">        executable: pip3</span>
+
+<span class="s">    - name: Install monitoring tools</span>
+<span class="s">      dnf:</span>
+<span class="s">        name:</span>
+<span class="s">          - htop</span>
+<span class="s">          - iotop</span>
+<span class="s">          - sysstat</span>
+<span class="s">          - perf</span>
+<span class="s">        state: present</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the custom playbook</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
+ansible-playbook<span class="w"> </span>custom_packages.yml
+</pre></div>
+</div>
 </section>
 <section id="approach-3-custom-pulp-repository">
 <h3>Approach 3: Custom Pulp Repository<a class="headerlink" href="#approach-3-custom-pulp-repository" title="Link to this heading">#</a></h3>
@@ -610,8 +671,8 @@ if installing from OS repos.</p></li>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="use_apptainer.rst">Use Apptainer</a> – Use containers for complex application stacks.</p></li>
-<li><p><a class="reference external" href="../Slurm/run_hpc_benchmarks.rst">Run Hpc Benchmarks</a> – Run benchmarks with the
+<li><p><a class="reference internal" href="use_apptainer.html"><span class="doc">Use Apptainer</span></a> – Use containers for complex application stacks.</p></li>
+<li><p><a class="reference internal" href="../Slurm/run_hpc_benchmarks.html"><span class="doc">Run Hpc Benchmarks</span></a> – Run benchmarks with the
 installed packages.</p></li>
 </ul>
 </section>

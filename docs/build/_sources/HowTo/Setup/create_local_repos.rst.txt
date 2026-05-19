@@ -31,8 +31,8 @@ Prerequisites
 -------------
 
 
-- The `Prepare Oim <prepare_oim.rst>`_ procedure is complete (Pulp is running).
-- The `Configure Inputs <configure_inputs.rst>`_ procedure is complete (``software_config.json``
+- The :doc:`Prepare Oim <prepare_oim>` procedure is complete (Pulp is running).
+- The :doc:`Configure Inputs <configure_inputs>` procedure is complete (``software_config.json``
   is configured with the desired software stacks).
 - **For RHEL**: An active Red Hat subscription is registered on the OIM, **or**
   you have configured local repository paths in ``software_config.json``.
@@ -173,8 +173,8 @@ Next Steps
 ----------
 
 
-- `Build Cluster Images <build_cluster_images.rst>`_ -- Build OS boot images using the local repos.
-- `Discover Nodes <discover_nodes.rst>`_ -- Discover and PXE-boot target nodes.
+- :doc:`Build Cluster Images <build_cluster_images>` -- Build OS boot images using the local repos.
+- :doc:`Discover Nodes <discover_nodes>` -- Discover and PXE-boot target nodes.
 
 
 

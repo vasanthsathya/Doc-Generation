@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=5e105632" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=123c2300" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=0e325a43" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +48,7 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Operations/oim_cleanup';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/custom.js?v=8ac8acb0"></script>
+    <script src="../_static/custom.js?v=977ea42b"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -570,18 +570,18 @@ stack and redeploy it without disturbing the rest of the OIM.</p>
 <h2>Post-cleanup steps<a class="headerlink" href="#post-cleanup-steps" title="Link to this heading">#</a></h2>
 <p>After a full cleanup, you will need to redeploy Omnia from the beginning:</p>
 <ol class="arabic simple">
-<li><p>Re-run the OIM preparation playbook (see <a class="reference external" href="../HowTo/Setup/prepare_oim.rst">Prepare Oim</a>).</p></li>
-<li><p>Rebuild the <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> container (see <a class="reference external" href="../HowTo/Setup/deploy_omnia_core.rst">Deploy Omnia Core</a>).</p></li>
-<li><p>Reconfigure inputs and credentials (see <a class="reference external" href="../HowTo/Setup/configure_inputs.rst">Configure Inputs</a>
-and <a class="reference external" href="../HowTo/Setup/configure_credentials.rst">Configure Credentials</a>).</p></li>
-<li><p>Re-discover and provision nodes (see <a class="reference external" href="../HowTo/Setup/discover_nodes.rst">Discover Nodes</a>).</p></li>
+<li><p>Re-run the OIM preparation playbook (see <a class="reference internal" href="../HowTo/Setup/prepare_oim.html"><span class="doc">Prepare Oim</span></a>).</p></li>
+<li><p>Rebuild the <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> container (see <a class="reference internal" href="../HowTo/Setup/deploy_omnia_core.html"><span class="doc">Deploy Omnia Core</span></a>).</p></li>
+<li><p>Reconfigure inputs and credentials (see <a class="reference internal" href="../HowTo/Setup/configure_inputs.html"><span class="doc">Configure Inputs</span></a>
+and <a class="reference internal" href="../HowTo/Setup/configure_credentials.html"><span class="doc">Configure Credentials</span></a>).</p></li>
+<li><p>Re-discover and provision nodes (see <a class="reference internal" href="../HowTo/Setup/discover_nodes.html"><span class="doc">Discover Nodes</span></a>).</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p><a class="reference external" href="reprovision_cluster.rst">Reprovision Cluster</a> – Re-image individual nodes without tearing
+<li><p><a class="reference internal" href="reprovision_cluster.html"><span class="doc">Reprovision Cluster</span></a> – Re-image individual nodes without tearing
 down the entire OIM.</p></li>
-<li><p><a class="reference external" href="../Troubleshooting/general.rst">General</a> – Common issues that may arise after
+<li><p><a class="reference internal" href="../Troubleshooting/general.html"><span class="doc">General</span></a> – Common issues that may arise after
 cleanup and redeployment.</p></li>
 </ul>
 </div>

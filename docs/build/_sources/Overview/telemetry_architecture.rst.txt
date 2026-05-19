@@ -66,7 +66,7 @@ Kafka.
 .. note::
 
 
-   iDRAC telemetry operates over the `BMC network <network_topologies.rst>`_,
+   iDRAC telemetry operates over the :doc:`BMC network <network_topologies>`,
    which is separate from compute traffic. Data collection continues even when
    the host OS is unresponsive, making it invaluable for diagnosing hardware
    failures and kernel panics.
@@ -285,10 +285,10 @@ cardinality, and compresses data more efficiently.
 .. note::
 
 
-   - `Architecture <architecture.rst>`_ -- Where telemetry services run in the three-cluster
+   - :doc:`Architecture <architecture>` -- Where telemetry services run in the three-cluster
      model.
-   - `Components <components.rst>`_ -- Details on each software component, including Kafka
+   - :doc:`Components <components>` -- Details on each software component, including Kafka
      and VictoriaMetrics.
-   - `Security Model <security_model.rst>`_ -- How telemetry traffic is encrypted and
+   - :doc:`Security Model <security_model>` -- How telemetry traffic is encrypted and
      authenticated.
 

@@ -244,9 +244,9 @@ Next Steps
 ----------
 
 
-- `Configure Nfs <configure_nfs.rst>`_ -- Configure NFS for shared storage across compute
+- :doc:`Configure Nfs <configure_nfs>` -- Configure NFS for shared storage across compute
   nodes.
-- `Setup Slurm <../Slurm/setup_slurm.rst>`_ -- Deploy Slurm using the PowerVault
+- :doc:`Setup Slurm <../Slurm/setup_slurm>` -- Deploy Slurm using the PowerVault
   storage for spool data.
 
 

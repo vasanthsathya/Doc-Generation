@@ -217,7 +217,7 @@ Container startup failures
 
 ??? note "Resolution"
 
-    Log in as ``root`` directly instead of using ``sudo``:
+    Log in as ``root`` directly instead of using ``sudo`:doc:`:
 
 
 .. code-block:: bash
@@ -321,7 +321,7 @@ Ansible Vault encrypted file issues
 .. note::
 
 
-   - `Log Management <../Operations/log_management.rst>`_ -- Where to find logs for deeper
+   - `Log Management <../Operations/log_management>` -- Where to find logs for deeper
      diagnosis.
-   - `Oim Cleanup <../Operations/oim_cleanup.rst>`_ -- Full OIM reset if issues persist.
+   - :doc:`Oim Cleanup <../Operations/oim_cleanup>` -- Full OIM reset if issues persist.
 

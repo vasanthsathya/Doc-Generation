@@ -35,7 +35,7 @@ Prerequisites
   switch.
 - ``software_config.json`` includes the IB/OFED software package.
 - Local repositories are synced with OFED packages (see
-  `Create Local Repos <../Setup/create_local_repos.rst>`_).
+  :doc:`Create Local Repos <../Setup/create_local_repos>`).
 
 
 
@@ -177,7 +177,7 @@ Verification
 
 
 
-   Expected: the interface shows the assigned IP address and ``state UP``.
+   Expected: the interface shows the assigned IP address and ``state UP`:doc:`.
 
 #. **Check IB port state**:
 
@@ -275,9 +275,9 @@ Next Steps
 ----------
 
 
-- `Run Hpc Benchmarks <../Slurm/run_hpc_benchmarks.rst>`_ -- Run MPI benchmarks over the IB
+- `Run Hpc Benchmarks <../Slurm/run_hpc_benchmarks>` -- Run MPI benchmarks over the IB
   fabric.
-- `Configure Roce <configure_roce.rst>`_ -- Configure RoCE as an alternative to InfiniBand.
+- :doc:`Configure Roce <configure_roce>` -- Configure RoCE as an alternative to InfiniBand.
 
 
 

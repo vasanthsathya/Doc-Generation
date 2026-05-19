@@ -28,7 +28,7 @@ Prerequisites
 -------------
 
 
-- The `Setup Telemetry <setup_telemetry.rst>`_ procedure is complete (LDMS is deployed).
+- The :doc:`Setup Telemetry <setup_telemetry>` procedure is complete (LDMS is deployed).
 - LDMS agents are running on compute nodes.
 - Aggregators are running on the K8s service cluster.
 
@@ -238,8 +238,8 @@ Next Steps
 ----------
 
 
-- `Verify Telemetry <verify_telemetry.rst>`_ -- End-to-end telemetry verification.
-- `Configure External Kafka <configure_external_kafka.rst>`_ -- Route LDMS data through external Kafka.
+- :doc:`Verify Telemetry <verify_telemetry>` -- End-to-end telemetry verification.
+- :doc:`Configure External Kafka <configure_external_kafka>` -- Route LDMS data through external Kafka.
 
 
 
