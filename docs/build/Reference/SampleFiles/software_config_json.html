@@ -505,6 +505,40 @@ deployment and modify as needed.</p>
 <p>Deploys a traditional HPC cluster with Slurm scheduling, NVIDIA GPU support,
 and LDMS telemetry on compute nodes. No Kubernetes.</p>
 <p><strong>Sample software_config.json: Slurm-only cluster</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm_control_node&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;23.11&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm_node&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;23.11&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nvidia_gpu&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ldms&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;login_node&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;23.11&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;auth_server&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;openldap&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 <p><strong>Scenario 1 component summary</strong></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -534,6 +568,59 @@ and LDMS telemetry on compute nodes. No Kubernetes.</p>
 <p>Production-grade deployment with Slurm for HPC compute and Kubernetes for
 platform services, monitoring, and storage.</p>
 <p><strong>Sample software_config.json: Slurm + Kubernetes</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm_control_node&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;23.11&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm_node&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;23.11&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nvidia_gpu&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ldms&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;beegfs_client&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;login_node&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;23.11&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kube_control_plane&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kubernetes&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.29&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;calico&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;metallb&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nfs_csi&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;telemetry&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kube_node&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kubernetes&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.29&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;auth_server&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;openldap&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 <p><strong>Scenario 2 component summary</strong></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -569,6 +656,28 @@ platform services, monitoring, and storage.</p>
 <p>Deploys a Kubernetes cluster with the full telemetry pipeline for
 infrastructure monitoring without a job scheduler.</p>
 <p><strong>Sample software_config.json: Kubernetes + telemetry only</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kube_control_plane&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kubernetes&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.29&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;calico&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;metallb&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nfs_csi&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;telemetry&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kube_node&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kubernetes&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.29&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 <p><strong>Scenario 3 component summary</strong></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -591,6 +700,33 @@ infrastructure monitoring without a job scheduler.</p>
 <h2>Scenario 4: AMD GPU compute nodes<a class="headerlink" href="#scenario-4-amd-gpu-compute-nodes" title="Link to this heading">#</a></h2>
 <p>Slurm cluster with AMD Instinct GPU nodes instead of NVIDIA.</p>
 <p><strong>Sample software_config.json: AMD GPU compute nodes</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm_control_node&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;23.11&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm_node&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;23.11&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;amd_gpu&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ldms&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;login_node&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;23.11&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">

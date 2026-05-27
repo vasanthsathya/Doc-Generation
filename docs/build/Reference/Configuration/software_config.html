@@ -506,6 +506,19 @@ to a list of software packages.</p>
 one functional group and specifies the software packages to install on nodes
 belonging to that group.</p>
 <p><strong>File: /opt/omnia/input/project_default/software_config.json</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;group_name&gt;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;package_name&gt;&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;version&gt;&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 </section>
 <section id="field-reference">
 <h2>Field reference<a class="headerlink" href="#field-reference" title="Link to this heading">#</a></h2>
@@ -613,6 +626,35 @@ belonging to that group.</p>
 <p>See <a class="reference internal" href="../SampleFiles/software_config_json.html"><span class="doc">Software Config Json</span></a> for complete annotated
 examples covering Slurm-only, Slurm + K8s, and telemetry-only scenarios.</p>
 <p><strong>File: /opt/omnia/input/project_default/software_config.json</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm_control_node&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;23.11&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm_node&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;23.11&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nvidia_gpu&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ldms&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_exporter&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kube_control_plane&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;software&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kubernetes&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.29&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;calico&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;metallb&quot;</span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nfs_csi&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">

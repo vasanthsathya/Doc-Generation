@@ -132,15 +132,16 @@ All playbooks are executed from within the ``omnia_core`` container on the OIM:
 **Run on: OIM host**
 
 .. code-block:: bash
+
    # Enter the omnia_core container
    podman exec -it omnia_core bash
-   
+
    # Run a specific playbook
    ansible-playbook /opt/omnia/playbooks/<playbook_name>.yml
-   
+
    # Run with verbose output
    ansible-playbook /opt/omnia/playbooks/<playbook_name>.yml -vv
-   
+
    # Run with a specific inventory (if not using default)
    ansible-playbook /opt/omnia/playbooks/<playbook_name>.yml -i /opt/omnia/inventory
 

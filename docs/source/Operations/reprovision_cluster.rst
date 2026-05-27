@@ -66,6 +66,7 @@ Before re-provisioning, gracefully drain all workloads from the target nodes.
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
    scontrol update NodeName=compute-03 State=DRAIN Reason="Re-provisioning"
 
 
@@ -75,9 +76,10 @@ Wait for running jobs to complete, or cancel them if immediate action is needed:
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
    # Check for running jobs on the node
    squeue -w compute-03
-   
+
    # Cancel if necessary
    scancel <job_id>
 
@@ -89,6 +91,7 @@ Wait for running jobs to complete, or cancel them if immediate action is needed:
 **Run on: Kubernetes control plane**
 
 .. code-block:: bash
+
    kubectl drain kube-worker-02 --ignore-daemonsets --delete-emptydir-data
 
 
@@ -102,6 +105,7 @@ Step 2: Update configuration
 
 
 .. code-block:: bash
+
    ssh omnia_core
    cd /omnia/input
 
@@ -115,6 +119,7 @@ Step 2: Update configuration
 
 
 .. code-block:: bash
+
    cd /omnia
    ansible-playbook playbooks/build_cluster_images.yml
 
@@ -132,6 +137,7 @@ updated OS image:
 **Run on: OIM host**
 
 .. code-block:: bash
+
    cd /omnia
    ansible-playbook playbooks/discovery.yml
 
@@ -163,6 +169,7 @@ Omnia cluster software:
 **Run on: OIM host**
 
 .. code-block:: bash
+
    cd /omnia
    ansible-playbook playbooks/omnia.yml
 
@@ -188,15 +195,16 @@ After re-provisioning is complete:
 **Run on: OIM host**
 
 .. code-block:: bash
+
    # Verify Slurm nodes are back online
    sinfo
-   
+
    # Verify Kubernetes nodes are Ready
    kubectl get nodes
-   
+
    # Check for any failed Ansible tasks in the log
    cat /opt/omnia/log/core/playbooks/omnia.log | grep -i "failed"
-   
+
    # Run a test Slurm job
    srun -N 1 hostname
 

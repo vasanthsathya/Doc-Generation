@@ -550,14 +550,39 @@ network switch.</p></li>
 <li><p><strong>Enter the omnia_core container</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify the mapping file is in place</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the discovery playbook</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/omnia/discovery
+<span class="w">    </span>ansible-playbook<span class="w"> </span>discovery.yml<span class="w"> </span>--ask-vault-pass
+
+
+
+<span class="w"> </span>The<span class="w"> </span>playbook<span class="w"> </span>will:
+
+-<span class="w"> </span>Connect<span class="w"> </span>to<span class="w"> </span>each<span class="w"> </span>server<span class="err">&#39;</span>s<span class="w"> </span>BMC/iDRAC<span class="w"> </span>using<span class="w"> </span>Redfish.
+-<span class="w"> </span>Configure<span class="w"> </span>network<span class="w"> </span>boot<span class="w"> </span>settings.
+-<span class="w"> </span>Set<span class="w"> </span>PXE<span class="w"> </span>as<span class="w"> </span>the<span class="w"> </span>first<span class="w"> </span>boot<span class="w"> </span>device.
+-<span class="w"> </span>Power-cycle<span class="w"> </span>the<span class="w"> </span>servers.
+-<span class="w"> </span>Wait<span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>server<span class="w"> </span>to<span class="w"> </span>PXE<span class="w"> </span>boot<span class="w"> </span>and<span class="w"> </span>register<span class="w"> </span>with<span class="w"> </span>SMD.
+
+<span class="w"> </span>!!!<span class="w"> </span>note
+
+<span class="w">     </span>Discovery<span class="w"> </span>can<span class="w"> </span>take<span class="w"> </span>**30-60<span class="w"> </span>minutes**<span class="w"> </span>depending<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>nodes.
+<span class="w">     </span>Each<span class="w"> </span>server<span class="w"> </span>must<span class="w"> </span><span class="nb">complete</span><span class="w"> </span>a<span class="w"> </span>full<span class="w"> </span>PXE<span class="w"> </span>boot<span class="w"> </span>cycle.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Monitor discovery progress</strong> by watching the Ansible output. Each node
 will progress through these stages:</p></li>
@@ -577,22 +602,47 @@ will progress through these stages:</p></li>
 <li><p><strong>List discovered nodes in OpenCHAMI</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ochami<span class="w"> </span>node<span class="w"> </span>list
+
+
+
+Expected<span class="w"> </span>output<span class="w"> </span>shows<span class="w"> </span>all<span class="w"> </span>nodes<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>mapping<span class="w"> </span>file<span class="w"> </span>with<span class="w"> </span>their<span class="w"> </span>service
+tags,<span class="w"> </span>MAC<span class="w"> </span>addresses,<span class="w"> </span>and<span class="w"> </span>assigned<span class="w"> </span>IPs.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Check SMD inventory</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ochami<span class="w"> </span>smd<span class="w"> </span>status
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify node count matches the mapping file</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Count discovered nodes</span>
+ochami<span class="w"> </span>node<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+
+<span class="c1"># Count entries in mapping file (excluding header)</span>
+tail<span class="w"> </span>-n<span class="w"> </span>+2<span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Ping each discovered node</strong> on the admin network:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: ping a specific node</span>
+ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">10</span>.5.0.101
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Check Ansible inventory</strong> was populated:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-inventory<span class="w"> </span>--list<span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-50
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -611,6 +661,14 @@ will progress through these stages:</p></li>
 </dd>
 </dl>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span>&lt;bmc-ip&gt;
+
+
+
+-<span class="w"> </span>Check<span class="w"> </span>iDRAC<span class="w"> </span>web<span class="w"> </span>UI<span class="w"> </span><span class="k">for</span><span class="w"> </span>boot<span class="w"> </span>errors.
+-<span class="w"> </span>Verify<span class="w"> </span>the<span class="w"> </span><span class="sb">``</span>ADMIN_MAC<span class="sb">``</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>mapping<span class="w"> </span>file<span class="w"> </span>matches<span class="w"> </span>the<span class="w"> </span>PXE<span class="w"> </span>NIC.
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>BMC connection refused</strong></dt><dd><ul class="simple">
 <li><p>Confirm BMC credentials are correct in the encrypted credentials file.</p></li>
@@ -624,7 +682,21 @@ will progress through these stages:</p></li>
 </dd>
 </dl>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>systemctl<span class="w"> </span>status<span class="w"> </span>coredhcp.service
+
+
+
+-<span class="w"> </span>Check<span class="w"> </span>TFTP<span class="w"> </span>service:
+</pre></div>
+</div>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>systemctl<span class="w"> </span>status<span class="w"> </span>tftpd.service
+
+
+
+-<span class="w"> </span>Verify<span class="w"> </span>the<span class="w"> </span>admin<span class="w"> </span>network<span class="w"> </span>switch<span class="w"> </span>is<span class="w"> </span>configured<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>correct<span class="w"> </span>VLAN.
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Some nodes discover but others do not</strong></dt><dd><ul class="simple">
 <li><p>Check for MAC address typos in the mapping file.</p></li>
@@ -634,6 +706,9 @@ will progress through these stages:</p></li>
 </dd>
 </dl>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>arping<span class="w"> </span>-D<span class="w"> </span>-I<span class="w"> </span>&lt;admin-nic&gt;<span class="w"> </span>&lt;admin-ip&gt;
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Discovery playbook fails at BMC configuration step</strong></dt><dd><ul class="simple">
 <li><p>Ensure iDRAC firmware is up to date (minimum 5.x for PowerEdge 15th gen).</p></li>
@@ -642,6 +717,9 @@ will progress through these stages:</p></li>
 </dd>
 </dl>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-sk<span class="w"> </span>https://&lt;bmc-ip&gt;/redfish/v1/<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;:&lt;pass&gt;
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

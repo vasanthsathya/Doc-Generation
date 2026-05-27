@@ -17,12 +17,13 @@ Complete sample
 **File: /etc/slurm/slurmdbd.conf**
 
 .. code-block:: bash
+
    # ===========================================================================
    # slurmdbd.conf -- Slurm Database Daemon configuration
    # This file must be readable only by the SlurmUser (typically 'slurm').
    # Permissions: 0600, owned by slurm:slurm.
    # ===========================================================================
-   
+
    # ---------------------------------------------------------------------------
    # Daemon identification
    # ---------------------------------------------------------------------------
@@ -33,12 +34,12 @@ Complete sample
                                     # Must match AccountingStoragePort in
                                     # slurm.conf.
    SlurmUser=slurm                  # User account under which slurmdbd runs.
-   
+
    # ---------------------------------------------------------------------------
    # Authentication
    # ---------------------------------------------------------------------------
    AuthType=auth/munge              # Must match AuthType in slurm.conf.
-   
+
    # ---------------------------------------------------------------------------
    # Logging
    # ---------------------------------------------------------------------------
@@ -46,7 +47,7 @@ Complete sample
    DebugLevel=info                  # Log level: quiet, fatal, error, info,
                                     # verbose, debug, debug2-debug5.
    PidFile=/var/run/slurmdbd.pid
-   
+
    # ---------------------------------------------------------------------------
    # Database connection
    # ---------------------------------------------------------------------------
@@ -64,7 +65,7 @@ Complete sample
                                                # password string directly.
                                                # File-based is recommended for
                                                # security.
-   
+
    # ---------------------------------------------------------------------------
    # Purge settings
    # ---------------------------------------------------------------------------
@@ -75,7 +76,7 @@ Complete sample
    PurgeResvAfter=6months           # Purge reservation records.
    PurgeSuspendAfter=1month         # Purge job suspend records.
    PurgeTXNAfter=12months           # Purge transaction records.
-   
+
    # ---------------------------------------------------------------------------
    # Archive settings (optional)
    # ---------------------------------------------------------------------------
@@ -83,7 +84,7 @@ Complete sample
    # ArchiveJobs=yes
    # ArchiveDir=/var/spool/slurmdbd/archive
    # ArchiveScript=/usr/local/bin/slurm_archive.sh
-   
+
    # ---------------------------------------------------------------------------
    # Performance tuning
    # ---------------------------------------------------------------------------

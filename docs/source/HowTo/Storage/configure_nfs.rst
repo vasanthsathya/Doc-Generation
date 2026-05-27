@@ -64,6 +64,7 @@ Internal NFS (Omnia-Managed)
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -74,6 +75,7 @@ Internal NFS (Omnia-Managed)
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+
       ---
       enable_omnia_nfs: true
       nfs_node_group: "slurm_control_node"
@@ -88,6 +90,7 @@ Internal NFS (Omnia-Managed)
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
 
@@ -114,6 +117,7 @@ External NFS
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -122,6 +126,7 @@ External NFS
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+
       ---
       enable_omnia_nfs: false
       external_nfs_server: "10.5.1.100"
@@ -137,6 +142,7 @@ External NFS
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
 
@@ -148,6 +154,7 @@ External NFS
 **Run on: compute node**
 
 .. code-block:: bash
+
       dnf install -y nfs-utils
       mkdir -p /home
       mount -t nfs -o rw,hard,intr,nfsvers=3 10.5.1.100:/ifs/omnia/home /home
@@ -160,6 +167,7 @@ External NFS
 **Run on: compute node**
 
 .. code-block:: bash
+
       echo "10.5.1.100:/ifs/omnia/home /home nfs rw,hard,intr,nfsvers=3 0 0" >> /etc/fstab
 
 
@@ -176,6 +184,7 @@ Verification
 **Run on: NFS server node**
 
 .. code-block:: bash
+
       exportfs -v
 
 
@@ -186,6 +195,7 @@ Verification
 **Expected output on: NFS server node**
 
 .. code-block:: text
+
       /home  <network>(rw,sync,wdelay,no_root_squash,no_subtree_check,...)
 
 
@@ -196,6 +206,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_node -m shell -a "df -h /home"
 
 
@@ -206,6 +217,7 @@ Verification
 **Run on: compute node**
 
 .. code-block:: bash
+
       echo "NFS test $(date)" > /home/nfs_test.txt
       cat /home/nfs_test.txt
       rm /home/nfs_test.txt
@@ -218,6 +230,7 @@ Verification
 **Run on: NFS server node**
 
 .. code-block:: bash
+
       ls -ld /home
       # Expected: drwxr-xr-x (755)
 
@@ -229,6 +242,7 @@ Verification
 **Run on: compute node**
 
 .. code-block:: bash
+
       grep "/home" /etc/fstab
 
 
@@ -259,6 +273,7 @@ Troubleshooting
 **Run on: NFS server node**
 
 .. code-block:: bash
+
       exportfs -v
       cat /etc/exports
 
@@ -270,6 +285,7 @@ Troubleshooting
 **File: /etc/exports on NFS server node**
 
 .. code-block:: text
+
       /home 10.5.0.0/24(rw,sync,no_root_squash,no_subtree_check)
 
 
@@ -281,6 +297,7 @@ Troubleshooting
 **Run on: NFS server node**
 
 .. code-block:: bash
+
       firewall-cmd --add-service=nfs --permanent
       firewall-cmd --add-service=mountd --permanent
       firewall-cmd --add-service=rpc-bind --permanent
@@ -295,6 +312,7 @@ Troubleshooting
 **Run on: affected compute node**
 
 .. code-block:: bash
+
       umount -l /home
       mount /home
 
@@ -308,5 +326,6 @@ Troubleshooting
 **File: /etc/fstab on compute node**
 
 .. code-block:: text
+
         10.5.1.100:/ifs/omnia/home /home nfs rw,hard,intr,nfsvers=3,rsize=1048576,wsize=1048576 0 0
 

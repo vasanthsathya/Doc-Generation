@@ -347,7 +347,7 @@ GPU not detected by Slurm
 
           # NVIDIA
           ssh <gpu_node> nvidia-smi
-   
+
           # AMD
           ssh <gpu_node> rocm-smi
 
@@ -401,7 +401,7 @@ GPU not detected by Slurm
 
           # On the control node
           systemctl restart slurmctld
-   
+
           # On the GPU compute node
           ssh <gpu_node> systemctl restart slurmd
 

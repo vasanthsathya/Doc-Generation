@@ -176,7 +176,7 @@ Kafka connection issues
 
           # If Kafka runs as a Podman container
           podman ps | grep kafka
-   
+
           # If Kafka runs as a Kubernetes pod
           kubectl get pods -n telemetry | grep kafka
 

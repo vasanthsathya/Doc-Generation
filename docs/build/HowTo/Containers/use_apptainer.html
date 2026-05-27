@@ -550,34 +550,104 @@ image installation required.</p></li>
 <li><p><strong>Verify Apptainer is installed</strong> on compute nodes:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;apptainer --version&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Create a shared images directory</strong> on NFS:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node or login node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>/home/containers/images
+chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>/home/containers/images
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Pull a Docker image</strong> and convert to SIF:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node or login node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apptainer<span class="w"> </span>pull<span class="w"> </span>/home/containers/images/ubuntu.sif<span class="w"> </span>docker://ubuntu:22.04
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Pull an HPC application container</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node or login node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: GROMACS molecular dynamics</span>
+apptainer<span class="w"> </span>pull<span class="w"> </span>/home/containers/images/gromacs.sif<span class="w"> </span>docker://nvcr.io/hpc/gromacs:2023.2
+
+<span class="c1"># Example: TensorFlow for AI workloads</span>
+apptainer<span class="w"> </span>pull<span class="w"> </span>/home/containers/images/tensorflow.sif<span class="w"> </span>docker://nvcr.io/nvidia/tensorflow:24.01-tf2-py3
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run an interactive container</strong> on a compute node:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>--pty<span class="w"> </span>apptainer<span class="w"> </span>shell<span class="w"> </span>/home/containers/images/ubuntu.sif
+
+
+
+This<span class="w"> </span>opens<span class="w"> </span>an<span class="w"> </span>interactive<span class="w"> </span>shell<span class="w"> </span>inside<span class="w"> </span>the<span class="w"> </span>container<span class="w"> </span>on<span class="w"> </span>a<span class="w"> </span>compute<span class="w"> </span>node.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run a batch job</strong> with Apptainer:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /home/containers/run_gromacs.sh</span>
+<span class="s">#!/bin/bash</span>
+<span class="s">#SBATCH --job-name=gromacs-test</span>
+<span class="s">#SBATCH --nodes=2</span>
+<span class="s">#SBATCH --ntasks-per-node=4</span>
+<span class="s">#SBATCH --time=02:00:00</span>
+<span class="s">#SBATCH --output=/home/containers/results/gromacs-%j.out</span>
+
+<span class="s">apptainer exec /home/containers/images/gromacs.sif \</span>
+<span class="s">  mpirun -np 8 gmx_mpi mdrun -s input.tpr -deffnm output</span>
+<span class="s">EOF</span>
+
+sbatch<span class="w"> </span>/home/containers/run_gromacs.sh
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run a GPU container</strong> with Apptainer:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /home/containers/run_tensorflow.sh</span>
+<span class="s">#!/bin/bash</span>
+<span class="s">#SBATCH --job-name=tf-test</span>
+<span class="s">#SBATCH --nodes=1</span>
+<span class="s">#SBATCH --gres=gpu:1</span>
+<span class="s">#SBATCH --time=01:00:00</span>
+<span class="s">#SBATCH --output=/home/containers/results/tf-%j.out</span>
+
+<span class="s">apptainer exec --nv /home/containers/images/tensorflow.sif \</span>
+<span class="s">  python3 -c &quot;import tensorflow as tf; print(tf.config.list_physical_devices(&#39;GPU&#39;))&quot;</span>
+<span class="s">EOF</span>
+
+sbatch<span class="w"> </span>/home/containers/run_tensorflow.sh
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Build a custom SIF image</strong> from a definition file:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /home/containers/custom.def</span>
+<span class="s">Bootstrap: docker</span>
+<span class="s">From: ubuntu:22.04</span>
+
+<span class="s">%post</span>
+<span class="s">    apt-get update</span>
+<span class="s">    apt-get install -y python3 python3-pip</span>
+<span class="s">    pip3 install numpy scipy</span>
+
+<span class="s">%runscript</span>
+<span class="s">    python3 &quot;$@&quot;</span>
+<span class="s">EOF</span>
+
+apptainer<span class="w"> </span>build<span class="w"> </span>/home/containers/images/custom.sif<span class="w"> </span>/home/containers/custom.def
+</pre></div>
+</div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
@@ -585,18 +655,30 @@ image installation required.</p></li>
 <li><p><strong>Verify SIF images are accessible</strong> from all compute nodes:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;ls -la /home/containers/images/&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run a quick test</strong> across multiple nodes:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>-N<span class="w"> </span><span class="m">2</span><span class="w"> </span>apptainer<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>/home/containers/images/ubuntu.sif<span class="w"> </span>hostname
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify GPU access</strong> inside containers:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>apptainer<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--nv<span class="w"> </span>/home/containers/images/tensorflow.sif<span class="w"> </span>nvidia-smi
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Check job output</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/home/containers/results/*.out
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -613,6 +695,9 @@ containers.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>apptainer
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Pull fails with “permission denied”</strong></dt><dd><ul class="simple">
 <li><p>Ensure the NFS directory has write permissions.</p></li>
@@ -621,6 +706,10 @@ containers.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>df<span class="w"> </span>-h<span class="w"> </span>/tmp
+<span class="nb">export</span><span class="w"> </span><span class="nv">APPTAINER_TMPDIR</span><span class="o">=</span>/scratch/tmp
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>GPU not accessible inside container</strong></dt><dd><ul class="simple">
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">--nv</span></code> for NVIDIA or <code class="docutils literal notranslate"><span class="pre">--rocm</span></code> for AMD GPUs.</p></li>
@@ -635,12 +724,20 @@ containers.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>/home/containers/images/broken.sif
+apptainer<span class="w"> </span>pull<span class="w"> </span>/home/containers/images/fixed.sif<span class="w"> </span>docker://source-image
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>MPI inside container fails</strong></dt><dd><p>Ensure the MPI version inside the container is compatible with the host
 MPI. Use <code class="docutils literal notranslate"><span class="pre">--bind</span></code> to mount the host MPI libraries:</p>
 </dd>
 </dl>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>-N<span class="w"> </span><span class="m">2</span><span class="w"> </span>apptainer<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--bind<span class="w"> </span>/usr/lib64/openmpi:/host-mpi<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/home/containers/images/app.sif<span class="w"> </span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">8</span><span class="w"> </span>/app/benchmark
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

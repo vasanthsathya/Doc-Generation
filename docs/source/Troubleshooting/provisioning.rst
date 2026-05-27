@@ -315,7 +315,7 @@ cloud-init issues
 
           # Ping the BMC IP
           ping <bmc_ip>
-   
+
           # Test Redfish API access
           curl -k -u <user>:<pass> https://<bmc_ip>/redfish/v1/Systems
 

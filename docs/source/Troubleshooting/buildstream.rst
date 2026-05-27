@@ -66,7 +66,7 @@ GitLab pipeline failures
 
           # Clear the runner's build cache
           gitlab-runner clear-cache
-   
+
           # Retry the pipeline from GitLab UI
 
 

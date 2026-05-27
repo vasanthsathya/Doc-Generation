@@ -22,6 +22,7 @@ YAML list of network definitions.
 **File: /opt/omnia/input/project_default/network_spec.yml**
 
 .. code-block:: yaml
+
    Networks:
      - admin_network:
          ...
@@ -222,6 +223,7 @@ Usage example
 **File: /opt/omnia/input/project_default/network_spec.yml**
 
 .. code-block:: yaml
+
    Networks:
      - admin_network:
          oim_nic_name: "eno1"
@@ -230,18 +232,18 @@ Usage example
          primary_oim_bmc_ip: "10.3.0.5"
          dynamic_range: "10.5.0.101-10.5.0.200"
          dns: "10.5.0.100"
-   
+
      - bmc_network:
          oim_nic_name: "eno2"
          netmask_bits: 24
          dynamic_range: "10.3.0.201-10.3.0.254"
          static_range: "10.3.0.100-10.3.0.200"
-   
+
      - compute_network:
          oim_nic_name: "enp175s0f0"
          netmask_bits: 24
          mtu: 9216
-   
+
      - public_network:
          oim_nic_name: "enp175s0f1"
          netmask_bits: 24

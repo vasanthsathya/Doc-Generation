@@ -548,19 +548,53 @@ target nodes).</p></li>
 <li><p><strong>Enter the omnia_core container</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify the OS ISO is accessible</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ls<span class="w"> </span>-lh<span class="w"> </span>/opt/omnia/iso/
+
+
+
+Ensure<span class="w"> </span>the<span class="w"> </span>ISO<span class="w"> </span>file<span class="w"> </span>listed<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">``</span>provision_config.yml<span class="sb">``</span><span class="w"> </span>exists.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Build images for x86_64 nodes</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nb">cd</span><span class="w"> </span>/omnia
+<span class="w">   </span>ansible-playbook<span class="w"> </span>build_image_x86_64.yml
+
+
+
+!!!<span class="w"> </span>note
+
+<span class="w">    </span>Add<span class="w"> </span><span class="sb">``</span>--ask-vault-pass<span class="sb">``</span><span class="w"> </span><span class="k">if</span><span class="w"> </span>credentials<span class="w"> </span>are<span class="w"> </span>encrypted:
+</pre></div>
+</div>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>build_image_x86_64.yml<span class="w"> </span>--ask-vault-pass
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>(If applicable) Build images for aarch64 nodes</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nb">cd</span><span class="w"> </span>/omnia
+<span class="w">   </span>ansible-playbook<span class="w"> </span>build_image_aarch64.yml
+
+
+
+!!!<span class="w"> </span>note
+
+<span class="w">    </span>You<span class="w"> </span>can<span class="w"> </span>build<span class="w"> </span>both<span class="w"> </span>architectures.<span class="w"> </span>Each<span class="w"> </span>playbook<span class="w"> </span>produces<span class="w"> </span>a<span class="w"> </span>separate
+<span class="w">    </span>image<span class="w"> </span><span class="k">in</span><span class="w"> </span>MinIO.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Wait for the build to complete</strong>. Image building typically takes
 <strong>20-45 minutes</strong> depending on the software stack size and hardware.</p></li>
@@ -572,15 +606,43 @@ target nodes).</p></li>
 <li><p><strong>List images in the S3 boot-images bucket</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>s3cmd<span class="w"> </span>ls<span class="w"> </span>-Hr<span class="w"> </span>s3://boot-images
+
+
+
+Expected<span class="w"> </span>output<span class="w"> </span>shows<span class="w"> </span>the<span class="w"> </span>image<span class="w"> </span>files<span class="w"> </span>with<span class="w"> </span>their<span class="w"> </span>sizes:
+</pre></div>
+</div>
 <p><strong>Expected output on: omnia_core container</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2024-01-15 10:30  3145728000  s3://boot-images/x86_64/rhel-8.8/rootfs.img
+2024-01-15 10:30     8388608  s3://boot-images/x86_64/rhel-8.8/vmlinuz
+2024-01-15 10:30    52428800  s3://boot-images/x86_64/rhel-8.8/initrd.img
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify the image is registered with BSS</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ochami<span class="w"> </span>bss<span class="w"> </span>list
+
+
+
+The<span class="w"> </span>output<span class="w"> </span>should<span class="w"> </span>show<span class="w"> </span>boot<span class="w"> </span>configurations<span class="w"> </span>referencing<span class="w"> </span>the<span class="w"> </span>newly<span class="w"> </span>built
+images.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Check the image size is reasonable</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>s3cmd<span class="w"> </span>du<span class="w"> </span>s3://boot-images
+
+
+
+A<span class="w"> </span>typical<span class="w"> </span>RHEL<span class="w"> </span><span class="m">8</span>.8<span class="w"> </span>image<span class="w"> </span>with<span class="w"> </span>Slurm<span class="w"> </span>and<span class="w"> </span>basic<span class="w"> </span>packages<span class="w"> </span>is<span class="w"> </span><span class="m">2</span>-4<span class="w"> </span>GB.
+Images<span class="w"> </span>with<span class="w"> </span>CUDA<span class="w"> </span>or<span class="w"> </span>large<span class="w"> </span>software<span class="w"> </span>stacks<span class="w"> </span>can<span class="w"> </span>be<span class="w"> </span><span class="m">5</span>-10<span class="w"> </span>GB.
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -597,17 +659,34 @@ ISO:</p>
 </dd>
 </dl>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/opt/omnia/input/project_default/provision_config.yml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>iso_file_path
+ls<span class="w"> </span>-lh<span class="w"> </span>/opt/omnia/iso/
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Build fails with “repository not found”</strong></dt><dd><p>Ensure <code class="docutils literal notranslate"><span class="pre">local_repo.yml</span></code> completed successfully. Check Pulp repositories:</p>
 </dd>
 </dl>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:8080/pulp/api/v3/distributions/rpm/rpm/<span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>S3 upload fails</strong></dt><dd><p>Verify MinIO is running and accessible:</p>
 </dd>
 </dl>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>s3cmd<span class="w"> </span>ls
+
+
+
+If<span class="w"> </span>MinIO<span class="w"> </span>is<span class="w"> </span>unreachable,<span class="w"> </span>restart<span class="w"> </span>it:
+</pre></div>
+</div>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>minio.service
+</pre></div>
+</div>
 <dl>
 <dt><strong>Image build is very slow</strong></dt><dd><ul class="simple">
 <li><p>Ensure the OIM has sufficient RAM (64 GB minimum).</p></li>

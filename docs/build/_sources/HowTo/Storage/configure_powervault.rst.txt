@@ -52,6 +52,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       dnf install -y iscsi-initiator-utils device-mapper-multipath
 
 
@@ -62,6 +63,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       cat /etc/iscsi/initiatorname.iscsi
 
 
@@ -72,6 +74,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       echo "InitiatorName=$(iscsi-iname)" > /etc/iscsi/initiatorname.iscsi
 
 
@@ -82,6 +85,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       cat <<'EOF' > /etc/multipath.conf
       defaults {
           polling_interval 10
@@ -90,7 +94,7 @@ Procedure
           no_path_retry 5
           user_friendly_names yes
       }
-   
+
       devices {
           device {
               vendor "DellEMC"
@@ -102,7 +106,7 @@ Procedure
           }
       }
       EOF
-   
+
       systemctl enable --now multipathd
 
 
@@ -113,6 +117,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       iscsiadm -m discovery -t sendtargets -p 10.5.2.100:3260
       iscsiadm -m discovery -t sendtargets -p 10.5.2.101:3260
 
@@ -127,6 +132,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       iscsiadm -m node --login
 
 
@@ -137,6 +143,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       systemctl enable --now iscsid
       systemctl enable --now iscsi
 
@@ -148,6 +155,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       multipath -ll
 
 
@@ -158,6 +166,7 @@ Procedure
 **Expected output on: Slurm control node**
 
 .. code-block:: text
+
       mpath0 (360000000000000001) dm-0 DellEMC,ME5
       size=500G features='1 queue_if_no_path' hwhandler='0' wp=rw
       |-+- policy='round-robin 0' prio=1 status=active
@@ -173,6 +182,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       mkfs.xfs /dev/mapper/mpath0
       mkdir -p /var/spool/slurm
       mount /dev/mapper/mpath0 /var/spool/slurm
@@ -185,6 +195,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       echo "/dev/mapper/mpath0 /var/spool/slurm xfs defaults,_netdev 0 0" >> /etc/fstab
 
 
@@ -201,6 +212,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       iscsiadm -m session
 
 
@@ -211,6 +223,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       multipath -ll
 
 
@@ -223,6 +236,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       df -h /var/spool/slurm
 
 
@@ -233,6 +247,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       dd if=/dev/zero of=/var/spool/slurm/test bs=1M count=1024 oflag=direct
       rm /var/spool/slurm/test
 
@@ -262,6 +277,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       ping -c 3 10.5.2.100
       telnet 10.5.2.100 3260
 
@@ -274,6 +290,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       iscsiadm -m session
       multipath -v3
 
@@ -286,6 +303,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       iscsiadm -m session -P 3 | grep -E "Target|iface|State"
 
 
@@ -297,6 +315,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       iscsiadm -m session --rescan
       multipath -r
 
@@ -309,6 +328,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
         ip link show | grep mtu
 
 

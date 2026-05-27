@@ -587,6 +587,13 @@ ARP-based virtual IP failover.</p></li>
 <section id="usage-example">
 <h2>Usage example<a class="headerlink" href="#usage-example" title="Link to this heading">#</a></h2>
 <p><strong>File: /opt/omnia/input/project_default/high_availability_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ha_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">ha_virtual_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.250&quot;</span>
+<span class="nt">ha_load_balancer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;kube-vip&quot;</span>
+<span class="nt">ha_control_plane_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6443</span>
+<span class="nt">ha_etcd_external</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">

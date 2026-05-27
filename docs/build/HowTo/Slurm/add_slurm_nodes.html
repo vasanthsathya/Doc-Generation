@@ -540,21 +540,55 @@ network.</p></li>
 <li><p><strong>Update the mapping file</strong> with new node entries:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>vi<span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv
+
+
+
+Add<span class="w"> </span>new<span class="w"> </span>rows<span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>new<span class="w"> </span>compute<span class="w"> </span>node:
+</pre></div>
+</div>
 <p><strong>File: /opt/omnia/input/project_default/pxe_mapping_file.csv</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>slurm_node,slurm_cluster,NEWSVCTG1,,,aa:bb:cc:dd:ee:10,10.5.0.110,aa:bb:cc:dd:ff:10,10.3.0.110
+slurm_node,slurm_cluster,NEWSVCTG2,,,aa:bb:cc:dd:ee:11,10.5.0.111,aa:bb:cc:dd:ff:11,10.3.0.111
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Provision the new nodes</strong> if not already provisioned:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia/discovery
+ansible-playbook<span class="w"> </span>discovery.yml<span class="w"> </span>--ask-vault-pass
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the add-node playbook</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nb">cd</span><span class="w"> </span>/omnia
+<span class="w">   </span>ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass<span class="w"> </span>--limit<span class="w"> </span><span class="s2">&quot;new_nodes&quot;</span>
+
+
+
+!!!<span class="w"> </span>note
+
+<span class="w">    </span>If<span class="w"> </span>a<span class="w"> </span>dedicated<span class="w"> </span><span class="sb">``</span>add_node.yml<span class="sb">``</span><span class="w"> </span>playbook<span class="w"> </span>is<span class="w"> </span>available<span class="w"> </span><span class="k">in</span><span class="w"> </span>your<span class="w"> </span>Omnia
+<span class="w">    </span>version,<span class="w"> </span>use<span class="w"> </span>it<span class="w"> </span>instead:
+</pre></div>
+</div>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>utils/add_node.yml<span class="w"> </span>--ask-vault-pass<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="s2">&quot;target_nodes=10.5.0.110,10.5.0.111&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Update the Slurm configuration</strong> on the control node to include the new
 nodes:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reconfigure Slurm to pick up new nodes</span>
+scontrol<span class="w"> </span>reconfigure
+</pre></div>
+</div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
@@ -562,18 +596,34 @@ nodes:</p></li>
 <li><p><strong>Check that new nodes appear in the cluster</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>sinfo
+
+
+
+New<span class="w"> </span>nodes<span class="w"> </span>should<span class="w"> </span>appear<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span><span class="sb">``</span>normal<span class="sb">``</span><span class="w"> </span>partition<span class="w"> </span>with<span class="w"> </span><span class="sb">``</span>idle<span class="sb">``</span><span class="w"> </span>state.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run a test job on the new nodes</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>-w<span class="w"> </span>&lt;new-node-hostname&gt;<span class="w"> </span>hostname
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify Munge authentication</strong> on the new nodes:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>munge<span class="w"> </span>-n<span class="w"> </span><span class="p">|</span><span class="w"> </span>ssh<span class="w"> </span>&lt;new-node-ip&gt;<span class="w"> </span>unmunge
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Check slurmd is running</strong> on the new nodes:</p></li>
 </ol>
 <p><strong>Run on: new compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -594,18 +644,44 @@ configured on new nodes.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: new compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd
+<span class="w">      </span>journalctl<span class="w"> </span>-u<span class="w"> </span>slurmd<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
+
+
+
+-<span class="w"> </span>Check<span class="w"> </span>that<span class="w"> </span><span class="sb">``</span>slurm.conf<span class="sb">``</span><span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>new<span class="w"> </span>node<span class="w"> </span>matches<span class="w"> </span>the<span class="w"> </span>control<span class="w"> </span>node<span class="err">&#39;</span>s
+<span class="w">   </span>version:
+</pre></div>
+</div>
 <p><strong>Run on: new compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>grep<span class="w"> </span><span class="s2">&quot;SlurmctldHost&quot;</span><span class="w"> </span>/etc/slurm/slurm.conf
+
+
+
+-<span class="w"> </span>Resume<span class="w"> </span>the<span class="w"> </span>node<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>controller:
+</pre></div>
+</div>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">nodename</span><span class="o">=</span>&lt;node&gt;<span class="w"> </span><span class="nv">state</span><span class="o">=</span>resume<span class="w"> </span><span class="nv">reason</span><span class="o">=</span><span class="s2">&quot;added&quot;</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Munge key mismatch</strong></dt><dd><p>Re-distribute the Munge key from the control node:</p>
 </dd>
 </dl>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>new_nodes<span class="w"> </span>-m<span class="w"> </span>copy<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;src=/etc/munge/munge.key dest=/etc/munge/munge.key owner=munge group=munge mode=0400&quot;</span>
+ansible<span class="w"> </span>new_nodes<span class="w"> </span>-m<span class="w"> </span>service<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;name=munge state=restarted&quot;</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>New nodes not in Ansible inventory</strong></dt><dd><p>Re-run discovery or manually add the nodes to the Ansible inventory:</p>
 </dd>
 </dl>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ochami<span class="w"> </span>node<span class="w"> </span>list
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

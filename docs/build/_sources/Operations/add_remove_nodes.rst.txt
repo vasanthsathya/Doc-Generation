@@ -187,12 +187,13 @@ After adding or removing nodes, confirm the cluster state:
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
    # Check overall cluster health
    sinfo
-   
+
    # Verify controller sees all expected nodes
    scontrol show nodes | grep NodeName
-   
+
    # Submit a test job to verify scheduling
    srun -N 1 hostname
 

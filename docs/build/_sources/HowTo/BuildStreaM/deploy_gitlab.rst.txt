@@ -51,6 +51,7 @@ Option A: Deploy GitLab on the OIM (Podman)
 **Run on: OIM host**
 
 .. code-block:: bash
+
       mkdir -p /opt/gitlab/{config,logs,data}
 
 
@@ -61,6 +62,7 @@ Option A: Deploy GitLab on the OIM (Podman)
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman run -d \
         --name gitlab \
         --restart=always \
@@ -87,6 +89,7 @@ Option A: Deploy GitLab on the OIM (Podman)
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman exec gitlab cat /etc/gitlab/initial_root_password
 
 
@@ -106,6 +109,7 @@ Option A: Deploy GitLab on the OIM (Podman)
 **Run on: OIM host**
 
 .. code-block:: bash
+
       # Using GitLab API
       curl -s -X POST "http://localhost:8082/api/v4/projects" \
         -H "PRIVATE-TOKEN: <your-root-token>" \
@@ -119,13 +123,14 @@ Option A: Deploy GitLab on the OIM (Podman)
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman run -d \
         --name gitlab-runner \
         --restart=always \
         -v /opt/gitlab-runner:/etc/gitlab-runner:Z \
         -v /var/run/podman/podman.sock:/var/run/docker.sock:Z \
         docker.io/gitlab/gitlab-runner:latest
-   
+
       podman exec gitlab-runner gitlab-runner register \
         --non-interactive \
         --url "http://<oim-ip>:8082" \
@@ -147,9 +152,10 @@ Option B: Deploy GitLab on K8s (Helm)
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       helm repo add gitlab https://charts.gitlab.io/
       helm repo update
-   
+
       helm install gitlab gitlab/gitlab \
         --namespace gitlab \
         --create-namespace \
@@ -175,6 +181,7 @@ Configure GitLab for BuildStreaM
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /opt/omnia
       git clone http://<oim-ip>:8082/root/buildstream-catalog.git
       cd buildstream-catalog
@@ -187,33 +194,34 @@ Configure GitLab for BuildStreaM
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cat <<'EOF' > .gitlab-ci.yml
       stages:
         - validate
         - provision
         - configure
         - verify
-   
+
       validate_catalog:
         stage: validate
         script:
           - cd /omnia
           - ansible-playbook input_validator.yml
-   
+
       provision_nodes:
         stage: provision
         script:
           - cd /omnia/discovery
           - ansible-playbook discovery.yml --ask-vault-pass
         when: manual
-   
+
       configure_cluster:
         stage: configure
         script:
           - cd /omnia
           - ansible-playbook omnia.yml --ask-vault-pass
         when: manual
-   
+
       verify_cluster:
         stage: verify
         script:
@@ -229,6 +237,7 @@ Configure GitLab for BuildStreaM
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
        git add .
        git commit -m "Initial BuildStreaM catalog"
        git push origin main
@@ -247,6 +256,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman ps --filter name=gitlab
       curl -s http://localhost:8082/users/sign_in | grep "GitLab"
 
@@ -258,6 +268,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman exec gitlab-runner gitlab-runner list
 
 
@@ -289,6 +300,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman logs -f gitlab
 
 
@@ -307,6 +319,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       free -h
 
 
@@ -318,5 +331,6 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ss -tlnp | grep -E ':(8082|8443|2222)\b'
 

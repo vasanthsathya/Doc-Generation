@@ -502,6 +502,83 @@ cluster usage data in a relational database.</p>
 <section id="complete-sample">
 <h2>Complete sample<a class="headerlink" href="#complete-sample" title="Link to this heading">#</a></h2>
 <p><strong>File: /etc/slurm/slurmdbd.conf</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ===========================================================================</span>
+<span class="c1"># slurmdbd.conf -- Slurm Database Daemon configuration</span>
+<span class="c1"># This file must be readable only by the SlurmUser (typically &#39;slurm&#39;).</span>
+<span class="c1"># Permissions: 0600, owned by slurm:slurm.</span>
+<span class="c1"># ===========================================================================</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Daemon identification</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="nv">DbdHost</span><span class="o">=</span>slurm-ctrl-01<span class="w">            </span><span class="c1"># Hostname where slurmdbd runs.</span>
+<span class="w">                                 </span><span class="c1"># Must match the SlurmctldHost or be</span>
+<span class="w">                                 </span><span class="c1"># reachable from the controller.</span>
+<span class="nv">DbdPort</span><span class="o">=</span><span class="m">6819</span><span class="w">                     </span><span class="c1"># Port slurmdbd listens on.</span>
+<span class="w">                                 </span><span class="c1"># Must match AccountingStoragePort in</span>
+<span class="w">                                 </span><span class="c1"># slurm.conf.</span>
+<span class="nv">SlurmUser</span><span class="o">=</span>slurm<span class="w">                  </span><span class="c1"># User account under which slurmdbd runs.</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Authentication</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="nv">AuthType</span><span class="o">=</span>auth/munge<span class="w">              </span><span class="c1"># Must match AuthType in slurm.conf.</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Logging</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="nv">LogFile</span><span class="o">=</span>/var/log/slurmdbd.log
+<span class="nv">DebugLevel</span><span class="o">=</span>info<span class="w">                  </span><span class="c1"># Log level: quiet, fatal, error, info,</span>
+<span class="w">                                 </span><span class="c1"># verbose, debug, debug2-debug5.</span>
+<span class="nv">PidFile</span><span class="o">=</span>/var/run/slurmdbd.pid
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Database connection</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="nv">StorageType</span><span class="o">=</span>accounting_storage/mysql<span class="w">  </span><span class="c1"># Database backend. MySQL/MariaDB</span>
+<span class="w">                                      </span><span class="c1"># is the only supported option.</span>
+<span class="nv">StorageHost</span><span class="o">=</span>localhost<span class="w">                 </span><span class="c1"># Database server hostname or IP.</span>
+<span class="w">                                      </span><span class="c1"># Use localhost if the database runs</span>
+<span class="w">                                      </span><span class="c1"># on the same node as slurmdbd.</span>
+<span class="nv">StoragePort</span><span class="o">=</span><span class="m">3306</span><span class="w">                      </span><span class="c1"># MySQL/MariaDB port.</span>
+<span class="nv">StorageLoc</span><span class="o">=</span>slurm_acct_db<span class="w">             </span><span class="c1"># Database name. Omnia creates this</span>
+<span class="w">                                      </span><span class="c1"># database automatically.</span>
+<span class="nv">StorageUser</span><span class="o">=</span>slurm_db_user<span class="w">            </span><span class="c1"># Database username.</span>
+<span class="nv">StoragePass</span><span class="o">=</span>/run/secrets/slurmdbd_db_pass<span class="w">  </span><span class="c1"># Path to a file containing the</span>
+<span class="w">                                            </span><span class="c1"># database password, or the</span>
+<span class="w">                                            </span><span class="c1"># password string directly.</span>
+<span class="w">                                            </span><span class="c1"># File-based is recommended for</span>
+<span class="w">                                            </span><span class="c1"># security.</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Purge settings</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="nv">PurgeEventAfter</span><span class="o">=</span>12months<span class="w">         </span><span class="c1"># Purge cluster event records older than</span>
+<span class="w">                                 </span><span class="c1"># this. Format: Nmonths, Ndays, Nhours.</span>
+<span class="nv">PurgeJobAfter</span><span class="o">=</span>12months<span class="w">           </span><span class="c1"># Purge completed job records.</span>
+<span class="nv">PurgeStepAfter</span><span class="o">=</span>6months<span class="w">           </span><span class="c1"># Purge job step records.</span>
+<span class="nv">PurgeResvAfter</span><span class="o">=</span>6months<span class="w">           </span><span class="c1"># Purge reservation records.</span>
+<span class="nv">PurgeSuspendAfter</span><span class="o">=</span>1month<span class="w">         </span><span class="c1"># Purge job suspend records.</span>
+<span class="nv">PurgeTXNAfter</span><span class="o">=</span>12months<span class="w">           </span><span class="c1"># Purge transaction records.</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Archive settings (optional)</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># ArchiveEvents=yes</span>
+<span class="c1"># ArchiveJobs=yes</span>
+<span class="c1"># ArchiveDir=/var/spool/slurmdbd/archive</span>
+<span class="c1"># ArchiveScript=/usr/local/bin/slurm_archive.sh</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Performance tuning</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="nv">CommitDelay</span><span class="o">=</span><span class="m">1</span><span class="w">                    </span><span class="c1"># Seconds to batch database commits.</span>
+<span class="w">                                 </span><span class="c1"># Reduces database write load at the</span>
+<span class="w">                                 </span><span class="c1"># cost of slight data lag.</span>
+<span class="nv">MessageTimeout</span><span class="o">=</span><span class="m">10</span><span class="w">                </span><span class="c1"># Seconds before an RPC times out.</span>
+<span class="nv">TCPTimeout</span><span class="o">=</span><span class="m">120</span><span class="w">                   </span><span class="c1"># TCP connection timeout in seconds.</span>
+</pre></div>
+</div>
 </section>
 <section id="key-parameter-reference">
 <h2>Key parameter reference<a class="headerlink" href="#key-parameter-reference" title="Link to this heading">#</a></h2>

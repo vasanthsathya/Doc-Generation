@@ -47,6 +47,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       systemctl status omnia_core.service
 
 
@@ -59,6 +60,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       systemctl list-dependencies omnia.target
 
 
@@ -69,6 +71,7 @@ Procedure
 **Expected output on: OIM host**
 
 .. code-block:: text
+
       omnia.target
       ├─minio.service
       ├─omnia_auth.service
@@ -94,6 +97,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       for svc in minio omnia_auth omnia_core pulp registry; do
         echo "=== $svc ==="
         systemctl is-active ${svc}.service
@@ -107,6 +111,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       for svc in bss coredhcp cloud-init-server dnsmasq hydra image-server opaal smd tftpd; do
         echo "=== $svc ==="
         systemctl is-active ${svc}.service
@@ -120,6 +125,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
 
@@ -130,6 +136,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -138,6 +145,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ochami --help
 
 
@@ -148,12 +156,13 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       # List discovered nodes
       ochami node list
-   
+
       # Check SMD status
       ochami smd status
-   
+
       # List boot configurations
       ochami bss list
 
@@ -165,6 +174,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       s3cmd ls
 
 
@@ -175,6 +185,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       curl -s http://localhost:8080/pulp/api/v3/status/ | python3 -m json.tool
 
 
@@ -193,6 +204,7 @@ All services should report ``active (running)``. Use this summary check:
 **Run on: OIM host**
 
 .. code-block:: bash
+
    systemctl is-active omnia.target
 
 
@@ -208,6 +220,7 @@ Troubleshooting section below.
 **Run on: OIM host**
 
 .. code-block:: bash
+
    echo "=== Omnia Service Health ==="
    echo "omnia.target:    $(systemctl is-active omnia.target)"
    echo "omnia_core:      $(systemctl is-active omnia_core.service)"
@@ -242,6 +255,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       systemctl restart <service-name>.service
       journalctl -u <service-name>.service --no-pager -n 50
 
@@ -255,6 +269,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       systemctl restart smd.service
       sleep 10
       systemctl restart openchami.target
@@ -268,6 +283,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman logs pulp
       ss -tlnp | grep 8080
 
@@ -280,6 +296,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman logs minio
       ss -tlnp | grep 9000
 
@@ -292,6 +309,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia/prepare_oim
       ansible-playbook prepare_oim.yml --ask-vault-pass
 
@@ -304,6 +322,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       cd /opt/omnia
       bash build_images.sh core
 

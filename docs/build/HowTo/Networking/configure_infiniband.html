@@ -545,28 +545,103 @@ switch.</p></li>
 <li><p><strong>Enter the omnia_core container</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Configure InfiniBand settings</strong> in the network specification:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>vi<span class="w"> </span>/opt/omnia/input/project_default/network_spec.yml
+
+
+
+Add<span class="w"> </span>the<span class="w"> </span>IB<span class="w"> </span>network<span class="w"> </span>configuration:
+</pre></div>
+</div>
 <p><strong>File: /opt/omnia/input/project_default/network_spec.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">ib_network</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ib_nic_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ib0&quot;</span>
+<span class="w">  </span><span class="nt">static_range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.230.0.101-10.230.0.200&quot;</span>
+<span class="w">  </span><span class="nt">subnet</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.230.0.0&quot;</span>
+<span class="w">  </span><span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;255.255.255.0&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Ensure OFED is listed in software_config.json</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>cat<span class="w"> </span>/opt/omnia/input/project_default/software_config.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool
+
+
+
+Verify<span class="w"> </span>the<span class="w"> </span><span class="sb">``</span>softwares<span class="sb">``</span><span class="w"> </span>list<span class="w"> </span>includes:
+</pre></div>
+</div>
 <p><strong>File: /opt/omnia/input/project_default/software_config.json</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;softwares&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;doca_ofed&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the omnia.yml playbook</strong> to deploy InfiniBand:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/omnia
+<span class="w">    </span>ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass
+
+
+
+<span class="w"> </span>The<span class="w"> </span>playbook<span class="w"> </span>will:
+
+-<span class="w"> </span>Install<span class="w"> </span>DOCA-OFED<span class="w"> </span>packages<span class="w"> </span>on<span class="w"> </span>all<span class="w"> </span>compute<span class="w"> </span>nodes.
+-<span class="w"> </span>Load<span class="w"> </span>the<span class="w"> </span><span class="sb">``</span>mlx5_core<span class="sb">``</span><span class="w"> </span>and<span class="w"> </span><span class="sb">``</span>mlx5_ib<span class="sb">``</span><span class="w"> </span>kernel<span class="w"> </span>modules.
+-<span class="w"> </span>Configure<span class="w"> </span>IPoIB<span class="w"> </span>interfaces<span class="w"> </span>with<span class="w"> </span>static<span class="w"> </span>IP<span class="w"> </span>addresses.
+-<span class="w"> </span>Deploy<span class="w"> </span>and<span class="w"> </span>start<span class="w"> </span>OpenSM<span class="w"> </span>on<span class="w"> </span>a<span class="w"> </span>designated<span class="w"> </span>subnet<span class="w"> </span>manager<span class="w"> </span>node.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>(If needed) Manually configure IPoIB on a node</strong>:</p></li>
 </ol>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load InfiniBand modules</span>
+modprobe<span class="w"> </span>mlx5_core
+modprobe<span class="w"> </span>mlx5_ib
+modprobe<span class="w"> </span>ib_ipoib
+
+<span class="c1"># Configure the IPoIB interface</span>
+cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /etc/sysconfig/network-scripts/ifcfg-ib0</span>
+<span class="s">DEVICE=ib0</span>
+<span class="s">TYPE=InfiniBand</span>
+<span class="s">BOOTPROTO=static</span>
+<span class="s">IPADDR=10.230.0.101</span>
+<span class="s">NETMASK=255.255.255.0</span>
+<span class="s">ONBOOT=yes</span>
+<span class="s">CONNECTED_MODE=yes</span>
+<span class="s">EOF</span>
+
+ifup<span class="w"> </span>ib0
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Configure OpenSM</strong> on the designated subnet manager node:</p></li>
 </ol>
 <p><strong>Run on: OpenSM node (typically the Slurm control node)</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>opensm
+<span class="w">   </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>opensm
+
+
+
+!!!<span class="w"> </span>note
+
+<span class="w">    </span>Only<span class="w"> </span>one<span class="w"> </span>node<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>IB<span class="w"> </span>fabric<span class="w"> </span>should<span class="w"> </span>run<span class="w"> </span>OpenSM<span class="w"> </span>as<span class="w"> </span>the<span class="w"> </span>primary<span class="w"> </span>subnet
+<span class="w">    </span>manager.<span class="w"> </span>A<span class="w"> </span>second<span class="w"> </span>node<span class="w"> </span>can<span class="w"> </span>run<span class="w"> </span>OpenSM<span class="w"> </span>as<span class="w"> </span>a<span class="w"> </span>standby<span class="w"> </span><span class="k">for</span><span class="w"> </span>HA.
+</pre></div>
+</div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
@@ -574,33 +649,84 @@ switch.</p></li>
 <li><p><strong>Verify the IB interface is up</strong> on each compute node:</p></li>
 </ol>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>ib0
+
+
+
+Expected:<span class="w"> </span>the<span class="w"> </span>interface<span class="w"> </span>shows<span class="w"> </span>the<span class="w"> </span>assigned<span class="w"> </span>IP<span class="w"> </span>address<span class="w"> </span>and<span class="w"> </span><span class="sb">``</span>state<span class="w"> </span>UP<span class="sb">`</span>:doc:<span class="sb">`</span>.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Check IB port state</strong>:</p></li>
 </ol>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ibstat
+
+
+
+Expected<span class="w"> </span>output:
+</pre></div>
+</div>
 <p><strong>Expected output on: compute node</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CA &#39;mlx5_0&#39;
+   Port 1:
+      State: Active
+      Physical state: LinkUp
+      Rate: 200 (HDR)
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify OpenSM is running</strong>:</p></li>
 </ol>
 <p><strong>Run on: OpenSM node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>opensm
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Test IB connectivity</strong> between two compute nodes:</p></li>
 </ol>
 <p><strong>Run on: compute node 1</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">10</span>.230.0.102
+</pre></div>
+</div>
 <ol class="arabic">
 <li><p><strong>Test RDMA bandwidth</strong>:</p>
 <p>On the server node:</p>
 </li>
 </ol>
 <p><strong>Run on: compute node 1</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ib_write_bw
+
+
+
+On<span class="w"> </span>the<span class="w"> </span>client<span class="w"> </span>node:
+</pre></div>
+</div>
 <p><strong>Run on: compute node 2</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ib_write_bw<span class="w"> </span><span class="m">10</span>.230.0.101
+</pre></div>
+</div>
 <ol class="arabic">
 <li><p><strong>Test RDMA latency</strong>:</p>
 <p>On the server node:</p>
 </li>
 </ol>
 <p><strong>Run on: compute node 1</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ib_write_lat
+
+
+
+On<span class="w"> </span>the<span class="w"> </span>client<span class="w"> </span>node:
+</pre></div>
+</div>
 <p><strong>Run on: compute node 2</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ib_write_lat<span class="w"> </span><span class="m">10</span>.230.0.101
+
+
+
+Expected<span class="w"> </span>InfiniBand<span class="w"> </span>latency:<span class="w"> </span>&lt;<span class="w"> </span><span class="m">2</span><span class="w"> </span>microseconds.
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -617,7 +743,20 @@ fabric.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mlx5
+<span class="w">   </span>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ib_ipoib
+
+
+
+Load<span class="w"> </span>missing<span class="w"> </span>modules:
+</pre></div>
+</div>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>modprobe<span class="w"> </span>mlx5_core
+modprobe<span class="w"> </span>mlx5_ib
+modprobe<span class="w"> </span>ib_ipoib
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>ibstat shows “Down” or “Initializing”</strong></dt><dd><ul class="simple">
 <li><p>Check physical cable connections.</p></li>
@@ -627,11 +766,17 @@ fabric.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ibv_devinfo
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>OpenSM fails to start</strong></dt><dd><p>Check for port GUID conflicts:</p>
 </dd>
 </dl>
 <p><strong>Run on: OpenSM node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>journalctl<span class="w"> </span>-u<span class="w"> </span>opensm<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">30</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Poor RDMA performance</strong></dt><dd><ul class="simple">
 <li><p>Verify link rate (should be 100/200 Gbps for HDR):</p></li>
@@ -639,12 +784,29 @@ fabric.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ibstat<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Rate
+
+
+
+-<span class="w"> </span>Check<span class="w"> </span><span class="k">for</span><span class="w"> </span>errors<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>IB<span class="w"> </span>port:
+</pre></div>
+</div>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>perfquery
+
+
+
+-<span class="w"> </span>Ensure<span class="w"> </span><span class="sb">``</span><span class="nv">CONNECTED_MODE</span><span class="o">=</span>yes<span class="sb">``</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>IPoIB<span class="w"> </span>interface<span class="w"> </span>configuration.
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>IP address conflicts on IB network</strong></dt><dd><p>Check for duplicate IPs:</p>
 </dd>
 </dl>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;ip addr show ib0 | grep inet&quot;</span>
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

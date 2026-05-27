@@ -549,20 +549,45 @@ allocations.</p></li>
 <li><p><strong>Enter the omnia_core container</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ssh<span class="w"> </span>omnia_core
+
+
+
+Or<span class="w"> </span>alternatively:
+</pre></div>
+</div>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>omnia_core<span class="w"> </span>bash
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Navigate to the input directory</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia/input/project_default
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Create the mapping file</strong> using a text editor:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>pxe_mapping_file.csv
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Add the CSV header and node entries</strong>. The file must contain the following
 columns in this exact order:</p></li>
 </ol>
 <p><strong>File: /opt/omnia/input/project_default/pxe_mapping_file.csv</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
+slurm_control_node,slurm_cluster,ABCDEF1,,,aa:bb:cc:dd:ee:01,10.5.0.101,aa:bb:cc:dd:ff:01,10.3.0.101
+slurm_node,slurm_cluster,ABCDEF2,,,aa:bb:cc:dd:ee:02,10.5.0.102,aa:bb:cc:dd:ff:02,10.3.0.102
+slurm_node,slurm_cluster,ABCDEF3,,,aa:bb:cc:dd:ee:03,10.5.0.103,aa:bb:cc:dd:ff:03,10.3.0.103
+login_node,slurm_cluster,ABCDEF4,,,aa:bb:cc:dd:ee:04,10.5.0.104,aa:bb:cc:dd:ff:04,10.3.0.104
+kube_control_plane,k8s_cluster,ABCDEF5,,,aa:bb:cc:dd:ee:05,10.5.0.105,aa:bb:cc:dd:ff:05,10.3.0.105
+kube_node,k8s_cluster,ABCDEF6,,,aa:bb:cc:dd:ee:06,10.5.0.106,aa:bb:cc:dd:ff:06,10.3.0.106
+</pre></div>
+</div>
 <section id="column-reference">
 <h3>Column Reference<a class="headerlink" href="#column-reference" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -635,15 +660,40 @@ for fields that should be auto-generated (<code class="docutils literal notransl
 <li><p><strong>Validate the CSV format</strong> by checking the header row:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>head<span class="w"> </span>-1<span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv
+
+
+
+Expected<span class="w"> </span>output:
+</pre></div>
+</div>
 <p><strong>Expected output on: omnia_core container</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Count the entries</strong> (excluding the header):</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>tail<span class="w"> </span>-n<span class="w"> </span>+2<span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
+
+
+
+The<span class="w"> </span>count<span class="w"> </span>should<span class="w"> </span>match<span class="w"> </span>the<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>target<span class="w"> </span>servers<span class="w"> </span>you<span class="w"> </span>intend<span class="w"> </span>to<span class="w"> </span>provision.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Check for formatting issues</strong> (trailing spaces, empty lines):</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>cat<span class="w"> </span>-A<span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv
+
+
+
+Ensure<span class="w"> </span>there<span class="w"> </span>are<span class="w"> </span>no<span class="w"> </span>trailing<span class="w"> </span>spaces<span class="w"> </span><span class="o">(</span><span class="sb">``</span>$<span class="sb">``</span><span class="w"> </span>should<span class="w"> </span>immediately<span class="w"> </span>follow<span class="w"> </span>the
+last<span class="w"> </span>field<span class="w"> </span>value<span class="o">)</span><span class="w"> </span>and<span class="w"> </span>no<span class="w"> </span>blank<span class="w"> </span>lines.
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>

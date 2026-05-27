@@ -55,6 +55,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -65,6 +66,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cp /omnia/examples/input_template/* /opt/omnia/input/project_default/
 
 
@@ -80,6 +82,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/software_config.json
 
 
@@ -90,6 +93,7 @@ Procedure
 **File: /opt/omnia/input/project_default/software_config.json**
 
 .. code-block:: json
+
       {
           "cluster_os_type": "rhel",
           "cluster_os_version": "8.8",
@@ -128,6 +132,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/network_spec.yml
 
 
@@ -138,6 +143,7 @@ Procedure
 **File: /opt/omnia/input/project_default/network_spec.yml**
 
 .. code-block:: yaml
+
       ---
       admin_network:
         nic_name: "eno1"
@@ -162,6 +168,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/provision_config.yml
 
 
@@ -172,6 +179,7 @@ Procedure
 **File: /opt/omnia/input/project_default/provision_config.yml**
 
 .. code-block:: yaml
+
       ---
       timezone: "America/Chicago"
       language: "en-US"
@@ -187,6 +195,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -197,6 +206,7 @@ Procedure
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+
       ---
       mariadb_password: ""
       k8s_version: "1.28"
@@ -212,6 +222,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook input_validator.yml
 
@@ -236,6 +247,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ls -la /opt/omnia/input/project_default/
 
 
@@ -246,6 +258,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cat /opt/omnia/input/project_default/software_config.json | python3 -m json.tool
 
 
@@ -256,6 +269,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       python3 -c "import yaml; yaml.safe_load(open('/opt/omnia/input/project_default/network_spec.yml'))"
 
 
@@ -289,6 +303,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       python3 -m json.tool /opt/omnia/input/project_default/software_config.json
 
 
@@ -305,5 +320,6 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       cd /opt/omnia && git pull
 

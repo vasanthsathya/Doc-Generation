@@ -52,6 +52,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -63,6 +64,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cat /opt/omnia/input/project_default/software_config.json | python3 -m json.tool
 
 
@@ -76,6 +78,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia/local_repo
       ansible-playbook local_repo.yml
 
@@ -89,6 +92,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
           ansible-playbook local_repo.yml --ask-vault-pass
 
 
@@ -112,6 +116,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman logs -f pulp
 
 
@@ -128,6 +133,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       curl -s http://localhost:8080/pulp/api/v3/distributions/rpm/rpm/ | python3 -m json.tool
 
 
@@ -140,6 +146,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       curl -s http://localhost:8080/pulp/content/ | grep -oP 'href="[^"]*"'
 
 
@@ -150,6 +157,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       curl -s http://localhost:8080/pulp/content/baseos/repodata/repomd.xml | head -5
 
 
@@ -162,6 +170,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       df -h /var/lib/containers
       du -sh /var/lib/pulp/
 
@@ -189,6 +198,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       subscription-manager status
       subscription-manager repos --list-enabled
 
@@ -200,6 +210,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       subscription-manager register --username <rhn-user> --password <rhn-pass>
       subscription-manager attach --auto
 
@@ -212,6 +223,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman exec pulp curl -I https://dl.fedoraproject.org
 
 
@@ -224,6 +236,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       du -sh /var/lib/pulp/*
       # Remove old repository versions if needed
       podman exec pulp pulpcore-manager repository-version-cleanup
@@ -238,6 +251,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       curl -s http://localhost:8080/pulp/api/v3/status/ | python3 -c "
       import sys, json
       data = json.load(sys.stdin)

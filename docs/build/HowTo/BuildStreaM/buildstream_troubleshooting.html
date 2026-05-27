@@ -539,14 +539,52 @@ the failed job. Read the job output from bottom to top for the error.</p>
 <li><p><strong>Common validation-stage failures</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1"># Manually re-run validation to see errors</span>
+<span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/omnia
+<span class="w">    </span>ansible-playbook<span class="w"> </span>input_validator.yml<span class="w"> </span>-v
+
+
+
+<span class="w"> </span>Common<span class="w"> </span>causes:
+
+-<span class="w"> </span><span class="sb">``</span>catalog.yml<span class="sb">``</span><span class="w"> </span>YAML<span class="w"> </span>syntax<span class="w"> </span>error
+-<span class="w"> </span>Missing<span class="w"> </span>required<span class="w"> </span>fields
+-<span class="w"> </span>IP<span class="w"> </span>address<span class="w"> </span>outside<span class="w"> </span>configured<span class="w"> </span>range
+-<span class="w"> </span>Duplicate<span class="w"> </span>service<span class="w"> </span>tags<span class="w"> </span>or<span class="w"> </span>MAC<span class="w"> </span>addresses
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Common provision-stage failures</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1"># Test BMC connectivity for a specific node</span>
+<span class="w">    </span>curl<span class="w"> </span>-sk<span class="w"> </span>https://&lt;bmc-ip&gt;/redfish/v1/<span class="w"> </span>-u<span class="w"> </span>root:&lt;password&gt;
+
+
+
+<span class="w"> </span>Common<span class="w"> </span>causes:
+
+-<span class="w"> </span>BMC<span class="w"> </span>unreachable<span class="w"> </span><span class="o">(</span>network<span class="w"> </span>or<span class="w"> </span>credential<span class="w"> </span>issue<span class="o">)</span>
+-<span class="w"> </span>PXE<span class="w"> </span>boot<span class="w"> </span>failure<span class="w"> </span><span class="o">(</span>check<span class="w"> </span>DHCP<span class="w"> </span>and<span class="w"> </span>TFTP<span class="w"> </span>services<span class="o">)</span>
+-<span class="w"> </span>Vault<span class="w"> </span>password<span class="w"> </span>not<span class="w"> </span>available<span class="w"> </span>to<span class="w"> </span>runner
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Common configure-stage failures</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="c1"># Test node connectivity</span>
+<span class="w">    </span>ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>ping<span class="w"> </span>-v
+
+
+
+<span class="w"> </span>Common<span class="w"> </span>causes:
+
+-<span class="w"> </span>Node<span class="w"> </span>not<span class="w"> </span>reachable<span class="w"> </span><span class="o">(</span>provisioning<span class="w"> </span>incomplete<span class="o">)</span>
+-<span class="w"> </span>Package<span class="w"> </span>installation<span class="w"> </span>failure<span class="w"> </span><span class="o">(</span>repo<span class="w"> </span>sync<span class="w"> </span>issue<span class="o">)</span>
+-<span class="w"> </span>Service<span class="w"> </span>startup<span class="w"> </span>failure<span class="w"> </span>on<span class="w"> </span>target<span class="w"> </span>node
+</pre></div>
+</div>
 </section>
 <section id="gitlab-issues">
 <h3>GitLab Issues<a class="headerlink" href="#gitlab-issues" title="Link to this heading">#</a></h3>
@@ -554,15 +592,43 @@ the failed job. Read the job output from bottom to top for the error.</p>
 <li><p><strong>GitLab is unresponsive or slow</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>podman<span class="w"> </span>stats<span class="w"> </span>gitlab<span class="w"> </span>--no-stream
+<span class="w">   </span>podman<span class="w"> </span>logs<span class="w"> </span>gitlab<span class="w"> </span>--tail<span class="o">=</span><span class="m">30</span>
+
+
+
+If<span class="w"> </span>memory<span class="w"> </span>is<span class="w"> </span>exhausted,<span class="w"> </span>increase<span class="w"> </span>the<span class="w"> </span>container<span class="w"> </span>memory<span class="w"> </span>limit<span class="w"> </span>or<span class="w"> </span>add<span class="w"> </span>swap:
+</pre></div>
+</div>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check available memory</span>
+free<span class="w"> </span>-h
+
+<span class="c1"># Restart GitLab with more memory</span>
+podman<span class="w"> </span>stop<span class="w"> </span>gitlab
+podman<span class="w"> </span>rm<span class="w"> </span>gitlab
+<span class="c1"># Re-create with --memory=16g flag</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>GitLab “502 Bad Gateway”</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># GitLab internal services may be restarting</span>
+podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>gitlab<span class="w"> </span>gitlab-ctl<span class="w"> </span>status
+
+<span class="c1"># Restart GitLab services</span>
+podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>gitlab<span class="w"> </span>gitlab-ctl<span class="w"> </span>restart
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>GitLab database migration errors</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>gitlab<span class="w"> </span>gitlab-rake<span class="w"> </span>db:migrate
+podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>gitlab<span class="w"> </span>gitlab-ctl<span class="w"> </span>reconfigure
+</pre></div>
+</div>
 </section>
 <section id="runner-issues">
 <h3>Runner Issues<a class="headerlink" href="#runner-issues" title="Link to this heading">#</a></h3>
@@ -570,13 +636,34 @@ the failed job. Read the job output from bottom to top for the error.</p>
 <li><p><strong>Runner is offline or not picking up jobs</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>gitlab-runner<span class="w"> </span>gitlab-runner<span class="w"> </span>list
+<span class="w">   </span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>gitlab-runner<span class="w"> </span>gitlab-runner<span class="w"> </span>verify
+
+
+
+If<span class="w"> </span>the<span class="w"> </span>runner<span class="w"> </span>is<span class="w"> </span>stale,<span class="w"> </span>re-register<span class="w"> </span>it:
+</pre></div>
+</div>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>gitlab-runner<span class="w"> </span>gitlab-runner<span class="w"> </span>unregister<span class="w"> </span>--all-runners
+podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>gitlab-runner<span class="w"> </span>gitlab-runner<span class="w"> </span>register<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--non-interactive<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--url<span class="w"> </span><span class="s2">&quot;http://&lt;oim-ip&gt;:8082&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--token<span class="w"> </span><span class="s2">&quot;&lt;new-registration-token&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--executor<span class="w"> </span><span class="s2">&quot;shell&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--description<span class="w"> </span><span class="s2">&quot;omnia-runner&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic">
 <li><p><strong>Runner fails with “permission denied”</strong>:</p>
 <p>Ensure the runner has access to the omnia_core container and playbooks:</p>
 </li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>gitlab-runner<span class="w"> </span>ls<span class="w"> </span>/omnia/
+<span class="c1"># If not mounted, add a volume mount when re-creating the runner container</span>
+</pre></div>
+</div>
 <ol class="arabic">
 <li><p><strong>Runner jobs time out</strong>:</p>
 <blockquote>
@@ -595,12 +682,35 @@ the failed job. Read the job output from bottom to top for the error.</p>
 <li><p><strong>Container registry is unreachable</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>systemctl<span class="w"> </span>status<span class="w"> </span>registry.service
+<span class="w">   </span>podman<span class="w"> </span>logs<span class="w"> </span>registry
+
+
+
+Restart<span class="w"> </span>the<span class="w"> </span>registry:
+</pre></div>
+</div>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>registry.service
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Image push/pull fails</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># Test registry connectivity</span>
+<span class="w">   </span>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:5000/v2/_catalog
+
+
+
+If<span class="w"> </span>using<span class="w"> </span>HTTPS<span class="w"> </span>with<span class="w"> </span>self-signed<span class="w"> </span>certificates,<span class="w"> </span>add<span class="w"> </span>the<span class="w"> </span>registry<span class="w"> </span>to<span class="w"> </span>the
+insecure<span class="w"> </span>registries<span class="w"> </span>list:
+</pre></div>
+</div>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/etc/containers/registries.conf<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>insecure
+</pre></div>
+</div>
 </section>
 <section id="general-debugging">
 <h3>General Debugging<a class="headerlink" href="#general-debugging" title="Link to this heading">#</a></h3>
@@ -612,10 +722,30 @@ the failed job. Read the job output from bottom to top for the error.</p>
 </li>
 </ol>
 <p><strong>File: .gitlab-ci.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">configure_cluster</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">configure</span>
+<span class="w">  </span><span class="nt">script</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cd /omnia</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ansible-playbook omnia.yml --ask-vault-pass -vvv</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Check system resources</strong> on the OIM:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check disk space</span>
+df<span class="w"> </span>-h
+
+<span class="c1"># Check memory</span>
+free<span class="w"> </span>-h
+
+<span class="c1"># Check running containers</span>
+podman<span class="w"> </span>ps<span class="w"> </span>-a
+
+<span class="c1"># Check container resource usage</span>
+podman<span class="w"> </span>stats<span class="w"> </span>--no-stream
+</pre></div>
+</div>
 </section>
 </section>
 <section id="verification">
@@ -627,6 +757,13 @@ the failed job. Read the job output from bottom to top for the error.</p>
 <li><p><strong>Trigger the full pipeline</strong> and confirm all stages complete.</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia/buildstream-catalog
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;# Test commit </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>catalog.yml
+git<span class="w"> </span>add<span class="w"> </span>catalog.yml
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Test pipeline trigger&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>

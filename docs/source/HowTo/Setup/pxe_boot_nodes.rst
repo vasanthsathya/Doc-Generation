@@ -52,6 +52,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       systemctl is-active coredhcp.service
       systemctl is-active tftpd.service
       systemctl is-active image-server.service
@@ -77,6 +78,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       curl -sk -X PATCH \
         https://<bmc-ip>/redfish/v1/Systems/System.Embedded.1 \
         -u root:<bmc-password> \
@@ -91,6 +93,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       # Using Redfish to power-cycle a single server
       curl -sk -X POST \
         https://<bmc-ip>/redfish/v1/Systems/System.Embedded.1/Actions/ComputerSystem.Reset \
@@ -106,6 +109,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       # Power-cycle all discovered nodes
       ochami node power --action restart --all
 
@@ -138,6 +142,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       # Ping all nodes listed in the mapping file
       for ip in $(awk -F',' 'NR>1 {print $7}' /opt/omnia/input/project_default/pxe_mapping_file.csv); do
         echo -n "$ip: "
@@ -152,6 +157,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ssh root@10.5.0.101
 
 
@@ -160,6 +166,7 @@ Verification
 **Run on: provisioned node**
 
 .. code-block:: bash
+
       cat /etc/os-release
       hostname
       ip addr show
@@ -172,6 +179,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ochami node list
 
 
@@ -208,6 +216,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
         podman logs tftpd
 
 
@@ -218,6 +227,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
         podman logs image-server
 
 
@@ -229,6 +239,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
         ochami bss list
 
 
@@ -249,5 +260,6 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
         podman stats --no-stream minio image-server
 

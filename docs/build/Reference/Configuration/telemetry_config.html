@@ -725,6 +725,29 @@ dashboards, and LDMS node-level samplers.</p>
 <section id="usage-example">
 <h2>Usage example<a class="headerlink" href="#usage-example" title="Link to this heading">#</a></h2>
 <p><strong>File: /opt/omnia/input/project_default/telemetry_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">enable_telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">telemetry_entry_node</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;kube-cp-01&quot;</span>
+
+<span class="nt">kafka_broker_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9092</span>
+<span class="nt">kafka_retention_hours</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">168</span>
+
+<span class="nt">victoriametrics_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8428</span>
+<span class="nt">victoriametrics_retention</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;6&quot;</span>
+
+<span class="nt">grafana_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span>
+
+<span class="nt">enable_idrac_telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">idrac_telemetry_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span>
+
+<span class="nt">enable_ldms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">ldms_samplers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">meminfo</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vmstat</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">procstat</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">procnetdev</span>
+<span class="nt">ldms_sample_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">

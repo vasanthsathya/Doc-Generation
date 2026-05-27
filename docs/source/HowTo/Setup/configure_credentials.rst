@@ -50,6 +50,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -60,6 +61,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia/utils/credential_utility
 
 
@@ -70,6 +72,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible-playbook get_config_credentials.yml --tags provision
 
 
@@ -106,6 +109,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ls -la /opt/omnia/input/project_default/omnia_config_credentials.yml
 
 
@@ -116,6 +120,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible-vault view /opt/omnia/input/project_default/omnia_config_credentials.yml
 
 
@@ -135,6 +140,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       head -1 /opt/omnia/input/project_default/omnia_config_credentials.yml
 
 
@@ -145,6 +151,7 @@ Verification
 **Expected output on: omnia_core container**
 
 .. code-block:: text
+
       $ANSIBLE_VAULT;1.1;AES256
 
 
@@ -155,6 +162,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible-vault view /opt/omnia/input/project_default/omnia_config_credentials.yml
 
 
@@ -195,6 +203,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible-vault edit /opt/omnia/input/project_default/omnia_config_credentials.yml
 
 
@@ -209,6 +218,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible-vault rekey /opt/omnia/input/project_default/omnia_config_credentials.yml
 
 
@@ -226,6 +236,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cp /opt/omnia/input/project_default/omnia_config_credentials.yml \
          /opt/omnia/input/project_default/omnia_config_credentials.yml.bak
 

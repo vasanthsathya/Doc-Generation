@@ -47,6 +47,7 @@ Backup
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       mkdir -p /opt/slurm_backup
 
 
@@ -57,16 +58,17 @@ Backup
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       BACKUP_DIR="/opt/slurm_backup/$(date +%Y%m%d_%H%M%S)"
       mkdir -p "$BACKUP_DIR"
-   
+
       cp /etc/slurm/slurm.conf "$BACKUP_DIR/"
       cp /etc/slurm/gres.conf "$BACKUP_DIR/" 2>/dev/null
       cp /etc/slurm/cgroup.conf "$BACKUP_DIR/" 2>/dev/null
       cp /etc/slurm/topology.conf "$BACKUP_DIR/" 2>/dev/null
       cp /etc/slurm/job_container.conf "$BACKUP_DIR/" 2>/dev/null
       cp /etc/munge/munge.key "$BACKUP_DIR/"
-   
+
       echo "Backup created: $BACKUP_DIR"
       ls -la "$BACKUP_DIR/"
 
@@ -78,6 +80,7 @@ Backup
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       cat <<'EOF' > /etc/cron.daily/slurm_backup.sh
       #!/bin/bash
       BACKUP_DIR="/opt/slurm_backup/$(date +%Y%m%d_%H%M%S)"
@@ -87,7 +90,7 @@ Backup
       # Keep only last 30 days of backups
       find /opt/slurm_backup -maxdepth 1 -type d -mtime +30 -exec rm -rf {} \;
       EOF
-   
+
       chmod +x /etc/cron.daily/slurm_backup.sh
 
 
@@ -103,6 +106,7 @@ Rollback
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       ls -lt /opt/slurm_backup/
 
 
@@ -113,18 +117,19 @@ Rollback
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       # Select the backup to restore (e.g., the most recent)
       RESTORE_DIR=$(ls -dt /opt/slurm_backup/*/ | head -1)
       echo "Restoring from: $RESTORE_DIR"
-   
+
       # Stop Slurm services
       systemctl stop slurmctld
-   
+
       # Restore configuration files
       cp "$RESTORE_DIR/slurm.conf" /etc/slurm/slurm.conf
       cp "$RESTORE_DIR/gres.conf" /etc/slurm/gres.conf 2>/dev/null
       cp "$RESTORE_DIR/cgroup.conf" /etc/slurm/cgroup.conf 2>/dev/null
-   
+
       # Restart Slurm
       systemctl start slurmctld
 
@@ -136,6 +141,7 @@ Rollback
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       scontrol show config | head -20
       sinfo
 
@@ -147,6 +153,7 @@ Rollback
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_node -m copy -a "src=/etc/slurm/slurm.conf dest=/etc/slurm/slurm.conf"
       ansible slurm_node -m service -a "name=slurmd state=restarted"
 
@@ -163,9 +170,10 @@ Cleanup
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       # Remove backups older than 30 days
       find /opt/slurm_backup -maxdepth 1 -type d -mtime +30 -exec rm -rf {} \;
-   
+
       # Or remove all backups except the most recent 5
       ls -dt /opt/slurm_backup/*/ | tail -n +6 | xargs rm -rf
 
@@ -177,6 +185,7 @@ Cleanup
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       du -sh /opt/slurm_backup
       ls -lt /opt/slurm_backup/
 
@@ -194,6 +203,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       slurmctld -t
 
 
@@ -206,6 +216,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       sinfo
       scontrol ping
 
@@ -217,6 +228,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       diff /etc/slurm/slurm.conf /opt/slurm_backup/<latest>/slurm.conf
 
 
@@ -244,6 +256,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       vi /etc/slurm/slurm.conf
       slurmctld -t  # Test config
 
@@ -257,6 +270,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_cluster -m copy -a "src=/etc/munge/munge.key dest=/etc/munge/munge.key owner=munge group=munge mode=0400"
       ansible slurm_cluster -m service -a "name=munge state=restarted"
 
@@ -269,6 +283,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       du -sh /opt/slurm_backup
       # Adjust the cron cleanup period as needed
 

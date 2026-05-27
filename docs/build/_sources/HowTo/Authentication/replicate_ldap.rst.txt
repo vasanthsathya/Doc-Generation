@@ -46,6 +46,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman exec -it omnia_auth bash
 
 
@@ -54,12 +55,13 @@ Procedure
 **Run on: omnia_auth container (primary)**
 
 .. code-block:: bash
+
       cat <<'EOF' > /tmp/enable_syncprov.ldif
       dn: cn=module{0},cn=config
       changetype: modify
       add: olcModuleLoad
       olcModuleLoad: syncprov
-   
+
       dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config
       changetype: add
       objectClass: olcOverlayConfig
@@ -68,7 +70,7 @@ Procedure
       olcSyncProvCheckpoint: 50 10
       olcSyncProvSessionlog: 100
       EOF
-   
+
       ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /tmp/enable_syncprov.ldif
 
 
@@ -79,6 +81,7 @@ Procedure
 **Run on: omnia_auth container (primary)**
 
 .. code-block:: bash
+
       cat <<'EOF' > /tmp/repl_user.ldif
       dn: cn=replicator,dc=omnia,dc=example,dc=com
       objectClass: simpleSecurityObject
@@ -86,7 +89,7 @@ Procedure
       cn: replicator
       userPassword: {SSHA}ReplicaPassword
       EOF
-   
+
       ldapadd -x -D "cn=admin,dc=omnia,dc=example,dc=com" -W -f /tmp/repl_user.ldif
 
 
@@ -97,6 +100,7 @@ Procedure
 **Run on: replica LDAP server**
 
 .. code-block:: bash
+
       cat <<'EOF' > /tmp/syncrepl.ldif
       dn: olcDatabase={1}mdb,cn=config
       changetype: modify
@@ -113,7 +117,7 @@ Procedure
         retry="30 5 300 3"
         interval=00:00:05:00
       EOF
-   
+
       ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /tmp/syncrepl.ldif
 
 
@@ -126,6 +130,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -134,6 +139,7 @@ Procedure
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+
       ---
       ldap_uris:
         - "ldap://<primary-oim-ip>"
@@ -147,6 +153,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook auth.yml --ask-vault-pass
 
@@ -164,6 +171,7 @@ Verification
 **Run on: replica LDAP server**
 
 .. code-block:: bash
+
       ldapsearch -x -H ldap://localhost -b "dc=omnia,dc=example,dc=com" "(uid=testuser)"
 
 
@@ -176,6 +184,7 @@ Verification
 **Run on: omnia_auth container (primary)**
 
 .. code-block:: bash
+
       cat <<'EOF' > /tmp/new_user.ldif
       dn: uid=repltest,ou=People,dc=omnia,dc=example,dc=com
       objectClass: inetOrgPerson
@@ -188,7 +197,7 @@ Verification
       homeDirectory: /home/repltest
       loginShell: /bin/bash
       EOF
-   
+
       ldapadd -x -D "cn=admin,dc=omnia,dc=example,dc=com" -W -f /tmp/new_user.ldif
 
 
@@ -199,6 +208,7 @@ Verification
 **Run on: replica LDAP server**
 
 .. code-block:: bash
+
       ldapsearch -x -H ldap://localhost -b "dc=omnia,dc=example,dc=com" "(uid=repltest)"
 
 
@@ -210,6 +220,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman stop omnia_auth
 
 
@@ -218,6 +229,7 @@ Verification
 **Run on: compute node**
 
 .. code-block:: bash
+
       # SSSD should failover to the replica
       id testuser
       ssh testuser@localhost
@@ -230,6 +242,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman start omnia_auth
 
 
@@ -257,6 +270,7 @@ Troubleshooting
 **Run on: replica LDAP server**
 
 .. code-block:: bash
+
       journalctl -u slapd --no-pager -n 30
 
 
@@ -272,6 +286,7 @@ Troubleshooting
 **Run on: replica LDAP server**
 
 .. code-block:: bash
+
       ldapmodify -Q -Y EXTERNAL -H ldapi:/// <<'EOF'
       dn: olcDatabase={1}mdb,cn=config
       changetype: modify
@@ -289,6 +304,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       cat /etc/sssd/sssd.conf | grep ldap_uri
 
 

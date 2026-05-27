@@ -48,6 +48,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -58,6 +59,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -68,6 +70,7 @@ Procedure
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+
       ---
       # Authentication configuration
       auth_type: "openldap"
@@ -83,6 +86,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook auth.yml --ask-vault-pass
 
@@ -105,6 +109,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman exec -it omnia_auth bash
 
 
@@ -113,6 +118,7 @@ Procedure
 **Run on: omnia_auth container**
 
 .. code-block:: bash
+
       # Create an LDIF file for a new user
       cat <<'EOF' > /tmp/add_user.ldif
       dn: uid=testuser,ou=People,dc=omnia,dc=example,dc=com
@@ -128,7 +134,7 @@ Procedure
       loginShell: /bin/bash
       userPassword: {SSHA}TemporaryPassword
       EOF
-   
+
       ldapadd -x -D "cn=admin,dc=omnia,dc=example,dc=com" -W -f /tmp/add_user.ldif
 
 
@@ -139,6 +145,7 @@ Procedure
 **Run on: omnia_auth container**
 
 .. code-block:: bash
+
       ldappasswd -x -D "cn=admin,dc=omnia,dc=example,dc=com" -W \
         -S "uid=testuser,ou=People,dc=omnia,dc=example,dc=com"
 
@@ -156,6 +163,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman exec omnia_auth slapcat | head -20
 
 
@@ -166,6 +174,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ldapsearch -x -H ldap://omnia_auth -b "dc=omnia,dc=example,dc=com" "(uid=testuser)"
 
 
@@ -176,6 +185,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible all -m shell -a "systemctl is-active sssd"
 
 
@@ -186,6 +196,7 @@ Verification
 **Run on: compute node**
 
 .. code-block:: bash
+
       id testuser
       getent passwd testuser
 
@@ -197,6 +208,7 @@ Verification
 **Expected output on: compute node**
 
 .. code-block:: text
+
       uid=10001(testuser) gid=10001(testuser) groups=10001(testuser)
 
 
@@ -207,6 +219,7 @@ Verification
 **Run on: any node with network access**
 
 .. code-block:: bash
+
       ssh testuser@<compute-node-ip>
 
 
@@ -235,6 +248,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       ldapsearch -x -H ldap://<oim-ip> -b "dc=omnia,dc=example,dc=com"
 
 
@@ -246,6 +260,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
         sss_cache -E
         systemctl restart sssd
 
@@ -257,6 +272,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
         journalctl -u sssd --no-pager -n 30
 
 
@@ -268,6 +284,7 @@ Troubleshooting
 **Run on: omnia_auth container**
 
 .. code-block:: bash
+
       ldapwhoami -x -D "cn=admin,dc=omnia,dc=example,dc=com" -W
 
 
@@ -279,6 +296,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       grep mkhomedir /etc/pam.d/system-auth
 
 
@@ -290,6 +308,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       systemctl status omnia_auth.service
       podman ps --filter name=omnia_auth
 

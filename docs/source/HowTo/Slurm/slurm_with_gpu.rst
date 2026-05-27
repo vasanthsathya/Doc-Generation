@@ -36,6 +36,7 @@ Prerequisites
 **File: /opt/omnia/input/project_default/software_config.json**
 
 .. code-block:: json
+
      {
          "softwares": [
              {"name": "slurm"},
@@ -63,6 +64,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -73,6 +75,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cat /opt/omnia/input/project_default/software_config.json | python3 -m json.tool
 
 
@@ -83,6 +86,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -93,6 +97,7 @@ Procedure
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+
       ---
       # GPU configuration
       cuda_toolkit_path: "/usr/local/cuda"
@@ -109,6 +114,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
 
@@ -128,6 +134,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       scontrol reconfigure
 
 
@@ -146,6 +153,7 @@ Verification
 **Run on: GPU compute node**
 
 .. code-block:: bash
+
       nvidia-smi
 
 
@@ -158,6 +166,7 @@ Verification
 **Run on: GPU compute node**
 
 .. code-block:: bash
+
       rocm-smi
 
 
@@ -168,6 +177,7 @@ Verification
 **Run on: GPU compute node**
 
 .. code-block:: bash
+
       hl-smi
 
 
@@ -178,6 +188,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       scontrol show nodes | grep -i gres
 
 
@@ -188,6 +199,7 @@ Verification
 **Expected output on: Slurm control node**
 
 .. code-block:: text
+
       Gres=gpu:nvidia_a100:4
       GresUsed=gpu:nvidia_a100:0
 
@@ -199,6 +211,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       srun --gres=gpu:1 nvidia-smi
 
 
@@ -209,18 +222,19 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       cat <<'EOF' > /tmp/gpu_test.sh
       #!/bin/bash
       #SBATCH --job-name=gpu_test
       #SBATCH --gres=gpu:2
       #SBATCH --nodes=1
       #SBATCH --time=00:05:00
-   
+
       echo "Running on $(hostname)"
       echo "CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES"
       nvidia-smi
       EOF
-   
+
       sbatch /tmp/gpu_test.sh
 
 
@@ -231,6 +245,7 @@ Verification
 **Run on: GPU compute node**
 
 .. code-block:: bash
+
       nvcc --version
       ls /usr/local/cuda/
 
@@ -259,6 +274,7 @@ Troubleshooting
 **Run on: GPU compute node**
 
 .. code-block:: bash
+
         lsmod | grep nvidia
         dmesg | grep -i nvidia
 
@@ -270,6 +286,7 @@ Troubleshooting
 **Run on: GPU compute node**
 
 .. code-block:: bash
+
         dnf reinstall nvidia-driver cuda-toolkit
 
 
@@ -281,6 +298,7 @@ Troubleshooting
 **Run on: GPU compute node**
 
 .. code-block:: bash
+
       cat /etc/slurm/gres.conf
 
 
@@ -291,6 +309,7 @@ Troubleshooting
 **Expected content on: GPU compute node**
 
 .. code-block:: text
+
       NodeName=compute01 Name=gpu Type=nvidia_a100 File=/dev/nvidia[0-3]
 
 
@@ -303,6 +322,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       grep GresTypes /etc/slurm/slurm.conf
 
 
@@ -316,5 +336,6 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       curl -s http://localhost:8080/pulp/content/rocm/ | head
 

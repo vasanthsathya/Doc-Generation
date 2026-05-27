@@ -549,25 +549,72 @@ container is running).</p></li>
 <li><p><strong>Enter the omnia_core container</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Configure proxy LDAP parameters</strong> in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
+</pre></div>
+</div>
 <p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">auth_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;openldap_proxy&quot;</span>
+<span class="nt">external_ldap_uri</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ldaps://ldap.corp.example.com:636&quot;</span>
+<span class="nt">external_ldap_base_dn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dc=corp,dc=example,dc=com&quot;</span>
+<span class="nt">external_ldap_bind_dn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cn=omnia-readonly,ou=ServiceAccounts,dc=corp,dc=example,dc=com&quot;</span>
+<span class="nt">external_ldap_bind_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># Set via credentials utility</span>
+<span class="nt">external_ldap_user_search_base</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ou=People,dc=corp,dc=example,dc=com&quot;</span>
+<span class="nt">external_ldap_group_search_base</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ou=Groups,dc=corp,dc=example,dc=com&quot;</span>
+<span class="nt">external_ldap_tls_ca_cert</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/etc/ssl/certs/corp-ca.pem&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>(If using LDAPS) Copy the CA certificate</strong> to the omnia_auth container:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>cp<span class="w"> </span>/path/to/corp-ca.pem<span class="w"> </span>omnia_auth:/etc/ssl/certs/corp-ca.pem
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the auth.yml playbook</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/omnia
+<span class="w">    </span>ansible-playbook<span class="w"> </span>auth.yml<span class="w"> </span>--ask-vault-pass
+
+
+
+<span class="w"> </span>The<span class="w"> </span>playbook<span class="w"> </span>will:
+
+-<span class="w"> </span>Configure<span class="w"> </span>OpenLDAP<span class="err">&#39;</span>s<span class="w"> </span><span class="sb">``</span>slapd-ldap<span class="sb">``</span><span class="w"> </span>backend<span class="w"> </span><span class="k">for</span><span class="w"> </span>proxy<span class="w"> </span>pass-through.
+-<span class="w"> </span>Set<span class="w"> </span>up<span class="w"> </span>SSSD<span class="w"> </span>on<span class="w"> </span>cluster<span class="w"> </span>nodes<span class="w"> </span>to<span class="w"> </span>use<span class="w"> </span>the<span class="w"> </span><span class="nb">local</span><span class="w"> </span>proxy.
+-<span class="w"> </span>Configure<span class="w"> </span>TLS<span class="w"> </span>certificates<span class="w"> </span><span class="k">if</span><span class="w"> </span>using<span class="w"> </span>LDAPS.
+-<span class="w"> </span>Enable<span class="w"> </span>caching<span class="w"> </span><span class="k">for</span><span class="w"> </span>offline<span class="w"> </span>resilience.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>(Alternative) Manual proxy configuration</strong> inside the <code class="docutils literal notranslate"><span class="pre">omnia_auth</span></code>
 container:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>omnia_auth<span class="w"> </span>bash
+</pre></div>
+</div>
 <p><strong>Run on: omnia_auth container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt;&gt; /etc/openldap/slapd.d/cn=config/olcDatabase={2}ldap.ldif</span>
+<span class="s">dn: olcDatabase={2}ldap</span>
+<span class="s">objectClass: olcDatabaseConfig</span>
+<span class="s">objectClass: olcLDAPConfig</span>
+<span class="s">olcDatabase: {2}ldap</span>
+<span class="s">olcSuffix: dc=corp,dc=example,dc=com</span>
+<span class="s">olcDbURI: ldaps://ldap.corp.example.com:636</span>
+<span class="s">olcDbRebindAsUser: TRUE</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
@@ -575,18 +622,33 @@ container:</p></li>
 <li><p><strong>Test proxy connectivity</strong> to the external LDAP:</p></li>
 </ol>
 <p><strong>Run on: omnia_auth container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldaps://ldap.corp.example.com:636<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="s2">&quot;cn=omnia-readonly,ou=ServiceAccounts,dc=corp,dc=example,dc=com&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-W<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;ou=People,dc=corp,dc=example,dc=com&quot;</span><span class="w"> </span><span class="s2">&quot;(uid=*)&quot;</span><span class="w"> </span>dn<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Test local proxy</strong> from the omnia_core container:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://omnia_auth<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=corp,dc=example,dc=com&quot;</span><span class="w"> </span><span class="s2">&quot;(uid=someuser)&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify user resolution</strong> on a compute node:</p></li>
 </ol>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>getent<span class="w"> </span>passwd<span class="w"> </span>someuser
+id<span class="w"> </span>someuser
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Test SSH login</strong> with a corporate LDAP user:</p></li>
 </ol>
 <p><strong>Run on: any node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>someuser@&lt;compute-node-ip&gt;
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -603,21 +665,35 @@ LDAP proxy.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>s_client<span class="w"> </span>-connect<span class="w"> </span>ldap.corp.example.com:636
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Certificate verification failed</strong></dt><dd><p>Ensure the CA certificate is correct and accessible:</p>
 </dd>
 </dl>
 <p><strong>Run on: omnia_auth container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>verify<span class="w"> </span>-CAfile<span class="w"> </span>/etc/ssl/certs/corp-ca.pem<span class="w"> </span>/etc/ssl/certs/corp-ca.pem
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Users not found via proxy</strong></dt><dd><p>Check the search base DN matches the external LDAP tree structure:</p>
 </dd>
 </dl>
 <p><strong>Run on: omnia_auth container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldaps://ldap.corp.example.com:636<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="s2">&quot;&lt;bind-dn&gt;&quot;</span><span class="w"> </span>-W<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;&lt;base-dn&gt;&quot;</span><span class="w"> </span><span class="s2">&quot;(objectClass=*)&quot;</span><span class="w"> </span>dn<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>SSSD cache stale data</strong></dt><dd><p>Clear and restart:</p>
 </dd>
 </dl>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sss_cache<span class="w"> </span>-E
+systemctl<span class="w"> </span>restart<span class="w"> </span>sssd
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

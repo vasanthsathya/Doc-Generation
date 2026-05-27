@@ -671,6 +671,25 @@ across cluster nodes.</p>
 <section id="usage-example">
 <h2>Usage example<a class="headerlink" href="#usage-example" title="Link to this heading">#</a></h2>
 <p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">scheduler_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;slurm,k8s&quot;</span>
+<span class="nt">slurm_installation_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;nfs_share&quot;</span>
+<span class="nt">restart_slurm_services</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">k8s_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.29&quot;</span>
+<span class="nt">k8s_cni</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;calico&quot;</span>
+<span class="nt">k8s_pod_network_cidr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.244.0.0/16&quot;</span>
+<span class="nt">k8s_service_cidr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.96.0.0/12&quot;</span>
+<span class="nt">metallb_address_range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;192.168.1.240-192.168.1.250&quot;</span>
+
+<span class="nt">enable_nvidia_gpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">cuda_toolkit_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;12.4&quot;</span>
+<span class="nt">enable_amd_gpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">enable_gpu_slurm_gres</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">login_node_required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">auth_server_required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">

@@ -48,6 +48,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -58,6 +59,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/network_spec.yml
 
 
@@ -66,6 +68,7 @@ Procedure
 **File: /opt/omnia/input/project_default/network_spec.yml**
 
 .. code-block:: yaml
+
       ---
       roce_network:
         nic_name: "ens10f0"
@@ -82,6 +85,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
 
@@ -95,6 +99,7 @@ Procedure
 **Run on: compute node**
 
 .. code-block:: bash
+
          dnf install -y rdma-core libibverbs-utils infiniband-diags
 
 
@@ -105,6 +110,7 @@ Procedure
 **Run on: compute node**
 
 .. code-block:: bash
+
          cat <<'EOF' > /etc/sysconfig/network-scripts/ifcfg-ens10f0
          DEVICE=ens10f0
          TYPE=Ethernet
@@ -114,7 +120,7 @@ Procedure
          ONBOOT=yes
          MTU=9000
          EOF
-   
+
          ifup ens10f0
 
 
@@ -125,6 +131,7 @@ Procedure
 **Run on: compute node**
 
 .. code-block:: bash
+
          cma_roce_mode -d mlx5_0 -p 1 -m 2
 
 
@@ -137,6 +144,7 @@ Procedure
 **Run on: compute node**
 
 .. code-block:: bash
+
          mlnx_qos -i ens10f0 --pfc 0,0,0,1,0,0,0,0
 
 
@@ -149,6 +157,7 @@ Procedure
 **Run on: compute node**
 
 .. code-block:: bash
+
          sysctl -w net.ipv4.tcp_ecn=1
          echo "net.ipv4.tcp_ecn=1" >> /etc/sysctl.d/roce.conf
 
@@ -165,6 +174,7 @@ Procedure
 **Run on: Ethernet switch (Dell OS10 example)**
 
 .. code-block:: text
+
       configure terminal
       interface ethernet 1/1/1-1/1/48
         priority-flow-control mode on
@@ -186,6 +196,7 @@ Verification
 **Run on: compute node**
 
 .. code-block:: bash
+
       ip addr show ens10f0
       ip link show ens10f0 | grep mtu
 
@@ -199,6 +210,7 @@ Verification
 **Run on: compute node**
 
 .. code-block:: bash
+
       ibv_devices
 
 
@@ -209,6 +221,7 @@ Verification
 **Expected output on: compute node**
 
 .. code-block:: text
+
       device          node GUID
       ------          ----------------
       mlx5_0          0002c9030005abcd
@@ -221,6 +234,7 @@ Verification
 **Run on: compute node**
 
 .. code-block:: bash
+
       cma_roce_mode -d mlx5_0 -p 1
 
 
@@ -235,6 +249,7 @@ Verification
 **Run on: compute node 1**
 
 .. code-block:: bash
+
       ib_write_bw -d mlx5_0
 
 
@@ -245,6 +260,7 @@ Verification
 **Run on: compute node 2**
 
 .. code-block:: bash
+
       ib_write_bw -d mlx5_0 10.231.0.101
 
 
@@ -257,6 +273,7 @@ Verification
 **Run on: compute node 1**
 
 .. code-block:: bash
+
       ib_write_lat -d mlx5_0
 
 
@@ -267,6 +284,7 @@ Verification
 **Run on: compute node 2**
 
 .. code-block:: bash
+
       ib_write_lat -d mlx5_0 10.231.0.101
 
 
@@ -280,6 +298,7 @@ Verification
 **Run on: compute node**
 
 .. code-block:: bash
+
       ethtool -S ens10f0 | grep -i pfc
 
 
@@ -308,6 +327,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       modprobe mlx5_core
       modprobe rdma_ucm
 
@@ -321,6 +341,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
         firewall-cmd --add-port=18515/tcp --permanent
         firewall-cmd --reload
 
@@ -333,6 +354,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
         ip link show ens10f0
 
 
@@ -343,6 +365,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
         mlnx_qos -i ens10f0
 
 
@@ -358,6 +381,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       mstconfig -d mlx5_0 set LINK_TYPE_P1=ETH
 
 

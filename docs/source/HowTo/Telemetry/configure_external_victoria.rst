@@ -47,6 +47,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -57,6 +58,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -65,6 +67,7 @@ Procedure
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+
       ---
       # External VictoriaMetrics configuration
       victoriametrics_external: true
@@ -89,6 +92,7 @@ Procedure
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       curl -s http://victoria.example.com:8428/api/v1/status/tsdb
 
 
@@ -101,6 +105,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook telemetry.yml --ask-vault-pass
 
@@ -118,6 +123,7 @@ Procedure
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       GRAFANA_POD=$(kubectl get pod -n telemetry -l app=grafana -o jsonpath='{.items[0].metadata.name}')
       kubectl exec -n telemetry $GRAFANA_POD -- \
         curl -s -X POST http://localhost:3000/api/datasources \
@@ -145,6 +151,7 @@ Verification
 **Run on: any node with curl**
 
 .. code-block:: bash
+
       curl -s "http://victoria.example.com:8428/api/v1/query?query=up" | python3 -m json.tool
 
 
@@ -155,6 +162,7 @@ Verification
 **Run on: any node with curl**
 
 .. code-block:: bash
+
       curl -s "http://victoria.example.com:8428/api/v1/status/tsdb" | python3 -m json.tool
 
 
@@ -165,6 +173,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl get pods -n telemetry | grep victoriametrics
 
 
@@ -194,6 +203,7 @@ Troubleshooting
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       curl -s -u user:password \
         "http://victoria.example.com:8428/api/v1/query?query=up"
 
@@ -206,6 +216,7 @@ Troubleshooting
 **Run on: K8s worker node**
 
 .. code-block:: bash
+
       curl -v http://victoria.example.com:8428/health
 
 
@@ -218,6 +229,7 @@ Troubleshooting
 **Run on: any node**
 
 .. code-block:: bash
+
         curl -s "http://victoria.example.com:8428/api/v1/series?match[]={cluster='omnia-prod'}"
 
 

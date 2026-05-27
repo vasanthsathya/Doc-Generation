@@ -542,11 +542,77 @@ cluster.</p>
 <li><p><strong>Clone the catalog repository</strong> (if not already cloned):</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+git<span class="w"> </span>clone<span class="w"> </span>http://&lt;oim-ip&gt;:8082/root/buildstream-catalog.git
+<span class="nb">cd</span><span class="w"> </span>buildstream-catalog
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Edit the catalog file</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>vi<span class="w"> </span>catalog.yml
+
+
+
+Example<span class="w"> </span>catalog<span class="w"> </span>structure:
+</pre></div>
+</div>
 <p><strong>File: /opt/omnia/buildstream-catalog/catalog.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">catalog_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.1.0&quot;</span>
+<span class="nt">cluster_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;omnia-prod&quot;</span>
+
+<span class="c1"># Operating system</span>
+<span class="nt">os</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rhel&quot;</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;8.8&quot;</span>
+<span class="w">  </span><span class="nt">iso_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/omnia/iso/RHEL-8.8-x86_64-dvd.iso&quot;</span>
+
+<span class="c1"># Networks</span>
+<span class="nt">networks</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">admin</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">nic</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno1&quot;</span>
+<span class="w">    </span><span class="nt">subnet</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.0/24&quot;</span>
+<span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.1&quot;</span>
+<span class="w">    </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.100-10.5.0.200&quot;</span>
+<span class="w">  </span><span class="nt">bmc</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">nic</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno2&quot;</span>
+<span class="w">    </span><span class="nt">subnet</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.0/24&quot;</span>
+<span class="w">    </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.100-10.3.0.200&quot;</span>
+
+<span class="c1"># Node groups</span>
+<span class="nt">node_groups</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">slurm_control</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;slurm_control_node&quot;</span>
+<span class="w">    </span><span class="nt">nodes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ABCDEF1&quot;</span>
+<span class="w">        </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.101&quot;</span>
+<span class="w">        </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.101&quot;</span>
+<span class="w">  </span><span class="nt">slurm_compute</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;slurm_node&quot;</span>
+<span class="w">    </span><span class="nt">nodes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ABCDEF2&quot;</span>
+<span class="w">        </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.102&quot;</span>
+<span class="w">        </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.102&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ABCDEF3&quot;</span>
+<span class="w">        </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.103&quot;</span>
+<span class="w">        </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.103&quot;</span>
+
+<span class="c1"># Software stacks</span>
+<span class="nt">software</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slurm</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cuda</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apptainer</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openldap</span>
+
+<span class="c1"># Telemetry</span>
+<span class="nt">telemetry</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">idrac</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">ldms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Make your changes</strong>. Common modifications include:</p></li>
 </ol>
@@ -562,6 +628,12 @@ cluster.</p>
 <li><p><strong>Commit and push the changes</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia/buildstream-catalog
+git<span class="w"> </span>add<span class="w"> </span>catalog.yml
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add 2 new compute nodes to slurm cluster&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+</pre></div>
+</div>
 <ol class="arabic">
 <li><p><strong>Monitor the pipeline</strong> in GitLab:</p>
 <p>Open the GitLab web UI and navigate to:
@@ -606,10 +678,20 @@ should show all stages with green checkmarks.</p>
 <li><p><strong>Verify catalog changes were applied</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if new nodes were provisioned</span>
+ochami<span class="w"> </span>node<span class="w"> </span>list
+
+<span class="c1"># Check Slurm configuration</span>
+ssh<span class="w"> </span>&lt;slurm-control-ip&gt;<span class="w"> </span>sinfo
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the verification stage</strong> to confirm cluster health:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>ping
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -649,12 +731,19 @@ should show all stages with green checkmarks.</p>
 </dd>
 </dl>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>remote<span class="w"> </span>-v
+<span class="c1"># Ensure URL is correct and credentials are configured</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Pipeline not triggered on push</strong></dt><dd><p>Verify <code class="docutils literal notranslate"><span class="pre">.gitlab-ci.yml</span></code> exists in the repository root and the runner
 is active:</p>
 </dd>
 </dl>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>gitlab-runner<span class="w"> </span>gitlab-runner<span class="w"> </span>list
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

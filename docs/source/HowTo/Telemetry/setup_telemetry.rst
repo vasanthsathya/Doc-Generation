@@ -51,6 +51,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -61,6 +62,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -69,6 +71,7 @@ Procedure
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+
       ---
       # Telemetry configuration
       enable_telemetry: true
@@ -100,6 +103,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook telemetry.yml --ask-vault-pass
 
@@ -123,6 +127,7 @@ Procedure
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl get svc -n telemetry | grep grafana
 
 
@@ -148,6 +153,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl get pods -n telemetry
 
 
@@ -158,6 +164,7 @@ Verification
 **Expected output on: K8s control plane node**
 
 .. code-block:: text
+
       NAME                                    READY   STATUS    RESTARTS
       grafana-xxxxxxxxxx-xxxxx                1/1     Running   0
       kafka-0                                 1/1     Running   0
@@ -173,6 +180,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_node -m shell -a "systemctl is-active ldmsd"
 
 
@@ -183,6 +191,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl exec -n telemetry kafka-0 -- kafka-topics.sh --list --bootstrap-server localhost:9092
 
 
@@ -193,6 +202,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
       kubectl exec -n telemetry $VM_POD -- curl -s "http://localhost:8428/api/v1/query?query=up" | python3 -m json.tool
 
@@ -226,6 +236,7 @@ Troubleshooting
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl describe pvc -n telemetry
 
 
@@ -237,6 +248,7 @@ Troubleshooting
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl logs -n telemetry -l app=idrac-collector --tail=30
 
 
@@ -248,6 +260,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_node -m shell -a "systemctl restart ldmsd"
 
 
@@ -261,6 +274,7 @@ Troubleshooting
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
         kubectl exec -n telemetry kafka-0 -- kafka-console-consumer.sh \
           --bootstrap-server localhost:9092 --topic telemetry --from-beginning --max-messages 5
 
@@ -273,5 +287,6 @@ Troubleshooting
 **Run on: K8s worker node**
 
 .. code-block:: bash
+
       df -h
 

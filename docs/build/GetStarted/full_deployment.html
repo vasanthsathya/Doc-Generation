@@ -503,13 +503,44 @@ you need 3 control-plane nodes with 64 GB RAM each.</p>
 <section id="step-1-deploy-the-omnia-core-container">
 <h2>Step 1 – Deploy the omnia_core Container<a class="headerlink" href="#step-1-deploy-the-omnia-core-container" title="Link to this heading">#</a></h2>
 <p><strong>Run on OIM (as root)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/dell/omnia.git
+<span class="nb">cd</span><span class="w"> </span>omnia
+
+<span class="c1"># Build container images</span>
+bash<span class="w"> </span>build_images.sh
+
+<span class="c1"># Install the omnia_core container</span>
+bash<span class="w"> </span>omnia.sh<span class="w"> </span>--install
+
+<span class="c1"># Verify</span>
+systemctl<span class="w"> </span>status<span class="w"> </span>omnia_core
+</pre></div>
+</div>
 <p><strong>Run on OIM (as root)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Confirm container access</span>
+ssh<span class="w"> </span>omnia_core
+<span class="nb">exit</span>
+</pre></div>
+</div>
 </section>
 <section id="step-2-create-the-mapping-file">
 <h2>Step 2 – Create the Mapping File<a class="headerlink" href="#step-2-create-the-mapping-file" title="Link to this heading">#</a></h2>
 <p>This mapping file includes both Slurm and Kubernetes roles across all 7
 managed nodes (the OIM is node 8 but is not listed in the mapping).</p>
 <p><strong>Run on OIM (as root)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>&gt;<span class="w"> </span>/opt/omnia/input/project_default/mapping.csv<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP</span>
+<span class="s">slurm_control_node,slurm,SVCTAG01,,head01,24:6E:96:AA:01:01,10.5.0.101,,10.3.0.101</span>
+<span class="s">slurm_node,slurm,SVCTAG02,,compute01,24:6E:96:AA:01:02,10.5.0.102,,10.3.0.102</span>
+<span class="s">login_node,slurm,SVCTAG03,,login01,24:6E:96:AA:01:03,10.5.0.103,,10.3.0.103</span>
+<span class="s">service_kube_control_plane,kube,SVCTAG04,,kube-cp01,24:6E:96:AA:02:01,10.5.0.201,,10.3.0.201</span>
+<span class="s">service_kube_control_plane,kube,SVCTAG05,,kube-cp02,24:6E:96:AA:02:02,10.5.0.202,,10.3.0.202</span>
+<span class="s">service_kube_control_plane,kube,SVCTAG06,,kube-cp03,24:6E:96:AA:02:03,10.5.0.203,,10.3.0.203</span>
+<span class="s">service_kube_node,kube,SVCTAG07,,kube-wk01,24:6E:96:AA:02:04,10.5.0.204,,10.3.0.204</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Replace <strong>all</strong> placeholder values (<code class="docutils literal notranslate"><span class="pre">SVCTAG*</span></code>, MAC addresses, IPs)
@@ -527,6 +558,15 @@ entries are required for Kubernetes HA – do not reduce to fewer than 3.</p>
 <h2>Step 3 – Provide Inputs<a class="headerlink" href="#step-3-provide-inputs" title="Link to this heading">#</a></h2>
 <p>Copy the template that includes service K8s support.</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+
+<span class="c1"># Copy the full deployment template</span>
+cp<span class="w"> </span>-r<span class="w"> </span>/opt/omnia/examples/input_template/bare_metal_slurm/x86_64/with_service_k8s/*<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>/opt/omnia/input/project_default/
+
+ls<span class="w"> </span>-la<span class="w"> </span>/opt/omnia/input/project_default/
+</pre></div>
+</div>
 <p>This template includes all the files from Path A plus:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ha_config.yml</span></code> – Kubernetes HA virtual IP configuration</p></li>
@@ -538,6 +578,10 @@ entries are required for Kubernetes HA – do not reduce to fewer than 3.</p>
 <section id="step-4-set-credentials">
 <h2>Step 4 – Set Credentials<a class="headerlink" href="#step-4-set-credentials" title="Link to this heading">#</a></h2>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>credentials_utility.yml
+</pre></div>
+</div>
 <p>In addition to the credentials from Path A (provisioning OS, iDRAC,
 MariaDB), you will also be prompted for:</p>
 <ul class="simple">
@@ -557,7 +601,22 @@ special character.</p>
 <section id="a-edit-network-spec-yml">
 <h3><strong>5a. Edit</strong> <cite>network_spec.yml</cite><a class="headerlink" href="#a-edit-network-spec-yml" title="Link to this heading">#</a></h3>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/network_spec.yml
+</pre></div>
+</div>
 <p><strong>Example network_spec.yml for full deployment</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">admin_network</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">nic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eno2</span>
+<span class="w">  </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.5.0.0/16</span>
+<span class="w">  </span><span class="nt">static_range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.5.0.100-10.5.0.250</span>
+<span class="w">  </span><span class="nt">gateway</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.5.0.1</span>
+
+<span class="nt">bmc_network</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">nic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eno2</span>
+<span class="w">  </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.3.0.0/16</span>
+<span class="w">  </span><span class="nt">static_range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.3.0.100-10.3.0.250</span>
+</pre></div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Expand your <code class="docutils literal notranslate"><span class="pre">static_range</span></code> to accommodate both Slurm and K8s nodes.
@@ -567,14 +626,32 @@ In this deployment, you need at least 7 admin IPs and 7 BMC IPs.</p>
 <section id="b-edit-provision-config-yml">
 <h3><strong>5b. Edit</strong> <cite>provision_config.yml</cite><a class="headerlink" href="#b-edit-provision-config-yml" title="Link to this heading">#</a></h3>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/provision_config.yml
+</pre></div>
+</div>
 <p><strong>Example provision_config.yml excerpt</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">iso_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt/isos/RHEL-8.8-x86_64-dvd.iso</span>
+<span class="nt">timezone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">America/Chicago</span>
+<span class="nt">domain_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">omnia.local</span>
+</pre></div>
+</div>
 </section>
 <section id="c-edit-ha-config-yml-k8s-ha">
 <h3><strong>5c. Edit</strong> <cite>ha_config.yml</cite> <strong>(K8s HA)</strong><a class="headerlink" href="#c-edit-ha-config-yml-k8s-ha" title="Link to this heading">#</a></h3>
 <p>This file configures the floating virtual IP (VIP) used by <code class="docutils literal notranslate"><span class="pre">kube-vip</span></code>
 to provide HA access to the Kubernetes API server.</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/ha_config.yml
+</pre></div>
+</div>
 <p><strong>Example ha_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Virtual IP for the Kubernetes API server (must be unused on admin network)</span>
+<span class="nt">k8s_vip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.5.0.250</span>
+
+<span class="c1"># Interface on K8s control plane nodes facing the admin network</span>
+<span class="nt">k8s_vip_interface</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eno2</span>
+</pre></div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">k8s_vip</span></code> must be an IP address on the admin subnet that is
@@ -585,11 +662,23 @@ device. <code class="docutils literal notranslate"><span class="pre">kube-vip</s
 <section id="d-run-prepare-oim-yml">
 <h3><strong>5d. Run</strong> <cite>prepare_oim.yml</cite><a class="headerlink" href="#d-run-prepare-oim-yml" title="Link to this heading">#</a></h3>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>prepare_oim.yml<span class="w"> </span>-i<span class="w"> </span>/opt/omnia/input/project_default/mapping.csv
+</pre></div>
+</div>
 </section>
 </section>
 <section id="step-6-verify-oim-services">
 <h2>Step 6 – Verify OIM Services<a class="headerlink" href="#step-6-verify-oim-services" title="Link to this heading">#</a></h2>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>list-dependencies<span class="w"> </span>omnia.target
+
+<span class="c1"># Quick check</span>
+<span class="k">for</span><span class="w"> </span>svc<span class="w"> </span><span class="k">in</span><span class="w"> </span>dhcpd<span class="w"> </span>tftp.socket<span class="w"> </span>httpd<span class="w"> </span>nfs-server<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$svc</span><span class="s2">: &quot;</span><span class="p">;</span><span class="w"> </span>systemctl<span class="w"> </span>is-active<span class="w"> </span><span class="nv">$svc</span>
+<span class="k">done</span>
+</pre></div>
+</div>
 </section>
 <section id="step-7-set-up-authentication">
 <h2>Step 7 – Set Up Authentication<a class="headerlink" href="#step-7-set-up-authentication" title="Link to this heading">#</a></h2>
@@ -598,7 +687,23 @@ entire cluster.</p>
 <section id="a-edit-security-config-yml">
 <h3><strong>7a. Edit</strong> <cite>security_config.yml</cite><a class="headerlink" href="#a-edit-security-config-yml" title="Link to this heading">#</a></h3>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/security_config.yml
+</pre></div>
+</div>
 <p><strong>Example security_config.yml excerpt</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authentication method: &#39;freeipa&#39; or &#39;ldap&#39;</span>
+<span class="nt">auth_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">freeipa</span>
+
+<span class="c1"># FreeIPA realm (uppercase, typically your domain)</span>
+<span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OMNIA.LOCAL</span>
+
+<span class="c1"># FreeIPA domain</span>
+<span class="nt">directory_domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">omnia.local</span>
+
+<span class="c1"># Admin username for the IPA server</span>
+<span class="nt">admin_user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+</pre></div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>FreeIPA is recommended for new deployments because it bundles Kerberos,
@@ -610,6 +715,10 @@ or OpenLDAP server.</p>
 <section id="b-run-auth-yml">
 <h3><strong>7b. Run</strong> <cite>auth.yml</cite><a class="headerlink" href="#b-run-auth-yml" title="Link to this heading">#</a></h3>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>auth.yml
+</pre></div>
+</div>
 <p>This playbook:</p>
 <ul class="simple">
 <li><p>Installs FreeIPA server on the OIM (or connects to an external LDAP).</p></li>
@@ -624,7 +733,26 @@ or OpenLDAP server.</p>
 <section id="a-edit-telemetry-config-yml">
 <h3><strong>8a. Edit</strong> <cite>telemetry_config.yml</cite><a class="headerlink" href="#a-edit-telemetry-config-yml" title="Link to this heading">#</a></h3>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/telemetry_config.yml
+</pre></div>
+</div>
 <p><strong>Example telemetry_config.yml excerpt</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enable iDRAC telemetry collection</span>
+<span class="nt">idrac_telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="c1"># Enable LDMS (Lightweight Distributed Metric Service) on compute nodes</span>
+<span class="nt">ldms_telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="c1"># Grafana dashboard access port</span>
+<span class="nt">grafana_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span>
+
+<span class="c1"># VictoriaMetrics retention period</span>
+<span class="nt">victoriametrics_retention</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30d</span>
+
+<span class="c1"># Kafka message broker settings (deployed on K8s worker)</span>
+<span class="nt">kafka_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>If you only need basic iDRAC hardware metrics (temperatures, fan
@@ -638,6 +766,10 @@ provisioned and K8s is running. Continue with the next step.</p>
 <section id="step-9-create-local-repositories">
 <h2>Step 9 – Create Local Repositories<a class="headerlink" href="#step-9-create-local-repositories" title="Link to this heading">#</a></h2>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>local_repo.yml
+</pre></div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This step now mirrors additional packages for Kubernetes (<code class="docutils literal notranslate"><span class="pre">kubeadm</span></code>,
@@ -650,6 +782,10 @@ Kafka). Expect 45–90 minutes and ~30 GB of downloaded content.</p>
 <p>Deploy the 3-node HA Kubernetes cluster that will host telemetry services,
 monitoring dashboards, and other infrastructure workloads.</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>k8s.yml
+</pre></div>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">k8s.yml</span></code> orchestrates:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">kubeadm</span> <span class="pre">init</span></code> on the first control-plane node (<code class="docutils literal notranslate"><span class="pre">kube-cp01</span></code>).</p></li>
@@ -662,8 +798,20 @@ monitoring dashboards, and other infrastructure workloads.</p>
 <li><p>MetalLB setup for <code class="docutils literal notranslate"><span class="pre">LoadBalancer</span></code> service type support.</p></li>
 </ul>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify K8s cluster from OIM (kubeconfig is auto-copied)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>/opt/omnia/k8s/admin.conf
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+</pre></div>
+</div>
 <p>Expected output (all nodes <code class="docutils literal notranslate"><span class="pre">Ready</span></code>):</p>
 <p><strong>Expected output</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>NAME        STATUS   ROLES           AGE   VERSION
+kube-cp01   Ready    control-plane   10m   v1.28.x
+kube-cp02   Ready    control-plane   8m    v1.28.x
+kube-cp03   Ready    control-plane   8m    v1.28.x
+kube-wk01   Ready    &lt;none&gt;          6m    v1.28.x
+</pre></div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>If a control-plane node shows <code class="docutils literal notranslate"><span class="pre">NotReady</span></code>, SSH to it and check
@@ -674,10 +822,21 @@ in <code class="docutils literal notranslate"><span class="pre">ha_config.yml</s
 <section id="step-11-build-node-images">
 <h2>Step 11 – Build Node Images<a class="headerlink" href="#step-11-build-node-images" title="Link to this heading">#</a></h2>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>build_image_x86_64.yml
+
+<span class="c1"># Verify</span>
+s3cmd<span class="w"> </span>ls<span class="w"> </span>s3://omnia-images/
+</pre></div>
+</div>
 </section>
 <section id="step-12-discover-and-provision-nodes">
 <h2>Step 12 – Discover and Provision Nodes<a class="headerlink" href="#step-12-discover-and-provision-nodes" title="Link to this heading">#</a></h2>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>discovery.yml
+</pre></div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>With 7 nodes, discovery takes longer than Path A. Allow <strong>30–60
@@ -686,20 +845,38 @@ OIM’s DHCP and HTTP services can bottleneck with many simultaneous PXE
 requests.</p>
 </div>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify all nodes are reachable</span>
+ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>ping<span class="w"> </span>-i<span class="w"> </span>/opt/omnia/inventories/project_default/inventory
+</pre></div>
+</div>
 </section>
 <section id="step-13-deploy-slurm">
 <h2>Step 13 – Deploy Slurm<a class="headerlink" href="#step-13-deploy-slurm" title="Link to this heading">#</a></h2>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>omnia.yml
+</pre></div>
+</div>
 <p>This deploys the Slurm stack on the head, compute, and login nodes
 (same as Path A, Step 10). It also configures NFS mounts and integrates
 the FreeIPA/LDAP authentication set up in Step 7.</p>
 <p><strong>Run on head node (head01)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify Slurm</span>
+ssh<span class="w"> </span>head01
+sinfo
+srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>hostname
+</pre></div>
+</div>
 </section>
 <section id="step-14-initialize-telemetry">
 <h2>Step 14 – Initialize Telemetry<a class="headerlink" href="#step-14-initialize-telemetry" title="Link to this heading">#</a></h2>
 <p>With both the K8s service cluster and Slurm cluster running, deploy the
 telemetry pipeline.</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>telemetry.yml
+</pre></div>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">telemetry.yml</span></code> deploys:</p>
 <ul class="simple">
 <li><p><strong>iDRAC telemetry collector</strong> – Polls iDRAC Redfish endpoints for
@@ -713,18 +890,45 @@ metrics (CPU, memory, network, GPU utilization) from compute nodes.</p></li>
 <p>All telemetry components are deployed as Kubernetes pods on the service
 cluster (<code class="docutils literal notranslate"><span class="pre">kube-wk01</span></code>).</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify telemetry pods</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>/opt/omnia/k8s/admin.conf
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>omnia-telemetry
+</pre></div>
+</div>
 <p>Expected output (all pods <code class="docutils literal notranslate"><span class="pre">Running</span></code> or <code class="docutils literal notranslate"><span class="pre">Completed</span></code>):</p>
 <p><strong>Expected output</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>NAME                                  READY   STATUS    RESTARTS   AGE
+grafana-6b8c4f7d9-xk2p4              1/1     Running   0          5m
+victoriametrics-0                     1/1     Running   0          5m
+kafka-0                               1/1     Running   0          5m
+idrac-collector-5d9f8b7c6-m3n7q      1/1     Running   0          5m
+ldms-aggregator-7f4b9c8d2-p2r4s      1/1     Running   0          5m
+</pre></div>
+</div>
 </section>
 <section id="step-15-verify-the-full-deployment">
 <h2>Step 15 – Verify the Full Deployment<a class="headerlink" href="#step-15-verify-the-full-deployment" title="Link to this heading">#</a></h2>
 <p><strong>Slurm verification:</strong></p>
 <p><strong>Run on head node (head01)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sinfo
+srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>hostname
+sacctmgr<span class="w"> </span>show<span class="w"> </span>cluster
+</pre></div>
+</div>
 <p><strong>Kubernetes verification:</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>/opt/omnia/k8s/admin.conf
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--all-namespaces<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>Running<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>Completed
+</pre></div>
+</div>
 <p>Any pods not in <code class="docutils literal notranslate"><span class="pre">Running</span></code> or <code class="docutils literal notranslate"><span class="pre">Completed</span></code> state need investigation.</p>
 <p><strong>Telemetry verification:</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the Grafana service URL</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>omnia-telemetry<span class="w"> </span>grafana
+</pre></div>
+</div>
 <p>Open <code class="docutils literal notranslate"><span class="pre">http://&lt;kube-vip&gt;:3000</span></code> in a browser. Log in with the Grafana
 admin credentials set in Step 4. You should see pre-built dashboards for:</p>
 <ul class="simple">
@@ -741,6 +945,14 @@ reachable from the K8s worker node:
 </div>
 <p><strong>Authentication verification:</strong></p>
 <p><strong>Run on any cluster node</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify FreeIPA enrollment</span>
+ipa<span class="w"> </span>user-find<span class="w"> </span>--all
+
+<span class="c1"># Verify Kerberos</span>
+kinit<span class="w"> </span>admin
+klist
+</pre></div>
+</div>
 </section>
 <section id="what-s-next">
 <h2>What’s Next?<a class="headerlink" href="#what-s-next" title="Link to this heading">#</a></h2>

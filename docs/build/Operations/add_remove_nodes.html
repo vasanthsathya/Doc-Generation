@@ -579,6 +579,16 @@ The<span class="w"> </span>removed<span class="w"> </span>node<span class="w"> <
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
 <p>After adding or removing nodes, confirm the cluster state:</p>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check overall cluster health</span>
+sinfo
+
+<span class="c1"># Verify controller sees all expected nodes</span>
+scontrol<span class="w"> </span>show<span class="w"> </span>nodes<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>NodeName
+
+<span class="c1"># Submit a test job to verify scheduling</span>
+srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>hostname
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">

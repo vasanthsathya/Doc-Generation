@@ -47,6 +47,7 @@ Verify Node Connectivity
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible all -m ping
 
 
@@ -57,6 +58,7 @@ Verify Node Connectivity
 **Expected output on: omnia_core container**
 
 .. code-block:: text
+
       10.5.0.101 | SUCCESS => {
           "ping": "pong"
       }
@@ -69,6 +71,7 @@ Verify Node Connectivity
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible all -m shell -a "cat /etc/os-release | grep PRETTY_NAME"
 
 
@@ -79,6 +82,7 @@ Verify Node Connectivity
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible all -m shell -a "hostname"
 
 
@@ -95,6 +99,7 @@ Verify Slurm
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ssh root@<slurm-control-node-ip>
 
 
@@ -103,6 +108,7 @@ Verify Slurm
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       sinfo
 
 
@@ -113,6 +119,7 @@ Verify Slurm
 **Expected output on: Slurm control node**
 
 .. code-block:: text
+
       PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
       normal*      up   infinite      2   idle compute[01-02]
 
@@ -127,6 +134,7 @@ Verify Slurm
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       srun -N 2 hostname
 
 
@@ -138,6 +146,7 @@ Verify Slurm
 **Expected output on: Slurm control node**
 
 .. code-block:: text
+
       compute01
       compute02
 
@@ -149,6 +158,7 @@ Verify Slurm
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       cat <<'EOF' > /tmp/test_job.sh
       #!/bin/bash
       #SBATCH --job-name=test
@@ -156,7 +166,7 @@ Verify Slurm
       #SBATCH --time=00:01:00
       echo "Hello from $(hostname) at $(date)"
       EOF
-   
+
       sbatch /tmp/test_job.sh
 
 
@@ -165,9 +175,10 @@ Verify Slurm
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       # Check job status
       squeue
-   
+
       # View job output after completion
       cat slurm-*.out
 
@@ -179,6 +190,7 @@ Verify Slurm
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       sacct --starttime=today
 
 
@@ -195,6 +207,7 @@ Verify Kubernetes
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ssh root@<k8s-control-plane-ip>
 
 
@@ -203,6 +216,7 @@ Verify Kubernetes
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl get nodes
 
 
@@ -213,6 +227,7 @@ Verify Kubernetes
 **Expected output on: K8s control plane node**
 
 .. code-block:: text
+
       NAME          STATUS   ROLES           AGE   VERSION
       k8s-cp01      Ready    control-plane   1h    v1.28.x
       k8s-cp02      Ready    control-plane   1h    v1.28.x
@@ -229,6 +244,7 @@ Verify Kubernetes
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl get pods -A
 
 
@@ -242,6 +258,7 @@ Verify Kubernetes
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
        kubectl run test-pod --image=busybox --restart=Never -- echo "Hello from K8s"
        kubectl logs test-pod
        kubectl delete pod test-pod
@@ -305,6 +322,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
         ssh-copy-id root@<node-ip>
 
 
@@ -315,6 +333,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
         ping -c 3 <node-ip>
 
 
@@ -326,6 +345,7 @@ Troubleshooting
 **Run on: affected compute node**
 
 .. code-block:: bash
+
       systemctl status slurmd
       journalctl -u slurmd --no-pager -n 20
 
@@ -337,6 +357,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       scontrol update nodename=<node> state=resume
 
 
@@ -348,6 +369,7 @@ Troubleshooting
 **Run on: affected K8s node**
 
 .. code-block:: bash
+
       systemctl status kubelet
       journalctl -u kubelet --no-pager -n 20
 
@@ -360,6 +382,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
         ansible slurm_cluster -m shell -a "systemctl is-active munge"
 
 
@@ -370,5 +393,6 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
         ansible slurm_cluster -m shell -a "firewall-cmd --list-ports"
 

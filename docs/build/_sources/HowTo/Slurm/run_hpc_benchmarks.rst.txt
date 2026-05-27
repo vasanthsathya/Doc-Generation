@@ -47,6 +47,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ssh root@<slurm-control-node-ip>
 
 
@@ -57,6 +58,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       mkdir -p /home/benchmarks/images
       mkdir -p /home/benchmarks/results
       cd /home/benchmarks
@@ -69,6 +71,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       apptainer pull images/hpl.sif docker://nvcr.io/nvidia/hpc-benchmarks:24.03
 
 
@@ -81,6 +84,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
           apptainer pull images/hpl-cpu.sif docker://ghcr.io/hpc-benchmarks/hpl:latest
 
 
@@ -91,6 +95,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       apptainer pull images/osu-benchmarks.sif docker://ghcr.io/osu-benchmarks/osu-micro-benchmarks:latest
 
 
@@ -101,6 +106,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       cat <<'EOF' > /home/benchmarks/run_hpl.sh
       #!/bin/bash
       #SBATCH --job-name=hpl-benchmark
@@ -108,11 +114,11 @@ Procedure
       #SBATCH --ntasks-per-node=4
       #SBATCH --time=01:00:00
       #SBATCH --output=results/hpl-%j.out
-   
+
       cd /home/benchmarks
       apptainer exec images/hpl.sif mpirun -np 8 /usr/local/bin/xhpl
       EOF
-   
+
       sbatch /home/benchmarks/run_hpl.sh
 
 
@@ -123,6 +129,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       cat <<'EOF' > /home/benchmarks/run_gpu_bench.sh
       #!/bin/bash
       #SBATCH --job-name=gpu-benchmark
@@ -130,12 +137,12 @@ Procedure
       #SBATCH --gres=gpu:1
       #SBATCH --time=00:30:00
       #SBATCH --output=results/gpu-%j.out
-   
+
       cd /home/benchmarks
       apptainer exec --nv images/hpl.sif nvidia-smi
       apptainer exec --nv images/hpl.sif /usr/local/bin/cuda_bandwidthTest
       EOF
-   
+
       sbatch /home/benchmarks/run_gpu_bench.sh
 
 
@@ -146,6 +153,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       cat <<'EOF' > /home/benchmarks/run_osu_latency.sh
       #!/bin/bash
       #SBATCH --job-name=osu-latency
@@ -153,11 +161,11 @@ Procedure
       #SBATCH --ntasks-per-node=1
       #SBATCH --time=00:10:00
       #SBATCH --output=results/osu-latency-%j.out
-   
+
       cd /home/benchmarks
       apptainer exec images/osu-benchmarks.sif mpirun -np 2 /usr/local/bin/osu_latency
       EOF
-   
+
       sbatch /home/benchmarks/run_osu_latency.sh
 
 
@@ -168,6 +176,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       squeue
       # Wait for completion, then check results
       ls -la /home/benchmarks/results/
@@ -186,6 +195,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       sacct --starttime=today --format=JobName,State,Elapsed,ExitCode
 
 
@@ -198,6 +208,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       cat /home/benchmarks/results/hpl-*.out | grep -A5 "T/V"
 
 
@@ -208,6 +219,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       cat /home/benchmarks/results/osu-latency-*.out
 
 
@@ -239,6 +251,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       chmod 755 /home/benchmarks
       chown -R root:root /home/benchmarks
 
@@ -251,6 +264,7 @@ Troubleshooting
 **Run on: Slurm compute node**
 
 .. code-block:: bash
+
       which mpirun
       apptainer exec /home/benchmarks/images/hpl.sif which mpirun
 
@@ -263,6 +277,7 @@ Troubleshooting
 **Run on: Slurm compute node**
 
 .. code-block:: bash
+
       apptainer exec --nv /home/benchmarks/images/hpl.sif nvidia-smi
 
 
@@ -279,5 +294,6 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       #SBATCH --mem=0  # Use all available memory on the node
 

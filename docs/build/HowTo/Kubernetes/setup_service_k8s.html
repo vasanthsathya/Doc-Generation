@@ -546,19 +546,70 @@ control-plane node is supported for non-production use).</p></li>
 <li><p><strong>Enter the omnia_core container</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Configure Kubernetes parameters</strong> in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
+
+
+
+Key<span class="w"> </span>Kubernetes<span class="w"> </span>parameters:
+</pre></div>
+</div>
 <p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="c1"># Kubernetes configuration</span>
+<span class="nt">k8s_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.28&quot;</span>
+<span class="nt">k8s_cni</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;calico&quot;</span>
+<span class="nt">k8s_pod_network_cidr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.244.0.0/16&quot;</span>
+<span class="nt">k8s_service_cidr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.96.0.0/16&quot;</span>
+
+<span class="c1"># MetalLB IP range (must be on the same subnet as worker nodes)</span>
+<span class="nt">metallb_address_range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.220-10.5.0.240&quot;</span>
+
+<span class="c1"># NFS CSI configuration</span>
+<span class="nt">nfs_server</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.1&quot;</span>
+<span class="nt">nfs_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/home&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify the mapping file</strong> has K8s node assignments:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;kube_control_plane|kube_node&quot;</span><span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv
+
+
+
+You<span class="w"> </span>should<span class="w"> </span>see<span class="w"> </span>at<span class="w"> </span>least<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="sb">``</span>kube_control_plane<span class="sb">``</span><span class="w"> </span>entries<span class="w"> </span>and<span class="w"> </span><span class="m">1</span>
+<span class="sb">``</span>kube_node<span class="sb">``</span><span class="w"> </span>entry.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the omnia.yml playbook</strong> to deploy Kubernetes:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/omnia
+<span class="w">    </span>ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass
+
+
+
+<span class="w"> </span>The<span class="w"> </span>playbook<span class="w"> </span>performs<span class="w"> </span>the<span class="w"> </span>following:
+
+-<span class="w"> </span>Installs<span class="w"> </span>container<span class="w"> </span>runtime<span class="w"> </span><span class="o">(</span>containerd<span class="o">)</span><span class="w"> </span>on<span class="w"> </span>all<span class="w"> </span>K8s<span class="w"> </span>nodes.
+-<span class="w"> </span>Initializes<span class="w"> </span>the<span class="w"> </span>first<span class="w"> </span>control-plane<span class="w"> </span>node.
+-<span class="w"> </span>Joins<span class="w"> </span>additional<span class="w"> </span>control-plane<span class="w"> </span>nodes<span class="w"> </span><span class="k">for</span><span class="w"> </span>HA.
+-<span class="w"> </span>Joins<span class="w"> </span>worker<span class="w"> </span>nodes.
+-<span class="w"> </span>Deploys<span class="w"> </span>MetalLB,<span class="w"> </span>Calico,<span class="w"> </span>and<span class="w"> </span>NFS<span class="w"> </span>CSI<span class="w"> </span>driver.
+-<span class="w"> </span>Configures<span class="w"> </span>kubeconfig<span class="w"> </span><span class="k">for</span><span class="w"> </span>cluster<span class="w"> </span>administration.
+
+<span class="w"> </span>Execution<span class="w"> </span>time:<span class="w"> </span>**20-40<span class="w"> </span>minutes**<span class="w"> </span>depending<span class="w"> </span>on<span class="w"> </span>cluster<span class="w"> </span>size<span class="w"> </span>and<span class="w"> </span>network
+<span class="w"> </span>speed.
+</pre></div>
+</div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
@@ -566,28 +617,81 @@ control-plane node is supported for non-production use).</p></li>
 <li><p><strong>Check Kubernetes node status</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-o<span class="w"> </span>wide
+
+
+
+Expected<span class="w"> </span>output:
+</pre></div>
+</div>
 <p><strong>Expected output on: K8s control plane node</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>   NAME          STATUS   ROLES           AGE   VERSION    INTERNAL-IP
+   k8s-cp01      Ready    control-plane   10m   v1.28.x    10.5.0.105
+   k8s-cp02      Ready    control-plane   10m   v1.28.x    10.5.0.106
+   k8s-cp03      Ready    control-plane   10m   v1.28.x    10.5.0.107
+   k8s-worker01  Ready    &lt;none&gt;          10m   v1.28.x    10.5.0.108
+
+
+
+All nodes must show ``Ready`` status.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify system pods are running</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A
+
+
+
+All<span class="w"> </span>pods<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">``</span>kube-system<span class="sb">``</span>,<span class="w"> </span><span class="sb">``</span>calico-system<span class="sb">``</span>,<span class="w"> </span>and<span class="w"> </span><span class="sb">``</span>metallb-system<span class="sb">``</span>
+namespaces<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span><span class="sb">``</span>Running<span class="sb">``</span>.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify MetalLB is operational</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>metallb-system
+kubectl<span class="w"> </span>get<span class="w"> </span>ipaddresspool<span class="w"> </span>-n<span class="w"> </span>metallb-system
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify NFS CSI driver</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nfs
+kubectl<span class="w"> </span>get<span class="w"> </span>storageclass
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Test pod scheduling</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>run<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--image<span class="o">=</span>busybox<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;K8s is working&quot;</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span><span class="nb">test</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span><span class="nb">test</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Test a LoadBalancer service</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>create<span class="w"> </span>deployment<span class="w"> </span>nginx<span class="w"> </span>--image<span class="o">=</span>nginx
+<span class="w">   </span>kubectl<span class="w"> </span>expose<span class="w"> </span>deployment<span class="w"> </span>nginx<span class="w"> </span>--type<span class="o">=</span>LoadBalancer<span class="w"> </span>--port<span class="o">=</span><span class="m">80</span>
+<span class="w">   </span>kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>nginx
+
+
+
+The<span class="w"> </span><span class="sb">``</span>EXTERNAL-IP<span class="sb">``</span><span class="w"> </span>column<span class="w"> </span>should<span class="w"> </span>show<span class="w"> </span>an<span class="w"> </span>IP<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>MetalLB<span class="w"> </span>range.
+</pre></div>
+</div>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cleanup</span>
+kubectl<span class="w"> </span>delete<span class="w"> </span>svc<span class="w"> </span>nginx
+kubectl<span class="w"> </span>delete<span class="w"> </span>deployment<span class="w"> </span>nginx
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -606,26 +710,45 @@ the K8s cluster.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: affected K8s node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>kubelet
+journalctl<span class="w"> </span>-u<span class="w"> </span>kubelet<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">30</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Calico pods stuck in “Pending” or “CrashLoopBackOff”</strong></dt><dd><p>Check Calico logs:</p>
 </dd>
 </dl>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>calico-system<span class="w"> </span>-l<span class="w"> </span>k8s-app<span class="o">=</span>calico-node<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>MetalLB not assigning external IPs</strong></dt><dd><p>Verify the IP address pool configuration:</p>
 </dd>
 </dl>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>ipaddresspool<span class="w"> </span>-n<span class="w"> </span>metallb-system<span class="w"> </span>-o<span class="w"> </span>yaml
+kubectl<span class="w"> </span>get<span class="w"> </span>l2advertisement<span class="w"> </span>-n<span class="w"> </span>metallb-system
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>NFS CSI PersistentVolumeClaim stuck in “Pending”</strong></dt><dd><p>Verify the NFS server is reachable and the export is configured:</p>
 </dd>
 </dl>
 <p><strong>Run on: K8s worker node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>showmount<span class="w"> </span>-e<span class="w"> </span>&lt;nfs-server-ip&gt;
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>kubeconfig not found</strong></dt><dd><p>Copy the admin kubeconfig:</p>
 </dd>
 </dl>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HOME</span>/.kube
+cp<span class="w"> </span>/etc/kubernetes/admin.conf<span class="w"> </span><span class="nv">$HOME</span>/.kube/config
+chown<span class="w"> </span><span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span>:<span class="k">$(</span>id<span class="w"> </span>-g<span class="k">)</span><span class="w"> </span><span class="nv">$HOME</span>/.kube/config
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

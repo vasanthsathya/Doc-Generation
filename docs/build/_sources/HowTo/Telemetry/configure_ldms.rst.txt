@@ -44,6 +44,7 @@ Procedure
 **Run on: compute node**
 
 .. code-block:: bash
+
       ldms_ls -h localhost -p 411 -v
 
 
@@ -75,6 +76,7 @@ Procedure
 **Run on: compute node**
 
 .. code-block:: bash
+
       vi /etc/ldms/ldmsd.conf
 
 
@@ -85,23 +87,24 @@ Procedure
 **File: /etc/ldms/ldmsd.conf on compute node**
 
 .. code-block:: text
+
       # Transport and authentication
       auth_add name=munge plugin=munge
-   
+
       # Listen for connections
       listen xprt=sock port=411 auth=munge
-   
+
       # Load sampler plugins
       load name=meminfo
       config name=meminfo producer=${HOSTNAME} instance=${HOSTNAME}/meminfo \
              schema=meminfo component_id=${COMPONENT_ID}
       start name=meminfo interval=10000000
-   
+
       load name=vmstat
       config name=vmstat producer=${HOSTNAME} instance=${HOSTNAME}/vmstat \
              schema=vmstat component_id=${COMPONENT_ID}
       start name=vmstat interval=10000000
-   
+
       load name=procstat
       config name=procstat producer=${HOSTNAME} instance=${HOSTNAME}/procstat \
              schema=procstat component_id=${COMPONENT_ID}
@@ -119,6 +122,7 @@ Procedure
 **Run on: compute node**
 
 .. code-block:: bash
+
       systemctl restart ldmsd
 
 
@@ -129,6 +133,7 @@ Procedure
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl edit configmap -n telemetry ldms-aggregator-config
 
 
@@ -139,21 +144,22 @@ Procedure
 **ConfigMap: ldms-aggregator-config in telemetry namespace**
 
 .. code-block:: text
+
       # Authentication
       auth_add name=munge plugin=munge
-   
+
       # Listen for downstream connections
       listen xprt=sock port=411 auth=munge
-   
+
       # Add each compute node as a producer
       prdcr_add name=compute01 host=10.5.0.101 port=411 xprt=sock \
                 auth=munge type=active interval=30000000
       prdcr_start name=compute01
-   
+
       prdcr_add name=compute02 host=10.5.0.102 port=411 xprt=sock \
                 auth=munge type=active interval=30000000
       prdcr_start name=compute02
-   
+
       # Start the updater to collect from all producers
       updtr_add name=all_nodes interval=30000000 offset=100000
       updtr_prdcr_add name=all_nodes regex=.*
@@ -167,6 +173,7 @@ Procedure
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl rollout restart deployment -n telemetry ldms-aggregator
 
 
@@ -177,6 +184,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_node -m copy -a "src=/tmp/ldmsd.conf dest=/etc/ldms/ldmsd.conf"
       ansible slurm_node -m service -a "name=ldmsd state=restarted"
 
@@ -194,6 +202,7 @@ Verification
 **Run on: compute node**
 
 .. code-block:: bash
+
       ldms_ls -h localhost -p 411 -v
 
 
@@ -206,6 +215,7 @@ Verification
 **Run on: compute node**
 
 .. code-block:: bash
+
       ldms_ls -h localhost -p 411 -l -v | grep MemFree
 
 
@@ -216,6 +226,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       AGG_POD=$(kubectl get pod -n telemetry -l app=ldms-aggregator -o jsonpath='{.items[0].metadata.name}')
       kubectl exec -n telemetry $AGG_POD -- ldms_ls -h localhost -p 411 -v
 
@@ -227,6 +238,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
       kubectl exec -n telemetry $VM_POD -- curl -s "http://localhost:8428/api/v1/query?query=meminfo_MemFree"
 
@@ -254,6 +266,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       ldmsd -c /etc/ldms/ldmsd.conf -F -v DEBUG 2>&1 | head -50
 
 
@@ -265,6 +278,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       ss -tlnp | grep 411
 
 
@@ -275,6 +289,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       firewall-cmd --add-port=411/tcp --permanent
       firewall-cmd --reload
 
@@ -287,6 +302,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_node -m shell -a "md5sum /etc/munge/munge.key"
 
 
@@ -298,5 +314,6 @@ Troubleshooting
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl logs -n telemetry -l app=kafka-consumer --tail=30
 

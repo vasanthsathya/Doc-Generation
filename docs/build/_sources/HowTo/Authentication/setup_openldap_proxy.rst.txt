@@ -52,6 +52,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -62,6 +63,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -70,6 +72,7 @@ Procedure
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+
       ---
       auth_type: "openldap_proxy"
       external_ldap_uri: "ldaps://ldap.corp.example.com:636"
@@ -88,6 +91,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman cp /path/to/corp-ca.pem omnia_auth:/etc/ssl/certs/corp-ca.pem
 
 
@@ -98,6 +102,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook auth.yml --ask-vault-pass
 
@@ -117,6 +122,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman exec -it omnia_auth bash
 
 
@@ -125,6 +131,7 @@ Procedure
 **Run on: omnia_auth container**
 
 .. code-block:: bash
+
       cat <<'EOF' >> /etc/openldap/slapd.d/cn=config/olcDatabase={2}ldap.ldif
       dn: olcDatabase={2}ldap
       objectClass: olcDatabaseConfig
@@ -149,6 +156,7 @@ Verification
 **Run on: omnia_auth container**
 
 .. code-block:: bash
+
       ldapsearch -x -H ldaps://ldap.corp.example.com:636 \
         -D "cn=omnia-readonly,ou=ServiceAccounts,dc=corp,dc=example,dc=com" \
         -W -b "ou=People,dc=corp,dc=example,dc=com" "(uid=*)" dn | head -20
@@ -161,6 +169,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ldapsearch -x -H ldap://omnia_auth -b "dc=corp,dc=example,dc=com" "(uid=someuser)"
 
 
@@ -171,6 +180,7 @@ Verification
 **Run on: compute node**
 
 .. code-block:: bash
+
       getent passwd someuser
       id someuser
 
@@ -182,6 +192,7 @@ Verification
 **Run on: any node**
 
 .. code-block:: bash
+
       ssh someuser@<compute-node-ip>
 
 
@@ -209,6 +220,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       openssl s_client -connect ldap.corp.example.com:636
 
 
@@ -220,6 +232,7 @@ Troubleshooting
 **Run on: omnia_auth container**
 
 .. code-block:: bash
+
       openssl verify -CAfile /etc/ssl/certs/corp-ca.pem /etc/ssl/certs/corp-ca.pem
 
 
@@ -231,6 +244,7 @@ Troubleshooting
 **Run on: omnia_auth container**
 
 .. code-block:: bash
+
       ldapsearch -x -H ldaps://ldap.corp.example.com:636 \
         -D "<bind-dn>" -W -b "<base-dn>" "(objectClass=*)" dn | head
 
@@ -243,6 +257,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       sss_cache -E
       systemctl restart sssd
 

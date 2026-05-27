@@ -47,6 +47,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -57,6 +58,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -65,6 +67,7 @@ Procedure
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+
       ---
       # External Kafka configuration
       kafka_external: true
@@ -88,18 +91,19 @@ Procedure
 **Run on: external Kafka broker**
 
 .. code-block:: bash
+
       kafka-topics.sh --create \
         --bootstrap-server localhost:9092 \
         --topic omnia-telemetry \
         --partitions 6 \
         --replication-factor 3
-   
+
       kafka-topics.sh --create \
         --bootstrap-server localhost:9092 \
         --topic omnia-idrac \
         --partitions 3 \
         --replication-factor 3
-   
+
       kafka-topics.sh --create \
         --bootstrap-server localhost:9092 \
         --topic omnia-ldms \
@@ -114,6 +118,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook telemetry.yml --ask-vault-pass
 
@@ -137,6 +142,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl run kafka-test --image=bitnami/kafka:latest --restart=Never -- \
         kafka-topics.sh --list --bootstrap-server kafka-broker1.example.com:9092
       kubectl logs kafka-test
@@ -150,6 +156,7 @@ Verification
 **Run on: external Kafka broker**
 
 .. code-block:: bash
+
       kafka-console-consumer.sh \
         --bootstrap-server localhost:9092 \
         --topic omnia-telemetry \
@@ -164,6 +171,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl get pods -n telemetry | grep kafka
 
 
@@ -176,6 +184,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
       kubectl exec -n telemetry $VM_POD -- curl -s "http://localhost:8428/api/v1/query?query=up"
 
@@ -203,6 +212,7 @@ Troubleshooting
 **Run on: K8s worker node**
 
 .. code-block:: bash
+
       telnet kafka-broker1.example.com 9092
 
 
@@ -218,6 +228,7 @@ Troubleshooting
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl logs -n telemetry -l app=idrac-collector --tail=30
       kubectl logs -n telemetry -l app=ldms-aggregator --tail=30
 
@@ -230,6 +241,7 @@ Troubleshooting
 **Run on: external Kafka broker**
 
 .. code-block:: bash
+
       kafka-consumer-groups.sh \
         --bootstrap-server localhost:9092 \
         --group omnia-victoria-consumer \

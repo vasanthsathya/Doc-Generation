@@ -542,35 +542,109 @@ directory (see <a class="reference internal" href="../Storage/configure_nfs.html
 <li><p><strong>SSH to the Slurm login or control node</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>root@&lt;slurm-control-node-ip&gt;
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Create a directory for benchmark images</strong> on shared storage:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>/home/benchmarks/images
+mkdir<span class="w"> </span>-p<span class="w"> </span>/home/benchmarks/results
+<span class="nb">cd</span><span class="w"> </span>/home/benchmarks
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Pull the HPL (High Performance Linpack) benchmark container</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>apptainer<span class="w"> </span>pull<span class="w"> </span>images/hpl.sif<span class="w"> </span>docker://nvcr.io/nvidia/hpc-benchmarks:24.03
+
+
+
+!!!<span class="w"> </span>note
+
+<span class="w">    </span>For<span class="w"> </span>non-GPU<span class="w"> </span>clusters,<span class="w"> </span>use<span class="w"> </span>the<span class="w"> </span>standard<span class="w"> </span>HPL<span class="w"> </span>benchmark:
+</pre></div>
+</div>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apptainer<span class="w"> </span>pull<span class="w"> </span>images/hpl-cpu.sif<span class="w"> </span>docker://ghcr.io/hpc-benchmarks/hpl:latest
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Pull the OSU Micro-Benchmarks container</strong> for MPI testing:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apptainer<span class="w"> </span>pull<span class="w"> </span>images/osu-benchmarks.sif<span class="w"> </span>docker://ghcr.io/osu-benchmarks/osu-micro-benchmarks:latest
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the HPL benchmark</strong> as a Slurm job:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /home/benchmarks/run_hpl.sh</span>
+<span class="s">#!/bin/bash</span>
+<span class="s">#SBATCH --job-name=hpl-benchmark</span>
+<span class="s">#SBATCH --nodes=2</span>
+<span class="s">#SBATCH --ntasks-per-node=4</span>
+<span class="s">#SBATCH --time=01:00:00</span>
+<span class="s">#SBATCH --output=results/hpl-%j.out</span>
+
+<span class="s">cd /home/benchmarks</span>
+<span class="s">apptainer exec images/hpl.sif mpirun -np 8 /usr/local/bin/xhpl</span>
+<span class="s">EOF</span>
+
+sbatch<span class="w"> </span>/home/benchmarks/run_hpl.sh
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run GPU benchmarks</strong> (NVIDIA):</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /home/benchmarks/run_gpu_bench.sh</span>
+<span class="s">#!/bin/bash</span>
+<span class="s">#SBATCH --job-name=gpu-benchmark</span>
+<span class="s">#SBATCH --nodes=1</span>
+<span class="s">#SBATCH --gres=gpu:1</span>
+<span class="s">#SBATCH --time=00:30:00</span>
+<span class="s">#SBATCH --output=results/gpu-%j.out</span>
+
+<span class="s">cd /home/benchmarks</span>
+<span class="s">apptainer exec --nv images/hpl.sif nvidia-smi</span>
+<span class="s">apptainer exec --nv images/hpl.sif /usr/local/bin/cuda_bandwidthTest</span>
+<span class="s">EOF</span>
+
+sbatch<span class="w"> </span>/home/benchmarks/run_gpu_bench.sh
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run OSU MPI latency benchmark</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /home/benchmarks/run_osu_latency.sh</span>
+<span class="s">#!/bin/bash</span>
+<span class="s">#SBATCH --job-name=osu-latency</span>
+<span class="s">#SBATCH --nodes=2</span>
+<span class="s">#SBATCH --ntasks-per-node=1</span>
+<span class="s">#SBATCH --time=00:10:00</span>
+<span class="s">#SBATCH --output=results/osu-latency-%j.out</span>
+
+<span class="s">cd /home/benchmarks</span>
+<span class="s">apptainer exec images/osu-benchmarks.sif mpirun -np 2 /usr/local/bin/osu_latency</span>
+<span class="s">EOF</span>
+
+sbatch<span class="w"> </span>/home/benchmarks/run_osu_latency.sh
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Monitor benchmark job status</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>squeue
+<span class="c1"># Wait for completion, then check results</span>
+ls<span class="w"> </span>-la<span class="w"> </span>/home/benchmarks/results/
+</pre></div>
+</div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
@@ -578,14 +652,32 @@ directory (see <a class="reference internal" href="../Storage/configure_nfs.html
 <li><p><strong>Check benchmark job completed successfully</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>sacct<span class="w"> </span>--starttime<span class="o">=</span>today<span class="w"> </span>--format<span class="o">=</span>JobName,State,Elapsed,ExitCode
+
+
+
+All<span class="w"> </span>benchmark<span class="w"> </span><span class="nb">jobs</span><span class="w"> </span>should<span class="w"> </span>show<span class="w"> </span><span class="sb">``</span>COMPLETED<span class="sb">``</span><span class="w"> </span>state<span class="w"> </span>with<span class="w"> </span><span class="nb">exit</span><span class="w"> </span>code<span class="w"> </span><span class="sb">``</span><span class="m">0</span>:0<span class="sb">`</span>:doc:<span class="sb">`</span>.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Review HPL results</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/home/benchmarks/results/hpl-*.out<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A5<span class="w"> </span><span class="s2">&quot;T/V&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Review OSU latency results</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>cat<span class="w"> </span>/home/benchmarks/results/osu-latency-*.out
+
+
+
+Typical<span class="w"> </span>InfiniBand<span class="w"> </span>latency<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span>&lt;<span class="w"> </span><span class="m">5</span><span class="w"> </span>microseconds.<span class="w"> </span>Ethernet<span class="w"> </span>latency
+is<span class="w"> </span>typically<span class="w"> </span><span class="m">20</span>-50<span class="w"> </span>microseconds.
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -603,16 +695,27 @@ for HPC workloads.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>/home/benchmarks
+chown<span class="w"> </span>-R<span class="w"> </span>root:root<span class="w"> </span>/home/benchmarks
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Container fails to execute MPI</strong></dt><dd><p>Verify MPI is installed on the host and accessible inside the container:</p>
 </dd>
 </dl>
 <p><strong>Run on: Slurm compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>which<span class="w"> </span>mpirun
+apptainer<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>/home/benchmarks/images/hpl.sif<span class="w"> </span>which<span class="w"> </span>mpirun
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>GPU not accessible inside container</strong></dt><dd><p>Use the <code class="docutils literal notranslate"><span class="pre">--nv</span></code> flag with Apptainer for NVIDIA GPU access:</p>
 </dd>
 </dl>
 <p><strong>Run on: Slurm compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apptainer<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--nv<span class="w"> </span>/home/benchmarks/images/hpl.sif<span class="w"> </span>nvidia-smi
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>HPL gives poor performance numbers</strong></dt><dd><ul class="simple">
 <li><p>Verify the number of MPI ranks matches available cores.</p></li>
@@ -624,6 +727,9 @@ for HPC workloads.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#SBATCH --mem=0  # Use all available memory on the node</span>
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

@@ -691,6 +691,35 @@ cluster is deployed.</p>
 <h2>Final Pre-Flight Checks<a class="headerlink" href="#final-pre-flight-checks" title="Link to this heading">#</a></h2>
 <p>Run these commands on the OIM <strong>before</strong> starting any deployment path:</p>
 <p><strong>Run on OIM (as root)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify OS and kernel</span>
+cat<span class="w"> </span>/etc/redhat-release
+uname<span class="w"> </span>-r
+
+<span class="c1"># Verify RAM (expect &gt;= 64 GB)</span>
+free<span class="w"> </span>-h<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Mem
+
+<span class="c1"># Verify disk space (expect &gt;= 500 GB free on /)</span>
+df<span class="w"> </span>-h<span class="w"> </span>/
+
+<span class="c1"># Verify Podman</span>
+podman<span class="w"> </span>--version
+
+<span class="c1"># Verify Git</span>
+git<span class="w"> </span>--version
+
+<span class="c1"># Verify NICs (expect at least 2 interfaces up)</span>
+ip<span class="w"> </span>-br<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>UP
+
+<span class="c1"># Verify internet connectivity</span>
+curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;%{http_code}&quot;</span><span class="w"> </span>https://github.com
+
+<span class="c1"># Verify RHEL subscription</span>
+subscription-manager<span class="w"> </span>status
+
+<span class="c1"># Verify repos</span>
+dnf<span class="w"> </span>repolist
+</pre></div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If any of the above checks fail, resolve the issue <strong>before</strong> proceeding.

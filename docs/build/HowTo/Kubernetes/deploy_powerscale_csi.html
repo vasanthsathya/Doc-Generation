@@ -545,27 +545,101 @@ ISI_PRIV_QUOTA).</p></li>
 <li><p><strong>Install Helm</strong> on a K8s control-plane node (if not already installed):</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+helm<span class="w"> </span>version
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Create a namespace</strong> for the CSI driver:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>csi-powerscale
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Create the PowerScale secret</strong> with cluster connection details:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /tmp/powerscale-secret.yaml</span>
+<span class="s">   apiVersion: v1</span>
+<span class="s">   kind: Secret</span>
+<span class="s">   metadata:</span>
+<span class="s">     name: isilon-creds</span>
+<span class="s">     namespace: csi-powerscale</span>
+<span class="s">   type: Opaque</span>
+<span class="s">   stringData:</span>
+<span class="s">     config: |</span>
+<span class="s">       isilonClusters:</span>
+<span class="s">         - clusterName: &quot;cluster1&quot;</span>
+<span class="s">           username: &quot;csi_user&quot;</span>
+<span class="s">           password: &quot;YourPowerScalePassword&quot;</span>
+<span class="s">           endpoint: &quot;https://10.5.1.100&quot;</span>
+<span class="s">           endpointPort: &quot;8080&quot;</span>
+<span class="s">           isDefault: true</span>
+<span class="s">           isiPath: &quot;/ifs/csi&quot;</span>
+<span class="s">           isiVolumePathPermissions: &quot;0755&quot;</span>
+<span class="s">   EOF</span>
+
+<span class="w">   </span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>/tmp/powerscale-secret.yaml
+
+
+
+!!!<span class="w"> </span>warning
+
+<span class="w">    </span>Replace<span class="w"> </span><span class="sb">``</span>username<span class="sb">``</span>,<span class="w"> </span><span class="sb">``</span>password<span class="sb">``</span>,<span class="w"> </span>and<span class="w"> </span><span class="sb">``</span>endpoint<span class="sb">`</span>:doc:<span class="sb">`</span><span class="w"> </span>with<span class="w"> </span>your<span class="w"> </span>actual
+<span class="w">    </span>PowerScale<span class="w"> </span>credentials<span class="w"> </span>and<span class="w"> </span>management<span class="w"> </span>IP.<span class="w"> </span>Delete<span class="w"> </span>the<span class="w"> </span>temporary<span class="w"> </span>file
+<span class="w">    </span>after<span class="w"> </span>applying.
+</pre></div>
+</div>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>-f<span class="w"> </span>/tmp/powerscale-secret.yaml
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Add the Dell CSI Helm repository</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>dell<span class="w"> </span>https://dell.github.io/helm-charts
+helm<span class="w"> </span>repo<span class="w"> </span>update
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Install the PowerScale CSI driver</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>helm<span class="w"> </span>install<span class="w"> </span>isilon<span class="w"> </span>dell/csi-isilon<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>--namespace<span class="w"> </span>csi-powerscale<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>--set<span class="w"> </span>controller.replicas<span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>--set<span class="w"> </span><span class="nv">isiAuthType</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>--version<span class="w"> </span><span class="m">2</span>.8.0
+
+
+
+Execution<span class="w"> </span>time:<span class="w"> </span>**2-5<span class="w"> </span>minutes**.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Create a StorageClass</strong> for dynamic provisioning:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; | kubectl apply -f -</span>
+<span class="s">apiVersion: storage.k8s.io/v1</span>
+<span class="s">kind: StorageClass</span>
+<span class="s">metadata:</span>
+<span class="s">  name: powerscale-nfs</span>
+<span class="s">provisioner: csi-isilon.dellemc.com</span>
+<span class="s">reclaimPolicy: Delete</span>
+<span class="s">allowVolumeExpansion: true</span>
+<span class="s">parameters:</span>
+<span class="s">  AccessZone: &quot;System&quot;</span>
+<span class="s">  IsiPath: &quot;/ifs/csi&quot;</span>
+<span class="s">  IsiVolumePathPermissions: &quot;0755&quot;</span>
+<span class="s">  RootClientEnabled: &quot;false&quot;</span>
+<span class="s">mountOptions:</span>
+<span class="s">  - nfsvers=3</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
@@ -573,18 +647,53 @@ ISI_PRIV_QUOTA).</p></li>
 <li><p><strong>Verify CSI driver pods are running</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>csi-powerscale
+
+
+
+Expected:<span class="w"> </span>controller<span class="w"> </span>pods<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="w"> </span>replicas<span class="o">)</span><span class="w"> </span>and<span class="w"> </span>node<span class="w"> </span>pods<span class="w"> </span><span class="o">(</span>one<span class="w"> </span>per<span class="w"> </span>worker<span class="o">)</span><span class="w"> </span><span class="k">in</span>
+<span class="sb">``</span>Running<span class="sb">``</span><span class="w"> </span>state.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify the StorageClass was created</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>storageclass<span class="w"> </span>powerscale-nfs
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Test dynamic provisioning</strong> by creating a PVC:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; | kubectl apply -f -</span>
+<span class="s">   apiVersion: v1</span>
+<span class="s">   kind: PersistentVolumeClaim</span>
+<span class="s">   metadata:</span>
+<span class="s">     name: test-pvc</span>
+<span class="s">   spec:</span>
+<span class="s">     accessModes:</span>
+<span class="s">       - ReadWriteMany</span>
+<span class="s">     resources:</span>
+<span class="s">       requests:</span>
+<span class="s">         storage: 5Gi</span>
+<span class="s">     storageClassName: powerscale-nfs</span>
+<span class="s">   EOF</span>
+
+<span class="w">   </span>kubectl<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </span>test-pvc
+
+
+
+The<span class="w"> </span>PVC<span class="w"> </span>should<span class="w"> </span>transition<span class="w"> </span>from<span class="w"> </span><span class="sb">``</span>Pending<span class="sb">``</span><span class="w"> </span>to<span class="w"> </span><span class="sb">``</span>Bound<span class="sb">``</span>.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Clean up the test PVC</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>delete<span class="w"> </span>pvc<span class="w"> </span>test-pvc
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -602,22 +711,43 @@ nodes to share the same PowerScale storage.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>csi-powerscale<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>isilon-controller<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>PVC stuck in Pending</strong></dt><dd><p>Check the CSI provisioner events:</p>
 </dd>
 </dl>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>describe<span class="w"> </span>pvc<span class="w"> </span>test-pvc
+kubectl<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>-n<span class="w"> </span>csi-powerscale
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Authentication failure to PowerScale</strong></dt><dd><p>Verify the secret credentials:</p>
 </dd>
 </dl>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>isilon-creds<span class="w"> </span>-n<span class="w"> </span>csi-powerscale<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.data.config}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d
+
+
+
+Test<span class="w"> </span>API<span class="w"> </span>connectivity:
+</pre></div>
+</div>
 <p><strong>Run on: K8s worker node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-sk<span class="w"> </span>https://10.5.1.100:8080/platform/latest/protocols/nfs/exports
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Mount failure on worker nodes</strong></dt><dd><p>Ensure NFS client packages are installed:</p>
 </dd>
 </dl>
 <p><strong>Run on: K8s worker node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nfs-utils
+showmount<span class="w"> </span>-e<span class="w"> </span><span class="m">10</span>.5.1.100
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

@@ -49,6 +49,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -59,6 +60,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/network_spec.yml
 
 
@@ -69,6 +71,7 @@ Procedure
 **File: /opt/omnia/input/project_default/network_spec.yml**
 
 .. code-block:: yaml
+
       ---
       ib_network:
         ib_nic_name: "ib0"
@@ -84,6 +87,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cat /opt/omnia/input/project_default/software_config.json | python3 -m json.tool
 
 
@@ -94,6 +98,7 @@ Procedure
 **File: /opt/omnia/input/project_default/software_config.json**
 
 .. code-block:: json
+
       {
           "softwares": [
               {"name": "doca_ofed"}
@@ -108,6 +113,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
 
@@ -126,11 +132,12 @@ Procedure
 **Run on: compute node**
 
 .. code-block:: bash
+
       # Load InfiniBand modules
       modprobe mlx5_core
       modprobe mlx5_ib
       modprobe ib_ipoib
-   
+
       # Configure the IPoIB interface
       cat <<'EOF' > /etc/sysconfig/network-scripts/ifcfg-ib0
       DEVICE=ib0
@@ -141,7 +148,7 @@ Procedure
       ONBOOT=yes
       CONNECTED_MODE=yes
       EOF
-   
+
       ifup ib0
 
 
@@ -152,6 +159,7 @@ Procedure
 **Run on: OpenSM node (typically the Slurm control node)**
 
 .. code-block:: bash
+
       dnf install -y opensm
       systemctl enable --now opensm
 
@@ -173,6 +181,7 @@ Verification
 **Run on: compute node**
 
 .. code-block:: bash
+
       ip addr show ib0
 
 
@@ -185,6 +194,7 @@ Verification
 **Run on: compute node**
 
 .. code-block:: bash
+
       ibstat
 
 
@@ -195,6 +205,7 @@ Verification
 **Expected output on: compute node**
 
 .. code-block:: text
+
       CA 'mlx5_0'
          Port 1:
             State: Active
@@ -209,6 +220,7 @@ Verification
 **Run on: OpenSM node**
 
 .. code-block:: bash
+
       systemctl status opensm
 
 
@@ -219,6 +231,7 @@ Verification
 **Run on: compute node 1**
 
 .. code-block:: bash
+
       ping -c 5 10.230.0.102
 
 
@@ -231,6 +244,7 @@ Verification
 **Run on: compute node 1**
 
 .. code-block:: bash
+
       ib_write_bw
 
 
@@ -241,6 +255,7 @@ Verification
 **Run on: compute node 2**
 
 .. code-block:: bash
+
       ib_write_bw 10.230.0.101
 
 
@@ -253,6 +268,7 @@ Verification
 **Run on: compute node 1**
 
 .. code-block:: bash
+
       ib_write_lat
 
 
@@ -263,6 +279,7 @@ Verification
 **Run on: compute node 2**
 
 .. code-block:: bash
+
       ib_write_lat 10.230.0.101
 
 
@@ -292,6 +309,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       lsmod | grep mlx5
       lsmod | grep ib_ipoib
 
@@ -303,6 +321,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       modprobe mlx5_core
       modprobe mlx5_ib
       modprobe ib_ipoib
@@ -318,6 +337,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
         ibv_devinfo
 
 
@@ -329,6 +349,7 @@ Troubleshooting
 **Run on: OpenSM node**
 
 .. code-block:: bash
+
       journalctl -u opensm --no-pager -n 30
 
 
@@ -340,6 +361,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
         ibstat | grep Rate
 
 
@@ -350,6 +372,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
         perfquery
 
 
@@ -363,5 +386,6 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_node -m shell -a "ip addr show ib0 | grep inet"
 

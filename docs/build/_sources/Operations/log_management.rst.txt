@@ -92,18 +92,19 @@ logs`` command:
 **Run on: OIM host**
 
 .. code-block:: bash
+
    # List all running containers
    podman ps
-   
+
    # View logs for a specific container
    podman logs omnia_core
    podman logs ochami-smd
    podman logs ochami-bss
    podman logs coredhcp
-   
+
    # Follow logs in real time
    podman logs -f omnia_core
-   
+
    # View only the last 100 lines
    podman logs --tail 100 omnia_core
 
@@ -139,9 +140,10 @@ OpenCHAMI components write structured JSON logs accessible via Podman:
 **Run on: OIM host**
 
 .. code-block:: bash
+
    # SMD logs (node state changes)
    podman logs ochami-smd 2>&1 | jq '.'
-   
+
    # BSS logs (boot requests)
    podman logs ochami-bss 2>&1 | jq '.'
 
@@ -173,9 +175,10 @@ On Slurm cluster nodes, logs are stored in standard Slurm log directories:
 **Run on: Slurm nodes**
 
 .. code-block:: bash
+
    # On the Slurm control node
    tail -f /var/log/slurm/slurmctld.log
-   
+
    # On a compute node
    tail -f /var/log/slurm/slurmd.log
 
@@ -192,9 +195,10 @@ On Kubernetes cluster nodes, use ``kubectl`` or ``journalctl`` to access logs:
 **Run on: Kubernetes nodes**
 
 .. code-block:: bash
+
    # Pod logs
    kubectl logs <pod_name> -n <namespace>
-   
+
    # Kubelet logs on a specific node
    ssh <kube_node> journalctl -u kubelet -f
 
@@ -218,6 +222,7 @@ Default settings
 **File: /etc/logrotate.d/omnia**
 
 .. code-block:: text
+
    # /etc/logrotate.d/omnia
    /opt/omnia/log/core/playbooks/*.log {
        weekly
@@ -303,6 +308,7 @@ configuration on the control node:
 **File: /etc/logrotate.d/slurm**
 
 .. code-block:: text
+
    # /etc/logrotate.d/slurm
    /var/log/slurm/*.log {
        weekly
@@ -332,6 +338,7 @@ A sample of the ``omnia.log`` is provided below:
 **Sample omnia.log output**
 
 .. code-block:: text
+
    2021-02-15 15:17:36,877 p=2778 u=omnia n=ansible | [WARNING]: provided hosts
    list is empty, only localhost is available. Note that the implicit localhost does not
    match 'all'

@@ -100,7 +100,7 @@ Procedure
 
       # Confirm no Omnia containers remain
       podman ps -a | grep -i omnia
-   
+
       # Confirm no Omnia pods remain
       podman pod ls
 
@@ -136,6 +136,7 @@ Example of selective cleanup:
 **Run on: OIM host**
 
 .. code-block:: bash
+
    cd /omnia/utils/
    ansible-playbook oim_cleanup.yml -e "cleanup_telemetry=true"
 

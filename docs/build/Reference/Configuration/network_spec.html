@@ -505,6 +505,17 @@ compute, and public networks. Each network is described as an entry in the
 <p><code class="docutils literal notranslate"><span class="pre">network_spec.yml</span></code> contains a single top-level key, <code class="docutils literal notranslate"><span class="pre">Networks</span></code>, which is a
 YAML list of network definitions.</p>
 <p><strong>File: /opt/omnia/input/project_default/network_spec.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Networks</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">admin_network</span><span class="p">:</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bmc_network</span><span class="p">:</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">compute_network</span><span class="p">:</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">public_network</span><span class="p">:</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</pre></div>
+</div>
 </section>
 <section id="admin-network-parameters">
 <h2>admin_network parameters<a class="headerlink" href="#admin-network-parameters" title="Link to this heading">#</a></h2>
@@ -705,6 +716,33 @@ YAML list of network definitions.</p>
 <section id="usage-example">
 <h2>Usage example<a class="headerlink" href="#usage-example" title="Link to this heading">#</a></h2>
 <p><strong>File: /opt/omnia/input/project_default/network_spec.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Networks</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">admin_network</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">oim_nic_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno1&quot;</span>
+<span class="w">      </span><span class="nt">netmask_bits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">      </span><span class="nt">primary_oim_admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.100&quot;</span>
+<span class="w">      </span><span class="nt">primary_oim_bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.5&quot;</span>
+<span class="w">      </span><span class="nt">dynamic_range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.101-10.5.0.200&quot;</span>
+<span class="w">      </span><span class="nt">dns</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.100&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">bmc_network</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">oim_nic_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno2&quot;</span>
+<span class="w">      </span><span class="nt">netmask_bits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24</span>
+<span class="w">      </span><span class="nt">dynamic_range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.201-10.3.0.254&quot;</span>
+<span class="w">      </span><span class="nt">static_range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.100-10.3.0.200&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">compute_network</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">oim_nic_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;enp175s0f0&quot;</span>
+<span class="w">      </span><span class="nt">netmask_bits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24</span>
+<span class="w">      </span><span class="nt">mtu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9216</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">public_network</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">oim_nic_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;enp175s0f1&quot;</span>
+<span class="w">      </span><span class="nt">netmask_bits</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24</span>
+<span class="w">      </span><span class="nt">gateway</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;192.168.1.1&quot;</span>
+<span class="w">      </span><span class="nt">dns</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;8.8.8.8&quot;</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">

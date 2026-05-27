@@ -52,6 +52,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -62,6 +63,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ls -lh /opt/omnia/iso/
 
 
@@ -74,6 +76,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook build_image_x86_64.yml
 
@@ -87,6 +90,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
           ansible-playbook build_image_x86_64.yml --ask-vault-pass
 
 
@@ -97,6 +101,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook build_image_aarch64.yml
 
@@ -122,6 +127,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       s3cmd ls -Hr s3://boot-images
 
 
@@ -132,6 +138,7 @@ Verification
 **Expected output on: omnia_core container**
 
 .. code-block:: text
+
       2024-01-15 10:30  3145728000  s3://boot-images/x86_64/rhel-8.8/rootfs.img
       2024-01-15 10:30     8388608  s3://boot-images/x86_64/rhel-8.8/vmlinuz
       2024-01-15 10:30    52428800  s3://boot-images/x86_64/rhel-8.8/initrd.img
@@ -144,6 +151,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ochami bss list
 
 
@@ -157,6 +165,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       s3cmd du s3://boot-images
 
 
@@ -187,6 +196,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cat /opt/omnia/input/project_default/provision_config.yml | grep iso_file_path
       ls -lh /opt/omnia/iso/
 
@@ -199,6 +209,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       curl -s http://localhost:8080/pulp/api/v3/distributions/rpm/rpm/ | python3 -m json.tool
 
 
@@ -210,6 +221,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       s3cmd ls
 
 
@@ -220,6 +232,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       systemctl restart minio.service
 
 
