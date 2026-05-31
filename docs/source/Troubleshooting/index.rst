@@ -56,10 +56,10 @@ When you encounter an issue, follow this general diagnostic flow:
 
    general
    provisioning
-   authentication
    slurm
    kubernetes
    telemetry
+   authentication
    buildstream
    known_limitations
 

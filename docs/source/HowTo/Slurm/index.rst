@@ -5,10 +5,13 @@ Slurm
 .. toctree::
    :maxdepth: 1
 
-   add_slurm_nodes
-   build_slurm_repo
-   remove_slurm_nodes
-   run_hpc_benchmarks
    setup_slurm
-   slurm_config_backup
+   build_slurm_repo
    slurm_with_gpu
+   add_slurm_nodes
+   remove_slurm_nodes
+   slurm_config_backup
+   run_hpc_benchmarks
+   
+  
+   
