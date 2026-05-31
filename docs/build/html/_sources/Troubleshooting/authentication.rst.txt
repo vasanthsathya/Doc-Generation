@@ -301,7 +301,7 @@ Certificate errors
 
           # Using openssl
           openssl x509 -in /etc/step/certs/server.crt -noout -dates
-   
+
           # Using step-cli
           step certificate inspect /etc/step/certs/server.crt --short
 

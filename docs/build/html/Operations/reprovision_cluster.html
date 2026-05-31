@@ -490,25 +490,56 @@ survive the re-provision.</p></li>
 <p>Before re-provisioning, gracefully drain all workloads from the target nodes.</p>
 <p><strong>For Slurm nodes:</strong></p>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">NodeName</span><span class="o">=</span>compute-03<span class="w"> </span><span class="nv">State</span><span class="o">=</span>DRAIN<span class="w"> </span><span class="nv">Reason</span><span class="o">=</span><span class="s2">&quot;Re-provisioning&quot;</span>
+</pre></div>
+</div>
 <p>Wait for running jobs to complete, or cancel them if immediate action is needed:</p>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check for running jobs on the node</span>
+squeue<span class="w"> </span>-w<span class="w"> </span>compute-03
+
+<span class="c1"># Cancel if necessary</span>
+scancel<span class="w"> </span>&lt;job_id&gt;
+</pre></div>
+</div>
 <p><strong>For Kubernetes nodes:</strong></p>
 <p><strong>Run on: Kubernetes control plane</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>drain<span class="w"> </span>kube-worker-02<span class="w"> </span>--ignore-daemonsets<span class="w"> </span>--delete-emptydir-data
+</pre></div>
+</div>
 </section>
 <section id="step-2-update-configuration">
 <h3>Step 2: Update configuration<a class="headerlink" href="#step-2-update-configuration" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>Review and update the input configuration files as needed:</p></li>
 </ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>ssh<span class="w"> </span>omnia_core
+<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/omnia/input
+
+
+
+-<span class="w"> </span><span class="sb">``</span>mapping_file.csv<span class="sb">``</span><span class="w"> </span>--<span class="w"> </span>Update<span class="w"> </span>node<span class="w"> </span>roles<span class="w"> </span><span class="k">if</span><span class="w"> </span>changing.
+-<span class="w"> </span><span class="sb">``</span>provision_config.yml<span class="sb">``</span><span class="w"> </span>--<span class="w"> </span>Update<span class="w"> </span>OS<span class="w"> </span>image<span class="w"> </span>or<span class="w"> </span>provisioning<span class="w"> </span>parameters.
+-<span class="w"> </span><span class="sb">``</span>omnia_config.yml<span class="sb">``</span><span class="w"> </span>--<span class="w"> </span>Update<span class="w"> </span>cluster-level<span class="w"> </span>settings.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p>If building a new OS image, run the image-build process:</p></li>
 </ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
+ansible-playbook<span class="w"> </span>playbooks/build_cluster_images.yml
+</pre></div>
+</div>
 </section>
 <section id="step-3-re-image-the-nodes">
 <h3>Step 3: Re-image the nodes<a class="headerlink" href="#step-3-re-image-the-nodes" title="Link to this heading">#</a></h3>
 <p>Run <code class="docutils literal notranslate"><span class="pre">discovery.yml</span></code> to re-discover and PXE-boot the target nodes with the
 updated OS image:</p>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
+ansible-playbook<span class="w"> </span>playbooks/discovery.yml
+</pre></div>
+</div>
 <p>The nodes will:</p>
 <ol class="arabic simple">
 <li><p>Reboot into the PXE environment.</p></li>
@@ -526,6 +557,10 @@ image size and network speed.</p>
 <p>After the nodes have been re-imaged and are accessible via SSH, redeploy the
 Omnia cluster software:</p>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
+ansible-playbook<span class="w"> </span>playbooks/omnia.yml
+</pre></div>
+</div>
 <p>This playbook applies the full cluster configuration, including:</p>
 <ul class="simple">
 <li><p>Slurm controller and compute daemon setup</p></li>
@@ -540,6 +575,19 @@ Omnia cluster software:</p>
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
 <p>After re-provisioning is complete:</p>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify Slurm nodes are back online</span>
+sinfo
+
+<span class="c1"># Verify Kubernetes nodes are Ready</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+
+<span class="c1"># Check for any failed Ansible tasks in the log</span>
+cat<span class="w"> </span>/opt/omnia/log/core/playbooks/omnia.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;failed&quot;</span>
+
+<span class="c1"># Run a test Slurm job</span>
+srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>hostname
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">

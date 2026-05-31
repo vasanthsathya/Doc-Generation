@@ -679,6 +679,22 @@ bandwidth-efficient deployments.</p>
 <section id="usage-example">
 <h2>Usage example<a class="headerlink" href="#usage-example" title="Link to this heading">#</a></h2>
 <p><strong>File: /opt/omnia/input/project_default/local_repo_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">repo_store_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/omnia/repo_store&quot;</span>
+<span class="nt">repo_sync_on_run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="nt">rhel_os_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://mirror.example.com/rhel/10.0/x86_64/baseos/&quot;</span>
+<span class="nt">rhel_appstream_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://mirror.example.com/rhel/10.0/x86_64/appstream/&quot;</span>
+<span class="nt">rhel_crb_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://mirror.example.com/rhel/10.0/x86_64/crb/&quot;</span>
+
+<span class="nt">nvidia_gpu_repo_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://developer.download.nvidia.com/compute/cuda/repos/rhel10/x86_64/&quot;</span>
+<span class="nt">kubernetes_repo_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://pkgs.k8s.io/core:/stable:/v1.29/rpm/&quot;</span>
+
+<span class="nt">custom_repos</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;internal-tools&quot;</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://repo.internal.example.com/tools/&quot;</span>
+<span class="w">    </span><span class="nt">gpgcheck</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">

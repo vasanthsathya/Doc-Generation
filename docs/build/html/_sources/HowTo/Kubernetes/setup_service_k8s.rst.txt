@@ -51,6 +51,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -61,6 +62,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -71,6 +73,7 @@ Procedure
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+
       ---
       # Kubernetes configuration
       k8s_version: "1.28"
@@ -93,6 +96,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       grep -E "kube_control_plane|kube_node" /opt/omnia/input/project_default/pxe_mapping_file.csv
 
 
@@ -106,6 +110,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
 
@@ -135,6 +140,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl get nodes -o wide
 
 
@@ -145,6 +151,7 @@ Verification
 **Expected output on: K8s control plane node**
 
 .. code-block:: text
+
       NAME          STATUS   ROLES           AGE   VERSION    INTERNAL-IP
       k8s-cp01      Ready    control-plane   10m   v1.28.x    10.5.0.105
       k8s-cp02      Ready    control-plane   10m   v1.28.x    10.5.0.106
@@ -161,6 +168,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl get pods -A
 
 
@@ -174,6 +182,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl get pods -n metallb-system
       kubectl get ipaddresspool -n metallb-system
 
@@ -185,6 +194,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl get pods -n kube-system | grep nfs
       kubectl get storageclass
 
@@ -196,6 +206,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl run test --image=busybox --restart=Never -- echo "K8s is working"
       kubectl logs test
       kubectl delete pod test
@@ -208,6 +219,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl create deployment nginx --image=nginx
       kubectl expose deployment nginx --type=LoadBalancer --port=80
       kubectl get svc nginx
@@ -220,6 +232,7 @@ Verification
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       # Cleanup
       kubectl delete svc nginx
       kubectl delete deployment nginx
@@ -251,6 +264,7 @@ Troubleshooting
 **Run on: affected K8s node**
 
 .. code-block:: bash
+
       systemctl status kubelet
       journalctl -u kubelet --no-pager -n 30
 
@@ -263,6 +277,7 @@ Troubleshooting
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl logs -n calico-system -l k8s-app=calico-node --tail=50
 
 
@@ -274,6 +289,7 @@ Troubleshooting
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       kubectl get ipaddresspool -n metallb-system -o yaml
       kubectl get l2advertisement -n metallb-system
 
@@ -286,6 +302,7 @@ Troubleshooting
 **Run on: K8s worker node**
 
 .. code-block:: bash
+
       showmount -e <nfs-server-ip>
 
 
@@ -297,6 +314,7 @@ Troubleshooting
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       mkdir -p $HOME/.kube
       cp /etc/kubernetes/admin.conf $HOME/.kube/config
       chown $(id -u):$(id -g) $HOME/.kube/config

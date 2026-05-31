@@ -706,6 +706,19 @@ authentication.</p>
 <section id="usage-example">
 <h2>Usage example<a class="headerlink" href="#usage-example" title="Link to this heading">#</a></h2>
 <p><strong>File: /opt/omnia/input/project_default/security_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">auth_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ldap&quot;</span>
+<span class="nt">ldap_uri</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ldap://10.5.0.50&quot;</span>
+<span class="nt">ldap_base_dn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dc=hpc,dc=example,dc=com&quot;</span>
+<span class="nt">ldap_bind_dn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cn=admin,dc=hpc,dc=example,dc=com&quot;</span>
+<span class="nt">ldap_tls_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">enable_kerberos</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">enable_firewall</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">enable_selinux</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">ssh_key_auth_only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">

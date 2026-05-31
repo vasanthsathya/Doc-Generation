@@ -543,24 +543,85 @@ container is running).</p></li>
 <li><p><strong>Enter the omnia_core container</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Configure authentication parameters</strong> in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
+
+
+
+Add<span class="w"> </span>or<span class="w"> </span>update<span class="w"> </span>the<span class="w"> </span>LDAP<span class="w"> </span>parameters:
+</pre></div>
+</div>
 <p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="c1"># Authentication configuration</span>
+<span class="nt">auth_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;openldap&quot;</span>
+<span class="nt">ldap_base_dn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dc=omnia,dc=example,dc=com&quot;</span>
+<span class="nt">ldap_admin_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># Set via credentials utility</span>
+<span class="nt">ldap_organization</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Omnia</span><span class="nv"> </span><span class="s">HPC</span><span class="nv"> </span><span class="s">Cluster&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the auth.yml playbook</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/omnia
+<span class="w">    </span>ansible-playbook<span class="w"> </span>auth.yml<span class="w"> </span>--ask-vault-pass
+
+
+
+<span class="w"> </span>The<span class="w"> </span>playbook<span class="w"> </span>performs:
+
+-<span class="w"> </span>Configures<span class="w"> </span>the<span class="w"> </span>OpenLDAP<span class="w"> </span>directory<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span><span class="sb">``</span>omnia_auth<span class="sb">``</span><span class="w"> </span>container.
+-<span class="w"> </span>Sets<span class="w"> </span>the<span class="w"> </span>admin<span class="w"> </span><span class="o">(</span><span class="nv">cn</span><span class="o">=</span>admin<span class="o">)</span><span class="w"> </span>password.
+-<span class="w"> </span>Creates<span class="w"> </span>the<span class="w"> </span>organizational<span class="w"> </span>structure<span class="w"> </span><span class="o">(</span>OUs<span class="w"> </span><span class="k">for</span><span class="w"> </span>users<span class="w"> </span>and<span class="w"> </span>groups<span class="o">)</span>.
+-<span class="w"> </span>Installs<span class="w"> </span>and<span class="w"> </span>configures<span class="w"> </span>SSSD<span class="w"> </span>on<span class="w"> </span>all<span class="w"> </span>cluster<span class="w"> </span>nodes.
+-<span class="w"> </span>Configures<span class="w"> </span>PAM<span class="w"> </span><span class="k">for</span><span class="w"> </span>LDAP<span class="w"> </span>authentication.
+-<span class="w"> </span>Sets<span class="w"> </span>up<span class="w"> </span>automatic<span class="w"> </span>home<span class="w"> </span>directory<span class="w"> </span>creation<span class="w"> </span>on<span class="w"> </span>first<span class="w"> </span>login.
+
+<span class="w"> </span>Execution<span class="w"> </span>time:<span class="w"> </span>**10-20<span class="w"> </span>minutes**.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Add LDAP users</strong> from the omnia_auth container:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>omnia_auth<span class="w"> </span>bash
+</pre></div>
+</div>
 <p><strong>Run on: omnia_auth container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an LDIF file for a new user</span>
+cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /tmp/add_user.ldif</span>
+<span class="s">dn: uid=testuser,ou=People,dc=omnia,dc=example,dc=com</span>
+<span class="s">objectClass: inetOrgPerson</span>
+<span class="s">objectClass: posixAccount</span>
+<span class="s">objectClass: shadowAccount</span>
+<span class="s">uid: testuser</span>
+<span class="s">cn: Test User</span>
+<span class="s">sn: User</span>
+<span class="s">uidNumber: 10001</span>
+<span class="s">gidNumber: 10001</span>
+<span class="s">homeDirectory: /home/testuser</span>
+<span class="s">loginShell: /bin/bash</span>
+<span class="s">userPassword: {SSHA}TemporaryPassword</span>
+<span class="s">EOF</span>
+
+ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>/tmp/add_user.ldif
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Set the user’s password</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_auth container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldappasswd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span>-W<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-S<span class="w"> </span><span class="s2">&quot;uid=testuser,ou=People,dc=omnia,dc=example,dc=com&quot;</span>
+</pre></div>
+</div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
@@ -568,23 +629,46 @@ container is running).</p></li>
 <li><p><strong>Verify OpenLDAP is running</strong> in the omnia_auth container:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>omnia_auth<span class="w"> </span>slapcat<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Test LDAP search</strong> from the omnia_core container:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://omnia_auth<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span><span class="s2">&quot;(uid=testuser)&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify SSSD is running</strong> on cluster nodes:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;systemctl is-active sssd&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Test user resolution</strong> on a compute node:</p></li>
 </ol>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>id<span class="w"> </span>testuser
+<span class="w">   </span>getent<span class="w"> </span>passwd<span class="w"> </span>testuser
+
+
+
+Expected<span class="w"> </span>output:
+</pre></div>
+</div>
 <p><strong>Expected output on: compute node</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>uid=10001(testuser) gid=10001(testuser) groups=10001(testuser)
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Test SSH login</strong> as the LDAP user:</p></li>
 </ol>
 <p><strong>Run on: any node with network access</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>testuser@&lt;compute-node-ip&gt;
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -602,6 +686,9 @@ directory.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://&lt;oim-ip&gt;<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=omnia,dc=example,dc=com&quot;</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>User not found (getent returns nothing)</strong></dt><dd><ul class="simple">
 <li><p>Clear the SSSD cache:</p></li>
@@ -609,22 +696,43 @@ directory.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>sss_cache<span class="w"> </span>-E
+<span class="w">      </span>systemctl<span class="w"> </span>restart<span class="w"> </span>sssd
+
+
+
+-<span class="w"> </span>Check<span class="w"> </span>SSSD<span class="w"> </span>logs:
+</pre></div>
+</div>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>journalctl<span class="w"> </span>-u<span class="w"> </span>sssd<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">30</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>ldapadd returns “invalid credentials”</strong></dt><dd><p>Ensure you are using the correct admin DN and password:</p>
 </dd>
 </dl>
 <p><strong>Run on: omnia_auth container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapwhoami<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span>-W
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Home directory not created on first login</strong></dt><dd><p>Verify the <code class="docutils literal notranslate"><span class="pre">pam_mkhomedir</span></code> module is configured:</p>
 </dd>
 </dl>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span>mkhomedir<span class="w"> </span>/etc/pam.d/system-auth
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Auth playbook fails with “omnia_auth container not found”</strong></dt><dd><p>Ensure the container is running:</p>
 </dd>
 </dl>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>omnia_auth.service
+podman<span class="w"> </span>ps<span class="w"> </span>--filter<span class="w"> </span><span class="nv">name</span><span class="o">=</span>omnia_auth
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

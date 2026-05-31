@@ -49,6 +49,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -59,6 +60,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -69,6 +71,7 @@ Procedure
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+
       ---
       # Slurm configuration
       slurm_installation_type: "nfs_share"
@@ -89,6 +92,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
 
@@ -125,6 +129,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       systemctl status slurmctld
 
 
@@ -135,6 +140,7 @@ Verification
 **Run on: Slurm compute node**
 
 .. code-block:: bash
+
       systemctl status slurmd
 
 
@@ -145,6 +151,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       sinfo
 
 
@@ -155,6 +162,7 @@ Verification
 **Expected output on: Slurm control node**
 
 .. code-block:: text
+
       PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
       normal*      up   infinite      2   idle compute[01-02]
 
@@ -166,6 +174,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       srun -N 2 hostname
 
 
@@ -176,6 +185,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       munge -n | ssh <compute-node> unmunge
 
 
@@ -188,6 +198,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       sacctmgr show cluster
 
 
@@ -216,6 +227,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       journalctl -u slurmctld --no-pager -n 50
       cat /var/log/slurm/slurmctld.log
 
@@ -228,6 +240,7 @@ Troubleshooting
 **Run on: affected compute node**
 
 .. code-block:: bash
+
         systemctl status slurmd
         journalctl -u slurmd --no-pager -n 20
 
@@ -239,6 +252,7 @@ Troubleshooting
 **Run on: affected compute node**
 
 .. code-block:: bash
+
         systemctl status munge
 
 
@@ -249,6 +263,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
         scontrol update nodename=<node> state=resume
 
 
@@ -260,6 +275,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_cluster -m shell -a "md5sum /etc/munge/munge.key"
 
 
@@ -273,6 +289,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       systemctl status mariadb
       mysql -u slurm -p -e "SHOW DATABASES;"
 

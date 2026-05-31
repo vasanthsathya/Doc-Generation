@@ -570,6 +570,9 @@ ansible<span class="w"> </span>login_node<span class="w"> </span>-m<span class="
 <li><p><strong>Install from a specific repository</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>dnf<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;name=openmpi-devel enablerepo=epel state=present&quot;</span>
+</pre></div>
+</div>
 </section>
 <section id="approach-2-custom-ansible-playbook">
 <h3>Approach 2: Custom Ansible Playbook<a class="headerlink" href="#approach-2-custom-ansible-playbook" title="Link to this heading">#</a></h3>
@@ -639,14 +642,39 @@ ansible-playbook<span class="w"> </span>custom_packages.yml
 <li><p><strong>Add custom RPMs to Pulp</strong> for automatic deployment to new nodes:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a custom repository in Pulp</span>
+pulp<span class="w"> </span>rpm<span class="w"> </span>repository<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>custom-packages
+
+<span class="c1"># Upload custom RPMs</span>
+pulp<span class="w"> </span>rpm<span class="w"> </span>content<span class="w"> </span>upload<span class="w"> </span>--file<span class="w"> </span>/path/to/custom-package.rpm<span class="w"> </span>--repository<span class="w"> </span>custom-packages
+
+<span class="c1"># Create publication and distribution</span>
+pulp<span class="w"> </span>rpm<span class="w"> </span>publication<span class="w"> </span>create<span class="w"> </span>--repository<span class="w"> </span>custom-packages
+pulp<span class="w"> </span>rpm<span class="w"> </span>distribution<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>custom-packages<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--base-path<span class="w"> </span>custom-packages<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--repository<span class="w"> </span>custom-packages
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Configure nodes to use the custom repository</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>yum_repository<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;</span>
+<span class="s2">  name=custom-packages</span>
+<span class="s2">  description=&#39;Custom Omnia Packages&#39;</span>
+<span class="s2">  baseurl=http://&lt;oim-ip&gt;:8080/pulp/content/custom-packages/</span>
+<span class="s2">  gpgcheck=0</span>
+<span class="s2">  enabled=1</span>
+<span class="s2">&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Install from the custom repository</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>dnf<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;name=custom-package state=present enablerepo=custom-packages&quot;</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="verification">
@@ -655,18 +683,30 @@ ansible-playbook<span class="w"> </span>custom_packages.yml
 <li><p><strong>Verify packages are installed</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;rpm -q gcc cmake htop&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Check package versions</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;gcc --version | head -1&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify Python packages</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;pip3 list | grep numpy&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify custom Pulp repository</strong> is available:</p></li>
 </ol>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>repolist<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>custom-packages
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -683,26 +723,42 @@ installed packages.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>search<span class="w"> </span>&lt;package-name&gt;
+dnf<span class="w"> </span>repolist
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Package conflicts</strong></dt><dd><p>Check for conflicting packages:</p>
 </dd>
 </dl>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>check
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Custom Pulp repository not accessible</strong></dt><dd><p>Verify the distribution URL:</p>
 </dd>
 </dl>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>http://&lt;oim-ip&gt;:8080/pulp/content/custom-packages/repodata/repomd.xml<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Pip install fails</strong></dt><dd><p>Ensure pip and Python are installed:</p>
 </dd>
 </dl>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3<span class="w"> </span>python3-pip
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Ansible times out on large installations</strong></dt><dd><p>Increase the Ansible timeout:</p>
 </dd>
 </dl>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>dnf<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;name=large-package state=present&quot;</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;ansible_timeout=600&quot;</span>
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

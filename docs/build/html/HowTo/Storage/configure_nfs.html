@@ -552,11 +552,40 @@ desired path, and the server IP is reachable from all cluster nodes.</p></li>
 <li><p><strong>Configure NFS in omnia_config.yml</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
+
+
+
+Set<span class="w"> </span>the<span class="w"> </span>NFS<span class="w"> </span>parameters:
+</pre></div>
+</div>
 <p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">enable_omnia_nfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">nfs_node_group</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;slurm_control_node&quot;</span>
+<span class="nt">omnia_nfs_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/home&quot;</span>
+<span class="nt">omnia_nfs_opts</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rw,sync,no_root_squash,no_subtree_check&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the omnia.yml playbook</strong> to deploy NFS:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/omnia
+<span class="w">    </span>ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass
+
+
+
+<span class="w"> </span>The<span class="w"> </span>playbook<span class="w"> </span>will:
+
+-<span class="w"> </span>Install<span class="w"> </span><span class="sb">``</span>nfs-utils<span class="sb">``</span><span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>NFS<span class="w"> </span>server<span class="w"> </span>node.
+-<span class="w"> </span>Create<span class="w"> </span>the<span class="w"> </span>shared<span class="w"> </span>directory<span class="w"> </span>with<span class="w"> </span><span class="m">755</span><span class="w"> </span>permissions.
+-<span class="w"> </span>Configure<span class="w"> </span><span class="sb">``</span>/etc/exports<span class="sb">``</span><span class="w"> </span>with<span class="w"> </span><span class="sb">``</span>no_root_squash<span class="sb">``</span>.
+-<span class="w"> </span>Start<span class="w"> </span>and<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>the<span class="w"> </span><span class="sb">``</span>nfs-server<span class="sb">``</span><span class="w"> </span>service.
+-<span class="w"> </span>Mount<span class="w"> </span>the<span class="w"> </span>NFS<span class="w"> </span>share<span class="w"> </span>on<span class="w"> </span>all<span class="w"> </span>compute<span class="w"> </span>and<span class="w"> </span>login<span class="w"> </span>nodes.
+-<span class="w"> </span>Add<span class="w"> </span>the<span class="w"> </span>mount<span class="w"> </span>to<span class="w"> </span><span class="sb">``</span>/etc/fstab<span class="sb">``</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>persistence<span class="w"> </span>across<span class="w"> </span>reboots.
+</pre></div>
+</div>
 </section>
 <section id="external-nfs">
 <h3>External NFS<a class="headerlink" href="#external-nfs" title="Link to this heading">#</a></h3>
@@ -564,16 +593,43 @@ desired path, and the server IP is reachable from all cluster nodes.</p></li>
 <li><p><strong>Configure external NFS in omnia_config.yml</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
+</pre></div>
+</div>
 <p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">enable_omnia_nfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">external_nfs_server</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.1.100&quot;</span>
+<span class="nt">external_nfs_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/ifs/omnia/home&quot;</span>
+<span class="nt">external_nfs_mount_point</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/home&quot;</span>
+<span class="nt">external_nfs_opts</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rw,hard,intr,nfsvers=3&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the omnia.yml playbook</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
+ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>(Alternative) Manual NFS mount</strong> on a specific node:</p></li>
 </ol>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nfs-utils
+<span class="w">   </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/home
+<span class="w">   </span>mount<span class="w"> </span>-t<span class="w"> </span>nfs<span class="w"> </span>-o<span class="w"> </span>rw,hard,intr,nfsvers<span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="m">10</span>.5.1.100:/ifs/omnia/home<span class="w"> </span>/home
+
+
+
+Add<span class="w"> </span>to<span class="w"> </span><span class="sb">``</span>/etc/fstab<span class="sb">``</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>persistence:
+</pre></div>
+</div>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;10.5.1.100:/ifs/omnia/home /home nfs rw,hard,intr,nfsvers=3 0 0&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/fstab
+</pre></div>
+</div>
 </section>
 </section>
 <section id="verification">
@@ -582,23 +638,48 @@ desired path, and the server IP is reachable from all cluster nodes.</p></li>
 <li><p><strong>Verify the NFS server is exporting</strong> (internal NFS):</p></li>
 </ol>
 <p><strong>Run on: NFS server node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>exportfs<span class="w"> </span>-v
+
+
+
+Expected<span class="w"> </span>output:
+</pre></div>
+</div>
 <p><strong>Expected output on: NFS server node</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/home  &lt;network&gt;(rw,sync,wdelay,no_root_squash,no_subtree_check,...)
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify NFS is mounted on compute nodes</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;df -h /home&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Test read/write from a compute node</strong>:</p></li>
 </ol>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;NFS test </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/home/nfs_test.txt
+cat<span class="w"> </span>/home/nfs_test.txt
+rm<span class="w"> </span>/home/nfs_test.txt
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify permissions</strong>:</p></li>
 </ol>
 <p><strong>Run on: NFS server node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-ld<span class="w"> </span>/home
+<span class="c1"># Expected: drwxr-xr-x (755)</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify mount persists across reboot</strong>:</p></li>
 </ol>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span><span class="s2">&quot;/home&quot;</span><span class="w"> </span>/etc/fstab
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -618,17 +699,38 @@ cluster-wide access.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: NFS server node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>exportfs<span class="w"> </span>-v
+<span class="w">   </span>cat<span class="w"> </span>/etc/exports
+
+
+
+Ensure<span class="w"> </span>the<span class="w"> </span><span class="nb">export</span><span class="w"> </span>includes<span class="w"> </span>the<span class="w"> </span>admin<span class="w"> </span>network<span class="w"> </span>range:
+</pre></div>
+</div>
 <p><strong>File: /etc/exports on NFS server node</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/home 10.5.0.0/24(rw,sync,no_root_squash,no_subtree_check)
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>“mount.nfs: Connection timed out”</strong></dt><dd><p>Check firewall rules on the NFS server:</p>
 </dd>
 </dl>
 <p><strong>Run on: NFS server node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>firewall-cmd<span class="w"> </span>--add-service<span class="o">=</span>nfs<span class="w"> </span>--permanent
+firewall-cmd<span class="w"> </span>--add-service<span class="o">=</span>mountd<span class="w"> </span>--permanent
+firewall-cmd<span class="w"> </span>--add-service<span class="o">=</span>rpc-bind<span class="w"> </span>--permanent
+firewall-cmd<span class="w"> </span>--reload
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Stale NFS handles after server restart</strong></dt><dd><p>Remount on affected nodes:</p>
 </dd>
 </dl>
 <p><strong>Run on: affected compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>umount<span class="w"> </span>-l<span class="w"> </span>/home
+mount<span class="w"> </span>/home
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Performance is slow</strong></dt><dd><ul class="simple">
 <li><p>Use NFSv3 instead of NFSv4 for HPC workloads (NFSv3 has lower latency).</p></li>
@@ -637,6 +739,9 @@ cluster-wide access.</p></li>
 </dd>
 </dl>
 <p><strong>File: /etc/fstab on compute node</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>10.5.1.100:/ifs/omnia/home /home nfs rw,hard,intr,nfsvers=3,rsize=1048576,wsize=1048576 0 0
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

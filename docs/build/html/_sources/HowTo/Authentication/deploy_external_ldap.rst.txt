@@ -52,6 +52,7 @@ Standalone Server Deployment (Podman)
 **Run on: dedicated LDAP server**
 
 .. code-block:: bash
+
       ssh root@<ldap-server-ip>
 
 
@@ -62,6 +63,7 @@ Standalone Server Deployment (Podman)
 **Run on: dedicated LDAP server**
 
 .. code-block:: bash
+
       mkdir -p /opt/ldap/data
       mkdir -p /opt/ldap/config
 
@@ -73,6 +75,7 @@ Standalone Server Deployment (Podman)
 **Run on: dedicated LDAP server**
 
 .. code-block:: bash
+
       podman run -d \
         --name openldap \
         --restart=always \
@@ -95,11 +98,12 @@ Standalone Server Deployment (Podman)
 **Run on: dedicated LDAP server**
 
 .. code-block:: bash
+
       cat <<'EOF' > /opt/ldap/config/01-org.ldif
       dn: ou=People,dc=omnia,dc=example,dc=com
       objectClass: organizationalUnit
       ou: People
-   
+
       dn: ou=Groups,dc=omnia,dc=example,dc=com
       objectClass: organizationalUnit
       ou: Groups
@@ -113,6 +117,7 @@ Standalone Server Deployment (Podman)
 **Run on: dedicated LDAP server**
 
 .. code-block:: bash
+
       podman exec openldap ldapadd -x \
         -D "cn=admin,dc=omnia,dc=example,dc=com" \
         -w YourAdminPassword \
@@ -126,12 +131,13 @@ Standalone Server Deployment (Podman)
 **Run on: dedicated LDAP server**
 
 .. code-block:: bash
+
       cat <<'EOF' > /opt/ldap/config/02-users.ldif
       dn: cn=hpcusers,ou=Groups,dc=omnia,dc=example,dc=com
       objectClass: posixGroup
       cn: hpcusers
       gidNumber: 10000
-   
+
       dn: uid=hpcuser1,ou=People,dc=omnia,dc=example,dc=com
       objectClass: inetOrgPerson
       objectClass: posixAccount
@@ -144,7 +150,7 @@ Standalone Server Deployment (Podman)
       homeDirectory: /home/hpcuser1
       loginShell: /bin/bash
       EOF
-   
+
       podman exec openldap ldapadd -x \
         -D "cn=admin,dc=omnia,dc=example,dc=com" \
         -w YourAdminPassword \
@@ -158,6 +164,7 @@ Standalone Server Deployment (Podman)
 **Run on: dedicated LDAP server**
 
 .. code-block:: bash
+
       podman exec openldap ldappasswd -x \
         -D "cn=admin,dc=omnia,dc=example,dc=com" \
         -w YourAdminPassword \
@@ -177,9 +184,10 @@ Kubernetes Deployment (Helm)
 **Run on: K8s control plane node**
 
 .. code-block:: bash
+
       helm repo add bitnami https://charts.bitnami.com/bitnami
       helm repo update
-   
+
       helm install openldap bitnami/openldap \
         --namespace auth \
         --create-namespace \
@@ -204,6 +212,7 @@ Configure Omnia Nodes
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/omnia_config.yml
 
 
@@ -212,6 +221,7 @@ Configure Omnia Nodes
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+
       ---
       auth_type: "external_ldap"
       external_ldap_uri: "ldap://<ldap-server-ip>:389"
@@ -226,6 +236,7 @@ Configure Omnia Nodes
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia
       ansible-playbook auth.yml --ask-vault-pass
 
@@ -243,6 +254,7 @@ Verification
 **Run on: dedicated LDAP server**
 
 .. code-block:: bash
+
       podman ps --filter name=openldap
 
 
@@ -253,6 +265,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ldapsearch -x -H ldap://<ldap-server-ip> \
         -b "dc=omnia,dc=example,dc=com" "(uid=hpcuser1)"
 
@@ -264,6 +277,7 @@ Verification
 **Run on: compute node**
 
 .. code-block:: bash
+
       getent passwd hpcuser1
       id hpcuser1
 
@@ -275,6 +289,7 @@ Verification
 **Run on: any node**
 
 .. code-block:: bash
+
       ssh hpcuser1@<compute-node-ip>
 
 
@@ -301,6 +316,7 @@ Troubleshooting
 **Run on: dedicated LDAP server**
 
 .. code-block:: bash
+
       podman logs openldap
 
 
@@ -312,6 +328,7 @@ Troubleshooting
 **Run on: dedicated LDAP server**
 
 .. code-block:: bash
+
       ss -tlnp | grep 389
       # Kill or stop the conflicting process
 
@@ -324,6 +341,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       ldapsearch -x -H ldap://<ldap-server-ip> -b "dc=omnia,dc=example,dc=com" "(objectClass=*)" dn
 
 
@@ -335,5 +353,6 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible all -m shell -a "sss_cache -E && systemctl restart sssd"
 

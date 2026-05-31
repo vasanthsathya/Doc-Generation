@@ -89,6 +89,7 @@ Approach 1: Ansible Ad-Hoc Commands
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_node -m dnf -a "name=openmpi-devel enablerepo=epel state=present"
 
 
@@ -178,12 +179,13 @@ Approach 3: Custom Pulp Repository
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       # Create a custom repository in Pulp
       pulp rpm repository create --name custom-packages
-   
+
       # Upload custom RPMs
       pulp rpm content upload --file /path/to/custom-package.rpm --repository custom-packages
-   
+
       # Create publication and distribution
       pulp rpm publication create --repository custom-packages
       pulp rpm distribution create --name custom-packages \
@@ -198,6 +200,7 @@ Approach 3: Custom Pulp Repository
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible all -m yum_repository -a "
         name=custom-packages
         description='Custom Omnia Packages'
@@ -214,6 +217,7 @@ Approach 3: Custom Pulp Repository
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_node -m dnf -a "name=custom-package state=present enablerepo=custom-packages"
 
 
@@ -230,6 +234,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_node -m shell -a "rpm -q gcc cmake htop"
 
 
@@ -240,6 +245,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_node -m shell -a "gcc --version | head -1"
 
 
@@ -250,6 +256,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_node -m shell -a "pip3 list | grep numpy"
 
 
@@ -260,6 +267,7 @@ Verification
 **Run on: compute node**
 
 .. code-block:: bash
+
       dnf repolist | grep custom-packages
 
 
@@ -287,6 +295,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       dnf search <package-name>
       dnf repolist
 
@@ -299,6 +308,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       dnf check
 
 
@@ -310,6 +320,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       curl -s http://<oim-ip>:8080/pulp/content/custom-packages/repodata/repomd.xml | head
 
 
@@ -321,6 +332,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       dnf install -y python3 python3-pip
 
 
@@ -332,5 +344,6 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_node -m dnf -a "name=large-package state=present" -e "ansible_timeout=600"
 

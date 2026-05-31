@@ -225,7 +225,7 @@ Container startup failures
        # Instead of:
        sudo su
        ssh omnia_core    # <-- fails
-   
+
        # Do this:
        ssh root@<oim_ip>
        ssh omnia_core    # <-- works
@@ -311,7 +311,7 @@ Ansible Vault encrypted file issues
 
           # Back up the old file
           cp input/credentials.yml input/credentials.yml.bak
-   
+
           # Create a new encrypted file
           ansible-vault create input/credentials.yml
 

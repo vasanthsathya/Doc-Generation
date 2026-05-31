@@ -519,7 +519,25 @@ addition, BuildStreaM requires:</p>
 <section id="step-1-deploy-the-omnia-core-container">
 <h2>Step 1 – Deploy the omnia_core Container<a class="headerlink" href="#step-1-deploy-the-omnia-core-container" title="Link to this heading">#</a></h2>
 <p><strong>Run on OIM (as root)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/dell/omnia.git
+<span class="nb">cd</span><span class="w"> </span>omnia
+
+<span class="c1"># Build container images</span>
+bash<span class="w"> </span>build_images.sh
+
+<span class="c1"># Install and start the omnia_core container</span>
+bash<span class="w"> </span>omnia.sh<span class="w"> </span>--install
+
+<span class="c1"># Verify</span>
+systemctl<span class="w"> </span>status<span class="w"> </span>omnia_core
+</pre></div>
+</div>
 <p><strong>Run on OIM (as root)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+<span class="nb">exit</span>
+</pre></div>
+</div>
 </section>
 <section id="step-2-enable-buildstream">
 <h2>Step 2 – Enable BuildStreaM<a class="headerlink" href="#step-2-enable-buildstream" title="Link to this heading">#</a></h2>
@@ -529,7 +547,29 @@ start.</p>
 <section id="a-edit-build-stream-config-yml">
 <h3><strong>2a. Edit</strong> <cite>build_stream_config.yml</cite><a class="headerlink" href="#a-edit-build-stream-config-yml" title="Link to this heading">#</a></h3>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+vi<span class="w"> </span>/opt/omnia/input/project_default/build_stream_config.yml
+</pre></div>
+</div>
 <p><strong>Example build_stream_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enable the BuildStreaM catalog-driven deployment framework</span>
+<span class="nt">build_stream_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="c1"># GitLab instance URL (will be deployed in Step 4 if not already available)</span>
+<span class="nt">gitlab_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://10.5.0.10:8080&quot;</span>
+
+<span class="c1"># GitLab project path for the catalog repository</span>
+<span class="nt">catalog_project</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;omnia/cluster-catalog&quot;</span>
+
+<span class="c1"># CI/CD runner tags (used to route pipeline jobs to the OIM runner)</span>
+<span class="nt">runner_tags</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">omnia-oim</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deployment</span>
+
+<span class="c1"># Catalog file path inside the Git repository</span>
+<span class="nt">catalog_file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;catalog.yml&quot;</span>
+</pre></div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If you plan to use an <strong>existing</strong> GitLab instance, set <code class="docutils literal notranslate"><span class="pre">gitlab_url</span></code>
@@ -542,7 +582,20 @@ all steps.</p>
 application in GitLab (or prepare to do so after GitLab is deployed in
 Step 4).</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/build_stream_oauth_credentials.yml
+</pre></div>
+</div>
 <p><strong>Example build_stream_oauth_credentials.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># OAuth Application ID from GitLab</span>
+<span class="nt">oauth_app_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+
+<span class="c1"># OAuth Application Secret from GitLab</span>
+<span class="nt">oauth_app_secret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+
+<span class="c1"># OAuth callback URL (must match GitLab OAuth app configuration)</span>
+<span class="nt">oauth_callback_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://10.5.0.10:8080/oauth/callback&quot;</span>
+</pre></div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Leave <code class="docutils literal notranslate"><span class="pre">oauth_app_id</span></code> and <a href="#id1"><span class="problematic" id="id2">``</span></a>oauth_app_secret`:doc:` empty for now if you
@@ -558,33 +611,83 @@ identical – BuildStreaM automates the <em>deployment</em> workflow, not the
 initial OIM setup.</p>
 <p><strong>3a. Create the mapping file</strong></p>
 <p><strong>Run on OIM (as root)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>&gt;<span class="w"> </span>/opt/omnia/input/project_default/mapping.csv<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP</span>
+<span class="s">slurm_control_node,slurm,SVCTAG01,,head01,24:6E:96:CC:01:01,10.5.0.101,,10.3.0.101</span>
+<span class="s">slurm_node,slurm,SVCTAG02,,compute01,24:6E:96:CC:01:02,10.5.0.102,,10.3.0.102</span>
+<span class="s">login_node,slurm,SVCTAG03,,login01,24:6E:96:CC:01:03,10.5.0.103,,10.3.0.103</span>
+<span class="s">service_kube_control_plane,kube,SVCTAG04,,kube-cp01,24:6E:96:CC:02:01,10.5.0.201,,10.3.0.201</span>
+<span class="s">service_kube_control_plane,kube,SVCTAG05,,kube-cp02,24:6E:96:CC:02:02,10.5.0.202,,10.3.0.202</span>
+<span class="s">service_kube_control_plane,kube,SVCTAG06,,kube-cp03,24:6E:96:CC:02:03,10.5.0.203,,10.3.0.203</span>
+<span class="s">service_kube_node,kube,SVCTAG07,,kube-wk01,24:6E:96:CC:02:04,10.5.0.204,,10.3.0.204</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Replace all placeholder values with your actual hardware data.</p>
 </div>
 <p><strong>3b. Copy input templates</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>-r<span class="w"> </span>/opt/omnia/examples/input_template/bare_metal_slurm/x86_64/with_service_k8s/*<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>/opt/omnia/input/project_default/
+</pre></div>
+</div>
 <p><strong>3c. Edit network and provisioning inputs</strong></p>
 <p>Edit <code class="docutils literal notranslate"><span class="pre">network_spec.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">provision_config.yml</span></code>, and <code class="docutils literal notranslate"><span class="pre">ha_config.yml</span></code>
 as described in <cite>Full Deployment &lt;full_deployment&gt;</cite> Steps 5a–5c.</p>
 <p><strong>3d. Set credentials</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>credentials_utility.yml
+</pre></div>
+</div>
 <p><strong>3e. Prepare the OIM</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>prepare_oim.yml<span class="w"> </span>-i<span class="w"> </span>/opt/omnia/input/project_default/mapping.csv
+</pre></div>
+</div>
 <p><strong>3f. Verify OIM services</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>list-dependencies<span class="w"> </span>omnia.target
+</pre></div>
+</div>
 <p><strong>3g. Create local repos and build images</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>local_repo.yml
+ansible-playbook<span class="w"> </span>build_image_x86_64.yml
+
+<span class="c1"># Verify</span>
+s3cmd<span class="w"> </span>ls<span class="w"> </span>s3://omnia-images/
+</pre></div>
+</div>
 <p><strong>3h. Discover and provision nodes</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>discovery.yml
+
+<span class="c1"># Verify</span>
+ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>ping<span class="w"> </span>-i<span class="w"> </span>/opt/omnia/inventories/project_default/inventory
+</pre></div>
+</div>
 <p><strong>3i. Deploy Kubernetes service cluster</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>k8s.yml
+
+<span class="c1"># Verify</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>/opt/omnia/k8s/admin.conf
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+</pre></div>
+</div>
 </section>
 <section id="step-4-deploy-gitlab-on-the-service-cluster">
 <h2>Step 4 – Deploy GitLab on the Service Cluster<a class="headerlink" href="#step-4-deploy-gitlab-on-the-service-cluster" title="Link to this heading">#</a></h2>
 <p>If you do not have an existing GitLab instance, Omnia can deploy one on
 the K8s service cluster.</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>build_stream_gitlab.yml
+</pre></div>
+</div>
 <p>This playbook:</p>
 <ul class="simple">
 <li><p>Deploys GitLab CE as a Kubernetes workload on the service cluster.</p></li>
@@ -594,6 +697,14 @@ the K8s service cluster.</p>
 <li><p>Registers a GitLab Runner on the OIM for executing CI/CD pipelines.</p></li>
 </ul>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify GitLab pods</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>/opt/omnia/k8s/admin.conf
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>gitlab
+
+<span class="c1"># Get the GitLab service URL</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>gitlab
+</pre></div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>GitLab takes 5–10 minutes to fully initialize after the pods are
@@ -624,7 +735,15 @@ the UI:
 </ol>
 <p><strong>4b. Update OAuth credentials</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/build_stream_oauth_credentials.yml
+</pre></div>
+</div>
 <p><strong>Updated build_stream_oauth_credentials.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">oauth_app_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your-application-id-from-gitlab&quot;</span>
+<span class="nt">oauth_app_secret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your-secret-from-gitlab&quot;</span>
+<span class="nt">oauth_callback_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://10.5.0.10:8080/oauth/callback&quot;</span>
+</pre></div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Treat the OAuth secret like a password. Do not commit it to a public
@@ -640,6 +759,11 @@ deployment parameters. BuildStreaM parses this catalog to generate all
 Omnia input files and orchestrate the deployment pipeline.</p>
 <p><strong>5a. Initialize the catalog repository</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt
+git<span class="w"> </span>clone<span class="w"> </span>http://&lt;k8s_vip&gt;:8080/omnia/cluster-catalog.git
+<span class="nb">cd</span><span class="w"> </span>cluster-catalog
+</pre></div>
+</div>
 <p>If the repository does not exist yet, create it in GitLab first:</p>
 <ol class="arabic simple">
 <li><p>In GitLab, go to <strong>Projects &gt; New Project &gt; Create Blank Project</strong>.</p></li>
@@ -647,7 +771,104 @@ Omnia input files and orchestrate the deployment pipeline.</p>
 </ol>
 <p><strong>5b. Create the catalog file</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/cluster-catalog/catalog.yml
+</pre></div>
+</div>
 <p><strong>Example catalog.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="c1"># BuildStreaM Cluster Catalog</span>
+<span class="c1"># This file declaratively defines the target cluster state.</span>
+
+<span class="nt">cluster</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;production-hpc&quot;</span>
+<span class="w">  </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;omnia.local&quot;</span>
+<span class="w">  </span><span class="nt">timezone</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;America/Chicago&quot;</span>
+
+<span class="nt">networks</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">admin</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.0/16&quot;</span>
+<span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.1&quot;</span>
+<span class="w">    </span><span class="nt">nic</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno2&quot;</span>
+<span class="w">  </span><span class="nt">bmc</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.0/16&quot;</span>
+<span class="w">    </span><span class="nt">nic</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno2&quot;</span>
+
+<span class="nt">nodes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">head01</span>
+<span class="w">    </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SVCTAG01</span>
+<span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slurm_control_node</span>
+<span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slurm</span>
+<span class="w">    </span><span class="nt">admin_mac</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;24:6E:96:CC:01:01&quot;</span>
+<span class="w">    </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.101&quot;</span>
+<span class="w">    </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.101&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute01</span>
+<span class="w">    </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SVCTAG02</span>
+<span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slurm_node</span>
+<span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slurm</span>
+<span class="w">    </span><span class="nt">admin_mac</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;24:6E:96:CC:01:02&quot;</span>
+<span class="w">    </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.102&quot;</span>
+<span class="w">    </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.102&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">login01</span>
+<span class="w">    </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SVCTAG03</span>
+<span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">login_node</span>
+<span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slurm</span>
+<span class="w">    </span><span class="nt">admin_mac</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;24:6E:96:CC:01:03&quot;</span>
+<span class="w">    </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.103&quot;</span>
+<span class="w">    </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.103&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kube-cp01</span>
+<span class="w">    </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SVCTAG04</span>
+<span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">service_kube_control_plane</span>
+<span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kube</span>
+<span class="w">    </span><span class="nt">admin_mac</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;24:6E:96:CC:02:01&quot;</span>
+<span class="w">    </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.201&quot;</span>
+<span class="w">    </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.201&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kube-cp02</span>
+<span class="w">    </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SVCTAG05</span>
+<span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">service_kube_control_plane</span>
+<span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kube</span>
+<span class="w">    </span><span class="nt">admin_mac</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;24:6E:96:CC:02:02&quot;</span>
+<span class="w">    </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.202&quot;</span>
+<span class="w">    </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.202&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kube-cp03</span>
+<span class="w">    </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SVCTAG06</span>
+<span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">service_kube_control_plane</span>
+<span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kube</span>
+<span class="w">    </span><span class="nt">admin_mac</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;24:6E:96:CC:02:03&quot;</span>
+<span class="w">    </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.203&quot;</span>
+<span class="w">    </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.203&quot;</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kube-wk01</span>
+<span class="w">    </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SVCTAG07</span>
+<span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">service_kube_node</span>
+<span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kube</span>
+<span class="w">    </span><span class="nt">admin_mac</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;24:6E:96:CC:02:04&quot;</span>
+<span class="w">    </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.204&quot;</span>
+<span class="w">    </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.204&quot;</span>
+
+<span class="nt">software</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">os_iso</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/isos/RHEL-8.8-x86_64-dvd.iso&quot;</span>
+<span class="w">  </span><span class="nt">slurm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">kubernetes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">auth_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;freeipa&quot;</span>
+<span class="w">  </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;OMNIA.LOCAL&quot;</span>
+
+<span class="nt">kubernetes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ha_vip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.250&quot;</span>
+<span class="w">  </span><span class="nt">ha_interface</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno2&quot;</span>
+
+<span class="nt">telemetry</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">idrac_telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">ldms_telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">grafana_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span>
+<span class="w">  </span><span class="nt">retention</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;30d&quot;</span>
+</pre></div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>The catalog format is designed to be human-readable and diff-friendly.
@@ -656,7 +877,69 @@ Review changes via merge requests before deploying.</p>
 </div>
 <p><strong>5c. Create the CI/CD pipeline definition</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/cluster-catalog/.gitlab-ci.yml
+</pre></div>
+</div>
 <p><strong>.gitlab-ci.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">stages</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validate</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generate</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deploy</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">verify</span>
+
+<span class="nt">variables</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">OMNIA_HOME</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/omnia&quot;</span>
+<span class="w">  </span><span class="nt">INPUT_DIR</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/omnia/input/project_default&quot;</span>
+<span class="w">  </span><span class="nt">CATALOG_FILE</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;catalog.yml&quot;</span>
+
+<span class="nt">validate_catalog</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validate</span>
+<span class="w">  </span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">omnia-oim</span>
+<span class="w">  </span><span class="nt">script</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cd ${OMNIA_HOME}</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python3 scripts/buildstream/validate_catalog.py ${CI_PROJECT_DIR}/${CATALOG_FILE}</span>
+<span class="w">  </span><span class="nt">rules</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;$CI_PIPELINE_SOURCE</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&quot;push&quot;&#39;</span>
+
+<span class="nt">generate_inputs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generate</span>
+<span class="w">  </span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">omnia-oim</span>
+<span class="w">  </span><span class="nt">script</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cd ${OMNIA_HOME}</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python3 scripts/buildstream/generate_inputs.py ${CI_PROJECT_DIR}/${CATALOG_FILE} ${INPUT_DIR}</span>
+<span class="w">  </span><span class="nt">artifacts</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">paths</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${INPUT_DIR}/*.yml</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${INPUT_DIR}/*.json</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${INPUT_DIR}/*.csv</span>
+<span class="w">  </span><span class="nt">rules</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;$CI_COMMIT_BRANCH</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&quot;main&quot;&#39;</span>
+
+<span class="nt">deploy_cluster</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deploy</span>
+<span class="w">  </span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">omnia-oim</span>
+<span class="w">  </span><span class="nt">script</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cd ${OMNIA_HOME}</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ansible-playbook omnia.yml</span>
+<span class="w">  </span><span class="nt">rules</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;$CI_COMMIT_BRANCH</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&quot;main&quot;&#39;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">when</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">manual</span>
+
+<span class="nt">verify_cluster</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">verify</span>
+<span class="w">  </span><span class="nt">tags</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">omnia-oim</span>
+<span class="w">  </span><span class="nt">script</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cd ${OMNIA_HOME}</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ansible-playbook verify_cluster.yml</span>
+<span class="w">  </span><span class="nt">rules</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;$CI_COMMIT_BRANCH</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&quot;main&quot;&#39;</span>
+</pre></div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">deploy_cluster</span></code> stage is set to <code class="docutils literal notranslate"><span class="pre">when:</span> <span class="pre">manual</span></code> on the
@@ -669,6 +952,13 @@ validating the pipeline on a test cluster.</p>
 <section id="step-6-push-the-catalog-and-trigger-the-pipeline">
 <h2>Step 6 – Push the Catalog and Trigger the Pipeline<a class="headerlink" href="#step-6-push-the-catalog-and-trigger-the-pipeline" title="Link to this heading">#</a></h2>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/cluster-catalog
+
+git<span class="w"> </span>add<span class="w"> </span>catalog.yml<span class="w"> </span>.gitlab-ci.yml
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial cluster catalog for production-hpc&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+</pre></div>
+</div>
 <p>This push triggers the BuildStreaM pipeline:</p>
 <ol class="arabic simple">
 <li><p><strong>Validate</strong> – Checks the catalog for syntax errors, missing fields,
@@ -689,6 +979,12 @@ full cluster.</p></li>
 <li><p>Click the pipeline to see per-stage logs in real time.</p></li>
 </ol>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Alternatively, monitor from the CLI</span>
+gitlab-runner<span class="w"> </span>status
+<span class="c1"># Watch the pipeline log from the runner</span>
+tail<span class="w"> </span>-f<span class="w"> </span>/var/log/gitlab-runner/runner.log
+</pre></div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>If the <strong>Validate</strong> stage fails, read the error output – it tells you
@@ -703,12 +999,34 @@ and push to re-trigger.</p>
 <p>After the pipeline completes (all stages green), verify the cluster.</p>
 <p><strong>Slurm verification:</strong></p>
 <p><strong>Run on head node (head01)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>head01
+sinfo
+srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>hostname
+sacctmgr<span class="w"> </span>show<span class="w"> </span>cluster
+</pre></div>
+</div>
 <p><strong>Kubernetes verification:</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>/opt/omnia/k8s/admin.conf
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--all-namespaces<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>Running<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>Completed
+</pre></div>
+</div>
 <p><strong>Telemetry verification:</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>omnia-telemetry
+<span class="c1"># Open Grafana at http://&lt;k8s_vip&gt;:3000</span>
+</pre></div>
+</div>
 <p><strong>BuildStreaM pipeline verification:</strong></p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify the pipeline artifacts were generated correctly</span>
+ls<span class="w"> </span>-la<span class="w"> </span>/opt/omnia/input/project_default/
+
+<span class="c1"># Verify the GitLab Runner is registered and online</span>
+gitlab-runner<span class="w"> </span>list
+</pre></div>
+</div>
 </section>
 <section id="day-2-operations-with-buildstream">
 <h2>Day-2 Operations with BuildStreaM<a class="headerlink" href="#day-2-operations-with-buildstream" title="Link to this heading">#</a></h2>
@@ -745,6 +1063,16 @@ engineer before being deployed. Set up <strong>protected branches</strong> on
 <p>If the cluster needs to be rebuilt from scratch (e.g., after a datacenter
 move):</p>
 <p><strong>Run on OIM (as root)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Re-clone the catalog repository</span>
+<span class="nb">cd</span><span class="w"> </span>/opt
+git<span class="w"> </span>clone<span class="w"> </span>http://&lt;gitlab_url&gt;/omnia/cluster-catalog.git
+<span class="nb">cd</span><span class="w"> </span>cluster-catalog
+
+<span class="c1"># Trigger a full rebuild</span>
+git<span class="w"> </span>commit<span class="w"> </span>--allow-empty<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Rebuild cluster from catalog&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+</pre></div>
+</div>
 <p>The pipeline will re-provision all nodes and redeploy the entire stack
 using the catalog as the single source of truth.</p>
 </section>

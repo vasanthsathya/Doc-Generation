@@ -542,23 +542,70 @@ management IPs.</p></li>
 <li><p><strong>Enter the omnia_core container</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Configure OME telemetry</strong> in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
+</pre></div>
+</div>
 <p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="c1"># OME telemetry configuration</span>
+<span class="nt">ome_telemetry_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">ome_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.1.50&quot;</span>
+<span class="nt">ome_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">443</span>
+<span class="nt">ome_username</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;omnia_readonly&quot;</span>
+<span class="nt">ome_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># Set via credentials utility</span>
+<span class="nt">ome_collection_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span><span class="w">  </span><span class="c1"># seconds</span>
+
+<span class="c1"># SFM telemetry configuration (optional)</span>
+<span class="nt">sfm_telemetry_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">sfm_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.1.51&quot;</span>
+<span class="nt">sfm_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">443</span>
+<span class="nt">sfm_username</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;omnia_readonly&quot;</span>
+<span class="nt">sfm_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># Set via credentials utility</span>
+<span class="nt">sfm_collection_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Set OME/SFM credentials</strong> using the credential utility:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia/utils/credential_utility
+ansible-playbook<span class="w"> </span>get_config_credentials.yml<span class="w"> </span>--tags<span class="w"> </span>telemetry
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify OME API access</strong> from the K8s cluster:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-sk<span class="w"> </span>https://10.5.1.50/api/SessionService/Sessions<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;UserName&quot;:&quot;omnia_readonly&quot;,&quot;Password&quot;:&quot;YourPassword&quot;,&quot;SessionType&quot;:&quot;API&quot;}&#39;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the telemetry playbook</strong> to deploy the OME/SFM collectors:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/omnia
+<span class="w">    </span>ansible-playbook<span class="w"> </span>telemetry.yml<span class="w"> </span>--ask-vault-pass
+
+
+
+<span class="w"> </span>The<span class="w"> </span>playbook<span class="w"> </span>will:
+
+-<span class="w"> </span>Deploy<span class="w"> </span>an<span class="w"> </span>OME<span class="w"> </span>telemetry<span class="w"> </span>collector<span class="w"> </span>pod<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>K8s<span class="w"> </span>cluster.
+-<span class="w"> </span>Deploy<span class="w"> </span>an<span class="w"> </span>SFM<span class="w"> </span>telemetry<span class="w"> </span>collector<span class="w"> </span>pod<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>enabled<span class="o">)</span>.
+-<span class="w"> </span>Configure<span class="w"> </span>collectors<span class="w"> </span>to<span class="w"> </span>push<span class="w"> </span>metrics<span class="w"> </span>to<span class="w"> </span>Kafka.
+-<span class="w"> </span>Import<span class="w"> </span>pre-built<span class="w"> </span>Grafana<span class="w"> </span>dashboards<span class="w"> </span><span class="k">for</span><span class="w"> </span>OME<span class="w"> </span>and<span class="w"> </span>SFM<span class="w"> </span>data.
+</pre></div>
+</div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
@@ -566,14 +613,26 @@ management IPs.</p></li>
 <li><p><strong>Verify OME/SFM collector pods are running</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;ome|sfm&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Check collector logs</strong> for successful data collection:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>ome-collector<span class="w"> </span>--tail<span class="o">=</span><span class="m">20</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>sfm-collector<span class="w"> </span>--tail<span class="o">=</span><span class="m">20</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify OME metrics in VictoriaMetrics</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">VM_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>victoriametrics<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
+kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="nv">$VM_POD</span><span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://localhost:8428/api/v1/query?query=ome_device_health&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic">
 <li><p><strong>Check Grafana dashboards</strong> for OME/SFM panels:</p>
 <p>Open Grafana and navigate to the <strong>OME Overview</strong> and <strong>SFM Fabric Health</strong>
@@ -595,16 +654,27 @@ dashboards.</p>
 </dd>
 </dl>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-sk<span class="w"> </span>https://10.5.1.50/api/SessionService/Sessions<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-X<span class="w"> </span>POST<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;UserName&quot;:&quot;omnia_readonly&quot;,&quot;Password&quot;:&quot;YourPassword&quot;,&quot;SessionType&quot;:&quot;API&quot;}&#39;</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>OME collector returns “connection refused”</strong></dt><dd><p>Check network connectivity:</p>
 </dd>
 </dl>
 <p><strong>Run on: K8s worker node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-sk<span class="w"> </span>https://10.5.1.50/api/ApplicationService/Info
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>SFM metrics not appearing</strong></dt><dd><p>Verify SFM is accessible and the API version is supported:</p>
 </dd>
 </dl>
 <p><strong>Run on: K8s worker node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-sk<span class="w"> </span>https://10.5.1.51/api/
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Certificate errors with OME/SFM</strong></dt><dd><p>If using self-signed certificates, configure the collectors to skip
 TLS verification (development only) or import the CA certificate.</p>

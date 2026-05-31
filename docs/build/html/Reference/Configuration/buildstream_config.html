@@ -637,6 +637,24 @@ including GitLab integration and pipeline behavior settings.</p>
 <section id="usage-example">
 <h2>Usage example<a class="headerlink" href="#usage-example" title="Link to this heading">#</a></h2>
 <p><strong>File: /opt/omnia/input/project_default/build_stream_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">gitlab_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">gitlab_server</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.100&quot;</span>
+<span class="nt">gitlab_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">443</span>
+<span class="nt">gitlab_external_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://gitlab.hpc.example.com&quot;</span>
+
+<span class="nt">buildstream_catalog_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/omnia/buildstream/catalog&quot;</span>
+<span class="nt">buildstream_pipeline_branch</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;main&quot;</span>
+<span class="nt">buildstream_auto_trigger</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">buildstream_retry_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="nt">buildstream_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3600</span>
+
+<span class="nt">runner_executor</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;shell&quot;</span>
+<span class="nt">runner_concurrent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="nt">runner_tags</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">omnia</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">buildstream</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">

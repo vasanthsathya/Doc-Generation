@@ -47,6 +47,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /opt/omnia
       git clone http://<oim-ip>:8082/root/buildstream-catalog.git
       cd buildstream-catalog
@@ -59,6 +60,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi catalog.yml
 
 
@@ -69,6 +71,7 @@ Procedure
 **File: /opt/omnia/buildstream-catalog/catalog.yml**
 
 .. code-block:: yaml
+
       ---
       catalog_version: "2.1.0"
       cluster_name: "omnia-prod"
@@ -137,6 +140,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /opt/omnia/buildstream-catalog
       git add catalog.yml
       git commit -m "Add 2 new compute nodes to slurm cluster"
@@ -185,9 +189,10 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       # Check if new nodes were provisioned
       ochami node list
-   
+
       # Check Slurm configuration
       ssh <slurm-control-ip> sinfo
 
@@ -199,6 +204,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible all -m ping
 
 
@@ -244,6 +250,7 @@ Troubleshooting
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       git remote -v
       # Ensure URL is correct and credentials are configured
 
@@ -257,5 +264,6 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman exec gitlab-runner gitlab-runner list
 

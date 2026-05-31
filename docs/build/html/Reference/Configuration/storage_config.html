@@ -687,6 +687,27 @@ integration.</p>
 <section id="usage-example">
 <h2>Usage example<a class="headerlink" href="#usage-example" title="Link to this heading">#</a></h2>
 <p><strong>File: /opt/omnia/input/project_default/storage_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">nfs_client_params</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;nosuid,rw,sync,hard,intr&quot;</span>
+<span class="nt">nfs_shares</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.100&quot;</span>
+<span class="w">    </span><span class="nt">server_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/exports/home&quot;</span>
+<span class="w">    </span><span class="nt">client_mount_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/home&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.100&quot;</span>
+<span class="w">    </span><span class="nt">server_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/exports/scratch&quot;</span>
+<span class="w">    </span><span class="nt">client_mount_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/scratch&quot;</span>
+<span class="w">    </span><span class="nt">mount_options</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rw,sync,noatime&quot;</span>
+
+<span class="nt">beegfs_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+<span class="nt">powerscale_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">powerscale_server</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;powerscale-sc.hpc.example.com&quot;</span>
+<span class="nt">powerscale_exports</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">server_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/ifs/data/hpc&quot;</span>
+<span class="w">    </span><span class="nt">client_mount_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/data&quot;</span>
+
+<span class="nt">powervault_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">

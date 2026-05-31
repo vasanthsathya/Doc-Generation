@@ -635,6 +635,19 @@ playbooks execute in this order:</p>
 <h2>How to run<a class="headerlink" href="#how-to-run" title="Link to this heading">#</a></h2>
 <p>All playbooks are executed from within the <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> container on the OIM:</p>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enter the omnia_core container</span>
+podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>omnia_core<span class="w"> </span>bash
+
+<span class="c1"># Run a specific playbook</span>
+ansible-playbook<span class="w"> </span>/opt/omnia/playbooks/&lt;playbook_name&gt;.yml
+
+<span class="c1"># Run with verbose output</span>
+ansible-playbook<span class="w"> </span>/opt/omnia/playbooks/&lt;playbook_name&gt;.yml<span class="w"> </span>-vv
+
+<span class="c1"># Run with a specific inventory (if not using default)</span>
+ansible-playbook<span class="w"> </span>/opt/omnia/playbooks/&lt;playbook_name&gt;.yml<span class="w"> </span>-i<span class="w"> </span>/opt/omnia/inventory
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">

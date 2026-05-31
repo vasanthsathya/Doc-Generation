@@ -546,19 +546,81 @@ metrics (CPU, memory, I/O) from compute nodes.</p></li>
 <li><p><strong>Enter the omnia_core container</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Configure telemetry parameters</strong> in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
+</pre></div>
+</div>
 <p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="c1"># Telemetry configuration</span>
+<span class="nt">enable_telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">telemetry_collection_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span><span class="w">  </span><span class="c1"># seconds</span>
+<span class="nt">grafana_admin_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># Set via credentials utility</span>
+
+<span class="c1"># iDRAC telemetry</span>
+<span class="nt">idrac_telemetry_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">idrac_telemetry_metrics</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;SystemBoardInletTemp&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;SystemBoardExhaustTemp&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;TotalPower&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;CPUUsage&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;MemoryUsage&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;FanSpeed&quot;</span>
+
+<span class="c1"># LDMS configuration</span>
+<span class="nt">ldms_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">ldms_samplers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;meminfo&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;vmstat&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;procstat&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the telemetry playbook</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/omnia
+<span class="w">    </span>ansible-playbook<span class="w"> </span>telemetry.yml<span class="w"> </span>--ask-vault-pass
+
+
+
+<span class="w"> </span>The<span class="w"> </span>playbook<span class="w"> </span>performs:
+
+-<span class="w"> </span>Deploys<span class="w"> </span>Kafka<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>K8s<span class="w"> </span>service<span class="w"> </span>cluster.
+-<span class="w"> </span>Deploys<span class="w"> </span>VictoriaMetrics<span class="w"> </span><span class="k">for</span><span class="w"> </span>time-series<span class="w"> </span>storage.
+-<span class="w"> </span>Deploys<span class="w"> </span>Grafana<span class="w"> </span>with<span class="w"> </span>pre-configured<span class="w"> </span>dashboards.
+-<span class="w"> </span>Deploys<span class="w"> </span>the<span class="w"> </span>iDRAC<span class="w"> </span>telemetry<span class="w"> </span>collector.
+-<span class="w"> </span>Installs<span class="w"> </span>and<span class="w"> </span>configures<span class="w"> </span>LDMS<span class="w"> </span>samplers<span class="w"> </span>on<span class="w"> </span>compute<span class="w"> </span>nodes.
+-<span class="w"> </span>Installs<span class="w"> </span>LDMS<span class="w"> </span>aggregators<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>K8s<span class="w"> </span>cluster.
+-<span class="w"> </span>Configures<span class="w"> </span>data<span class="w"> </span>flow:<span class="w"> </span>LDMS/iDRAC<span class="w"> </span>→<span class="w"> </span>Kafka<span class="w"> </span>→<span class="w"> </span>VictoriaMetrics<span class="w"> </span>→<span class="w"> </span>Grafana.
+
+<span class="w"> </span>Execution<span class="w"> </span>time:<span class="w"> </span>**15-30<span class="w"> </span>minutes**.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Access the Grafana dashboard</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span>kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>grafana
+
+
+
+<span class="w"> </span>Note<span class="w"> </span>the<span class="w"> </span>external<span class="w"> </span>IP<span class="w"> </span><span class="o">(</span>from<span class="w"> </span>MetalLB<span class="o">)</span>.<span class="w"> </span>Open<span class="w"> </span>a<span class="w"> </span>browser<span class="w"> </span>and<span class="w"> </span>navigate<span class="w"> </span>to:
+
+<span class="w"> </span><span class="sb">``</span>http://&lt;grafana-external-ip&gt;:3000<span class="sb">``</span>
+
+<span class="w"> </span>Default<span class="w"> </span>credentials:
+
+-<span class="w"> </span>Username:<span class="w"> </span><span class="sb">``</span>admin<span class="sb">``</span>
+-<span class="w"> </span>Password:<span class="w"> </span><span class="o">(</span>as<span class="w"> </span>configured<span class="w"> </span><span class="k">in</span><span class="w"> </span>omnia_config.yml<span class="w"> </span>or<span class="w"> </span>credentials<span class="w"> </span>utility<span class="o">)</span>
+</pre></div>
+</div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
@@ -566,19 +628,44 @@ metrics (CPU, memory, I/O) from compute nodes.</p></li>
 <li><p><strong>Verify telemetry pods are running</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>telemetry
+
+
+
+Expected<span class="w"> </span>pods:
+</pre></div>
+</div>
 <p><strong>Expected output on: K8s control plane node</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>NAME                                    READY   STATUS    RESTARTS
+grafana-xxxxxxxxxx-xxxxx                1/1     Running   0
+kafka-0                                 1/1     Running   0
+victoriametrics-xxxxxxxxxx-xxxxx        1/1     Running   0
+idrac-collector-xxxxxxxxxx-xxxxx        1/1     Running   0
+ldms-aggregator-xxxxxxxxxx-xxxxx        1/1     Running   0
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify LDMS agents on compute nodes</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;systemctl is-active ldmsd&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Check Kafka topics</strong> have telemetry data:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>kafka-0<span class="w"> </span>--<span class="w"> </span>kafka-topics.sh<span class="w"> </span>--list<span class="w"> </span>--bootstrap-server<span class="w"> </span>localhost:9092
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify VictoriaMetrics is receiving data</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">VM_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>victoriametrics<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
+kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="nv">$VM_POD</span><span class="w"> </span>--<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://localhost:8428/api/v1/query?query=up&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify Grafana dashboards</strong> show data by opening the web UI and checking
 the pre-configured dashboards for active time-series data.</p></li>
@@ -601,16 +688,25 @@ instance.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>describe<span class="w"> </span>pvc<span class="w"> </span>-n<span class="w"> </span>telemetry
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>iDRAC collector shows errors</strong></dt><dd><p>Verify iDRAC credentials and Redfish access:</p>
 </dd>
 </dl>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>idrac-collector<span class="w"> </span>--tail<span class="o">=</span><span class="m">30</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>LDMS agents not running on compute nodes</strong></dt><dd><p>Re-deploy LDMS:</p>
 </dd>
 </dl>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;systemctl restart ldmsd&quot;</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Grafana shows “No data”</strong></dt><dd><ul class="simple">
 <li><p>Verify the VictoriaMetrics data source is configured in Grafana.</p></li>
@@ -620,11 +716,18 @@ instance.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>kafka-0<span class="w"> </span>--<span class="w"> </span>kafka-console-consumer.sh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--bootstrap-server<span class="w"> </span>localhost:9092<span class="w"> </span>--topic<span class="w"> </span>telemetry<span class="w"> </span>--from-beginning<span class="w"> </span>--max-messages<span class="w"> </span><span class="m">5</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Kafka pod CrashLoopBackOff</strong></dt><dd><p>Check disk space on the K8s worker node:</p>
 </dd>
 </dl>
 <p><strong>Run on: K8s worker node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>df<span class="w"> </span>-h
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

@@ -543,30 +543,83 @@ running and base OS repos are synced).</p></li>
 <li><p><strong>Install build dependencies</strong> on the build host:</p></li>
 </ol>
 <p><strong>Run on: build host (OIM or dedicated build server)</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>groupinstall<span class="w"> </span>-y<span class="w"> </span><span class="s2">&quot;Development Tools&quot;</span>
+dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>rpm-build<span class="w"> </span>munge-devel<span class="w"> </span>munge-libs<span class="w"> </span>pam-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>perl-ExtUtils-MakeMaker<span class="w"> </span>readline-devel<span class="w"> </span>openssl-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mariadb-devel<span class="w"> </span>hwloc-devel<span class="w"> </span>lua-devel<span class="w"> </span>numactl-devel<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>http-parser-devel<span class="w"> </span>json-c-devel<span class="w"> </span>libcurl-devel
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Create the RPM build directory structure</strong>:</p></li>
 </ol>
 <p><strong>Run on: build host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/rpmbuild/<span class="o">{</span>BUILD,RPMS,SOURCES,SPECS,SRPMS<span class="o">}</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Download the Slurm source tarball</strong>:</p></li>
 </ol>
 <p><strong>Run on: build host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nb">cd</span><span class="w"> </span>~/rpmbuild/SOURCES
+<span class="w">   </span>wget<span class="w"> </span>https://download.schedmd.com/slurm/slurm-23.11.4.tar.bz2
+
+
+
+!!!<span class="w"> </span>note
+
+<span class="w">    </span>Replace<span class="w"> </span>the<span class="w"> </span>version<span class="w"> </span>number<span class="w"> </span>with<span class="w"> </span>your<span class="w"> </span>desired<span class="w"> </span>Slurm<span class="w"> </span>version.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Extract the spec file</strong>:</p></li>
 </ol>
 <p><strong>Run on: build host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tar<span class="w"> </span>xjf<span class="w"> </span>slurm-23.11.4.tar.bz2<span class="w"> </span>--strip-components<span class="o">=</span><span class="m">1</span><span class="w"> </span>-C<span class="w"> </span>/tmp<span class="w"> </span>slurm-23.11.4/slurm.spec
+cp<span class="w"> </span>/tmp/slurm.spec<span class="w"> </span>~/rpmbuild/SPECS/
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Build the RPMs</strong>:</p></li>
 </ol>
 <p><strong>Run on: build host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>rpmbuild<span class="w"> </span>-ba<span class="w"> </span>~/rpmbuild/SPECS/slurm.spec
+
+
+
+This<span class="w"> </span>process<span class="w"> </span>takes<span class="w"> </span>**10-30<span class="w"> </span>minutes**<span class="w"> </span>depending<span class="w"> </span>on<span class="w"> </span>hardware.<span class="w"> </span>The<span class="w"> </span>resulting
+RPMs<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">``</span>~/rpmbuild/RPMS/x86_64/<span class="sb">``</span>.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Create a local repository</strong> from the built RPMs:</p></li>
 </ol>
 <p><strong>Run on: build host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>createrepo_c
+mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/omnia/custom_repos/slurm
+cp<span class="w"> </span>~/rpmbuild/RPMS/x86_64/slurm-*.rpm<span class="w"> </span>/opt/omnia/custom_repos/slurm/
+createrepo_c<span class="w"> </span>/opt/omnia/custom_repos/slurm/
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Upload to Pulp</strong> (from the omnia_core container):</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Pulp repository for custom Slurm RPMs</span>
+pulp<span class="w"> </span>rpm<span class="w"> </span>repository<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>slurm-custom
+
+<span class="c1"># Upload RPMs</span>
+<span class="k">for</span><span class="w"> </span>rpm<span class="w"> </span><span class="k">in</span><span class="w"> </span>/opt/omnia/custom_repos/slurm/*.rpm<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>pulp<span class="w"> </span>rpm<span class="w"> </span>content<span class="w"> </span>upload<span class="w"> </span>--file<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$rpm</span><span class="s2">&quot;</span><span class="w"> </span>--repository<span class="w"> </span>slurm-custom
+<span class="k">done</span>
+
+<span class="c1"># Create a publication and distribution</span>
+pulp<span class="w"> </span>rpm<span class="w"> </span>publication<span class="w"> </span>create<span class="w"> </span>--repository<span class="w"> </span>slurm-custom
+pulp<span class="w"> </span>rpm<span class="w"> </span>distribution<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>slurm-custom<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--base-path<span class="w"> </span>slurm-custom<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--repository<span class="w"> </span>slurm-custom
+</pre></div>
+</div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
@@ -574,18 +627,34 @@ running and base OS repos are synced).</p></li>
 <li><p><strong>List the custom repository contents</strong>:</p></li>
 </ol>
 <p><strong>Run on: build host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-la<span class="w"> </span>/opt/omnia/custom_repos/slurm/
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify the repository metadata</strong>:</p></li>
 </ol>
 <p><strong>Run on: build host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ls<span class="w"> </span>/opt/omnia/custom_repos/slurm/repodata/
+
+
+
+You<span class="w"> </span>should<span class="w"> </span>see<span class="w"> </span><span class="sb">``</span>repomd.xml<span class="sb">``</span><span class="w"> </span>and<span class="w"> </span>related<span class="w"> </span>files.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Test package availability via Pulp</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:8080/pulp/content/slurm-custom/repodata/repomd.xml<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify RPM versions</strong>:</p></li>
 </ol>
 <p><strong>Run on: build host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rpm<span class="w"> </span>-qip<span class="w"> </span>~/rpmbuild/RPMS/x86_64/slurm-23*.rpm<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;^(Name|Version)&quot;</span>
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -602,21 +671,35 @@ Omnia’s repo management.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: build host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>&lt;missing-package&gt;-devel
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Spec file not found in tarball</strong></dt><dd><p>Download the spec file separately from SchedMD’s GitHub:</p>
 </dd>
 </dl>
 <p><strong>Run on: build host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-O<span class="w"> </span>~/rpmbuild/SPECS/slurm.spec<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://raw.githubusercontent.com/SchedMD/slurm/slurm-23-11-4-1/slurm.spec
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>createrepo_c fails</strong></dt><dd><p>Ensure the package is installed:</p>
 </dd>
 </dl>
 <p><strong>Run on: build host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>createrepo_c
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Custom RPMs conflict with existing Slurm packages</strong></dt><dd><p>Remove existing Slurm packages before installing custom ones:</p>
 </dd>
 </dl>
 <p><strong>Run on: compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>remove<span class="w"> </span>-y<span class="w"> </span>slurm<span class="w"> </span>slurm-slurmd<span class="w"> </span>slurm-slurmctld
+dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--disablerepo<span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="w"> </span>--enablerepo<span class="o">=</span><span class="s1">&#39;slurm-custom&#39;</span><span class="w"> </span>slurm<span class="w"> </span>slurm-slurmd
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

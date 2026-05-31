@@ -545,15 +545,55 @@ and <code class="docutils literal notranslate"><span class="pre">slurm_node</spa
 <li><p><strong>Enter the omnia_core container</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Review and edit omnia_config.yml</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
+
+
+
+Key<span class="w"> </span>Slurm-related<span class="w"> </span>parameters:
+</pre></div>
+</div>
 <p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="c1"># Slurm configuration</span>
+<span class="nt">slurm_installation_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;nfs_share&quot;</span>
+<span class="nt">enable_omnia_nfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="c1"># MariaDB for Slurm accounting</span>
+<span class="nt">mariadb_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w">  </span><span class="c1"># Set via credentials utility</span>
+
+<span class="c1"># Optional: Slurm partitions</span>
+<span class="nt">slurm_partition_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;normal&quot;</span>
+<span class="nt">slurm_default_partition</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the omnia.yml playbook</strong>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/omnia
+<span class="w">    </span>ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass
+
+
+
+<span class="w"> </span>The<span class="w"> </span>playbook<span class="w"> </span>will:
+
+-<span class="w"> </span>Install<span class="w"> </span>Slurm<span class="w"> </span>packages<span class="w"> </span>on<span class="w"> </span>all<span class="w"> </span>designated<span class="w"> </span>nodes.
+-<span class="w"> </span>Generate<span class="w"> </span>and<span class="w"> </span>distribute<span class="w"> </span><span class="sb">``</span>slurm.conf<span class="sb">``</span>.
+-<span class="w"> </span>Configure<span class="w"> </span>and<span class="w"> </span>start<span class="w"> </span>Munge<span class="w"> </span>on<span class="w"> </span>all<span class="w"> </span>Slurm<span class="w"> </span>nodes.
+-<span class="w"> </span>Set<span class="w"> </span>up<span class="w"> </span>MariaDB<span class="w"> </span><span class="k">for</span><span class="w"> </span>accounting<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>control<span class="w"> </span>node.
+-<span class="w"> </span>Start<span class="w"> </span><span class="sb">``</span>slurmctld<span class="sb">``</span><span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>control<span class="w"> </span>node.
+-<span class="w"> </span>Start<span class="w"> </span><span class="sb">``</span>slurmd<span class="sb">``</span><span class="w"> </span>on<span class="w"> </span>all<span class="w"> </span>compute<span class="w"> </span>nodes.
+
+<span class="w"> </span>Execution<span class="w"> </span>time:<span class="w"> </span>**20-40<span class="w"> </span>minutes**<span class="w"> </span>depending<span class="w"> </span>on<span class="w"> </span>cluster<span class="w"> </span>size.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Monitor playbook progress</strong>. Watch for successful completion of each
 role:</p></li>
@@ -573,27 +613,57 @@ role:</p></li>
 <li><p><strong>Check Slurm controller status</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmctld
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Check compute daemon status on a compute node</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>View the cluster partition and node status</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>sinfo
+
+
+
+Expected<span class="w"> </span>output:
+</pre></div>
+</div>
 <p><strong>Expected output on: Slurm control node</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
+normal*      up   infinite      2   idle compute[01-02]
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run a test job</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>-N<span class="w"> </span><span class="m">2</span><span class="w"> </span>hostname
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify Munge authentication</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>munge<span class="w"> </span>-n<span class="w"> </span><span class="p">|</span><span class="w"> </span>ssh<span class="w"> </span>&lt;compute-node&gt;<span class="w"> </span>unmunge
+
+
+
+Expected:<span class="w"> </span>successful<span class="w"> </span>decode<span class="w"> </span>with<span class="w"> </span>no<span class="w"> </span>errors.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Check Slurm accounting</strong>:</p></li>
 </ol>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sacctmgr<span class="w"> </span>show<span class="w"> </span>cluster
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -611,6 +681,10 @@ role:</p></li>
 </dd>
 </dl>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>journalctl<span class="w"> </span>-u<span class="w"> </span>slurmctld<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span>
+cat<span class="w"> </span>/var/log/slurm/slurmctld.log
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Compute nodes show “down” in sinfo</strong></dt><dd><ul class="simple">
 <li><p>Verify <code class="docutils literal notranslate"><span class="pre">slurmd</span></code> is running on the affected node:</p></li>
@@ -618,18 +692,47 @@ role:</p></li>
 </dd>
 </dl>
 <p><strong>Run on: affected compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd
+<span class="w">      </span>journalctl<span class="w"> </span>-u<span class="w"> </span>slurmd<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
+
+
+
+-<span class="w"> </span>Check<span class="w"> </span>Munge<span class="w"> </span>is<span class="w"> </span>running:
+</pre></div>
+</div>
 <p><strong>Run on: affected compute node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>systemctl<span class="w"> </span>status<span class="w"> </span>munge
+
+
+
+-<span class="w"> </span>Resume<span class="w"> </span>the<span class="w"> </span>node:
+</pre></div>
+</div>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">nodename</span><span class="o">=</span>&lt;node&gt;<span class="w"> </span><span class="nv">state</span><span class="o">=</span>resume
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Munge authentication failure</strong></dt><dd><p>Ensure the Munge key is identical on all nodes:</p>
 </dd>
 </dl>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ansible<span class="w"> </span>slurm_cluster<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;md5sum /etc/munge/munge.key&quot;</span>
+
+
+
+All<span class="w"> </span>nodes<span class="w"> </span>should<span class="w"> </span>report<span class="w"> </span>the<span class="w"> </span>same<span class="w"> </span>MD5<span class="w"> </span>hash.
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>MariaDB connection error</strong></dt><dd><p>Check MariaDB is running on the control node:</p>
 </dd>
 </dl>
 <p><strong>Run on: Slurm control node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>mariadb
+mysql<span class="w"> </span>-u<span class="w"> </span>slurm<span class="w"> </span>-p<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW DATABASES;&quot;</span>
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

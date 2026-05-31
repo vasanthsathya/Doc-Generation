@@ -51,6 +51,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -61,6 +62,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/network_spec.yml
 
 
@@ -71,6 +73,7 @@ Procedure
 **File: /opt/omnia/input/project_default/network_spec.yml**
 
 .. code-block:: yaml
+
       ---
       admin_network:
         nic_name: "eno1"
@@ -95,6 +98,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/provision_config.yml
 
 
@@ -103,6 +107,7 @@ Procedure
 **File: /opt/omnia/input/project_default/provision_config.yml**
 
 .. code-block:: yaml
+
       ---
       timezone: "America/Chicago"
       language: "en-US"
@@ -118,6 +123,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia/prepare_oim
       ansible-playbook prepare_oim.yml
 
@@ -132,6 +138,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
           ansible-playbook prepare_oim.yml --ask-vault-pass
 
 
@@ -160,6 +167,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       systemctl list-dependencies omnia.target
 
 
@@ -170,6 +178,7 @@ Verification
 **Expected output on: OIM host**
 
 .. code-block:: text
+
       omnia.target
       ├─minio.service
       ├─omnia_auth.service
@@ -195,6 +204,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       systemctl status omnia_core.service
       systemctl status openchami.target
 
@@ -206,6 +216,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ochami --help
 
 
@@ -219,6 +230,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman ps --filter name=pulp
 
 
@@ -229,6 +241,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       s3cmd ls
 
 
@@ -257,6 +270,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ip link show
 
 
@@ -268,6 +282,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman logs smd
       podman logs bss
       podman logs coredhcp
@@ -282,6 +297,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       df -h /var/lib/containers
 
 
@@ -294,6 +310,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ss -tlnp | grep -E ':(67|69|80|8080|9000)\b'
 
 

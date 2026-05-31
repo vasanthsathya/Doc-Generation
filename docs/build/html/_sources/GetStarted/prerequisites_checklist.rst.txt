@@ -291,31 +291,32 @@ Run these commands on the OIM **before** starting any deployment path:
 **Run on OIM (as root)**
 
 .. code-block:: shell
+
    # Verify OS and kernel
    cat /etc/redhat-release
    uname -r
-   
+
    # Verify RAM (expect >= 64 GB)
    free -h | grep Mem
-   
+
    # Verify disk space (expect >= 500 GB free on /)
    df -h /
-   
+
    # Verify Podman
    podman --version
-   
+
    # Verify Git
    git --version
-   
+
    # Verify NICs (expect at least 2 interfaces up)
    ip -br link show | grep UP
-   
+
    # Verify internet connectivity
    curl -s -o /dev/null -w "%{http_code}" https://github.com
-   
+
    # Verify RHEL subscription
    subscription-manager status
-   
+
    # Verify repos
    dnf repolist
 

@@ -559,6 +559,10 @@ cleanup through extra variables:</p>
 </div>
 <p>Example of selective cleanup:</p>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia/utils/
+ansible-playbook<span class="w"> </span>oim_cleanup.yml<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;cleanup_telemetry=true&quot;</span>
+</pre></div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Selective cleanup is useful when troubleshooting a specific subsystem. For

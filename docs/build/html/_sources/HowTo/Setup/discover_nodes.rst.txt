@@ -54,6 +54,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -64,6 +65,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cat /opt/omnia/input/project_default/pxe_mapping_file.csv
 
 
@@ -74,6 +76,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /omnia/discovery
       ansible-playbook discovery.yml --ask-vault-pass
 
@@ -112,6 +115,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ochami node list
 
 
@@ -125,6 +129,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ochami smd status
 
 
@@ -135,9 +140,10 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       # Count discovered nodes
       ochami node list | wc -l
-   
+
       # Count entries in mapping file (excluding header)
       tail -n +2 /opt/omnia/input/project_default/pxe_mapping_file.csv | wc -l
 
@@ -149,6 +155,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       # Example: ping a specific node
       ping -c 3 10.5.0.101
 
@@ -160,6 +167,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible-inventory --list | python3 -m json.tool | head -50
 
 
@@ -187,6 +195,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
         ping -c 3 <bmc-ip>
 
 
@@ -206,6 +215,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
         systemctl status coredhcp.service
 
 
@@ -216,6 +226,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
         systemctl status tftpd.service
 
 
@@ -231,6 +242,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
         arping -D -I <admin-nic> <admin-ip>
 
 
@@ -243,5 +255,6 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
         curl -sk https://<bmc-ip>/redfish/v1/ -u <user>:<pass>
 

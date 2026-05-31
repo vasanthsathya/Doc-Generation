@@ -72,6 +72,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh root@<oim-ip-address>
 
 
@@ -82,6 +83,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       cd /opt
       git clone https://github.com/dell/omnia.git
       cd omnia
@@ -96,6 +98,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
           git checkout v2.1.0.0
 
 
@@ -106,6 +109,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       bash build_images.sh core
 
 
@@ -119,6 +123,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       bash omnia.sh --install
 
 
@@ -136,6 +141,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       systemctl status omnia_core.service
 
 
@@ -146,6 +152,7 @@ Procedure
 **Expected output on: OIM host**
 
 .. code-block:: text
+
       ● omnia_core.service - Omnia Core Container
            Loaded: loaded (/etc/systemd/system/omnia_core.service; enabled; vendor preset: disabled)
            Active: active (running) since ...
@@ -164,6 +171,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman ps --filter name=omnia_core
 
 
@@ -176,6 +184,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman exec -it -u root omnia_core bash
 
 
@@ -184,6 +193,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible --version
 
 
@@ -194,6 +204,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ls /omnia/*.yml
 
 
@@ -208,6 +219,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ls /opt/omnia/input/project_default/
 
 
@@ -235,6 +247,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman logs omnia_core
 
 
@@ -246,6 +259,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       bash omnia.sh --install
 
 
@@ -257,6 +271,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ping -c 3 github.com
       cat /etc/resolv.conf
 
@@ -269,6 +284,7 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       dnf install -y podman
       systemctl enable --now podman.socket
 
@@ -281,5 +297,6 @@ Troubleshooting
 **Run on: OIM host**
 
 .. code-block:: bash
+
       df -h /opt
 

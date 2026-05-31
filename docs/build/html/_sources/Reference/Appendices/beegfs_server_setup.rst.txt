@@ -72,9 +72,10 @@ Step 1: Add BeeGFS repository
 **Run on: BeeGFS server**
 
 .. code-block:: bash
+
    # Import the BeeGFS GPG key
    rpm --import https://www.beegfs.io/release/beegfs_7.4.3/gpg/GPG-KEY-beegfs
-   
+
    # Add the repository
    cat > /etc/yum.repos.d/beegfs.repo << 'EOF'
    [beegfs]
@@ -99,6 +100,7 @@ On the management node:
 **Run on: Management node**
 
 .. code-block:: bash
+
    dnf install -y beegfs-mgmtd
    mkdir -p /data/beegfs/mgmtd
    /opt/beegfs/sbin/beegfs-setup-mgmtd -p /data/beegfs/mgmtd
@@ -118,6 +120,7 @@ On each metadata server:
 **Run on: Metadata server**
 
 .. code-block:: bash
+
    dnf install -y beegfs-meta
    mkdir -p /data/beegfs/meta
    /opt/beegfs/sbin/beegfs-setup-meta -p /data/beegfs/meta \
@@ -146,6 +149,7 @@ On each storage server:
 **Run on: Storage server**
 
 .. code-block:: bash
+
    dnf install -y beegfs-storage
    mkdir -p /data/beegfs/storage
    /opt/beegfs/sbin/beegfs-setup-storage -p /data/beegfs/storage \
@@ -171,10 +175,11 @@ Step 5: Verify the server setup
 **Run on: BeeGFS server**
 
 .. code-block:: bash
+
    # Check registered servers (run from any node with beegfs-ctl)
    beegfs-ctl --listnodes --nodetype=meta
    beegfs-ctl --listnodes --nodetype=storage
-   
+
    # Check filesystem health
    beegfs-ctl --listtargets --state
 
@@ -205,9 +210,10 @@ Network configuration
 **Example: BeeGFS network configuration files**
 
 .. code-block:: bash
+
    # Example connInterfacesFile (/etc/beegfs/connInterfacesFile)
    enp175s0f0
-   
+
    # Example connNetFilterFile (/etc/beegfs/connNetFilterFile)
    10.10.0.0/24
 

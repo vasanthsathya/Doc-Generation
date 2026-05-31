@@ -596,6 +596,17 @@ mapping, timezone, domain name, and OS image settings.</p>
 <section id="usage-example">
 <h2>Usage example<a class="headerlink" href="#usage-example" title="Link to this heading">#</a></h2>
 <p><strong>File: /opt/omnia/input/project_default/provision_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">pxe_mapping_file_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/omnia/input/project_default/pxe_mapping.csv&quot;</span>
+<span class="nt">timezone</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;America/Chicago&quot;</span>
+<span class="nt">domain_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;hpc.example.com&quot;</span>
+<span class="nt">repo_store_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/omnia/repo_store&quot;</span>
+<span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en-US&quot;</span>
+<span class="nt">iso_file_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/omnia/iso/rhel-10.0-x86_64-dvd.iso&quot;</span>
+<span class="nt">default_lease_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">86400</span>
+<span class="nt">provision_os</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rhel&quot;</span>
+<span class="nt">provision_os_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.0&quot;</span>
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">provision_password</span></code> parameter must be set using the

@@ -23,6 +23,7 @@ belonging to that group.
 **File: /opt/omnia/input/project_default/software_config.json**
 
 .. code-block:: json
+
    [
      {
        "functional_group_name": "<group_name>",
@@ -136,6 +137,7 @@ examples covering Slurm-only, Slurm + K8s, and telemetry-only scenarios.
 **File: /opt/omnia/input/project_default/software_config.json**
 
 .. code-block:: json
+
    [
      {
        "functional_group_name": "slurm_control_node",

@@ -538,15 +538,52 @@ other device.</p></li>
 <li><p><strong>Enter the omnia_core container</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Configure the virtual IP</strong> in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
+
+
+
+Add<span class="w"> </span>or<span class="w"> </span>update<span class="w"> </span>the<span class="w"> </span>HA<span class="w"> </span>parameters:
+</pre></div>
+</div>
 <p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">---</span>
+<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain"># Kubernetes HA configuration</span>
+<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">k8s_ha_enabled</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">   </span><span class="nt">k8s_vip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.200&quot;</span>
+<span class="w">   </span><span class="nt">k8s_vip_interface</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno1&quot;</span>
+
+
+
+<span class="kt">!!!</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">warning</span>
+
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">The ``k8s_vip`` must be a free IP address on the same subnet as the</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">control-plane nodes. Do **not** use an IP from the MetalLB range.</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the omnia.yml playbook</strong> (or re-run to apply HA changes):</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/omnia
+<span class="w">    </span>ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass
+
+
+
+<span class="w"> </span>If<span class="w"> </span>the<span class="w"> </span>cluster<span class="w"> </span>is<span class="w"> </span>already<span class="w"> </span>deployed,<span class="w"> </span>the<span class="w"> </span>playbook<span class="w"> </span>will:
+
+-<span class="w"> </span>Deploy<span class="w"> </span>kube-vip<span class="w"> </span>or<span class="w"> </span>keepalived<span class="w"> </span>on<span class="w"> </span>control-plane<span class="w"> </span>nodes.
+-<span class="w"> </span>Configure<span class="w"> </span>the<span class="w"> </span>VIP<span class="w"> </span>as<span class="w"> </span>the<span class="w"> </span>API<span class="w"> </span>server<span class="w"> </span>endpoint.
+-<span class="w"> </span>Update<span class="w"> </span>kubeconfig<span class="w"> </span>on<span class="w"> </span>all<span class="w"> </span>nodes<span class="w"> </span>to<span class="w"> </span>use<span class="w"> </span>the<span class="w"> </span>VIP.
+-<span class="w"> </span>Reconfigure<span class="w"> </span>the<span class="w"> </span>kube-apiserver<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>new<span class="w"> </span>advertised<span class="w"> </span>address.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Alternatively, configure HA manually</strong> on an existing cluster:</p>
 <ol class="loweralpha simple">
@@ -555,8 +592,65 @@ other device.</p></li>
 </li>
 </ol>
 <p><strong>Run on: each K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>keepalived
+
+
+
+b.<span class="w"> </span>**Configure<span class="w"> </span>keepalived**<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>primary<span class="w"> </span>control-plane<span class="w"> </span>node:
+</pre></div>
+</div>
 <p><strong>Run on: K8s control plane node 1 (MASTER)</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /etc/keepalived/keepalived.conf</span>
+<span class="s">      vrrp_instance K8S_VIP {</span>
+<span class="s">          state MASTER</span>
+<span class="s">          interface eno1</span>
+<span class="s">          virtual_router_id 51</span>
+<span class="s">          priority 100</span>
+<span class="s">          advert_int 1</span>
+<span class="s">          authentication {</span>
+<span class="s">              auth_type PASS</span>
+<span class="s">              auth_pass k8s_vip_secret</span>
+<span class="s">          }</span>
+<span class="s">          virtual_ipaddress {</span>
+<span class="s">              10.5.0.200/24</span>
+<span class="s">          }</span>
+<span class="s">      }</span>
+<span class="s">      EOF</span>
+
+<span class="w">      </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>keepalived
+
+
+
+c.<span class="w"> </span>**Configure<span class="w"> </span>keepalived**<span class="w"> </span>on<span class="w"> </span>backup<span class="w"> </span>control-plane<span class="w"> </span>nodes:
+</pre></div>
+</div>
 <p><strong>Run on: K8s control plane nodes 2 and 3 (BACKUP)</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /etc/keepalived/keepalived.conf</span>
+<span class="s">   vrrp_instance K8S_VIP {</span>
+<span class="s">       state BACKUP</span>
+<span class="s">       interface eno1</span>
+<span class="s">       virtual_router_id 51</span>
+<span class="s">       priority 90</span>
+<span class="s">       advert_int 1</span>
+<span class="s">       authentication {</span>
+<span class="s">           auth_type PASS</span>
+<span class="s">           auth_pass k8s_vip_secret</span>
+<span class="s">       }</span>
+<span class="s">       virtual_ipaddress {</span>
+<span class="s">           10.5.0.200/24</span>
+<span class="s">       }</span>
+<span class="s">   }</span>
+<span class="s">   EOF</span>
+
+<span class="w">   </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>keepalived
+
+
+
+!!!<span class="w"> </span>note
+
+<span class="w">    </span>Set<span class="w"> </span><span class="sb">``</span>priority<span class="w"> </span><span class="m">80</span><span class="sb">``</span><span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>third<span class="w"> </span>control-plane<span class="w"> </span>node.
+</pre></div>
+</div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
@@ -564,24 +658,58 @@ other device.</p></li>
 <li><p><strong>Verify the VIP is active</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">10</span>.5.0.200
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Check which node currently holds the VIP</strong>:</p></li>
 </ol>
 <p><strong>Run on: each K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>eno1<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;10.5.0.200&quot;</span>
+
+
+
+Only<span class="w"> </span>one<span class="w"> </span>node<span class="w"> </span>should<span class="w"> </span>show<span class="w"> </span>the<span class="w"> </span>VIP.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Access the Kubernetes API via the VIP</strong>:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>--server<span class="o">=</span>https://10.5.0.200:6443<span class="w"> </span>get<span class="w"> </span>nodes
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Test failover</strong> by stopping keepalived on the active node:</p></li>
 </ol>
 <p><strong>Run on: active K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>systemctl<span class="w"> </span>stop<span class="w"> </span>keepalived
+
+
+
+Then<span class="w"> </span>verify<span class="w"> </span>the<span class="w"> </span>VIP<span class="w"> </span>migrated:
+</pre></div>
+</div>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">10</span>.5.0.200
+<span class="w">   </span><span class="c1"># Should still respond -- VIP migrated to a backup node</span>
+
+
+
+Re-enable<span class="w"> </span>keepalived:
+</pre></div>
+</div>
 <p><strong>Run on: previously active node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>start<span class="w"> </span>keepalived
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Update kubeconfig</strong> to use the VIP:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>config<span class="w"> </span>set-cluster<span class="w"> </span>kubernetes<span class="w"> </span>--server<span class="o">=</span>https://10.5.0.200:6443
+</pre></div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -598,12 +726,20 @@ cluster.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: each K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>keepalived
+journalctl<span class="w"> </span>-u<span class="w"> </span>keepalived<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>VIP does not failover</strong></dt><dd><p>Verify VRRP traffic is allowed on the network. Check for firewall rules
 blocking multicast:</p>
 </dd>
 </dl>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>firewall-cmd<span class="w"> </span>--add-protocol<span class="o">=</span>vrrp<span class="w"> </span>--permanent
+firewall-cmd<span class="w"> </span>--reload
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Both nodes claim the VIP (split-brain)</strong></dt><dd><p>Ensure all control-plane nodes have the same <code class="docutils literal notranslate"><span class="pre">virtual_router_id</span></code> and
 <code class="docutils literal notranslate"><span class="pre">auth_pass</span></code> in keepalived.conf. Check network connectivity between
@@ -613,6 +749,9 @@ control-plane nodes.</p>
 </dd>
 </dl>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">6443</span>
+</pre></div>
+</div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

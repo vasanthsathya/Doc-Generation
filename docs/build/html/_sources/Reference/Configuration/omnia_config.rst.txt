@@ -176,21 +176,22 @@ Usage example
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+
    scheduler_type: "slurm,k8s"
    slurm_installation_type: "nfs_share"
    restart_slurm_services: true
-   
+
    k8s_version: "1.29"
    k8s_cni: "calico"
    k8s_pod_network_cidr: "10.244.0.0/16"
    k8s_service_cidr: "10.96.0.0/12"
    metallb_address_range: "192.168.1.240-192.168.1.250"
-   
+
    enable_nvidia_gpu: true
    cuda_toolkit_version: "12.4"
    enable_amd_gpu: false
    enable_gpu_slurm_gres: true
-   
+
    login_node_required: true
    auth_server_required: true
 

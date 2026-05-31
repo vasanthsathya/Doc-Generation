@@ -542,23 +542,79 @@ the K8s service cluster.</p></li>
 <li><p><strong>Enter the omnia_core container</strong>:</p></li>
 </ol>
 <p><strong>Run on: OIM host</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Configure external VictoriaMetrics</strong> in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
+</pre></div>
+</div>
 <p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="c1"># External VictoriaMetrics configuration</span>
+<span class="nt">victoriametrics_external</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">victoriametrics_write_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://victoria.example.com:8428/api/v1/write&quot;</span>
+<span class="nt">victoriametrics_read_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://victoria.example.com:8428&quot;</span>
+
+<span class="c1"># Optional: authentication</span>
+<span class="nt">victoriametrics_auth_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">victoriametrics_username</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="nt">victoriametrics_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+
+<span class="c1"># Optional: custom labels added to all metrics</span>
+<span class="nt">victoriametrics_extra_labels</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">cluster</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;omnia-prod&quot;</span>
+<span class="w">  </span><span class="nt">datacenter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dc1&quot;</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify connectivity</strong> to the external VictoriaMetrics:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>curl<span class="w"> </span>-s<span class="w"> </span>http://victoria.example.com:8428/api/v1/status/tsdb
+
+
+
+Expected:<span class="w"> </span>JSON<span class="w"> </span>response<span class="w"> </span>with<span class="w"> </span>database<span class="w"> </span>statistics.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Run the telemetry playbook</strong> to reconfigure:</p></li>
 </ol>
 <p><strong>Run on: omnia_core container</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/omnia
+<span class="w">    </span>ansible-playbook<span class="w"> </span>telemetry.yml<span class="w"> </span>--ask-vault-pass
+
+
+
+<span class="w"> </span>The<span class="w"> </span>playbook<span class="w"> </span>will:
+
+-<span class="w"> </span>Skip<span class="w"> </span>deploying<span class="w"> </span>the<span class="w"> </span>built-in<span class="w"> </span>VictoriaMetrics<span class="w"> </span>pod.
+-<span class="w"> </span>Configure<span class="w"> </span>Kafka<span class="w"> </span>consumers<span class="w"> </span>to<span class="w"> </span>write<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>external<span class="w"> </span>VictoriaMetrics.
+-<span class="w"> </span>Update<span class="w"> </span>Grafana<span class="w"> </span>data<span class="w"> </span><span class="nb">source</span><span class="w"> </span>to<span class="w"> </span>point<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>external<span class="w"> </span>instance.
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Update Grafana data source</strong> (if not automatically configured):</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">GRAFANA_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>grafana<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
+kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="nv">$GRAFANA_POD</span><span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:3000/api/datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-u<span class="w"> </span>admin:YourGrafanaPassword<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">      &quot;name&quot;: &quot;VictoriaMetrics External&quot;,</span>
+<span class="s1">      &quot;type&quot;: &quot;prometheus&quot;,</span>
+<span class="s1">      &quot;url&quot;: &quot;http://victoria.example.com:8428&quot;,</span>
+<span class="s1">      &quot;access&quot;: &quot;proxy&quot;,</span>
+<span class="s1">      &quot;isDefault&quot;: true</span>
+<span class="s1">    }&#39;</span>
+</pre></div>
+</div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
@@ -566,14 +622,23 @@ the K8s service cluster.</p></li>
 <li><p><strong>Verify data is being written</strong> to the external VictoriaMetrics:</p></li>
 </ol>
 <p><strong>Run on: any node with curl</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://victoria.example.com:8428/api/v1/query?query=up&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Check metric count</strong> on the external instance:</p></li>
 </ol>
 <p><strong>Run on: any node with curl</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://victoria.example.com:8428/api/v1/status/tsdb&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify no built-in VictoriaMetrics pod</strong> is running:</p></li>
 </ol>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>victoriametrics
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p><strong>Verify Grafana dashboards</strong> show data from the external instance by
 opening the Grafana web UI and checking the data source configuration.</p></li>
@@ -593,11 +658,18 @@ opening the Grafana web UI and checking the data source configuration.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: K8s control plane node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>user:password<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">&quot;http://victoria.example.com:8428/api/v1/query?query=up&quot;</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Connection timeout to external VictoriaMetrics</strong></dt><dd><p>Check network connectivity and firewall rules:</p>
 </dd>
 </dl>
 <p><strong>Run on: K8s worker node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-v<span class="w"> </span>http://victoria.example.com:8428/health
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Grafana shows “No data” with external source</strong></dt><dd><ul class="simple">
 <li><p>Verify the data source URL in Grafana settings.</p></li>
@@ -606,6 +678,9 @@ opening the Grafana web UI and checking the data source configuration.</p></li>
 </dd>
 </dl>
 <p><strong>Run on: any node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://victoria.example.com:8428/api/v1/series?match[]={cluster=&#39;omnia-prod&#39;}&quot;</span>
+</pre></div>
+</div>
 <dl class="simple">
 <dt><strong>Metrics have wrong labels</strong></dt><dd><p>Check the <code class="docutils literal notranslate"><span class="pre">victoriametrics_extra_labels</span></code> configuration in
 <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>.</p>

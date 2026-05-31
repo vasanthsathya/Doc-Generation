@@ -560,16 +560,43 @@ configured independently before running <code class="docutils literal notranslat
 <section id="step-1-add-beegfs-repository">
 <h3>Step 1: Add BeeGFS repository<a class="headerlink" href="#step-1-add-beegfs-repository" title="Link to this heading">#</a></h3>
 <p><strong>Run on: BeeGFS server</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the BeeGFS GPG key</span>
+rpm<span class="w"> </span>--import<span class="w"> </span>https://www.beegfs.io/release/beegfs_7.4.3/gpg/GPG-KEY-beegfs
+
+<span class="c1"># Add the repository</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>/etc/yum.repos.d/beegfs.repo<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">[beegfs]</span>
+<span class="s">name=BeeGFS</span>
+<span class="s">baseurl=https://www.beegfs.io/release/beegfs_7.4.3/dists/rhel10</span>
+<span class="s">gpgcheck=1</span>
+<span class="s">gpgkey=https://www.beegfs.io/release/beegfs_7.4.3/gpg/GPG-KEY-beegfs</span>
+<span class="s">enabled=1</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
 </section>
 <section id="step-2-install-management-service">
 <h3>Step 2: Install management service<a class="headerlink" href="#step-2-install-management-service" title="Link to this heading">#</a></h3>
 <p>On the management node:</p>
 <p><strong>Run on: Management node</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>beegfs-mgmtd
+mkdir<span class="w"> </span>-p<span class="w"> </span>/data/beegfs/mgmtd
+/opt/beegfs/sbin/beegfs-setup-mgmtd<span class="w"> </span>-p<span class="w"> </span>/data/beegfs/mgmtd
+systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>beegfs-mgmtd
+</pre></div>
+</div>
 </section>
 <section id="step-3-install-metadata-service">
 <h3>Step 3: Install metadata service<a class="headerlink" href="#step-3-install-metadata-service" title="Link to this heading">#</a></h3>
 <p>On each metadata server:</p>
 <p><strong>Run on: Metadata server</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>beegfs-meta
+mkdir<span class="w"> </span>-p<span class="w"> </span>/data/beegfs/meta
+/opt/beegfs/sbin/beegfs-setup-meta<span class="w"> </span>-p<span class="w"> </span>/data/beegfs/meta<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-s<span class="w"> </span>&lt;unique_server_id&gt;<span class="w"> </span>-m<span class="w"> </span>&lt;mgmtd_hostname&gt;
+systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>beegfs-meta
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">&lt;unique_server_id&gt;</span></code> is a positive integer unique across all metadata
@@ -581,6 +608,13 @@ service.</p>
 <h3>Step 4: Install storage service<a class="headerlink" href="#step-4-install-storage-service" title="Link to this heading">#</a></h3>
 <p>On each storage server:</p>
 <p><strong>Run on: Storage server</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>beegfs-storage
+mkdir<span class="w"> </span>-p<span class="w"> </span>/data/beegfs/storage
+/opt/beegfs/sbin/beegfs-setup-storage<span class="w"> </span>-p<span class="w"> </span>/data/beegfs/storage<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-s<span class="w"> </span>&lt;unique_server_id&gt;<span class="w"> </span>-i<span class="w"> </span>&lt;storage_target_id&gt;<span class="w"> </span>-m<span class="w"> </span>&lt;mgmtd_hostname&gt;
+systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>beegfs-storage
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For multiple storage targets on a single node, run <code class="docutils literal notranslate"><span class="pre">beegfs-setup-storage</span></code>
@@ -590,6 +624,14 @@ once per target with different <code class="docutils literal notranslate"><span 
 <section id="step-5-verify-the-server-setup">
 <h3>Step 5: Verify the server setup<a class="headerlink" href="#step-5-verify-the-server-setup" title="Link to this heading">#</a></h3>
 <p><strong>Run on: BeeGFS server</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check registered servers (run from any node with beegfs-ctl)</span>
+beegfs-ctl<span class="w"> </span>--listnodes<span class="w"> </span>--nodetype<span class="o">=</span>meta
+beegfs-ctl<span class="w"> </span>--listnodes<span class="w"> </span>--nodetype<span class="o">=</span>storage
+
+<span class="c1"># Check filesystem health</span>
+beegfs-ctl<span class="w"> </span>--listtargets<span class="w"> </span>--state
+</pre></div>
+</div>
 </section>
 </section>
 <section id="network-configuration">
@@ -614,6 +656,13 @@ once per target with different <code class="docutils literal notranslate"><span 
 </table>
 </div>
 <p><strong>Example: BeeGFS network configuration files</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example connInterfacesFile (/etc/beegfs/connInterfacesFile)</span>
+enp175s0f0
+
+<span class="c1"># Example connNetFilterFile (/etc/beegfs/connNetFilterFile)</span>
+<span class="m">10</span>.10.0.0/24
+</pre></div>
+</div>
 </section>
 <section id="tuning-parameters">
 <h2>Tuning parameters<a class="headerlink" href="#tuning-parameters" title="Link to this heading">#</a></h2>

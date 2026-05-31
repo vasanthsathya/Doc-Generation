@@ -53,6 +53,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       ssh omnia_core
 
 
@@ -63,6 +64,7 @@ Procedure
 **Run on: OIM host**
 
 .. code-block:: bash
+
       podman exec -it -u root omnia_core bash
 
 
@@ -73,6 +75,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cd /opt/omnia/input/project_default
 
 
@@ -83,6 +86,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi pxe_mapping_file.csv
 
 
@@ -94,6 +98,7 @@ Procedure
 **File: /opt/omnia/input/project_default/pxe_mapping_file.csv**
 
 .. code-block:: text
+
       FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
       slurm_control_node,slurm_cluster,ABCDEF1,,,aa:bb:cc:dd:ee:01,10.5.0.101,aa:bb:cc:dd:ff:01,10.3.0.101
       slurm_node,slurm_cluster,ABCDEF2,,,aa:bb:cc:dd:ee:02,10.5.0.102,aa:bb:cc:dd:ff:02,10.3.0.102
@@ -173,6 +178,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       head -1 /opt/omnia/input/project_default/pxe_mapping_file.csv
 
 
@@ -183,6 +189,7 @@ Verification
 **Expected output on: omnia_core container**
 
 .. code-block:: text
+
       FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
 
 
@@ -193,6 +200,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       tail -n +2 /opt/omnia/input/project_default/pxe_mapping_file.csv | wc -l
 
 
@@ -205,6 +213,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       cat -A /opt/omnia/input/project_default/pxe_mapping_file.csv
 
 

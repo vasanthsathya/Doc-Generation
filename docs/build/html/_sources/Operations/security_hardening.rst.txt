@@ -82,7 +82,7 @@ password or LDAP admin password):
 
       # For Slurm credentials
       ansible-playbook playbooks/omnia.yml --tags slurm
-   
+
       # For LDAP credentials
       ansible-playbook playbooks/auth.yml
 
@@ -107,9 +107,10 @@ Check certificate expiry
 **Run on: OIM host**
 
 .. code-block:: bash
+
    # List certificates and their expiry dates
    step certificate inspect /etc/step/certs/server.crt --short
-   
+
    # Check days until expiry
    step certificate needs-renewal /etc/step/certs/server.crt
 
@@ -127,9 +128,10 @@ If automatic renewal fails:
 **Run on: OIM host**
 
 .. code-block:: bash
+
    # Manually renew
    step ca renew /etc/step/certs/server.crt /etc/step/certs/server.key
-   
+
    # Restart affected services to pick up the new certificate
    podman restart <service_container>
 
@@ -161,22 +163,23 @@ OIM firewall configuration
 **Run on: OIM host**
 
 .. code-block:: bash
+
    # Allow SSH (management)
    firewall-cmd --permanent --add-service=ssh
-   
+
    # Allow DHCP (provisioning)
    firewall-cmd --permanent --add-service=dhcp
-   
+
    # Allow TFTP (PXE boot)
    firewall-cmd --permanent --add-service=tftp
-   
+
    # Allow HTTP/HTTPS (Pulp repositories, AWX)
    firewall-cmd --permanent --add-service=http
    firewall-cmd --permanent --add-service=https
-   
+
    # Reload to apply
    firewall-cmd --reload
-   
+
    # Verify active rules
    firewall-cmd --list-all
 
@@ -191,16 +194,17 @@ Compute node firewall configuration
 **Run on: compute node**
 
 .. code-block:: bash
+
    # Allow Slurm communication
    firewall-cmd --permanent --add-port=6817-6819/tcp
-   
+
    # Allow SSH (inter-node communication for MPI)
    firewall-cmd --permanent --add-service=ssh
-   
+
    # Allow LDAP client connections
    firewall-cmd --permanent --add-port=389/tcp
    firewall-cmd --permanent --add-port=636/tcp
-   
+
    # Reload to apply
    firewall-cmd --reload
 
@@ -276,14 +280,15 @@ Review running services on all nodes and disable anything not required:
 **Run on: compute node**
 
 .. code-block:: bash
+
    # List all enabled services
    systemctl list-unit-files --state=enabled
-   
+
    # Disable services not needed on compute nodes
    systemctl disable --now cups.service
    systemctl disable --now avahi-daemon.service
    systemctl disable --now bluetooth.service
-   
+
    # Verify
    systemctl list-unit-files --state=enabled | wc -l
 
@@ -301,12 +306,13 @@ Apply security patches regularly on the OIM and all cluster nodes:
 **Run on: OIM host**
 
 .. code-block:: bash
+
    # Install only security updates (RHEL/Rocky)
    yum update --security -y
-   
+
    # Check for available security updates without installing
    yum updateinfo list security
-   
+
    # Schedule automatic security updates (optional)
    yum install -y dnf-automatic
    systemctl enable --now dnf-automatic-install.timer

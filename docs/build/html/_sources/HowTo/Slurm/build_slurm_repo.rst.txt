@@ -47,6 +47,7 @@ Procedure
 **Run on: build host (OIM or dedicated build server)**
 
 .. code-block:: bash
+
       dnf groupinstall -y "Development Tools"
       dnf install -y rpm-build munge-devel munge-libs pam-devel \
         perl-ExtUtils-MakeMaker readline-devel openssl-devel \
@@ -61,6 +62,7 @@ Procedure
 **Run on: build host**
 
 .. code-block:: bash
+
       mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 
 
@@ -71,6 +73,7 @@ Procedure
 **Run on: build host**
 
 .. code-block:: bash
+
       cd ~/rpmbuild/SOURCES
       wget https://download.schedmd.com/slurm/slurm-23.11.4.tar.bz2
 
@@ -86,6 +89,7 @@ Procedure
 **Run on: build host**
 
 .. code-block:: bash
+
       tar xjf slurm-23.11.4.tar.bz2 --strip-components=1 -C /tmp slurm-23.11.4/slurm.spec
       cp /tmp/slurm.spec ~/rpmbuild/SPECS/
 
@@ -97,6 +101,7 @@ Procedure
 **Run on: build host**
 
 .. code-block:: bash
+
       rpmbuild -ba ~/rpmbuild/SPECS/slurm.spec
 
 
@@ -110,6 +115,7 @@ Procedure
 **Run on: build host**
 
 .. code-block:: bash
+
       dnf install -y createrepo_c
       mkdir -p /opt/omnia/custom_repos/slurm
       cp ~/rpmbuild/RPMS/x86_64/slurm-*.rpm /opt/omnia/custom_repos/slurm/
@@ -123,14 +129,15 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       # Create a Pulp repository for custom Slurm RPMs
       pulp rpm repository create --name slurm-custom
-   
+
       # Upload RPMs
       for rpm in /opt/omnia/custom_repos/slurm/*.rpm; do
         pulp rpm content upload --file "$rpm" --repository slurm-custom
       done
-   
+
       # Create a publication and distribution
       pulp rpm publication create --repository slurm-custom
       pulp rpm distribution create --name slurm-custom \
@@ -151,6 +158,7 @@ Verification
 **Run on: build host**
 
 .. code-block:: bash
+
       ls -la /opt/omnia/custom_repos/slurm/
 
 
@@ -161,6 +169,7 @@ Verification
 **Run on: build host**
 
 .. code-block:: bash
+
       ls /opt/omnia/custom_repos/slurm/repodata/
 
 
@@ -173,6 +182,7 @@ Verification
 **Run on: OIM host**
 
 .. code-block:: bash
+
       curl -s http://localhost:8080/pulp/content/slurm-custom/repodata/repomd.xml | head
 
 
@@ -183,6 +193,7 @@ Verification
 **Run on: build host**
 
 .. code-block:: bash
+
       rpm -qip ~/rpmbuild/RPMS/x86_64/slurm-23*.rpm | grep -E "^(Name|Version)"
 
 
@@ -210,6 +221,7 @@ Troubleshooting
 **Run on: build host**
 
 .. code-block:: bash
+
       dnf install -y <missing-package>-devel
 
 
@@ -221,6 +233,7 @@ Troubleshooting
 **Run on: build host**
 
 .. code-block:: bash
+
       wget -O ~/rpmbuild/SPECS/slurm.spec \
         https://raw.githubusercontent.com/SchedMD/slurm/slurm-23-11-4-1/slurm.spec
 
@@ -233,6 +246,7 @@ Troubleshooting
 **Run on: build host**
 
 .. code-block:: bash
+
       dnf install -y createrepo_c
 
 
@@ -244,6 +258,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       dnf remove -y slurm slurm-slurmd slurm-slurmctld
       dnf install -y --disablerepo='*' --enablerepo='slurm-custom' slurm slurm-slurmd
 

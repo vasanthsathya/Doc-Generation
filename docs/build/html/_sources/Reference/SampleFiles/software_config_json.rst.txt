@@ -22,6 +22,7 @@ and LDMS telemetry on compute nodes. No Kubernetes.
 **Sample software_config.json: Slurm-only cluster**
 
 .. code-block:: json
+
    [
      {
        "functional_group_name": "slurm_control_node",
@@ -88,6 +89,7 @@ platform services, monitoring, and storage.
 **Sample software_config.json: Slurm + Kubernetes**
 
 .. code-block:: json
+
    [
      {
        "functional_group_name": "slurm_control_node",
@@ -177,6 +179,7 @@ infrastructure monitoring without a job scheduler.
 **Sample software_config.json: Kubernetes + telemetry only**
 
 .. code-block:: json
+
    [
      {
        "functional_group_name": "kube_control_plane",
@@ -226,6 +229,7 @@ Slurm cluster with AMD Instinct GPU nodes instead of NVIDIA.
 **Sample software_config.json: AMD GPU compute nodes**
 
 .. code-block:: json
+
    [
      {
        "functional_group_name": "slurm_control_node",

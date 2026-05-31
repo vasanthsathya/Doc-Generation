@@ -489,6 +489,15 @@ that first.</p>
 <p>Clone the Omnia repository, build the container images, and install the
 <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> Podman container on the OIM.</p>
 <p><strong>Run on OIM (as root)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the Omnia repository</span>
+<span class="nb">cd</span><span class="w"> </span>/opt
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/dell/omnia.git
+<span class="nb">cd</span><span class="w"> </span>omnia
+
+<span class="c1"># Build the required container images</span>
+bash<span class="w"> </span>build_images.sh
+</pre></div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p><code class="docutils literal notranslate"><span class="pre">build_images.sh</span></code> creates the <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> and supporting images.
@@ -496,15 +505,36 @@ It takes 5–10 minutes on a fast connection. Watch for any <code class="docutil
 messages in the output.</p>
 </div>
 <p><strong>Run on OIM (as root)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install and start the omnia_core container</span>
+bash<span class="w"> </span>omnia.sh<span class="w"> </span>--install
+
+<span class="c1"># Verify that the omnia_core container is running</span>
+systemctl<span class="w"> </span>status<span class="w"> </span>omnia_core
+</pre></div>
+</div>
 <p>You should see <code class="docutils literal notranslate"><span class="pre">active</span> <span class="pre">(running)</span></code> in the output. If the service is
 <code class="docutils literal notranslate"><span class="pre">failed</span></code>, check <code class="docutils literal notranslate"><span class="pre">journalctl</span> <span class="pre">-u</span> <span class="pre">omnia_core</span></code> for errors.</p>
 <p><strong>Run on OIM (as root)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify you can access the container shell</span>
+ssh<span class="w"> </span>omnia_core
+<span class="c1"># You should land at a prompt inside the container. Type &#39;exit&#39; to return.</span>
+<span class="nb">exit</span>
+</pre></div>
+</div>
 </section>
 <section id="step-2-create-the-mapping-file">
 <h2>Step 2 – Create the Mapping File<a class="headerlink" href="#step-2-create-the-mapping-file" title="Link to this heading">#</a></h2>
 <p>The mapping file tells Omnia which physical servers map to which cluster
 roles. Create a CSV at <code class="docutils literal notranslate"><span class="pre">/opt/omnia/input/project_default/mapping.csv</span></code>.</p>
 <p><strong>Run on OIM (as root)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>&gt;<span class="w"> </span>/opt/omnia/input/project_default/mapping.csv<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+<span class="s">FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP</span>
+<span class="s">slurm_control_node,slurm,ABC1234,,head01,24:6E:96:AA:BB:01,10.5.0.101,,10.3.0.101</span>
+<span class="s">slurm_node,slurm,DEF5678,,compute01,24:6E:96:AA:BB:02,10.5.0.102,,10.3.0.102</span>
+<span class="s">login_node,slurm,GHI9012,,login01,24:6E:96:AA:BB:03,10.5.0.103,,10.3.0.103</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Replace the placeholder values (<code class="docutils literal notranslate"><span class="pre">SERVICE_TAG</span></code>, <code class="docutils literal notranslate"><span class="pre">ADMIN_MAC</span></code>,
@@ -532,6 +562,16 @@ MAC addresses from <code class="docutils literal notranslate"><span class="pre">
 <p>Omnia ships example input templates for common deployment patterns. Copy
 the bare-metal Slurm template (without service K8s) and customize it.</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+
+<span class="c1"># Copy the template inputs to the active input directory</span>
+cp<span class="w"> </span>-r<span class="w"> </span>/opt/omnia/examples/input_template/bare_metal_slurm/x86_64/without_service_k8s/*<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>/opt/omnia/input/project_default/
+
+<span class="c1"># List the copied files</span>
+ls<span class="w"> </span>-la<span class="w"> </span>/opt/omnia/input/project_default/
+</pre></div>
+</div>
 <p>You should see these key input files:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">network_spec.yml</span></code> – Network CIDRs and interfaces</p></li>
@@ -555,6 +595,10 @@ they work for the vast majority of deployments.</p>
 for iDRAC, the provisioning OS, and other services. This playbook prompts
 you interactively.</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>credentials_utility.yml
+</pre></div>
+</div>
 <p>You will be prompted to set:</p>
 <ul class="simple">
 <li><p><strong>Provisioning OS password</strong> – root password for provisioned nodes.</p></li>
@@ -576,18 +620,50 @@ and HTTP services.</p>
 <section id="a-edit-network-spec-yml">
 <h3><strong>5a. Edit</strong> <cite>network_spec.yml</cite><a class="headerlink" href="#a-edit-network-spec-yml" title="Link to this heading">#</a></h3>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/network_spec.yml
+</pre></div>
+</div>
 <p>Set the following values (adjust to match your environment):</p>
 <p><strong>Example network_spec.yml excerpt</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">admin_network</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">nic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eno2</span><span class="w">                    </span><span class="c1"># OIM NIC connected to admin switch</span>
+<span class="w">  </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.5.0.0/16</span><span class="w">            </span><span class="c1"># Admin subnet CIDR</span>
+<span class="w">  </span><span class="nt">static_range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.5.0.100-10.5.0.200</span>
+<span class="w">  </span><span class="nt">gateway</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.5.0.1</span>
+
+<span class="nt">bmc_network</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">nic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eno2</span><span class="w">                    </span><span class="c1"># Can share NIC if VLANs are used</span>
+<span class="w">  </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.3.0.0/16</span><span class="w">            </span><span class="c1"># BMC subnet CIDR</span>
+<span class="w">  </span><span class="nt">static_range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.3.0.100-10.3.0.200</span>
+</pre></div>
+</div>
 </section>
 <section id="b-edit-provision-config-yml">
 <h3><strong>5b. Edit</strong> <cite>provision_config.yml</cite><a class="headerlink" href="#b-edit-provision-config-yml" title="Link to this heading">#</a></h3>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/provision_config.yml
+</pre></div>
+</div>
 <p>Key fields to verify or set:</p>
 <p><strong>Example provision_config.yml excerpt</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Path to the RHEL or Rocky Linux ISO on the OIM</span>
+<span class="nt">iso_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt/isos/RHEL-8.8-x86_64-dvd.iso</span>
+
+<span class="c1"># Timezone for provisioned nodes</span>
+<span class="nt">timezone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">America/Chicago</span>
+
+<span class="c1"># Domain name for the cluster</span>
+<span class="nt">domain_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">omnia.local</span>
+</pre></div>
+</div>
 </section>
 <section id="c-run-prepare-oim-yml">
 <h3><strong>5c. Run</strong> <cite>prepare_oim.yml</cite><a class="headerlink" href="#c-run-prepare-oim-yml" title="Link to this heading">#</a></h3>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>prepare_oim.yml<span class="w"> </span>-i<span class="w"> </span>/opt/omnia/input/project_default/mapping.csv
+</pre></div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p><code class="docutils literal notranslate"><span class="pre">prepare_oim.yml</span></code> takes 10–15 minutes. It configures DHCP, TFTP,
@@ -602,6 +678,9 @@ CIDR values in <code class="docutils literal notranslate"><span class="pre">netw
 <p>After <code class="docutils literal notranslate"><span class="pre">prepare_oim.yml</span></code> completes, verify that all Omnia-managed
 services are running.</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>list-dependencies<span class="w"> </span>omnia.target
+</pre></div>
+</div>
 <p>Every listed service should show a green dot (<code class="docutils literal notranslate"><span class="pre">●</span></code>) indicating
 <code class="docutils literal notranslate"><span class="pre">active</span></code>. Key services to verify:</p>
 <ul class="simple">
@@ -611,12 +690,22 @@ services are running.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">nfs-server.service</span></code> – NFS for shared storage</p></li>
 </ul>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Quick health check -- all should return &#39;active&#39;</span>
+<span class="k">for</span><span class="w"> </span>svc<span class="w"> </span><span class="k">in</span><span class="w"> </span>dhcpd<span class="w"> </span>tftp.socket<span class="w"> </span>httpd<span class="w"> </span>nfs-server<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$svc</span><span class="s2">: &quot;</span><span class="p">;</span><span class="w"> </span>systemctl<span class="w"> </span>is-active<span class="w"> </span><span class="nv">$svc</span>
+<span class="k">done</span>
+</pre></div>
+</div>
 </section>
 <section id="step-7-create-local-repositories">
 <h2>Step 7 – Create Local Repositories<a class="headerlink" href="#step-7-create-local-repositories" title="Link to this heading">#</a></h2>
 <p>Build local mirrors of OS packages, Python packages, and container images
 so that node provisioning does not depend on external internet access.</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>local_repo.yml
+</pre></div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p><code class="docutils literal notranslate"><span class="pre">local_repo.yml</span></code> can take <strong>30–60 minutes</strong> depending on internet
@@ -626,15 +715,28 @@ internet connection.</p>
 </div>
 <p>When the playbook finishes, verify that the local repo is accessible:</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check that the repo metadata exists</span>
+ls<span class="w"> </span>/opt/omnia/local_repo/
+dnf<span class="w"> </span>repolist<span class="w"> </span>--all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>omnia
+</pre></div>
+</div>
 </section>
 <section id="step-8-build-node-images">
 <h2>Step 8 – Build Node Images<a class="headerlink" href="#step-8-build-node-images" title="Link to this heading">#</a></h2>
 <p>Build the provisioning image that Omnia will PXE-boot onto target nodes.</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>build_image_x86_64.yml
+</pre></div>
+</div>
 <p>This playbook creates a customized OS image with pre-installed Slurm
 packages, Omnia agents, and configuration. The image is stored in the
 local S3-compatible object store.</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify the image was uploaded to the local S3 store</span>
+s3cmd<span class="w"> </span>ls<span class="w"> </span>s3://omnia-images/
+</pre></div>
+</div>
 <p>You should see at least one <code class="docutils literal notranslate"><span class="pre">.qcow2</span></code> or <code class="docutils literal notranslate"><span class="pre">.raw</span></code> image file listed.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -648,6 +750,10 @@ temporary space.</p>
 <p>Power on your target nodes (or ensure they are powered on with PXE boot
 priority). Then run the discovery playbook.</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>discovery.yml
+</pre></div>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">discovery.yml</span></code> performs the following:</p>
 <ol class="arabic simple">
 <li><p>Sends Wake-on-LAN magic packets to MACs listed in <code class="docutils literal notranslate"><span class="pre">mapping.csv</span></code>.</p></li>
@@ -669,12 +775,20 @@ If a node fails to PXE boot, verify:</p>
 </div>
 <p>After discovery completes, verify all nodes are reachable:</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ping all discovered nodes</span>
+ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>ping<span class="w"> </span>-i<span class="w"> </span>/opt/omnia/inventories/project_default/inventory
+</pre></div>
+</div>
 </section>
 <section id="step-10-deploy-slurm">
 <h2>Step 10 – Deploy Slurm<a class="headerlink" href="#step-10-deploy-slurm" title="Link to this heading">#</a></h2>
 <p>Run the main Omnia playbook to install and configure Slurm across the
 cluster.</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+ansible-playbook<span class="w"> </span>omnia.yml
+</pre></div>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">omnia.yml</span></code> orchestrates:</p>
 <ul class="simple">
 <li><p>Slurm controller (<code class="docutils literal notranslate"><span class="pre">slurmctld</span></code>) installation on the head node.</p></li>
@@ -696,11 +810,39 @@ playbooks are idempotent and will skip already-completed tasks.</p>
 <p>Congratulations! Your Slurm cluster should now be operational. Run these
 verification commands.</p>
 <p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># SSH to the head node</span>
+ssh<span class="w"> </span>head01
+</pre></div>
+</div>
 <p><strong>Run on head node (head01)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check Slurm controller status</span>
+systemctl<span class="w"> </span>status<span class="w"> </span>slurmctld
+
+<span class="c1"># View cluster partition and node info</span>
+sinfo
+</pre></div>
+</div>
 <p>Expected <code class="docutils literal notranslate"><span class="pre">sinfo</span></code> output:</p>
 <p><strong>Expected output</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
+normal*      up   infinite      1   idle compute01
+</pre></div>
+</div>
 <p><strong>Run on head node (head01)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run a test job across all nodes</span>
+srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>hostname
+
+<span class="c1"># Submit a batch job</span>
+sbatch<span class="w"> </span>--wrap<span class="o">=</span><span class="s2">&quot;echo Hello from \$(hostname)&quot;</span><span class="w"> </span>--output<span class="o">=</span>/tmp/hello.out
+cat<span class="w"> </span>/tmp/hello.out
+</pre></div>
+</div>
 <p><strong>Run on login node (login01)</strong></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify login node can submit jobs</span>
+ssh<span class="w"> </span>login01
+srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>hostname
+</pre></div>
+</div>
 <p>If all commands succeed, your Slurm cluster is fully operational.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>

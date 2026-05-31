@@ -43,6 +43,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       scontrol update nodename=<node-to-remove> state=drain reason="Decommissioning"
 
 
@@ -53,6 +54,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       sinfo -n <node-to-remove>
       squeue -w <node-to-remove>
 
@@ -65,6 +67,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       # Cancel all jobs on the target node
       scancel -w <node-to-remove>
 
@@ -76,6 +79,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       scontrol update nodename=<node-to-remove> state=down reason="Removed from cluster"
 
 
@@ -86,6 +90,7 @@ Procedure
 **Run on: node being removed**
 
 .. code-block:: bash
+
       systemctl stop slurmd
       systemctl disable slurmd
       systemctl stop munge
@@ -99,6 +104,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       vi /etc/slurm/slurm.conf
 
 
@@ -113,6 +119,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       scontrol reconfigure
 
 
@@ -123,6 +130,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       vi /opt/omnia/input/project_default/pxe_mapping_file.csv
 
 
@@ -141,6 +149,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       sinfo
       scontrol show nodes
 
@@ -154,6 +163,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       srun -N 1 hostname
 
 
@@ -164,6 +174,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       squeue -t all
 
 
@@ -190,6 +201,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       scontrol reconfigure
 
 
@@ -202,6 +214,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       sacct --starttime=today --state=FAILED,NODE_FAIL
 
 
@@ -215,6 +228,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       slurmd -C  # Show computed node configuration
       slurmctld -t  # Test configuration file syntax
 

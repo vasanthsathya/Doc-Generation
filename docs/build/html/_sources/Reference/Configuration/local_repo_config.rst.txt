@@ -183,16 +183,17 @@ Usage example
 **File: /opt/omnia/input/project_default/local_repo_config.yml**
 
 .. code-block:: yaml
+
    repo_store_path: "/opt/omnia/repo_store"
    repo_sync_on_run: true
-   
+
    rhel_os_url: "http://mirror.example.com/rhel/10.0/x86_64/baseos/"
    rhel_appstream_url: "http://mirror.example.com/rhel/10.0/x86_64/appstream/"
    rhel_crb_url: "http://mirror.example.com/rhel/10.0/x86_64/crb/"
-   
+
    nvidia_gpu_repo_url: "https://developer.download.nvidia.com/compute/cuda/repos/rhel10/x86_64/"
    kubernetes_repo_url: "https://pkgs.k8s.io/core:/stable:/v1.29/rpm/"
-   
+
    custom_repos:
      - name: "internal-tools"
        url: "http://repo.internal.example.com/tools/"

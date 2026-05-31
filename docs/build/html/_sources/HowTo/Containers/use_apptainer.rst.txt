@@ -54,6 +54,7 @@ Procedure
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_node -m shell -a "apptainer --version"
 
 
@@ -64,6 +65,7 @@ Procedure
 **Run on: Slurm control node or login node**
 
 .. code-block:: bash
+
       mkdir -p /home/containers/images
       chmod 755 /home/containers/images
 
@@ -75,6 +77,7 @@ Procedure
 **Run on: Slurm control node or login node**
 
 .. code-block:: bash
+
       apptainer pull /home/containers/images/ubuntu.sif docker://ubuntu:22.04
 
 
@@ -85,9 +88,10 @@ Procedure
 **Run on: Slurm control node or login node**
 
 .. code-block:: bash
+
       # Example: GROMACS molecular dynamics
       apptainer pull /home/containers/images/gromacs.sif docker://nvcr.io/hpc/gromacs:2023.2
-   
+
       # Example: TensorFlow for AI workloads
       apptainer pull /home/containers/images/tensorflow.sif docker://nvcr.io/nvidia/tensorflow:24.01-tf2-py3
 
@@ -99,6 +103,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       srun -N 1 --pty apptainer shell /home/containers/images/ubuntu.sif
 
 
@@ -111,6 +116,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       cat <<'EOF' > /home/containers/run_gromacs.sh
       #!/bin/bash
       #SBATCH --job-name=gromacs-test
@@ -118,11 +124,11 @@ Procedure
       #SBATCH --ntasks-per-node=4
       #SBATCH --time=02:00:00
       #SBATCH --output=/home/containers/results/gromacs-%j.out
-   
+
       apptainer exec /home/containers/images/gromacs.sif \
         mpirun -np 8 gmx_mpi mdrun -s input.tpr -deffnm output
       EOF
-   
+
       sbatch /home/containers/run_gromacs.sh
 
 
@@ -133,6 +139,7 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       cat <<'EOF' > /home/containers/run_tensorflow.sh
       #!/bin/bash
       #SBATCH --job-name=tf-test
@@ -140,11 +147,11 @@ Procedure
       #SBATCH --gres=gpu:1
       #SBATCH --time=01:00:00
       #SBATCH --output=/home/containers/results/tf-%j.out
-   
+
       apptainer exec --nv /home/containers/images/tensorflow.sif \
         python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
       EOF
-   
+
       sbatch /home/containers/run_tensorflow.sh
 
 
@@ -155,19 +162,20 @@ Procedure
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       cat <<'EOF' > /home/containers/custom.def
       Bootstrap: docker
       From: ubuntu:22.04
-   
+
       %post
           apt-get update
           apt-get install -y python3 python3-pip
           pip3 install numpy scipy
-   
+
       %runscript
           python3 "$@"
       EOF
-   
+
       apptainer build /home/containers/images/custom.sif /home/containers/custom.def
 
 
@@ -184,6 +192,7 @@ Verification
 **Run on: omnia_core container**
 
 .. code-block:: bash
+
       ansible slurm_node -m shell -a "ls -la /home/containers/images/"
 
 
@@ -194,6 +203,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       srun -N 2 apptainer exec /home/containers/images/ubuntu.sif hostname
 
 
@@ -204,6 +214,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       srun -N 1 --gres=gpu:1 apptainer exec --nv /home/containers/images/tensorflow.sif nvidia-smi
 
 
@@ -214,6 +225,7 @@ Verification
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       cat /home/containers/results/*.out
 
 
@@ -241,6 +253,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
       dnf install -y apptainer
 
 
@@ -253,6 +266,7 @@ Troubleshooting
 **Run on: compute node**
 
 .. code-block:: bash
+
         df -h /tmp
         export APPTAINER_TMPDIR=/scratch/tmp
 
@@ -270,6 +284,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       rm /home/containers/images/broken.sif
       apptainer pull /home/containers/images/fixed.sif docker://source-image
 
@@ -283,6 +298,7 @@ Troubleshooting
 **Run on: Slurm control node**
 
 .. code-block:: bash
+
       srun -N 2 apptainer exec --bind /usr/lib64/openmpi:/host-mpi \
         /home/containers/images/app.sif mpirun -np 8 /app/benchmark
 
