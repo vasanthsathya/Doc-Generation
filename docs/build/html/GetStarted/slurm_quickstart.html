@@ -33,8 +33,8 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=123c2300" />
-    <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=0e325a43" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=280bed41" />
+    <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -48,7 +48,7 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'GetStarted/slurm_quickstart';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/custom.js?v=977ea42b"></script>
+    <script src="../_static/custom.js?v=2f7f44f7"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -488,7 +488,8 @@ that first.</p>
 <h2>Step 1 – Deploy the omnia_core Container<a class="headerlink" href="#step-1-deploy-the-omnia-core-container" title="Link to this heading">#</a></h2>
 <p>Clone the Omnia repository, build the container images, and install the
 <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> Podman container on the OIM.</p>
-<p><strong>Run on OIM (as root)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (as root)</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the Omnia repository</span>
 <span class="nb">cd</span><span class="w"> </span>/opt
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/dell/omnia.git
@@ -498,13 +499,15 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/dell/
 bash<span class="w"> </span>build_images.sh
 </pre></div>
 </div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p><code class="docutils literal notranslate"><span class="pre">build_images.sh</span></code> creates the <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> and supporting images.
 It takes 5–10 minutes on a fast connection. Watch for any <code class="docutils literal notranslate"><span class="pre">FAILED</span></code>
 messages in the output.</p>
 </div>
-<p><strong>Run on OIM (as root)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (as root)</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install and start the omnia_core container</span>
 bash<span class="w"> </span>omnia.sh<span class="w"> </span>--install
 
@@ -512,21 +515,25 @@ bash<span class="w"> </span>omnia.sh<span class="w"> </span>--install
 systemctl<span class="w"> </span>status<span class="w"> </span>omnia_core
 </pre></div>
 </div>
+</div>
 <p>You should see <code class="docutils literal notranslate"><span class="pre">active</span> <span class="pre">(running)</span></code> in the output. If the service is
 <code class="docutils literal notranslate"><span class="pre">failed</span></code>, check <code class="docutils literal notranslate"><span class="pre">journalctl</span> <span class="pre">-u</span> <span class="pre">omnia_core</span></code> for errors.</p>
-<p><strong>Run on OIM (as root)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (as root)</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify you can access the container shell</span>
 ssh<span class="w"> </span>omnia_core
 <span class="c1"># You should land at a prompt inside the container. Type &#39;exit&#39; to return.</span>
 <span class="nb">exit</span>
 </pre></div>
 </div>
+</div>
 </section>
 <section id="step-2-create-the-mapping-file">
 <h2>Step 2 – Create the Mapping File<a class="headerlink" href="#step-2-create-the-mapping-file" title="Link to this heading">#</a></h2>
 <p>The mapping file tells Omnia which physical servers map to which cluster
 roles. Create a CSV at <code class="docutils literal notranslate"><span class="pre">/opt/omnia/input/project_default/mapping.csv</span></code>.</p>
-<p><strong>Run on OIM (as root)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (as root)</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>&gt;<span class="w"> </span>/opt/omnia/input/project_default/mapping.csv<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
 <span class="s">FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP</span>
 <span class="s">slurm_control_node,slurm,ABC1234,,head01,24:6E:96:AA:BB:01,10.5.0.101,,10.3.0.101</span>
@@ -534,6 +541,7 @@ roles. Create a CSV at <code class="docutils literal notranslate"><span class="p
 <span class="s">login_node,slurm,GHI9012,,login01,24:6E:96:AA:BB:03,10.5.0.103,,10.3.0.103</span>
 <span class="s">EOF</span>
 </pre></div>
+</div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -561,7 +569,8 @@ MAC addresses from <code class="docutils literal notranslate"><span class="pre">
 <h2>Step 3 – Provide Inputs<a class="headerlink" href="#step-3-provide-inputs" title="Link to this heading">#</a></h2>
 <p>Omnia ships example input templates for common deployment patterns. Copy
 the bare-metal Slurm template (without service K8s) and customize it.</p>
-<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 
 <span class="c1"># Copy the template inputs to the active input directory</span>
@@ -571,6 +580,7 @@ cp<span class="w"> </span>-r<span class="w"> </span>/opt/omnia/examples/input_te
 <span class="c1"># List the copied files</span>
 ls<span class="w"> </span>-la<span class="w"> </span>/opt/omnia/input/project_default/
 </pre></div>
+</div>
 </div>
 <p>You should see these key input files:</p>
 <ul class="simple">
@@ -594,10 +604,12 @@ they work for the vast majority of deployments.</p>
 <p>Run the <code class="docutils literal notranslate"><span class="pre">credentials_utility.yml</span></code> playbook to securely store passwords
 for iDRAC, the provisioning OS, and other services. This playbook prompts
 you interactively.</p>
-<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>credentials_utility.yml
 </pre></div>
+</div>
 </div>
 <p>You will be prompted to set:</p>
 <ul class="simple">
@@ -619,9 +631,11 @@ provisioning password for emergency SSH access to nodes.</p>
 and HTTP services.</p>
 <section id="a-edit-network-spec-yml">
 <h3><strong>5a. Edit</strong> <cite>network_spec.yml</cite><a class="headerlink" href="#a-edit-network-spec-yml" title="Link to this heading">#</a></h3>
-<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/network_spec.yml
 </pre></div>
+</div>
 </div>
 <p>Set the following values (adjust to match your environment):</p>
 <p><strong>Example network_spec.yml excerpt</strong></p>
@@ -640,9 +654,11 @@ and HTTP services.</p>
 </section>
 <section id="b-edit-provision-config-yml">
 <h3><strong>5b. Edit</strong> <cite>provision_config.yml</cite><a class="headerlink" href="#b-edit-provision-config-yml" title="Link to this heading">#</a></h3>
-<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/provision_config.yml
 </pre></div>
+</div>
 </div>
 <p>Key fields to verify or set:</p>
 <p><strong>Example provision_config.yml excerpt</strong></p>
@@ -659,10 +675,12 @@ and HTTP services.</p>
 </section>
 <section id="c-run-prepare-oim-yml">
 <h3><strong>5c. Run</strong> <cite>prepare_oim.yml</cite><a class="headerlink" href="#c-run-prepare-oim-yml" title="Link to this heading">#</a></h3>
-<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>prepare_oim.yml<span class="w"> </span>-i<span class="w"> </span>/opt/omnia/input/project_default/mapping.csv
 </pre></div>
+</div>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -677,34 +695,46 @@ CIDR values in <code class="docutils literal notranslate"><span class="pre">netw
 <h2>Step 6 – Verify OIM Services<a class="headerlink" href="#step-6-verify-oim-services" title="Link to this heading">#</a></h2>
 <p>After <code class="docutils literal notranslate"><span class="pre">prepare_oim.yml</span></code> completes, verify that all Omnia-managed
 services are running.</p>
-<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>list-dependencies<span class="w"> </span>omnia.target
 </pre></div>
 </div>
+</div>
 <p>Every listed service should show a green dot (<code class="docutils literal notranslate"><span class="pre">●</span></code>) indicating
 <code class="docutils literal notranslate"><span class="pre">active</span></code>. Key services to verify:</p>
-<ul class="simple">
+<ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">dhcpd.service</span></code> – DHCP server for PXE boot</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">tftp.socket</span></code> – TFTP for PXE boot loader delivery</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">httpd.service</span></code> – HTTP for kickstart/autoinstall files</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nfs-server.service</span></code> – NFS for shared storage</p></li>
-</ul>
-<p><strong>Run on OIM (inside omnia_core container)</strong></p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Quick health check -- all should return &#39;active&#39;</span>
-<span class="k">for</span><span class="w"> </span>svc<span class="w"> </span><span class="k">in</span><span class="w"> </span>dhcpd<span class="w"> </span>tftp.socket<span class="w"> </span>httpd<span class="w"> </span>nfs-server<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$svc</span><span class="s2">: &quot;</span><span class="p">;</span><span class="w"> </span>systemctl<span class="w"> </span>is-active<span class="w"> </span><span class="nv">$svc</span>
-<span class="k">done</span>
+<li><p><code class="docutils literal notranslate"><span class="pre">nfs-server.service</span></code> – NFS for shared storage</p>
+<blockquote>
+<div><div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
+</div>
+<p># Quick health check – all should return ‘active’
+for svc in dhcpd tftp.socket httpd nfs-server; do</p>
+<blockquote>
+<div><p>echo -n “$svc: “; systemctl is-active $svc</p>
+</div></blockquote>
+<p>done</p>
+</div></blockquote>
+</li>
+</ul>
 </section>
 <section id="step-7-create-local-repositories">
 <h2>Step 7 – Create Local Repositories<a class="headerlink" href="#step-7-create-local-repositories" title="Link to this heading">#</a></h2>
 <p>Build local mirrors of OS packages, Python packages, and container images
 so that node provisioning does not depend on external internet access.</p>
-<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>local_repo.yml
 </pre></div>
+</div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -714,28 +744,34 @@ sufficient disk space (see <a class="reference internal" href="prerequisites_che
 internet connection.</p>
 </div>
 <p>When the playbook finishes, verify that the local repo is accessible:</p>
-<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check that the repo metadata exists</span>
 ls<span class="w"> </span>/opt/omnia/local_repo/
 dnf<span class="w"> </span>repolist<span class="w"> </span>--all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>omnia
 </pre></div>
 </div>
+</div>
 </section>
 <section id="step-8-build-node-images">
 <h2>Step 8 – Build Node Images<a class="headerlink" href="#step-8-build-node-images" title="Link to this heading">#</a></h2>
 <p>Build the provisioning image that Omnia will PXE-boot onto target nodes.</p>
-<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>build_image_x86_64.yml
 </pre></div>
 </div>
+</div>
 <p>This playbook creates a customized OS image with pre-installed Slurm
 packages, Omnia agents, and configuration. The image is stored in the
 local S3-compatible object store.</p>
-<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify the image was uploaded to the local S3 store</span>
 s3cmd<span class="w"> </span>ls<span class="w"> </span>s3://omnia-images/
 </pre></div>
+</div>
 </div>
 <p>You should see at least one <code class="docutils literal notranslate"><span class="pre">.qcow2</span></code> or <code class="docutils literal notranslate"><span class="pre">.raw</span></code> image file listed.</p>
 <div class="admonition tip">
@@ -749,10 +785,12 @@ temporary space.</p>
 <h2>Step 9 – Discover and Provision Nodes<a class="headerlink" href="#step-9-discover-and-provision-nodes" title="Link to this heading">#</a></h2>
 <p>Power on your target nodes (or ensure they are powered on with PXE boot
 priority). Then run the discovery playbook.</p>
-<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>discovery.yml
 </pre></div>
+</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">discovery.yml</span></code> performs the following:</p>
 <ol class="arabic simple">
@@ -774,20 +812,24 @@ If a node fails to PXE boot, verify:</p>
 </ul>
 </div>
 <p>After discovery completes, verify all nodes are reachable:</p>
-<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ping all discovered nodes</span>
 ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>ping<span class="w"> </span>-i<span class="w"> </span>/opt/omnia/inventories/project_default/inventory
 </pre></div>
+</div>
 </div>
 </section>
 <section id="step-10-deploy-slurm">
 <h2>Step 10 – Deploy Slurm<a class="headerlink" href="#step-10-deploy-slurm" title="Link to this heading">#</a></h2>
 <p>Run the main Omnia playbook to install and configure Slurm across the
 cluster.</p>
-<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>omnia.yml
 </pre></div>
+</div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">omnia.yml</span></code> orchestrates:</p>
 <ul class="simple">
@@ -809,12 +851,15 @@ playbooks are idempotent and will skip already-completed tasks.</p>
 <h2>Step 11 – Verify the Cluster<a class="headerlink" href="#step-11-verify-the-cluster" title="Link to this heading">#</a></h2>
 <p>Congratulations! Your Slurm cluster should now be operational. Run these
 verification commands.</p>
-<p><strong>Run on OIM (inside omnia_core container)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># SSH to the head node</span>
 ssh<span class="w"> </span>head01
 </pre></div>
 </div>
-<p><strong>Run on head node (head01)</strong></p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">Run on head node (head01)</span><a class="headerlink" href="#id20" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check Slurm controller status</span>
 systemctl<span class="w"> </span>status<span class="w"> </span>slurmctld
 
@@ -822,13 +867,15 @@ systemctl<span class="w"> </span>status<span class="w"> </span>slurmctld
 sinfo
 </pre></div>
 </div>
+</div>
 <p>Expected <code class="docutils literal notranslate"><span class="pre">sinfo</span></code> output:</p>
 <p><strong>Expected output</strong></p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
 normal*      up   infinite      1   idle compute01
 </pre></div>
 </div>
-<p><strong>Run on head node (head01)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">Run on head node (head01)</span><a class="headerlink" href="#id21" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run a test job across all nodes</span>
 srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>hostname
 
@@ -837,11 +884,14 @@ sbatch<span class="w"> </span>--wrap<span class="o">=</span><span class="s2">&qu
 cat<span class="w"> </span>/tmp/hello.out
 </pre></div>
 </div>
-<p><strong>Run on login node (login01)</strong></p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">Run on login node (login01)</span><a class="headerlink" href="#id22" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify login node can submit jobs</span>
 ssh<span class="w"> </span>login01
 srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>hostname
 </pre></div>
+</div>
 </div>
 <p>If all commands succeed, your Slurm cluster is fully operational.</p>
 <div class="admonition tip">

@@ -18,6 +18,7 @@ Omnia provides architecture-specific playbooks to build cluster boot images:
 - ``build_image_x86_64.yml`` -- For Intel/AMD x86_64 servers.
 - ``build_image_aarch64.yml`` -- For ARM-based (aarch64) servers.
 
+
 The build process:
 
 #. Extracts the OS ISO specified in ``provision_config.yml``.
@@ -25,6 +26,9 @@ The build process:
 #. Applies the software stack defined in ``software_config.json``.
 #. Creates a bootable image and uploads it to MinIO (S3 ``boot-images`` bucket).
 #. Registers the image with OpenCHAMI's Boot Script Service (BSS).
+
+
+
 
 
 
@@ -42,16 +46,17 @@ Prerequisites
 
 
 
+
+
+
 Procedure
 ---------
 
 
 #. **Enter the omnia_core container**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       ssh omnia_core
 
@@ -59,10 +64,8 @@ Procedure
 
 #. **Verify the OS ISO is accessible**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ls -lh /opt/omnia/iso/
 
@@ -72,10 +75,8 @@ Procedure
 
 #. **Build images for x86_64 nodes**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia
       ansible-playbook build_image_x86_64.yml
@@ -87,9 +88,8 @@ Procedure
        Add ``--ask-vault-pass`` if credentials are encrypted:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
           ansible-playbook build_image_x86_64.yml --ask-vault-pass
 
@@ -97,10 +97,8 @@ Procedure
 
 #. **(If applicable) Build images for aarch64 nodes**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia
       ansible-playbook build_image_aarch64.yml
@@ -123,10 +121,8 @@ Verification
 
 #. **List images in the S3 boot-images bucket**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       s3cmd ls -Hr s3://boot-images
 
@@ -147,10 +143,8 @@ Verification
 
 #. **Verify the image is registered with BSS**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ochami bss list
 
@@ -161,10 +155,8 @@ Verification
 
 #. **Check the image size is reasonable**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       s3cmd du s3://boot-images
 
@@ -184,6 +176,9 @@ Next Steps
 
 
 
+
+
+
 Troubleshooting
 ---------------
 
@@ -193,9 +188,8 @@ Troubleshooting
    ISO:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
       cat /opt/omnia/input/project_default/provision_config.yml | grep iso_file_path
       ls -lh /opt/omnia/iso/
@@ -206,9 +200,8 @@ Troubleshooting
    Ensure ``local_repo.yml`` completed successfully. Check Pulp repositories:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       curl -s http://localhost:8080/pulp/api/v3/distributions/rpm/rpm/ | python3 -m json.tool
 
@@ -218,9 +211,8 @@ Troubleshooting
    Verify MinIO is running and accessible:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
       s3cmd ls
 
@@ -229,9 +221,8 @@ Troubleshooting
    If MinIO is unreachable, restart it:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       systemctl restart minio.service
 

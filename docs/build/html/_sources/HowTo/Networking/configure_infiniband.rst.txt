@@ -45,10 +45,8 @@ Procedure
 
 #. **Enter the omnia_core container**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       ssh omnia_core
 
@@ -56,10 +54,8 @@ Procedure
 
 #. **Configure InfiniBand settings** in the network specification:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/network_spec.yml
 
@@ -83,10 +79,8 @@ Procedure
 
 #. **Ensure OFED is listed in software_config.json**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cat /opt/omnia/input/project_default/software_config.json | python3 -m json.tool
 
@@ -109,10 +103,8 @@ Procedure
 
 #. **Run the omnia.yml playbook** to deploy InfiniBand:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
@@ -126,12 +118,11 @@ Procedure
   - Configure IPoIB interfaces with static IP addresses.
   - Deploy and start OpenSM on a designated subnet manager node.
 
+
 #. **(If needed) Manually configure IPoIB on a node**:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
       # Load InfiniBand modules
       modprobe mlx5_core
@@ -155,10 +146,8 @@ Procedure
 
 #. **Configure OpenSM** on the designated subnet manager node:
 
-
-**Run on: OpenSM node (typically the Slurm control node)**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OpenSM node (typically the Slurm control node)
 
       dnf install -y opensm
       systemctl enable --now opensm
@@ -177,10 +166,8 @@ Verification
 
 #. **Verify the IB interface is up** on each compute node:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
       ip addr show ib0
 
@@ -190,10 +177,8 @@ Verification
 
 #. **Check IB port state**:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
       ibstat
 
@@ -216,10 +201,8 @@ Verification
 
 #. **Verify OpenSM is running**:
 
-
-**Run on: OpenSM node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OpenSM node
 
       systemctl status opensm
 
@@ -227,10 +210,8 @@ Verification
 
 #. **Test IB connectivity** between two compute nodes:
 
-
-**Run on: compute node 1**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node 1
 
       ping -c 5 10.230.0.102
 
@@ -238,12 +219,12 @@ Verification
 
 #. **Test RDMA bandwidth**:
 
+
    On the server node:
 
 
-**Run on: compute node 1**
-
 .. code-block:: bash
+   :caption: Run on: compute node 1
 
       ib_write_bw
 
@@ -252,9 +233,8 @@ Verification
    On the client node:
 
 
-**Run on: compute node 2**
-
 .. code-block:: bash
+   :caption: Run on: compute node 2
 
       ib_write_bw 10.230.0.101
 
@@ -262,12 +242,12 @@ Verification
 
 #. **Test RDMA latency**:
 
+
    On the server node:
 
 
-**Run on: compute node 1**
-
 .. code-block:: bash
+   :caption: Run on: compute node 1
 
       ib_write_lat
 
@@ -276,9 +256,8 @@ Verification
    On the client node:
 
 
-**Run on: compute node 2**
-
 .. code-block:: bash
+   :caption: Run on: compute node 2
 
       ib_write_lat 10.230.0.101
 
@@ -298,6 +277,9 @@ Next Steps
 
 
 
+
+
+
 Troubleshooting
 ---------------
 
@@ -306,9 +288,8 @@ Troubleshooting
    Verify InfiniBand modules are loaded:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
       lsmod | grep mlx5
       lsmod | grep ib_ipoib
@@ -318,9 +299,8 @@ Troubleshooting
    Load missing modules:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
       modprobe mlx5_core
       modprobe mlx5_ib
@@ -333,10 +313,8 @@ Troubleshooting
   - Verify OpenSM is running somewhere in the fabric.
   - Check for firmware issues:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
         ibv_devinfo
 
@@ -346,9 +324,8 @@ Troubleshooting
    Check for port GUID conflicts:
 
 
-**Run on: OpenSM node**
-
 .. code-block:: bash
+   :caption: Run on: OpenSM node
 
       journalctl -u opensm --no-pager -n 30
 
@@ -357,10 +334,8 @@ Troubleshooting
 **Poor RDMA performance**
   - Verify link rate (should be 100/200 Gbps for HDR):
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
         ibstat | grep Rate
 
@@ -368,10 +343,8 @@ Troubleshooting
 
   - Check for errors on the IB port:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
         perfquery
 
@@ -379,13 +352,13 @@ Troubleshooting
 
   - Ensure ``CONNECTED_MODE=yes`` in the IPoIB interface configuration.
 
+
 **IP address conflicts on IB network**
    Check for duplicate IPs:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
       ansible slurm_node -m shell -a "ip addr show ib0 | grep inet"
 

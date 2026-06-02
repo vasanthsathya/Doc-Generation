@@ -20,6 +20,7 @@ The ``omnia_core`` deployment process consists of three stages:
 #. **Build** the container images using the ``build_images.sh`` script.
 #. **Install** the ``omnia_core`` service using ``omnia.sh --install``.
 
+
 Once installed, ``omnia_core`` runs as a systemd-managed Podman container that
 starts automatically on boot.
 
@@ -53,6 +54,9 @@ Prerequisites
 
 
 
+
+
+
 .. note::
 
 
@@ -68,10 +72,8 @@ Procedure
 
 #. **Log in to the OIM** as ``root`` or a user with ``sudo`` privileges:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       ssh root@<oim-ip-address>
 
@@ -79,10 +81,8 @@ Procedure
 
 #. **Clone the Omnia repository** from Dell's artifact repository:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       cd /opt
       git clone https://github.com/dell/omnia.git
@@ -95,9 +95,8 @@ Procedure
        To use a specific release, check out the corresponding tag:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
           git checkout v2.1.0.0
 
@@ -105,10 +104,8 @@ Procedure
 
 #. **Build the container images** using the provided build script:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       bash build_images.sh core
 
@@ -119,10 +116,8 @@ Procedure
 
 #. **Install the omnia_core service**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       bash omnia.sh --install
 
@@ -135,12 +130,11 @@ Procedure
   - Mounts the necessary volumes for configuration and playbook storage.
   - Starts the container automatically.
 
+
 #. **Verify the service is running**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       systemctl status omnia_core.service
 
@@ -167,10 +161,8 @@ Verification
 
 #. **Check the container is running**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       podman ps --filter name=omnia_core
 
@@ -180,19 +172,16 @@ Verification
 
 #. **Enter the omnia_core container** and verify Ansible is available:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       podman exec -it -u root omnia_core bash
 
 
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
       ansible --version
 
@@ -200,10 +189,8 @@ Verification
 
 #. **Verify playbooks are accessible**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ls /omnia/*.yml
 
@@ -215,10 +202,8 @@ Verification
 
 #. **Verify input directory exists**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ls /opt/omnia/input/project_default/
 
@@ -236,6 +221,9 @@ Next Steps
 
 
 
+
+
+
 Troubleshooting
 ---------------
 
@@ -244,9 +232,8 @@ Troubleshooting
    Check the Podman logs for detailed error output:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       podman logs omnia_core
 
@@ -256,9 +243,8 @@ Troubleshooting
    Re-run the installation script:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       bash omnia.sh --install
 
@@ -268,9 +254,8 @@ Troubleshooting
    Ensure the OIM has internet access and DNS is configured correctly:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       ping -c 3 github.com
       cat /etc/resolv.conf
@@ -281,9 +266,8 @@ Troubleshooting
    Install Podman from the default OS repositories:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       dnf install -y podman
       systemctl enable --now podman.socket
@@ -294,9 +278,8 @@ Troubleshooting
    Check available disk space. At least 256 GB is required:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       df -h /opt
 

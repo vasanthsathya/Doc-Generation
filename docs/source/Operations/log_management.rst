@@ -63,6 +63,8 @@ even though playbooks run inside the ``omnia_core`` Podman container:
      - Core container logs.
 
 
+
+
 Additionally, an aggregate of the events taking place during storage,
 scheduler, and network role installation called ``omnia.log`` is created in
 ``/var/log``.
@@ -89,24 +91,23 @@ OIM services run as Podman containers. Access their logs with the ``podman
 logs`` command:
 
 
-**Run on: OIM host**
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
-.. code-block:: bash
+      # List all running containers
+      podman ps
 
-   # List all running containers
-   podman ps
+      # View logs for a specific container
+      podman logs omnia_core
+      podman logs ochami-smd
+      podman logs ochami-bss
+      podman logs coredhcp
 
-   # View logs for a specific container
-   podman logs omnia_core
-   podman logs ochami-smd
-   podman logs ochami-bss
-   podman logs coredhcp
+      # Follow logs in real time
+      podman logs -f omnia_core
 
-   # Follow logs in real time
-   podman logs -f omnia_core
-
-   # View only the last 100 lines
-   podman logs --tail 100 omnia_core
+      # View only the last 100 lines
+      podman logs --tail 100 omnia_core
 
 
 
@@ -130,6 +131,9 @@ logs`` command:
 
 
 
+
+
+
 OpenCHAMI logs
 ~~~~~~~~~~~~~~
 
@@ -137,15 +141,14 @@ OpenCHAMI logs
 OpenCHAMI components write structured JSON logs accessible via Podman:
 
 
-**Run on: OIM host**
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
-.. code-block:: bash
+      # SMD logs (node state changes)
+      podman logs ochami-smd 2>&1 | jq '.'
 
-   # SMD logs (node state changes)
-   podman logs ochami-smd 2>&1 | jq '.'
-
-   # BSS logs (boot requests)
-   podman logs ochami-bss 2>&1 | jq '.'
+      # BSS logs (boot requests)
+      podman logs ochami-bss 2>&1 | jq '.'
 
 
 
@@ -170,11 +173,8 @@ On Slurm cluster nodes, logs are stored in standard Slurm log directories:
    * - ``/var/log/slurm/slurmdbd.log``
      - Slurm database daemon log (job accounting).
 
-
-
-**Run on: Slurm nodes**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm nodes
 
    # On the Slurm control node
    tail -f /var/log/slurm/slurmctld.log
@@ -192,15 +192,14 @@ Kubernetes logs
 On Kubernetes cluster nodes, use ``kubectl`` or ``journalctl`` to access logs:
 
 
-**Run on: Kubernetes nodes**
+   .. code-block:: bash
+      :caption: Run on: Kubernetes nodes
 
-.. code-block:: bash
+      # Pod logs
+      kubectl logs <pod_name> -n <namespace>
 
-   # Pod logs
-   kubectl logs <pod_name> -n <namespace>
-
-   # Kubelet logs on a specific node
-   ssh <kube_node> journalctl -u kubelet -f
+      # Kubelet logs on a specific node
+      ssh <kube_node> journalctl -u kubelet -f
 
 
 
@@ -244,6 +243,8 @@ This configuration:
 - Skips rotation if the log file is missing or empty.
 
 
+
+
 Customizing logrotate
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -253,6 +254,7 @@ environments):
 
 #. Edit the logrotate configuration:
 
+   .. code-block:: bash
 
 .. code-block:: bash
 
@@ -280,6 +282,7 @@ environments):
 
 #. Test the configuration:
 
+   .. code-block:: bash
 
 .. code-block:: bash
 
@@ -289,6 +292,7 @@ environments):
 
 #. Force an immediate rotation (optional):
 
+   .. code-block:: bash
 
 .. code-block:: bash
 
@@ -405,6 +409,10 @@ invoking play and task. The format is described in the following table:
 
 
 
+
+
+
+
 Troubleshooting log issues
 --------------------------
 
@@ -419,12 +427,14 @@ Troubleshooting log issues
    * - **Disk full on OIM**
      - Check log sizes: ``du -sh /opt/omnia/log/core/playbooks/``. Force logrotate: ``logrotate -f /etc/logrotate.d/omnia``. Remove old compressed logs if needed.
    * - **No playbook logs appearing**
-     - Verify the ``omnia_core`` container is running: ``podman ps``. Check that the log volume is mounted: `podman inspect omnia_core \
-     - grep -A5 Mounts`.
+     - Verify the ``omnia_core`` container is running: ``podman ps``. Check that the log volume is mounted: ``podman inspect omnia_core - grep -A5 Mounts``.
    * - **Container logs too verbose**
      - Adjust the log level in the container's configuration file and restart the container: ``podman restart <container_name>``.
    * - **Slurm logs not rotating**
      - Verify logrotate configuration exists: ``cat /etc/logrotate.d/slurm``. Test with: ``logrotate -d /etc/logrotate.d/slurm``. Check if ``crond`` is running: ``systemctl status crond``.
+
+
+
 
 
 
@@ -434,4 +444,5 @@ Troubleshooting log issues
    - :doc:`General <../Troubleshooting/general>` -- General troubleshooting that uses logs
      as a primary diagnostic tool.
    - :doc:`Best Practices Checklist <best_practices_checklist>` -- Storage and maintenance best practices.
+
 

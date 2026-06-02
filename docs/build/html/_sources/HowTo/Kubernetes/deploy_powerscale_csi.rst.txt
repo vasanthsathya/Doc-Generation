@@ -26,6 +26,9 @@ Key features:
 
 
 
+
+
+
 Prerequisites
 -------------
 
@@ -40,16 +43,17 @@ Prerequisites
 
 
 
+
+
+
 Procedure
 ---------
 
 
 #. **Install Helm** on a K8s control-plane node (if not already installed):
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
       helm version
@@ -58,10 +62,8 @@ Procedure
 
 #. **Create a namespace** for the CSI driver:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl create namespace csi-powerscale
 
@@ -69,10 +71,8 @@ Procedure
 
 #. **Create the PowerScale secret** with cluster connection details:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       cat <<'EOF' > /tmp/powerscale-secret.yaml
       apiVersion: v1
@@ -105,9 +105,8 @@ Procedure
        after applying.
 
 
-**Run on: K8s control plane node**
-
 .. code-block:: bash
+   :caption: Run on: K8s control plane node
 
       rm -f /tmp/powerscale-secret.yaml
 
@@ -115,10 +114,8 @@ Procedure
 
 #. **Add the Dell CSI Helm repository**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       helm repo add dell https://dell.github.io/helm-charts
       helm repo update
@@ -127,10 +124,8 @@ Procedure
 
 #. **Install the PowerScale CSI driver**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       helm install isilon dell/csi-isilon \
         --namespace csi-powerscale \
@@ -144,10 +139,8 @@ Procedure
 
 #. **Create a StorageClass** for dynamic provisioning:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       cat <<'EOF' | kubectl apply -f -
       apiVersion: storage.k8s.io/v1
@@ -176,10 +169,8 @@ Verification
 
 #. **Verify CSI driver pods are running**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl get pods -n csi-powerscale
 
@@ -190,10 +181,8 @@ Verification
 
 #. **Verify the StorageClass was created**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl get storageclass powerscale-nfs
 
@@ -201,10 +190,8 @@ Verification
 
 #. **Test dynamic provisioning** by creating a PVC:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       cat <<'EOF' | kubectl apply -f -
       apiVersion: v1
@@ -228,10 +215,8 @@ Verification
 
 #. **Clean up the test PVC**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl delete pvc test-pvc
 
@@ -258,9 +243,8 @@ Troubleshooting
    Check the driver logs:
 
 
-**Run on: K8s control plane node**
-
 .. code-block:: bash
+   :caption: Run on: K8s control plane node
 
       kubectl logs -n csi-powerscale -l app=isilon-controller --tail=50
 
@@ -270,9 +254,8 @@ Troubleshooting
    Check the CSI provisioner events:
 
 
-**Run on: K8s control plane node**
-
 .. code-block:: bash
+   :caption: Run on: K8s control plane node
 
       kubectl describe pvc test-pvc
       kubectl get events -n csi-powerscale
@@ -283,9 +266,8 @@ Troubleshooting
    Verify the secret credentials:
 
 
-**Run on: K8s control plane node**
-
 .. code-block:: bash
+   :caption: Run on: K8s control plane node
 
       kubectl get secret isilon-creds -n csi-powerscale -o jsonpath='{.data.config}' | base64 -d
 
@@ -294,9 +276,8 @@ Troubleshooting
    Test API connectivity:
 
 
-**Run on: K8s worker node**
-
 .. code-block:: bash
+   :caption: Run on: K8s worker node
 
       curl -sk https://10.5.1.100:8080/platform/latest/protocols/nfs/exports
 
@@ -306,9 +287,8 @@ Troubleshooting
    Ensure NFS client packages are installed:
 
 
-**Run on: K8s worker node**
-
 .. code-block:: bash
+   :caption: Run on: K8s worker node
 
       dnf install -y nfs-utils
       showmount -e 10.5.1.100

@@ -33,8 +33,8 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=123c2300" />
-    <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=0e325a43" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=280bed41" />
+    <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -48,11 +48,11 @@
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'HowTo/Slurm/index';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../../_static/custom.js?v=977ea42b"></script>
+    <script src="../../_static/custom.js?v=2f7f44f7"></script>
     <link rel="icon" href="../../_static/favicon.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Add Slurm Nodes" href="add_slurm_nodes.html" />
+    <link rel="next" title="Setup Slurm" href="setup_slurm.html" />
     <link rel="prev" title="Verify Cluster" href="../Setup/verify_cluster.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -390,19 +390,19 @@
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Slurm</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="add_slurm_nodes.html">Add Slurm Nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="build_slurm_repo.html">Build Slurm Repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="remove_slurm_nodes.html">Remove Slurm Nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="run_hpc_benchmarks.html">Run HPC Benchmarks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="setup_slurm.html">Setup Slurm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="slurm_config_backup.html">Slurm Config Backup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_slurm_repo.html">Build Slurm Repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slurm_with_gpu.html">Slurm with GPUs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="add_slurm_nodes.html">Add Slurm Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="remove_slurm_nodes.html">Remove Slurm Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm_config_backup.html">Slurm Config Backup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_hpc_benchmarks.html">Run HPC Benchmarks</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Kubernetes/index.html">Kubernetes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Kubernetes/setup_service_k8s.html">Deploy the Service K8s Cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Kubernetes/configure_ha.html">Configure Kubernetes HA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Kubernetes/deploy_powerscale_csi.html">Deploy PowerScale CSI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Kubernetes/setup_service_k8s.html">Deploy the Service K8s Cluster</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Storage/index.html">Storage</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -416,29 +416,29 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Authentication/index.html">Authentication</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Authentication/deploy_external_ldap.html">Deploy External LDAP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Authentication/replicate_ldap.html">Replicate LDAP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Authentication/setup_openldap.html">Setup OpenLDAP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Authentication/setup_openldap_proxy.html">Setup OpenLDAP as Proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Authentication/deploy_external_ldap.html">Deploy External LDAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Authentication/replicate_ldap.html">Replicate LDAP</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Telemetry/index.html">Telemetry</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Telemetry/setup_telemetry.html">Setup Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Telemetry/verify_telemetry.html">Verify Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Telemetry/telemetry_from_ome.html">Telemetry from OME &amp; SFM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Telemetry/configure_ldms.html">Configure LDMS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Telemetry/configure_external_kafka.html">Configure External Kafka</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Telemetry/configure_external_victoria.html">Configure External VictoriaMetrics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Telemetry/configure_ldms.html">Configure LDMS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Telemetry/setup_telemetry.html">Setup Telemetry</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Telemetry/telemetry_from_ome.html">Telemetry from OME &amp; SFM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Telemetry/verify_telemetry.html">Verify Telemetry</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Containers/index.html">Containers</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Containers/deploy_additional_packages.html">Deploy Additional Packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Containers/use_apptainer.html">Use Apptainer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Containers/deploy_additional_packages.html">Deploy Additional Packages</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../BuildStreaM/index.html">Buildstream</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../BuildStreaM/buildstream_troubleshooting.html">BuildStreaM Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BuildStreaM/deploy_gitlab.html">Deploy GitLab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BuildStreaM/buildstream_troubleshooting.html">BuildStreaM Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BuildStreaM/update_catalog_pipeline.html">Update Catalog &amp; Pipelines</a></li>
 </ul>
 </details></li>
@@ -506,13 +506,13 @@
 <h1>Slurm<a class="headerlink" href="#slurm" title="Link to this heading">#</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="add_slurm_nodes.html">Add Slurm Nodes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="build_slurm_repo.html">Build Slurm Repository</a></li>
-<li class="toctree-l1"><a class="reference internal" href="remove_slurm_nodes.html">Remove Slurm Nodes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="run_hpc_benchmarks.html">Run HPC Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup_slurm.html">Setup Slurm</a></li>
-<li class="toctree-l1"><a class="reference internal" href="slurm_config_backup.html">Slurm Config Backup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build_slurm_repo.html">Build Slurm Repository</a></li>
 <li class="toctree-l1"><a class="reference internal" href="slurm_with_gpu.html">Slurm with GPUs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="add_slurm_nodes.html">Add Slurm Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remove_slurm_nodes.html">Remove Slurm Nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slurm_config_backup.html">Slurm Config Backup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run_hpc_benchmarks.html">Run HPC Benchmarks</a></li>
 </ul>
 </div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
@@ -538,11 +538,11 @@
       </div>
     </a>
     <a class="right-next"
-       href="add_slurm_nodes.html"
+       href="setup_slurm.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Add Slurm Nodes</p>
+        <p class="prev-next-title">Setup Slurm</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

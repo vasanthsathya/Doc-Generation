@@ -46,6 +46,8 @@ multi-hour process into a repeatable, version-controlled workflow.
      - Telemetry stack and GitLab services.
 
 
+
+
 **What makes BuildStreaM different:**
 
 - **Declarative catalog** -- Define your cluster in a YAML catalog file.
@@ -72,14 +74,16 @@ multi-hour process into a repeatable, version-controlled workflow.
 
 
 
+
+
+
 Step 1 -- Deploy the omnia_core Container
 -----------------------------------------
 
 
 
-**Run on OIM (as root)**
-
 .. code-block:: shell
+   :caption: Run on OIM (as root)
 
    cd /opt
    git clone https://github.com/dell/omnia.git
@@ -97,9 +101,8 @@ Step 1 -- Deploy the omnia_core Container
 
 
 
-**Run on OIM (as root)**
-
 .. code-block:: shell
+   :caption: Run on OIM (as root)
 
    ssh omnia_core
    exit
@@ -122,9 +125,8 @@ start.
 
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    ssh omnia_core
    vi /opt/omnia/input/project_default/build_stream_config.yml
@@ -150,6 +152,7 @@ start.
      - omnia-oim
      - deployment
 
+
    # Catalog file path inside the Git repository
    catalog_file: "catalog.yml"
 
@@ -172,9 +175,8 @@ application in GitLab (or prepare to do so after GitLab is deployed in
 Step 4).
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    vi /opt/omnia/input/project_default/build_stream_oauth_credentials.yml
 
@@ -217,9 +219,8 @@ initial OIM setup.
 **3a. Create the mapping file**
 
 
-**Run on OIM (as root)**
-
 .. code-block:: shell
+   :caption: Run on OIM (as root)
 
    cat > /opt/omnia/input/project_default/mapping.csv << 'EOF'
    FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
@@ -244,9 +245,8 @@ initial OIM setup.
 **3b. Copy input templates**
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    cp -r /opt/omnia/examples/input_template/bare_metal_slurm/x86_64/with_service_k8s/* \
        /opt/omnia/input/project_default/
@@ -261,9 +261,8 @@ as described in `Full Deployment <full_deployment>` Steps 5a--5c.
 **3d. Set credentials**
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    cd /opt/omnia
    ansible-playbook credentials_utility.yml
@@ -273,9 +272,8 @@ as described in `Full Deployment <full_deployment>` Steps 5a--5c.
 **3e. Prepare the OIM**
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    ansible-playbook prepare_oim.yml -i /opt/omnia/input/project_default/mapping.csv
 
@@ -284,9 +282,8 @@ as described in `Full Deployment <full_deployment>` Steps 5a--5c.
 **3f. Verify OIM services**
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    systemctl list-dependencies omnia.target
 
@@ -295,9 +292,8 @@ as described in `Full Deployment <full_deployment>` Steps 5a--5c.
 **3g. Create local repos and build images**
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    ansible-playbook local_repo.yml
    ansible-playbook build_image_x86_64.yml
@@ -310,9 +306,8 @@ as described in `Full Deployment <full_deployment>` Steps 5a--5c.
 **3h. Discover and provision nodes**
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    ansible-playbook discovery.yml
 
@@ -324,9 +319,8 @@ as described in `Full Deployment <full_deployment>` Steps 5a--5c.
 **3i. Deploy Kubernetes service cluster**
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    ansible-playbook k8s.yml
 
@@ -346,9 +340,8 @@ If you do not have an existing GitLab instance, Omnia can deploy one on
 the K8s service cluster.
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    cd /opt/omnia
    ansible-playbook build_stream_gitlab.yml
@@ -363,10 +356,8 @@ This playbook:
   ``build_stream_config.yml``.
 - Registers a GitLab Runner on the OIM for executing CI/CD pipelines.
 
-
-**Run on OIM (inside omnia_core container)**
-
-.. code-block:: shell
+   .. code-block:: shell
+      :caption: Run on OIM (inside omnia_core container)
 
    # Verify GitLab pods
    export KUBECONFIG=/opt/omnia/k8s/admin.conf
@@ -394,19 +385,21 @@ This playbook:
 #. Navigate to **Admin Area > Applications > New Application**.
 #. Fill in:
 
+
   - **Name:** ``BuildStreaM``
   - **Redirect URI:** ``http://10.5.0.10:8080/oauth/callback``
      (match ``oauth_callback_url`` in ``build_stream_oauth_credentials.yml``)
   - **Scopes:** ``api``, ``read_user``, ``read_repository``
 
+
 #. Click **Save application** and copy the **Application ID** and **Secret**.
+
 
 **4b. Update OAuth credentials**
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    vi /opt/omnia/input/project_default/build_stream_oauth_credentials.yml
 
@@ -445,9 +438,8 @@ Omnia input files and orchestrate the deployment pipeline.
 **5a. Initialize the catalog repository**
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    cd /opt
    git clone http://<k8s_vip>:8080/omnia/cluster-catalog.git
@@ -460,12 +452,12 @@ If the repository does not exist yet, create it in GitLab first:
 #. In GitLab, go to **Projects > New Project > Create Blank Project**.
 #. Name: ``cluster-catalog``, Group: ``omnia``, Visibility: **Private**.
 
+
 **5b. Create the catalog file**
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    vi /opt/cluster-catalog/catalog.yml
 
@@ -583,9 +575,8 @@ If the repository does not exist yet, create it in GitLab first:
 **5c. Create the CI/CD pipeline definition**
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    vi /opt/cluster-catalog/.gitlab-ci.yml
 
@@ -603,6 +594,7 @@ If the repository does not exist yet, create it in GitLab first:
      - deploy
      - verify
    
+   
    variables:
      OMNIA_HOME: "/opt/omnia"
      INPUT_DIR: "/opt/omnia/input/project_default"
@@ -617,6 +609,7 @@ If the repository does not exist yet, create it in GitLab first:
        - python3 scripts/buildstream/validate_catalog.py ${CI_PROJECT_DIR}/${CATALOG_FILE}
      rules:
        - if: '$CI_PIPELINE_SOURCE == "push"'
+   
    
    generate_inputs:
      stage: generate
@@ -633,6 +626,7 @@ If the repository does not exist yet, create it in GitLab first:
      rules:
        - if: '$CI_COMMIT_BRANCH == "main"'
    
+   
    deploy_cluster:
      stage: deploy
      tags:
@@ -644,6 +638,7 @@ If the repository does not exist yet, create it in GitLab first:
        - if: '$CI_COMMIT_BRANCH == "main"'
        - when: manual
    
+   
    verify_cluster:
      stage: verify
      tags:
@@ -653,6 +648,10 @@ If the repository does not exist yet, create it in GitLab first:
        - ansible-playbook verify_cluster.yml
      rules:
        - if: '$CI_COMMIT_BRANCH == "main"'
+
+
+
+
 
 
 
@@ -673,9 +672,8 @@ Step 6 -- Push the Catalog and Trigger the Pipeline
 
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    cd /opt/cluster-catalog
 
@@ -704,10 +702,8 @@ This push triggers the BuildStreaM pipeline:
 #. Navigate to **omnia/cluster-catalog > CI/CD > Pipelines**.
 #. Click the pipeline to see per-stage logs in real time.
 
-
-**Run on OIM (inside omnia_core container)**
-
-.. code-block:: shell
+   .. code-block:: shell
+      :caption: Run on OIM (inside omnia_core container)
 
    # Alternatively, monitor from the CLI
    gitlab-runner status
@@ -737,9 +733,8 @@ After the pipeline completes (all stages green), verify the cluster.
 **Slurm verification:**
 
 
-**Run on head node (head01)**
-
 .. code-block:: shell
+   :caption: Run on head node (head01)
 
    ssh head01
    sinfo
@@ -751,9 +746,8 @@ After the pipeline completes (all stages green), verify the cluster.
 **Kubernetes verification:**
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    export KUBECONFIG=/opt/omnia/k8s/admin.conf
    kubectl get nodes
@@ -764,9 +758,8 @@ After the pipeline completes (all stages green), verify the cluster.
 **Telemetry verification:**
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    kubectl get pods -n omnia-telemetry
    # Open Grafana at http://<k8s_vip>:3000
@@ -776,9 +769,8 @@ After the pipeline completes (all stages green), verify the cluster.
 **BuildStreaM pipeline verification:**
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    # Verify the pipeline artifacts were generated correctly
    ls -la /opt/omnia/input/project_default/
@@ -818,6 +810,8 @@ deployment.
 #. Push. The pipeline redeploys the previous catalog state.
 
 
+
+
 .. tip::
 
 
@@ -833,9 +827,8 @@ If the cluster needs to be rebuilt from scratch (e.g., after a datacenter
 move):
 
 
-**Run on OIM (as root)**
-
 .. code-block:: shell
+   :caption: Run on OIM (as root)
 
    # Re-clone the catalog repository
    cd /opt
@@ -882,4 +875,5 @@ What's Next?
    - :doc:`Full Deployment <full_deployment>` -- Manual equivalent of this automated path
    - :doc:`Prerequisites Checklist <prerequisites_checklist>` -- Master checklist
    - :doc:`Slurm Quickstart <slurm_quickstart>` -- Simplified manual deployment for comparison
+
 

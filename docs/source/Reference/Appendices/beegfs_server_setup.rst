@@ -69,22 +69,21 @@ Step 1: Add BeeGFS repository
 
 
 
-**Run on: BeeGFS server**
+   .. code-block:: bash
+      :caption: Run on: BeeGFS server
 
-.. code-block:: bash
+      # Import the BeeGFS GPG key
+      rpm --import https://www.beegfs.io/release/beegfs_7.4.3/gpg/GPG-KEY-beegfs
 
-   # Import the BeeGFS GPG key
-   rpm --import https://www.beegfs.io/release/beegfs_7.4.3/gpg/GPG-KEY-beegfs
-
-   # Add the repository
-   cat > /etc/yum.repos.d/beegfs.repo << 'EOF'
-   [beegfs]
-   name=BeeGFS
-   baseurl=https://www.beegfs.io/release/beegfs_7.4.3/dists/rhel10
-   gpgcheck=1
-   gpgkey=https://www.beegfs.io/release/beegfs_7.4.3/gpg/GPG-KEY-beegfs
-   enabled=1
-   EOF
+      # Add the repository
+      cat > /etc/yum.repos.d/beegfs.repo << 'EOF'
+      [beegfs]
+      name=BeeGFS
+      baseurl=https://www.beegfs.io/release/beegfs_7.4.3/dists/rhel10
+      gpgcheck=1
+      gpgkey=https://www.beegfs.io/release/beegfs_7.4.3/gpg/GPG-KEY-beegfs
+      enabled=1
+      EOF
 
 
 
@@ -97,14 +96,13 @@ Step 2: Install management service
 On the management node:
 
 
-**Run on: Management node**
+   .. code-block:: bash
+      :caption: Run on: Management node
 
-.. code-block:: bash
-
-   dnf install -y beegfs-mgmtd
-   mkdir -p /data/beegfs/mgmtd
-   /opt/beegfs/sbin/beegfs-setup-mgmtd -p /data/beegfs/mgmtd
-   systemctl enable --now beegfs-mgmtd
+      dnf install -y beegfs-mgmtd
+      mkdir -p /data/beegfs/mgmtd
+      /opt/beegfs/sbin/beegfs-setup-mgmtd -p /data/beegfs/mgmtd
+      systemctl enable --now beegfs-mgmtd
 
 
 
@@ -117,15 +115,14 @@ Step 3: Install metadata service
 On each metadata server:
 
 
-**Run on: Metadata server**
+   .. code-block:: bash
+      :caption: Run on: Metadata server
 
-.. code-block:: bash
-
-   dnf install -y beegfs-meta
-   mkdir -p /data/beegfs/meta
-   /opt/beegfs/sbin/beegfs-setup-meta -p /data/beegfs/meta \
-       -s <unique_server_id> -m <mgmtd_hostname>
-   systemctl enable --now beegfs-meta
+      dnf install -y beegfs-meta
+      mkdir -p /data/beegfs/meta
+      /opt/beegfs/sbin/beegfs-setup-meta -p /data/beegfs/meta \
+          -s <unique_server_id> -m <mgmtd_hostname>
+      systemctl enable --now beegfs-meta
 
 
 
@@ -146,15 +143,14 @@ Step 4: Install storage service
 On each storage server:
 
 
-**Run on: Storage server**
+   .. code-block:: bash
+      :caption: Run on: Storage server
 
-.. code-block:: bash
-
-   dnf install -y beegfs-storage
-   mkdir -p /data/beegfs/storage
-   /opt/beegfs/sbin/beegfs-setup-storage -p /data/beegfs/storage \
-       -s <unique_server_id> -i <storage_target_id> -m <mgmtd_hostname>
-   systemctl enable --now beegfs-storage
+      dnf install -y beegfs-storage
+      mkdir -p /data/beegfs/storage
+      /opt/beegfs/sbin/beegfs-setup-storage -p /data/beegfs/storage \
+          -s <unique_server_id> -i <storage_target_id> -m <mgmtd_hostname>
+      systemctl enable --now beegfs-storage
 
 
 
@@ -172,16 +168,15 @@ Step 5: Verify the server setup
 
 
 
-**Run on: BeeGFS server**
+   .. code-block:: bash
+      :caption: Run on: BeeGFS server
 
-.. code-block:: bash
+      # Check registered servers (run from any node with beegfs-ctl)
+      beegfs-ctl --listnodes --nodetype=meta
+      beegfs-ctl --listnodes --nodetype=storage
 
-   # Check registered servers (run from any node with beegfs-ctl)
-   beegfs-ctl --listnodes --nodetype=meta
-   beegfs-ctl --listnodes --nodetype=storage
-
-   # Check filesystem health
-   beegfs-ctl --listtargets --state
+      # Check filesystem health
+      beegfs-ctl --listtargets --state
 
 
 

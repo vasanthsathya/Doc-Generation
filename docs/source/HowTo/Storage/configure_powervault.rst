@@ -20,11 +20,15 @@ controller or compute nodes as local disks. This is useful for:
 - MariaDB (Slurm accounting database) storage.
 - Scratch storage for compute nodes.
 
+
 Omnia configures:
 
 - iSCSI initiator on the target node(s).
 - Multipath I/O (DM-Multipath) for path redundancy.
 - Automatic LUN discovery and attachment.
+
+
+
 
 
 
@@ -42,16 +46,17 @@ Prerequisites
 
 
 
+
+
+
 Procedure
 ---------
 
 
 #. **Install iSCSI and multipath packages** on the Slurm controller:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       dnf install -y iscsi-initiator-utils device-mapper-multipath
 
@@ -59,10 +64,8 @@ Procedure
 
 #. **Configure the iSCSI initiator name**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       cat /etc/iscsi/initiatorname.iscsi
 
@@ -71,9 +74,8 @@ Procedure
    If the initiator name is not set, generate one:
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       echo "InitiatorName=$(iscsi-iname)" > /etc/iscsi/initiatorname.iscsi
 
@@ -81,10 +83,8 @@ Procedure
 
 #. **Configure DM-Multipath**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       cat <<'EOF' > /etc/multipath.conf
       defaults {
@@ -113,10 +113,8 @@ Procedure
 
 #. **Discover iSCSI targets** on the PowerVault:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       iscsiadm -m discovery -t sendtargets -p 10.5.2.100:3260
       iscsiadm -m discovery -t sendtargets -p 10.5.2.101:3260
@@ -128,10 +126,8 @@ Procedure
 
 #. **Log in to the iSCSI targets**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       iscsiadm -m node --login
 
@@ -139,10 +135,8 @@ Procedure
 
 #. **Start and enable the iSCSI service**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       systemctl enable --now iscsid
       systemctl enable --now iscsi
@@ -151,10 +145,8 @@ Procedure
 
 #. **Verify multipath devices**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       multipath -ll
 
@@ -163,9 +155,8 @@ Procedure
    Expected output shows multipath devices with multiple paths:
 
 
-**Expected output on: Slurm control node**
-
 .. code-block:: text
+   :caption: Expected output on: Slurm control node
 
       mpath0 (360000000000000001) dm-0 DellEMC,ME5
       size=500G features='1 queue_if_no_path' hwhandler='0' wp=rw
@@ -178,10 +169,8 @@ Procedure
 
 #. **Create a filesystem and mount the LUN**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       mkfs.xfs /dev/mapper/mpath0
       mkdir -p /var/spool/slurm
@@ -192,9 +181,8 @@ Procedure
    Add to ``/etc/fstab`` for persistence:
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       echo "/dev/mapper/mpath0 /var/spool/slurm xfs defaults,_netdev 0 0" >> /etc/fstab
 
@@ -208,10 +196,8 @@ Verification
 
 #. **Verify iSCSI sessions**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       iscsiadm -m session
 
@@ -219,10 +205,8 @@ Verification
 
 #. **Verify multipath status**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       multipath -ll
 
@@ -232,10 +216,8 @@ Verification
 
 #. **Verify the mount**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       df -h /var/spool/slurm
 
@@ -243,10 +225,8 @@ Verification
 
 #. **Test I/O performance**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       dd if=/dev/zero of=/var/spool/slurm/test bs=1M count=1024 oflag=direct
       rm /var/spool/slurm/test
@@ -274,9 +254,8 @@ Troubleshooting
    Verify network connectivity to the PowerVault iSCSI ports:
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       ping -c 3 10.5.2.100
       telnet 10.5.2.100 3260
@@ -287,9 +266,8 @@ Troubleshooting
    Check that iSCSI sessions are active:
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       iscsiadm -m session
       multipath -v3
@@ -300,9 +278,8 @@ Troubleshooting
    Check network connectivity on the failed path:
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       iscsiadm -m session -P 3 | grep -E "Target|iface|State"
 
@@ -312,9 +289,8 @@ Troubleshooting
    Rescan SCSI buses:
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       iscsiadm -m session --rescan
       multipath -r
@@ -324,10 +300,8 @@ Troubleshooting
 **Performance is below expectations**
   - Verify jumbo frames are enabled on the iSCSI network:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
         ip link show | grep mtu
 

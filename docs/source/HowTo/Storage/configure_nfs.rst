@@ -36,6 +36,9 @@ Both models use:
 
 
 
+
+
+
 Prerequisites
 -------------
 
@@ -46,6 +49,9 @@ Prerequisites
 - For **external NFS**: the NFS server is configured and exporting the
   desired path, and the server IP is reachable from all cluster nodes.
 - ``nfs-utils`` package is available in the local repositories.
+
+
+
 
 
 
@@ -60,10 +66,8 @@ Internal NFS (Omnia-Managed)
 
 #. **Configure NFS in omnia_config.yml**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/omnia_config.yml
 
@@ -86,10 +90,8 @@ Internal NFS (Omnia-Managed)
 
 #. **Run the omnia.yml playbook** to deploy NFS:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
@@ -107,16 +109,17 @@ Internal NFS (Omnia-Managed)
 
 
 
+
+
+
 External NFS
 ~~~~~~~~~~~~
 
 
 #. **Configure external NFS in omnia_config.yml**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/omnia_config.yml
 
@@ -138,10 +141,8 @@ External NFS
 
 #. **Run the omnia.yml playbook**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
@@ -150,10 +151,8 @@ External NFS
 
 #. **(Alternative) Manual NFS mount** on a specific node:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
       dnf install -y nfs-utils
       mkdir -p /home
@@ -164,9 +163,8 @@ External NFS
    Add to ``/etc/fstab`` for persistence:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
       echo "10.5.1.100:/ifs/omnia/home /home nfs rw,hard,intr,nfsvers=3 0 0" >> /etc/fstab
 
@@ -180,10 +178,8 @@ Verification
 
 #. **Verify the NFS server is exporting** (internal NFS):
 
-
-**Run on: NFS server node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: NFS server node
 
       exportfs -v
 
@@ -192,9 +188,8 @@ Verification
    Expected output:
 
 
-**Expected output on: NFS server node**
-
 .. code-block:: text
+   :caption: Expected output on: NFS server node
 
       /home  <network>(rw,sync,wdelay,no_root_squash,no_subtree_check,...)
 
@@ -202,10 +197,8 @@ Verification
 
 #. **Verify NFS is mounted on compute nodes**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible slurm_node -m shell -a "df -h /home"
 
@@ -213,10 +206,8 @@ Verification
 
 #. **Test read/write from a compute node**:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
       echo "NFS test $(date)" > /home/nfs_test.txt
       cat /home/nfs_test.txt
@@ -226,10 +217,8 @@ Verification
 
 #. **Verify permissions**:
 
-
-**Run on: NFS server node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: NFS server node
 
       ls -ld /home
       # Expected: drwxr-xr-x (755)
@@ -238,10 +227,8 @@ Verification
 
 #. **Verify mount persists across reboot**:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
       grep "/home" /etc/fstab
 
@@ -270,9 +257,8 @@ Troubleshooting
    Verify the NFS export allows the client IP:
 
 
-**Run on: NFS server node**
-
 .. code-block:: bash
+   :caption: Run on: NFS server node
 
       exportfs -v
       cat /etc/exports
@@ -294,9 +280,8 @@ Troubleshooting
    Check firewall rules on the NFS server:
 
 
-**Run on: NFS server node**
-
 .. code-block:: bash
+   :caption: Run on: NFS server node
 
       firewall-cmd --add-service=nfs --permanent
       firewall-cmd --add-service=mountd --permanent
@@ -309,9 +294,8 @@ Troubleshooting
    Remount on affected nodes:
 
 
-**Run on: affected compute node**
-
 .. code-block:: bash
+   :caption: Run on: affected compute node
 
       umount -l /home
       mount /home
@@ -321,6 +305,8 @@ Troubleshooting
 **Performance is slow**
   - Use NFSv3 instead of NFSv4 for HPC workloads (NFSv3 has lower latency).
   - Increase the NFS read/write block size:
+
+
 
 
 **File: /etc/fstab on compute node**

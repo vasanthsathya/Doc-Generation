@@ -439,7 +439,7 @@ footer {
 .bd-page-width,
 .bd-content,
 .bd-article {
-    max-width: 1800px;
+    max-width: 1700px;
 }
 
 /* Move sidebar to the left with less padding */
@@ -448,14 +448,14 @@ footer {
     margin-right: auto;
     padding-left: 8px;
     padding-right: 8px;
-    width: 220px;
-    max-width: 220px;
+    width: 264px;
+    max-width: 264px;
 }
 
 .pst-primary-sidebar {
     padding: 0 !important;
-    width: 220px !important;
-    max-width: 220px !important;
+    width: 264px !important;
+    max-width: 264px !important;
 }
 
 .bd-container__inner.bd-page-width {
@@ -467,10 +467,23 @@ footer {
     font-size: 0.85rem !important;
 }
 
-/* Decrease font size for navigation labels and items */
-.bd-sidebar-primary .caption,
-.bd-sidebar-primary .toctree-l1 > .reference.internal,
-.bd-sidebar-primary .toctree-l2 > .reference.internal,
+/* Section headers - slightly larger for clear separation */
+.bd-sidebar-primary .caption {
+    font-size: 0.95rem !important;
+}
+
+/* Level 1 navigation - prominent but not overwhelming */
+.bd-sidebar-primary .toctree-l1 > .reference.internal {
+    font-size: 0.9rem !important;
+    color: #003566 !important;
+}
+
+/* Level 2 navigation - clear step down */
+.bd-sidebar-primary .toctree-l2 > .reference.internal {
+    font-size: 0.85rem !important;
+}
+
+/* Level 3+ navigation - smallest for deepest levels */
 .bd-sidebar-primary .toctree-l3 > .reference.internal,
 .bd-sidebar-primary .toctree-l4 > .reference.internal,
 .bd-sidebar-primary .nav-link,
@@ -488,6 +501,11 @@ footer {
 .bd-main {
     padding-left: 1rem;
     padding-right: 1rem;
+}
+
+/* Hide bottom TOC displayed in main content area */
+.toctree-wrapper.compound {
+    display: none;
 }
 
 .bd-header .navbar-header-items__center {
@@ -597,19 +615,27 @@ footer {
 }
 
 /* Main index files (captions and top-level) - Dell blue */
-.bd-sidebar-primary .caption,
+.bd-sidebar-primary .caption {
+    color: #0076CE !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+}
+
 .bd-sidebar-primary .toctree-l1 > .reference.internal[href*="index.html"] {
     color: #0076CE !important;
-    font-size: 1.1rem !important;
     font-weight: 600 !important;
     text-transform: uppercase !important;
 }
 
 /* Sub-index files (nested levels) - dark blue */
-.bd-sidebar-primary .toctree-l2 .reference.internal[href*="index.html"],
+.bd-sidebar-primary .toctree-l2 .reference.internal[href*="index.html"] {
+    color: #001D3D !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+}
+
 .bd-sidebar-primary .toctree-l3 .reference.internal[href*="index.html"] {
     color: #001D3D !important;
-    font-size: 1.1rem !important;
     font-weight: 600 !important;
     text-transform: uppercase !important;
 }
@@ -906,8 +932,59 @@ code {
 pre {
     background-color: #f5f5f5;
     padding: 1rem;
-    border-radius: 0.25rem;
-    overflow-x: auto;
+}
+
+/* Style filename span as code block title */
+.highlight .filename {
+    display: block;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-bottom: none;
+    border-radius: 0.25rem 0.25rem 0 0;
+    padding: 0.3rem 1rem;
+    margin: 0;
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.85rem;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.highlight .filename strong {
+    color: #0076CE;
+}
+
+/* Style code block captions */
+.code-block-caption {
+    display: block;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-bottom: none;
+    border-radius: 0.25rem 0.25rem 0 0;
+    padding: 0.3rem 1rem;
+    margin: 1rem 0 0 0;
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.85rem;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.code-block-caption .caption-text {
+    color: #0076CE;
+}
+
+.code-block-caption + .highlight {
+    border-radius: 0 0 0.25rem 0.25rem;
+    border: 1px solid #e9ecef;
+    border-top: none;
+    margin-top: 0;
+}
+
+/* Adjust pre tag when filename is present */
+.highlight .filename + pre {
+    border-radius: 0 0 0.25rem 0.25rem;
+    border: 1px solid #e9ecef;
+    border-top: none;
+    margin-top: 0;
 }
 
 /* Link styling */
@@ -1007,7 +1084,7 @@ section {
 }
 
 .prev-next-footer .prev-next-area {
-    max-width: 1800px;
+    max-width: 1700px;
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;

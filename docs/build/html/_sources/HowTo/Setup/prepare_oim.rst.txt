@@ -27,6 +27,9 @@ required for bare-metal provisioning and cluster management. It reads your
 
 
 
+
+
+
 Prerequisites
 -------------
 
@@ -41,16 +44,17 @@ Prerequisites
 
 
 
+
+
+
 Procedure
 ---------
 
 
 #. **Enter the omnia_core container**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       ssh omnia_core
 
@@ -58,10 +62,8 @@ Procedure
 
 #. **Review and edit network_spec.yml** (if not already done):
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/network_spec.yml
 
@@ -94,10 +96,8 @@ Procedure
 
 #. **Review and edit provision_config.yml** (if not already done):
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/provision_config.yml
 
@@ -119,10 +119,8 @@ Procedure
 
 #. **Run the prepare_oim playbook**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia/prepare_oim
       ansible-playbook prepare_oim.yml
@@ -135,9 +133,8 @@ Procedure
        ``--ask-vault-pass`` flag:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
           ansible-playbook prepare_oim.yml --ask-vault-pass
 
@@ -153,6 +150,7 @@ Procedure
   - Sets up the local container registry.
   - Optionally deploys BuildStreaM and Omnia Auth containers.
 
+
    Execution time: **15-30 minutes** depending on network speed and hardware.
 
 
@@ -163,10 +161,8 @@ Verification
 
 #. **Check the omnia.target service tree**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       systemctl list-dependencies omnia.target
 
@@ -200,10 +196,8 @@ Verification
 
 #. **Verify all services are active**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       systemctl status omnia_core.service
       systemctl status openchami.target
@@ -212,10 +206,8 @@ Verification
 
 #. **Test OpenCHAMI CLI**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ochami --help
 
@@ -226,10 +218,8 @@ Verification
 
 #. **Verify Pulp is running**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       podman ps --filter name=pulp
 
@@ -237,10 +227,8 @@ Verification
 
 #. **Verify MinIO is accessible**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       s3cmd ls
 
@@ -258,6 +246,9 @@ Next Steps
 
 
 
+
+
+
 Troubleshooting
 ---------------
 
@@ -267,9 +258,8 @@ Troubleshooting
    names on the OIM:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       ip link show
 
@@ -279,9 +269,8 @@ Troubleshooting
    Check the OpenCHAMI container logs:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       podman logs smd
       podman logs bss
@@ -294,9 +283,8 @@ Troubleshooting
    for repository synchronization):
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       df -h /var/lib/containers
 
@@ -307,9 +295,8 @@ Troubleshooting
    (DHCP: 67, TFTP: 69, HTTP: 80/8080, MinIO: 9000):
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       ss -tlnp | grep -E ':(67|69|80|8080|9000)\b'
 

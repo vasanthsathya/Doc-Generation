@@ -50,10 +50,8 @@ Procedure
 
 #. **Enter the omnia_core container**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       ssh omnia_core
 
@@ -61,10 +59,8 @@ Procedure
 
 #. **Verify the mapping file is in place**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cat /opt/omnia/input/project_default/pxe_mapping_file.csv
 
@@ -72,10 +68,8 @@ Procedure
 
 #. **Run the discovery playbook**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia/discovery
       ansible-playbook discovery.yml --ask-vault-pass
@@ -89,6 +83,7 @@ Procedure
   - Set PXE as the first boot device.
   - Power-cycle the servers.
   - Wait for each server to PXE boot and register with SMD.
+
 
    !!! note
 
@@ -105,16 +100,17 @@ Procedure
 
 
 
+
+
+
 Verification
 ------------
 
 
 #. **List discovered nodes in OpenCHAMI**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ochami node list
 
@@ -125,10 +121,8 @@ Verification
 
 #. **Check SMD inventory**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ochami smd status
 
@@ -136,10 +130,8 @@ Verification
 
 #. **Verify node count matches the mapping file**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       # Count discovered nodes
       ochami node list | wc -l
@@ -151,10 +143,8 @@ Verification
 
 #. **Ping each discovered node** on the admin network:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       # Example: ping a specific node
       ping -c 3 10.5.0.101
@@ -163,10 +153,8 @@ Verification
 
 #. **Check Ansible inventory** was populated:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible-inventory --list | python3 -m json.tool | head -50
 
@@ -184,6 +172,9 @@ Next Steps
 
 
 
+
+
+
 Troubleshooting
 ---------------
 
@@ -191,10 +182,8 @@ Troubleshooting
 **Node not discovered (missing from SMD)**
   - Verify the BMC IP is reachable from the OIM:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
         ping -c 3 <bmc-ip>
 
@@ -203,18 +192,18 @@ Troubleshooting
   - Check iDRAC web UI for boot errors.
   - Verify the ``ADMIN_MAC`` in the mapping file matches the PXE NIC.
 
+
 **BMC connection refused**
   - Confirm BMC credentials are correct in the encrypted credentials file.
   - Verify iDRAC is not locked out (too many failed login attempts).
   - Check that Redfish is enabled in iDRAC settings.
 
+
 **PXE boot timeout**
   - Verify DHCP is running on the OIM:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
         systemctl status coredhcp.service
 
@@ -222,10 +211,8 @@ Troubleshooting
 
   - Check TFTP service:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
         systemctl status tftpd.service
 
@@ -233,15 +220,14 @@ Troubleshooting
 
   - Verify the admin network switch is configured with the correct VLAN.
 
+
 **Some nodes discover but others do not**
   - Check for MAC address typos in the mapping file.
   - Verify the physical cabling on failed nodes.
   - Check for IP conflicts on the admin network:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
         arping -D -I <admin-nic> <admin-ip>
 
@@ -251,10 +237,8 @@ Troubleshooting
   - Ensure iDRAC firmware is up to date (minimum 5.x for PowerEdge 15th gen).
   - Verify Redfish API is accessible:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
         curl -sk https://<bmc-ip>/redfish/v1/ -u <user>:<pass>
 

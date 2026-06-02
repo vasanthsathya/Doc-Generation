@@ -31,6 +31,8 @@ point for first-time users.
      - User-facing SSH gateway for job submission. Does not run ``slurmd``.
 
 
+
+
 **Estimated time:** ~2 hours (varies with network speed and node count).
 
 
@@ -51,9 +53,8 @@ Clone the Omnia repository, build the container images, and install the
 ``omnia_core`` Podman container on the OIM.
 
 
-**Run on OIM (as root)**
-
 .. code-block:: shell
+   :caption: Run on OIM (as root)
 
    # Clone the Omnia repository
    cd /opt
@@ -75,9 +76,8 @@ Clone the Omnia repository, build the container images, and install the
 
 
 
-**Run on OIM (as root)**
-
 .. code-block:: shell
+   :caption: Run on OIM (as root)
 
    # Install and start the omnia_core container
    bash omnia.sh --install
@@ -91,9 +91,8 @@ You should see ``active (running)`` in the output. If the service is
 ``failed``, check ``journalctl -u omnia_core`` for errors.
 
 
-**Run on OIM (as root)**
-
 .. code-block:: shell
+   :caption: Run on OIM (as root)
 
    # Verify you can access the container shell
    ssh omnia_core
@@ -112,9 +111,8 @@ The mapping file tells Omnia which physical servers map to which cluster
 roles. Create a CSV at ``/opt/omnia/input/project_default/mapping.csv``.
 
 
-**Run on OIM (as root)**
-
 .. code-block:: shell
+   :caption: Run on OIM (as root)
 
    cat > /opt/omnia/input/project_default/mapping.csv << 'EOF'
    FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
@@ -151,6 +149,9 @@ roles. Create a CSV at ``/opt/omnia/input/project_default/mapping.csv``.
 
 
 
+
+
+
 Step 3 -- Provide Inputs
 ------------------------
 
@@ -159,9 +160,8 @@ Omnia ships example input templates for common deployment patterns. Copy
 the bare-metal Slurm template (without service K8s) and customize it.
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    ssh omnia_core
 
@@ -185,6 +185,8 @@ You should see these key input files:
 - ``local_repo_config.yml`` -- Repository mirror settings
 
 
+
+
 .. tip::
 
 
@@ -203,9 +205,8 @@ for iDRAC, the provisioning OS, and other services. This playbook prompts
 you interactively.
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    cd /opt/omnia
    ansible-playbook credentials_utility.yml
@@ -217,6 +218,8 @@ You will be prompted to set:
 - **Provisioning OS password** -- root password for provisioned nodes.
 - **iDRAC credentials** -- username and password for out-of-band access.
 - **MySQL/MariaDB password** -- used by ``slurmdbd`` for Slurm accounting.
+
+
 
 
 .. warning::
@@ -242,9 +245,8 @@ and HTTP services.
 
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    vi /opt/omnia/input/project_default/network_spec.yml
 
@@ -276,9 +278,8 @@ Set the following values (adjust to match your environment):
 
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    vi /opt/omnia/input/project_default/provision_config.yml
 
@@ -308,9 +309,8 @@ Key fields to verify or set:
 
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    cd /opt/omnia
    ansible-playbook prepare_oim.yml -i /opt/omnia/input/project_default/mapping.csv
@@ -336,9 +336,8 @@ After ``prepare_oim.yml`` completes, verify that all Omnia-managed
 services are running.
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    systemctl list-dependencies omnia.target
 
@@ -352,10 +351,8 @@ Every listed service should show a green dot (``●``) indicating
 - ``httpd.service`` -- HTTP for kickstart/autoinstall files
 - ``nfs-server.service`` -- NFS for shared storage
 
-
-**Run on OIM (inside omnia_core container)**
-
-.. code-block:: shell
+   .. code-block:: shell
+      :caption: Run on OIM (inside omnia_core container)
 
    # Quick health check -- all should return 'active'
    for svc in dhcpd tftp.socket httpd nfs-server; do
@@ -374,9 +371,8 @@ Build local mirrors of OS packages, Python packages, and container images
 so that node provisioning does not depend on external internet access.
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    cd /opt/omnia
    ansible-playbook local_repo.yml
@@ -396,9 +392,8 @@ so that node provisioning does not depend on external internet access.
 When the playbook finishes, verify that the local repo is accessible:
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    # Check that the repo metadata exists
    ls /opt/omnia/local_repo/
@@ -415,9 +410,8 @@ Step 8 -- Build Node Images
 Build the provisioning image that Omnia will PXE-boot onto target nodes.
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    cd /opt/omnia
    ansible-playbook build_image_x86_64.yml
@@ -429,9 +423,8 @@ packages, Omnia agents, and configuration. The image is stored in the
 local S3-compatible object store.
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    # Verify the image was uploaded to the local S3 store
    s3cmd ls s3://omnia-images/
@@ -458,9 +451,8 @@ Power on your target nodes (or ensure they are powered on with PXE boot
 priority). Then run the discovery playbook.
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    cd /opt/omnia
    ansible-playbook discovery.yml
@@ -476,6 +468,8 @@ priority). Then run the discovery playbook.
 #. Registers each node in the Omnia inventory.
 
 
+
+
 .. warning::
 
 
@@ -488,12 +482,13 @@ priority). Then run the discovery playbook.
    - The admin switch port is on the correct VLAN.
 
 
+
+
 After discovery completes, verify all nodes are reachable:
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    # Ping all discovered nodes
    ansible all -m ping -i /opt/omnia/inventories/project_default/inventory
@@ -510,9 +505,8 @@ Run the main Omnia playbook to install and configure Slurm across the
 cluster.
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    cd /opt/omnia
    ansible-playbook omnia.yml
@@ -527,6 +521,8 @@ cluster.
 - Munge key distribution for authentication.
 - NFS home directory mounts (if configured in ``storage_config.yml``).
 - Login node configuration (SSH access, ``srun``/``sbatch`` clients).
+
+
 
 
 .. tip::
@@ -546,9 +542,8 @@ Congratulations! Your Slurm cluster should now be operational. Run these
 verification commands.
 
 
-**Run on OIM (inside omnia_core container)**
-
 .. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    # SSH to the head node
    ssh head01
@@ -556,9 +551,8 @@ verification commands.
 
 
 
-**Run on head node (head01)**
-
 .. code-block:: shell
+   :caption: Run on head node (head01)
 
    # Check Slurm controller status
    systemctl status slurmctld
@@ -581,9 +575,8 @@ Expected ``sinfo`` output:
 
 
 
-**Run on head node (head01)**
-
 .. code-block:: shell
+   :caption: Run on head node (head01)
 
    # Run a test job across all nodes
    srun -N 1 hostname
@@ -595,9 +588,8 @@ Expected ``sinfo`` output:
 
 
 
-**Run on login node (login01)**
-
 .. code-block:: shell
+   :caption: Run on login node (login01)
 
    # Verify login node can submit jobs
    ssh login01
@@ -650,4 +642,5 @@ steps:
    - :doc:`Index <../Overview/index>` -- Architecture and component overview
    - :doc:`Full Deployment <full_deployment>` -- Add K8s and telemetry to this cluster
    - :doc:`Prerequisites Checklist <prerequisites_checklist>` -- Return to the master checklist
+
 

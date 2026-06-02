@@ -43,10 +43,8 @@ Stage 1: Verify Collection
 
 #. **Check iDRAC collector** is retrieving metrics:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl logs -n telemetry -l app=idrac-collector --tail=10
 
@@ -56,10 +54,8 @@ Stage 1: Verify Collection
 
 #. **Check LDMS samplers** are running on compute nodes:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible slurm_node -m shell -a "systemctl is-active ldmsd"
 
@@ -67,10 +63,8 @@ Stage 1: Verify Collection
 
 #. **Query LDMS metrics** locally on a compute node:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
       ldms_ls -h localhost -p 411 -v
 
@@ -86,10 +80,8 @@ Stage 2: Verify Transport (Kafka)
 
 #. **List Kafka topics**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       KAFKA_POD=$(kubectl get pod -n telemetry -l app=kafka -o jsonpath='{.items[0].metadata.name}')
       kubectl exec -n telemetry $KAFKA_POD -- kafka-topics.sh --list --bootstrap-server localhost:9092
@@ -98,10 +90,8 @@ Stage 2: Verify Transport (Kafka)
 
 #. **Check topic message counts**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl exec -n telemetry $KAFKA_POD -- kafka-run-class.sh kafka.tools.GetOffsetShell \
         --broker-list localhost:9092 --topic omnia-telemetry
@@ -112,10 +102,8 @@ Stage 2: Verify Transport (Kafka)
 
 #. **Read sample messages** from a topic:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl exec -n telemetry $KAFKA_POD -- kafka-console-consumer.sh \
         --bootstrap-server localhost:9092 \
@@ -133,10 +121,8 @@ Stage 3: Verify Storage (VictoriaMetrics)
 
 #. **Check VictoriaMetrics health**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
       kubectl exec -n telemetry $VM_POD -- curl -s http://localhost:8428/health
@@ -147,10 +133,8 @@ Stage 3: Verify Storage (VictoriaMetrics)
 
 #. **Query stored metrics**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl exec -n telemetry $VM_POD -- \
         curl -s "http://localhost:8428/api/v1/query?query=up" | python3 -m json.tool
@@ -159,26 +143,22 @@ Stage 3: Verify Storage (VictoriaMetrics)
 
 #. **Check active time series count**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl exec -n telemetry $VM_POD -- \
         curl -s "http://localhost:8428/api/v1/status/tsdb" | python3 -c "
-      import sys, json
-      data = json.load(sys.stdin)
-      print(f'Active time series: {data.get(\"data\", {}).get(\"totalSeries\", \"unknown\")}')
-      "
+        import sys, json
+        data = json.load(sys.stdin)
+        print(f'Active time series: {data.get(\"data\", {}).get(\"totalSeries\", \"unknown\")}')
+        "
 
 
 
 #. **Query a specific metric** (e.g., iDRAC temperature):
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
        kubectl exec -n telemetry $VM_POD -- \
          curl -s "http://localhost:8428/api/v1/query?query=idrac_SystemBoardInletTemp"
@@ -193,10 +173,8 @@ Stage 4: Verify Visualization (Grafana)
 
 #. **Get the Grafana external IP**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
        kubectl get svc -n telemetry grafana
 
@@ -287,46 +265,38 @@ Troubleshooting
 **Data gap in Grafana (intermittent)**
   - Check for pod restarts:
 
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
-**Run on: K8s control plane node**
-
-.. code-block:: bash
-
-        kubectl get pods -n telemetry -o wide
+       kubectl get pods -n telemetry -o wide
 
 
 
   - Check K8s node resources (CPU/memory):
 
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
-**Run on: K8s control plane node**
-
-.. code-block:: bash
-
-        kubectl top nodes
-        kubectl top pods -n telemetry
+       kubectl top nodes
+       kubectl top pods -n telemetry
 
 
 
 **Metrics have stale timestamps**
   - Verify NTP is synchronized on all nodes:
 
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
-**Run on: omnia_core container**
-
-.. code-block:: bash
-
-        ansible all -m shell -a "chronyc tracking | grep 'System time'"
+       ansible all -m shell -a "chronyc tracking | grep 'System time'"
 
 
 
 **VictoriaMetrics running out of disk**
    Check retention settings and disk usage:
 
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
-**Run on: K8s control plane node**
-
-.. code-block:: bash
-
-      kubectl exec -n telemetry $VM_POD -- df -h /victoria-metrics-data
+       kubectl exec -n telemetry $VM_POD -- df -h /victoria-metrics-data
 

@@ -40,16 +40,17 @@ Prerequisites
 
 
 
+
+
+
 Procedure
 ---------
 
 
 #. **Enter the omnia_core container**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       ssh omnia_core
 
@@ -57,10 +58,8 @@ Procedure
 
 #. **Navigate to the credential utility directory**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia/utils/credential_utility
 
@@ -68,10 +67,8 @@ Procedure
 
 #. **Run the credential configuration playbook** with the ``provision`` tag:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible-playbook get_config_credentials.yml --tags provision
 
@@ -97,6 +94,7 @@ Procedure
       - - ``SNMP community string``
         - SNMP community string for hardware monitoring (optional)
 
+
    !!! warning
 
        The Vault password is the **only** way to decrypt the credentials file.
@@ -105,10 +103,8 @@ Procedure
 
 #. **Verify the encrypted file was created**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ls -la /opt/omnia/input/project_default/omnia_config_credentials.yml
 
@@ -116,10 +112,8 @@ Procedure
 
 #. **(Optional) View the encrypted credentials** to confirm values:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible-vault view /opt/omnia/input/project_default/omnia_config_credentials.yml
 
@@ -136,10 +130,8 @@ Verification
 
 #. **Confirm the file is Ansible Vault encrypted**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       head -1 /opt/omnia/input/project_default/omnia_config_credentials.yml
 
@@ -158,10 +150,8 @@ Verification
 
 #. **Test decryption** with the Vault password:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible-vault view /opt/omnia/input/project_default/omnia_config_credentials.yml
 
@@ -179,12 +169,18 @@ Verification
 
 
 
+
+
+
 Next Steps
 ----------
 
 
 - :doc:`Prepare Oim <prepare_oim>` -- Prepare OIM services using the configured credentials.
 - :doc:`Discover Nodes <discover_nodes>` -- Run node discovery (requires BMC credentials).
+
+
+
 
 
 
@@ -200,9 +196,8 @@ Troubleshooting
    Edit the encrypted file directly:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
       ansible-vault edit /opt/omnia/input/project_default/omnia_config_credentials.yml
 
@@ -215,9 +210,8 @@ Troubleshooting
    Re-key the encrypted file:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
       ansible-vault rekey /opt/omnia/input/project_default/omnia_config_credentials.yml
 
@@ -233,9 +227,8 @@ Troubleshooting
    current file if needed:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
       cp /opt/omnia/input/project_default/omnia_config_credentials.yml \
          /opt/omnia/input/project_default/omnia_config_credentials.yml.bak

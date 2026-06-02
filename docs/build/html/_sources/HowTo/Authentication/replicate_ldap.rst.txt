@@ -18,6 +18,7 @@ LDAP replication ensures that:
 - Login latency is reduced for nodes closer to the replica.
 - Data consistency is maintained across all replicas.
 
+
 Omnia supports **provider-consumer** (master-slave) replication using
 OpenLDAP's ``syncrepl`` mechanism. The primary server pushes changes to the
 replica, which maintains a read-only copy of the directory.
@@ -36,25 +37,25 @@ Prerequisites
 
 
 
+
+
+
 Procedure
 ---------
 
 
 #. **Configure the primary server** (provider) for replication:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       podman exec -it omnia_auth bash
 
 
 
 
-**Run on: omnia_auth container (primary)**
-
 .. code-block:: bash
+   :caption: Run on: omnia_auth container (primary)
 
       cat <<'EOF' > /tmp/enable_syncprov.ldif
       dn: cn=module{0},cn=config
@@ -77,10 +78,8 @@ Procedure
 
 #. **Create a replication service account** on the primary:
 
-
-**Run on: omnia_auth container (primary)**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_auth container (primary)
 
       cat <<'EOF' > /tmp/repl_user.ldif
       dn: cn=replicator,dc=omnia,dc=example,dc=com
@@ -96,10 +95,8 @@ Procedure
 
 #. **Configure the replica** (consumer) server:
 
-
-**Run on: replica LDAP server**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: replica LDAP server
 
       cat <<'EOF' > /tmp/syncrepl.ldif
       dn: olcDatabase={1}mdb,cn=config
@@ -126,10 +123,8 @@ Procedure
 
 #. **Configure SSSD on cluster nodes** to use both LDAP servers:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/omnia_config.yml
 
@@ -147,12 +142,13 @@ Procedure
 
 
 
+
+
+
 #. **Re-run the auth playbook** to update SSSD configuration:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia
       ansible-playbook auth.yml --ask-vault-pass
@@ -167,10 +163,8 @@ Verification
 
 #. **Verify replication status** on the replica:
 
-
-**Run on: replica LDAP server**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: replica LDAP server
 
       ldapsearch -x -H ldap://localhost -b "dc=omnia,dc=example,dc=com" "(uid=testuser)"
 
@@ -180,10 +174,8 @@ Verification
 
 #. **Add a user on the primary** and verify it replicates:
 
-
-**Run on: omnia_auth container (primary)**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_auth container (primary)
 
       cat <<'EOF' > /tmp/new_user.ldif
       dn: uid=repltest,ou=People,dc=omnia,dc=example,dc=com
@@ -205,9 +197,8 @@ Verification
    Then check the replica:
 
 
-**Run on: replica LDAP server**
-
 .. code-block:: bash
+   :caption: Run on: replica LDAP server
 
       ldapsearch -x -H ldap://localhost -b "dc=omnia,dc=example,dc=com" "(uid=repltest)"
 
@@ -217,18 +208,16 @@ Verification
    still works:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       podman stop omnia_auth
 
 
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
       # SSSD should failover to the replica
       id testuser
@@ -239,9 +228,8 @@ Verification
    Remember to restart the primary:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       podman start omnia_auth
 
@@ -267,9 +255,8 @@ Troubleshooting
    Check the syncrepl connection from the replica logs:
 
 
-**Run on: replica LDAP server**
-
 .. code-block:: bash
+   :caption: Run on: replica LDAP server
 
       journalctl -u slapd --no-pager -n 30
 
@@ -283,9 +270,8 @@ Troubleshooting
    Force a full resync by removing and re-adding the syncrepl configuration:
 
 
-**Run on: replica LDAP server**
-
 .. code-block:: bash
+   :caption: Run on: replica LDAP server
 
       ldapmodify -Q -Y EXTERNAL -H ldapi:/// <<'EOF'
       dn: olcDatabase={1}mdb,cn=config
@@ -301,9 +287,8 @@ Troubleshooting
    Check the SSSD configuration on the compute node:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
       cat /etc/sssd/sssd.conf | grep ldap_uri
 

@@ -20,6 +20,8 @@ operating system image. This guide covers:
 #. Confirming nodes are provisioned and reachable on the admin network.
 
 
+
+
 .. note::
 
 
@@ -48,10 +50,8 @@ Procedure
 
 #. **Verify OIM boot services are running**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       systemctl is-active coredhcp.service
       systemctl is-active tftpd.service
@@ -64,6 +64,7 @@ Procedure
 
 #. **(If needed) Manually set PXE boot order via iDRAC**:
 
+
    a. Open a web browser and navigate to ``https://<bmc-ip>``.
    b. Log in with iDRAC credentials.
    c. Go to **Configuration** > **BIOS Settings** > **Boot Settings**.
@@ -75,9 +76,8 @@ Procedure
    Alternatively, configure via Redfish from the OIM:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       curl -sk -X PATCH \
         https://<bmc-ip>/redfish/v1/Systems/System.Embedded.1 \
@@ -89,10 +89,8 @@ Procedure
 
 #. **Power-cycle the target servers** to initiate PXE boot:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       # Using Redfish to power-cycle a single server
       curl -sk -X POST \
@@ -106,9 +104,8 @@ Procedure
    Or power-cycle all nodes from the omnia_core container:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
       # Power-cycle all discovered nodes
       ochami node power --action restart --all
@@ -117,10 +114,12 @@ Procedure
 
 #. **Monitor the PXE boot process**:
 
+
   - Watch the iDRAC virtual console for each server.
   - The server should display ``iPXE`` boot messages followed by the OS
      installer.
   - After installation, the server reboots into the provisioned OS.
+
 
 #. **Wait for provisioning to complete**. Provisioning typically takes
    **10-20 minutes** per node. Nodes will:
@@ -132,16 +131,17 @@ Procedure
 
 
 
+
+
+
 Verification
 ------------
 
 
 #. **Ping each provisioned node** from the OIM:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       # Ping all nodes listed in the mapping file
       for ip in $(awk -F',' 'NR>1 {print $7}' /opt/omnia/input/project_default/pxe_mapping_file.csv); do
@@ -153,19 +153,16 @@ Verification
 
 #. **SSH into a provisioned node** to verify the OS is installed:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ssh root@10.5.0.101
 
 
 
 
-**Run on: provisioned node**
-
 .. code-block:: bash
+   :caption: Run on: provisioned node
 
       cat /etc/os-release
       hostname
@@ -175,10 +172,8 @@ Verification
 
 #. **Verify node registration in OpenCHAMI**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ochami node list
 
@@ -212,10 +207,8 @@ Troubleshooting
 **Node gets a DHCP address but fails to download the image**
   - Check the TFTP service:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
         podman logs tftpd
 
@@ -223,10 +216,8 @@ Troubleshooting
 
   - Verify the image server is running:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
         podman logs image-server
 
@@ -235,10 +226,8 @@ Troubleshooting
 **Node boots but gets the wrong OS**
   - Verify the BSS configuration matches the expected image:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
         ochami bss list
 
@@ -246,20 +235,20 @@ Troubleshooting
 
   - Rebuild the image if necessary (see :doc:`Build Cluster Images <build_cluster_images>`).
 
+
 **Node provisions but is unreachable on the admin network**
   - Check that the admin IP was correctly assigned by reviewing
      ``/etc/sysconfig/network-scripts/`` on the node (access via iDRAC
      virtual console).
   - Verify the admin network switch port is in the correct VLAN.
 
+
 **Provisioning takes too long (> 30 minutes per node)**
   - Check OIM network bandwidth to the admin switch.
   - Verify MinIO/image-server performance:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
         podman stats --no-stream minio image-server
 

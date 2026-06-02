@@ -20,6 +20,7 @@ packages on some or all nodes:
 - Monitoring agents
 - Custom in-house software
 
+
 This guide covers three approaches:
 
 #. **Ansible ad-hoc commands** -- Quick one-off installations.
@@ -51,10 +52,8 @@ Approach 1: Ansible Ad-Hoc Commands
 
 #. **Install a package on all compute nodes**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
    ansible slurm_node -m dnf -a "name=htop state=present"
 
@@ -62,10 +61,8 @@ Approach 1: Ansible Ad-Hoc Commands
 
 #. **Install multiple packages at once**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
    ansible slurm_node -m dnf -a "name=gcc,gcc-c++,make,cmake state=present"
 
@@ -73,10 +70,8 @@ Approach 1: Ansible Ad-Hoc Commands
 
 #. **Install on a specific group of nodes**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
    # Install only on login nodes
    ansible login_node -m dnf -a "name=emacs,vim-enhanced state=present"
@@ -85,10 +80,8 @@ Approach 1: Ansible Ad-Hoc Commands
 
 #. **Install from a specific repository**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible slurm_node -m dnf -a "name=openmpi-devel enablerepo=epel state=present"
 
@@ -102,10 +95,8 @@ Approach 2: Custom Ansible Playbook
 
 #. **Create a custom playbook** for repeatable deployments:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
    cat <<'EOF' > /omnia/custom_packages.yml
    ---
@@ -157,10 +148,8 @@ Approach 2: Custom Ansible Playbook
 
 #. **Run the custom playbook**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
    cd /omnia
    ansible-playbook custom_packages.yml
@@ -175,10 +164,8 @@ Approach 3: Custom Pulp Repository
 
 #. **Add custom RPMs to Pulp** for automatic deployment to new nodes:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       # Create a custom repository in Pulp
       pulp rpm repository create --name custom-packages
@@ -196,10 +183,8 @@ Approach 3: Custom Pulp Repository
 
 #. **Configure nodes to use the custom repository**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible all -m yum_repository -a "
         name=custom-packages
@@ -213,10 +198,8 @@ Approach 3: Custom Pulp Repository
 
 #. **Install from the custom repository**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible slurm_node -m dnf -a "name=custom-package state=present enablerepo=custom-packages"
 
@@ -230,10 +213,8 @@ Verification
 
 #. **Verify packages are installed**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible slurm_node -m shell -a "rpm -q gcc cmake htop"
 
@@ -241,10 +222,8 @@ Verification
 
 #. **Check package versions**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible slurm_node -m shell -a "gcc --version | head -1"
 
@@ -252,10 +231,8 @@ Verification
 
 #. **Verify Python packages**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible slurm_node -m shell -a "pip3 list | grep numpy"
 
@@ -263,10 +240,8 @@ Verification
 
 #. **Verify custom Pulp repository** is available:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
       dnf repolist | grep custom-packages
 
@@ -292,9 +267,8 @@ Troubleshooting
    Verify the package name and check available repositories:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
       dnf search <package-name>
       dnf repolist
@@ -305,9 +279,8 @@ Troubleshooting
    Check for conflicting packages:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
       dnf check
 
@@ -317,9 +290,8 @@ Troubleshooting
    Verify the distribution URL:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
       curl -s http://<oim-ip>:8080/pulp/content/custom-packages/repodata/repomd.xml | head
 
@@ -329,9 +301,8 @@ Troubleshooting
    Ensure pip and Python are installed:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
       dnf install -y python3 python3-pip
 
@@ -341,9 +312,8 @@ Troubleshooting
    Increase the Ansible timeout:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
       ansible slurm_node -m dnf -a "name=large-package state=present" -e "ansible_timeout=600"
 

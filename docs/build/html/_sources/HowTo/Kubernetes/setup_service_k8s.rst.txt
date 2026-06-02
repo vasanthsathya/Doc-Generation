@@ -22,6 +22,7 @@ Kubernetes with the following components pre-configured:
 - **NFS CSI driver** -- Persistent volume provisioner backed by NFS shares.
 - **Calico** -- CNI plugin for pod-to-pod networking and network policies.
 
+
 The minimum topology is 3 control-plane nodes + 1 worker node for high
 availability.
 
@@ -41,16 +42,17 @@ Prerequisites
 
 
 
+
+
+
 Procedure
 ---------
 
 
 #. **Enter the omnia_core container**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       ssh omnia_core
 
@@ -58,10 +60,8 @@ Procedure
 
 #. **Configure Kubernetes parameters** in ``omnia_config.yml``:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/omnia_config.yml
 
@@ -92,10 +92,8 @@ Procedure
 
 #. **Verify the mapping file** has K8s node assignments:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       grep -E "kube_control_plane|kube_node" /opt/omnia/input/project_default/pxe_mapping_file.csv
 
@@ -106,10 +104,8 @@ Procedure
 
 #. **Run the omnia.yml playbook** to deploy Kubernetes:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
@@ -125,6 +121,7 @@ Procedure
   - Deploys MetalLB, Calico, and NFS CSI driver.
   - Configures kubeconfig for cluster administration.
 
+
    Execution time: **20-40 minutes** depending on cluster size and network
    speed.
 
@@ -136,10 +133,8 @@ Verification
 
 #. **Check Kubernetes node status**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl get nodes -o wide
 
@@ -164,10 +159,8 @@ Verification
 
 #. **Verify system pods are running**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl get pods -A
 
@@ -178,10 +171,8 @@ Verification
 
 #. **Verify MetalLB is operational**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl get pods -n metallb-system
       kubectl get ipaddresspool -n metallb-system
@@ -190,10 +181,8 @@ Verification
 
 #. **Verify NFS CSI driver**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl get pods -n kube-system | grep nfs
       kubectl get storageclass
@@ -202,10 +191,8 @@ Verification
 
 #. **Test pod scheduling**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl run test --image=busybox --restart=Never -- echo "K8s is working"
       kubectl logs test
@@ -215,10 +202,8 @@ Verification
 
 #. **Test a LoadBalancer service**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl create deployment nginx --image=nginx
       kubectl expose deployment nginx --type=LoadBalancer --port=80
@@ -229,9 +214,8 @@ Verification
    The ``EXTERNAL-IP`` column should show an IP from the MetalLB range.
 
 
-**Run on: K8s control plane node**
-
 .. code-block:: bash
+   :caption: Run on: K8s control plane node
 
       # Cleanup
       kubectl delete svc nginx
@@ -261,9 +245,8 @@ Troubleshooting
    Check kubelet on the affected node:
 
 
-**Run on: affected K8s node**
-
 .. code-block:: bash
+   :caption: Run on: affected K8s node
 
       systemctl status kubelet
       journalctl -u kubelet --no-pager -n 30
@@ -274,9 +257,8 @@ Troubleshooting
    Check Calico logs:
 
 
-**Run on: K8s control plane node**
-
 .. code-block:: bash
+   :caption: Run on: K8s control plane node
 
       kubectl logs -n calico-system -l k8s-app=calico-node --tail=50
 
@@ -286,9 +268,8 @@ Troubleshooting
    Verify the IP address pool configuration:
 
 
-**Run on: K8s control plane node**
-
 .. code-block:: bash
+   :caption: Run on: K8s control plane node
 
       kubectl get ipaddresspool -n metallb-system -o yaml
       kubectl get l2advertisement -n metallb-system
@@ -299,9 +280,8 @@ Troubleshooting
    Verify the NFS server is reachable and the export is configured:
 
 
-**Run on: K8s worker node**
-
 .. code-block:: bash
+   :caption: Run on: K8s worker node
 
       showmount -e <nfs-server-ip>
 
@@ -311,9 +291,8 @@ Troubleshooting
    Copy the admin kubeconfig:
 
 
-**Run on: K8s control plane node**
-
 .. code-block:: bash
+   :caption: Run on: K8s control plane node
 
       mkdir -p $HOME/.kube
       cp /etc/kubernetes/admin.conf $HOME/.kube/config

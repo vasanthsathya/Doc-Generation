@@ -21,6 +21,9 @@ After provisioning and configuring your cluster, verify that:
 
 
 
+
+
+
 Prerequisites
 -------------
 
@@ -43,10 +46,8 @@ Verify Node Connectivity
 
 #. **Ping all nodes** from the omnia_core container:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible all -m ping
 
@@ -67,10 +68,8 @@ Verify Node Connectivity
 
 #. **Check OS version on all nodes**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible all -m shell -a "cat /etc/os-release | grep PRETTY_NAME"
 
@@ -78,10 +77,8 @@ Verify Node Connectivity
 
 #. **Check hostnames are correctly set**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible all -m shell -a "hostname"
 
@@ -95,19 +92,16 @@ Verify Slurm
 
 #. **SSH to the Slurm control node** and check the cluster status:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ssh root@<slurm-control-node-ip>
 
 
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       sinfo
 
@@ -130,10 +124,8 @@ Verify Slurm
 
 #. **Run a test job** across all compute nodes:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       srun -N 2 hostname
 
@@ -154,10 +146,8 @@ Verify Slurm
 
 #. **Submit a batch job**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       cat <<'EOF' > /tmp/test_job.sh
       #!/bin/bash
@@ -172,9 +162,8 @@ Verify Slurm
 
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       # Check job status
       squeue
@@ -186,10 +175,8 @@ Verify Slurm
 
 #. **Verify Slurm accounting**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       sacct --starttime=today
 
@@ -203,19 +190,16 @@ Verify Kubernetes
 
 #. **Check Kubernetes node status** from a control-plane node:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ssh root@<k8s-control-plane-ip>
 
 
 
 
-**Run on: K8s control plane node**
-
 .. code-block:: bash
+   :caption: Run on: K8s control plane node
 
       kubectl get nodes
 
@@ -240,10 +224,8 @@ Verify Kubernetes
 
 #. **Verify core Kubernetes components**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl get pods -A
 
@@ -254,10 +236,8 @@ Verify Kubernetes
 
 #. **Test pod scheduling**:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
        kubectl run test-pod --image=busybox --restart=Never -- echo "Hello from K8s"
        kubectl logs test-pod
@@ -299,6 +279,9 @@ Use the following summary checklist:
 
 
 
+
+
+
 Next Steps
 ----------
 
@@ -311,6 +294,9 @@ Next Steps
 
 
 
+
+
+
 Troubleshooting
 ---------------
 
@@ -318,10 +304,8 @@ Troubleshooting
 **Ansible ping fails for some nodes**
   - Verify SSH keys are deployed:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
         ssh-copy-id root@<node-ip>
 
@@ -329,10 +313,8 @@ Troubleshooting
 
   - Check network connectivity:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
         ping -c 3 <node-ip>
 
@@ -342,9 +324,8 @@ Troubleshooting
    Check the Slurm daemon on the affected compute node:
 
 
-**Run on: affected compute node**
-
 .. code-block:: bash
+   :caption: Run on: affected compute node
 
       systemctl status slurmd
       journalctl -u slurmd --no-pager -n 20
@@ -354,9 +335,8 @@ Troubleshooting
    Resume the node from the control node:
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       scontrol update nodename=<node> state=resume
 
@@ -366,9 +346,8 @@ Troubleshooting
    Check kubelet status on the affected node:
 
 
-**Run on: affected K8s node**
-
 .. code-block:: bash
+   :caption: Run on: affected K8s node
 
       systemctl status kubelet
       journalctl -u kubelet --no-pager -n 20
@@ -378,10 +357,8 @@ Troubleshooting
 **Slurm srun hangs**
   - Verify ``munge`` is running on all Slurm nodes:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
         ansible slurm_cluster -m shell -a "systemctl is-active munge"
 
@@ -389,10 +366,8 @@ Troubleshooting
 
   - Check firewall rules allow Slurm traffic (ports 6817-6819):
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
         ansible slurm_cluster -m shell -a "firewall-cmd --list-ports"
 

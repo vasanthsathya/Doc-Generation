@@ -48,6 +48,7 @@ Procedure
 
 #. **Access the omnia_core container** on the OIM:
 
+   .. code-block:: bash
 
 .. code-block:: bash
 
@@ -57,6 +58,7 @@ Procedure
 
 #. **Run the add_node playbook:**
 
+   .. code-block:: bash
 
 .. code-block:: bash
 
@@ -74,6 +76,7 @@ Procedure
 
 #. **Verify the new nodes** are visible to Slurm:
 
+   .. code-block:: bash
 
 .. code-block:: bash
 
@@ -143,6 +146,7 @@ Procedure
 
 #. **Access the omnia_core container** on the OIM:
 
+   .. code-block:: bash
 
 .. code-block:: bash
 
@@ -152,6 +156,7 @@ Procedure
 
 #. **Run the remove_node playbook:**
 
+   .. code-block:: bash
 
 .. code-block:: bash
 
@@ -166,6 +171,7 @@ Procedure
 
 #. **Verify the node has been removed:**
 
+   .. code-block:: bash
 
 .. code-block:: bash
 
@@ -184,18 +190,17 @@ Verification
 After adding or removing nodes, confirm the cluster state:
 
 
-**Run on: Slurm control node**
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
-.. code-block:: bash
+      # Check overall cluster health
+      sinfo
 
-   # Check overall cluster health
-   sinfo
+      # Verify controller sees all expected nodes
+      scontrol show nodes | grep NodeName
 
-   # Verify controller sees all expected nodes
-   scontrol show nodes | grep NodeName
-
-   # Submit a test job to verify scheduling
-   srun -N 1 hostname
+      # Submit a test job to verify scheduling
+      srun -N 1 hostname
 
 
 
@@ -207,4 +212,5 @@ After adding or removing nodes, confirm the cluster state:
    - :doc:`Add Slurm Nodes <../HowTo/Slurm/add_slurm_nodes>` -- Detailed how-to for adding Slurm nodes.
    - :doc:`Remove Slurm Nodes <../HowTo/Slurm/remove_slurm_nodes>` -- Detailed how-to for removing Slurm nodes.
    - :doc:`Reprovision Cluster <reprovision_cluster>` -- Re-image nodes instead of just adding/removing them.
+
 

@@ -34,16 +34,17 @@ Prerequisites
 
 
 
+
+
+
 Procedure
 ---------
 
 
 #. **Update the mapping file** with new node entries:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/pxe_mapping_file.csv
 
@@ -63,10 +64,8 @@ Procedure
 
 #. **Provision the new nodes** if not already provisioned:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia/discovery
       ansible-playbook discovery.yml --ask-vault-pass
@@ -75,10 +74,8 @@ Procedure
 
 #. **Run the add-node playbook**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass --limit "new_nodes"
@@ -91,9 +88,8 @@ Procedure
        version, use it instead:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
           ansible-playbook utils/add_node.yml --ask-vault-pass \
             -e "target_nodes=10.5.0.110,10.5.0.111"
@@ -104,9 +100,8 @@ Procedure
    nodes:
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       # Reconfigure Slurm to pick up new nodes
       scontrol reconfigure
@@ -121,10 +116,8 @@ Verification
 
 #. **Check that new nodes appear in the cluster**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       sinfo
 
@@ -134,10 +127,8 @@ Verification
 
 #. **Run a test job on the new nodes**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       srun -w <new-node-hostname> hostname
 
@@ -145,10 +136,8 @@ Verification
 
 #. **Verify Munge authentication** on the new nodes:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       munge -n | ssh <new-node-ip> unmunge
 
@@ -156,10 +145,8 @@ Verification
 
 #. **Check slurmd is running** on the new nodes:
 
-
-**Run on: new compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: new compute node
 
       systemctl status slurmd
 
@@ -186,10 +173,8 @@ Troubleshooting
 **New nodes show "down" in sinfo**
   - Verify ``slurmd`` is running:
 
-
-**Run on: new compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: new compute node
 
         systemctl status slurmd
         journalctl -u slurmd --no-pager -n 20
@@ -200,9 +185,8 @@ Troubleshooting
      version:
 
 
-**Run on: new compute node**
-
 .. code-block:: bash
+   :caption: Run on: new compute node
 
         grep "SlurmctldHost" /etc/slurm/slurm.conf
 
@@ -210,10 +194,8 @@ Troubleshooting
 
   - Resume the node from the controller:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
         scontrol update nodename=<node> state=resume reason="added"
 
@@ -223,9 +205,8 @@ Troubleshooting
    Re-distribute the Munge key from the control node:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
       ansible new_nodes -m copy -a "src=/etc/munge/munge.key dest=/etc/munge/munge.key owner=munge group=munge mode=0400"
       ansible new_nodes -m service -a "name=munge state=restarted"
@@ -236,9 +217,8 @@ Troubleshooting
    Re-run discovery or manually add the nodes to the Ansible inventory:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
       ochami node list
 

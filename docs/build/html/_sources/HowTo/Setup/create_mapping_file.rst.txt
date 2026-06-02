@@ -21,6 +21,7 @@ The PXE mapping file is a CSV file that Omnia's discovery playbook uses to:
   ``slurm_node``, ``kube_control_plane``, ``kube_node``, ``login_node``).
 - Map blade servers to their parent chassis (for PowerEdge MX and C-series).
 
+
 The file must be created **before** running the discovery playbook.
 
 
@@ -38,6 +39,7 @@ Prerequisites
   - Physical label on the server front panel
   - OpenManage Enterprise (OME) inventory
 
+
 - Admin and BMC IP ranges are planned and do not conflict with existing
   allocations.
 
@@ -49,10 +51,8 @@ Procedure
 
 #. **Enter the omnia_core container**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       ssh omnia_core
 
@@ -61,9 +61,8 @@ Procedure
    Or alternatively:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       podman exec -it -u root omnia_core bash
 
@@ -71,10 +70,8 @@ Procedure
 
 #. **Navigate to the input directory**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /opt/omnia/input/project_default
 
@@ -82,10 +79,8 @@ Procedure
 
 #. **Create the mapping file** using a text editor:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi pxe_mapping_file.csv
 
@@ -152,6 +147,9 @@ Column Reference
 
 
 
+
+
+
 .. warning::
 
 
@@ -164,7 +162,12 @@ Column Reference
    - Do **not** add spaces after commas.
 
 
+
+
 #. **Save and exit** the editor (``:wq`` in vi).
+
+
+
 
 
 
@@ -174,10 +177,8 @@ Verification
 
 #. **Validate the CSV format** by checking the header row:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       head -1 /opt/omnia/input/project_default/pxe_mapping_file.csv
 
@@ -196,10 +197,8 @@ Verification
 
 #. **Count the entries** (excluding the header):
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       tail -n +2 /opt/omnia/input/project_default/pxe_mapping_file.csv | wc -l
 
@@ -209,10 +208,8 @@ Verification
 
 #. **Check for formatting issues** (trailing spaces, empty lines):
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cat -A /opt/omnia/input/project_default/pxe_mapping_file.csv
 
@@ -233,6 +230,9 @@ Next Steps
 
 
 
+
+
+
 Troubleshooting
 ---------------
 
@@ -241,6 +241,7 @@ Troubleshooting
   - Verify column headers are uppercase and match exactly.
   - Ensure no trailing spaces or hidden characters (use ``cat -A`` to check).
   - Confirm every row has exactly 9 comma-separated fields.
+
 
 **MAC address not found during discovery**
   - Verify the ``ADMIN_MAC`` matches the PXE NIC (not an onboard NIC that is

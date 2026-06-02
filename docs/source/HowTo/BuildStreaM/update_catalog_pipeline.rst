@@ -20,6 +20,7 @@ cluster configuration:
 - Network configuration.
 - Storage and authentication settings.
 
+
 When you update the catalog and push changes to GitLab, a CI/CD pipeline
 automatically validates the changes and (optionally) applies them to the
 cluster.
@@ -37,16 +38,17 @@ Prerequisites
 
 
 
+
+
+
 Procedure
 ---------
 
 
 #. **Clone the catalog repository** (if not already cloned):
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /opt/omnia
       git clone http://<oim-ip>:8082/root/buildstream-catalog.git
@@ -56,10 +58,8 @@ Procedure
 
 #. **Edit the catalog file**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi catalog.yml
 
@@ -119,6 +119,7 @@ Procedure
         - apptainer
         - openldap
    
+   
       # Telemetry
       telemetry:
         enabled: true
@@ -129,17 +130,17 @@ Procedure
 
 #. **Make your changes**. Common modifications include:
 
+
   - Adding new nodes to a ``node_groups`` section.
   - Changing the software stack.
   - Updating network ranges.
   - Enabling/disabling telemetry.
 
+
 #. **Commit and push the changes**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /opt/omnia/buildstream-catalog
       git add catalog.yml
@@ -149,6 +150,7 @@ Procedure
 
 
 #. **Monitor the pipeline** in GitLab:
+
 
    Open the GitLab web UI and navigate to:
    **CI/CD** > **Pipelines**
@@ -162,12 +164,15 @@ Procedure
      trigger).
   - **verify** -- Runs health checks on the updated cluster.
 
+
 #. **Manually trigger deployment stages**:
+
 
    In the GitLab pipeline view, click the **Play** button next to the
    ``provision`` and ``configure`` stages to execute them.
 
 #. **Review pipeline artifacts and logs**:
+
 
    Click on a completed job to view its logs. Download artifacts from the
    **Artifacts** section if available.
@@ -180,15 +185,14 @@ Verification
 
 #. **Verify the pipeline completed successfully**:
 
+
    In GitLab, navigate to **CI/CD** > **Pipelines**. The latest pipeline
    should show all stages with green checkmarks.
 
 #. **Verify catalog changes were applied**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       # Check if new nodes were provisioned
       ochami node list
@@ -200,10 +204,8 @@ Verification
 
 #. **Run the verification stage** to confirm cluster health:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ansible all -m ping
 
@@ -220,6 +222,9 @@ Next Steps
 
 
 
+
+
+
 Troubleshooting
 ---------------
 
@@ -231,6 +236,7 @@ Troubleshooting
   - Missing required fields
   - IP address conflicts
 
+
    Fix the catalog and push a new commit.
 
 **Pipeline fails at "provision" stage**
@@ -238,18 +244,19 @@ Troubleshooting
   - Verify credentials are configured.
   - Review the Ansible playbook output in the job logs.
 
+
 **Pipeline fails at "configure" stage**
   - Check that provisioned nodes are reachable.
   - Verify the Vault password is available to the runner.
   - Review Ansible output for specific task failures.
 
+
 **Git push is rejected**
    Check GitLab authentication:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
       git remote -v
       # Ensure URL is correct and credentials are configured
@@ -261,9 +268,8 @@ Troubleshooting
    is active:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       podman exec gitlab-runner gitlab-runner list
 

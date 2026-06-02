@@ -33,12 +33,17 @@ Prerequisites
   container is running).
 - You have the external LDAP server's connection details:
 
+
   - Server URI (e.g., ``ldaps://ldap.corp.example.com:636``)
   - Base DN (e.g., ``dc=corp,dc=example,dc=com``)
   - Bind DN and password for a read-only service account
   - CA certificate if using LDAPS
 
+
 - Network connectivity from the OIM to the external LDAP server.
+
+
+
 
 
 
@@ -48,10 +53,8 @@ Procedure
 
 #. **Enter the omnia_core container**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       ssh omnia_core
 
@@ -59,10 +62,8 @@ Procedure
 
 #. **Configure proxy LDAP parameters** in ``omnia_config.yml``:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/omnia_config.yml
 
@@ -87,10 +88,8 @@ Procedure
 
 #. **(If using LDAPS) Copy the CA certificate** to the omnia_auth container:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       podman cp /path/to/corp-ca.pem omnia_auth:/etc/ssl/certs/corp-ca.pem
 
@@ -98,10 +97,8 @@ Procedure
 
 #. **Run the auth.yml playbook**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia
       ansible-playbook auth.yml --ask-vault-pass
@@ -115,22 +112,21 @@ Procedure
   - Configure TLS certificates if using LDAPS.
   - Enable caching for offline resilience.
 
+
 #. **(Alternative) Manual proxy configuration** inside the ``omnia_auth``
    container:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       podman exec -it omnia_auth bash
 
 
 
 
-**Run on: omnia_auth container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_auth container
 
       cat <<'EOF' >> /etc/openldap/slapd.d/cn=config/olcDatabase={2}ldap.ldif
       dn: olcDatabase={2}ldap
@@ -152,10 +148,8 @@ Verification
 
 #. **Test proxy connectivity** to the external LDAP:
 
-
-**Run on: omnia_auth container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_auth container
 
       ldapsearch -x -H ldaps://ldap.corp.example.com:636 \
         -D "cn=omnia-readonly,ou=ServiceAccounts,dc=corp,dc=example,dc=com" \
@@ -165,10 +159,8 @@ Verification
 
 #. **Test local proxy** from the omnia_core container:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ldapsearch -x -H ldap://omnia_auth -b "dc=corp,dc=example,dc=com" "(uid=someuser)"
 
@@ -176,10 +168,8 @@ Verification
 
 #. **Verify user resolution** on a compute node:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
       getent passwd someuser
       id someuser
@@ -188,10 +178,8 @@ Verification
 
 #. **Test SSH login** with a corporate LDAP user:
 
-
-**Run on: any node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: any node
 
       ssh someuser@<compute-node-ip>
 
@@ -217,9 +205,8 @@ Troubleshooting
    Verify the external LDAP server is reachable:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       openssl s_client -connect ldap.corp.example.com:636
 
@@ -229,9 +216,8 @@ Troubleshooting
    Ensure the CA certificate is correct and accessible:
 
 
-**Run on: omnia_auth container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_auth container
 
       openssl verify -CAfile /etc/ssl/certs/corp-ca.pem /etc/ssl/certs/corp-ca.pem
 
@@ -241,9 +227,8 @@ Troubleshooting
    Check the search base DN matches the external LDAP tree structure:
 
 
-**Run on: omnia_auth container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_auth container
 
       ldapsearch -x -H ldaps://ldap.corp.example.com:636 \
         -D "<bind-dn>" -W -b "<base-dn>" "(objectClass=*)" dn | head
@@ -254,9 +239,8 @@ Troubleshooting
    Clear and restart:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
       sss_cache -E
       systemctl restart sssd

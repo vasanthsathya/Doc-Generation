@@ -424,8 +424,9 @@ function addFooterGitHubLink() {
     // Add to the end items section
     footerItemsEnd.appendChild(githubContainer);
     
-    console.log('GitHub link added to copyright footer (right side)');
+    console.log('GitHub link added to footer');
   } else {
-    console.log('Footer inner or footer items end not found');
+    console.log('Footer inner or end items not found');
   }
 }
+

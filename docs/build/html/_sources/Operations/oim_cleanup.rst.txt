@@ -41,10 +41,14 @@ Prerequisites
 - All cluster workloads have been drained or stopped.
 - Critical data has been backed up:
 
+
   - ``/omnia/input/`` (mapping files, configuration files)
   - Custom Ansible inventories
   - Any modified playbook files
   - AES-256 encrypted credential vaults
+
+
+
 
 
 
@@ -54,6 +58,7 @@ Procedure
 
 #. **Log in to the OIM as root:**
 
+   .. code-block:: bash
 
 .. code-block:: bash
 
@@ -68,6 +73,7 @@ Procedure
 
 #. **Navigate to the Omnia utils directory:**
 
+   .. code-block:: bash
 
 .. code-block:: bash
 
@@ -77,6 +83,7 @@ Procedure
 
 #. **Run the cleanup playbook:**
 
+   .. code-block:: bash
 
 .. code-block:: bash
 
@@ -93,8 +100,10 @@ Procedure
   - Cleans up SSH keys and known_hosts entries for provisioned nodes.
   - Removes cached OS images and repository data.
 
+
 #. **Verify the cleanup:**
 
+   .. code-block:: bash
 
 .. code-block:: bash
 
@@ -130,15 +139,16 @@ cleanup through extra variables:
      - Remove Pulp repository data and cached packages, freeing disk space without affecting running services.
 
 
+
+
 Example of selective cleanup:
 
 
-**Run on: OIM host**
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
-.. code-block:: bash
-
-   cd /omnia/utils/
-   ansible-playbook oim_cleanup.yml -e "cleanup_telemetry=true"
+      cd /omnia/utils/
+      ansible-playbook oim_cleanup.yml -e "cleanup_telemetry=true"
 
 
 
@@ -163,6 +173,9 @@ After a full cleanup, you will need to redeploy Omnia from the beginning:
 #. Reconfigure inputs and credentials (see :doc:`Configure Inputs <../HowTo/Setup/configure_inputs>`
    and :doc:`Configure Credentials <../HowTo/Setup/configure_credentials>`).
 #. Re-discover and provision nodes (see :doc:`Discover Nodes <../HowTo/Setup/discover_nodes>`).
+
+
+
 
 
 

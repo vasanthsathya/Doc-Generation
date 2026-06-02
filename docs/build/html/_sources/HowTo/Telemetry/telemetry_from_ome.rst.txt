@@ -43,22 +43,20 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-**Run on: OIM host**
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
-.. code-block:: bash
-
-      ssh omnia_core
+         ssh omnia_core
 
 
 
 #. **Configure OME telemetry** in ``omnia_config.yml``:
 
 
-**Run on: omnia_core container**
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
-.. code-block:: bash
-
-      vi /opt/omnia/input/project_default/omnia_config.yml
+         vi /opt/omnia/input/project_default/omnia_config.yml
 
 
 
@@ -89,38 +87,35 @@ Procedure
 #. **Set OME/SFM credentials** using the credential utility:
 
 
-**Run on: omnia_core container**
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
-.. code-block:: bash
-
-      cd /omnia/utils/credential_utility
-      ansible-playbook get_config_credentials.yml --tags telemetry
+         cd /omnia/utils/credential_utility
+         ansible-playbook get_config_credentials.yml --tags telemetry
 
 
 
 #. **Verify OME API access** from the K8s cluster:
 
 
-**Run on: K8s control plane node**
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
-.. code-block:: bash
-
-      curl -sk https://10.5.1.50/api/SessionService/Sessions \
-        -X POST \
-        -H "Content-Type: application/json" \
-        -d '{"UserName":"omnia_readonly","Password":"YourPassword","SessionType":"API"}'
+         curl -sk https://10.5.1.50/api/SessionService/Sessions \
+           -X POST \
+           -H "Content-Type: application/json" \
+           -d '{"UserName":"omnia_readonly","Password":"YourPassword","SessionType":"API"}'
 
 
 
 #. **Run the telemetry playbook** to deploy the OME/SFM collectors:
 
 
-**Run on: omnia_core container**
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
-.. code-block:: bash
-
-      cd /omnia
-      ansible-playbook telemetry.yml --ask-vault-pass
+         cd /omnia
+         ansible-playbook telemetry.yml --ask-vault-pass
 
 
 
@@ -140,36 +135,33 @@ Verification
 #. **Verify OME/SFM collector pods are running**:
 
 
-**Run on: K8s control plane node**
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
-.. code-block:: bash
-
-      kubectl get pods -n telemetry | grep -E "ome|sfm"
+         kubectl get pods -n telemetry | grep -E "ome|sfm"
 
 
 
 #. **Check collector logs** for successful data collection:
 
 
-**Run on: K8s control plane node**
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
-.. code-block:: bash
-
-      kubectl logs -n telemetry -l app=ome-collector --tail=20
-      kubectl logs -n telemetry -l app=sfm-collector --tail=20
+         kubectl logs -n telemetry -l app=ome-collector --tail=20
+         kubectl logs -n telemetry -l app=sfm-collector --tail=20
 
 
 
 #. **Verify OME metrics in VictoriaMetrics**:
 
 
-**Run on: K8s control plane node**
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
-.. code-block:: bash
-
-      VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
-      kubectl exec -n telemetry $VM_POD -- \
-        curl -s "http://localhost:8428/api/v1/query?query=ome_device_health"
+         VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
+         kubectl exec -n telemetry $VM_POD -- \
+           curl -s "http://localhost:8428/api/v1/query?query=ome_device_health"
 
 
 
@@ -197,13 +189,12 @@ Troubleshooting
    Verify credentials:
 
 
-**Run on: K8s control plane node**
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
-.. code-block:: bash
-
-      curl -sk https://10.5.1.50/api/SessionService/Sessions \
-        -X POST -H "Content-Type: application/json" \
-        -d '{"UserName":"omnia_readonly","Password":"YourPassword","SessionType":"API"}'
+         curl -sk https://10.5.1.50/api/SessionService/Sessions \
+           -X POST -H "Content-Type: application/json" \
+           -d '{"UserName":"omnia_readonly","Password":"YourPassword","SessionType":"API"}'
 
 
 
@@ -211,11 +202,10 @@ Troubleshooting
    Check network connectivity:
 
 
-**Run on: K8s worker node**
+   .. code-block:: bash
+      :caption: Run on: K8s worker node
 
-.. code-block:: bash
-
-      curl -sk https://10.5.1.50/api/ApplicationService/Info
+         curl -sk https://10.5.1.50/api/ApplicationService/Info
 
 
 
@@ -223,11 +213,10 @@ Troubleshooting
    Verify SFM is accessible and the API version is supported:
 
 
-**Run on: K8s worker node**
+   .. code-block:: bash
+      :caption: Run on: K8s worker node
 
-.. code-block:: bash
-
-      curl -sk https://10.5.1.51/api/
+         curl -sk https://10.5.1.51/api/
 
 
 
