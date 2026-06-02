@@ -439,7 +439,46 @@ footer {
 .bd-page-width,
 .bd-content,
 .bd-article {
-    max-width: 1700px;
+    max-width: 1750px;
+}
+
+/* Match HTML version font sizes */
+.bd-content {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* Match HTML version heading sizes */
+.bd-content h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    letter-spacing: -0.01em;
+    margin: 0 0 1.25em;
+    color: var(--dell-navy);
+    border: none;
+    padding: 0;
+}
+
+.bd-content h2 {
+    font-weight: 600;
+    font-size: 1.8rem;
+    letter-spacing: -0.01em;
+    margin: 1.6em 0 0.64em;
+    color: var(--dell-dark);
+    border: none;
+}
+
+.bd-content h3 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+    margin: 1.6em 0 0.64em;
+}
+
+.bd-content h4 {
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
 }
 
 /* Move sidebar to the left with less padding */
