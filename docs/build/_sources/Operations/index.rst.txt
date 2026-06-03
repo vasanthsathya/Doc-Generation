@@ -21,10 +21,16 @@ security, and cleaning up the OIM when a fresh start is needed.
    :maxdepth: 2
    :caption: Operations & Maintenance
 
-   best_practices_checklist
+  
    add_remove_nodes
    reprovision_cluster
+   oim_cleanup
    log_management
    security_hardening
-   oim_cleanup
+   best_practices_checklist
+   
+ 
+  
+   
+ 
 

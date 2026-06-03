@@ -19,8 +19,8 @@ before proceeding to :doc:`Index <../GetStarted/index>`.
    components
    network_topologies
    composable_roles
-   security_model
    telemetry_architecture
-   glossary
+   security_model
    release_notes
    blogs
+   glossary

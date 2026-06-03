@@ -5,6 +5,6 @@ Buildstream
 .. toctree::
    :maxdepth: 1
 
-   buildstream_troubleshooting
    deploy_gitlab
+   buildstream_troubleshooting
    update_catalog_pipeline

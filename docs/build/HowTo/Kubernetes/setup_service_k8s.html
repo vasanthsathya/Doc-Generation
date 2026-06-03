@@ -33,8 +33,8 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=123c2300" />
-    <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=0e325a43" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -48,12 +48,12 @@
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'HowTo/Kubernetes/setup_service_k8s';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../../_static/custom.js?v=977ea42b"></script>
+    <script src="../../_static/custom.js?v=2f7f44f7"></script>
     <link rel="icon" href="../../_static/favicon.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Storage" href="../Storage/index.html" />
-    <link rel="prev" title="Deploy PowerScale CSI" href="deploy_powerscale_csi.html" />
+    <link rel="next" title="Configure Kubernetes HA" href="configure_ha.html" />
+    <link rel="prev" title="Kubernetes" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -380,33 +380,33 @@
   <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Setup/index.html">Setup</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Setup/build_cluster_images.html">Build Cluster Images</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Setup/configure_credentials.html">Configure Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Setup/prepare_oim.html">Prepare the OIM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Setup/configure_inputs.html">Configure Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Setup/configure_credentials.html">Configure Credentials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Setup/create_local_repos.html">Create Local Repositories</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Setup/create_mapping_file.html">Create a Mapping File</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Setup/deploy_omnia_core.html">Deploy omnia_core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Setup/discover_nodes.html">Discover Nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Setup/prepare_oim.html">Prepare the OIM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Setup/create_mapping_file.html">Create a Mapping File</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Setup/pxe_boot_nodes.html">PXE Boot Nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Setup/verify_cluster.html">Verify Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Setup/build_cluster_images.html">Build Cluster Images</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Setup/verify_oim_services.html">Verify OIM Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Setup/verify_cluster.html">Verify Cluster</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Slurm/index.html">Slurm</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Slurm/add_slurm_nodes.html">Add Slurm Nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Slurm/build_slurm_repo.html">Build Slurm Repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Slurm/remove_slurm_nodes.html">Remove Slurm Nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Slurm/run_hpc_benchmarks.html">Run HPC Benchmarks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Slurm/setup_slurm.html">Setup Slurm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Slurm/slurm_config_backup.html">Slurm Config Backup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Slurm/build_slurm_repo.html">Build Slurm Repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Slurm/slurm_with_gpu.html">Slurm with GPUs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Slurm/add_slurm_nodes.html">Add Slurm Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Slurm/remove_slurm_nodes.html">Remove Slurm Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Slurm/slurm_config_backup.html">Slurm Config Backup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Slurm/run_hpc_benchmarks.html">Run HPC Benchmarks</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Kubernetes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Deploy the Service K8s Cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configure_ha.html">Configure Kubernetes HA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="deploy_powerscale_csi.html">Deploy PowerScale CSI</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Deploy the Service K8s Cluster</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Storage/index.html">Storage</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -420,29 +420,29 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Authentication/index.html">Authentication</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Authentication/deploy_external_ldap.html">Deploy External LDAP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Authentication/replicate_ldap.html">Replicate LDAP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Authentication/setup_openldap.html">Setup OpenLDAP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Authentication/setup_openldap_proxy.html">Setup OpenLDAP as Proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Authentication/deploy_external_ldap.html">Deploy External LDAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Authentication/replicate_ldap.html">Replicate LDAP</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Telemetry/index.html">Telemetry</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Telemetry/setup_telemetry.html">Setup Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Telemetry/verify_telemetry.html">Verify Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Telemetry/telemetry_from_ome.html">Telemetry from OME &amp; SFM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Telemetry/configure_ldms.html">Configure LDMS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Telemetry/configure_external_kafka.html">Configure External Kafka</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Telemetry/configure_external_victoria.html">Configure External VictoriaMetrics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Telemetry/configure_ldms.html">Configure LDMS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Telemetry/setup_telemetry.html">Setup Telemetry</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Telemetry/telemetry_from_ome.html">Telemetry from OME &amp; SFM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Telemetry/verify_telemetry.html">Verify Telemetry</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Containers/index.html">Containers</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Containers/deploy_additional_packages.html">Deploy Additional Packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Containers/use_apptainer.html">Use Apptainer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Containers/deploy_additional_packages.html">Deploy Additional Packages</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../BuildStreaM/index.html">Buildstream</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../BuildStreaM/buildstream_troubleshooting.html">BuildStreaM Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BuildStreaM/deploy_gitlab.html">Deploy GitLab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BuildStreaM/buildstream_troubleshooting.html">BuildStreaM Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BuildStreaM/update_catalog_pipeline.html">Update Catalog &amp; Pipelines</a></li>
 </ul>
 </details></li>
@@ -542,24 +542,25 @@ control-plane node is supported for non-production use).</p></li>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p><strong>Enter the omnia_core container</strong>:</p></li>
-</ol>
-<p><strong>Run on: OIM host</strong></p>
+<ol class="arabic">
+<li><p><strong>Enter the omnia_core container</strong>:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Configure Kubernetes parameters</strong> in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p></li>
-</ol>
-<p><strong>Run on: omnia_core container</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
-
-
-
-Key<span class="w"> </span>Kubernetes<span class="w"> </span>parameters:
+</div>
+</li>
+<li><p><strong>Configure Kubernetes parameters</strong> in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
 </pre></div>
 </div>
+</div>
+<p>Key Kubernetes parameters:</p>
+</li>
+</ol>
 <p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="c1"># Kubernetes configuration</span>
@@ -576,54 +577,56 @@ Key<span class="w"> </span>Kubernetes<span class="w"> </span>parameters:
 <span class="nt">nfs_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/home&quot;</span>
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Verify the mapping file</strong> has K8s node assignments:</p></li>
-</ol>
-<p><strong>Run on: omnia_core container</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;kube_control_plane|kube_node&quot;</span><span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv
-
-
-
-You<span class="w"> </span>should<span class="w"> </span>see<span class="w"> </span>at<span class="w"> </span>least<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="sb">``</span>kube_control_plane<span class="sb">``</span><span class="w"> </span>entries<span class="w"> </span>and<span class="w"> </span><span class="m">1</span>
-<span class="sb">``</span>kube_node<span class="sb">``</span><span class="w"> </span>entry.
+<ol class="arabic">
+<li><p><strong>Verify the mapping file</strong> has K8s node assignments:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;kube_control_plane|kube_node&quot;</span><span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Run the omnia.yml playbook</strong> to deploy Kubernetes:</p></li>
-</ol>
-<p><strong>Run on: omnia_core container</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/omnia
-<span class="w">    </span>ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass
-
-
-
-<span class="w"> </span>The<span class="w"> </span>playbook<span class="w"> </span>performs<span class="w"> </span>the<span class="w"> </span>following:
-
--<span class="w"> </span>Installs<span class="w"> </span>container<span class="w"> </span>runtime<span class="w"> </span><span class="o">(</span>containerd<span class="o">)</span><span class="w"> </span>on<span class="w"> </span>all<span class="w"> </span>K8s<span class="w"> </span>nodes.
--<span class="w"> </span>Initializes<span class="w"> </span>the<span class="w"> </span>first<span class="w"> </span>control-plane<span class="w"> </span>node.
--<span class="w"> </span>Joins<span class="w"> </span>additional<span class="w"> </span>control-plane<span class="w"> </span>nodes<span class="w"> </span><span class="k">for</span><span class="w"> </span>HA.
--<span class="w"> </span>Joins<span class="w"> </span>worker<span class="w"> </span>nodes.
--<span class="w"> </span>Deploys<span class="w"> </span>MetalLB,<span class="w"> </span>Calico,<span class="w"> </span>and<span class="w"> </span>NFS<span class="w"> </span>CSI<span class="w"> </span>driver.
--<span class="w"> </span>Configures<span class="w"> </span>kubeconfig<span class="w"> </span><span class="k">for</span><span class="w"> </span>cluster<span class="w"> </span>administration.
-
-<span class="w"> </span>Execution<span class="w"> </span>time:<span class="w"> </span>**20-40<span class="w"> </span>minutes**<span class="w"> </span>depending<span class="w"> </span>on<span class="w"> </span>cluster<span class="w"> </span>size<span class="w"> </span>and<span class="w"> </span>network
-<span class="w"> </span>speed.
+</div>
+<p>You should see at least 3 <code class="docutils literal notranslate"><span class="pre">kube_control_plane</span></code> entries and 1
+<code class="docutils literal notranslate"><span class="pre">kube_node</span></code> entry.</p>
+</li>
+<li><p><strong>Run the omnia.yml playbook</strong> to deploy Kubernetes:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
+ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass
 </pre></div>
 </div>
+</div>
+<p>The playbook performs the following:</p>
+</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>Installs container runtime (containerd) on all K8s nodes.</p></li>
+<li><p>Initializes the first control-plane node.</p></li>
+<li><p>Joins additional control-plane nodes for HA.</p></li>
+<li><p>Joins worker nodes.</p></li>
+<li><p>Deploys MetalLB, Calico, and NFS CSI driver.</p></li>
+<li><p>Configures kubeconfig for cluster administration.</p></li>
+</ul>
+<blockquote>
+<div><p>Execution time: <strong>20-40 minutes</strong> depending on cluster size and network
+speed.</p>
+</div></blockquote>
+</div></blockquote>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p><strong>Check Kubernetes node status</strong>:</p></li>
-</ol>
-<p><strong>Run on: K8s control plane node</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-o<span class="w"> </span>wide
-
-
-
-Expected<span class="w"> </span>output:
+<ol class="arabic">
+<li><p><strong>Check Kubernetes node status</strong>:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-o<span class="w"> </span>wide
 </pre></div>
 </div>
+</div>
+<p>Expected output:</p>
+</li>
+</ol>
 <p><strong>Expected output on: K8s control plane node</strong></p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>   NAME          STATUS   ROLES           AGE   VERSION    INTERNAL-IP
    k8s-cp01      Ready    control-plane   10m   v1.28.x    10.5.0.105
@@ -636,61 +639,64 @@ Expected<span class="w"> </span>output:
 All nodes must show ``Ready`` status.
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Verify system pods are running</strong>:</p></li>
-</ol>
-<p><strong>Run on: K8s control plane node</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A
-
-
-
-All<span class="w"> </span>pods<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">``</span>kube-system<span class="sb">``</span>,<span class="w"> </span><span class="sb">``</span>calico-system<span class="sb">``</span>,<span class="w"> </span>and<span class="w"> </span><span class="sb">``</span>metallb-system<span class="sb">``</span>
-namespaces<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span><span class="sb">``</span>Running<span class="sb">``</span>.
+<ol class="arabic">
+<li><p><strong>Verify system pods are running</strong>:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Verify MetalLB is operational</strong>:</p></li>
-</ol>
-<p><strong>Run on: K8s control plane node</strong></p>
+</div>
+<p>All pods in <code class="docutils literal notranslate"><span class="pre">kube-system</span></code>, <code class="docutils literal notranslate"><span class="pre">calico-system</span></code>, and <code class="docutils literal notranslate"><span class="pre">metallb-system</span></code>
+namespaces should be <code class="docutils literal notranslate"><span class="pre">Running</span></code>.</p>
+</li>
+<li><p><strong>Verify MetalLB is operational</strong>:</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>metallb-system
 kubectl<span class="w"> </span>get<span class="w"> </span>ipaddresspool<span class="w"> </span>-n<span class="w"> </span>metallb-system
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Verify NFS CSI driver</strong>:</p></li>
-</ol>
-<p><strong>Run on: K8s control plane node</strong></p>
+</div>
+</li>
+<li><p><strong>Verify NFS CSI driver</strong>:</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nfs
 kubectl<span class="w"> </span>get<span class="w"> </span>storageclass
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Test pod scheduling</strong>:</p></li>
-</ol>
-<p><strong>Run on: K8s control plane node</strong></p>
+</div>
+</li>
+<li><p><strong>Test pod scheduling</strong>:</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>run<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--image<span class="o">=</span>busybox<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;K8s is working&quot;</span>
 kubectl<span class="w"> </span>logs<span class="w"> </span><span class="nb">test</span>
 kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span><span class="nb">test</span>
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Test a LoadBalancer service</strong>:</p></li>
-</ol>
-<p><strong>Run on: K8s control plane node</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>create<span class="w"> </span>deployment<span class="w"> </span>nginx<span class="w"> </span>--image<span class="o">=</span>nginx
-<span class="w">   </span>kubectl<span class="w"> </span>expose<span class="w"> </span>deployment<span class="w"> </span>nginx<span class="w"> </span>--type<span class="o">=</span>LoadBalancer<span class="w"> </span>--port<span class="o">=</span><span class="m">80</span>
-<span class="w">   </span>kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>nginx
-
-
-
-The<span class="w"> </span><span class="sb">``</span>EXTERNAL-IP<span class="sb">``</span><span class="w"> </span>column<span class="w"> </span>should<span class="w"> </span>show<span class="w"> </span>an<span class="w"> </span>IP<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>MetalLB<span class="w"> </span>range.
+</div>
+</li>
+<li><p><strong>Test a LoadBalancer service</strong>:</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>create<span class="w"> </span>deployment<span class="w"> </span>nginx<span class="w"> </span>--image<span class="o">=</span>nginx
+kubectl<span class="w"> </span>expose<span class="w"> </span>deployment<span class="w"> </span>nginx<span class="w"> </span>--type<span class="o">=</span>LoadBalancer<span class="w"> </span>--port<span class="o">=</span><span class="m">80</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>nginx
 </pre></div>
 </div>
-<p><strong>Run on: K8s control plane node</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cleanup</span>
-kubectl<span class="w"> </span>delete<span class="w"> </span>svc<span class="w"> </span>nginx
-kubectl<span class="w"> </span>delete<span class="w"> </span>deployment<span class="w"> </span>nginx
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">EXTERNAL-IP</span></code> column should show an IP from the MetalLB range.</p>
+</li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># Cleanup</span>
+<span class="w">   </span>kubectl<span class="w"> </span>delete<span class="w"> </span>svc<span class="w"> </span>nginx
+<span class="w">   </span>kubectl<span class="w"> </span>delete<span class="w"> </span>deployment<span class="w"> </span>nginx
 </pre></div>
+</div>
 </div>
 </section>
 <section id="next-steps">
@@ -709,45 +715,55 @@ the K8s cluster.</p></li>
 <dt><strong>Nodes show “NotReady” status</strong></dt><dd><p>Check kubelet on the affected node:</p>
 </dd>
 </dl>
-<p><strong>Run on: affected K8s node</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>kubelet
-journalctl<span class="w"> </span>-u<span class="w"> </span>kubelet<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">30</span>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Run on: affected K8s node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>systemctl<span class="w"> </span>status<span class="w"> </span>kubelet
+<span class="w">   </span>journalctl<span class="w"> </span>-u<span class="w"> </span>kubelet<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">30</span>
 </pre></div>
+</div>
 </div>
 <dl class="simple">
 <dt><strong>Calico pods stuck in “Pending” or “CrashLoopBackOff”</strong></dt><dd><p>Check Calico logs:</p>
 </dd>
 </dl>
-<p><strong>Run on: K8s control plane node</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>calico-system<span class="w"> </span>-l<span class="w"> </span>k8s-app<span class="o">=</span>calico-node<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>calico-system<span class="w"> </span>-l<span class="w"> </span>k8s-app<span class="o">=</span>calico-node<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span>
 </pre></div>
+</div>
 </div>
 <dl class="simple">
 <dt><strong>MetalLB not assigning external IPs</strong></dt><dd><p>Verify the IP address pool configuration:</p>
 </dd>
 </dl>
-<p><strong>Run on: K8s control plane node</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>ipaddresspool<span class="w"> </span>-n<span class="w"> </span>metallb-system<span class="w"> </span>-o<span class="w"> </span>yaml
-kubectl<span class="w"> </span>get<span class="w"> </span>l2advertisement<span class="w"> </span>-n<span class="w"> </span>metallb-system
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>get<span class="w"> </span>ipaddresspool<span class="w"> </span>-n<span class="w"> </span>metallb-system<span class="w"> </span>-o<span class="w"> </span>yaml
+<span class="w">   </span>kubectl<span class="w"> </span>get<span class="w"> </span>l2advertisement<span class="w"> </span>-n<span class="w"> </span>metallb-system
 </pre></div>
+</div>
 </div>
 <dl class="simple">
 <dt><strong>NFS CSI PersistentVolumeClaim stuck in “Pending”</strong></dt><dd><p>Verify the NFS server is reachable and the export is configured:</p>
 </dd>
 </dl>
-<p><strong>Run on: K8s worker node</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>showmount<span class="w"> </span>-e<span class="w"> </span>&lt;nfs-server-ip&gt;
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s worker node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>showmount<span class="w"> </span>-e<span class="w"> </span>&lt;nfs-server-ip&gt;
 </pre></div>
+</div>
 </div>
 <dl class="simple">
 <dt><strong>kubeconfig not found</strong></dt><dd><p>Copy the admin kubeconfig:</p>
 </dd>
 </dl>
-<p><strong>Run on: K8s control plane node</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HOME</span>/.kube
-cp<span class="w"> </span>/etc/kubernetes/admin.conf<span class="w"> </span><span class="nv">$HOME</span>/.kube/config
-chown<span class="w"> </span><span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span>:<span class="k">$(</span>id<span class="w"> </span>-g<span class="k">)</span><span class="w"> </span><span class="nv">$HOME</span>/.kube/config
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$HOME</span>/.kube
+<span class="w">   </span>cp<span class="w"> </span>/etc/kubernetes/admin.conf<span class="w"> </span><span class="nv">$HOME</span>/.kube/config
+<span class="w">   </span>chown<span class="w"> </span><span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span>:<span class="k">$(</span>id<span class="w"> </span>-g<span class="k">)</span><span class="w"> </span><span class="nv">$HOME</span>/.kube/config
 </pre></div>
+</div>
 </div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
@@ -764,20 +780,20 @@ chown<span class="w"> </span><span class="k">$(</span>id<span class="w"> </span>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="deploy_powerscale_csi.html"
+       href="index.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Deploy PowerScale CSI</p>
+        <p class="prev-next-title">Kubernetes</p>
       </div>
     </a>
     <a class="right-next"
-       href="../Storage/index.html"
+       href="configure_ha.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Storage</p>
+        <p class="prev-next-title">Configure Kubernetes HA</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

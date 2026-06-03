@@ -33,8 +33,8 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=123c2300" />
-    <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=0e325a43" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -48,7 +48,7 @@
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Contributing/pull_requests';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../_static/custom.js?v=977ea42b"></script>
+    <script src="../_static/custom.js?v=2f7f44f7"></script>
     <link rel="icon" href="../_static/favicon.png"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -446,147 +446,133 @@ what reviewers look for, and how the review process works.</p>
 <section id="before-you-start">
 <h2>Before you start<a class="headerlink" href="#before-you-start" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p><strong>Check existing issues and PRs.</strong> Search the <a href="#id1"><span class="problematic" id="id2">`</span></a>GitHub issues</p></li>
+<li><p><strong>Check existing issues and PRs.</strong> Search the <a class="reference external" href="https://github.com/dell/omnia/issues">GitHub issues</a> and <a class="reference external" href="https://github.com/dell/omnia/pulls">open pull requests</a> to ensure your change is not
+already being worked on.</p></li>
+<li><p><strong>Open an issue first</strong> for non-trivial changes. Discuss the approach with
+maintainers before investing significant effort. This prevents wasted work
+on changes that may not align with the project’s direction.</p></li>
+<li><p><strong>Read the architecture documentation.</strong> Familiarize yourself with Omnia’s
+<a class="reference internal" href="../Overview/architecture.html"><span class="doc">Architecture</span></a> and <a class="reference internal" href="../Overview/index.html"><span class="doc">Index</span></a> to understand how
+components interact.</p></li>
 </ol>
-   <https://github.com/dell/omnia/issues>`_ and `open pull requests
-   <https://github.com/dell/omnia/pulls>`_ to ensure your change is not
-   already being worked on.
-
-2. **Open an issue first** for non-trivial changes. Discuss the approach with
-   maintainers before investing significant effort. This prevents wasted work
-   on changes that may not align with the project's direction.
-
-3. **Read the architecture documentation.** Familiarize yourself with Omnia's
-   [Architecture](../Overview/architecture.rst) and [Index](../Overview/index.rst) to understand how
-   components interact.
-
-
-## Setting up your development environment
-
-![Omnia Branch Structure](../assets/images/omnia-branch-structure.png)
-
-
-1. **Fork and clone** the repository:
-
-   ```bash
-   git clone https://github.com/<your_username>/omnia.git
-   cd omnia
-   ```
-
-
-2. **Add the upstream remote:**
-
-   ```bash
-   git remote add upstream https://github.com/dell/omnia.git
-   ```
-
-
-3. **Keep your fork in sync:**
-
-   ```bash
-   git fetch upstream
-   git checkout main
-   git merge upstream/main
-   ```
-
-
-4. **Create a feature branch** from the latest `main`:
-
-   ```bash
-   git checkout -b feature/descriptive-branch-name
-   ```
-
-
-
-## Making changes
-
-
-### Code style
-
-
-- **Ansible playbooks and roles:** Follow `Ansible best practices
-  <https://docs.ansible.com/ansible/latest/tips_tricks/ansible_tips_tricks.html>`_.
-  Use YAML syntax (not inline JSON), descriptive task names, and meaningful
-  variable names.
-- **Python scripts:** Follow [PEP 8](https://peps.python.org/pep-0008/).
-  Use `black` for formatting and `flake8` for linting.
-- **Shell scripts:** Use `shellcheck` to validate shell scripts.
-- **RST documentation:** Follow the conventions in the existing documentation
-  (section underlines, directive usage, cross-referencing).
-
-### Commit messages
-
-
-Write clear, descriptive commit messages:
-
-```text title="Example: commit message format"
-Short summary of the change (50 characters or less)
+<section id="setting-up-your-development-environment">
+<h3>Setting up your development environment<a class="headerlink" href="#setting-up-your-development-environment" title="Link to this heading">#</a></h3>
+<img alt="../_images/omnia-branch-structure.png" src="../_images/omnia-branch-structure.png" />
+<ol class="arabic">
+<li><p><strong>Fork and clone</strong> the repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/&lt;your_username&gt;/omnia.git
+<span class="nb">cd</span><span class="w"> </span>omnia
+</pre></div>
+</div>
+</li>
+<li><p><strong>Add the upstream remote:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/dell/omnia.git
+</pre></div>
+</div>
+</li>
+<li><p><strong>Keep your fork in sync:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>fetch<span class="w"> </span>upstream
+git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>merge<span class="w"> </span>upstream/main
+</pre></div>
+</div>
+</li>
+<li><p><strong>Create a feature branch</strong> from the latest <code class="docutils literal notranslate"><span class="pre">main</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/descriptive-branch-name
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="making-changes">
+<h3>Making changes<a class="headerlink" href="#making-changes" title="Link to this heading">#</a></h3>
+<section id="code-style">
+<h4>Code style<a class="headerlink" href="#code-style" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Ansible playbooks and roles:</strong> Follow <a class="reference external" href="https://docs.ansible.com/ansible/latest/tips_tricks/ansible_tips_tricks.html">Ansible best practices</a>.
+Use YAML syntax (not inline JSON), descriptive task names, and meaningful
+variable names.</p></li>
+<li><p><strong>Python scripts:</strong> Follow <a class="reference external" href="https://peps.python.org/pep-0008/">PEP 8</a>.
+Use <code class="docutils literal notranslate"><span class="pre">black</span></code> for formatting and <code class="docutils literal notranslate"><span class="pre">flake8</span></code> for linting.</p></li>
+<li><p><strong>Shell scripts:</strong> Use <code class="docutils literal notranslate"><span class="pre">shellcheck</span></code> to validate shell scripts.</p></li>
+<li><p><strong>RST documentation:</strong> Follow the conventions in the existing documentation
+(section underlines, directive usage, cross-referencing).</p></li>
+</ul>
+</section>
+<section id="commit-messages">
+<h4>Commit messages<a class="headerlink" href="#commit-messages" title="Link to this heading">#</a></h4>
+<p>Write clear, descriptive commit messages:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Example: commit message format</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Short summary of the change (50 characters or less)
 
 More detailed explanation of what changed and why. Wrap at 72 characters.
-Reference related GitHub issues using #<issue_number>.
+Reference related GitHub issues using #&lt;issue_number&gt;.
 
 Fixes #123
-```
-
-
-Good examples:
-
-```text title="Example: good commit message"
-Add GPU auto-detection for AMD ROCm nodes
+</pre></div>
+</div>
+</div>
+<p>Good examples:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Example: good commit message</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Add GPU auto-detection for AMD ROCm nodes
 
 Omnia now automatically detects AMD GPUs via lspci and installs the
 appropriate ROCm drivers during the omnia.yml playbook execution.
 Previously, AMD GPU support required manual driver installation.
 
 Fixes #456
-```
-
-
-Bad examples:
-
-```text title="Example: bad commit message"
-fix stuff
+</pre></div>
+</div>
+</div>
+<p>Bad examples:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Example: bad commit message</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>fix stuff
 updated files
 WIP
-```
+</pre></div>
+</div>
+</div>
+</section>
+<section id="writing-tests">
+<h4>Writing tests<a class="headerlink" href="#writing-tests" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Ansible roles:</strong> Add or update Molecule tests for any new or modified
+roles. Tests should validate both the default configuration and common
+edge cases.</p></li>
+<li><p><strong>Python code:</strong> Write unit tests using <code class="docutils literal notranslate"><span class="pre">pytest</span></code>. Aim for meaningful
+coverage of new functionality.</p></li>
+<li><p><strong>Integration tests:</strong> If your change affects provisioning or deployment,
+describe the manual test procedure in the PR description so reviewers can
+validate.</p></li>
+</ul>
+<p>Run the existing test suite before submitting:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on: local machine</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ansible lint</span>
+ansible-lint<span class="w"> </span>playbooks/
 
+<span class="c1"># Molecule tests (for a specific role)</span>
+<span class="nb">cd</span><span class="w"> </span>roles/&lt;role_name&gt;
+molecule<span class="w"> </span><span class="nb">test</span>
 
-### Writing tests
-
-
-- **Ansible roles:** Add or update Molecule tests for any new or modified
-  roles. Tests should validate both the default configuration and common
-  edge cases.
-- **Python code:** Write unit tests using `pytest`. Aim for meaningful
-  coverage of new functionality.
-- **Integration tests:** If your change affects provisioning or deployment,
-  describe the manual test procedure in the PR description so reviewers can
-  validate.
-
-Run the existing test suite before submitting:
-
-```bash title="Run on: local machine"
-# Ansible lint
-ansible-lint playbooks/
-
-# Molecule tests (for a specific role)
-cd roles/<role_name>
-molecule test
-
-# Python tests
-pytest tests/
-```
-
-
-
-## Protect authenticity -- Developer Certificate of Origin (DCO)
-
-Every GitHub push requires a sign-off and a moderator is required to approve
+<span class="c1"># Python tests</span>
+pytest<span class="w"> </span>tests/
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="protect-authenticity-developer-certificate-of-origin-dco">
+<h3>Protect authenticity – Developer Certificate of Origin (DCO)<a class="headerlink" href="#protect-authenticity-developer-certificate-of-origin-dco" title="Link to this heading">#</a></h3>
+<p>Every GitHub push requires a sign-off and a moderator is required to approve
 pull requests. All contributions have to be certified using the Developer
-Certificate of Origin (DCO):
-
-```text title="Developer Certificate of Origin (DCO)"
-Developer Certificate of Origin
+Certificate of Origin (DCO):</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Developer Certificate of Origin (DCO)</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Developer Certificate of Origin
 Version 1.1
 
 Copyright (C) 2004, 2006 The Linux Foundation and its contributors.
@@ -598,7 +584,7 @@ Everyone is permitted to copy and distribute verbatim copies of this
 license document, but changing it is not allowed.
 
 
-Developer's Certificate of Origin 1.1
+Developer&#39;s Certificate of Origin 1.1
 
 By making a contribution to this project, I certify that:
 
@@ -623,115 +609,127 @@ By making a contribution to this project, I certify that:
     personal information I submit with it, including my sign-off) is
     maintained indefinitely and may be redistributed consistent with
     this project or the open source license(s) involved.
-```
+</pre></div>
+</div>
+</div>
+<p>Add the sign-off to every commit using the <code class="docutils literal notranslate"><span class="pre">-s</span></code> flag:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Run on: local machine</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>commit<span class="w"> </span>-s<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add GPU auto-detection for AMD ROCm nodes&quot;</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="submitting-the-pull-request">
+<h3>Submitting the pull request<a class="headerlink" href="#submitting-the-pull-request" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Push your branch</strong> to your fork:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/descriptive-branch-name
+</pre></div>
+</div>
+</li>
+<li><p><strong>Open a pull request</strong> on GitHub:</p>
+<ul class="simple">
+<li><p>Go to <a class="github reference external" href="https://github.com/dell/omnia/pulls">dell/omnia</a></p></li>
+<li><p>Click <strong>New pull request</strong>.</p></li>
+<li><p>Select your fork and branch as the source.</p></li>
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">dell/omnia:main</span></code> as the target.</p></li>
+</ul>
+</li>
+<li><p><strong>Fill out the PR description</strong> using this template:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>## Summary
+Brief description of what this PR does.
 
-Add the sign-off to every commit using the `-s` flag:
+## Related Issue
+Fixes #&lt;issue_number&gt; (or &quot;Related to #&lt;issue_number&gt;&quot;)
 
-```bash title="Run on: local machine"
-git commit -s -m "Add GPU auto-detection for AMD ROCm nodes"
-```
+## Changes
+- List of specific changes made
+- One item per line
 
-## Submitting the pull request
+## Testing
+Describe how you tested these changes:
+- Environment (OS, hardware)
+- Steps to reproduce/verify
+- Test results
 
-
-1. **Push your branch** to your fork:
-
-   ```bash
-   git push origin feature/descriptive-branch-name
-   ```
-
-
-2. **Open a pull request** on GitHub:
-
-   - Go to https://github.com/dell/omnia/pulls
-   - Click **New pull request**.
-   - Select your fork and branch as the source.
-   - Select `dell/omnia:main` as the target.
-
-3. **Fill out the PR description** using this template:
-
-   ```text
-   ## Summary
-   Brief description of what this PR does.
-
-   ## Related Issue
-   Fixes #<issue_number> (or "Related to #<issue_number>")
-
-   ## Changes
-   - List of specific changes made
-   - One item per line
-
-   ## Testing
-   Describe how you tested these changes:
-   - Environment (OS, hardware)
-   - Steps to reproduce/verify
-   - Test results
-
-   ## Checklist
-   - [ ] Code follows the project's style guidelines
-   - [ ] Tests added/updated for new functionality
-   - [ ] Documentation updated (if applicable)
-   - [ ] All existing tests pass
-   - [ ] Commit messages are clear and descriptive
-   ```
-
-
-4. **Request a review** from one or more maintainers.
-
-
-## Review process
-
-
-After you submit a PR:
-
-1. **Automated checks** run first. CI pipelines will execute linting, syntax
-   checks, and any automated tests. All checks must pass before a human review.
-
-2. **Maintainer review.** One or more project maintainers will review your PR.
-   They may:
-
-   - **Approve** the PR if it meets all criteria.
-   - **Request changes** with specific feedback on what to update.
-   - **Comment** with questions or suggestions.
-
-3. **Address feedback.** Push additional commits to your branch to address
-   review comments. Do not force-push or squash commits during the review---
-   this makes it harder for reviewers to see incremental changes.
-
-4. **Final approval and merge.** Once all reviewers approve and CI passes, a
-   maintainer will merge the PR. Omnia uses **squash merges** to keep the
-   `main` branch history clean.
-
-### Review criteria
-
-
-Reviewers evaluate PRs against these criteria:
-
-| Criterion | What reviewers look for |
-| --- | --- |
-| **Correctness** | Does the change do what it claims? Are edge cases handled? |
-| **Style** | Does the code follow project conventions? |
-| **Testing** | Are there adequate tests? Do existing tests still pass? |
-| **Documentation** | Is the change documented? Are user-facing changes reflected in the docs? |
-| **Security** | Does the change introduce security risks? Are credentials handled safely? |
-| **Compatibility** | Does the change work across all supported OS versions and hardware? |
-
-### Response time
-
-
-Maintainers aim to provide an initial review within **5 business days**. For
-large PRs (100+ lines changed), reviews may take longer. You can help by:
-
-- Keeping PRs focused and small (one logical change per PR).
-- Providing a clear and thorough description.
-- Including test results in the PR description.
-
-
-!!! info
-
-    - [Index](index.rst) -- Overview of contribution options.
-    - [Omnia GitHub repository](https://github.com/dell/omnia) -- Source code
-      and issue tracker.<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+## Checklist
+- [ ] Code follows the project&#39;s style guidelines
+- [ ] Tests added/updated for new functionality
+- [ ] Documentation updated (if applicable)
+- [ ] All existing tests pass
+- [ ] Commit messages are clear and descriptive
+</pre></div>
+</div>
+</li>
+<li><p><strong>Request a review</strong> from one or more maintainers.</p></li>
+</ol>
+</section>
+<section id="review-process">
+<h3>Review process<a class="headerlink" href="#review-process" title="Link to this heading">#</a></h3>
+<p>After you submit a PR:</p>
+<ol class="arabic simple">
+<li><p><strong>Automated checks</strong> run first. CI pipelines will execute linting, syntax
+checks, and any automated tests. All checks must pass before a human review.</p></li>
+<li><p><strong>Maintainer review.</strong> One or more project maintainers will review your PR.
+They may:</p>
+<ul class="simple">
+<li><p><strong>Approve</strong> the PR if it meets all criteria.</p></li>
+<li><p><strong>Request changes</strong> with specific feedback on what to update.</p></li>
+<li><p><strong>Comment</strong> with questions or suggestions.</p></li>
+</ul>
+</li>
+<li><p><strong>Address feedback.</strong> Push additional commits to your branch to address
+review comments. Do not force-push or squash commits during the review—
+this makes it harder for reviewers to see incremental changes.</p></li>
+<li><p><strong>Final approval and merge.</strong> Once all reviewers approve and CI passes, a
+maintainer will merge the PR. Omnia uses <strong>squash merges</strong> to keep the
+<code class="docutils literal notranslate"><span class="pre">main</span></code> branch history clean.</p></li>
+</ol>
+<section id="review-criteria">
+<h4>Review criteria<a class="headerlink" href="#review-criteria" title="Link to this heading">#</a></h4>
+<p>Reviewers evaluate PRs against these criteria:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Criterion</p></th>
+<th class="head"><p>What reviewers look for</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Correctness</strong></p></td>
+<td><p>Does the change do what it claims? Are edge cases handled?</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Style</strong></p></td>
+<td><p>Does the code follow project conventions?</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Testing</strong></p></td>
+<td><p>Are there adequate tests? Do existing tests still pass?</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Documentation</strong></p></td>
+<td><p>Is the change documented? Are user-facing changes reflected in the docs?</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Security</strong></p></td>
+<td><p>Does the change introduce security risks? Are credentials handled safely?</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Compatibility</strong></p></td>
+<td><p>Does the change work across all supported OS versions and hardware?</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="response-time">
+<h4>Response time<a class="headerlink" href="#response-time" title="Link to this heading">#</a></h4>
+<p>Maintainers aim to provide an initial review within <strong>5 business days</strong>. For
+large PRs (100+ lines changed), reviews may take longer. You can help by:</p>
+<ul class="simple">
+<li><p>Keeping PRs focused and small (one logical change per PR).</p></li>
+<li><p>Providing a clear and thorough description.</p></li>
+<li><p>Including test results in the PR description.</p></li>
+</ul>
+<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+</section>
+</section>
 </section>
 </section>
 
@@ -773,7 +771,23 @@ large PRs (100+ lines changed), reviews may take longer. You can help by:
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#before-you-start">Before you start</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#before-you-start">Before you start</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-development-environment">Setting up your development environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#making-changes">Making changes</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#code-style">Code style</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#commit-messages">Commit messages</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-tests">Writing tests</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#protect-authenticity-developer-certificate-of-origin-dco">Protect authenticity – Developer Certificate of Origin (DCO)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submitting-the-pull-request">Submitting the pull request</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#review-process">Review process</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#review-criteria">Review criteria</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#response-time">Response time</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

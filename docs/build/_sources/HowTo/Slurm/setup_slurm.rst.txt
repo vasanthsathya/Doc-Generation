@@ -25,6 +25,9 @@ in your mapping file. It performs the following:
 
 
 
+
+
+
 Prerequisites
 -------------
 
@@ -45,10 +48,8 @@ Procedure
 
 #. **Enter the omnia_core container**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       ssh omnia_core
 
@@ -56,10 +57,8 @@ Procedure
 
 #. **Review and edit omnia_config.yml**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/omnia_config.yml
 
@@ -88,10 +87,8 @@ Procedure
 
 #. **Run the omnia.yml playbook**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
@@ -107,6 +104,7 @@ Procedure
   - Start ``slurmctld`` on the control node.
   - Start ``slurmd`` on all compute nodes.
 
+
    Execution time: **20-40 minutes** depending on cluster size.
 
 #. **Monitor playbook progress**. Watch for successful completion of each
@@ -119,16 +117,17 @@ Procedure
 
 
 
+
+
+
 Verification
 ------------
 
 
 #. **Check Slurm controller status**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       systemctl status slurmctld
 
@@ -136,10 +135,8 @@ Verification
 
 #. **Check compute daemon status on a compute node**:
 
-
-**Run on: Slurm compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm compute node
 
       systemctl status slurmd
 
@@ -147,10 +144,8 @@ Verification
 
 #. **View the cluster partition and node status**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       sinfo
 
@@ -159,9 +154,8 @@ Verification
    Expected output:
 
 
-**Expected output on: Slurm control node**
-
 .. code-block:: text
+   :caption: Expected output on: Slurm control node
 
       PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
       normal*      up   infinite      2   idle compute[01-02]
@@ -170,10 +164,8 @@ Verification
 
 #. **Run a test job**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       srun -N 2 hostname
 
@@ -181,10 +173,8 @@ Verification
 
 #. **Verify Munge authentication**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       munge -n | ssh <compute-node> unmunge
 
@@ -194,10 +184,8 @@ Verification
 
 #. **Check Slurm accounting**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       sacctmgr show cluster
 
@@ -216,6 +204,9 @@ Next Steps
 
 
 
+
+
+
 Troubleshooting
 ---------------
 
@@ -224,9 +215,8 @@ Troubleshooting
    Check the Slurm controller log:
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       journalctl -u slurmctld --no-pager -n 50
       cat /var/log/slurm/slurmctld.log
@@ -236,10 +226,8 @@ Troubleshooting
 **Compute nodes show "down" in sinfo**
   - Verify ``slurmd`` is running on the affected node:
 
-
-**Run on: affected compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: affected compute node
 
         systemctl status slurmd
         journalctl -u slurmd --no-pager -n 20
@@ -248,10 +236,8 @@ Troubleshooting
 
   - Check Munge is running:
 
-
-**Run on: affected compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: affected compute node
 
         systemctl status munge
 
@@ -259,10 +245,8 @@ Troubleshooting
 
   - Resume the node:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
         scontrol update nodename=<node> state=resume
 
@@ -272,9 +256,8 @@ Troubleshooting
    Ensure the Munge key is identical on all nodes:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
       ansible slurm_cluster -m shell -a "md5sum /etc/munge/munge.key"
 
@@ -286,9 +269,8 @@ Troubleshooting
    Check MariaDB is running on the control node:
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       systemctl status mariadb
       mysql -u slurm -p -e "SHOW DATABASES;"

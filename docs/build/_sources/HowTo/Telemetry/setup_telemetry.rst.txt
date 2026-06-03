@@ -48,22 +48,20 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-**Run on: OIM host**
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
-.. code-block:: bash
-
-      ssh omnia_core
+         ssh omnia_core
 
 
 
 #. **Configure telemetry parameters** in ``omnia_config.yml``:
 
 
-**Run on: omnia_core container**
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
-.. code-block:: bash
-
-      vi /opt/omnia/input/project_default/omnia_config.yml
+         vi /opt/omnia/input/project_default/omnia_config.yml
 
 
 
@@ -100,12 +98,11 @@ Procedure
 #. **Run the telemetry playbook**:
 
 
-**Run on: omnia_core container**
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
-.. code-block:: bash
-
-      cd /omnia
-      ansible-playbook telemetry.yml --ask-vault-pass
+         cd /omnia
+         ansible-playbook telemetry.yml --ask-vault-pass
 
 
 
@@ -124,11 +121,10 @@ Procedure
 #. **Access the Grafana dashboard**:
 
 
-**Run on: K8s control plane node**
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
-.. code-block:: bash
-
-      kubectl get svc -n telemetry | grep grafana
+         kubectl get svc -n telemetry | grep grafana
 
 
 
@@ -150,20 +146,18 @@ Verification
 #. **Verify telemetry pods are running**:
 
 
-**Run on: K8s control plane node**
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
-.. code-block:: bash
-
-      kubectl get pods -n telemetry
+         kubectl get pods -n telemetry
 
 
 
    Expected pods:
 
 
-**Expected output on: K8s control plane node**
-
 .. code-block:: text
+   :caption: Expected output on: K8s control plane node
 
       NAME                                    READY   STATUS    RESTARTS
       grafana-xxxxxxxxxx-xxxxx                1/1     Running   0
@@ -177,34 +171,31 @@ Verification
 #. **Verify LDMS agents on compute nodes**:
 
 
-**Run on: omnia_core container**
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
-.. code-block:: bash
-
-      ansible slurm_node -m shell -a "systemctl is-active ldmsd"
+         ansible slurm_node -m shell -a "systemctl is-active ldmsd"
 
 
 
 #. **Check Kafka topics** have telemetry data:
 
 
-**Run on: K8s control plane node**
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
-.. code-block:: bash
-
-      kubectl exec -n telemetry kafka-0 -- kafka-topics.sh --list --bootstrap-server localhost:9092
+         kubectl exec -n telemetry kafka-0 -- kafka-topics.sh --list --bootstrap-server localhost:9092
 
 
 
 #. **Verify VictoriaMetrics is receiving data**:
 
 
-**Run on: K8s control plane node**
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
-.. code-block:: bash
-
-      VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
-      kubectl exec -n telemetry $VM_POD -- curl -s "http://localhost:8428/api/v1/query?query=up" | python3 -m json.tool
+         VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
+         kubectl exec -n telemetry $VM_POD -- curl -s "http://localhost:8428/api/v1/query?query=up" | python3 -m json.tool
 
 
 
@@ -233,11 +224,10 @@ Troubleshooting
    Check for persistent volume issues:
 
 
-**Run on: K8s control plane node**
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
-.. code-block:: bash
-
-      kubectl describe pvc -n telemetry
+         kubectl describe pvc -n telemetry
 
 
 
@@ -245,11 +235,10 @@ Troubleshooting
    Verify iDRAC credentials and Redfish access:
 
 
-**Run on: K8s control plane node**
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
-.. code-block:: bash
-
-      kubectl logs -n telemetry -l app=idrac-collector --tail=30
+         kubectl logs -n telemetry -l app=idrac-collector --tail=30
 
 
 
@@ -257,11 +246,10 @@ Troubleshooting
    Re-deploy LDMS:
 
 
-**Run on: omnia_core container**
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
-.. code-block:: bash
-
-      ansible slurm_node -m shell -a "systemctl restart ldmsd"
+         ansible slurm_node -m shell -a "systemctl restart ldmsd"
 
 
 
@@ -271,12 +259,11 @@ Troubleshooting
   - Verify data is flowing through Kafka:
 
 
-**Run on: K8s control plane node**
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
-.. code-block:: bash
-
-        kubectl exec -n telemetry kafka-0 -- kafka-console-consumer.sh \
-          --bootstrap-server localhost:9092 --topic telemetry --from-beginning --max-messages 5
+           kubectl exec -n telemetry kafka-0 -- kafka-console-consumer.sh \
+             --bootstrap-server localhost:9092 --topic telemetry --from-beginning --max-messages 5
 
 
 
@@ -284,9 +271,8 @@ Troubleshooting
    Check disk space on the K8s worker node:
 
 
-**Run on: K8s worker node**
+   .. code-block:: bash
+      :caption: Run on: K8s worker node
 
-.. code-block:: bash
-
-      df -h
+         df -h
 

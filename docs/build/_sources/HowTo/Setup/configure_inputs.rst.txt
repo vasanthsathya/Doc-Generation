@@ -22,6 +22,7 @@ provisioning or deployment playbook, you must:
    selections, cluster layout).
 #. Optionally run the ``input_validator`` to catch configuration errors early.
 
+
 The most important input files are:
 
 - ``software_config.json`` -- Defines which software stacks to deploy.
@@ -30,6 +31,9 @@ The most important input files are:
 - ``provision_config.yml`` -- Provisioning parameters (OS image, timezone,
   kernel options).
 - ``omnia_config.yml`` -- Cluster-level configuration (Slurm, K8s, storage).
+
+
+
 
 
 
@@ -51,10 +55,8 @@ Procedure
 
 #. **Enter the omnia_core container**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       ssh omnia_core
 
@@ -62,10 +64,8 @@ Procedure
 
 #. **Copy the example templates** to the input directory:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cp /omnia/examples/input_template/* /opt/omnia/input/project_default/
 
@@ -78,10 +78,8 @@ Procedure
 
 #. **Edit the software configuration**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/software_config.json
 
@@ -126,12 +124,11 @@ Procedure
       - - ``softwares``
         - List of software stacks to install on compute nodes
 
+
 #. **Edit the network specification**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/network_spec.yml
 
@@ -164,10 +161,8 @@ Procedure
 
 #. **Edit the provision configuration**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/provision_config.yml
 
@@ -191,10 +186,8 @@ Procedure
 
 #. **Edit the Omnia configuration** (for Slurm/K8s parameters):
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/omnia_config.yml
 
@@ -218,10 +211,8 @@ Procedure
 
 #. **(Optional) Run the input validator** to check your configuration:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia
       ansible-playbook input_validator.yml
@@ -237,16 +228,17 @@ Procedure
 
 
 
+
+
+
 Verification
 ------------
 
 
 #. **List all input files** and confirm they are populated:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       ls -la /opt/omnia/input/project_default/
 
@@ -254,10 +246,8 @@ Verification
 
 #. **Review the software configuration**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cat /opt/omnia/input/project_default/software_config.json | python3 -m json.tool
 
@@ -265,10 +255,8 @@ Verification
 
 #. **Validate YAML syntax** for each YAML input file:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       python3 -c "import yaml; yaml.safe_load(open('/opt/omnia/input/project_default/network_spec.yml'))"
 
@@ -287,6 +275,9 @@ Next Steps
 
 
 
+
+
+
 Troubleshooting
 ---------------
 
@@ -300,9 +291,8 @@ Troubleshooting
    Validate JSON syntax:
 
 
-**Run on: omnia_core container**
-
 .. code-block:: bash
+   :caption: Run on: omnia_core container
 
       python3 -m json.tool /opt/omnia/input/project_default/software_config.json
 
@@ -317,9 +307,8 @@ Troubleshooting
    and later. Pull the latest code if necessary:
 
 
-**Run on: OIM host**
-
 .. code-block:: bash
+   :caption: Run on: OIM host
 
       cd /opt/omnia && git pull
 

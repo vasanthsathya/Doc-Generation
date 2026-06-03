@@ -49,6 +49,9 @@ Prerequisites
 
 
 
+
+
+
 Procedure
 ---------
 
@@ -63,36 +66,33 @@ Before re-provisioning, gracefully drain all workloads from the target nodes.
 **For Slurm nodes:**
 
 
-**Run on: Slurm control node**
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
-.. code-block:: bash
-
-   scontrol update NodeName=compute-03 State=DRAIN Reason="Re-provisioning"
+      scontrol update NodeName=compute-03 State=DRAIN Reason="Re-provisioning"
 
 
 Wait for running jobs to complete, or cancel them if immediate action is needed:
 
 
-**Run on: Slurm control node**
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
-.. code-block:: bash
+      # Check for running jobs on the node
+      squeue -w compute-03
 
-   # Check for running jobs on the node
-   squeue -w compute-03
-
-   # Cancel if necessary
-   scancel <job_id>
+      # Cancel if necessary
+      scancel <job_id>
 
 
 
 **For Kubernetes nodes:**
 
 
-**Run on: Kubernetes control plane**
+   .. code-block:: bash
+      :caption: Run on: Kubernetes control plane
 
-.. code-block:: bash
-
-   kubectl drain kube-worker-02 --ignore-daemonsets --delete-emptydir-data
+      kubectl drain kube-worker-02 --ignore-daemonsets --delete-emptydir-data
 
 
 
@@ -103,6 +103,7 @@ Step 2: Update configuration
 
 #. Review and update the input configuration files as needed:
 
+   .. code-block:: bash
 
 .. code-block:: bash
 
@@ -115,8 +116,10 @@ Step 2: Update configuration
   - ``provision_config.yml`` -- Update OS image or provisioning parameters.
   - ``omnia_config.yml`` -- Update cluster-level settings.
 
+
 #. If building a new OS image, run the image-build process:
 
+   .. code-block:: bash
 
 .. code-block:: bash
 
@@ -134,12 +137,11 @@ Run ``discovery.yml`` to re-discover and PXE-boot the target nodes with the
 updated OS image:
 
 
-**Run on: OIM host**
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
-.. code-block:: bash
-
-   cd /omnia
-   ansible-playbook playbooks/discovery.yml
+      cd /omnia
+      ansible-playbook playbooks/discovery.yml
 
 
 
@@ -148,6 +150,8 @@ The nodes will:
 #. Reboot into the PXE environment.
 #. Receive the new OS image from the OIM.
 #. Complete the cloud-init first-boot configuration.
+
+
 
 
 .. note::
@@ -166,12 +170,11 @@ After the nodes have been re-imaged and are accessible via SSH, redeploy the
 Omnia cluster software:
 
 
-**Run on: OIM host**
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
-.. code-block:: bash
-
-   cd /omnia
-   ansible-playbook playbooks/omnia.yml
+      cd /omnia
+      ansible-playbook playbooks/omnia.yml
 
 
 
@@ -185,6 +188,9 @@ This playbook applies the full cluster configuration, including:
 
 
 
+
+
+
 Verification
 ------------
 
@@ -192,21 +198,20 @@ Verification
 After re-provisioning is complete:
 
 
-**Run on: OIM host**
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
-.. code-block:: bash
+      # Verify Slurm nodes are back online
+      sinfo
 
-   # Verify Slurm nodes are back online
-   sinfo
+      # Verify Kubernetes nodes are Ready
+      kubectl get nodes
 
-   # Verify Kubernetes nodes are Ready
-   kubectl get nodes
+      # Check for any failed Ansible tasks in the log
+      cat /opt/omnia/log/core/playbooks/omnia.log | grep -i "failed"
 
-   # Check for any failed Ansible tasks in the log
-   cat /opt/omnia/log/core/playbooks/omnia.log | grep -i "failed"
-
-   # Run a test Slurm job
-   srun -N 1 hostname
+      # Run a test Slurm job
+      srun -N 1 hostname
 
 
 
@@ -218,4 +223,5 @@ After re-provisioning is complete:
    - :doc:`Add Remove Nodes <add_remove_nodes>` -- Add or remove nodes without re-imaging.
    - :doc:`Oim Cleanup <oim_cleanup>` -- Full teardown and rebuild of the OIM itself.
    - :doc:`Discover Nodes <../HowTo/Setup/discover_nodes>` -- Detailed node discovery procedure.
+
 

@@ -288,9 +288,8 @@ Final Pre-Flight Checks
 Run these commands on the OIM **before** starting any deployment path:
 
 
-**Run on OIM (as root)**
-
 .. code-block:: shell
+   :caption: Run on OIM (as root)
 
    # Verify OS and kernel
    cat /etc/redhat-release

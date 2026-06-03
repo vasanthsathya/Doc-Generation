@@ -25,6 +25,9 @@ Omnia supports:
 
 
 
+
+
+
 Prerequisites
 -------------
 
@@ -38,16 +41,17 @@ Prerequisites
 
 
 
+
+
+
 Procedure
 ---------
 
 
 #. **Enter the omnia_core container**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       ssh omnia_core
 
@@ -55,10 +59,8 @@ Procedure
 
 #. **Configure the RoCE network** in the network specification:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/network_spec.yml
 
@@ -81,10 +83,8 @@ Procedure
 
 #. **Run the omnia.yml playbook**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia
       ansible-playbook omnia.yml --ask-vault-pass
@@ -93,12 +93,12 @@ Procedure
 
 #. **(If needed) Manually configure RoCE on a compute node**:
 
+
    a. **Install OFED packages**:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
          dnf install -y rdma-core libibverbs-utils infiniband-diags
 
@@ -107,9 +107,8 @@ Procedure
    b. **Configure the network interface** with jumbo frames:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
          cat <<'EOF' > /etc/sysconfig/network-scripts/ifcfg-ens10f0
          DEVICE=ens10f0
@@ -128,9 +127,8 @@ Procedure
    c. **Enable RoCEv2 mode** on the adapter:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
          cma_roce_mode -d mlx5_0 -p 1 -m 2
 
@@ -141,9 +139,8 @@ Procedure
    d. **Configure Priority Flow Control (PFC)**:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
          mlnx_qos -i ens10f0 --pfc 0,0,0,1,0,0,0,0
 
@@ -154,9 +151,8 @@ Procedure
    e. **Configure ECN (Explicit Congestion Notification)**:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
          sysctl -w net.ipv4.tcp_ecn=1
          echo "net.ipv4.tcp_ecn=1" >> /etc/sysctl.d/roce.conf
@@ -165,15 +161,15 @@ Procedure
 
 #. **Configure the Ethernet switch** for lossless RoCE traffic:
 
+
    !!! note
 
        Switch configuration is vendor-specific. Consult your switch
        documentation. The following is an example for Dell OS10 switches:
 
 
-**Run on: Ethernet switch (Dell OS10 example)**
-
 .. code-block:: text
+   :caption: Run on: Ethernet switch (Dell OS10 example)
 
       configure terminal
       interface ethernet 1/1/1-1/1/48
@@ -192,10 +188,8 @@ Verification
 
 #. **Verify the network interface is up** with jumbo frames:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
       ip addr show ens10f0
       ip link show ens10f0 | grep mtu
@@ -206,10 +200,8 @@ Verification
 
 #. **Verify RDMA devices are available**:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
       ibv_devices
 
@@ -230,10 +222,8 @@ Verification
 
 #. **Verify RoCE mode**:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
       cma_roce_mode -d mlx5_0 -p 1
 
@@ -243,12 +233,12 @@ Verification
 
 #. **Test RDMA bandwidth** over RoCE:
 
+
    On the server node:
 
 
-**Run on: compute node 1**
-
 .. code-block:: bash
+   :caption: Run on: compute node 1
 
       ib_write_bw -d mlx5_0
 
@@ -257,9 +247,8 @@ Verification
    On the client node:
 
 
-**Run on: compute node 2**
-
 .. code-block:: bash
+   :caption: Run on: compute node 2
 
       ib_write_bw -d mlx5_0 10.231.0.101
 
@@ -267,12 +256,12 @@ Verification
 
 #. **Test RDMA latency** over RoCE:
 
+
    On the server node:
 
 
-**Run on: compute node 1**
-
 .. code-block:: bash
+   :caption: Run on: compute node 1
 
       ib_write_lat -d mlx5_0
 
@@ -281,9 +270,8 @@ Verification
    On the client node:
 
 
-**Run on: compute node 2**
-
 .. code-block:: bash
+   :caption: Run on: compute node 2
 
       ib_write_lat -d mlx5_0 10.231.0.101
 
@@ -294,10 +282,8 @@ Verification
 
 #. **Verify PFC counters** (should show no drops):
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
       ethtool -S ens10f0 | grep -i pfc
 
@@ -324,9 +310,8 @@ Troubleshooting
    Verify RDMA modules are loaded:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
       modprobe mlx5_core
       modprobe rdma_ucm
@@ -337,10 +322,8 @@ Troubleshooting
   - Verify both nodes can ping each other on the RoCE network.
   - Check firewall rules:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
         firewall-cmd --add-port=18515/tcp --permanent
         firewall-cmd --reload
@@ -350,10 +333,8 @@ Troubleshooting
 **Performance is poor (< 10 Gbps)**
   - Verify MTU is 9000 on both nodes and the switch:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
         ip link show ens10f0
 
@@ -361,10 +342,8 @@ Troubleshooting
 
   - Verify PFC is enabled to prevent packet drops:
 
-
-**Run on: compute node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: compute node
 
         mlnx_qos -i ens10f0
 
@@ -378,9 +357,8 @@ Troubleshooting
    Change the port mode using ``mstconfig``:
 
 
-**Run on: compute node**
-
 .. code-block:: bash
+   :caption: Run on: compute node
 
       mstconfig -d mlx5_0 set LINK_TYPE_P1=ETH
 

@@ -24,6 +24,9 @@ Benefits of external Kafka:
 
 
 
+
+
+
 Prerequisites
 -------------
 
@@ -43,10 +46,8 @@ Procedure
 
 #. **Enter the omnia_core container**:
 
-
-**Run on: OIM host**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       ssh omnia_core
 
@@ -54,10 +55,8 @@ Procedure
 
 #. **Configure external Kafka** in ``omnia_config.yml``:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/omnia_config.yml
 
@@ -88,9 +87,8 @@ Procedure
    is disabled):
 
 
-**Run on: external Kafka broker**
-
 .. code-block:: bash
+   :caption: Run on: external Kafka broker
 
       kafka-topics.sh --create \
         --bootstrap-server localhost:9092 \
@@ -114,10 +112,8 @@ Procedure
 
 #. **Run the telemetry playbook** to reconfigure:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cd /omnia
       ansible-playbook telemetry.yml --ask-vault-pass
@@ -132,16 +128,17 @@ Procedure
 
 
 
+
+
+
 Verification
 ------------
 
 
 #. **Verify Kafka connectivity** from the K8s cluster:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl run kafka-test --image=bitnami/kafka:latest --restart=Never -- \
         kafka-topics.sh --list --bootstrap-server kafka-broker1.example.com:9092
@@ -152,10 +149,8 @@ Verification
 
 #. **Verify topics have data**:
 
-
-**Run on: external Kafka broker**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: external Kafka broker
 
       kafka-console-consumer.sh \
         --bootstrap-server localhost:9092 \
@@ -167,10 +162,8 @@ Verification
 
 #. **Verify no built-in Kafka pod** is running:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl get pods -n telemetry | grep kafka
 
@@ -179,6 +172,8 @@ Verification
    Should show no locally deployed Kafka pods.
 
 #. **Verify data reaches VictoriaMetrics**:
+
+
 
 
 **Run on: K8s control plane node**
@@ -201,6 +196,9 @@ Next Steps
 
 
 
+
+
+
 Troubleshooting
 ---------------
 
@@ -209,9 +207,8 @@ Troubleshooting
    Verify network connectivity:
 
 
-**Run on: K8s worker node**
-
 .. code-block:: bash
+   :caption: Run on: K8s worker node
 
       telnet kafka-broker1.example.com 9092
 
@@ -225,9 +222,8 @@ Troubleshooting
    Check collector logs:
 
 
-**Run on: K8s control plane node**
-
 .. code-block:: bash
+   :caption: Run on: K8s control plane node
 
       kubectl logs -n telemetry -l app=idrac-collector --tail=30
       kubectl logs -n telemetry -l app=ldms-aggregator --tail=30
@@ -238,9 +234,8 @@ Troubleshooting
    Check consumer group status:
 
 
-**Run on: external Kafka broker**
-
 .. code-block:: bash
+   :caption: Run on: external Kafka broker
 
       kafka-consumer-groups.sh \
         --bootstrap-server localhost:9092 \

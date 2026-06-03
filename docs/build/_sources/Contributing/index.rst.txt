@@ -9,88 +9,87 @@ community are welcome and encouraged---whether you are fixing a typo in the
 documentation, reporting a bug, proposing a new feature, or submitting a pull
 request with code changes.
 
-!!! tip
+.. tip::
 
-    New to open-source contribution? Start with a documentation improvement or
-    bug report. These are great ways to get familiar with the project before
-    submitting code changes.
+   New to open-source contribution? Start with a documentation improvement or
+   bug report. These are great ways to get familiar with the project before
+   submitting code changes.
 
-    ## Ways to contribute
+Ways to contribute
+~~~~~~~~~~~~~~~~~
 
+**Documentation**
 
-    **Documentation**
-       Improve existing documentation, fix errors, add examples, or write new
-       guides. Documentation is written in reStructuredText (RST) and built with
-       Sphinx.
+   Improve existing documentation, fix errors, add examples, or write new
+   guides. Documentation is written in reStructuredText (RST) and built with
+   Sphinx.
 
-    **Bug reports**
-       Found a bug? Open an issue on the `Omnia GitHub repository
-       <https://github.com/dell/omnia/issues>`_ with a clear description of the
-       problem, steps to reproduce, and relevant log output.
+**Bug reports**
 
-    **Feature requests**
-       Have an idea for a new feature or improvement? Open a GitHub issue with the
-       `enhancement` label and describe the use case, expected behavior, and any
-       design considerations.
+   Found a bug? Open an issue on the `Omnia GitHub repository
+   <https://github.com/dell/omnia/issues>`_ with a clear description of the
+   problem, steps to reproduce, and relevant log output.
 
-    **Code contributions**
-       Fix bugs, implement features, or improve existing functionality. See
-       [Pull Requests](pull_requests.rst) for guidelines on submitting code changes.
+**Feature requests**
 
-    **Testing**
-       Test Omnia on different hardware configurations, OS versions, or network
-       topologies and report your findings. Community testing helps improve
-       compatibility and stability.
+   Have an idea for a new feature or improvement? Open a GitHub issue with the
+   ``enhancement`` label and describe the use case, expected behavior, and any
+   design considerations.
 
+**Code contributions**
 
-    ## Getting started
+   Fix bugs, implement features, or improve existing functionality. See
+   :doc:`pull_requests` for guidelines on submitting code changes.
 
+**Testing**
 
-    1. **Fork the repository** on GitHub:
+   Test Omnia on different hardware configurations, OS versions, or network
+   topologies and report your findings. Community testing helps improve
+   compatibility and stability.
 
-       https://github.com/dell/omnia
+Getting started
+~~~~~~~~~~~~~~~
 
-    2. **Clone your fork** locally:
+1. **Fork the repository** on GitHub:
 
-       ```bash
-       git clone https://github.com/<your_username>/omnia.git
-       cd omnia
-       ```
+   https://github.com/dell/omnia
 
+2. **Clone your fork** locally:
 
-    3. **Create a feature branch** for your changes:
+   .. code-block:: bash
 
-       ```bash
-       git checkout -b feature/my-improvement
-       ```
+      git clone https://github.com/<your_username>/omnia.git
+      cd omnia
 
+3. **Create a feature branch** for your changes:
 
-    4. **Make your changes**, commit, and push:
+   .. code-block:: bash
 
-       ```bash
-       git add .
-       git commit -m "Brief description of the change"
-       git push origin feature/my-improvement
-       ```
+      git checkout -b feature/my-improvement
 
+4. **Make your changes**, commit, and push:
 
-    5. **Open a pull request** on GitHub from your feature branch to the `main`
-       branch of the upstream repository. See [Pull Requests](pull_requests.rst) for detailed
-       guidelines.
+   .. code-block:: bash
 
+      git add .
+      git commit -m "Brief description of the change"
+      git push origin feature/my-improvement
 
-    ## Code of conduct
+5. **Open a pull request** on GitHub from your feature branch to the ``main``
+   branch of the upstream repository. See :doc:`pull_requests` for detailed
+   guidelines.
 
+Code of conduct
+~~~~~~~~~~~~~~
 
-    All contributors are expected to follow the project's code of conduct. Be
-    respectful, constructive, and collaborative in all interactions.
+All contributors are expected to follow the project's code of conduct. Be
+respectful, constructive, and collaborative in all interactions.
 
+Contact
+~~~~~~~
 
-    ## Contact
-
-
-    - **GitHub Issues:** https://github.com/dell/omnia/issues
-    - **GitHub Discussions:** https://github.com/dell/omnia/discussions
+- **GitHub Issues:** https://github.com/dell/omnia/issues
+- **GitHub Discussions:** https://github.com/dell/omnia/discussions
 
 
 .. toctree::

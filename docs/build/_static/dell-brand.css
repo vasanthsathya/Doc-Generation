@@ -336,19 +336,27 @@ footer,
 }
 
 /* Main index files (captions and top-level) - Dell blue */
-.bd-sidebar-primary .caption,
-.bd-sidebar-primary .toctree-l1 > .reference.internal[href*="index.html"] {
+.bd-sidebar-primary .caption {
     color: #0076CE !important;
-    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+}
+
+.bd-sidebar-primary .toctree-l1 > .reference.internal[href*="index.html"] {
+    color: #003566 !important;
     font-weight: 600 !important;
     text-transform: uppercase !important;
 }
 
 /* Sub-index files (nested levels) - dark blue */
-.bd-sidebar-primary .toctree-l2 .reference.internal[href*="index.html"],
+.bd-sidebar-primary .toctree-l2 .reference.internal[href*="index.html"] {
+    color: #001D3D !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+}
+
 .bd-sidebar-primary .toctree-l3 .reference.internal[href*="index.html"] {
     color: #001D3D !important;
-    font-size: 1.1rem !important;
     font-weight: 600 !important;
     text-transform: uppercase !important;
 }

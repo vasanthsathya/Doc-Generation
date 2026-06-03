@@ -25,6 +25,9 @@ Benefits:
 
 
 
+
+
+
 Prerequisites
 -------------
 
@@ -37,6 +40,9 @@ Prerequisites
 
 
 
+
+
+
 Procedure
 ---------
 
@@ -44,22 +50,24 @@ Procedure
 #. **Enter the omnia_core container**:
 
 
-**Run on: OIM host**
 
-.. code-block:: bash
 
-      ssh omnia_core
+   .. code-block:: bash
+      :caption: Run on: OIM host
+
+         ssh omnia_core
 
 
 
 #. **Configure external VictoriaMetrics** in ``omnia_config.yml``:
 
 
-**Run on: omnia_core container**
 
-.. code-block:: bash
 
-      vi /opt/omnia/input/project_default/omnia_config.yml
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
+
+         vi /opt/omnia/input/project_default/omnia_config.yml
 
 
 
@@ -89,11 +97,12 @@ Procedure
 #. **Verify connectivity** to the external VictoriaMetrics:
 
 
-**Run on: K8s control plane node**
 
-.. code-block:: bash
 
-      curl -s http://victoria.example.com:8428/api/v1/status/tsdb
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
+
+         curl -s http://victoria.example.com:8428/api/v1/status/tsdb
 
 
 
@@ -102,12 +111,13 @@ Procedure
 #. **Run the telemetry playbook** to reconfigure:
 
 
-**Run on: omnia_core container**
 
-.. code-block:: bash
 
-      cd /omnia
-      ansible-playbook telemetry.yml --ask-vault-pass
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
+
+         cd /omnia
+         ansible-playbook telemetry.yml --ask-vault-pass
 
 
 
@@ -117,25 +127,27 @@ Procedure
   - Configure Kafka consumers to write to the external VictoriaMetrics.
   - Update Grafana data source to point to the external instance.
 
+
 #. **Update Grafana data source** (if not automatically configured):
 
 
-**Run on: K8s control plane node**
 
-.. code-block:: bash
 
-      GRAFANA_POD=$(kubectl get pod -n telemetry -l app=grafana -o jsonpath='{.items[0].metadata.name}')
-      kubectl exec -n telemetry $GRAFANA_POD -- \
-        curl -s -X POST http://localhost:3000/api/datasources \
-          -H "Content-Type: application/json" \
-          -u admin:YourGrafanaPassword \
-          -d '{
-            "name": "VictoriaMetrics External",
-            "type": "prometheus",
-            "url": "http://victoria.example.com:8428",
-            "access": "proxy",
-            "isDefault": true
-          }'
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
+
+         GRAFANA_POD=$(kubectl get pod -n telemetry -l app=grafana -o jsonpath='{.items[0].metadata.name}')
+         kubectl exec -n telemetry $GRAFANA_POD -- \
+           curl -s -X POST http://localhost:3000/api/datasources \
+             -H "Content-Type: application/json" \
+             -u admin:YourGrafanaPassword \
+             -d '{
+               "name": "VictoriaMetrics External",
+               "type": "prometheus",
+               "url": "http://victoria.example.com:8428",
+               "access": "proxy",
+               "isDefault": true
+             }'
 
 
 
@@ -148,20 +160,19 @@ Verification
 #. **Verify data is being written** to the external VictoriaMetrics:
 
 
-**Run on: any node with curl**
 
-.. code-block:: bash
 
-      curl -s "http://victoria.example.com:8428/api/v1/query?query=up" | python3 -m json.tool
+   .. code-block:: bash
+      :caption: Run on: any node with curl
+
+         curl -s "http://victoria.example.com:8428/api/v1/query?query=up" | python3 -m json.tool
 
 
 
 #. **Check metric count** on the external instance:
 
-
-**Run on: any node with curl**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: any node with curl
 
       curl -s "http://victoria.example.com:8428/api/v1/status/tsdb" | python3 -m json.tool
 
@@ -169,10 +180,8 @@ Verification
 
 #. **Verify no built-in VictoriaMetrics pod** is running:
 
-
-**Run on: K8s control plane node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: K8s control plane node
 
       kubectl get pods -n telemetry | grep victoriametrics
 
@@ -192,6 +201,9 @@ Next Steps
 
 
 
+
+
+
 Troubleshooting
 ---------------
 
@@ -200,9 +212,8 @@ Troubleshooting
    Verify authentication credentials are correct:
 
 
-**Run on: K8s control plane node**
-
 .. code-block:: bash
+   :caption: Run on: K8s control plane node
 
       curl -s -u user:password \
         "http://victoria.example.com:8428/api/v1/query?query=up"
@@ -213,9 +224,8 @@ Troubleshooting
    Check network connectivity and firewall rules:
 
 
-**Run on: K8s worker node**
-
 .. code-block:: bash
+   :caption: Run on: K8s worker node
 
       curl -v http://victoria.example.com:8428/health
 
@@ -225,10 +235,8 @@ Troubleshooting
   - Verify the data source URL in Grafana settings.
   - Check that the external VictoriaMetrics is receiving data:
 
-
-**Run on: any node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: any node
 
         curl -s "http://victoria.example.com:8428/api/v1/series?match[]={cluster='omnia-prod'}"
 

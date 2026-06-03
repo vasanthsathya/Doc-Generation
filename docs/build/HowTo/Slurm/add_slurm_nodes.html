@@ -33,8 +33,8 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=123c2300" />
-    <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=0e325a43" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
   <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
@@ -48,12 +48,12 @@
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'HowTo/Slurm/add_slurm_nodes';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <script src="../../_static/custom.js?v=977ea42b"></script>
+    <script src="../../_static/custom.js?v=2f7f44f7"></script>
     <link rel="icon" href="../../_static/favicon.png"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Build Slurm Repository" href="build_slurm_repo.html" />
-    <link rel="prev" title="Slurm" href="index.html" />
+    <link rel="next" title="Remove Slurm Nodes" href="remove_slurm_nodes.html" />
+    <link rel="prev" title="Slurm with GPUs" href="slurm_with_gpu.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -380,33 +380,33 @@
   <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">How-to Guides</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Setup/index.html">Setup</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Setup/build_cluster_images.html">Build Cluster Images</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Setup/configure_credentials.html">Configure Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Setup/prepare_oim.html">Prepare the OIM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Setup/configure_inputs.html">Configure Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Setup/configure_credentials.html">Configure Credentials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Setup/create_local_repos.html">Create Local Repositories</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Setup/create_mapping_file.html">Create a Mapping File</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Setup/deploy_omnia_core.html">Deploy omnia_core</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Setup/discover_nodes.html">Discover Nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Setup/prepare_oim.html">Prepare the OIM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Setup/create_mapping_file.html">Create a Mapping File</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Setup/pxe_boot_nodes.html">PXE Boot Nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Setup/verify_cluster.html">Verify Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Setup/build_cluster_images.html">Build Cluster Images</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Setup/verify_oim_services.html">Verify OIM Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Setup/verify_cluster.html">Verify Cluster</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Slurm</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Add Slurm Nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="build_slurm_repo.html">Build Slurm Repository</a></li>
-<li class="toctree-l2"><a class="reference internal" href="remove_slurm_nodes.html">Remove Slurm Nodes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="run_hpc_benchmarks.html">Run HPC Benchmarks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="setup_slurm.html">Setup Slurm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="slurm_config_backup.html">Slurm Config Backup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_slurm_repo.html">Build Slurm Repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="slurm_with_gpu.html">Slurm with GPUs</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Add Slurm Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="remove_slurm_nodes.html">Remove Slurm Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slurm_config_backup.html">Slurm Config Backup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_hpc_benchmarks.html">Run HPC Benchmarks</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Kubernetes/index.html">Kubernetes</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Kubernetes/setup_service_k8s.html">Deploy the Service K8s Cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Kubernetes/configure_ha.html">Configure Kubernetes HA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Kubernetes/deploy_powerscale_csi.html">Deploy PowerScale CSI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Kubernetes/setup_service_k8s.html">Deploy the Service K8s Cluster</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Storage/index.html">Storage</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -420,29 +420,29 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Authentication/index.html">Authentication</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Authentication/deploy_external_ldap.html">Deploy External LDAP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Authentication/replicate_ldap.html">Replicate LDAP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Authentication/setup_openldap.html">Setup OpenLDAP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Authentication/setup_openldap_proxy.html">Setup OpenLDAP as Proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Authentication/deploy_external_ldap.html">Deploy External LDAP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Authentication/replicate_ldap.html">Replicate LDAP</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Telemetry/index.html">Telemetry</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Telemetry/setup_telemetry.html">Setup Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Telemetry/verify_telemetry.html">Verify Telemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Telemetry/telemetry_from_ome.html">Telemetry from OME &amp; SFM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Telemetry/configure_ldms.html">Configure LDMS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Telemetry/configure_external_kafka.html">Configure External Kafka</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Telemetry/configure_external_victoria.html">Configure External VictoriaMetrics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Telemetry/configure_ldms.html">Configure LDMS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Telemetry/setup_telemetry.html">Setup Telemetry</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Telemetry/telemetry_from_ome.html">Telemetry from OME &amp; SFM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Telemetry/verify_telemetry.html">Verify Telemetry</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../Containers/index.html">Containers</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Containers/deploy_additional_packages.html">Deploy Additional Packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Containers/use_apptainer.html">Use Apptainer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Containers/deploy_additional_packages.html">Deploy Additional Packages</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../BuildStreaM/index.html">Buildstream</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../BuildStreaM/buildstream_troubleshooting.html">BuildStreaM Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BuildStreaM/deploy_gitlab.html">Deploy GitLab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BuildStreaM/buildstream_troubleshooting.html">BuildStreaM Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BuildStreaM/update_catalog_pipeline.html">Update Catalog &amp; Pipelines</a></li>
 </ul>
 </details></li>
@@ -536,94 +536,103 @@ network.</p></li>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p><strong>Update the mapping file</strong> with new node entries:</p></li>
-</ol>
-<p><strong>Run on: omnia_core container</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>vi<span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv
-
-
-
-Add<span class="w"> </span>new<span class="w"> </span>rows<span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>new<span class="w"> </span>compute<span class="w"> </span>node:
+<ol class="arabic">
+<li><p><strong>Update the mapping file</strong> with new node entries:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv
 </pre></div>
 </div>
+</div>
+<p>Add new rows for each new compute node:</p>
+</li>
+</ol>
 <p><strong>File: /opt/omnia/input/project_default/pxe_mapping_file.csv</strong></p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>slurm_node,slurm_cluster,NEWSVCTG1,,,aa:bb:cc:dd:ee:10,10.5.0.110,aa:bb:cc:dd:ff:10,10.3.0.110
 slurm_node,slurm_cluster,NEWSVCTG2,,,aa:bb:cc:dd:ee:11,10.5.0.111,aa:bb:cc:dd:ff:11,10.3.0.111
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Provision the new nodes</strong> if not already provisioned:</p></li>
-</ol>
-<p><strong>Run on: omnia_core container</strong></p>
+<ol class="arabic">
+<li><p><strong>Provision the new nodes</strong> if not already provisioned:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia/discovery
 ansible-playbook<span class="w"> </span>discovery.yml<span class="w"> </span>--ask-vault-pass
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Run the add-node playbook</strong>:</p></li>
-</ol>
-<p><strong>Run on: omnia_core container</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nb">cd</span><span class="w"> </span>/omnia
-<span class="w">   </span>ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass<span class="w"> </span>--limit<span class="w"> </span><span class="s2">&quot;new_nodes&quot;</span>
-
-
-
-!!!<span class="w"> </span>note
-
-<span class="w">    </span>If<span class="w"> </span>a<span class="w"> </span>dedicated<span class="w"> </span><span class="sb">``</span>add_node.yml<span class="sb">``</span><span class="w"> </span>playbook<span class="w"> </span>is<span class="w"> </span>available<span class="w"> </span><span class="k">in</span><span class="w"> </span>your<span class="w"> </span>Omnia
-<span class="w">    </span>version,<span class="w"> </span>use<span class="w"> </span>it<span class="w"> </span>instead:
+</div>
+</li>
+<li><p><strong>Run the add-node playbook</strong>:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
+ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass<span class="w"> </span>--limit<span class="w"> </span><span class="s2">&quot;new_nodes&quot;</span>
 </pre></div>
 </div>
-<p><strong>Run on: omnia_core container</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>utils/add_node.yml<span class="w"> </span>--ask-vault-pass<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="s2">&quot;target_nodes=10.5.0.110,10.5.0.111&quot;</span>
+</div>
+<p>!!! note</p>
+<blockquote>
+<div><p>If a dedicated <code class="docutils literal notranslate"><span class="pre">add_node.yml</span></code> playbook is available in your Omnia
+version, use it instead:</p>
+</div></blockquote>
+</li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">       </span>ansible-playbook<span class="w"> </span>utils/add_node.yml<span class="w"> </span>--ask-vault-pass<span class="w"> </span><span class="se">\</span>
+<span class="w">         </span>-e<span class="w"> </span><span class="s2">&quot;target_nodes=10.5.0.110,10.5.0.111&quot;</span>
 </pre></div>
+</div>
 </div>
 <ol class="arabic simple">
 <li><p><strong>Update the Slurm configuration</strong> on the control node to include the new
 nodes:</p></li>
 </ol>
-<p><strong>Run on: Slurm control node</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reconfigure Slurm to pick up new nodes</span>
-scontrol<span class="w"> </span>reconfigure
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># Reconfigure Slurm to pick up new nodes</span>
+<span class="w">   </span>scontrol<span class="w"> </span>reconfigure
 </pre></div>
+</div>
 </div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p><strong>Check that new nodes appear in the cluster</strong>:</p></li>
-</ol>
-<p><strong>Run on: Slurm control node</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>sinfo
-
-
-
-New<span class="w"> </span>nodes<span class="w"> </span>should<span class="w"> </span>appear<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span><span class="sb">``</span>normal<span class="sb">``</span><span class="w"> </span>partition<span class="w"> </span>with<span class="w"> </span><span class="sb">``</span>idle<span class="sb">``</span><span class="w"> </span>state.
+<ol class="arabic">
+<li><p><strong>Check that new nodes appear in the cluster</strong>:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sinfo
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Run a test job on the new nodes</strong>:</p></li>
-</ol>
-<p><strong>Run on: Slurm control node</strong></p>
+</div>
+<p>New nodes should appear in the <code class="docutils literal notranslate"><span class="pre">normal</span></code> partition with <code class="docutils literal notranslate"><span class="pre">idle</span></code> state.</p>
+</li>
+<li><p><strong>Run a test job on the new nodes</strong>:</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>-w<span class="w"> </span>&lt;new-node-hostname&gt;<span class="w"> </span>hostname
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Verify Munge authentication</strong> on the new nodes:</p></li>
-</ol>
-<p><strong>Run on: Slurm control node</strong></p>
+</div>
+</li>
+<li><p><strong>Verify Munge authentication</strong> on the new nodes:</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>munge<span class="w"> </span>-n<span class="w"> </span><span class="p">|</span><span class="w"> </span>ssh<span class="w"> </span>&lt;new-node-ip&gt;<span class="w"> </span>unmunge
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Check slurmd is running</strong> on the new nodes:</p></li>
-</ol>
-<p><strong>Run on: new compute node</strong></p>
+</div>
+</li>
+<li><p><strong>Check slurmd is running</strong> on the new nodes:</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Run on: new compute node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd
 </pre></div>
 </div>
+</div>
+</li>
+</ol>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -637,50 +646,48 @@ configured on new nodes.</p></li>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl class="simple">
+<dl>
 <dt><strong>New nodes show “down” in sinfo</strong></dt><dd><ul class="simple">
 <li><p>Verify <code class="docutils literal notranslate"><span class="pre">slurmd</span></code> is running:</p></li>
 </ul>
+<blockquote>
+<div><div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on: new compute node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd
+<span class="w">  </span>journalctl<span class="w"> </span>-u<span class="w"> </span>slurmd<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
+</pre></div>
+</div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Check that <code class="docutils literal notranslate"><span class="pre">slurm.conf</span></code> on the new node matches the control node’s</dt><dd><p>version:</p>
 </dd>
 </dl>
-<p><strong>Run on: new compute node</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd
-<span class="w">      </span>journalctl<span class="w"> </span>-u<span class="w"> </span>slurmd<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
-
-
-
--<span class="w"> </span>Check<span class="w"> </span>that<span class="w"> </span><span class="sb">``</span>slurm.conf<span class="sb">``</span><span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>new<span class="w"> </span>node<span class="w"> </span>matches<span class="w"> </span>the<span class="w"> </span>control<span class="w"> </span>node<span class="err">&#39;</span>s
-<span class="w">   </span>version:
-</pre></div>
-</div>
-<p><strong>Run on: new compute node</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>grep<span class="w"> </span><span class="s2">&quot;SlurmctldHost&quot;</span><span class="w"> </span>/etc/slurm/slurm.conf
-
-
-
--<span class="w"> </span>Resume<span class="w"> </span>the<span class="w"> </span>node<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>controller:
-</pre></div>
-</div>
-<p><strong>Run on: Slurm control node</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">nodename</span><span class="o">=</span>&lt;node&gt;<span class="w"> </span><span class="nv">state</span><span class="o">=</span>resume<span class="w"> </span><span class="nv">reason</span><span class="o">=</span><span class="s2">&quot;added&quot;</span>
-</pre></div>
-</div>
+</li>
+</ul>
+</dd>
+</dl>
 <dl class="simple">
 <dt><strong>Munge key mismatch</strong></dt><dd><p>Re-distribute the Munge key from the control node:</p>
 </dd>
 </dl>
-<p><strong>Run on: omnia_core container</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>new_nodes<span class="w"> </span>-m<span class="w"> </span>copy<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;src=/etc/munge/munge.key dest=/etc/munge/munge.key owner=munge group=munge mode=0400&quot;</span>
-ansible<span class="w"> </span>new_nodes<span class="w"> </span>-m<span class="w"> </span>service<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;name=munge state=restarted&quot;</span>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ansible<span class="w"> </span>new_nodes<span class="w"> </span>-m<span class="w"> </span>copy<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;src=/etc/munge/munge.key dest=/etc/munge/munge.key owner=munge group=munge mode=0400&quot;</span>
+<span class="w">   </span>ansible<span class="w"> </span>new_nodes<span class="w"> </span>-m<span class="w"> </span>service<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;name=munge state=restarted&quot;</span>
 </pre></div>
+</div>
 </div>
 <dl class="simple">
 <dt><strong>New nodes not in Ansible inventory</strong></dt><dd><p>Re-run discovery or manually add the nodes to the Ansible inventory:</p>
 </dd>
 </dl>
-<p><strong>Run on: omnia_core container</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ochami<span class="w"> </span>node<span class="w"> </span>list
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ochami<span class="w"> </span>node<span class="w"> </span>list
 </pre></div>
+</div>
 </div>
 <p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
@@ -697,20 +704,20 @@ ansible<span class="w"> </span>new_nodes<span class="w"> </span>-m<span class="w
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="slurm_with_gpu.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Slurm</p>
+        <p class="prev-next-title">Slurm with GPUs</p>
       </div>
     </a>
     <a class="right-next"
-       href="build_slurm_repo.html"
+       href="remove_slurm_nodes.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Build Slurm Repository</p>
+        <p class="prev-next-title">Remove Slurm Nodes</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

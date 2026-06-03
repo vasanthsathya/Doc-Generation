@@ -22,6 +22,9 @@ Removing a node from a Slurm cluster involves:
 
 
 
+
+
+
 Prerequisites
 -------------
 
@@ -33,16 +36,17 @@ Prerequisites
 
 
 
+
+
+
 Procedure
 ---------
 
 
 #. **Drain the target node** to prevent new jobs from being scheduled:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       scontrol update nodename=<node-to-remove> state=drain reason="Decommissioning"
 
@@ -50,10 +54,8 @@ Procedure
 
 #. **Verify the node is draining** and check for running jobs:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       sinfo -n <node-to-remove>
       squeue -w <node-to-remove>
@@ -64,9 +66,8 @@ Procedure
    cancel running jobs:
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       # Cancel all jobs on the target node
       scancel -w <node-to-remove>
@@ -75,10 +76,8 @@ Procedure
 
 #. **Set the node to down**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       scontrol update nodename=<node-to-remove> state=down reason="Removed from cluster"
 
@@ -86,10 +85,8 @@ Procedure
 
 #. **Stop Slurm services on the target node**:
 
-
-**Run on: node being removed**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: node being removed
 
       systemctl stop slurmd
       systemctl disable slurmd
@@ -100,10 +97,8 @@ Procedure
 
 #. **Remove the node from slurm.conf** on the control node:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       vi /etc/slurm/slurm.conf
 
@@ -115,10 +110,8 @@ Procedure
 
 #. **Reconfigure Slurm** to apply changes:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       scontrol reconfigure
 
@@ -126,10 +119,8 @@ Procedure
 
 #. **(Optional) Remove the node from the mapping file**:
 
-
-**Run on: omnia_core container**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/pxe_mapping_file.csv
 
@@ -145,10 +136,8 @@ Verification
 
 #. **Confirm the node is no longer in the cluster**:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       sinfo
       scontrol show nodes
@@ -159,10 +148,8 @@ Verification
 
 #. **Run a test job** to confirm remaining nodes are functional:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       srun -N 1 hostname
 
@@ -170,10 +157,8 @@ Verification
 
 #. **Verify no orphaned jobs** reference the removed node:
 
-
-**Run on: Slurm control node**
-
-.. code-block:: bash
+   .. code-block:: bash
+      :caption: Run on: Slurm control node
 
       squeue -t all
 
@@ -190,6 +175,9 @@ Next Steps
 
 
 
+
+
+
 Troubleshooting
 ---------------
 
@@ -198,9 +186,8 @@ Troubleshooting
    Ensure you ran ``scontrol reconfigure`` after editing ``slurm.conf``:
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       scontrol reconfigure
 
@@ -211,9 +198,8 @@ Troubleshooting
    ``NODE_FAIL`` in the accounting:
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       sacct --starttime=today --state=FAILED,NODE_FAIL
 
@@ -225,9 +211,8 @@ Troubleshooting
    Validate the configuration:
 
 
-**Run on: Slurm control node**
-
 .. code-block:: bash
+   :caption: Run on: Slurm control node
 
       slurmd -C  # Show computed node configuration
       slurmctld -t  # Test configuration file syntax
