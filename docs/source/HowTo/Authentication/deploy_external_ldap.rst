@@ -23,7 +23,7 @@ some deployments benefit from a dedicated LDAP server:
 
 This guide deploys OpenLDAP using Bitnami's container image on a dedicated
 server (or K8s cluster), then configures Omnia cluster nodes to authenticate
-against it.
+against it..
 
 
 
