@@ -51,7 +51,7 @@ Procedure
 ---------
 
 
-#. **Enter the omnia_core container**:
+1. **Enter the omnia_core container**:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -60,7 +60,7 @@ Procedure
 
 
 
-#. **Review and edit network_spec.yml** (if not already done):
+2. **Review and edit network_spec.yml** (if not already done):
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -72,10 +72,9 @@ Procedure
    Ensure the admin and BMC network parameters match your physical network:
 
 
-**File: /opt/omnia/input/project_default/network_spec.yml**
 
 .. code-block:: yaml
-
+   :caption: File: /opt/omnia/input/project_default/network_spec.yml 
       ---
       admin_network:
         nic_name: "eno1"
@@ -94,7 +93,7 @@ Procedure
 
 
 
-#. **Review and edit provision_config.yml** (if not already done):
+3. **Review and edit provision_config.yml** (if not already done):
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -117,7 +116,7 @@ Procedure
 
 
 
-#. **Run the prepare_oim playbook**:
+4. **Run the prepare_oim playbook**:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -159,7 +158,7 @@ Verification
 ------------
 
 
-#. **Check the omnia.target service tree**:
+1. **Check the omnia.target service tree**:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -194,7 +193,7 @@ Verification
 
 
 
-#. **Verify all services are active**:
+2. **Verify all services are active**:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -204,7 +203,7 @@ Verification
 
 
 
-#. **Test OpenCHAMI CLI**:
+3. **Test OpenCHAMI CLI**:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -216,7 +215,7 @@ Verification
    This should display the OpenCHAMI command-line help, confirming the CLI is
    installed and the services are accessible.
 
-#. **Verify Pulp is running**:
+4. **Verify Pulp is running**:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -225,7 +224,7 @@ Verification
 
 
 
-#. **Verify MinIO is accessible**:
+5. **Verify MinIO is accessible**:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
