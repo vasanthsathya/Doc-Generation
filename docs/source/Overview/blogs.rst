@@ -9,5 +9,3 @@ Blogs about Omnia
 - `Containerized HPC Workloads Made Easy with Omnia and Singularity <https://infohub.delltechnologies.com/p/containerized-hpc-workloads-made-easy-with-omnia-and-singularity/>`_
 - `Solution Overview: Dell Omnia Software <https://infohub.delltechnologies.com/section-assets/omnia-solution-overview>`_
 - `Solution Brief: Omnia Software <https://infohub.delltechnologies.com/section-assets/omnia-solution-brief>`_
-
-If you have any feedback about Omnia documentation, please reach out at `omnia.readme@dell.com <mailto:omnia.readme@dell.com>`_.
