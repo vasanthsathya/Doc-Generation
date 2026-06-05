@@ -66,6 +66,7 @@ Procedure
       :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/network_spec.yml
+      
 
 
 3. **Ensure the admin and BMC network parameters match your physical network**:
@@ -120,7 +121,7 @@ Procedure
 
 
 
-   !!! note
+   .. note::
 
        If your credentials file is encrypted with Ansible Vault, add the
        ``--ask-vault-pass`` flag:
@@ -163,10 +164,8 @@ Verification
    Expected service tree:
 
 
-**Expected output on: OIM host**
-
-.. code-block:: text
-   :
+   .. code-block:: text
+   :caption: Expected output on: OIM host
 
       omnia.target
       ├─minio.service

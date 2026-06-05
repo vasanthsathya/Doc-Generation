@@ -607,9 +607,9 @@ ansible-playbook<span class="w"> </span>prepare_oim.yml
 </pre></div>
 </div>
 </div>
-<p>!!! note</p>
-<blockquote>
-<div><p>If your credentials file is encrypted with Ansible Vault, add the
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your credentials file is encrypted with Ansible Vault, add the
 <code class="docutils literal notranslate"><span class="pre">--ask-vault-pass</span></code> flag:</p>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
@@ -617,7 +617,7 @@ ansible-playbook<span class="w"> </span>prepare_oim.yml
 </pre></div>
 </div>
 </div>
-</div></blockquote>
+</div>
 <p>The playbook performs the following tasks:</p>
 </li>
 </ol>
@@ -647,10 +647,33 @@ ansible-playbook<span class="w"> </span>prepare_oim.yml
 </div>
 </div>
 <p>Expected service tree:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<dl class="field-list">
+<dt class="field-odd">caption<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Expected output on: OIM host</p>
+<p>omnia.target
+├─minio.service
+├─omnia_auth.service
+├─omnia_core.service
+├─pulp.service
+├─registry.service
+└─openchami.target</p>
+<blockquote>
+<div><p>├─bss.service
+├─coredhcp.service
+├─cloud-init-server.service
+├─dnsmasq.service
+├─hydra.service
+├─image-server.service
+├─opaal.service
+├─smd.service
+└─tftpd.service</p>
+</div></blockquote>
+</dd>
+</dl>
 </li>
-</ol>
-<p><strong>Expected output on: OIM host</strong></p>
-<ol class="arabic" start="2">
 <li><p><strong>Verify all services are active</strong>:</p>
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
