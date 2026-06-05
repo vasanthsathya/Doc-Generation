@@ -29,7 +29,7 @@ GitLab pipeline failures
 
     #. Check the pipeline log in GitLab:
 
-      - Navigate to **CI/CD > Pipelines** in the BuildStreaM project.
+      - Navigate to **CI/CD** > **Pipelines** in the BuildStreaM project.
       - Click the failed pipeline, then click the failed job to see its log.
 
     #. Verify the GitLab Runner is registered and online:
@@ -44,7 +44,7 @@ GitLab pipeline failures
 
     #. Check pipeline variables:
 
-      - Navigate to **Settings > CI/CD > Variables** in the GitLab project.
+      - Navigate to **Settings** > **CI/CD** > **Variables** in the GitLab project.
       - Verify all required variables are set (OIM IP, credentials, registry
          URL).
 
@@ -257,20 +257,20 @@ OAuth credential issues
 
     #. Generate a new personal access token in GitLab:
 
-      - Navigate to **User Settings > Access Tokens**.
+      - Navigate to **User Settings** > **Access Tokens**.
       - Create a new token with scopes: ``api``, ``read_registry``,
          ``write_registry``.
 
     #. Update the token in pipeline variables:
 
-      - Navigate to **Settings > CI/CD > Variables**.
+      - Navigate to **Settings** > **CI/CD** > **Variables**.
       - Update the ``GITLAB_TOKEN`` (or equivalent) variable with the new
          token.
 
     #. If using an OAuth application (rather than personal token):
 
-      - Navigate to **Admin Area > Applications** (or **User Settings >
-         Applications**).
+      - Navigate to **Admin Area** > **Applications** (or **User Settings** >
+         **Applications**).
       - Verify the application exists and note the Application ID and Secret.
       - Update the pipeline variables with the new credentials.
 

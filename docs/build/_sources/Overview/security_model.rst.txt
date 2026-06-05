@@ -440,7 +440,7 @@ seriously. If you discover a security vulnerability, you are encouraged to
 report it to Dell immediately. For the latest instructions on how to report a
 security issue to Dell, see the
 `Dell Vulnerability Response Policy <https://www.dell.com/support/contents/en-in/article/product-support/self-support-knowledgebase/security-antivirus/alerts-vulnerabilities/dell-vulnerability-response-policy>`_
-on the Dell.com site.
+on the `Dell <https://www.dell.com/en-us>`_ site.
 
 Follow Dell Security on these sites:
 

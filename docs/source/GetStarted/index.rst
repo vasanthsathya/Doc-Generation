@@ -67,21 +67,17 @@ Which Path Should I Choose?
 ---------------------------
 
 
-**"I just want Slurm running as fast as possible."**
-    Start with :doc:`Slurm Quickstart <slurm_quickstart>` (Path A). You can always add
-    Kubernetes and telemetry later.
+- **"I just want Slurm running as fast as possible."**
+  Start with :doc:`Slurm Quickstart <slurm_quickstart>` (Path A). You can always add Kubernetes and telemetry later.
 
-**"I need a production cluster with monitoring and authentication."**
-    Go with :doc:`Full Deployment <full_deployment>` (Path B). This is the canonical Omnia
-    deployment that exercises every major subsystem.
+- **"I need a production cluster with monitoring and authentication."**
+  Go with :doc:`Full Deployment <full_deployment>` (Path B). This is the canonical Omnia deployment that exercises every major subsystem.
 
-**"I only need telemetry dashboards -- no job scheduler."**
-    Choose :doc:`K8S Telemetry Only <k8s_telemetry_only>` (Path C). This gives you
-    iDRAC-to-Grafana visibility without the overhead of Slurm.
+- **"I only need telemetry dashboards -- no job scheduler."**
+  Choose :doc:`K8S Telemetry Only <k8s_telemetry_only>` (Path C). This gives you iDRAC-to-Grafana visibility without the overhead of Slurm.
 
-**"I want CI/CD-driven, repeatable infrastructure."**
-    Use :doc:`Buildstream Deployment <buildstream_deployment>` (Path D). BuildStreaM automates the
-    entire lifecycle through GitLab pipelines and a declarative catalog.
+- **"I want CI/CD-driven, repeatable infrastructure."**
+  Use :doc:`Buildstream Deployment <buildstream_deployment>` (Path D). BuildStreaM automates the entire lifecycle through GitLab pipelines and a declarative catalog.
 
 
 Before You Begin

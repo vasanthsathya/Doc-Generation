@@ -66,15 +66,14 @@ Procedure
       :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/network_spec.yml
+      
 
 
+3. **Ensure the admin and BMC network parameters match your physical network**:
 
-   Ensure the admin and BMC network parameters match your physical network:
+   .. code-block:: yaml
+      :caption: File: /opt/omnia/input/project_default/network_spec.yml
 
-
-
-.. code-block:: yaml
-   :caption: File: /opt/omnia/input/project_default/network_spec.yml 
       ---
       admin_network:
         nic_name: "eno1"
@@ -92,8 +91,7 @@ Procedure
         netmask: "255.255.255.0"
 
 
-
-3. **Review and edit provision_config.yml** (if not already done):
+4. **Review and edit provision_config.yml** (if not already done):
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -101,11 +99,8 @@ Procedure
       vi /opt/omnia/input/project_default/provision_config.yml
 
 
-
-
-**File: /opt/omnia/input/project_default/provision_config.yml**
-
-.. code-block:: yaml
+   .. code-block:: yaml
+      :caption: File: /opt/omnia/input/project_default/provision_config.yml
 
       ---
       timezone: "America/Chicago"
@@ -116,7 +111,7 @@ Procedure
 
 
 
-4. **Run the prepare_oim playbook**:
+5. **Run the prepare_oim playbook**:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -126,14 +121,13 @@ Procedure
 
 
 
-   !!! note
+   .. note::
 
        If your credentials file is encrypted with Ansible Vault, add the
        ``--ask-vault-pass`` flag:
 
-
-.. code-block:: bash
-   :caption: Run on: omnia_core container
+       .. code-block:: bash
+          :caption: Run on: omnia_core container
 
           ansible-playbook prepare_oim.yml --ask-vault-pass
 
@@ -170,9 +164,8 @@ Verification
    Expected service tree:
 
 
-**Expected output on: OIM host**
-
-.. code-block:: text
+   .. code-block:: text
+   :caption: Expected output on: OIM host
 
       omnia.target
       ├─minio.service

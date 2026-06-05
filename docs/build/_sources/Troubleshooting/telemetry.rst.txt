@@ -329,7 +329,7 @@ Grafana dashboards empty
 
     #. Verify the Grafana data source:
 
-      - Navigate to **Grafana > Configuration > Data Sources**.
+      - Navigate to **Grafana** > **Configuration** > **Data Sources**.
       - Confirm a Prometheus-compatible data source points to
          ``http://<victoria_host>:8428``.
       - Click **Test** to verify connectivity.

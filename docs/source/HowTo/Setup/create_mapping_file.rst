@@ -35,7 +35,7 @@ Prerequisites
 - You have the service tag, admin MAC address, and BMC MAC address for every
   target server. These are available from:
 
-  - iDRAC web UI (System > Overview)
+  - iDRAC web UI (**System** > **Overview**)
   - Physical label on the server front panel
   - OpenManage Enterprise (OME) inventory
 

@@ -65,7 +65,7 @@ Telemetry enhancements
 
 
 - **OpenManage Enterprise (OME) telemetry** -- Ingest fleet-level health and
-  compliance data from OME into the Kafka → VictoriaMetrics → Grafana pipeline.
+  compliance data from OME into the **Kafka** > **VictoriaMetrics** > **Grafana** pipeline.
 - **Smart Fabric Manager (SFM) telemetry** -- Collect network fabric metrics
   (switch port utilization, link errors, fabric health) for unified
   infrastructure monitoring.

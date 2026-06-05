@@ -32,9 +32,9 @@ NIC not set to PXE boot
 
     #. Enter the node's BIOS/UEFI setup (press F2 during POST on Dell PowerEdge
        servers).
-    #. Navigate to **System BIOS > Network Settings**.
+    #. Navigate to **System BIOS** > **Network Settings**.
     #. Enable **PXE Boot** on the NIC connected to the admin network.
-    #. Navigate to **Boot Settings > BIOS Boot Settings** (or **UEFI Boot
+    #. Navigate to **Boot Settings** > **BIOS Boot Settings** (or **UEFI Boot
        Settings**).
     #. Set **Network Boot** (PXE) as the first boot option.
     #. Save and exit BIOS. The node should now attempt PXE boot on the next

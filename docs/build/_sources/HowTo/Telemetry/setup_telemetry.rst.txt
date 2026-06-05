@@ -114,7 +114,7 @@ Procedure
   - Deploys the iDRAC telemetry collector.
   - Installs and configures LDMS samplers on compute nodes.
   - Installs LDMS aggregators on the K8s cluster.
-  - Configures data flow: LDMS/iDRAC → Kafka → VictoriaMetrics → Grafana.
+  - Configures data flow: **LDMS/iDRAC** > **Kafka** > **VictoriaMetrics** > **Grafana**.
 
    Execution time: **15-30 minutes**.
 
