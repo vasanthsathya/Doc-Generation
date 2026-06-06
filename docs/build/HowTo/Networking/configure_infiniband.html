@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -539,26 +539,27 @@ switch.</p></li>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Enter the omnia_core container</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<ol class="arabic simple">
+<li><p>Enter the omnia_core container:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Configure InfiniBand settings</strong> in the network specification:</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="2">
+<li><p>Configure InfiniBand settings in the network specification:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/network_spec.yml
 </pre></div>
 </div>
 </div>
 <p>Add the IB network configuration:</p>
-</li>
-</ol>
-<p><strong>File: /opt/omnia/input/project_default/network_spec.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/network_spec.yml</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="nt">ib_network</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">ib_nic_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ib0&quot;</span>
@@ -567,18 +568,19 @@ switch.</p></li>
 <span class="w">  </span><span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;255.255.255.0&quot;</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Ensure OFED is listed in software_config.json</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Ensure OFED is listed in software_config.json:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/opt/omnia/input/project_default/software_config.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool
 </pre></div>
 </div>
 </div>
 <p>Verify the <code class="docutils literal notranslate"><span class="pre">softwares</span></code> list includes:</p>
-</li>
-</ol>
-<p><strong>File: /opt/omnia/input/project_default/software_config.json</strong></p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/software_config.json</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;softwares&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;doca_ofed&quot;</span><span class="p">}</span>
@@ -586,30 +588,29 @@ switch.</p></li>
 <span class="p">}</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Run the omnia.yml playbook</strong> to deploy InfiniBand:</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Run the omnia.yml playbook to deploy InfiniBand:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass
 </pre></div>
 </div>
 </div>
 <p>The playbook will:</p>
-</li>
-</ol>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>Install DOCA-OFED packages on all compute nodes.</p></li>
 <li><p>Load the <code class="docutils literal notranslate"><span class="pre">mlx5_core</span></code> and <code class="docutils literal notranslate"><span class="pre">mlx5_ib</span></code> kernel modules.</p></li>
 <li><p>Configure IPoIB interfaces with static IP addresses.</p></li>
 <li><p>Deploy and start OpenSM on a designated subnet manager node.</p></li>
 </ul>
-</div></blockquote>
-<ol class="arabic">
-<li><p><strong>(If needed) Manually configure IPoIB on a node</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="5">
+<li><p>(If needed) Manually configure IPoIB on a node:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load InfiniBand modules</span>
 modprobe<span class="w"> </span>mlx5_core
 modprobe<span class="w"> </span>mlx5_ib
@@ -630,46 +631,46 @@ ifup<span class="w"> </span>ib0
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Configure OpenSM</strong> on the designated subnet manager node:</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on: OpenSM node (typically the Slurm control node)</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="6">
+<li><p>Configure OpenSM on the designated subnet manager node:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on: OpenSM node (typically the Slurm control node)</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>opensm
 systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>opensm
 </pre></div>
 </div>
 </div>
-<p>!!! note</p>
-<blockquote>
-<div><p>Only one node in the IB fabric should run OpenSM as the primary subnet
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only one node in the IB fabric should run OpenSM as the primary subnet
 manager. A second node can run OpenSM as a standby for HA.</p>
-</div></blockquote>
-</li>
-</ol>
+</div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Verify the IB interface is up</strong> on each compute node:</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<ol class="arabic simple">
+<li><p>Verify the IB interface is up on each compute node:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>ib0
 </pre></div>
 </div>
 </div>
-<p>Expected: the interface shows the assigned IP address and <a href="#id1"><span class="problematic" id="id2">``</span></a>state UP`:doc:<a href="#id3"><span class="problematic" id="id4">`</span></a>.</p>
-</li>
-<li><p><strong>Check IB port state</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<p>Expected: the interface shows the assigned IP address and <code class="docutils literal notranslate"><span class="pre">state</span> <span class="pre">UP</span></code>.</p>
+<ol class="arabic simple" start="2">
+<li><p>Check IB port state:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ibstat
 </pre></div>
 </div>
 </div>
 <p>Expected output:</p>
-</li>
-</ol>
-<p><strong>Expected output on: compute node</strong></p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Expected output on: compute node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CA &#39;mlx5_0&#39;
    Port 1:
       State: Active
@@ -677,68 +678,60 @@ manager. A second node can run OpenSM as a standby for HA.</p>
       Rate: 200 (HDR)
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Verify OpenSM is running</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Run on: OpenSM node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Verify OpenSM is running:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Run on: OpenSM node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>opensm
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Test IB connectivity</strong> between two compute nodes:</p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node 1</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="4">
+<li><p>Test IB connectivity between two compute nodes:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node 1</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="m">10</span>.230.0.102
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Test RDMA bandwidth</strong>:</p>
-<p>On the server node:</p>
-</li>
+<ol class="arabic simple" start="5">
+<li><p>Test RDMA bandwidth:</p></li>
 </ol>
+<p>On the server node:</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node 1</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ib_write_bw
+</pre></div>
+</div>
+</div>
+<p>On the client node:</p>
 <div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node 1</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ib_write_bw
-
-
-
-On<span class="w"> </span>the<span class="w"> </span>client<span class="w"> </span>node:
+<div class="code-block-caption"><span class="caption-text">Run on: compute node 2</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ib_write_bw<span class="w"> </span><span class="m">10</span>.230.0.101
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node 2</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ib_write_bw<span class="w"> </span><span class="m">10</span>.230.0.101
-</pre></div>
-</div>
-</div>
-<ol class="arabic">
-<li><p><strong>Test RDMA latency</strong>:</p>
-<p>On the server node:</p>
-</li>
+<ol class="arabic simple" start="6">
+<li><p>Test RDMA latency:</p></li>
 </ol>
+<p>On the server node:</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node 1</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ib_write_lat
+</pre></div>
+</div>
+</div>
+<p>On the client node:</p>
 <div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node 1</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ib_write_lat
-
-
-
-On<span class="w"> </span>the<span class="w"> </span>client<span class="w"> </span>node:
+<div class="code-block-caption"><span class="caption-text">Run on: compute node 2</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ib_write_lat<span class="w"> </span><span class="m">10</span>.230.0.101
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node 2</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ib_write_lat<span class="w"> </span><span class="m">10</span>.230.0.101
-
-
-
-Expected<span class="w"> </span>InfiniBand<span class="w"> </span>latency:<span class="w"> </span>&lt;<span class="w"> </span><span class="m">2</span><span class="w"> </span>microseconds.
-</pre></div>
-</div>
-</div>
+<p>Expected InfiniBand latency: &lt; 2 microseconds.</p>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -750,86 +743,67 @@ fabric.</p></li>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt><strong>ib0 interface does not appear</strong></dt><dd><p>Verify InfiniBand modules are loaded:</p>
-</dd>
-</dl>
+<p><strong>ib0 interface does not appear</strong>
+Verify InfiniBand modules are loaded:</p>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mlx5
+lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ib_ipoib
+</pre></div>
+</div>
+</div>
+<p>Load missing modules:</p>
 <div class="literal-block-wrapper docutils container" id="id19">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mlx5
-<span class="w">   </span>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ib_ipoib
-
-
-
-Load<span class="w"> </span>missing<span class="w"> </span>modules:
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>modprobe<span class="w"> </span>mlx5_core
+modprobe<span class="w"> </span>mlx5_ib
+modprobe<span class="w"> </span>ib_ipoib
 </pre></div>
 </div>
 </div>
+<p><strong>ibstat shows “Down” or “Initializing”</strong>
+- Check physical cable connections.
+- Verify OpenSM is running somewhere in the fabric.
+- Check for firmware issues:</p>
 <div class="literal-block-wrapper docutils container" id="id20">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id20" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>modprobe<span class="w"> </span>mlx5_core
-<span class="w">   </span>modprobe<span class="w"> </span>mlx5_ib
-<span class="w">   </span>modprobe<span class="w"> </span>ib_ipoib
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ibv_devinfo
 </pre></div>
 </div>
 </div>
-<dl>
-<dt><strong>ibstat shows “Down” or “Initializing”</strong></dt><dd><ul class="simple">
-<li><p>Check physical cable connections.</p></li>
-<li><p>Verify OpenSM is running somewhere in the fabric.</p></li>
-<li><p>Check for firmware issues:</p></li>
-</ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id21">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id21" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>ibv_devinfo
+<p><strong>OpenSM fails to start</strong>
+Check for port GUID conflicts:</p>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">Run on: OpenSM node</span><a class="headerlink" href="#id21" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>journalctl<span class="w"> </span>-u<span class="w"> </span>opensm<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">30</span>
 </pre></div>
 </div>
 </div>
-</div></blockquote>
-</dd>
-<dt><strong>OpenSM fails to start</strong></dt><dd><p>Check for port GUID conflicts:</p>
-</dd>
-</dl>
+<p><strong>Poor RDMA performance</strong>
+- Verify link rate (should be 100/200 Gbps for HDR):</p>
 <div class="literal-block-wrapper docutils container" id="id22">
-<div class="code-block-caption"><span class="caption-text">Run on: OpenSM node</span><a class="headerlink" href="#id22" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>journalctl<span class="w"> </span>-u<span class="w"> </span>opensm<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">30</span>
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id22" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ibstat<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Rate
 </pre></div>
 </div>
 </div>
-<dl>
-<dt><strong>Poor RDMA performance</strong></dt><dd><ul class="simple">
-<li><p>Verify link rate (should be 100/200 Gbps for HDR):</p></li>
-</ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id23" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>ibstat<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Rate
-</pre></div>
-</div>
-</div>
-</div></blockquote>
 <ul class="simple">
 <li><p>Check for errors on the IB port:</p></li>
 </ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id24" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>perfquery
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id23" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perfquery
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 <ul class="simple">
 <li><p>Ensure <code class="docutils literal notranslate"><span class="pre">CONNECTED_MODE=yes</span></code> in the IPoIB interface configuration.</p></li>
 </ul>
-</dd>
-<dt><strong>IP address conflicts on IB network</strong></dt><dd><p>Check for duplicate IPs:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id25">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id25" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;ip addr show ib0 | grep inet&quot;</span>
+<p><strong>IP address conflicts on IB network</strong>
+Check for duplicate IPs:</p>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id24" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;ip addr show ib0 | grep inet&quot;</span>
 </pre></div>
 </div>
 </div>

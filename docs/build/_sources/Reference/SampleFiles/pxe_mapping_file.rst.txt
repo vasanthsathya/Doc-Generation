@@ -60,9 +60,9 @@ Sample file
 
 
 
-**Sample pxe_mapping_file.csv**
 
 .. code-block:: text
+   :caption: Sample pxe_mapping_file.csv
 
    FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
    slurm_control_node,slurm_head,ABC1234,,slurm-ctrl-01,EC:2A:72:34:56:01,10.5.0.10,,10.3.0.10
@@ -88,9 +88,9 @@ Annotated breakdown
 **Slurm control node**
 
 
-**Example: Slurm control node**
 
 .. code-block:: text
+   :caption: Example: Slurm control node
 
    slurm_control_node,slurm_head,ABC1234,,slurm-ctrl-01,EC:2A:72:34:56:01,10.5.0.10,,10.3.0.10
 
@@ -103,9 +103,8 @@ Annotated breakdown
 **Slurm compute nodes**
 
 
-**Example: Slurm compute nodes**
-
 .. code-block:: text
+   :caption: Example: Slurm compute nodes
 
    slurm_node,gpu_nodes,DEF5678,,slurm-gpu-01,EC:2A:72:34:56:02,10.5.0.11,,10.3.0.11
    slurm_node,cpu_nodes,JKL3456,,slurm-cpu-01,EC:2A:72:34:56:04,10.5.0.13,,10.3.0.13
@@ -120,9 +119,8 @@ Annotated breakdown
 **Login node**
 
 
-**Example: Login node**
-
 .. code-block:: text
+   :caption: Example: Login node
 
    login_node,login,MNO7890,,login-01,EC:2A:72:34:56:05,10.5.0.14,,10.3.0.14
 
@@ -134,9 +132,9 @@ Annotated breakdown
 **Kubernetes control plane**
 
 
-**Example: Kubernetes control plane**
 
 .. code-block:: text
+   :caption: Example: Kubernetes control plane
 
    kube_control_plane,k8s_cp,PQR1234,,kube-cp-01,EC:2A:72:34:56:06,10.5.0.20,,10.3.0.20
 
@@ -149,9 +147,8 @@ Annotated breakdown
 **Kubernetes worker nodes**
 
 
-**Example: Kubernetes worker nodes**
-
 .. code-block:: text
+   :caption: Example: Kubernetes worker nodes
 
    kube_node,k8s_workers,YZA3456,,kube-wk-01,EC:2A:72:34:56:09,10.5.0.23,,10.3.0.23
 
@@ -162,9 +159,8 @@ Annotated breakdown
 **Multi-node chassis example (C6620)**
 
 
-**Example: Multi-node chassis (C6620)**
-
 .. code-block:: text
+   :caption: Example: Multi-node chassis (C6620)
 
    slurm_node,cpu_nodes,SLD1234,CHASSIS01,sled-01,EC:2A:72:34:56:10,10.5.0.40,,10.3.0.40
    slurm_node,cpu_nodes,SLD5678,CHASSIS01,sled-02,EC:2A:72:34:56:11,10.5.0.41,,10.3.0.41

@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -536,8 +536,9 @@ cluster.</p>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Clone the catalog repository</strong> (if not already cloned):</p>
+<ol class="arabic simple">
+<li><p>Clone the catalog repository (if not already cloned):</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
@@ -546,8 +547,9 @@ git<span class="w"> </span>clone<span class="w"> </span>http://&lt;oim-ip&gt;:80
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Edit the catalog file</strong>:</p>
+<ol class="arabic simple" start="2">
+<li><p>Edit the catalog file:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>catalog.yml
@@ -555,79 +557,78 @@ git<span class="w"> </span>clone<span class="w"> </span>http://&lt;oim-ip&gt;:80
 </div>
 </div>
 <p>Example catalog structure:</p>
-</li>
-</ol>
-<p><strong>File: /opt/omnia/buildstream-catalog/catalog.yml</strong></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
-<span class="nt">catalog_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;2.1.0&quot;</span>
-<span class="nt">cluster_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;omnia-prod&quot;</span>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/buildstream-catalog/catalog.yml</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">---</span>
+<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">catalog_version</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;2.1.0&quot;</span>
+<span class="w">   </span><span class="nt">cluster_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;omnia-prod&quot;</span>
 
-<span class="c1"># Operating system</span>
-<span class="nt">os</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rhel&quot;</span>
-<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;8.8&quot;</span>
-<span class="w">  </span><span class="nt">iso_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/omnia/iso/RHEL-8.8-x86_64-dvd.iso&quot;</span>
+<span class="w">   </span><span class="c1"># Operating system</span>
+<span class="w">   </span><span class="nt">os</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rhel&quot;</span>
+<span class="w">     </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;8.8&quot;</span>
+<span class="w">     </span><span class="nt">iso_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/omnia/iso/RHEL-8.8-x86_64-dvd.iso&quot;</span>
 
-<span class="c1"># Networks</span>
-<span class="nt">networks</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">admin</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">nic</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno1&quot;</span>
-<span class="w">    </span><span class="nt">subnet</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.0/24&quot;</span>
-<span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.1&quot;</span>
-<span class="w">    </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.100-10.5.0.200&quot;</span>
-<span class="w">  </span><span class="nt">bmc</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">nic</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno2&quot;</span>
-<span class="w">    </span><span class="nt">subnet</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.0/24&quot;</span>
-<span class="w">    </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.100-10.3.0.200&quot;</span>
+<span class="w">   </span><span class="c1"># Networks</span>
+<span class="w">   </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">admin</span><span class="p">:</span>
+<span class="w">       </span><span class="nt">nic</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno1&quot;</span>
+<span class="w">       </span><span class="nt">subnet</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.0/24&quot;</span>
+<span class="w">       </span><span class="nt">gateway</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.1&quot;</span>
+<span class="w">       </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.100-10.5.0.200&quot;</span>
+<span class="w">     </span><span class="nt">bmc</span><span class="p">:</span>
+<span class="w">       </span><span class="nt">nic</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno2&quot;</span>
+<span class="w">       </span><span class="nt">subnet</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.0/24&quot;</span>
+<span class="w">       </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.100-10.3.0.200&quot;</span>
 
-<span class="c1"># Node groups</span>
-<span class="nt">node_groups</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">slurm_control</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;slurm_control_node&quot;</span>
-<span class="w">    </span><span class="nt">nodes</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ABCDEF1&quot;</span>
-<span class="w">        </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.101&quot;</span>
-<span class="w">        </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.101&quot;</span>
-<span class="w">  </span><span class="nt">slurm_compute</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;slurm_node&quot;</span>
-<span class="w">    </span><span class="nt">nodes</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ABCDEF2&quot;</span>
-<span class="w">        </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.102&quot;</span>
-<span class="w">        </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.102&quot;</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ABCDEF3&quot;</span>
-<span class="w">        </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.103&quot;</span>
-<span class="w">        </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.103&quot;</span>
+<span class="w">   </span><span class="c1"># Node groups</span>
+<span class="w">   </span><span class="nt">node_groups</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">slurm_control</span><span class="p">:</span>
+<span class="w">       </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;slurm_control_node&quot;</span>
+<span class="w">       </span><span class="nt">nodes</span><span class="p">:</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ABCDEF1&quot;</span>
+<span class="w">           </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.101&quot;</span>
+<span class="w">           </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.101&quot;</span>
+<span class="w">     </span><span class="nt">slurm_compute</span><span class="p">:</span>
+<span class="w">       </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;slurm_node&quot;</span>
+<span class="w">       </span><span class="nt">nodes</span><span class="p">:</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ABCDEF2&quot;</span>
+<span class="w">           </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.102&quot;</span>
+<span class="w">           </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.102&quot;</span>
+<span class="w">         </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">service_tag</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ABCDEF3&quot;</span>
+<span class="w">           </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.103&quot;</span>
+<span class="w">           </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.103&quot;</span>
 
-<span class="c1"># Software stacks</span>
-<span class="nt">software</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slurm</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cuda</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apptainer</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openldap</span>
+<span class="w">   </span><span class="c1"># Software stacks</span>
+<span class="w">   </span><span class="nt">software</span><span class="p">:</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slurm</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cuda</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apptainer</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openldap</span>
 
 
-<span class="c1"># Telemetry</span>
-<span class="nt">telemetry</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">idrac</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">ldms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">   </span><span class="c1"># Telemetry</span>
+<span class="w">   </span><span class="nt">telemetry</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">     </span><span class="nt">idrac</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">     </span><span class="nt">ldms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Make your changes</strong>. Common modifications include:</p></li>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Make your changes. Common modifications include:</p></li>
 </ol>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>Adding new nodes to a <code class="docutils literal notranslate"><span class="pre">node_groups</span></code> section.</p></li>
 <li><p>Changing the software stack.</p></li>
 <li><p>Updating network ranges.</p></li>
 <li><p>Enabling/disabling telemetry.</p></li>
 </ul>
-</div></blockquote>
-<ol class="arabic">
-<li><p><strong>Commit and push the changes</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="4">
+<li><p>Commit and push the changes:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia/buildstream-catalog
 git<span class="w"> </span>add<span class="w"> </span>catalog.yml
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add 2 new compute nodes to slurm cluster&quot;</span>
@@ -635,15 +636,13 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Monitor the pipeline</strong> in GitLab:</p>
+<ol class="arabic simple" start="5">
+<li><p>Monitor the pipeline in GitLab:</p></li>
+</ol>
 <p>Open the GitLab web UI and navigate to:
 <strong>CI/CD</strong> &gt; <strong>Pipelines</strong></p>
 <p>The pipeline runs through the following stages:</p>
-</li>
-</ol>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p><strong>validate</strong> – Checks catalog syntax and validates input files.</p></li>
 <li><dl class="simple">
 <dt><strong>provision</strong> – Discovers and provisions new/changed nodes (manual</dt><dd><p>trigger).</p>
@@ -657,28 +656,29 @@ git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </
 </li>
 <li><p><strong>verify</strong> – Runs health checks on the updated cluster.</p></li>
 </ul>
-</div></blockquote>
-<ol class="arabic">
-<li><p><strong>Manually trigger deployment stages</strong>:</p>
+<ol class="arabic simple" start="6">
+<li><p>Manually trigger deployment stages:</p></li>
+</ol>
 <p>In the GitLab pipeline view, click the <strong>Play</strong> button next to the
 <code class="docutils literal notranslate"><span class="pre">provision</span></code> and <code class="docutils literal notranslate"><span class="pre">configure</span></code> stages to execute them.</p>
-</li>
-<li><p><strong>Review pipeline artifacts and logs</strong>:</p>
+<ol class="arabic simple" start="7">
+<li><p>Review pipeline artifacts and logs:</p></li>
+</ol>
 <p>Click on a completed job to view its logs. Download artifacts from the
 <strong>Artifacts</strong> section if available.</p>
-</li>
-</ol>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Verify the pipeline completed successfully</strong>:</p>
+<ol class="arabic simple">
+<li><p>Verify the pipeline completed successfully:</p></li>
+</ol>
 <p>In GitLab, navigate to <strong>CI/CD</strong> &gt; <strong>Pipelines</strong>. The latest pipeline
 should show all stages with green checkmarks.</p>
-</li>
-<li><p><strong>Verify catalog changes were applied</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="2">
+<li><p>Verify catalog changes were applied:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check if new nodes were provisioned</span>
 ochami<span class="w"> </span>node<span class="w"> </span>list
 
@@ -687,16 +687,15 @@ ssh<span class="w"> </span>&lt;slurm-control-ip&gt;<span class="w"> </span>sinfo
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Run the verification stage</strong> to confirm cluster health:</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="3">
+<li><p>Run the verification stage to confirm cluster health:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>ping
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -707,49 +706,37 @@ ssh<span class="w"> </span>&lt;slurm-control-ip&gt;<span class="w"> </span>sinfo
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl>
-<dt><strong>Pipeline fails at “validate” stage</strong></dt><dd><blockquote>
-<div><p>Check the job logs for validation errors. Common issues:</p>
-</div></blockquote>
+<p><strong>Pipeline fails at “validate” stage</strong>
+Check the job logs for validation errors. Common issues:</p>
 <ul class="simple">
 <li><p>YAML syntax errors in <code class="docutils literal notranslate"><span class="pre">catalog.yml</span></code></p></li>
 <li><p>Missing required fields</p></li>
 <li><p>IP address conflicts</p></li>
 </ul>
-<blockquote>
-<div><p>Fix the catalog and push a new commit.</p>
-</div></blockquote>
-</dd>
-<dt><strong>Pipeline fails at “provision” stage</strong></dt><dd><ul class="simple">
-<li><p>Check that BMC IPs are reachable for new nodes.</p></li>
-<li><p>Verify credentials are configured.</p></li>
-<li><p>Review the Ansible playbook output in the job logs.</p></li>
-</ul>
-</dd>
-<dt><strong>Pipeline fails at “configure” stage</strong></dt><dd><ul class="simple">
-<li><p>Check that provisioned nodes are reachable.</p></li>
-<li><p>Verify the Vault password is available to the runner.</p></li>
-<li><p>Review Ansible output for specific task failures.</p></li>
-</ul>
-</dd>
-<dt><strong>Git push is rejected</strong></dt><dd><p>Check GitLab authentication:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>git<span class="w"> </span>remote<span class="w"> </span>-v
-<span class="w">   </span><span class="c1"># Ensure URL is correct and credentials are configured</span>
+<p>Fix the catalog and push a new commit.</p>
+<p><strong>Pipeline fails at “provision” stage</strong>
+- Check that BMC IPs are reachable for new nodes.
+- Verify credentials are configured.
+- Review the Ansible playbook output in the job logs.</p>
+<p><strong>Pipeline fails at “configure” stage</strong>
+- Check that provisioned nodes are reachable.
+- Verify the Vault password is available to the runner.
+- Review Ansible output for specific task failures.</p>
+<p><strong>Git push is rejected</strong>
+Check GitLab authentication:</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>remote<span class="w"> </span>-v
+<span class="c1"># Ensure URL is correct and credentials are configured</span>
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>Pipeline not triggered on push</strong></dt><dd><p>Verify <code class="docutils literal notranslate"><span class="pre">.gitlab-ci.yml</span></code> exists in the repository root and the runner
+<p><strong>Pipeline not triggered on push</strong>
+Verify <code class="docutils literal notranslate"><span class="pre">.gitlab-ci.yml</span></code> exists in the repository root and the runner
 is active:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>gitlab-runner<span class="w"> </span>gitlab-runner<span class="w"> </span>list
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>gitlab-runner<span class="w"> </span>gitlab-runner<span class="w"> </span>list
 </pre></div>
 </div>
 </div>

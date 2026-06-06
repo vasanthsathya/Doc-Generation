@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -541,7 +541,7 @@ switch.</p></li>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
 <ol class="arabic">
-<li><p><strong>Verify OIM boot services are running</strong>:</p>
+<li><p>Verify OIM boot services are running:</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>is-active<span class="w"> </span>coredhcp.service
@@ -553,7 +553,7 @@ systemctl<span class="w"> </span>is-active<span class="w"> </span>bss.service
 </div>
 <p>All services should report <code class="docutils literal notranslate"><span class="pre">active</span></code>.</p>
 </li>
-<li><p><strong>(If needed) Manually set PXE boot order via iDRAC</strong>:</p>
+<li><p>(If needed) Manually set PXE boot order via iDRAC:</p>
 <ol class="loweralpha simple">
 <li><p>Open a web browser and navigate to <code class="docutils literal notranslate"><span class="pre">https://&lt;bmc-ip&gt;</span></code>.</p></li>
 <li><p>Log in with iDRAC credentials.</p></li>
@@ -564,20 +564,18 @@ systemctl<span class="w"> </span>is-active<span class="w"> </span>bss.service
 <li><p>Click <strong>Apply</strong> and reboot the server.</p></li>
 </ol>
 <p>Alternatively, configure via Redfish from the OIM:</p>
-</li>
-</ol>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>curl<span class="w"> </span>-sk<span class="w"> </span>-X<span class="w"> </span>PATCH<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>https://&lt;bmc-ip&gt;/redfish/v1/Systems/System.Embedded.1<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-u<span class="w"> </span>root:&lt;bmc-password&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;Boot&quot;: {&quot;BootSourceOverrideTarget&quot;: &quot;Pxe&quot;, &quot;BootSourceOverrideEnabled&quot;: &quot;Continuous&quot;}}&#39;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-sk<span class="w"> </span>-X<span class="w"> </span>PATCH<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://&lt;bmc-ip&gt;/redfish/v1/Systems/System.Embedded.1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-u<span class="w"> </span>root:&lt;bmc-password&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;Boot&quot;: {&quot;BootSourceOverrideTarget&quot;: &quot;Pxe&quot;, &quot;BootSourceOverrideEnabled&quot;: &quot;Continuous&quot;}}&#39;</span>
 </pre></div>
 </div>
 </div>
-<ol class="arabic">
-<li><p><strong>Power-cycle the target servers</strong> to initiate PXE boot:</p>
+</li>
+<li><p>Power-cycle the target servers to initiate PXE boot:</p>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using Redfish to power-cycle a single server</span>
@@ -590,46 +588,36 @@ curl<span class="w"> </span>-sk<span class="w"> </span>-X<span class="w"> </span
 </div>
 </div>
 <p>Or power-cycle all nodes from the omnia_core container:</p>
-</li>
-</ol>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># Power-cycle all discovered nodes</span>
-<span class="w">   </span>ochami<span class="w"> </span>node<span class="w"> </span>power<span class="w"> </span>--action<span class="w"> </span>restart<span class="w"> </span>--all
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Power-cycle all discovered nodes</span>
+ochami<span class="w"> </span>node<span class="w"> </span>power<span class="w"> </span>--action<span class="w"> </span>restart<span class="w"> </span>--all
 </pre></div>
 </div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Monitor the PXE boot process</strong>:</p></li>
-</ol>
-<blockquote>
-<div><ul class="simple">
-<li><p>Watch the iDRAC virtual console for each server.</p></li>
-<li><dl class="simple">
-<dt>The server should display <code class="docutils literal notranslate"><span class="pre">iPXE</span></code> boot messages followed by the OS</dt><dd><p>installer.</p>
-</dd>
-</dl>
 </li>
+<li><p>Monitor the PXE boot process:</p>
+<ul class="simple">
+<li><p>Watch the iDRAC virtual console for each server.</p></li>
+<li><p>The server should display <code class="docutils literal notranslate"><span class="pre">iPXE</span></code> boot messages followed by the OS installer.</p></li>
 <li><p>After installation, the server reboots into the provisioned OS.</p></li>
 </ul>
-</div></blockquote>
-<ol class="arabic simple">
-<li><p><strong>Wait for provisioning to complete</strong>. Provisioning typically takes
-<strong>10-20 minutes</strong> per node. Nodes will:</p></li>
-</ol>
-<blockquote>
-<div><ul class="simple">
+</li>
+<li><p>Wait for provisioning to complete. Provisioning typically takes
+<strong>10-20 minutes</strong> per node. Nodes will:</p>
+<ul class="simple">
 <li><p>PXE boot and download the boot image from the OIM.</p></li>
 <li><p>Install the operating system to local disk.</p></li>
 <li><p>Configure networking based on the mapping file.</p></li>
 <li><p>Reboot into the installed OS.</p></li>
 </ul>
-</div></blockquote>
+</li>
+</ol>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
 <ol class="arabic">
-<li><p><strong>Ping each provisioned node</strong> from the OIM:</p>
+<li><p>Ping each provisioned node from the OIM:</p>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ping all nodes listed in the mapping file</span>
@@ -641,25 +629,24 @@ curl<span class="w"> </span>-sk<span class="w"> </span>-X<span class="w"> </span
 </div>
 </div>
 </li>
-<li><p><strong>SSH into a provisioned node</strong> to verify the OS is installed:</p>
+<li><p>SSH into a provisioned node to verify the OS is installed:</p>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>root@10.5.0.101
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
+<p>Then verify on the provisioned node:</p>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text">Run on: provisioned node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>cat<span class="w"> </span>/etc/os-release
-<span class="w">   </span>hostname
-<span class="w">   </span>ip<span class="w"> </span>addr<span class="w"> </span>show
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/etc/os-release
+hostname
+ip<span class="w"> </span>addr<span class="w"> </span>show
 </pre></div>
 </div>
 </div>
-<ol class="arabic">
-<li><p><strong>Verify node registration in OpenCHAMI</strong>:</p>
+</li>
+<li><p>Verify node registration in OpenCHAMI:</p>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ochami<span class="w"> </span>node<span class="w"> </span>list
@@ -681,56 +668,45 @@ provisioned nodes.</p></li>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl>
-<dt><strong>Node does not PXE boot</strong></dt><dd><ul class="simple">
+<p><strong>Node does not PXE boot</strong></p>
+<ul class="simple">
 <li><p>Verify the NIC is configured for PXE boot in BIOS/UEFI settings.</p></li>
 <li><p>Check the physical network cable connection.</p></li>
-<li><dl class="simple">
-<dt>Verify the server’s boot mode matches the OIM’s configuration (UEFI vs.</dt><dd><p>Legacy).</p>
-</dd>
-</dl>
+<li><p>Verify the server’s boot mode matches the OIM’s configuration (UEFI vs. Legacy).</p></li>
+</ul>
+<p><strong>Node gets a DHCP address but fails to download the image</strong></p>
+<ul>
+<li><p>Check the TFTP service:</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>logs<span class="w"> </span>tftpd
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Verify the image server is running:</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>logs<span class="w"> </span>image-server
+</pre></div>
+</div>
+</div>
 </li>
 </ul>
-</dd>
-<dt><strong>Node gets a DHCP address but fails to download the image</strong></dt><dd><ul class="simple">
-<li><p>Check the TFTP service:</p></li>
-</ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>podman<span class="w"> </span>logs<span class="w"> </span>tftpd
-</pre></div>
-</div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li><p>Verify the image server is running:</p></li>
-</ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>podman<span class="w"> </span>logs<span class="w"> </span>image-server
-</pre></div>
-</div>
-</div>
-</div></blockquote>
-</dd>
-<dt><strong>Node boots but gets the wrong OS</strong></dt><dd><ul class="simple">
-<li><p>Verify the BSS configuration matches the expected image:</p></li>
-</ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id11">
+<p><strong>Node boots but gets the wrong OS</strong></p>
+<ul>
+<li><p>Verify the BSS configuration matches the expected image:</p>
+<div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>ochami<span class="w"> </span>bss<span class="w"> </span>list
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ochami<span class="w"> </span>bss<span class="w"> </span>list
 </pre></div>
 </div>
 </div>
-</div></blockquote>
-<ul class="simple">
+</li>
 <li><p>Rebuild the image if necessary (see <a class="reference internal" href="build_cluster_images.html"><span class="doc">Build Cluster Images</span></a>).</p></li>
 </ul>
-</dd>
-<dt><strong>Node provisions but is unreachable on the admin network</strong></dt><dd><ul class="simple">
+<p><strong>Node provisions but is unreachable on the admin network</strong></p>
+<ul class="simple">
 <li><dl class="simple">
 <dt>Check that the admin IP was correctly assigned by reviewing</dt><dd><p><code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/network-scripts/</span></code> on the node (access via iDRAC
 virtual console).</p>
@@ -739,21 +715,18 @@ virtual console).</p>
 </li>
 <li><p>Verify the admin network switch port is in the correct VLAN.</p></li>
 </ul>
-</dd>
-<dt><strong>Provisioning takes too long (&gt; 30 minutes per node)</strong></dt><dd><ul class="simple">
+<p><strong>Provisioning takes too long (&gt; 30 minutes per node)</strong></p>
+<ul>
 <li><p>Check OIM network bandwidth to the admin switch.</p></li>
-<li><p>Verify MinIO/image-server performance:</p></li>
-</ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id12">
+<li><p>Verify MinIO/image-server performance:</p>
+<div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>podman<span class="w"> </span>stats<span class="w"> </span>--no-stream<span class="w"> </span>minio<span class="w"> </span>image-server
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>stats<span class="w"> </span>--no-stream<span class="w"> </span>minio<span class="w"> </span>image-server
 </pre></div>
 </div>
 </div>
-</div></blockquote>
-</dd>
-</dl>
+</li>
+</ul>
 <p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=41ea00ef" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -453,32 +453,35 @@ the <code class="docutils literal notranslate"><span class="pre">discovery.yml</
 <h2>PXE boot failures<a class="headerlink" href="#pxe-boot-failures" title="Link to this heading">#</a></h2>
 <section id="nic-not-set-to-pxe-boot">
 <h3>NIC not set to PXE boot<a class="headerlink" href="#nic-not-set-to-pxe-boot" title="Link to this heading">#</a></h3>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>The target node does not attempt a network boot. It boots directly to the
+<p><strong>Symptom</strong></p>
+<p>The target node does not attempt a network boot. It boots directly to the
 local disk or enters the BIOS setup instead of requesting a PXE image from
 the OIM.</p>
-</div></blockquote>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><p>The node’s BIOS/UEFI boot order does not include PXE/network boot, or PXE
+<p><strong>Cause</strong></p>
+<p>The node’s BIOS/UEFI boot order does not include PXE/network boot, or PXE
 is disabled on the NIC connected to the admin network.</p>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>Enter the node’s BIOS/UEFI setup (press F2 during POST on Dell PowerEdge
-servers).</p></li>
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Enter the node’s BIOS/UEFI setup (press F2 during POST on Dell PowerEdge</dt><dd><p>servers).</p>
+</dd>
+</dl>
+</li>
 <li><p>Navigate to <strong>System BIOS</strong> &gt; <strong>Network Settings</strong>.</p></li>
 <li><p>Enable <strong>PXE Boot</strong> on the NIC connected to the admin network.</p></li>
-<li><p>Navigate to <strong>Boot Settings</strong> &gt; <strong>BIOS Boot Settings</strong> (or <strong>UEFI Boot
-Settings</strong>).</p></li>
+<li><dl class="simple">
+<dt>Navigate to <strong>Boot Settings</strong> &gt; <strong>BIOS Boot Settings</strong> (or <a href="#id1"><span class="problematic" id="id2">**</span></a>UEFI Boot</dt><dd><p>Settings**).</p>
+</dd>
+</dl>
+</li>
 <li><p>Set <strong>Network Boot</strong> (PXE) as the first boot option.</p></li>
-<li><p>Save and exit BIOS. The node should now attempt PXE boot on the next
-restart.</p></li>
+<li><dl class="simple">
+<dt>Save and exit BIOS. The node should now attempt PXE boot on the next</dt><dd><p>restart.</p>
+</dd>
+</dl>
+</li>
 </ol>
 <p>Alternatively, use <code class="docutils literal notranslate"><span class="pre">racadm</span></code> to configure remotely:</p>
-</div></blockquote>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>racadm<span class="w"> </span><span class="nb">set</span><span class="w"> </span>NIC.NICConfig.1.LegacyBootProto<span class="w"> </span>PXE
 racadm<span class="w"> </span><span class="nb">set</span><span class="w"> </span>BIOS.BiosBootSettings.BootSeq<span class="w"> </span>NIC.Slot.1-1
 </pre></div>
@@ -486,38 +489,30 @@ racadm<span class="w"> </span><span class="nb">set</span><span class="w"> </span
 </section>
 <section id="wrong-mac-address-in-mapping-file">
 <h3>Wrong MAC address in mapping file<a class="headerlink" href="#wrong-mac-address-in-mapping-file" title="Link to this heading">#</a></h3>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>The node PXE boots but does not receive an IP address, or it receives an IP
+<p><strong>Symptom</strong></p>
+<p>The node PXE boots but does not receive an IP address, or it receives an IP
 but is not recognized by OpenCHAMI.</p>
-</div></blockquote>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><p>The MAC address in <code class="docutils literal notranslate"><span class="pre">/omnia/input/mapping_file.csv</span></code> does not match the
+<p><strong>Cause</strong></p>
+<p>The MAC address in <code class="docutils literal notranslate"><span class="pre">/omnia/input/mapping_file.csv</span></code> does not match the
 actual MAC address of the NIC being used for PXE boot.</p>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Verify the correct MAC address from iDRAC or the node’s BIOS:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span><span class="c1"># From iDRAC (using racadm)</span>
-<span class="w">      </span>racadm<span class="w"> </span>getsysinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;MAC Address&quot;</span>
-
-
-
-<span class="c1">#. Update the mapping file with the correct MAC:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># From iDRAC (using racadm)</span>
+racadm<span class="w"> </span>getsysinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;MAC Address&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>      # /omnia/input/mapping_file.csv
-      AA:BB:CC:DD:EE:FF,compute-01,10.5.0.101
-
-
-
-#. Re-run the discovery playbook:
+<ol class="arabic simple">
+<li><p>Update the mapping file with the correct MAC:</p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># /omnia/input/mapping_file.csv
+AA:BB:CC:DD:EE:FF,compute-01,10.5.0.101
 </pre></div>
 </div>
+<ol class="arabic simple">
+<li><p>Re-run the discovery playbook:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 <span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>playbooks/discovery.yml
@@ -526,28 +521,22 @@ ansible-playbook<span class="w"> </span>playbooks/discovery.yml
 </section>
 <section id="dhcp-not-serving-ip-addresses">
 <h3>DHCP not serving IP addresses<a class="headerlink" href="#dhcp-not-serving-ip-addresses" title="Link to this heading">#</a></h3>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>Nodes attempt PXE boot but fail with a DHCP timeout error:</p>
-</div></blockquote>
+<p><strong>Symptom</strong></p>
+<p>Nodes attempt PXE boot but fail with a DHCP timeout error:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>PXE-E51: No DHCP or proxyDHCP offers were received
 </pre></div>
 </div>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>The CoreDHCP container on the OIM is not running.</p></li>
 <li><p>The DHCP range is exhausted.</p></li>
 <li><p>A network misconfiguration prevents DHCP broadcasts from reaching the OIM.</p></li>
 <li><p>Another DHCP server on the same network is interfering.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Verify the CoreDHCP container is running:</p></li>
 </ol>
-</div></blockquote>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>podman<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>coredhcp
 
 
@@ -555,31 +544,28 @@ ansible-playbook<span class="w"> </span>playbooks/discovery.yml
 If<span class="w"> </span>it<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>running,<span class="w"> </span>start<span class="w"> </span>it:
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>podman<span class="w"> </span>start<span class="w"> </span>coredhcp
-
-
-
-<span class="c1">#. Check CoreDHCP logs for errors:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>start<span class="w"> </span>coredhcp
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>podman<span class="w"> </span>logs<span class="w"> </span>coredhcp
-
-
-
-<span class="c1">#. Verify no rogue DHCP server exists on the admin network:</span>
+<ol class="arabic simple" start="2">
+<li><p>Check CoreDHCP logs for errors:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>logs<span class="w"> </span>coredhcp
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>nmap<span class="w"> </span>--script<span class="w"> </span>broadcast-dhcp-discover<span class="w"> </span>-e<span class="w"> </span>&lt;admin_nic&gt;
-
-
-
-<span class="c1">#. Ensure the OIM&#39;s admin NIC is on the correct VLAN and subnet.</span>
+<ol class="arabic simple" start="3">
+<li><p>Verify no rogue DHCP server exists on the admin network:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nmap<span class="w"> </span>--script<span class="w"> </span>broadcast-dhcp-discover<span class="w"> </span>-e<span class="w"> </span>&lt;admin_nic&gt;
 </pre></div>
 </div>
+<ol class="arabic simple" start="4">
+<li><p>Ensure the OIM’s admin NIC is on the correct VLAN and subnet.</p></li>
+</ol>
 </section>
 <section id="tftp-timeout-during-pxe-boot">
 <h3>TFTP timeout during PXE boot<a class="headerlink" href="#tftp-timeout-during-pxe-boot" title="Link to this heading">#</a></h3>
-<p>???+ note “Symptom”</p>
+<p><strong>Symptom</strong></p>
 <blockquote>
 <div><p>The node receives a DHCP lease but fails to download the boot image:</p>
 </div></blockquote>
@@ -587,7 +573,7 @@ If<span class="w"> </span>it<span class="w"> </span>is<span class="w"> </span>no
 PXE-T02: TFTP packet timeout
 </pre></div>
 </div>
-<p>??? note “Cause”</p>
+<p><strong>Cause</strong></p>
 <blockquote>
 <div><ul class="simple">
 <li><p>The TFTP service on the OIM is not running.</p></li>
@@ -595,19 +581,16 @@ PXE-T02: TFTP packet timeout
 <li><p>The TFTP root directory does not contain the expected boot files.</p></li>
 </ul>
 </div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Verify the TFTP container is running:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>podman<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>tftp
-
-
-
-<span class="c1">#. Check firewall rules:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>tftp
 </pre></div>
 </div>
+<ol class="arabic simple" start="2">
+<li><p>Check firewall rules:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>firewall-cmd<span class="w"> </span>--list-all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>tftp
 
 
@@ -615,14 +598,13 @@ PXE-T02: TFTP packet timeout
 If<span class="w"> </span>TFTP<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>allowed:
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>firewall-cmd<span class="w"> </span>--permanent<span class="w"> </span>--add-service<span class="o">=</span>tftp
-<span class="w">      </span>firewall-cmd<span class="w"> </span>--reload
-
-
-
-<span class="c1">#. Verify boot files exist in the TFTP root:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>firewall-cmd<span class="w"> </span>--permanent<span class="w"> </span>--add-service<span class="o">=</span>tftp
+firewall-cmd<span class="w"> </span>--reload
 </pre></div>
 </div>
+<ol class="arabic simple" start="3">
+<li><p>Verify boot files exist in the TFTP root:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>/var/lib/tftpboot/
 </pre></div>
 </div>
@@ -630,48 +612,39 @@ If<span class="w"> </span>TFTP<span class="w"> </span>is<span class="w"> </span>
 </section>
 <section id="cloud-init-issues">
 <h2>cloud-init issues<a class="headerlink" href="#cloud-init-issues" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>Nodes boot the OS successfully but post-boot configuration fails. The node
+<p><strong>Symptom</strong></p>
+<p>Nodes boot the OS successfully but post-boot configuration fails. The node
 is accessible via console but network settings, hostname, or SSH keys are
 not configured correctly.</p>
-</div></blockquote>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>The cloud-init data source is not configured.</p></li>
 <li><p>The cloud-init configuration file has syntax errors.</p></li>
 <li><p>The cloud-init service was disabled or removed from the OS image.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Check cloud-init status on the affected node:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>cloud-init<span class="w"> </span>status<span class="w"> </span>--long
-
-
-
-<span class="c1">#. Review cloud-init logs:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cloud-init<span class="w"> </span>status<span class="w"> </span>--long
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>cat<span class="w"> </span>/var/log/cloud-init.log
-<span class="w">      </span>cat<span class="w"> </span>/var/log/cloud-init-output.log
-
-
-
-<span class="c1">#. Verify the data source configuration:</span>
+<ol class="arabic simple" start="2">
+<li><p>Review cloud-init logs:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/var/log/cloud-init.log
+cat<span class="w"> </span>/var/log/cloud-init-output.log
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>cat<span class="w"> </span>/etc/cloud/cloud.cfg.d/
-
-
-
-<span class="c1">#. If cloud-init was disabled, re-enable it:</span>
+<ol class="arabic simple" start="3">
+<li><p>Verify the data source configuration:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/etc/cloud/cloud.cfg.d/
 </pre></div>
 </div>
+<ol class="arabic simple" start="4">
+<li><p>If cloud-init was disabled, re-enable it:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>cloud-init
 cloud-init<span class="w"> </span>clean
 reboot
@@ -680,100 +653,82 @@ reboot
 </section>
 <section id="discovery-yml-failures">
 <h2><cite>discovery.yml</cite> failures<a class="headerlink" href="#discovery-yml-failures" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>The <code class="docutils literal notranslate"><span class="pre">discovery.yml</span></code> playbook fails with errors related to OpenCHAMI, BMC
+<p><strong>Symptom</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">discovery.yml</span></code> playbook fails with errors related to OpenCHAMI, BMC
 connectivity, or inventory population.</p>
-</div></blockquote>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>OpenCHAMI services (SMD, BSS) are not running on the OIM.</p></li>
 <li><p>BMC/iDRAC credentials are incorrect.</p></li>
 <li><p>The BMC network is unreachable from the OIM.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Verify OpenCHAMI services are running:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>podman<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ochami
-
-
-
-<span class="c1">#. Test BMC connectivity:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ochami
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span><span class="c1"># Ping the BMC IP</span>
-<span class="w">      </span>ping<span class="w"> </span>&lt;bmc_ip&gt;
+<ol class="arabic simple" start="2">
+<li><p>Test BMC connectivity:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ping the BMC IP</span>
+ping<span class="w"> </span>&lt;bmc_ip&gt;
 
-<span class="w">      </span><span class="c1"># Test Redfish API access</span>
-<span class="w">      </span>curl<span class="w"> </span>-k<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;:&lt;pass&gt;<span class="w"> </span>https://&lt;bmc_ip&gt;/redfish/v1/Systems
-
-
-
-<span class="c1">#. Verify BMC credentials in the configuration:</span>
+<span class="c1"># Test Redfish API access</span>
+curl<span class="w"> </span>-k<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;:&lt;pass&gt;<span class="w"> </span>https://&lt;bmc_ip&gt;/redfish/v1/Systems
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>omnia_core
-<span class="w">      </span>ansible-vault<span class="w"> </span>view<span class="w"> </span>/omnia/input/credentials.yml
-
-
-
-<span class="c1">#. Check discovery logs for detailed errors:</span>
+<ol class="arabic simple" start="3">
+<li><p>Verify BMC credentials in the configuration:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+ansible-vault<span class="w"> </span>view<span class="w"> </span>/omnia/input/credentials.yml
 </pre></div>
 </div>
+<ol class="arabic simple" start="4">
+<li><p>Check discovery logs for detailed errors:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/opt/omnia/log/core/playbooks/discovery.log
 </pre></div>
 </div>
 </section>
 <section id="nodes-not-appearing-after-discovery">
 <h2>Nodes not appearing after discovery<a class="headerlink" href="#nodes-not-appearing-after-discovery" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>After running <code class="docutils literal notranslate"><span class="pre">discovery.yml</span></code> successfully, the expected nodes do not
+<p><strong>Symptom</strong></p>
+<p>After running <code class="docutils literal notranslate"><span class="pre">discovery.yml</span></code> successfully, the expected nodes do not
 appear in <code class="docutils literal notranslate"><span class="pre">ochami-cli</span> <span class="pre">smd</span> <span class="pre">components</span> <span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">sinfo</span></code>.</p>
-</div></blockquote>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>The node’s BMC did not respond during the discovery window.</p></li>
 <li><p>The node’s MAC address does not match any entry in the mapping file.</p></li>
 <li><p>The node booted but failed cloud-init, so it did not register with the
 OIM.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Check the OpenCHAMI inventory:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>omnia_core
-<span class="w">      </span>ochami-cli<span class="w"> </span>smd<span class="w"> </span>components<span class="w"> </span>list
-
-
-
-<span class="c1">#. Verify the node&#39;s BMC is responsive:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+ochami-cli<span class="w"> </span>smd<span class="w"> </span>components<span class="w"> </span>list
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ping<span class="w"> </span>&lt;bmc_ip&gt;
-<span class="w">      </span>curl<span class="w"> </span>-k<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;:&lt;pass&gt;<span class="w"> </span>https://&lt;bmc_ip&gt;/redfish/v1/Systems
-
-
-
-<span class="c1">#. Re-run discovery for the specific node by power-cycling it via iDRAC:</span>
+<ol class="arabic simple" start="2">
+<li><p>Verify the node’s BMC is responsive:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>&lt;bmc_ip&gt;
+curl<span class="w"> </span>-k<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;:&lt;pass&gt;<span class="w"> </span>https://&lt;bmc_ip&gt;/redfish/v1/Systems
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>racadm<span class="w"> </span>-r<span class="w"> </span>&lt;bmc_ip&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;pass&gt;<span class="w"> </span>serveraction<span class="w"> </span>powercycle
-
-
-
-<span class="c1">#. Monitor the discovery log in real time:</span>
+<ol class="arabic simple" start="3">
+<li><p>Re-run discovery for the specific node by power-cycling it via iDRAC:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>racadm<span class="w"> </span>-r<span class="w"> </span>&lt;bmc_ip&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;pass&gt;<span class="w"> </span>serveraction<span class="w"> </span>powercycle
 </pre></div>
 </div>
+<ol class="arabic simple" start="4">
+<li><p>Monitor the discovery log in real time:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tail<span class="w"> </span>-f<span class="w"> </span>/opt/omnia/log/core/playbooks/discovery.log
 </pre></div>
 </div>

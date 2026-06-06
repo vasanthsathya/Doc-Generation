@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -487,17 +487,14 @@ survive the re-provision.</p></li>
 <h3>Step 1: Drain workloads<a class="headerlink" href="#step-1-drain-workloads" title="Link to this heading">#</a></h3>
 <p>Before re-provisioning, gracefully drain all workloads from the target nodes.</p>
 <p><strong>For Slurm nodes:</strong></p>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id1">
+<div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">NodeName</span><span class="o">=</span>compute-03<span class="w"> </span><span class="nv">State</span><span class="o">=</span>DRAIN<span class="w"> </span><span class="nv">Reason</span><span class="o">=</span><span class="s2">&quot;Re-provisioning&quot;</span>
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 <p>Wait for running jobs to complete, or cancel them if immediate action is needed:</p>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id2">
+<div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check for running jobs on the node</span>
 squeue<span class="w"> </span>-w<span class="w"> </span>compute-03
@@ -507,42 +504,30 @@ scancel<span class="w"> </span>&lt;job_id&gt;
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 <p><strong>For Kubernetes nodes:</strong></p>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id3">
+<div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Run on: Kubernetes control plane</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>drain<span class="w"> </span>kube-worker-02<span class="w"> </span>--ignore-daemonsets<span class="w"> </span>--delete-emptydir-data
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 </section>
 <section id="step-2-update-configuration">
 <h3>Step 2: Update configuration<a class="headerlink" href="#step-2-update-configuration" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p>Review and update the input configuration files as needed:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</li>
+<ol class="arabic simple">
+<li><p>Review and update the input configuration files as needed:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>ssh<span class="w"> </span>omnia_core
-<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/omnia/input
-
-
-
--<span class="w"> </span><span class="sb">``</span>mapping_file.csv<span class="sb">``</span><span class="w"> </span>--<span class="w"> </span>Update<span class="w"> </span>node<span class="w"> </span>roles<span class="w"> </span><span class="k">if</span><span class="w"> </span>changing.
--<span class="w"> </span><span class="sb">``</span>provision_config.yml<span class="sb">``</span><span class="w"> </span>--<span class="w"> </span>Update<span class="w"> </span>OS<span class="w"> </span>image<span class="w"> </span>or<span class="w"> </span>provisioning<span class="w"> </span>parameters.
--<span class="w"> </span><span class="sb">``</span>omnia_config.yml<span class="sb">``</span><span class="w"> </span>--<span class="w"> </span>Update<span class="w"> </span>cluster-level<span class="w"> </span>settings.
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+<span class="nb">cd</span><span class="w"> </span>/omnia/input
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p>If building a new OS image, run the image-build process:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</li>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mapping_file.csv</span></code> – Update node roles if changing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">provision_config.yml</span></code> – Update OS image or provisioning parameters.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code> – Update cluster-level settings.</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>If building a new OS image, run the image-build process:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>playbooks/build_cluster_images.yml
@@ -553,15 +538,13 @@ ansible-playbook<span class="w"> </span>playbooks/build_cluster_images.yml
 <h3>Step 3: Re-image the nodes<a class="headerlink" href="#step-3-re-image-the-nodes" title="Link to this heading">#</a></h3>
 <p>Run <code class="docutils literal notranslate"><span class="pre">discovery.yml</span></code> to re-discover and PXE-boot the target nodes with the
 updated OS image:</p>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id4">
+<div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>playbooks/discovery.yml
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 <p>The nodes will:</p>
 <ol class="arabic simple">
 <li><p>Reboot into the PXE environment.</p></li>
@@ -578,15 +561,13 @@ image size and network speed.</p>
 <h3>Step 4: Redeploy cluster software<a class="headerlink" href="#step-4-redeploy-cluster-software" title="Link to this heading">#</a></h3>
 <p>After the nodes have been re-imaged and are accessible via SSH, redeploy the
 Omnia cluster software:</p>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id5">
+<div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>playbooks/omnia.yml
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 <p>This playbook applies the full cluster configuration, including:</p>
 <ul class="simple">
 <li><p>Slurm controller and compute daemon setup</p></li>
@@ -600,8 +581,7 @@ ansible-playbook<span class="w"> </span>playbooks/omnia.yml
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
 <p>After re-provisioning is complete:</p>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id6">
+<div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify Slurm nodes are back online</span>
 sinfo
@@ -617,7 +597,6 @@ srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><s
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">

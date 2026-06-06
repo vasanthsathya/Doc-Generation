@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -552,7 +552,8 @@ server plays and how it is addressed on the network.</p>
 </section>
 <section id="sample-file">
 <h2>Sample file<a class="headerlink" href="#sample-file" title="Link to this heading">#</a></h2>
-<p><strong>Sample pxe_mapping_file.csv</strong></p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Sample pxe_mapping_file.csv</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
 slurm_control_node,slurm_head,ABC1234,,slurm-ctrl-01,EC:2A:72:34:56:01,10.5.0.10,,10.3.0.10
 slurm_node,gpu_nodes,DEF5678,,slurm-gpu-01,EC:2A:72:34:56:02,10.5.0.11,,10.3.0.11
@@ -567,13 +568,16 @@ kube_node,k8s_workers,BCD7890,,kube-wk-02,EC:2A:72:34:56:0A,10.5.0.24,,10.3.0.24
 auth_server,auth,EFG1234,,auth-01,EC:2A:72:34:56:0B,10.5.0.30,,10.3.0.30
 </pre></div>
 </div>
+</div>
 </section>
 <section id="annotated-breakdown">
 <h2>Annotated breakdown<a class="headerlink" href="#annotated-breakdown" title="Link to this heading">#</a></h2>
 <p><strong>Slurm control node</strong></p>
-<p><strong>Example: Slurm control node</strong></p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Example: Slurm control node</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>slurm_control_node,slurm_head,ABC1234,,slurm-ctrl-01,EC:2A:72:34:56:01,10.5.0.10,,10.3.0.10
 </pre></div>
+</div>
 </div>
 <ul class="simple">
 <li><p>Runs <code class="docutils literal notranslate"><span class="pre">slurmctld</span></code> and <code class="docutils literal notranslate"><span class="pre">slurmdbd</span></code>.</p></li>
@@ -581,10 +585,12 @@ auth_server,auth,EFG1234,,auth-01,EC:2A:72:34:56:0B,10.5.0.30,,10.3.0.30
 <li><p><code class="docutils literal notranslate"><span class="pre">PARENT_SERVICE_TAG</span></code> is empty (standalone server).</p></li>
 </ul>
 <p><strong>Slurm compute nodes</strong></p>
-<p><strong>Example: Slurm compute nodes</strong></p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Example: Slurm compute nodes</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>slurm_node,gpu_nodes,DEF5678,,slurm-gpu-01,EC:2A:72:34:56:02,10.5.0.11,,10.3.0.11
 slurm_node,cpu_nodes,JKL3456,,slurm-cpu-01,EC:2A:72:34:56:04,10.5.0.13,,10.3.0.13
 </pre></div>
+</div>
 </div>
 <ul class="simple">
 <li><p>Runs <code class="docutils literal notranslate"><span class="pre">slurmd</span></code>.</p></li>
@@ -593,18 +599,22 @@ CPU-only nodes (<code class="docutils literal notranslate"><span class="pre">cpu
 partitions.</p></li>
 </ul>
 <p><strong>Login node</strong></p>
-<p><strong>Example: Login node</strong></p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Example: Login node</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>login_node,login,MNO7890,,login-01,EC:2A:72:34:56:05,10.5.0.14,,10.3.0.14
 </pre></div>
+</div>
 </div>
 <ul class="simple">
 <li><p>Provides interactive SSH access for users to submit jobs.</p></li>
 <li><p>Does not run <code class="docutils literal notranslate"><span class="pre">slurmd</span></code>; configured as a Slurm client only.</p></li>
 </ul>
 <p><strong>Kubernetes control plane</strong></p>
-<p><strong>Example: Kubernetes control plane</strong></p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Example: Kubernetes control plane</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>kube_control_plane,k8s_cp,PQR1234,,kube-cp-01,EC:2A:72:34:56:06,10.5.0.20,,10.3.0.20
 </pre></div>
+</div>
 </div>
 <ul class="simple">
 <li><p>Runs the Kubernetes API server, etcd, scheduler, and controller-manager.</p></li>
@@ -612,18 +622,22 @@ partitions.</p></li>
 <a class="reference internal" href="../Configuration/ha_config.html"><span class="doc">Ha Config</span></a>).</p></li>
 </ul>
 <p><strong>Kubernetes worker nodes</strong></p>
-<p><strong>Example: Kubernetes worker nodes</strong></p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Example: Kubernetes worker nodes</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>kube_node,k8s_workers,YZA3456,,kube-wk-01,EC:2A:72:34:56:09,10.5.0.23,,10.3.0.23
 </pre></div>
+</div>
 </div>
 <ul class="simple">
 <li><p>Runs <code class="docutils literal notranslate"><span class="pre">kubelet</span></code> and <code class="docutils literal notranslate"><span class="pre">kube-proxy</span></code>; hosts application pods.</p></li>
 </ul>
 <p><strong>Multi-node chassis example (C6620)</strong></p>
-<p><strong>Example: Multi-node chassis (C6620)</strong></p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Example: Multi-node chassis (C6620)</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>slurm_node,cpu_nodes,SLD1234,CHASSIS01,sled-01,EC:2A:72:34:56:10,10.5.0.40,,10.3.0.40
 slurm_node,cpu_nodes,SLD5678,CHASSIS01,sled-02,EC:2A:72:34:56:11,10.5.0.41,,10.3.0.41
 </pre></div>
+</div>
 </div>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">PARENT_SERVICE_TAG</span></code> identifies the shared chassis.</p></li>

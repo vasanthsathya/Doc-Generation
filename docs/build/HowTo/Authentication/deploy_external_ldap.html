@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -538,16 +538,18 @@ against it..</p>
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
 <section id="standalone-server-deployment-podman">
 <h3>Standalone Server Deployment (Podman)<a class="headerlink" href="#standalone-server-deployment-podman" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>Log in to the LDAP server host</strong>:</p>
+<ol class="arabic simple">
+<li><p>Log in to the LDAP server host:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: dedicated LDAP server</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>root@&lt;ldap-server-ip&gt;
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Create persistent storage directories</strong>:</p>
+<ol class="arabic simple" start="2">
+<li><p>Create persistent storage directories:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: dedicated LDAP server</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/ldap/data
@@ -555,8 +557,9 @@ mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/ldap/config
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Deploy the Bitnami OpenLDAP container</strong>:</p>
+<ol class="arabic simple" start="3">
+<li><p>Deploy the Bitnami OpenLDAP container:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Run on: dedicated LDAP server</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
@@ -575,8 +578,9 @@ mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/ldap/config
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Create initial LDIF</strong> for organizational structure:</p>
+<ol class="arabic simple" start="4">
+<li><p>Create initial LDIF for organizational structure:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Run on: dedicated LDAP server</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /opt/ldap/config/01-org.ldif</span>
@@ -591,8 +595,9 @@ mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/ldap/config
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Load the initial LDIF</strong>:</p>
+<ol class="arabic simple" start="5">
+<li><p>Load the initial LDIF:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">Run on: dedicated LDAP server</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>openldap<span class="w"> </span>ldapadd<span class="w"> </span>-x<span class="w"> </span><span class="se">\</span>
@@ -602,8 +607,9 @@ mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/ldap/config
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Add users and groups</strong>:</p>
+<ol class="arabic simple" start="6">
+<li><p>Add users and groups:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">Run on: dedicated LDAP server</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /opt/ldap/config/02-users.ldif</span>
@@ -633,22 +639,21 @@ podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 </div>
 </div>
 <p>Set the user password:</p>
-</li>
-</ol>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text">Run on: dedicated LDAP server</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>openldap<span class="w"> </span>ldappasswd<span class="w"> </span>-x<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-w<span class="w"> </span>YourAdminPassword<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-S<span class="w"> </span><span class="s2">&quot;uid=hpcuser1,ou=People,dc=omnia,dc=example,dc=com&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>openldap<span class="w"> </span>ldappasswd<span class="w"> </span>-x<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-w<span class="w"> </span>YourAdminPassword<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-S<span class="w"> </span><span class="s2">&quot;uid=hpcuser1,ou=People,dc=omnia,dc=example,dc=com&quot;</span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="kubernetes-deployment-helm">
 <h3>Kubernetes Deployment (Helm)<a class="headerlink" href="#kubernetes-deployment-helm" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>(Alternative) Deploy on K8s</strong> using Helm:</p>
+<ol class="arabic simple">
+<li><p>(Alternative) Deploy on K8s using Helm:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>bitnami<span class="w"> </span>https://charts.bitnami.com/bitnami
@@ -666,22 +671,20 @@ helm<span class="w"> </span>install<span class="w"> </span>openldap<span class="
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="configure-omnia-nodes">
 <h3>Configure Omnia Nodes<a class="headerlink" href="#configure-omnia-nodes" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>Update omnia_config.yml</strong> to point to the external LDAP:</p>
+<ol class="arabic simple">
+<li><p>Update omnia_config.yml to point to the external LDAP:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
-<p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/omnia_config.yml</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="nt">auth_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;external_ldap&quot;</span>
 <span class="nt">external_ldap_uri</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ldap://&lt;ldap-server-ip&gt;:389&quot;</span>
@@ -689,57 +692,59 @@ helm<span class="w"> </span>install<span class="w"> </span>openldap<span class="
 <span class="nt">external_ldap_bind_dn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cn=admin,dc=omnia,dc=example,dc=com&quot;</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Run the auth playbook</strong> to configure SSSD on cluster nodes:</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Run the auth playbook to configure SSSD on cluster nodes:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>auth.yml<span class="w"> </span>--ask-vault-pass
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Verify the LDAP container is running</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on: dedicated LDAP server</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<ol class="arabic simple">
+<li><p>Verify the LDAP container is running:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Run on: dedicated LDAP server</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>ps<span class="w"> </span>--filter<span class="w"> </span><span class="nv">name</span><span class="o">=</span>openldap
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Test LDAP search</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="2">
+<li><p>Test LDAP search:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://&lt;ldap-server-ip&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-b<span class="w"> </span><span class="s2">&quot;dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span><span class="s2">&quot;(uid=hpcuser1)&quot;</span>
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify user resolution on cluster nodes</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="3">
+<li><p>Verify user resolution on cluster nodes:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>getent<span class="w"> </span>passwd<span class="w"> </span>hpcuser1
 id<span class="w"> </span>hpcuser1
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Test SSH login</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Run on: any node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="4">
+<li><p>Test SSH login:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Run on: any node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>hpcuser1@&lt;compute-node-ip&gt;
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -750,44 +755,36 @@ id<span class="w"> </span>hpcuser1
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt><strong>Container fails to start</strong></dt><dd><p>Check container logs:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Run on: dedicated LDAP server</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>podman<span class="w"> </span>logs<span class="w"> </span>openldap
-</pre></div>
-</div>
-</div>
-<dl class="simple">
-<dt><strong>Port 389 already in use</strong></dt><dd><p>Check for existing LDAP processes:</p>
-</dd>
-</dl>
+<p><strong>Container fails to start</strong>
+Check container logs:</p>
 <div class="literal-block-wrapper docutils container" id="id16">
 <div class="code-block-caption"><span class="caption-text">Run on: dedicated LDAP server</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">389</span>
-<span class="w">   </span><span class="c1"># Kill or stop the conflicting process</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>logs<span class="w"> </span>openldap
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>SSSD cannot connect to external LDAP</strong></dt><dd><p>Verify connectivity from a cluster node:</p>
-</dd>
-</dl>
+<p><strong>Port 389 already in use</strong>
+Check for existing LDAP processes:</p>
 <div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://&lt;ldap-server-ip&gt;<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span><span class="s2">&quot;(objectClass=*)&quot;</span><span class="w"> </span>dn
+<div class="code-block-caption"><span class="caption-text">Run on: dedicated LDAP server</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">389</span>
+<span class="c1"># Kill or stop the conflicting process</span>
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>Users not visible after LDAP add</strong></dt><dd><p>Clear SSSD cache on cluster nodes:</p>
-</dd>
-</dl>
+<p><strong>SSSD cannot connect to external LDAP</strong>
+Verify connectivity from a cluster node:</p>
 <div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;sss_cache -E &amp;&amp; systemctl restart sssd&quot;</span>
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://&lt;ldap-server-ip&gt;<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span><span class="s2">&quot;(objectClass=*)&quot;</span><span class="w"> </span>dn
+</pre></div>
+</div>
+</div>
+<p><strong>Users not visible after LDAP add</strong>
+Clear SSSD cache on cluster nodes:</p>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;sss_cache -E &amp;&amp; systemctl restart sssd&quot;</span>
 </pre></div>
 </div>
 </div>

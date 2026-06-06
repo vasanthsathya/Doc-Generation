@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -537,8 +537,9 @@ running and base OS repos are synced).</p></li>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Install build dependencies</strong> on the build host:</p>
+<ol class="arabic simple">
+<li><p>Install build dependencies on the build host:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Run on: build host (OIM or dedicated build server)</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>groupinstall<span class="w"> </span>-y<span class="w"> </span><span class="s2">&quot;Development Tools&quot;</span>
@@ -549,16 +550,18 @@ dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </s
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Create the RPM build directory structure</strong>:</p>
+<ol class="arabic simple" start="2">
+<li><p>Create the RPM build directory structure:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Run on: build host</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/rpmbuild/<span class="o">{</span>BUILD,RPMS,SOURCES,SPECS,SRPMS<span class="o">}</span>
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Download the Slurm source tarball</strong>:</p>
+<ol class="arabic simple" start="3">
+<li><p>Download the Slurm source tarball:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">Run on: build host</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/rpmbuild/SOURCES
@@ -566,12 +569,13 @@ wget<span class="w"> </span>https://download.schedmd.com/slurm/slurm-23.11.4.tar
 </pre></div>
 </div>
 </div>
-<p>!!! note</p>
-<blockquote>
-<div><p>Replace the version number with your desired Slurm version.</p>
-</div></blockquote>
-</li>
-<li><p><strong>Extract the spec file</strong>:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Replace the version number with your desired Slurm version.</p>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Extract the spec file:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">Run on: build host</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tar<span class="w"> </span>xjf<span class="w"> </span>slurm-23.11.4.tar.bz2<span class="w"> </span>--strip-components<span class="o">=</span><span class="m">1</span><span class="w"> </span>-C<span class="w"> </span>/tmp<span class="w"> </span>slurm-23.11.4/slurm.spec
@@ -579,8 +583,9 @@ cp<span class="w"> </span>/tmp/slurm.spec<span class="w"> </span>~/rpmbuild/SPEC
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Build the RPMs</strong>:</p>
+<ol class="arabic simple" start="5">
+<li><p>Build the RPMs:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text">Run on: build host</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rpmbuild<span class="w"> </span>-ba<span class="w"> </span>~/rpmbuild/SPECS/slurm.spec
@@ -589,8 +594,9 @@ cp<span class="w"> </span>/tmp/slurm.spec<span class="w"> </span>~/rpmbuild/SPEC
 </div>
 <p>This process takes <strong>10-30 minutes</strong> depending on hardware. The resulting
 RPMs will be in <code class="docutils literal notranslate"><span class="pre">~/rpmbuild/RPMS/x86_64/</span></code>.</p>
-</li>
-<li><p><strong>Create a local repository</strong> from the built RPMs:</p>
+<ol class="arabic simple" start="6">
+<li><p>Create a local repository from the built RPMs:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">Run on: build host</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>createrepo_c
@@ -600,8 +606,9 @@ createrepo_c<span class="w"> </span>/opt/omnia/custom_repos/slurm/
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Upload to Pulp</strong> (from the omnia_core container):</p>
+<ol class="arabic simple" start="7">
+<li><p>Upload to Pulp (from the omnia_core container):</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a Pulp repository for custom Slurm RPMs</span>
@@ -620,21 +627,21 @@ pulp<span class="w"> </span>rpm<span class="w"> </span>distribution<span class="
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>List the custom repository contents</strong>:</p>
+<ol class="arabic simple">
+<li><p>List the custom repository contents:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption"><span class="caption-text">Run on: build host</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-la<span class="w"> </span>/opt/omnia/custom_repos/slurm/
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify the repository metadata</strong>:</p>
+<ol class="arabic simple" start="2">
+<li><p>Verify the repository metadata:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text">Run on: build host</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>/opt/omnia/custom_repos/slurm/repodata/
@@ -642,24 +649,24 @@ pulp<span class="w"> </span>rpm<span class="w"> </span>distribution<span class="
 </div>
 </div>
 <p>You should see <code class="docutils literal notranslate"><span class="pre">repomd.xml</span></code> and related files.</p>
-</li>
-<li><p><strong>Test package availability via Pulp</strong>:</p>
+<ol class="arabic simple" start="3">
+<li><p>Test package availability via Pulp:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:8080/pulp/content/slurm-custom/repodata/repomd.xml<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify RPM versions</strong>:</p>
+<ol class="arabic simple" start="4">
+<li><p>Verify RPM versions:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id13">
 <div class="code-block-caption"><span class="caption-text">Run on: build host</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rpm<span class="w"> </span>-qip<span class="w"> </span>~/rpmbuild/RPMS/x86_64/slurm-23*.rpm<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s2">&quot;^(Name|Version)&quot;</span>
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -671,45 +678,37 @@ Omnia’s repo management.</p></li>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt><strong>rpmbuild fails with missing dependency</strong></dt><dd><p>Install the missing development package:</p>
-</dd>
-</dl>
+<p><strong>rpmbuild fails with missing dependency</strong>
+Install the missing development package:</p>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text">Run on: build host</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>&lt;missing-package&gt;-devel
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>&lt;missing-package&gt;-devel
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>Spec file not found in tarball</strong></dt><dd><p>Download the spec file separately from SchedMD’s GitHub:</p>
-</dd>
-</dl>
+<p><strong>Spec file not found in tarball</strong>
+Download the spec file separately from SchedMD’s GitHub:</p>
 <div class="literal-block-wrapper docutils container" id="id15">
 <div class="code-block-caption"><span class="caption-text">Run on: build host</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>wget<span class="w"> </span>-O<span class="w"> </span>~/rpmbuild/SPECS/slurm.spec<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>https://raw.githubusercontent.com/SchedMD/slurm/slurm-23-11-4-1/slurm.spec
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-O<span class="w"> </span>~/rpmbuild/SPECS/slurm.spec<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://raw.githubusercontent.com/SchedMD/slurm/slurm-23-11-4-1/slurm.spec
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>createrepo_c fails</strong></dt><dd><p>Ensure the package is installed:</p>
-</dd>
-</dl>
+<p><strong>createrepo_c fails</strong>
+Ensure the package is installed:</p>
 <div class="literal-block-wrapper docutils container" id="id16">
 <div class="code-block-caption"><span class="caption-text">Run on: build host</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>createrepo_c
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>createrepo_c
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>Custom RPMs conflict with existing Slurm packages</strong></dt><dd><p>Remove existing Slurm packages before installing custom ones:</p>
-</dd>
-</dl>
+<p><strong>Custom RPMs conflict with existing Slurm packages</strong>
+Remove existing Slurm packages before installing custom ones:</p>
 <div class="literal-block-wrapper docutils container" id="id17">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>dnf<span class="w"> </span>remove<span class="w"> </span>-y<span class="w"> </span>slurm<span class="w"> </span>slurm-slurmd<span class="w"> </span>slurm-slurmctld
-<span class="w">   </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--disablerepo<span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="w"> </span>--enablerepo<span class="o">=</span><span class="s1">&#39;slurm-custom&#39;</span><span class="w"> </span>slurm<span class="w"> </span>slurm-slurmd
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>remove<span class="w"> </span>-y<span class="w"> </span>slurm<span class="w"> </span>slurm-slurmd<span class="w"> </span>slurm-slurmctld
+dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--disablerepo<span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="w"> </span>--enablerepo<span class="o">=</span><span class="s1">&#39;slurm-custom&#39;</span><span class="w"> </span>slurm<span class="w"> </span>slurm-slurmd
 </pre></div>
 </div>
 </div>

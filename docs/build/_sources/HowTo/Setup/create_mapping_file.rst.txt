@@ -49,7 +49,7 @@ Procedure
 ---------
 
 
-#. **Enter the omnia_core container**:
+1. Enter the omnia_core container:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -60,15 +60,14 @@ Procedure
 
    Or alternatively:
 
-
-.. code-block:: bash
-   :caption: Run on: OIM host
+   .. code-block:: bash
+      :caption: Run on: OIM host
 
       podman exec -it -u root omnia_core bash
 
 
 
-#. **Navigate to the input directory**:
+2. Navigate to the input directory:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -77,7 +76,7 @@ Procedure
 
 
 
-#. **Create the mapping file** using a text editor:
+3. Create the mapping file using a text editor:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -86,13 +85,13 @@ Procedure
 
 
 
-#. **Add the CSV header and node entries**. The file must contain the following
+4. Add the CSV header and node entries. The file must contain the following
    columns in this exact order:
 
 
-**File: /opt/omnia/input/project_default/pxe_mapping_file.csv**
 
-.. code-block:: text
+   .. code-block:: text
+      :caption: File: /opt/omnia/input/project_default/pxe_mapping_file.csv
 
       FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
       slurm_control_node,slurm_cluster,ABCDEF1,,,aa:bb:cc:dd:ee:01,10.5.0.101,aa:bb:cc:dd:ff:01,10.3.0.101
@@ -164,7 +163,7 @@ Column Reference
 
 
 
-#. **Save and exit** the editor (``:wq`` in vi).
+5. Save and exit the editor (``:wq`` in vi).
 
 
 
@@ -175,7 +174,7 @@ Verification
 ------------
 
 
-#. **Validate the CSV format** by checking the header row:
+1. Validate the CSV format by checking the header row:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -186,16 +185,14 @@ Verification
 
    Expected output:
 
-
-**Expected output on: omnia_core container**
-
-.. code-block:: text
+   .. code-block:: bash
+      :caption: Expected output on: omnia_core container
 
       FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
 
 
 
-#. **Count the entries** (excluding the header):
+2. Count the entries (excluding the header):
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -206,7 +203,7 @@ Verification
 
    The count should match the number of target servers you intend to provision.
 
-#. **Check for formatting issues** (trailing spaces, empty lines):
+3. Check for formatting issues (trailing spaces, empty lines):
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -245,15 +242,15 @@ Troubleshooting
 
 **MAC address not found during discovery**
   - Verify the ``ADMIN_MAC`` matches the PXE NIC (not an onboard NIC that is
-     disabled in BIOS).
+    disabled in BIOS).
   - Check that the BMC MAC corresponds to the iDRAC dedicated NIC, not a
-     shared LOM.
+    shared LOM.
 
 **IP address conflict**
   - Ensure no duplicate IPs exist in the ``ADMIN_IP`` or ``BMC_IP`` columns.
   - Verify the IP ranges do not overlap with the OIM's own addresses or any
-     DHCP scope on the network.
+    DHCP scope on the network.
 
 **Blade server not discovered**
   - Populate the ``PARENT_SERVICE_TAG`` column with the chassis service tag
-     for all blade servers in PowerEdge MX or C-series chassis.
+    for all blade servers in PowerEdge MX or C-series chassis.

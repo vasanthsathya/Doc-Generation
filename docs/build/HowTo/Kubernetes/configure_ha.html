@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -532,16 +532,18 @@ other device.</p></li>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Enter the omnia_core container</strong>:</p>
+<ol class="arabic simple">
+<li><p>Enter the omnia_core container:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Configure the virtual IP</strong> in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p>
+<ol class="arabic simple" start="2">
+<li><p>Configure the virtual IP in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
@@ -549,182 +551,171 @@ other device.</p></li>
 </div>
 </div>
 <p>Add or update the HA parameters:</p>
-</li>
-</ol>
 <p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">---</span>
-<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain"># Kubernetes HA configuration</span>
-<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">k8s_ha_enabled</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">   </span><span class="nt">k8s_vip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.200&quot;</span>
-<span class="w">   </span><span class="nt">k8s_vip_interface</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno1&quot;</span>
-
-
-
-<span class="kt">!!!</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">warning</span>
-
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">The ``k8s_vip`` must be a free IP address on the same subnet as the</span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">control-plane nodes. Do **not** use an IP from the MetalLB range.</span>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/omnia_config.yml</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="c1"># Kubernetes HA configuration</span>
+<span class="nt">k8s_ha_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">k8s_vip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.200&quot;</span>
+<span class="nt">k8s_vip_interface</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno1&quot;</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Run the omnia.yml playbook</strong> (or re-run to apply HA changes):</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">k8s_vip</span></code> must be a free IP address on the same subnet as the
+control-plane nodes. Do <strong>not</strong> use an IP from the MetalLB range.</p>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Run the omnia.yml playbook (or re-run to apply HA changes):</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass
 </pre></div>
 </div>
 </div>
 <p>If the cluster is already deployed, the playbook will:</p>
-</li>
-</ol>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>Deploy kube-vip or keepalived on control-plane nodes.</p></li>
 <li><p>Configure the VIP as the API server endpoint.</p></li>
 <li><p>Update kubeconfig on all nodes to use the VIP.</p></li>
 <li><p>Reconfigure the kube-apiserver with the new advertised address.</p></li>
 </ul>
-</div></blockquote>
-<ol class="arabic simple">
-<li><p><strong>Alternatively, configure HA manually</strong> on an existing cluster:</p>
+<ol class="arabic simple" start="4">
+<li><p>Alternatively, configure HA manually on an existing cluster:</p></li>
+</ol>
 <ol class="loweralpha simple">
-<li><p><strong>Install keepalived</strong> on all control-plane nodes:</p></li>
+<li><p>Install keepalived on all control-plane nodes:</p></li>
 </ol>
-</li>
-</ol>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Run on: each K8s control plane node</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>keepalived
-
-
-
-b.<span class="w"> </span>**Configure<span class="w"> </span>keepalived**<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>primary<span class="w"> </span>control-plane<span class="w"> </span>node:
-</pre></div>
-</div>
-</div>
 <div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node 1 (MASTER)</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /etc/keepalived/keepalived.conf</span>
-<span class="s">      vrrp_instance K8S_VIP {</span>
-<span class="s">          state MASTER</span>
-<span class="s">          interface eno1</span>
-<span class="s">          virtual_router_id 51</span>
-<span class="s">          priority 100</span>
-<span class="s">          advert_int 1</span>
-<span class="s">          authentication {</span>
-<span class="s">              auth_type PASS</span>
-<span class="s">              auth_pass k8s_vip_secret</span>
-<span class="s">          }</span>
-<span class="s">          virtual_ipaddress {</span>
-<span class="s">              10.5.0.200/24</span>
-<span class="s">          }</span>
-<span class="s">      }</span>
-<span class="s">      EOF</span>
-
-<span class="w">      </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>keepalived
-
-
-
-c.<span class="w"> </span>**Configure<span class="w"> </span>keepalived**<span class="w"> </span>on<span class="w"> </span>backup<span class="w"> </span>control-plane<span class="w"> </span>nodes:
+<div class="code-block-caption"><span class="caption-text">Run on: each K8s control plane node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>keepalived
 </pre></div>
 </div>
 </div>
+<ol class="loweralpha simple" start="2">
+<li><p>Configure keepalived on the primary control-plane node:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane nodes 2 and 3 (BACKUP)</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /etc/keepalived/keepalived.conf</span>
-<span class="s">      vrrp_instance K8S_VIP {</span>
-<span class="s">          state BACKUP</span>
-<span class="s">          interface eno1</span>
-<span class="s">          virtual_router_id 51</span>
-<span class="s">          priority 90</span>
-<span class="s">          advert_int 1</span>
-<span class="s">          authentication {</span>
-<span class="s">              auth_type PASS</span>
-<span class="s">              auth_pass k8s_vip_secret</span>
-<span class="s">          }</span>
-<span class="s">          virtual_ipaddress {</span>
-<span class="s">              10.5.0.200/24</span>
-<span class="s">          }</span>
-<span class="s">      }</span>
-<span class="s">      EOF</span>
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node 1 (MASTER)</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /etc/keepalived/keepalived.conf</span>
+<span class="s">vrrp_instance K8S_VIP {</span>
+<span class="s">    state MASTER</span>
+<span class="s">    interface eno1</span>
+<span class="s">    virtual_router_id 51</span>
+<span class="s">    priority 100</span>
+<span class="s">    advert_int 1</span>
+<span class="s">    authentication {</span>
+<span class="s">        auth_type PASS</span>
+<span class="s">        auth_pass k8s_vip_secret</span>
+<span class="s">    }</span>
+<span class="s">    virtual_ipaddress {</span>
+<span class="s">        10.5.0.200/24</span>
+<span class="s">    }</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
 
-<span class="w">      </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>keepalived
-
-
-
-<span class="w">   </span>!!!<span class="w"> </span>note
-
-<span class="w">       </span>Set<span class="w"> </span><span class="sb">``</span>priority<span class="w"> </span><span class="m">80</span><span class="sb">``</span><span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>third<span class="w"> </span>control-plane<span class="w"> </span>node.
+systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>keepalived
 </pre></div>
 </div>
+</div>
+<ol class="loweralpha simple" start="3">
+<li><p>Configure keepalived on backup control-plane nodes:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane nodes 2 and 3 (BACKUP)</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /etc/keepalived/keepalived.conf</span>
+<span class="s">vrrp_instance K8S_VIP {</span>
+<span class="s">    state BACKUP</span>
+<span class="s">    interface eno1</span>
+<span class="s">    virtual_router_id 51</span>
+<span class="s">    priority 90</span>
+<span class="s">    advert_int 1</span>
+<span class="s">    authentication {</span>
+<span class="s">        auth_type PASS</span>
+<span class="s">        auth_pass k8s_vip_secret</span>
+<span class="s">    }</span>
+<span class="s">    virtual_ipaddress {</span>
+<span class="s">        10.5.0.200/24</span>
+<span class="s">    }</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+
+systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>keepalived
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">priority</span> <span class="pre">80</span></code> on the third control-plane node.</p>
 </div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Verify the VIP is active</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<ol class="arabic simple">
+<li><p>Verify the VIP is active:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">10</span>.5.0.200
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Check which node currently holds the VIP</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Run on: each K8s control plane node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="2">
+<li><p>Check which node currently holds the VIP:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Run on: each K8s control plane node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>eno1<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;10.5.0.200&quot;</span>
 </pre></div>
 </div>
 </div>
 <p>Only one node should show the VIP.</p>
-</li>
-<li><p><strong>Access the Kubernetes API via the VIP</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="3">
+<li><p>Access the Kubernetes API via the VIP:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>--server<span class="o">=</span>https://10.5.0.200:6443<span class="w"> </span>get<span class="w"> </span>nodes
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Test failover</strong> by stopping keepalived on the active node:</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on: active K8s control plane node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="4">
+<li><p>Test failover by stopping keepalived on the active node:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on: active K8s control plane node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>stop<span class="w"> </span>keepalived
 </pre></div>
 </div>
 </div>
 <p>Then verify the VIP migrated:</p>
-</li>
-</ol>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">10</span>.5.0.200
-<span class="w">   </span><span class="c1"># Should still respond -- VIP migrated to a backup node</span>
-
-
-
-Re-enable<span class="w"> </span>keepalived:
-</pre></div>
-</div>
-</div>
 <div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on: previously active node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>systemctl<span class="w"> </span>start<span class="w"> </span>keepalived
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">10</span>.5.0.200
+<span class="c1"># Should still respond -- VIP migrated to a backup node</span>
 </pre></div>
 </div>
 </div>
-<ol class="arabic">
-<li><p><strong>Update kubeconfig</strong> to use the VIP:</p>
+<p>Re-enable keepalived:</p>
 <div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+<div class="code-block-caption"><span class="caption-text">Run on: previously active node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>start<span class="w"> </span>keepalived
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Update kubeconfig to use the VIP:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>config<span class="w"> </span>set-cluster<span class="w"> </span>kubernetes<span class="w"> </span>--server<span class="o">=</span>https://10.5.0.200:6443
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -736,26 +727,22 @@ cluster.</p></li>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt><strong>VIP is not reachable</strong></dt><dd><p>Check keepalived status on all control-plane nodes:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Run on: each K8s control plane node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>systemctl<span class="w"> </span>status<span class="w"> </span>keepalived
-<span class="w">   </span>journalctl<span class="w"> </span>-u<span class="w"> </span>keepalived<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
+<p><strong>VIP is not reachable</strong>
+Check keepalived status on all control-plane nodes:</p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Run on: each K8s control plane node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>keepalived
+journalctl<span class="w"> </span>-u<span class="w"> </span>keepalived<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>VIP does not failover</strong></dt><dd><p>Verify VRRP traffic is allowed on the network. Check for firewall rules
+<p><strong>VIP does not failover</strong>
+Verify VRRP traffic is allowed on the network. Check for firewall rules
 blocking multicast:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>firewall-cmd<span class="w"> </span>--add-protocol<span class="o">=</span>vrrp<span class="w"> </span>--permanent
-<span class="w">   </span>firewall-cmd<span class="w"> </span>--reload
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>firewall-cmd<span class="w"> </span>--add-protocol<span class="o">=</span>vrrp<span class="w"> </span>--permanent
+firewall-cmd<span class="w"> </span>--reload
 </pre></div>
 </div>
 </div>
@@ -764,12 +751,12 @@ blocking multicast:</p>
 <code class="docutils literal notranslate"><span class="pre">auth_pass</span></code> in keepalived.conf. Check network connectivity between
 control-plane nodes.</p>
 </dd>
-<dt><strong>kubectl fails with “connection refused” on VIP</strong></dt><dd><p>Verify the API server is listening on the VIP address:</p>
-</dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">6443</span>
+<p><strong>kubectl fails with “connection refused” on VIP</strong>
+Verify the API server is listening on the VIP address:</p>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">6443</span>
 </pre></div>
 </div>
 </div>

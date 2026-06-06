@@ -48,7 +48,7 @@ Procedure
 ---------
 
 
-#. **Enter the omnia_core container**:
+1. Enter the omnia_core container:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -57,7 +57,7 @@ Procedure
 
 
 
-#. **Verify the mapping file is in place**:
+2. Verify the mapping file is in place:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -66,7 +66,7 @@ Procedure
 
 
 
-#. **Run the discovery playbook**:
+3. Run the discovery playbook:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -78,25 +78,25 @@ Procedure
 
    The playbook will:
 
-  - Connect to each server's BMC/iDRAC using Redfish.
-  - Configure network boot settings.
-  - Set PXE as the first boot device.
-  - Power-cycle the servers.
-  - Wait for each server to PXE boot and register with SMD.
+   - Connect to each server's BMC/iDRAC using Redfish.
+   - Configure network boot settings.
+   - Set PXE as the first boot device.
+   - Power-cycle the servers.
+   - Wait for each server to PXE boot and register with SMD.
 
 
-   !!! note
+   .. note::
 
-       Discovery can take **30-60 minutes** depending on the number of nodes.
-       Each server must complete a full PXE boot cycle.
+      Discovery can take **30-60 minutes** depending on the number of nodes.
+      Each server must complete a full PXE boot cycle.
 
-#. **Monitor discovery progress** by watching the Ansible output. Each node
+4. Monitor discovery progress by watching the Ansible output. Each node
    will progress through these stages:
 
-  - ``Configuring BMC`` -- Setting iDRAC boot options
-  - ``Powering on`` -- Sending power-on command via Redfish
-  - ``Waiting for PXE boot`` -- Node is booting from network
-  - ``Registered`` -- Node appeared in SMD inventory
+   - ``Configuring BMC`` -- Setting iDRAC boot options
+   - ``Powering on`` -- Sending power-on command via Redfish
+   - ``Waiting for PXE boot`` -- Node is booting from network
+   - ``Registered`` -- Node appeared in SMD inventory
 
 
 
@@ -107,7 +107,7 @@ Verification
 ------------
 
 
-#. **List discovered nodes in OpenCHAMI**:
+1. List discovered nodes in OpenCHAMI:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -119,7 +119,7 @@ Verification
    Expected output shows all nodes from the mapping file with their service
    tags, MAC addresses, and assigned IPs.
 
-#. **Check SMD inventory**:
+2. Check SMD inventory:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -128,7 +128,7 @@ Verification
 
 
 
-#. **Verify node count matches the mapping file**:
+3. Verify node count matches the mapping file:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -141,7 +141,7 @@ Verification
 
 
 
-#. **Ping each discovered node** on the admin network:
+4. Ping each discovered node on the admin network:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -151,7 +151,7 @@ Verification
 
 
 
-#. **Check Ansible inventory** was populated:
+5. Check Ansible inventory was populated:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -180,65 +180,68 @@ Troubleshooting
 
 
 **Node not discovered (missing from SMD)**
-  - Verify the BMC IP is reachable from the OIM:
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+- Verify the BMC IP is reachable from the OIM:
 
-        ping -c 3 <bmc-ip>
+  .. code-block:: bash
+     :caption: Run on: OIM host
+
+     ping -c 3 <bmc-ip>
 
 
+- Check iDRAC web UI for boot errors.
+- Verify the ``ADMIN_MAC`` in the mapping file matches the PXE NIC.
 
-  - Check iDRAC web UI for boot errors.
-  - Verify the ``ADMIN_MAC`` in the mapping file matches the PXE NIC.
 
 
 **BMC connection refused**
-  - Confirm BMC credentials are correct in the encrypted credentials file.
-  - Verify iDRAC is not locked out (too many failed login attempts).
-  - Check that Redfish is enabled in iDRAC settings.
+
+- Confirm BMC credentials are correct in the encrypted credentials file.
+- Verify iDRAC is not locked out (too many failed login attempts).
+- Check that Redfish is enabled in iDRAC settings.
 
 
 **PXE boot timeout**
-  - Verify DHCP is running on the OIM:
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+- Verify DHCP is running on the OIM:
 
-        systemctl status coredhcp.service
+  .. code-block:: bash
+     :caption: Run on: OIM host
 
-
-
-  - Check TFTP service:
-
-   .. code-block:: bash
-      :caption: Run on: OIM host
-
-        systemctl status tftpd.service
+     systemctl status coredhcp.service
 
 
+- Check TFTP service:
 
-  - Verify the admin network switch is configured with the correct VLAN.
+  .. code-block:: bash
+     :caption: Run on: OIM host
+
+     systemctl status tftpd.service
+
+
+- Verify the admin network switch is configured with the correct VLAN.
 
 
 **Some nodes discover but others do not**
-  - Check for MAC address typos in the mapping file.
-  - Verify the physical cabling on failed nodes.
-  - Check for IP conflicts on the admin network:
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+- Check for MAC address typos in the mapping file.
+- Verify the physical cabling on failed nodes.
+- Check for IP conflicts on the admin network:
 
-        arping -D -I <admin-nic> <admin-ip>
+  .. code-block:: bash
+     :caption: Run on: OIM host
+
+     arping -D -I <admin-nic> <admin-ip>
 
 
 
 **Discovery playbook fails at BMC configuration step**
-  - Ensure iDRAC firmware is up to date (minimum 5.x for PowerEdge 15th gen).
-  - Verify Redfish API is accessible:
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+- Ensure iDRAC firmware is up to date (minimum 5.x for PowerEdge 15th gen).
+- Verify Redfish API is accessible:
 
-        curl -sk https://<bmc-ip>/redfish/v1/ -u <user>:<pass>
+  .. code-block:: bash
+     :caption: Run on: OIM host
+
+     curl -sk https://<bmc-ip>/redfish/v1/ -u <user>:<pass>
 

@@ -15,13 +15,13 @@ Overview
 
 Omnia supports two NFS deployment models:
 
-#. **Internal NFS** (managed by Omnia) -- Omnia configures an NFS server on a
-   designated node (typically the Slurm control node or a dedicated storage
-   node) and auto-mounts it on all compute and login nodes.
+- **Internal NFS** (managed by Omnia) -- Omnia configures an NFS server on a
+  designated node (typically the Slurm control node or a dedicated storage
+  node) and auto-mounts it on all compute and login nodes.
 
-#. **External NFS** -- You provide an existing NFS server (e.g., Dell
-   PowerScale, NetApp, or a standalone NFS appliance), and Omnia configures
-   the mount on all cluster nodes.
+- **External NFS** -- You provide an existing NFS server (e.g., Dell
+  PowerScale, NetApp, or a standalone NFS appliance), and Omnia configures
+  the mount on all cluster nodes.
 
 
 .. image:: ../../assets/images/nfs_flowchart_2.0.jpg
@@ -64,12 +64,12 @@ Internal NFS (Omnia-Managed)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-#. **Configure NFS in omnia_config.yml**:
+1. Configure NFS in omnia_config.yml:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      vi /opt/omnia/input/project_default/omnia_config.yml
+   vi /opt/omnia/input/project_default/omnia_config.yml
 
 
 
@@ -79,33 +79,34 @@ Internal NFS (Omnia-Managed)
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+   :caption: File: /opt/omnia/input/project_default/omnia_config.yml
 
-      ---
-      enable_omnia_nfs: true
-      nfs_node_group: "slurm_control_node"
-      omnia_nfs_path: "/home"
-      omnia_nfs_opts: "rw,sync,no_root_squash,no_subtree_check"
+   ---
+   enable_omnia_nfs: true
+   nfs_node_group: "slurm_control_node"
+   omnia_nfs_path: "/home"
+   omnia_nfs_opts: "rw,sync,no_root_squash,no_subtree_check"
 
 
 
-#. **Run the omnia.yml playbook** to deploy NFS:
+2. Run the omnia.yml playbook to deploy NFS:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      cd /omnia
-      ansible-playbook omnia.yml --ask-vault-pass
+   cd /omnia
+   ansible-playbook omnia.yml --ask-vault-pass
 
 
 
    The playbook will:
 
-  - Install ``nfs-utils`` on the NFS server node.
-  - Create the shared directory with 755 permissions.
-  - Configure ``/etc/exports`` with ``no_root_squash``.
-  - Start and enable the ``nfs-server`` service.
-  - Mount the NFS share on all compute and login nodes.
-  - Add the mount to ``/etc/fstab`` for persistence across reboots.
+ - Install ``nfs-utils`` on the NFS server node.
+- Create the shared directory with 755 permissions.
+- Configure ``/etc/exports`` with ``no_root_squash``.
+- Start and enable the ``nfs-server`` service.
+- Mount the NFS share on all compute and login nodes.
+- Add the mount to ``/etc/fstab`` for persistence across reboots.
 
 
 
@@ -116,12 +117,12 @@ External NFS
 ~~~~~~~~~~~~
 
 
-#. **Configure external NFS in omnia_config.yml**:
+1. Configure external NFS in omnia_config.yml:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      vi /opt/omnia/input/project_default/omnia_config.yml
+   vi /opt/omnia/input/project_default/omnia_config.yml
 
 
 
@@ -129,44 +130,44 @@ External NFS
 **File: /opt/omnia/input/project_default/omnia_config.yml**
 
 .. code-block:: yaml
+   :caption: File: /opt/omnia/input/project_default/omnia_config.yml
 
-      ---
-      enable_omnia_nfs: false
-      external_nfs_server: "10.5.1.100"
-      external_nfs_path: "/ifs/omnia/home"
-      external_nfs_mount_point: "/home"
-      external_nfs_opts: "rw,hard,intr,nfsvers=3"
-
-
-
-#. **Run the omnia.yml playbook**:
-
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
-
-      cd /omnia
-      ansible-playbook omnia.yml --ask-vault-pass
+   ---
+   enable_omnia_nfs: false
+   external_nfs_server: "10.5.1.100"
+   external_nfs_path: "/ifs/omnia/home"
+   external_nfs_mount_point: "/home"
+   external_nfs_opts: "rw,hard,intr,nfsvers=3"
 
 
 
-#. **(Alternative) Manual NFS mount** on a specific node:
+2. Run the omnia.yml playbook:
 
-   .. code-block:: bash
-      :caption: Run on: compute node
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      dnf install -y nfs-utils
-      mkdir -p /home
-      mount -t nfs -o rw,hard,intr,nfsvers=3 10.5.1.100:/ifs/omnia/home /home
-
+   cd /omnia
+   ansible-playbook omnia.yml --ask-vault-pass
 
 
-   Add to ``/etc/fstab`` for persistence:
 
+3. (Alternative) Manual NFS mount on a specific node:
 
 .. code-block:: bash
    :caption: Run on: compute node
 
-      echo "10.5.1.100:/ifs/omnia/home /home nfs rw,hard,intr,nfsvers=3 0 0" >> /etc/fstab
+   dnf install -y nfs-utils
+   mkdir -p /home
+   mount -t nfs -o rw,hard,intr,nfsvers=3 10.5.1.100:/ifs/omnia/home /home
+
+
+
+Add to ``/etc/fstab`` for persistence:
+
+.. code-block:: bash
+   :caption: Run on: compute node
+
+   echo "10.5.1.100:/ifs/omnia/home /home nfs rw,hard,intr,nfsvers=3 0 0" >> /etc/fstab
 
 
 
@@ -176,61 +177,60 @@ Verification
 ------------
 
 
-#. **Verify the NFS server is exporting** (internal NFS):
+1. Verify the NFS server is exporting (internal NFS):
 
-   .. code-block:: bash
-      :caption: Run on: NFS server node
+.. code-block:: bash
+   :caption: Run on: NFS server node
 
-      exportfs -v
+   exportfs -v
 
 
 
-   Expected output:
-
+Expected output:
 
 .. code-block:: text
    :caption: Expected output on: NFS server node
 
-      /home  <network>(rw,sync,wdelay,no_root_squash,no_subtree_check,...)
+   /home  <network>(rw,sync,wdelay,no_root_squash,no_subtree_check,...)
 
 
 
-#. **Verify NFS is mounted on compute nodes**:
+2. Verify NFS is mounted on compute nodes:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      ansible slurm_node -m shell -a "df -h /home"
-
-
-
-#. **Test read/write from a compute node**:
-
-   .. code-block:: bash
-      :caption: Run on: compute node
-
-      echo "NFS test $(date)" > /home/nfs_test.txt
-      cat /home/nfs_test.txt
-      rm /home/nfs_test.txt
+   ansible slurm_node -m shell -a "df -h /home"
 
 
 
-#. **Verify permissions**:
+3. Test read/write from a compute node:
 
-   .. code-block:: bash
-      :caption: Run on: NFS server node
+.. code-block:: bash
+   :caption: Run on: compute node
 
-      ls -ld /home
-      # Expected: drwxr-xr-x (755)
+   echo "NFS test $(date)" > /home/nfs_test.txt
+   cat /home/nfs_test.txt
+   rm /home/nfs_test.txt
 
 
 
-#. **Verify mount persists across reboot**:
+4. Verify permissions:
 
-   .. code-block:: bash
-      :caption: Run on: compute node
+.. code-block:: bash
+   :caption: Run on: NFS server node
 
-      grep "/home" /etc/fstab
+   ls -ld /home
+   # Expected: drwxr-xr-x (755)
+
+
+
+5. Verify mount persists across reboot:
+
+.. code-block:: bash
+   :caption: Run on: compute node
+
+   grep "/home" /etc/fstab
 
 
 
@@ -254,64 +254,59 @@ Troubleshooting
 
 
 **Mount fails with "access denied"**
-   Verify the NFS export allows the client IP:
-
+Verify the NFS export allows the client IP:
 
 .. code-block:: bash
    :caption: Run on: NFS server node
 
-      exportfs -v
-      cat /etc/exports
+   exportfs -v
+   cat /etc/exports
 
 
 
-   Ensure the export includes the admin network range:
-
+Ensure the export includes the admin network range:
 
 **File: /etc/exports on NFS server node**
 
 .. code-block:: text
+   :caption: File: /etc/exports on NFS server node
 
-      /home 10.5.0.0/24(rw,sync,no_root_squash,no_subtree_check)
+   /home 10.5.0.0/24(rw,sync,no_root_squash,no_subtree_check)
 
 
 
 **"mount.nfs: Connection timed out"**
-   Check firewall rules on the NFS server:
-
+Check firewall rules on the NFS server:
 
 .. code-block:: bash
    :caption: Run on: NFS server node
 
-      firewall-cmd --add-service=nfs --permanent
-      firewall-cmd --add-service=mountd --permanent
-      firewall-cmd --add-service=rpc-bind --permanent
-      firewall-cmd --reload
+   firewall-cmd --add-service=nfs --permanent
+   firewall-cmd --add-service=mountd --permanent
+   firewall-cmd --add-service=rpc-bind --permanent
+   firewall-cmd --reload
 
 
 
 **Stale NFS handles after server restart**
-   Remount on affected nodes:
-
+Remount on affected nodes:
 
 .. code-block:: bash
    :caption: Run on: affected compute node
 
-      umount -l /home
-      mount /home
+   umount -l /home
+   mount /home
 
 
 
 **Performance is slow**
-  - Use NFSv3 instead of NFSv4 for HPC workloads (NFSv3 has lower latency).
-  - Increase the NFS read/write block size:
-
-
-
+- Use NFSv3 instead of NFSv4 for HPC workloads (NFSv3 has lower latency).
+- Increase the NFS read/write block size:
 
 **File: /etc/fstab on compute node**
 
 .. code-block:: text
+   :caption: File: /etc/fstab on compute node
 
-        10.5.1.100:/ifs/omnia/home /home nfs rw,hard,intr,nfsvers=3,rsize=1048576,wsize=1048576 0 0
+   10.5.1.100:/ifs/omnia/home /home nfs rw,hard,intr,nfsvers=3,rsize=1048576,wsize=1048576 0 0
 

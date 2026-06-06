@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -546,7 +546,7 @@ telemetry, etc.).</p></li>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
 <ol class="arabic">
-<li><p><strong>Enter the omnia_core container</strong>:</p>
+<li><p>Enter the omnia_core container:</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
@@ -554,20 +554,20 @@ telemetry, etc.).</p></li>
 </div>
 </div>
 </li>
-<li><p><strong>Copy the example templates</strong> to the input directory:</p>
+<li><p>Copy the example templates to the input directory:</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>/omnia/examples/input_template/*<span class="w"> </span>/opt/omnia/input/project_default/
 </pre></div>
 </div>
 </div>
-<p>!!! note</p>
-<blockquote>
-<div><p>If files already exist in the destination, this command will overwrite
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If files already exist in the destination, this command will overwrite
 them. Back up any previously customized files before copying.</p>
-</div></blockquote>
+</div>
 </li>
-<li><p><strong>Edit the software configuration</strong>:</p>
+<li><p>Edit the software configuration:</p>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/software_config.json
@@ -575,54 +575,61 @@ them. Back up any previously customized files before copying.</p>
 </div>
 </div>
 <p>Example <code class="docutils literal notranslate"><span class="pre">software_config.json</span></code>:</p>
-</li>
-</ol>
-<p><strong>File: /opt/omnia/input/project_default/software_config.json</strong></p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="p">{</span>
-<span class="w">       </span><span class="nt">&quot;cluster_os_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rhel&quot;</span><span class="p">,</span>
-<span class="w">       </span><span class="nt">&quot;cluster_os_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.8&quot;</span><span class="p">,</span>
-<span class="w">       </span><span class="nt">&quot;repo_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;partial&quot;</span><span class="p">,</span>
-<span class="w">       </span><span class="nt">&quot;softwares&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">           </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span><span class="p">},</span>
-<span class="w">           </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;openldap&quot;</span><span class="p">},</span>
-<span class="w">           </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;12.2&quot;</span><span class="p">},</span>
-<span class="w">           </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;apptainer&quot;</span><span class="p">}</span>
-<span class="w">       </span><span class="p">]</span>
-<span class="w">   </span><span class="p">}</span>
-
-
-
-<span class="err">Key</span><span class="w"> </span><span class="err">parame</span><span class="kc">ters</span><span class="p">:</span>
-
-<span class="err">..</span><span class="w"> </span><span class="err">lis</span><span class="kc">t</span><span class="mi">-</span><span class="kc">ta</span><span class="err">ble</span><span class="p">::</span>
-<span class="w">   </span><span class="p">:</span><span class="err">header</span><span class="mi">-</span><span class="err">rows</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
-<span class="w">   </span><span class="p">:</span><span class="err">wid</span><span class="kc">t</span><span class="err">hs</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="mi">70</span>
-
-<span class="w">   </span><span class="mi">-</span><span class="w"> </span><span class="mi">-</span><span class="w"> </span><span class="err">Parame</span><span class="kc">ter</span>
-<span class="w">     </span><span class="mi">-</span><span class="w"> </span><span class="err">Descrip</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span>
-<span class="w">   </span><span class="mi">-</span><span class="w"> </span><span class="mi">-</span><span class="w"> </span><span class="err">``clus</span><span class="kc">ter</span><span class="err">_os_</span><span class="kc">t</span><span class="err">ype``</span>
-<span class="w">     </span><span class="mi">-</span><span class="w"> </span><span class="err">Targe</span><span class="kc">t</span><span class="w"> </span><span class="err">OS</span><span class="p">:</span><span class="w"> </span><span class="err">``rhel``</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">``rocky``</span>
-<span class="w">   </span><span class="mi">-</span><span class="w"> </span><span class="mi">-</span><span class="w"> </span><span class="err">``clus</span><span class="kc">ter</span><span class="err">_os_versio</span><span class="kc">n</span><span class="err">``</span>
-<span class="w">     </span><span class="mi">-</span><span class="w"> </span><span class="err">OS</span><span class="w"> </span><span class="err">versio</span><span class="kc">n</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="err">provisio</span><span class="kc">ne</span><span class="err">d</span><span class="w"> </span><span class="kc">n</span><span class="err">odes</span><span class="w"> </span><span class="err">(e.g.</span><span class="p">,</span><span class="w"> </span><span class="err">``</span><span class="mf">8.8</span><span class="err">``</span><span class="p">,</span><span class="w"> </span><span class="err">``</span><span class="mf">9.2</span><span class="err">``)</span>
-<span class="w">   </span><span class="mi">-</span><span class="w"> </span><span class="mi">-</span><span class="w"> </span><span class="err">``repo_co</span><span class="kc">nf</span><span class="err">ig``</span>
-<span class="w">     </span><span class="mi">-</span><span class="w"> </span><span class="err">Reposi</span><span class="kc">t</span><span class="err">ory</span><span class="w"> </span><span class="err">s</span><span class="kc">trate</span><span class="err">gy</span><span class="p">:</span><span class="w"> </span><span class="err">``par</span><span class="kc">t</span><span class="err">ial``</span><span class="w"> </span><span class="err">(Om</span><span class="kc">n</span><span class="err">ia</span><span class="mi">-</span><span class="err">ma</span><span class="kc">na</span><span class="err">ged</span><span class="w"> </span><span class="err">repos</span><span class="w"> </span><span class="err">o</span><span class="kc">nl</span><span class="err">y)</span><span class="p">,</span>
-<span class="w">       </span><span class="err">``always``</span><span class="w"> </span><span class="err">(sy</span><span class="kc">n</span><span class="err">c</span><span class="w"> </span><span class="err">all</span><span class="w"> </span><span class="err">repos)</span><span class="p">,</span><span class="w"> </span><span class="err">``</span><span class="kc">ne</span><span class="err">ver``</span><span class="w"> </span><span class="err">(skip</span><span class="w"> </span><span class="err">repo</span><span class="w"> </span><span class="err">co</span><span class="kc">nf</span><span class="err">ig)</span>
-<span class="w">   </span><span class="mi">-</span><span class="w"> </span><span class="mi">-</span><span class="w"> </span><span class="err">``so</span><span class="kc">ft</span><span class="err">wares``</span>
-<span class="w">     </span><span class="mi">-</span><span class="w"> </span><span class="err">Lis</span><span class="kc">t</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="err">so</span><span class="kc">ft</span><span class="err">ware</span><span class="w"> </span><span class="err">s</span><span class="kc">ta</span><span class="err">cks</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">i</span><span class="kc">nstall</span><span class="w"> </span><span class="err">o</span><span class="kc">n</span><span class="w"> </span><span class="err">compu</span><span class="kc">te</span><span class="w"> </span><span class="kc">n</span><span class="err">odes</span>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/software_config.json</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;cluster_os_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rhel&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;cluster_os_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.8&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;repo_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;partial&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;softwares&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;openldap&quot;</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;12.2&quot;</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;apptainer&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Edit the network specification</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+</div>
+<p>Key parameters:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cluster_os_type</span></code></p></td>
+<td><p>Target OS: <code class="docutils literal notranslate"><span class="pre">rhel</span></code> or <code class="docutils literal notranslate"><span class="pre">rocky</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cluster_os_version</span></code></p></td>
+<td><p>OS version for provisioned nodes (e.g., <code class="docutils literal notranslate"><span class="pre">8.8</span></code>, <code class="docutils literal notranslate"><span class="pre">9.2</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">repo_config</span></code></p></td>
+<td><p>Repository strategy: <code class="docutils literal notranslate"><span class="pre">partial</span></code> (Omnia-managed repos only),
+<code class="docutils literal notranslate"><span class="pre">always</span></code> (sync all repos), <code class="docutils literal notranslate"><span class="pre">never</span></code> (skip repo config)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">softwares</span></code></p></td>
+<td><p>List of software stacks to install on compute nodes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p>Edit the network specification:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/network_spec.yml
 </pre></div>
 </div>
 </div>
 <p>Example <code class="docutils literal notranslate"><span class="pre">network_spec.yml</span></code>:</p>
-</li>
-</ol>
-<p><strong>File: /opt/omnia/input/project_default/network_spec.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/network_spec.yml</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="nt">admin_network</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">nic_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno1&quot;</span>
@@ -640,18 +647,18 @@ them. Back up any previously customized files before copying.</p>
 <span class="w">  </span><span class="nt">netmask</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;255.255.255.0&quot;</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Edit the provision configuration</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+</div>
+</li>
+<li><p>Edit the provision configuration:</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/provision_config.yml
 </pre></div>
 </div>
 </div>
 <p>Example <code class="docutils literal notranslate"><span class="pre">provision_config.yml</span></code>:</p>
-</li>
-</ol>
-<p><strong>File: /opt/omnia/input/project_default/provision_config.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/provision_config.yml</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="nt">timezone</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;America/Chicago&quot;</span>
 <span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;en-US&quot;</span>
@@ -660,18 +667,18 @@ them. Back up any previously customized files before copying.</p>
 <span class="nt">pxe_mapping_file_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/omnia/input/project_default/pxe_mapping_file.csv&quot;</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Edit the Omnia configuration</strong> (for Slurm/K8s parameters):</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+</div>
+</li>
+<li><p>Edit the Omnia configuration (for Slurm/K8s parameters):</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
 </pre></div>
 </div>
 </div>
 <p>Example <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p>
-</li>
-</ol>
-<p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/omnia_config.yml</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="nt">mariadb_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
 <span class="nt">k8s_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.28&quot;</span>
@@ -680,10 +687,11 @@ them. Back up any previously customized files before copying.</p>
 <span class="nt">enable_omnia_nfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>(Optional) Run the input validator</strong> to check your configuration:</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+</div>
+</li>
+<li><p>(Optional) Run the input validator to check your configuration:</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>input_validator.yml
 </pre></div>
@@ -704,25 +712,25 @@ ansible-playbook<span class="w"> </span>input_validator.yml
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
 <ol class="arabic">
-<li><p><strong>List all input files</strong> and confirm they are populated:</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+<li><p>List all input files and confirm they are populated:</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-la<span class="w"> </span>/opt/omnia/input/project_default/
 </pre></div>
 </div>
 </div>
 </li>
-<li><p><strong>Review the software configuration</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<li><p>Review the software configuration:</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/opt/omnia/input/project_default/software_config.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool
 </pre></div>
 </div>
 </div>
 </li>
-<li><p><strong>Validate YAML syntax</strong> for each YAML input file:</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<li><p>Validate YAML syntax for each YAML input file:</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import yaml; yaml.safe_load(open(&#39;/opt/omnia/input/project_default/network_spec.yml&#39;))&quot;</span>
 </pre></div>
 </div>
@@ -748,8 +756,8 @@ list of required fields.</p>
 <dt><strong>JSON syntax error in software_config.json</strong></dt><dd><p>Validate JSON syntax:</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool<span class="w"> </span>/opt/omnia/input/project_default/software_config.json
 </pre></div>
 </div>
@@ -762,8 +770,8 @@ Static and dynamic ranges within each network must not overlap.</p>
 and later. Pull the latest code if necessary:</p>
 </dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nb">cd</span><span class="w"> </span>/opt/omnia<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull
 </pre></div>
 </div>

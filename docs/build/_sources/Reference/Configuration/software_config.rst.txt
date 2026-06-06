@@ -19,10 +19,8 @@ Schema
 one functional group and specifies the software packages to install on nodes
 belonging to that group.
 
-
-**File: /opt/omnia/input/project_default/software_config.json**
-
 .. code-block:: json
+   :caption: File: /opt/omnia/input/project_default/software_config.json
 
    [
      {
@@ -133,10 +131,8 @@ Usage example
 See :doc:`Software Config Json <../SampleFiles/software_config_json>` for complete annotated
 examples covering Slurm-only, Slurm + K8s, and telemetry-only scenarios.
 
-
-**File: /opt/omnia/input/project_default/software_config.json**
-
 .. code-block:: json
+   :caption: File: /opt/omnia/input/project_default/software_config.json
 
    [
      {

@@ -141,9 +141,8 @@ Usage example
 
 
 
-**File: /opt/omnia/input/project_default/build_stream_config.yml**
-
 .. code-block:: yaml
+   :caption: File: /opt/omnia/input/project_default/build_stream_config.yml
 
    gitlab_enabled: true
    gitlab_server: "10.5.0.100"

@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -544,16 +544,18 @@ image installation required.</p></li>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Verify Apptainer is installed</strong> on compute nodes:</p>
+<ol class="arabic simple">
+<li><p>Verify Apptainer is installed on compute nodes:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;apptainer --version&quot;</span>
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Create a shared images directory</strong> on NFS:</p>
+<ol class="arabic simple" start="2">
+<li><p>Create a shared images directory on NFS:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node or login node</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>/home/containers/images
@@ -561,16 +563,18 @@ chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>/
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Pull a Docker image</strong> and convert to SIF:</p>
+<ol class="arabic simple" start="3">
+<li><p>Pull a Docker image and convert to SIF:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node or login node</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apptainer<span class="w"> </span>pull<span class="w"> </span>/home/containers/images/ubuntu.sif<span class="w"> </span>docker://ubuntu:22.04
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Pull an HPC application container</strong>:</p>
+<ol class="arabic simple" start="4">
+<li><p>Pull an HPC application container:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node or login node</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: GROMACS molecular dynamics</span>
@@ -581,8 +585,9 @@ apptainer<span class="w"> </span>pull<span class="w"> </span>/home/containers/im
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Run an interactive container</strong> on a compute node:</p>
+<ol class="arabic simple" start="5">
+<li><p>Run an interactive container on a compute node:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>--pty<span class="w"> </span>apptainer<span class="w"> </span>shell<span class="w"> </span>/home/containers/images/ubuntu.sif
@@ -590,8 +595,9 @@ apptainer<span class="w"> </span>pull<span class="w"> </span>/home/containers/im
 </div>
 </div>
 <p>This opens an interactive shell inside the container on a compute node.</p>
-</li>
-<li><p><strong>Run a batch job</strong> with Apptainer:</p>
+<ol class="arabic simple" start="6">
+<li><p>Run a batch job with Apptainer:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /home/containers/run_gromacs.sh</span>
@@ -610,8 +616,9 @@ sbatch<span class="w"> </span>/home/containers/run_gromacs.sh
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Run a GPU container</strong> with Apptainer:</p>
+<ol class="arabic simple" start="7">
+<li><p>Run a GPU container with Apptainer:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /home/containers/run_tensorflow.sh</span>
@@ -630,8 +637,9 @@ sbatch<span class="w"> </span>/home/containers/run_tensorflow.sh
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Build a custom SIF image</strong> from a definition file:</p>
+<ol class="arabic simple" start="8">
+<li><p>Build a custom SIF image from a definition file:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /home/containers/custom.def</span>
@@ -651,45 +659,45 @@ apptainer<span class="w"> </span>build<span class="w"> </span>/home/containers/i
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Verify SIF images are accessible</strong> from all compute nodes:</p>
+<ol class="arabic simple">
+<li><p>Verify SIF images are accessible from all compute nodes:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;ls -la /home/containers/images/&quot;</span>
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Run a quick test</strong> across multiple nodes:</p>
+<ol class="arabic simple" start="2">
+<li><p>Run a quick test across multiple nodes:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>-N<span class="w"> </span><span class="m">2</span><span class="w"> </span>apptainer<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>/home/containers/images/ubuntu.sif<span class="w"> </span>hostname
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify GPU access</strong> inside containers:</p>
+<ol class="arabic simple" start="3">
+<li><p>Verify GPU access inside containers:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>apptainer<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--nv<span class="w"> </span>/home/containers/images/tensorflow.sif<span class="w"> </span>nvidia-smi
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Check job output</strong>:</p>
+<ol class="arabic simple" start="4">
+<li><p>Check job output:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/home/containers/results/*.out
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -701,59 +709,46 @@ containers.</p></li>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt><strong>“apptainer: command not found”</strong></dt><dd><p>Verify Apptainer is installed:</p>
-</dd>
-</dl>
+<p><strong>“apptainer: command not found”</strong>
+Verify Apptainer is installed:</p>
 <div class="literal-block-wrapper docutils container" id="id13">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>apptainer
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>apptainer
 </pre></div>
 </div>
 </div>
-<dl>
-<dt><strong>Pull fails with “permission denied”</strong></dt><dd><ul class="simple">
-<li><p>Ensure the NFS directory has write permissions.</p></li>
-<li><p>Apptainer uses <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> for build cache; ensure sufficient space:</p></li>
-</ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id14">
+<p><strong>Pull fails with “permission denied”</strong>
+- Ensure the NFS directory has write permissions.
+- Apptainer uses <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> for build cache; ensure sufficient space:</p>
+<div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>df<span class="w"> </span>-h<span class="w"> </span>/tmp
-<span class="w">  </span><span class="nb">export</span><span class="w"> </span><span class="nv">APPTAINER_TMPDIR</span><span class="o">=</span>/scratch/tmp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>df<span class="w"> </span>-h<span class="w"> </span>/tmp
+<span class="nb">export</span><span class="w"> </span><span class="nv">APPTAINER_TMPDIR</span><span class="o">=</span>/scratch/tmp
 </pre></div>
 </div>
 </div>
+<p><strong>GPU not accessible inside container</strong>
+- Use <code class="docutils literal notranslate"><span class="pre">--nv</span></code> for NVIDIA or <code class="docutils literal notranslate"><span class="pre">--rocm</span></code> for AMD GPUs.
+- Verify the host GPU driver is compatible with the container’s CUDA</p>
+<blockquote>
+<div><p>version.</p>
 </div></blockquote>
-</dd>
-<dt><strong>GPU not accessible inside container</strong></dt><dd><ul class="simple">
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">--nv</span></code> for NVIDIA or <code class="docutils literal notranslate"><span class="pre">--rocm</span></code> for AMD GPUs.</p></li>
-<li><dl class="simple">
-<dt>Verify the host GPU driver is compatible with the container’s CUDA</dt><dd><p>version.</p>
-</dd>
-</dl>
-</li>
-</ul>
-</dd>
-<dt><strong>SIF image corrupted</strong></dt><dd><p>Re-pull the image:</p>
-</dd>
-</dl>
+<p><strong>SIF image corrupted</strong>
+Re-pull the image:</p>
 <div class="literal-block-wrapper docutils container" id="id15">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>rm<span class="w"> </span>/home/containers/images/broken.sif
-<span class="w">   </span>apptainer<span class="w"> </span>pull<span class="w"> </span>/home/containers/images/fixed.sif<span class="w"> </span>docker://source-image
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>/home/containers/images/broken.sif
+apptainer<span class="w"> </span>pull<span class="w"> </span>/home/containers/images/fixed.sif<span class="w"> </span>docker://source-image
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>MPI inside container fails</strong></dt><dd><p>Ensure the MPI version inside the container is compatible with the host
+<p><strong>MPI inside container fails</strong>
+Ensure the MPI version inside the container is compatible with the host
 MPI. Use <code class="docutils literal notranslate"><span class="pre">--bind</span></code> to mount the host MPI libraries:</p>
-</dd>
-</dl>
 <div class="literal-block-wrapper docutils container" id="id16">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>srun<span class="w"> </span>-N<span class="w"> </span><span class="m">2</span><span class="w"> </span>apptainer<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--bind<span class="w"> </span>/usr/lib64/openmpi:/host-mpi<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>/home/containers/images/app.sif<span class="w"> </span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">8</span><span class="w"> </span>/app/benchmark
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>-N<span class="w"> </span><span class="m">2</span><span class="w"> </span>apptainer<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--bind<span class="w"> </span>/usr/lib64/openmpi:/host-mpi<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/home/containers/images/app.sif<span class="w"> </span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">8</span><span class="w"> </span>/app/benchmark
 </pre></div>
 </div>
 </div>

@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=41ea00ef" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -451,7 +451,7 @@ format so you can quickly identify the problem and apply the fix.</p>
 <h2>Troubleshooting approach<a class="headerlink" href="#troubleshooting-approach" title="Link to this heading">#</a></h2>
 <p>When you encounter an issue, follow this general diagnostic flow:</p>
 <ol class="arabic simple">
-<li><p><strong>Check logs first.</strong> Most issues leave a clear trace in the logs. See
+<li><p>Check logs first. Most issues leave a clear trace in the logs. See
 <a class="reference internal" href="../Operations/log_management.html"><span class="doc">Log Management</span></a> for log locations.</p></li>
 </ol>
 <blockquote>
@@ -461,11 +461,11 @@ format so you can quickly identify the problem and apply the fix.</p>
 <li><p>Slurm logs: <code class="docutils literal notranslate"><span class="pre">/var/log/slurm/</span></code></p></li>
 </ul>
 </div></blockquote>
-<ol class="arabic simple">
-<li><p><strong>Verify prerequisites.</strong> Many failures stem from unmet prerequisites
+<ol class="arabic simple" start="2">
+<li><p>Verify prerequisites. Many failures stem from unmet prerequisites
 (missing packages, wrong OS version, misconfigured networks). Re-check the
 <a class="reference internal" href="../GetStarted/prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a> for your deployment path.</p></li>
-<li><p><strong>Use the ochami CLI.</strong> For provisioning issues, the <code class="docutils literal notranslate"><span class="pre">ochami-cli</span></code> provides
+<li><p>Use the ochami CLI. For provisioning issues, the <code class="docutils literal notranslate"><span class="pre">ochami-cli</span></code> provides
 direct access to the OpenCHAMI state manager for inspecting node inventory,
 boot status, and hardware state:</p></li>
 </ol>
@@ -474,8 +474,8 @@ ochami-cli<span class="w"> </span>smd<span class="w"> </span>components<span cla
 ochami-cli<span class="w"> </span>bss<span class="w"> </span>bootscript<span class="w"> </span>list
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Search this section.</strong> Browse the topic-specific pages below or use your
+<ol class="arabic simple" start="4">
+<li><p>Search this section. Browse the topic-specific pages below or use your
 browser’s search (Ctrl+F) to find your symptom.</p></li>
 </ol>
 <div class="admonition tip">
@@ -513,6 +513,9 @@ the relevant log output and a description of your environment.</p>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes Issues</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="kubernetes.html#control-plane-not-initializing">Control plane not initializing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kubernetes.html#pod-scheduling-failures">Pod scheduling failures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kubernetes.html#metallb-not-assigning-ip-addresses">MetalLB not assigning IP addresses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kubernetes.html#nfs-csi-mount-failures">NFS CSI mount failures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kubernetes.html#calico-networking-issues">Calico networking issues</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="telemetry.html">Telemetry Issues</a><ul>

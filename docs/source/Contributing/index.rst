@@ -50,24 +50,24 @@ Ways to contribute
 Getting started
 ~~~~~~~~~~~~~~~
 
-1. **Fork the repository** on GitHub:
+1. Fork the repository on GitHub:
 
    https://github.com/dell/omnia
 
-2. **Clone your fork** locally:
+2. Clone your fork locally:
 
    .. code-block:: bash
 
       git clone https://github.com/<your_username>/omnia.git
       cd omnia
 
-3. **Create a feature branch** for your changes:
+3. Create a feature branch for your changes:
 
    .. code-block:: bash
 
       git checkout -b feature/my-improvement
 
-4. **Make your changes**, commit, and push:
+4. Make your changes, commit, and push:
 
    .. code-block:: bash
 
@@ -75,7 +75,7 @@ Getting started
       git commit -m "Brief description of the change"
       git push origin feature/my-improvement
 
-5. **Open a pull request** on GitHub from your feature branch to the ``main``
+5. Open a pull request on GitHub from your feature branch to the ``main``
    branch of the upstream repository. See :doc:`pull_requests` for detailed
    guidelines.
 

@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=41ea00ef" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -544,7 +544,7 @@ allocations.</p></li>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
 <ol class="arabic">
-<li><p><strong>Enter the omnia_core container</strong>:</p>
+<li><p>Enter the omnia_core container:</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
@@ -552,16 +552,14 @@ allocations.</p></li>
 </div>
 </div>
 <p>Or alternatively:</p>
-</li>
-</ol>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>omnia_core<span class="w"> </span>bash
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>omnia_core<span class="w"> </span>bash
 </pre></div>
 </div>
 </div>
-<ol class="arabic">
-<li><p><strong>Navigate to the input directory</strong>:</p>
+</li>
+<li><p>Navigate to the input directory:</p>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia/input/project_default
@@ -569,7 +567,7 @@ allocations.</p></li>
 </div>
 </div>
 </li>
-<li><p><strong>Create the mapping file</strong> using a text editor:</p>
+<li><p>Create the mapping file using a text editor:</p>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>pxe_mapping_file.csv
@@ -577,10 +575,10 @@ allocations.</p></li>
 </div>
 </div>
 </li>
-<li><p><strong>Add the CSV header and node entries</strong>. The file must contain the following
-columns in this exact order:</p></li>
-</ol>
-<p><strong>File: /opt/omnia/input/project_default/pxe_mapping_file.csv</strong></p>
+<li><p>Add the CSV header and node entries. The file must contain the following
+columns in this exact order:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/pxe_mapping_file.csv</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
 slurm_control_node,slurm_cluster,ABCDEF1,,,aa:bb:cc:dd:ee:01,10.5.0.101,aa:bb:cc:dd:ff:01,10.3.0.101
 slurm_node,slurm_cluster,ABCDEF2,,,aa:bb:cc:dd:ee:02,10.5.0.102,aa:bb:cc:dd:ff:02,10.3.0.102
@@ -590,6 +588,9 @@ kube_control_plane,k8s_cluster,ABCDEF5,,,aa:bb:cc:dd:ee:05,10.5.0.105,aa:bb:cc:d
 kube_node,k8s_cluster,ABCDEF6,,,aa:bb:cc:dd:ee:06,10.5.0.106,aa:bb:cc:dd:ff:06,10.3.0.106
 </pre></div>
 </div>
+</div>
+</li>
+</ol>
 <section id="column-reference">
 <h3>Column Reference<a class="headerlink" href="#column-reference" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -651,41 +652,41 @@ for fields that should be auto-generated (<code class="docutils literal notransl
 <li><p>Do <strong>not</strong> add spaces after commas.</p></li>
 </ul>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Save and exit</strong> the editor (<code class="docutils literal notranslate"><span class="pre">:wq</span></code> in vi).</p></li>
+<ol class="arabic simple" start="5">
+<li><p>Save and exit the editor (<code class="docutils literal notranslate"><span class="pre">:wq</span></code> in vi).</p></li>
 </ol>
 </section>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
 <ol class="arabic">
-<li><p><strong>Validate the CSV format</strong> by checking the header row:</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<li><p>Validate the CSV format by checking the header row:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>head<span class="w"> </span>-1<span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv
 </pre></div>
 </div>
 </div>
 <p>Expected output:</p>
-</li>
-</ol>
-<p><strong>Expected output on: omnia_core container</strong></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Expected output on: omnia_core container</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Count the entries</strong> (excluding the header):</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+</div>
+</li>
+<li><p>Count the entries (excluding the header):</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tail<span class="w"> </span>-n<span class="w"> </span>+2<span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
 </pre></div>
 </div>
 </div>
 <p>The count should match the number of target servers you intend to provision.</p>
 </li>
-<li><p><strong>Check for formatting issues</strong> (trailing spaces, empty lines):</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<li><p>Check for formatting issues (trailing spaces, empty lines):</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>-A<span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv
 </pre></div>
 </div>
@@ -713,33 +714,21 @@ last field value) and no blank lines.</p>
 </ul>
 </dd>
 <dt><strong>MAC address not found during discovery</strong></dt><dd><ul class="simple">
-<li><dl class="simple">
-<dt>Verify the <code class="docutils literal notranslate"><span class="pre">ADMIN_MAC</span></code> matches the PXE NIC (not an onboard NIC that is</dt><dd><p>disabled in BIOS).</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Check that the BMC MAC corresponds to the iDRAC dedicated NIC, not a</dt><dd><p>shared LOM.</p>
-</dd>
-</dl>
-</li>
+<li><p>Verify the <code class="docutils literal notranslate"><span class="pre">ADMIN_MAC</span></code> matches the PXE NIC (not an onboard NIC that is
+disabled in BIOS).</p></li>
+<li><p>Check that the BMC MAC corresponds to the iDRAC dedicated NIC, not a
+shared LOM.</p></li>
 </ul>
 </dd>
 <dt><strong>IP address conflict</strong></dt><dd><ul class="simple">
 <li><p>Ensure no duplicate IPs exist in the <code class="docutils literal notranslate"><span class="pre">ADMIN_IP</span></code> or <code class="docutils literal notranslate"><span class="pre">BMC_IP</span></code> columns.</p></li>
-<li><dl class="simple">
-<dt>Verify the IP ranges do not overlap with the OIM’s own addresses or any</dt><dd><p>DHCP scope on the network.</p>
-</dd>
-</dl>
-</li>
+<li><p>Verify the IP ranges do not overlap with the OIM’s own addresses or any
+DHCP scope on the network.</p></li>
 </ul>
 </dd>
 <dt><strong>Blade server not discovered</strong></dt><dd><ul class="simple">
-<li><dl class="simple">
-<dt>Populate the <code class="docutils literal notranslate"><span class="pre">PARENT_SERVICE_TAG</span></code> column with the chassis service tag</dt><dd><p>for all blade servers in PowerEdge MX or C-series chassis.</p>
-</dd>
-</dl>
-</li>
+<li><p>Populate the <code class="docutils literal notranslate"><span class="pre">PARENT_SERVICE_TAG</span></code> column with the chassis service tag
+for all blade servers in PowerEdge MX or C-series chassis.</p></li>
 </ul>
 </dd>
 </dl>

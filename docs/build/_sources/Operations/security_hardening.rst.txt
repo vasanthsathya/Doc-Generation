@@ -24,30 +24,24 @@ Rotate vault passwords
 ~~~~~~~~~~~~~~~~~~~~~~
 
 
-#. Access the ``omnia_core`` container:
-
-   .. code-block:: bash
+1. Access the ``omnia_core`` container:
 
 .. code-block:: bash
 
-      ssh omnia_core
+   ssh omnia_core
 
 
 
-#. Re-key the vault file with a new password:
-
-   .. code-block:: bash
+2. Re-key the vault file with a new password:
 
 .. code-block:: bash
 
-      cd /omnia
-      ansible-vault rekey input/credentials.yml
+   cd /omnia
+   ansible-vault rekey input/credentials.yml
 
+Enter the current vault password, then provide the new password twice.
 
-
-   Enter the current vault password, then provide the new password twice.
-
-#. Update any scripts or CI/CD pipelines that reference the old vault password.
+3. Update any scripts or CI/CD pipelines that reference the old vault password.
 
 
 
@@ -68,30 +62,26 @@ Rotate service credentials
 To rotate individual service credentials (for example, the Slurm database
 password or LDAP admin password):
 
-#. Edit the encrypted credentials file:
-
-   .. code-block:: bash
+1. Edit the encrypted credentials file:
 
 .. code-block:: bash
 
-      ansible-vault edit input/credentials.yml
+   ansible-vault edit input/credentials.yml
 
 
 
-#. Update the relevant password fields.
+2. Update the relevant password fields.
 
 
-#. Re-run the appropriate playbook to propagate the new credentials:
-
-   .. code-block:: bash
+3. Re-run the appropriate playbook to propagate the new credentials:
 
 .. code-block:: bash
 
-      # For Slurm credentials
-      ansible-playbook playbooks/omnia.yml --tags slurm
+   # For Slurm credentials
+   ansible-playbook playbooks/omnia.yml --tags slurm
 
-      # For LDAP credentials
-      ansible-playbook playbooks/auth.yml
+   # For LDAP credentials
+   ansible-playbook playbooks/auth.yml
 
 
 
@@ -109,16 +99,14 @@ communication.
 Check certificate expiry
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. code-block:: bash
+   :caption: Run on: OIM host
 
+   # List certificates and their expiry dates
+   step certificate inspect /etc/step/certs/server.crt --short
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
-
-      # List certificates and their expiry dates
-      step certificate inspect /etc/step/certs/server.crt --short
-
-      # Check days until expiry
-      step certificate needs-renewal /etc/step/certs/server.crt
+   # Check days until expiry
+   step certificate needs-renewal /etc/step/certs/server.crt
 
 
 
@@ -130,15 +118,14 @@ Renew certificates
 Certificates issued by step-ca are typically short-lived and auto-renewed.
 If automatic renewal fails:
 
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+   # Manually renew
+   step ca renew /etc/step/certs/server.crt /etc/step/certs/server.key
 
-      # Manually renew
-      step ca renew /etc/step/certs/server.crt /etc/step/certs/server.key
-
-      # Restart affected services to pick up the new certificate
-      podman restart <service_container>
+   # Restart affected services to pick up the new certificate
+   podman restart <service_container>
 
 
 
@@ -163,29 +150,27 @@ required by Omnia services.
 OIM firewall configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. code-block:: bash
+   :caption: Run on: OIM host
 
+   # Allow SSH (management)
+   firewall-cmd --permanent --add-service=ssh
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+   # Allow DHCP (provisioning)
+   firewall-cmd --permanent --add-service=dhcp
 
-      # Allow SSH (management)
-      firewall-cmd --permanent --add-service=ssh
+   # Allow TFTP (PXE boot)
+   firewall-cmd --permanent --add-service=tftp
 
-      # Allow DHCP (provisioning)
-      firewall-cmd --permanent --add-service=dhcp
+   # Allow HTTP/HTTPS (Pulp repositories, AWX)
+   firewall-cmd --permanent --add-service=http
+   firewall-cmd --permanent --add-service=https
 
-      # Allow TFTP (PXE boot)
-      firewall-cmd --permanent --add-service=tftp
+   # Reload to apply
+   firewall-cmd --reload
 
-      # Allow HTTP/HTTPS (Pulp repositories, AWX)
-      firewall-cmd --permanent --add-service=http
-      firewall-cmd --permanent --add-service=https
-
-      # Reload to apply
-      firewall-cmd --reload
-
-      # Verify active rules
-      firewall-cmd --list-all
+   # Verify active rules
+   firewall-cmd --list-all
 
 
 
@@ -193,23 +178,21 @@ OIM firewall configuration
 Compute node firewall configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. code-block:: bash
+   :caption: Run on: compute node
 
+   # Allow Slurm communication
+   firewall-cmd --permanent --add-port=6817-6819/tcp
 
-   .. code-block:: bash
-      :caption: Run on: compute node
+   # Allow SSH (inter-node communication for MPI)
+   firewall-cmd --permanent --add-service=ssh
 
-      # Allow Slurm communication
-      firewall-cmd --permanent --add-port=6817-6819/tcp
+   # Allow LDAP client connections
+   firewall-cmd --permanent --add-port=389/tcp
+   firewall-cmd --permanent --add-port=636/tcp
 
-      # Allow SSH (inter-node communication for MPI)
-      firewall-cmd --permanent --add-service=ssh
-
-      # Allow LDAP client connections
-      firewall-cmd --permanent --add-port=389/tcp
-      firewall-cmd --permanent --add-port=636/tcp
-
-      # Reload to apply
-      firewall-cmd --reload
+   # Reload to apply
+   firewall-cmd --reload
 
 
 
@@ -230,49 +213,39 @@ LDAP hardening
 If you are using OpenLDAP for centralized authentication, apply these hardening
 measures:
 
-#. **Enforce TLS for all LDAP connections:**
+1. Enforce TLS for all LDAP connections:
 
-
-   Ensure ``ldaps://`` (port 636) is used instead of unencrypted ``ldap://`` (port 389). Update the LDAP client configuration on all nodes:
-
+Ensure ``ldaps://`` (port 636) is used instead of unencrypted ``ldap://`` (port 389). Update the LDAP client configuration on all nodes:
 
 .. code-block:: bash
 
-      # /etc/openldap/ldap.conf
-      URI ldaps://auth-server.example.com
-      TLS_CACERT /etc/openldap/certs/ca.crt
-      TLS_REQCERT demand
+   # /etc/openldap/ldap.conf
+   URI ldaps://auth-server.example.com
+   TLS_CACERT /etc/openldap/certs/ca.crt
+   TLS_REQCERT demand
 
+2. Restrict anonymous binds:
 
-
-#. **Restrict anonymous binds:**
-
-
-   Configure the LDAP server to disallow anonymous access:
-
+Configure the LDAP server to disallow anonymous access:
 
 .. code-block:: bash
 
-      ldapmodify -Y EXTERNAL -H ldapi:/// <<EOF
-      dn: cn=config
-      changetype: modify
-      replace: olcDisallows
-      olcDisallows: bind_anon
-      EOF
+   ldapmodify -Y EXTERNAL -H ldapi:/// <<EOF
+   dn: cn=config
+   changetype: modify
+   replace: olcDisallows
+   olcDisallows: bind_anon
+   EOF
 
+3. Set strong password policies:
 
+Configure password complexity, lockout, and expiry in the LDAP password
+policy overlay.
 
-#. **Set strong password policies:**
+4. Limit LDAP admin access:
 
-
-   Configure password complexity, lockout, and expiry in the LDAP password
-   policy overlay.
-
-#. **Limit LDAP admin access:**
-
-
-   Restrict the LDAP admin bind DN to connections originating from the OIM and
-   authentication server only.
+Restrict the LDAP admin bind DN to connections originating from the OIM and
+authentication server only.
 
 
 
@@ -282,20 +255,19 @@ Disable unnecessary services
 
 Review running services on all nodes and disable anything not required:
 
+.. code-block:: bash
+   :caption: Run on: compute node
 
-   .. code-block:: bash
-      :caption: Run on: compute node
+   # List all enabled services
+   systemctl list-unit-files --state=enabled
 
-      # List all enabled services
-      systemctl list-unit-files --state=enabled
+   # Disable services not needed on compute nodes
+   systemctl disable --now cups.service
+   systemctl disable --now avahi-daemon.service
+   systemctl disable --now bluetooth.service
 
-      # Disable services not needed on compute nodes
-      systemctl disable --now cups.service
-      systemctl disable --now avahi-daemon.service
-      systemctl disable --now bluetooth.service
-
-      # Verify
-      systemctl list-unit-files --state=enabled | wc -l
+   # Verify
+   systemctl list-unit-files --state=enabled | wc -l
 
 
 
@@ -307,19 +279,18 @@ Routine security updates
 
 Apply security patches regularly on the OIM and all cluster nodes:
 
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+   # Install only security updates (RHEL/Rocky)
+   yum update --security -y
 
-      # Install only security updates (RHEL/Rocky)
-      yum update --security -y
+   # Check for available security updates without installing
+   yum updateinfo list security
 
-      # Check for available security updates without installing
-      yum updateinfo list security
-
-      # Schedule automatic security updates (optional)
-      yum install -y dnf-automatic
-      systemctl enable --now dnf-automatic-install.timer
+   # Schedule automatic security updates (optional)
+   yum install -y dnf-automatic
+   systemctl enable --now dnf-automatic-install.timer
 
 
 

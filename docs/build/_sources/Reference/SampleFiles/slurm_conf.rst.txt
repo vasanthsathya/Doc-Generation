@@ -14,9 +14,8 @@ Complete sample
 
 
 
-**File: /etc/slurm/slurm.conf**
-
 .. code-block:: bash
+   :caption: File: /etc/slurm/slurm.conf
 
    # ===========================================================================
    # slurm.conf -- Slurm configuration file

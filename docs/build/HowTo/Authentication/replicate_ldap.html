@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -535,39 +535,39 @@ running in the <code class="docutils literal notranslate"><span class="pre">omni
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Configure the primary server</strong> (provider) for replication:</p>
+<ol class="arabic simple">
+<li><p>Configure the primary server (provider) for replication:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>omnia_auth<span class="w"> </span>bash
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_auth container (primary)</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /tmp/enable_syncprov.ldif</span>
-<span class="s">   dn: cn=module{0},cn=config</span>
-<span class="s">   changetype: modify</span>
-<span class="s">   add: olcModuleLoad</span>
-<span class="s">   olcModuleLoad: syncprov</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /tmp/enable_syncprov.ldif</span>
+<span class="s">dn: cn=module{0},cn=config</span>
+<span class="s">changetype: modify</span>
+<span class="s">add: olcModuleLoad</span>
+<span class="s">olcModuleLoad: syncprov</span>
 
-<span class="s">   dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config</span>
-<span class="s">   changetype: add</span>
-<span class="s">   objectClass: olcOverlayConfig</span>
-<span class="s">   objectClass: olcSyncProvConfig</span>
-<span class="s">   olcOverlay: syncprov</span>
-<span class="s">   olcSyncProvCheckpoint: 50 10</span>
-<span class="s">   olcSyncProvSessionlog: 100</span>
-<span class="s">   EOF</span>
+<span class="s">dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config</span>
+<span class="s">changetype: add</span>
+<span class="s">objectClass: olcOverlayConfig</span>
+<span class="s">objectClass: olcSyncProvConfig</span>
+<span class="s">olcOverlay: syncprov</span>
+<span class="s">olcSyncProvCheckpoint: 50 10</span>
+<span class="s">olcSyncProvSessionlog: 100</span>
+<span class="s">EOF</span>
 
-<span class="w">   </span>ldapmodify<span class="w"> </span>-Q<span class="w"> </span>-Y<span class="w"> </span>EXTERNAL<span class="w"> </span>-H<span class="w"> </span>ldapi:///<span class="w"> </span>-f<span class="w"> </span>/tmp/enable_syncprov.ldif
+ldapmodify<span class="w"> </span>-Q<span class="w"> </span>-Y<span class="w"> </span>EXTERNAL<span class="w"> </span>-H<span class="w"> </span>ldapi:///<span class="w"> </span>-f<span class="w"> </span>/tmp/enable_syncprov.ldif
 </pre></div>
 </div>
 </div>
-<ol class="arabic">
-<li><p><strong>Create a replication service account</strong> on the primary:</p>
+<ol class="arabic simple" start="2">
+<li><p>Create a replication service account on the primary:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_auth container (primary)</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /tmp/repl_user.ldif</span>
@@ -582,8 +582,9 @@ ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </sp
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Configure the replica</strong> (consumer) server:</p>
+<ol class="arabic simple" start="3">
+<li><p>Configure the replica (consumer) server:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Run on: replica LDAP server</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /tmp/syncrepl.ldif</span>
@@ -608,50 +609,52 @@ ldapmodify<span class="w"> </span>-Q<span class="w"> </span>-Y<span class="w"> <
 </div>
 </div>
 <p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;primary-oim-ip&gt;</span></code> with the actual IP of the OIM.</p>
-</li>
-<li><p><strong>Configure SSSD on cluster nodes</strong> to use both LDAP servers:</p>
+<ol class="arabic simple" start="4">
+<li><p>Configure SSSD on cluster nodes to use both LDAP servers:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
-<p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/omnia_config.yml</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="nt">ldap_uris</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;ldap://&lt;primary-oim-ip&gt;&quot;</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;ldap://&lt;replica-ip&gt;&quot;</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Re-run the auth playbook</strong> to update SSSD configuration:</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Re-run the auth playbook to update SSSD configuration:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>auth.yml<span class="w"> </span>--ask-vault-pass
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Verify replication status</strong> on the replica:</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on: replica LDAP server</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<ol class="arabic simple">
+<li><p>Verify replication status on the replica:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on: replica LDAP server</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://localhost<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span><span class="s2">&quot;(uid=testuser)&quot;</span>
 </pre></div>
 </div>
 </div>
 <p>The user created on the primary should be visible on the replica.</p>
-</li>
-<li><p><strong>Add a user on the primary</strong> and verify it replicates:</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_auth container (primary)</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="2">
+<li><p>Add a user on the primary and verify it replicates:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_auth container (primary)</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /tmp/new_user.ldif</span>
 <span class="s">dn: uid=repltest,ou=People,dc=omnia,dc=example,dc=com</span>
 <span class="s">objectClass: inetOrgPerson</span>
@@ -670,39 +673,33 @@ ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </sp
 </div>
 </div>
 <p>Then check the replica:</p>
-</li>
-</ol>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on: replica LDAP server</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://localhost<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span><span class="s2">&quot;(uid=repltest)&quot;</span>
-</pre></div>
-</div>
-</div>
-<ol class="arabic simple">
-<li><p><strong>Test failover</strong> by stopping the primary and verifying authentication
-still works:</p></li>
-</ol>
 <div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>podman<span class="w"> </span>stop<span class="w"> </span>omnia_auth
+<div class="code-block-caption"><span class="caption-text">Run on: replica LDAP server</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://localhost<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span><span class="s2">&quot;(uid=repltest)&quot;</span>
 </pre></div>
 </div>
 </div>
+<ol class="arabic simple" start="3">
+<li><p>Test failover by stopping the primary and verifying authentication still works:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># SSSD should failover to the replica</span>
-<span class="w">   </span>id<span class="w"> </span>testuser
-<span class="w">   </span>ssh<span class="w"> </span>testuser@localhost
-
-
-
-Remember<span class="w"> </span>to<span class="w"> </span>restart<span class="w"> </span>the<span class="w"> </span>primary:
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>stop<span class="w"> </span>omnia_auth
 </pre></div>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>podman<span class="w"> </span>start<span class="w"> </span>omnia_auth
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># SSSD should failover to the replica</span>
+id<span class="w"> </span>testuser
+ssh<span class="w"> </span>testuser@localhost
+</pre></div>
+</div>
+</div>
+<p>Remember to restart the primary:</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>start<span class="w"> </span>omnia_auth
 </pre></div>
 </div>
 </div>
@@ -717,13 +714,11 @@ replicated LDAP.</p></li>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt><strong>Replica does not receive updates</strong></dt><dd><p>Check the syncrepl connection from the replica logs:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Run on: replica LDAP server</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>journalctl<span class="w"> </span>-u<span class="w"> </span>slapd<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">30</span>
+<p><strong>Replica does not receive updates</strong>
+Check the syncrepl connection from the replica logs:</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on: replica LDAP server</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>journalctl<span class="w"> </span>-u<span class="w"> </span>slapd<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">30</span>
 </pre></div>
 </div>
 </div>
@@ -731,37 +726,29 @@ replicated LDAP.</p></li>
 <dt><strong>“Invalid credentials” during replication</strong></dt><dd><p>Verify the replicator account password matches between the provider
 configuration and the consumer’s syncrepl credentials.</p>
 </dd>
-<dt><strong>Data is stale on the replica</strong></dt><dd><p>Force a full resync by removing and re-adding the syncrepl configuration:</p>
-</dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Run on: replica LDAP server</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ldapmodify<span class="w"> </span>-Q<span class="w"> </span>-Y<span class="w"> </span>EXTERNAL<span class="w"> </span>-H<span class="w"> </span>ldapi:///<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
-<span class="s">   dn: olcDatabase={1}mdb,cn=config</span>
-<span class="s">   changetype: modify</span>
-<span class="s">   delete: olcSyncRepl</span>
-<span class="s">   EOF</span>
-
-
-
-Then<span class="w"> </span>re-apply<span class="w"> </span>the<span class="w"> </span>syncrepl<span class="w"> </span>configuration<span class="w"> </span>from<span class="w"> </span>step<span class="w"> </span><span class="m">3</span>.
-</pre></div>
-</div>
-</div>
-<dl class="simple">
-<dt><strong>SSSD does not failover to the replica</strong></dt><dd><p>Check the SSSD configuration on the compute node:</p>
-</dd>
-</dl>
+<p><strong>Data is stale on the replica</strong>
+Force a full resync by removing and re-adding the syncrepl configuration:</p>
 <div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>cat<span class="w"> </span>/etc/sssd/sssd.conf<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ldap_uri
-
-
-
-Ensure<span class="w"> </span>both<span class="w"> </span>LDAP<span class="w"> </span>URIs<span class="w"> </span>are<span class="w"> </span>listed<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>primary<span class="w"> </span>first.
+<div class="code-block-caption"><span class="caption-text">Run on: replica LDAP server</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapmodify<span class="w"> </span>-Q<span class="w"> </span>-Y<span class="w"> </span>EXTERNAL<span class="w"> </span>-H<span class="w"> </span>ldapi:///<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">dn: olcDatabase={1}mdb,cn=config</span>
+<span class="s">changetype: modify</span>
+<span class="s">delete: olcSyncRepl</span>
+<span class="s">EOF</span>
 </pre></div>
 </div>
 </div>
+<p>Then re-apply the syncrepl configuration from step 3.</p>
+<p><strong>SSSD does not failover to the replica</strong>
+Check the SSSD configuration on the compute node:</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/etc/sssd/sssd.conf<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ldap_uri
+</pre></div>
+</div>
+</div>
+<p>Ensure both LDAP URIs are listed with the primary first.</p>
 <p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

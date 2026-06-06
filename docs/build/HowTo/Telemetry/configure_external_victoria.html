@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -536,25 +536,26 @@ the K8s service cluster.</p></li>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Enter the omnia_core container</strong>:</p>
+<ol class="arabic simple">
+<li><p>Enter the omnia_core container:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ssh<span class="w"> </span>omnia_core
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Configure external VictoriaMetrics</strong> in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p>
+<ol class="arabic simple" start="2">
+<li><p>Configure external VictoriaMetrics in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
-<p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/omnia_config.yml</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="c1"># External VictoriaMetrics configuration</span>
 <span class="nt">victoriametrics_external</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -572,85 +573,85 @@ the K8s service cluster.</p></li>
 <span class="w">  </span><span class="nt">datacenter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;dc1&quot;</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Verify connectivity</strong> to the external VictoriaMetrics:</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>curl<span class="w"> </span>-s<span class="w"> </span>http://victoria.example.com:8428/api/v1/status/tsdb
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Verify connectivity to the external VictoriaMetrics:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>http://victoria.example.com:8428/api/v1/status/tsdb
 </pre></div>
 </div>
 </div>
 <p>Expected: JSON response with database statistics.</p>
-</li>
-<li><p><strong>Run the telemetry playbook</strong> to reconfigure:</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nb">cd</span><span class="w"> </span>/omnia
-<span class="w">   </span>ansible-playbook<span class="w"> </span>telemetry.yml<span class="w"> </span>--ask-vault-pass
+<ol class="arabic simple" start="4">
+<li><p>Run the telemetry playbook to reconfigure:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
+ansible-playbook<span class="w"> </span>telemetry.yml<span class="w"> </span>--ask-vault-pass
 </pre></div>
 </div>
 </div>
 <p>The playbook will:</p>
-</li>
-</ol>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>Skip deploying the built-in VictoriaMetrics pod.</p></li>
 <li><p>Configure Kafka consumers to write to the external VictoriaMetrics.</p></li>
 <li><p>Update Grafana data source to point to the external instance.</p></li>
 </ul>
-</div></blockquote>
-<ol class="arabic">
-<li><p><strong>Update Grafana data source</strong> (if not automatically configured):</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nv">GRAFANA_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>grafana<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
-<span class="w">   </span>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="nv">$GRAFANA_POD</span><span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:3000/api/datasources<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>-u<span class="w"> </span>admin:YourGrafanaPassword<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">         &quot;name&quot;: &quot;VictoriaMetrics External&quot;,</span>
-<span class="s1">         &quot;type&quot;: &quot;prometheus&quot;,</span>
-<span class="s1">         &quot;url&quot;: &quot;http://victoria.example.com:8428&quot;,</span>
-<span class="s1">         &quot;access&quot;: &quot;proxy&quot;,</span>
-<span class="s1">         &quot;isDefault&quot;: true</span>
-<span class="s1">       }&#39;</span>
+<ol class="arabic simple" start="5">
+<li><p>Update Grafana data source (if not automatically configured):</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">GRAFANA_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>grafana<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
+kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="nv">$GRAFANA_POD</span><span class="w"> </span>--<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:3000/api/datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-u<span class="w"> </span>admin:YourGrafanaPassword<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">      &quot;name&quot;: &quot;VictoriaMetrics External&quot;,</span>
+<span class="s1">      &quot;type&quot;: &quot;prometheus&quot;,</span>
+<span class="s1">      &quot;url&quot;: &quot;http://victoria.example.com:8428&quot;,</span>
+<span class="s1">      &quot;access&quot;: &quot;proxy&quot;,</span>
+<span class="s1">      &quot;isDefault&quot;: true</span>
+<span class="s1">    }&#39;</span>
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Verify data is being written</strong> to the external VictoriaMetrics:</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Run on: any node with curl</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://victoria.example.com:8428/api/v1/query?query=up&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool
+<ol class="arabic simple">
+<li><p>Verify data is being written to the external VictoriaMetrics:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on: any node with curl</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://victoria.example.com:8428/api/v1/query?query=up&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Check metric count</strong> on the external instance:</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on: any node with curl</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="2">
+<li><p>Check metric count on the external instance:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on: any node with curl</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://victoria.example.com:8428/api/v1/status/tsdb&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify no built-in VictoriaMetrics pod</strong> is running:</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="3">
+<li><p>Verify no built-in VictoriaMetrics pod is running:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>victoriametrics
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify Grafana dashboards</strong> show data from the external instance by
-opening the Grafana web UI and checking the data source configuration.</p></li>
+<ol class="arabic simple" start="4">
+<li><p>Verify Grafana dashboards show data from the external instance by opening the Grafana web UI and checking the data source configuration.</p></li>
 </ol>
 </section>
 <section id="next-steps">
@@ -662,45 +663,34 @@ opening the Grafana web UI and checking the data source configuration.</p></li>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt><strong>Write endpoint returns 403 or 401</strong></dt><dd><p>Verify authentication credentials are correct:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>user:password<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="s2">&quot;http://victoria.example.com:8428/api/v1/query?query=up&quot;</span>
-</pre></div>
-</div>
-</div>
-<dl class="simple">
-<dt><strong>Connection timeout to external VictoriaMetrics</strong></dt><dd><p>Check network connectivity and firewall rules:</p>
-</dd>
-</dl>
+<p><strong>Write endpoint returns 403 or 401</strong>
+Verify authentication credentials are correct:</p>
 <div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s worker node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>curl<span class="w"> </span>-v<span class="w"> </span>http://victoria.example.com:8428/health
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>-u<span class="w"> </span>user:password<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">&quot;http://victoria.example.com:8428/api/v1/query?query=up&quot;</span>
 </pre></div>
 </div>
 </div>
-<dl>
-<dt><strong>Grafana shows “No data” with external source</strong></dt><dd><ul class="simple">
-<li><p>Verify the data source URL in Grafana settings.</p></li>
-<li><p>Check that the external VictoriaMetrics is receiving data:</p></li>
-</ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on: any node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://victoria.example.com:8428/api/v1/series?match[]={cluster=&#39;omnia-prod&#39;}&quot;</span>
+<p><strong>Connection timeout to external VictoriaMetrics</strong>
+Check network connectivity and firewall rules:</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s worker node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-v<span class="w"> </span>http://victoria.example.com:8428/health
 </pre></div>
 </div>
 </div>
-</div></blockquote>
-</dd>
-<dt><strong>Metrics have wrong labels</strong></dt><dd><p>Check the <code class="docutils literal notranslate"><span class="pre">victoriametrics_extra_labels</span></code> configuration in
-<code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>.</p>
-</dd>
-</dl>
+<p><strong>Grafana shows “No data” with external source</strong>
+- Verify the data source URL in Grafana settings.
+- Check that the external VictoriaMetrics is receiving data:</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Run on: any node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://victoria.example.com:8428/api/v1/series?match[]={cluster=&#39;omnia-prod&#39;}&quot;</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Metrics have wrong labels</strong>
+Check the <code class="docutils literal notranslate"><span class="pre">victoriametrics_extra_labels</span></code> configuration in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>.</p>
 <p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

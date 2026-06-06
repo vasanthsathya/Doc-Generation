@@ -51,92 +51,83 @@ Procedure
 ---------
 
 
-#. **Enter the omnia_core container**:
-
-   .. code-block:: bash
-      :caption: Run on: OIM host
-
-      ssh omnia_core
-
-
-
-#. **Configure proxy LDAP parameters** in ``omnia_config.yml``:
-
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
-
-      vi /opt/omnia/input/project_default/omnia_config.yml
-
-
-
-
-**File: /opt/omnia/input/project_default/omnia_config.yml**
-
-.. code-block:: yaml
-
-      ---
-      auth_type: "openldap_proxy"
-      external_ldap_uri: "ldaps://ldap.corp.example.com:636"
-      external_ldap_base_dn: "dc=corp,dc=example,dc=com"
-      external_ldap_bind_dn: "cn=omnia-readonly,ou=ServiceAccounts,dc=corp,dc=example,dc=com"
-      external_ldap_bind_password: ""  # Set via credentials utility
-      external_ldap_user_search_base: "ou=People,dc=corp,dc=example,dc=com"
-      external_ldap_group_search_base: "ou=Groups,dc=corp,dc=example,dc=com"
-      external_ldap_tls_ca_cert: "/etc/ssl/certs/corp-ca.pem"
-
-
-
-#. **(If using LDAPS) Copy the CA certificate** to the omnia_auth container:
-
-   .. code-block:: bash
-      :caption: Run on: OIM host
-
-      podman cp /path/to/corp-ca.pem omnia_auth:/etc/ssl/certs/corp-ca.pem
-
-
-
-#. **Run the auth.yml playbook**:
-
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
-
-      cd /omnia
-      ansible-playbook auth.yml --ask-vault-pass
-
-
-
-   The playbook will:
-
-  - Configure OpenLDAP's ``slapd-ldap`` backend for proxy pass-through.
-  - Set up SSSD on cluster nodes to use the local proxy.
-  - Configure TLS certificates if using LDAPS.
-  - Enable caching for offline resilience.
-
-
-#. **(Alternative) Manual proxy configuration** inside the ``omnia_auth``
-   container:
-
+1. Enter the omnia_core container:
 
 .. code-block:: bash
    :caption: Run on: OIM host
 
-      podman exec -it omnia_auth bash
+   ssh omnia_core
 
 
 
+2. Configure proxy LDAP parameters in ``omnia_config.yml``:
+
+.. code-block:: bash
+   :caption: Run on: omnia_core container
+
+   vi /opt/omnia/input/project_default/omnia_config.yml
+
+
+.. code-block:: yaml
+   :caption: File: /opt/omnia/input/project_default/omnia_config.yml
+
+   ---
+   auth_type: "openldap_proxy"
+   external_ldap_uri: "ldaps://ldap.corp.example.com:636"
+   external_ldap_base_dn: "dc=corp,dc=example,dc=com"
+   external_ldap_bind_dn: "cn=omnia-readonly,ou=ServiceAccounts,dc=corp,dc=example,dc=com"
+   external_ldap_bind_password: ""  # Set via credentials utility
+   external_ldap_user_search_base: "ou=People,dc=corp,dc=example,dc=com"
+   external_ldap_group_search_base: "ou=Groups,dc=corp,dc=example,dc=com"
+   external_ldap_tls_ca_cert: "/etc/ssl/certs/corp-ca.pem"
+
+
+
+3. (If using LDAPS) Copy the CA certificate to the omnia_auth container:
+
+.. code-block:: bash
+   :caption: Run on: OIM host
+
+   podman cp /path/to/corp-ca.pem omnia_auth:/etc/ssl/certs/corp-ca.pem
+
+
+
+4. Run the auth.yml playbook:
+
+.. code-block:: bash
+   :caption: Run on: omnia_core container
+
+   cd /omnia
+   ansible-playbook auth.yml --ask-vault-pass
+
+
+
+The playbook will:
+
+- Configure OpenLDAP's ``slapd-ldap`` backend for proxy pass-through.
+- Set up SSSD on cluster nodes to use the local proxy.
+- Configure TLS certificates if using LDAPS.
+- Enable caching for offline resilience.
+
+5. (Alternative) Manual proxy configuration inside the ``omnia_auth`` container:
+
+.. code-block:: bash
+   :caption: Run on: OIM host
+
+   podman exec -it omnia_auth bash
 
 .. code-block:: bash
    :caption: Run on: omnia_auth container
 
-      cat <<'EOF' >> /etc/openldap/slapd.d/cn=config/olcDatabase={2}ldap.ldif
-      dn: olcDatabase={2}ldap
-      objectClass: olcDatabaseConfig
-      objectClass: olcLDAPConfig
-      olcDatabase: {2}ldap
-      olcSuffix: dc=corp,dc=example,dc=com
-      olcDbURI: ldaps://ldap.corp.example.com:636
-      olcDbRebindAsUser: TRUE
-      EOF
+   cat <<'EOF' >> /etc/openldap/slapd.d/cn=config/olcDatabase={2}ldap.ldif
+   dn: olcDatabase={2}ldap
+   objectClass: olcDatabaseConfig
+   objectClass: olcLDAPConfig
+   olcDatabase: {2}ldap
+   olcSuffix: dc=corp,dc=example,dc=com
+   olcDbURI: ldaps://ldap.corp.example.com:636
+   olcDbRebindAsUser: TRUE
+   EOF
 
 
 
@@ -146,42 +137,42 @@ Verification
 ------------
 
 
-#. **Test proxy connectivity** to the external LDAP:
+1. Test proxy connectivity to the external LDAP:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_auth container
+.. code-block:: bash
+   :caption: Run on: omnia_auth container
 
-      ldapsearch -x -H ldaps://ldap.corp.example.com:636 \
-        -D "cn=omnia-readonly,ou=ServiceAccounts,dc=corp,dc=example,dc=com" \
-        -W -b "ou=People,dc=corp,dc=example,dc=com" "(uid=*)" dn | head -20
-
-
-
-#. **Test local proxy** from the omnia_core container:
-
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
-
-      ldapsearch -x -H ldap://omnia_auth -b "dc=corp,dc=example,dc=com" "(uid=someuser)"
+   ldapsearch -x -H ldaps://ldap.corp.example.com:636 \
+     -D "cn=omnia-readonly,ou=ServiceAccounts,dc=corp,dc=example,dc=com" \
+     -W -b "ou=People,dc=corp,dc=example,dc=com" "(uid=*)" dn | head -20
 
 
 
-#. **Verify user resolution** on a compute node:
+2. Test local proxy from the omnia_core container:
 
-   .. code-block:: bash
-      :caption: Run on: compute node
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      getent passwd someuser
-      id someuser
-
+   ldapsearch -x -H ldap://omnia_auth -b "dc=corp,dc=example,dc=com" "(uid=someuser)"
 
 
-#. **Test SSH login** with a corporate LDAP user:
 
-   .. code-block:: bash
-      :caption: Run on: any node
+3. Verify user resolution on a compute node:
 
-      ssh someuser@<compute-node-ip>
+.. code-block:: bash
+   :caption: Run on: compute node
+
+   getent passwd someuser
+   id someuser
+
+
+
+4. Test SSH login with a corporate LDAP user:
+
+.. code-block:: bash
+   :caption: Run on: any node
+
+   ssh someuser@<compute-node-ip>
 
 
 
@@ -202,46 +193,42 @@ Troubleshooting
 
 
 **Proxy returns "connection refused"**
-   Verify the external LDAP server is reachable:
-
+Verify the external LDAP server is reachable:
 
 .. code-block:: bash
    :caption: Run on: OIM host
 
-      openssl s_client -connect ldap.corp.example.com:636
+   openssl s_client -connect ldap.corp.example.com:636
 
 
 
 **Certificate verification failed**
-   Ensure the CA certificate is correct and accessible:
-
+Ensure the CA certificate is correct and accessible:
 
 .. code-block:: bash
    :caption: Run on: omnia_auth container
 
-      openssl verify -CAfile /etc/ssl/certs/corp-ca.pem /etc/ssl/certs/corp-ca.pem
+   openssl verify -CAfile /etc/ssl/certs/corp-ca.pem /etc/ssl/certs/corp-ca.pem
 
 
 
 **Users not found via proxy**
-   Check the search base DN matches the external LDAP tree structure:
-
+Check the search base DN matches the external LDAP tree structure:
 
 .. code-block:: bash
    :caption: Run on: omnia_auth container
 
-      ldapsearch -x -H ldaps://ldap.corp.example.com:636 \
-        -D "<bind-dn>" -W -b "<base-dn>" "(objectClass=*)" dn | head
+   ldapsearch -x -H ldaps://ldap.corp.example.com:636 \
+     -D "<bind-dn>" -W -b "<base-dn>" "(objectClass=*)" dn | head
 
 
 
 **SSSD cache stale data**
-   Clear and restart:
-
+Clear and restart:
 
 .. code-block:: bash
    :caption: Run on: compute node
 
-      sss_cache -E
-      systemctl restart sssd
+   sss_cache -E
+   systemctl restart sssd
 

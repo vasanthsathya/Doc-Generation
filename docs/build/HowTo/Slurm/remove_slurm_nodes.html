@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -533,16 +533,18 @@ compute node(s).</p></li>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Drain the target node</strong> to prevent new jobs from being scheduled:</p>
+<ol class="arabic simple">
+<li><p>Drain the target node to prevent new jobs from being scheduled:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">nodename</span><span class="o">=</span>&lt;node-to-remove&gt;<span class="w"> </span><span class="nv">state</span><span class="o">=</span>drain<span class="w"> </span><span class="nv">reason</span><span class="o">=</span><span class="s2">&quot;Decommissioning&quot;</span>
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify the node is draining</strong> and check for running jobs:</p>
+<ol class="arabic simple" start="2">
+<li><p>Verify the node is draining and check for running jobs:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sinfo<span class="w"> </span>-n<span class="w"> </span>&lt;node-to-remove&gt;
@@ -552,25 +554,25 @@ squeue<span class="w"> </span>-w<span class="w"> </span>&lt;node-to-remove&gt;
 </div>
 <p>Wait for all jobs on the node to complete. If immediate removal is needed,
 cancel running jobs:</p>
-</li>
-</ol>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># Cancel all jobs on the target node</span>
-<span class="w">   </span>scancel<span class="w"> </span>-w<span class="w"> </span>&lt;node-to-remove&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cancel all jobs on the target node</span>
+scancel<span class="w"> </span>-w<span class="w"> </span>&lt;node-to-remove&gt;
 </pre></div>
 </div>
 </div>
-<ol class="arabic">
-<li><p><strong>Set the node to down</strong>:</p>
+<ol class="arabic simple" start="3">
+<li><p>Set the node to down:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">nodename</span><span class="o">=</span>&lt;node-to-remove&gt;<span class="w"> </span><span class="nv">state</span><span class="o">=</span>down<span class="w"> </span><span class="nv">reason</span><span class="o">=</span><span class="s2">&quot;Removed from cluster&quot;</span>
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Stop Slurm services on the target node</strong>:</p>
+<ol class="arabic simple" start="4">
+<li><p>Stop Slurm services on the target node:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">Run on: node being removed</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>stop<span class="w"> </span>slurmd
@@ -580,8 +582,9 @@ systemctl<span class="w"> </span>disable<span class="w"> </span>munge
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Remove the node from slurm.conf</strong> on the control node:</p>
+<ol class="arabic simple" start="5">
+<li><p>Remove the node from slurm.conf on the control node:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/etc/slurm/slurm.conf
@@ -591,16 +594,18 @@ systemctl<span class="w"> </span>disable<span class="w"> </span>munge
 <p>Remove or comment out the <code class="docutils literal notranslate"><span class="pre">NodeName=</span></code> line for the target node. Also
 update the <code class="docutils literal notranslate"><span class="pre">PartitionName=</span></code> line to remove the node from the <code class="docutils literal notranslate"><span class="pre">Nodes=</span></code>
 list.</p>
-</li>
-<li><p><strong>Reconfigure Slurm</strong> to apply changes:</p>
+<ol class="arabic simple" start="6">
+<li><p>Reconfigure Slurm to apply changes:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>reconfigure
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>(Optional) Remove the node from the mapping file</strong>:</p>
+<ol class="arabic simple" start="7">
+<li><p>(Optional) Remove the node from the mapping file:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv
@@ -608,13 +613,12 @@ list.</p>
 </div>
 </div>
 <p>Remove or comment out the row for the decommissioned node.</p>
-</li>
-</ol>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Confirm the node is no longer in the cluster</strong>:</p>
+<ol class="arabic simple">
+<li><p>Confirm the node is no longer in the cluster:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sinfo
@@ -623,24 +627,24 @@ scontrol<span class="w"> </span>show<span class="w"> </span>nodes
 </div>
 </div>
 <p>The removed node should no longer appear.</p>
-</li>
-<li><p><strong>Run a test job</strong> to confirm remaining nodes are functional:</p>
+<ol class="arabic simple" start="2">
+<li><p>Run a test job to confirm remaining nodes are functional:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>hostname
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify no orphaned jobs</strong> reference the removed node:</p>
+<ol class="arabic simple" start="3">
+<li><p>Verify no orphaned jobs reference the removed node:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>squeue<span class="w"> </span>-t<span class="w"> </span>all
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -651,39 +655,30 @@ scontrol<span class="w"> </span>show<span class="w"> </span>nodes
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt><strong>Node still appears in sinfo after removal</strong></dt><dd><p>Ensure you ran <code class="docutils literal notranslate"><span class="pre">scontrol</span> <span class="pre">reconfigure</span></code> after editing <code class="docutils literal notranslate"><span class="pre">slurm.conf</span></code>:</p>
-</dd>
-</dl>
+<p><strong>Node still appears in sinfo after removal</strong>
+Ensure you ran <code class="docutils literal notranslate"><span class="pre">scontrol</span> <span class="pre">reconfigure</span></code> after editing <code class="docutils literal notranslate"><span class="pre">slurm.conf</span></code>:</p>
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>scontrol<span class="w"> </span>reconfigure
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>reconfigure
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>Jobs were running on the removed node</strong></dt><dd><p>If jobs were not properly drained, they may show as <code class="docutils literal notranslate"><span class="pre">FAILED</span></code> or
+<p><strong>Jobs were running on the removed node</strong>
+If jobs were not properly drained, they may show as <code class="docutils literal notranslate"><span class="pre">FAILED</span></code> or
 <code class="docutils literal notranslate"><span class="pre">NODE_FAIL</span></code> in the accounting:</p>
-</dd>
-</dl>
 <div class="literal-block-wrapper docutils container" id="id13">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>sacct<span class="w"> </span>--starttime<span class="o">=</span>today<span class="w"> </span>--state<span class="o">=</span>FAILED,NODE_FAIL
-
-
-
-Resubmit<span class="w"> </span>affected<span class="w"> </span><span class="nb">jobs</span><span class="w"> </span>as<span class="w"> </span>needed.
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sacct<span class="w"> </span>--starttime<span class="o">=</span>today<span class="w"> </span>--state<span class="o">=</span>FAILED,NODE_FAIL
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>slurm.conf syntax error after editing</strong></dt><dd><p>Validate the configuration:</p>
-</dd>
-</dl>
+<p>Resubmit affected jobs as needed.</p>
+<p><strong>slurm.conf syntax error after editing</strong>
+Validate the configuration:</p>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>slurmd<span class="w"> </span>-C<span class="w">  </span><span class="c1"># Show computed node configuration</span>
-<span class="w">   </span>slurmctld<span class="w"> </span>-t<span class="w">  </span><span class="c1"># Test configuration file syntax</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>slurmd<span class="w"> </span>-C<span class="w">  </span><span class="c1"># Show computed node configuration</span>
+slurmctld<span class="w"> </span>-t<span class="w">  </span><span class="c1"># Test configuration file syntax</span>
 </pre></div>
 </div>
 </div>

@@ -43,94 +43,90 @@ Procedure
 ---------
 
 
-#. **Install build dependencies** on the build host:
+1. Install build dependencies on the build host:
 
-   .. code-block:: bash
-      :caption: Run on: build host (OIM or dedicated build server)
+.. code-block:: bash
+   :caption: Run on: build host (OIM or dedicated build server)
 
-      dnf groupinstall -y "Development Tools"
-      dnf install -y rpm-build munge-devel munge-libs pam-devel \
-        perl-ExtUtils-MakeMaker readline-devel openssl-devel \
-        mariadb-devel hwloc-devel lua-devel numactl-devel \
-        http-parser-devel json-c-devel libcurl-devel
-
-
-
-#. **Create the RPM build directory structure**:
-
-   .. code-block:: bash
-      :caption: Run on: build host
-
-      mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+   dnf groupinstall -y "Development Tools"
+   dnf install -y rpm-build munge-devel munge-libs pam-devel \
+     perl-ExtUtils-MakeMaker readline-devel openssl-devel \
+     mariadb-devel hwloc-devel lua-devel numactl-devel \
+     http-parser-devel json-c-devel libcurl-devel
 
 
 
-#. **Download the Slurm source tarball**:
+2. Create the RPM build directory structure:
 
-   .. code-block:: bash
-      :caption: Run on: build host
+.. code-block:: bash
+   :caption: Run on: build host
 
-      cd ~/rpmbuild/SOURCES
-      wget https://download.schedmd.com/slurm/slurm-23.11.4.tar.bz2
-
-
-
-   !!! note
-
-       Replace the version number with your desired Slurm version.
-
-#. **Extract the spec file**:
-
-   .. code-block:: bash
-      :caption: Run on: build host
-
-      tar xjf slurm-23.11.4.tar.bz2 --strip-components=1 -C /tmp slurm-23.11.4/slurm.spec
-      cp /tmp/slurm.spec ~/rpmbuild/SPECS/
+   mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 
 
 
-#. **Build the RPMs**:
+3. Download the Slurm source tarball:
 
-   .. code-block:: bash
-      :caption: Run on: build host
+.. code-block:: bash
+   :caption: Run on: build host
 
-      rpmbuild -ba ~/rpmbuild/SPECS/slurm.spec
+   cd ~/rpmbuild/SOURCES
+   wget https://download.schedmd.com/slurm/slurm-23.11.4.tar.bz2
 
+.. note::
 
+   Replace the version number with your desired Slurm version.
 
-   This process takes **10-30 minutes** depending on hardware. The resulting
-   RPMs will be in ``~/rpmbuild/RPMS/x86_64/``.
+4. Extract the spec file:
 
-#. **Create a local repository** from the built RPMs:
+.. code-block:: bash
+   :caption: Run on: build host
 
-   .. code-block:: bash
-      :caption: Run on: build host
-
-      dnf install -y createrepo_c
-      mkdir -p /opt/omnia/custom_repos/slurm
-      cp ~/rpmbuild/RPMS/x86_64/slurm-*.rpm /opt/omnia/custom_repos/slurm/
-      createrepo_c /opt/omnia/custom_repos/slurm/
+   tar xjf slurm-23.11.4.tar.bz2 --strip-components=1 -C /tmp slurm-23.11.4/slurm.spec
+   cp /tmp/slurm.spec ~/rpmbuild/SPECS/
 
 
 
-#. **Upload to Pulp** (from the omnia_core container):
+5. Build the RPMs:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: build host
 
-      # Create a Pulp repository for custom Slurm RPMs
-      pulp rpm repository create --name slurm-custom
+   rpmbuild -ba ~/rpmbuild/SPECS/slurm.spec
 
-      # Upload RPMs
-      for rpm in /opt/omnia/custom_repos/slurm/*.rpm; do
-        pulp rpm content upload --file "$rpm" --repository slurm-custom
-      done
+This process takes **10-30 minutes** depending on hardware. The resulting
+RPMs will be in ``~/rpmbuild/RPMS/x86_64/``.
 
-      # Create a publication and distribution
-      pulp rpm publication create --repository slurm-custom
-      pulp rpm distribution create --name slurm-custom \
-        --base-path slurm-custom \
-        --repository slurm-custom
+6. Create a local repository from the built RPMs:
+
+.. code-block:: bash
+   :caption: Run on: build host
+
+   dnf install -y createrepo_c
+   mkdir -p /opt/omnia/custom_repos/slurm
+   cp ~/rpmbuild/RPMS/x86_64/slurm-*.rpm /opt/omnia/custom_repos/slurm/
+   createrepo_c /opt/omnia/custom_repos/slurm/
+
+
+
+7. Upload to Pulp (from the omnia_core container):
+
+.. code-block:: bash
+   :caption: Run on: omnia_core container
+
+   # Create a Pulp repository for custom Slurm RPMs
+   pulp rpm repository create --name slurm-custom
+
+   # Upload RPMs
+   for rpm in /opt/omnia/custom_repos/slurm/*.rpm; do
+     pulp rpm content upload --file "$rpm" --repository slurm-custom
+   done
+
+   # Create a publication and distribution
+   pulp rpm publication create --repository slurm-custom
+   pulp rpm distribution create --name slurm-custom \
+     --base-path slurm-custom \
+     --repository slurm-custom
 
 
 
@@ -140,41 +136,37 @@ Verification
 ------------
 
 
-#. **List the custom repository contents**:
+1. List the custom repository contents:
 
-   .. code-block:: bash
-      :caption: Run on: build host
+.. code-block:: bash
+   :caption: Run on: build host
 
-      ls -la /opt/omnia/custom_repos/slurm/
-
-
-
-#. **Verify the repository metadata**:
-
-   .. code-block:: bash
-      :caption: Run on: build host
-
-      ls /opt/omnia/custom_repos/slurm/repodata/
+   ls -la /opt/omnia/custom_repos/slurm/
 
 
 
-   You should see ``repomd.xml`` and related files.
+2. Verify the repository metadata:
 
-#. **Test package availability via Pulp**:
+.. code-block:: bash
+   :caption: Run on: build host
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+   ls /opt/omnia/custom_repos/slurm/repodata/
 
-      curl -s http://localhost:8080/pulp/content/slurm-custom/repodata/repomd.xml | head
+You should see ``repomd.xml`` and related files.
 
+3. Test package availability via Pulp:
 
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-#. **Verify RPM versions**:
+   curl -s http://localhost:8080/pulp/content/slurm-custom/repodata/repomd.xml | head
 
-   .. code-block:: bash
-      :caption: Run on: build host
+4. Verify RPM versions:
 
-      rpm -qip ~/rpmbuild/RPMS/x86_64/slurm-23*.rpm | grep -E "^(Name|Version)"
+.. code-block:: bash
+   :caption: Run on: build host
+
+   rpm -qip ~/rpmbuild/RPMS/x86_64/slurm-23*.rpm | grep -E "^(Name|Version)"
 
 
 
@@ -195,46 +187,46 @@ Troubleshooting
 
 
 **rpmbuild fails with missing dependency**
-   Install the missing development package:
 
+Install the missing development package:
 
 .. code-block:: bash
    :caption: Run on: build host
 
-      dnf install -y <missing-package>-devel
+   dnf install -y <missing-package>-devel
 
 
 
 **Spec file not found in tarball**
-   Download the spec file separately from SchedMD's GitHub:
 
+Download the spec file separately from SchedMD's GitHub:
 
 .. code-block:: bash
    :caption: Run on: build host
 
-      wget -O ~/rpmbuild/SPECS/slurm.spec \
-        https://raw.githubusercontent.com/SchedMD/slurm/slurm-23-11-4-1/slurm.spec
+   wget -O ~/rpmbuild/SPECS/slurm.spec \
+     https://raw.githubusercontent.com/SchedMD/slurm/slurm-23-11-4-1/slurm.spec
 
 
 
 **createrepo_c fails**
-   Ensure the package is installed:
 
+Ensure the package is installed:
 
 .. code-block:: bash
    :caption: Run on: build host
 
-      dnf install -y createrepo_c
+   dnf install -y createrepo_c
 
 
 
 **Custom RPMs conflict with existing Slurm packages**
-   Remove existing Slurm packages before installing custom ones:
 
+Remove existing Slurm packages before installing custom ones:
 
 .. code-block:: bash
    :caption: Run on: compute node
 
-      dnf remove -y slurm slurm-slurmd slurm-slurmctld
-      dnf install -y --disablerepo='*' --enablerepo='slurm-custom' slurm slurm-slurmd
+   dnf remove -y slurm slurm-slurmd slurm-slurmctld
+   dnf install -y --disablerepo='*' --enablerepo='slurm-custom' slurm slurm-slurmd
 

@@ -34,63 +34,47 @@ Procedure
 ~~~~~~~~~
 
 
-#. **Update the node mapping file.** Add the new node entries (MAC address,
+1. Update the node mapping file. Add the new node entries (MAC address,
    hostname, IP) to the mapping file used during initial deployment:
 
+.. code-block:: text
+
+   # /omnia/input/mapping_file.csv
+   AA:BB:CC:DD:EE:F1,compute-05,10.5.0.105
+   AA:BB:CC:DD:EE:F2,compute-06,10.5.0.106
+
+2. Access the omnia_core container on the OIM:
+
+.. code-block:: bash
+
+   ssh omnia_core
+
+3. Run the add_node playbook:
+
+.. code-block:: bash
+
+   cd /omnia
+   ansible-playbook playbooks/add_node.yml
+
+The playbook will:
+
+- Install and configure ``slurmd`` on each new node.
+- Register the nodes with the Slurm controller.
+- Apply any GPU drivers or additional packages as specified in the
+  configuration.
+
+4. Verify the new nodes are visible to Slurm:
+
+.. code-block:: bash
+
+   sinfo
+
+Expected output shows the new nodes in an ``idle`` state:
 
 .. code-block:: text
 
-      # /omnia/input/mapping_file.csv
-      AA:BB:CC:DD:EE:F1,compute-05,10.5.0.105
-      AA:BB:CC:DD:EE:F2,compute-06,10.5.0.106
-
-
-
-#. **Access the omnia_core container** on the OIM:
-
-   .. code-block:: bash
-
-.. code-block:: bash
-
-      ssh omnia_core
-
-
-
-#. **Run the add_node playbook:**
-
-   .. code-block:: bash
-
-.. code-block:: bash
-
-      cd /omnia
-      ansible-playbook playbooks/add_node.yml
-
-
-
-   The playbook will:
-
-  - Install and configure ``slurmd`` on each new node.
-  - Register the nodes with the Slurm controller.
-  - Apply any GPU drivers or additional packages as specified in the
-     configuration.
-
-#. **Verify the new nodes** are visible to Slurm:
-
-   .. code-block:: bash
-
-.. code-block:: bash
-
-      sinfo
-
-
-
-   Expected output shows the new nodes in an ``idle`` state:
-
-
-.. code-block:: text
-
-      PARTITION  AVAIL  TIMELIMIT  NODES  STATE  NODELIST
-      normal*       up   infinite      6   idle  compute-[01-06]
+   PARTITION  AVAIL  TIMELIMIT  NODES  STATE  NODELIST
+   normal*       up   infinite      6   idle  compute-[01-06]
 
 
 
@@ -117,13 +101,12 @@ Procedure
 ~~~~~~~~~
 
 
-#. **Drain the node** to allow running jobs to complete and prevent new jobs
+1. Drain the node to allow running jobs to complete and prevent new jobs
    from being scheduled:
-
 
 .. code-block:: bash
 
-      scontrol update NodeName=compute-05 State=DRAIN Reason="Decommissioning"
+   scontrol update NodeName=compute-05 State=DRAIN Reason="Decommissioning"
 
 
 
@@ -132,54 +115,46 @@ Procedure
 
 .. code-block:: bash
 
-      sinfo -n compute-05
+   sinfo -n compute-05
 
 
 
 
 .. code-block:: text
 
-      PARTITION  AVAIL  TIMELIMIT  NODES  STATE    NODELIST
-      normal*       up   infinite      1  drained  compute-05
+   PARTITION  AVAIL  TIMELIMIT  NODES  STATE    NODELIST
+   normal*       up   infinite      1  drained  compute-05
 
 
 
-#. **Access the omnia_core container** on the OIM:
-
-   .. code-block:: bash
+2. Access the omnia_core container on the OIM:
 
 .. code-block:: bash
 
-      ssh omnia_core
+   ssh omnia_core
 
 
 
-#. **Run the remove_node playbook:**
-
-   .. code-block:: bash
+3. Run the remove_node playbook:
 
 .. code-block:: bash
 
-      cd /omnia
-      ansible-playbook playbooks/remove_node.yml -e "target_nodes=compute-05"
+   cd /omnia
+   ansible-playbook playbooks/remove_node.yml -e "target_nodes=compute-05"
 
 
 
-#. **Update the mapping file.** Remove the decommissioned node entry from
+4. Update the mapping file. Remove the decommissioned node entry from
    ``/omnia/input/mapping_file.csv`` to prevent it from being re-added in
    future operations.
 
-#. **Verify the node has been removed:**
-
-   .. code-block:: bash
+5. Verify the node has been removed:
 
 .. code-block:: bash
 
-      sinfo
+   sinfo
 
-
-
-   The removed node should no longer appear in the node list.
+The removed node should no longer appear in the node list.
 
 
 
@@ -189,18 +164,17 @@ Verification
 
 After adding or removing nodes, confirm the cluster state:
 
+.. code-block:: bash
+   :caption: Run on: Slurm control node
 
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
+   # Check overall cluster health
+   sinfo
 
-      # Check overall cluster health
-      sinfo
+   # Verify controller sees all expected nodes
+   scontrol show nodes | grep NodeName
 
-      # Verify controller sees all expected nodes
-      scontrol show nodes | grep NodeName
-
-      # Submit a test job to verify scheduling
-      srun -N 1 hostname
+   # Submit a test job to verify scheduling
+   srun -N 1 hostname
 
 
 

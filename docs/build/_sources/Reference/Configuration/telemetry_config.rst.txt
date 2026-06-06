@@ -221,11 +221,8 @@ LDMS settings
 Usage example
 -------------
 
-
-
-**File: /opt/omnia/input/project_default/telemetry_config.yml**
-
 .. code-block:: yaml
+   :caption: File: /opt/omnia/input/project_default/telemetry_config.yml
 
    enable_telemetry: true
    telemetry_entry_node: "kube-cp-01"

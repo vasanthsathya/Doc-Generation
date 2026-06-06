@@ -53,7 +53,7 @@ Procedure
 ---------
 
 
-#. **Enter the omnia_core container**:
+1. Enter the omnia_core container:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -62,7 +62,7 @@ Procedure
 
 
 
-#. **Copy the example templates** to the input directory:
+2. Copy the example templates to the input directory:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -71,12 +71,12 @@ Procedure
 
 
 
-   !!! note
+   .. note::
 
        If files already exist in the destination, this command will overwrite
        them. Back up any previously customized files before copying.
 
-#. **Edit the software configuration**:
+3. Edit the software configuration:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -88,9 +88,8 @@ Procedure
    Example ``software_config.json``:
 
 
-**File: /opt/omnia/input/project_default/software_config.json**
-
-.. code-block:: json
+   .. code-block:: json
+      :caption: File: /opt/omnia/input/project_default/software_config.json
 
       {
           "cluster_os_type": "rhel",
@@ -108,24 +107,24 @@ Procedure
 
    Key parameters:
 
-   .. list-table::
+   .. list-table:: 
       :header-rows: 1
       :widths: 30 70
 
-      - - Parameter
+      * - Parameter
         - Description
-      - - ``cluster_os_type``
+      * - ``cluster_os_type``
         - Target OS: ``rhel`` or ``rocky``
-      - - ``cluster_os_version``
+      * - ``cluster_os_version``
         - OS version for provisioned nodes (e.g., ``8.8``, ``9.2``)
-      - - ``repo_config``
+      * - ``repo_config``
         - Repository strategy: ``partial`` (Omnia-managed repos only),
           ``always`` (sync all repos), ``never`` (skip repo config)
-      - - ``softwares``
+      * - ``softwares``
         - List of software stacks to install on compute nodes
 
 
-#. **Edit the network specification**:
+4. Edit the network specification:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -137,9 +136,9 @@ Procedure
    Example ``network_spec.yml``:
 
 
-**File: /opt/omnia/input/project_default/network_spec.yml**
 
-.. code-block:: yaml
+   .. code-block:: yaml
+      :caption: File: /opt/omnia/input/project_default/network_spec.yml
 
       ---
       admin_network:
@@ -159,7 +158,7 @@ Procedure
 
 
 
-#. **Edit the provision configuration**:
+5. Edit the provision configuration:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -171,9 +170,10 @@ Procedure
    Example ``provision_config.yml``:
 
 
-**File: /opt/omnia/input/project_default/provision_config.yml**
 
-.. code-block:: yaml
+
+   .. code-block:: yaml
+      :caption: File: /opt/omnia/input/project_default/provision_config.yml
 
       ---
       timezone: "America/Chicago"
@@ -184,7 +184,7 @@ Procedure
 
 
 
-#. **Edit the Omnia configuration** (for Slurm/K8s parameters):
+6. Edit the Omnia configuration (for Slurm/K8s parameters):
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -195,10 +195,8 @@ Procedure
 
    Example ``omnia_config.yml``:
 
-
-**File: /opt/omnia/input/project_default/omnia_config.yml**
-
-.. code-block:: yaml
+   .. code-block:: yaml
+      :caption: File: /opt/omnia/input/project_default/omnia_config.yml
 
       ---
       mariadb_password: ""
@@ -208,8 +206,7 @@ Procedure
       enable_omnia_nfs: true
 
 
-
-#. **(Optional) Run the input validator** to check your configuration:
+7. (Optional) Run the input validator to check your configuration:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -221,10 +218,10 @@ Procedure
 
    The validator checks for:
 
-  - Missing required fields.
-  - IP address format and range conflicts.
-  - Valid software names and versions.
-  - Consistent network configuration.
+   - Missing required fields.
+   - IP address format and range conflicts.
+   - Valid software names and versions.
+   - Consistent network configuration.
 
 
 
@@ -235,7 +232,7 @@ Verification
 ------------
 
 
-#. **List all input files** and confirm they are populated:
+1. List all input files and confirm they are populated:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -244,7 +241,7 @@ Verification
 
 
 
-#. **Review the software configuration**:
+2. Review the software configuration:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -253,7 +250,7 @@ Verification
 
 
 
-#. **Validate YAML syntax** for each YAML input file:
+3. Validate YAML syntax for each YAML input file:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container

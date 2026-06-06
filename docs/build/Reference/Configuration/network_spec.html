@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -502,7 +502,8 @@ compute, and public networks. Each network is described as an entry in the
 <h2>Top-level structure<a class="headerlink" href="#top-level-structure" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">network_spec.yml</span></code> contains a single top-level key, <code class="docutils literal notranslate"><span class="pre">Networks</span></code>, which is a
 YAML list of network definitions.</p>
-<p><strong>File: /opt/omnia/input/project_default/network_spec.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/network_spec.yml</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Networks</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">admin_network</span><span class="p">:</span>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
@@ -513,6 +514,7 @@ YAML list of network definitions.</p>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">public_network</span><span class="p">:</span>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 </pre></div>
+</div>
 </div>
 </section>
 <section id="admin-network-parameters">
@@ -713,7 +715,8 @@ YAML list of network definitions.</p>
 </section>
 <section id="usage-example">
 <h2>Usage example<a class="headerlink" href="#usage-example" title="Link to this heading">#</a></h2>
-<p><strong>File: /opt/omnia/input/project_default/network_spec.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/network_spec.yml</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Networks</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">admin_network</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">oim_nic_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno1&quot;</span>
@@ -740,6 +743,7 @@ YAML list of network definitions.</p>
 <span class="w">      </span><span class="nt">gateway</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;192.168.1.1&quot;</span>
 <span class="w">      </span><span class="nt">dns</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;8.8.8.8&quot;</span>
 </pre></div>
+</div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

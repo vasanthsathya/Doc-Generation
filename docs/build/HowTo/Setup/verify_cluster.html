@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -534,8 +534,9 @@ job scheduling, Kubernetes services, and basic node health checks.</p>
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
 <section id="verify-node-connectivity">
 <h3>Verify Node Connectivity<a class="headerlink" href="#verify-node-connectivity" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>Ping all nodes</strong> from the omnia_core container:</p>
+<ol class="arabic simple">
+<li><p>Ping all nodes from the omnia_core container:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>ping
@@ -543,86 +544,82 @@ job scheduling, Kubernetes services, and basic node health checks.</p>
 </div>
 </div>
 <p>Expected output for each node:</p>
-</li>
-</ol>
-<p><strong>Expected output on: omnia_core container</strong></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>10.5.0.101 | SUCCESS =&gt; {
-    &quot;ping&quot;: &quot;pong&quot;
-}
-</pre></div>
-</div>
-<ol class="arabic">
-<li><p><strong>Check OS version on all nodes</strong>:</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">10</span>.5.0.101<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">SUCCESS</span><span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span><span class="o">{</span>
+<span class="w">   </span><span class="s2">&quot;ping&quot;</span>:<span class="w"> </span><span class="s2">&quot;pong&quot;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Check OS version on all nodes:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;cat /etc/os-release | grep PRETTY_NAME&quot;</span>
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Check hostnames are correctly set</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="3">
+<li><p>Check hostnames are correctly set:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;hostname&quot;</span>
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="verify-slurm">
 <h3>Verify Slurm<a class="headerlink" href="#verify-slurm" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>SSH to the Slurm control node</strong> and check the cluster status:</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<ol class="arabic simple">
+<li><p>SSH to the Slurm control node and check the cluster status:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>root@&lt;slurm-control-node-ip&gt;
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>sinfo
-
-
-
-Expected<span class="w"> </span>output:
-</pre></div>
-</div>
-</div>
-<p><strong>Expected output on: Slurm control node</strong></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>   PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
-   normal*      up   infinite      2   idle compute[01-02]
-
-
-
-All nodes should show ``idle`` state. If any show ``down`` or ``drain``,
-investigate further.
-</pre></div>
-</div>
-<ol class="arabic">
-<li><p><strong>Run a test job</strong> across all compute nodes:</p>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sinfo
+</pre></div>
+</div>
+</div>
+<p>Expected output:</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>PARTITION<span class="w"> </span>AVAIL<span class="w">  </span>TIMELIMIT<span class="w">  </span>NODES<span class="w">  </span>STATE<span class="w"> </span>NODELIST
+normal*<span class="w">      </span>up<span class="w">   </span>infinite<span class="w">      </span><span class="m">2</span><span class="w">   </span>idle<span class="w"> </span>compute<span class="o">[</span><span class="m">01</span>-02<span class="o">]</span>
+</pre></div>
+</div>
+</div>
+<p>All nodes should show <code class="docutils literal notranslate"><span class="pre">idle</span></code> state. If any show <code class="docutils literal notranslate"><span class="pre">down</span></code> or <code class="docutils literal notranslate"><span class="pre">drain</span></code>,
+investigate further.</p>
+<ol class="arabic simple" start="2">
+<li><p>Run a test job across all compute nodes:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>-N<span class="w"> </span><span class="m">2</span><span class="w"> </span>hostname
 </pre></div>
 </div>
 </div>
-<p>Expected output shows the hostnames of the compute nodes that executed the
-job:</p>
-</li>
-</ol>
-<p><strong>Expected output on: Slurm control node</strong></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>compute01
+<p>Expected output shows the hostnames of the compute nodes that executed the job:</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Expected output on: Slurm control node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>compute01
 compute02
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Submit a batch job</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Submit a batch job:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /tmp/test_job.sh</span>
 <span class="s">#!/bin/bash</span>
 <span class="s">#SBATCH --job-name=test</span>
@@ -635,85 +632,77 @@ sbatch<span class="w"> </span>/tmp/test_job.sh
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># Check job status</span>
-<span class="w">   </span>squeue
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check job status</span>
+squeue
 
-<span class="w">   </span><span class="c1"># View job output after completion</span>
-<span class="w">   </span>cat<span class="w"> </span>slurm-*.out
+<span class="c1"># View job output after completion</span>
+cat<span class="w"> </span>slurm-*.out
 </pre></div>
 </div>
 </div>
-<ol class="arabic">
-<li><p><strong>Verify Slurm accounting</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="4">
+<li><p>Verify Slurm accounting:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sacct<span class="w"> </span>--starttime<span class="o">=</span>today
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="verify-kubernetes">
 <h3>Verify Kubernetes<a class="headerlink" href="#verify-kubernetes" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>Check Kubernetes node status</strong> from a control-plane node:</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<ol class="arabic simple">
+<li><p>Check Kubernetes node status from a control-plane node:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>root@&lt;k8s-control-plane-ip&gt;
 </pre></div>
 </div>
 </div>
-</li>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+</pre></div>
+</div>
+</div>
+<p>Expected output:</p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Expected output on: K8s control plane node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NAME</span>          <span class="n">STATUS</span>   <span class="n">ROLES</span>           <span class="n">AGE</span>   <span class="n">VERSION</span>
+<span class="n">k8s</span><span class="o">-</span><span class="n">cp01</span>      <span class="n">Ready</span>    <span class="n">control</span><span class="o">-</span><span class="n">plane</span>   <span class="mi">1</span><span class="n">h</span>    <span class="n">v1</span><span class="mf">.28</span><span class="o">.</span><span class="n">x</span>
+<span class="n">k8s</span><span class="o">-</span><span class="n">cp02</span>      <span class="n">Ready</span>    <span class="n">control</span><span class="o">-</span><span class="n">plane</span>   <span class="mi">1</span><span class="n">h</span>    <span class="n">v1</span><span class="mf">.28</span><span class="o">.</span><span class="n">x</span>
+<span class="n">k8s</span><span class="o">-</span><span class="n">cp03</span>      <span class="n">Ready</span>    <span class="n">control</span><span class="o">-</span><span class="n">plane</span>   <span class="mi">1</span><span class="n">h</span>    <span class="n">v1</span><span class="mf">.28</span><span class="o">.</span><span class="n">x</span>
+<span class="n">k8s</span><span class="o">-</span><span class="n">worker01</span>  <span class="n">Ready</span>    <span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>          <span class="mi">1</span><span class="n">h</span>    <span class="n">v1</span><span class="mf">.28</span><span class="o">.</span><span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<p>All nodes should show <code class="docutils literal notranslate"><span class="pre">Ready</span></code> status.</p>
+<ol class="arabic simple" start="2">
+<li><p>Verify core Kubernetes components:</p></li>
 </ol>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
-
-
-
-Expected<span class="w"> </span>output:
-</pre></div>
-</div>
-</div>
-<p><strong>Expected output on: K8s control plane node</strong></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>   NAME          STATUS   ROLES           AGE   VERSION
-   k8s-cp01      Ready    control-plane   1h    v1.28.x
-   k8s-cp02      Ready    control-plane   1h    v1.28.x
-   k8s-cp03      Ready    control-plane   1h    v1.28.x
-   k8s-worker01  Ready    &lt;none&gt;          1h    v1.28.x
-
-
-
-All nodes should show ``Ready`` status.
-</pre></div>
-</div>
-<ol class="arabic">
-<li><p><strong>Verify core Kubernetes components</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A
 </pre></div>
 </div>
 </div>
 <p>All system pods (<code class="docutils literal notranslate"><span class="pre">kube-system</span></code>, <code class="docutils literal notranslate"><span class="pre">calico-system</span></code>, <code class="docutils literal notranslate"><span class="pre">metallb-system</span></code>)
 should be <code class="docutils literal notranslate"><span class="pre">Running</span></code>.</p>
-</li>
-<li><p><strong>Test pod scheduling</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>kubectl<span class="w"> </span>run<span class="w"> </span>test-pod<span class="w"> </span>--image<span class="o">=</span>busybox<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello from K8s&quot;</span>
-<span class="w"> </span>kubectl<span class="w"> </span>logs<span class="w"> </span>test-pod
-<span class="w"> </span>kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>test-pod
+<ol class="arabic simple" start="3">
+<li><p>Test pod scheduling:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>run<span class="w"> </span>test-pod<span class="w"> </span>--image<span class="o">=</span>busybox<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello from K8s&quot;</span>
+kubectl<span class="w"> </span>logs<span class="w"> </span>test-pod
+kubectl<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>test-pod
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 </section>
 <section id="verification">
@@ -763,86 +752,70 @@ authentication.</p></li>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl>
-<dt><strong>Ansible ping fails for some nodes</strong></dt><dd><ul class="simple">
+<p><strong>Ansible ping fails for some nodes</strong></p>
+<ul class="simple">
 <li><p>Verify SSH keys are deployed:</p></li>
 </ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>ssh-copy-id<span class="w"> </span>root@&lt;node-ip&gt;
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh-copy-id<span class="w"> </span>root@&lt;node-ip&gt;
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 <ul class="simple">
 <li><p>Check network connectivity:</p></li>
 </ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span>&lt;node-ip&gt;
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span>&lt;node-ip&gt;
 </pre></div>
 </div>
 </div>
-</div></blockquote>
-</dd>
-<dt><strong>Slurm nodes show “down” state</strong></dt><dd><p>Check the Slurm daemon on the affected compute node:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">Run on: affected compute node</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd
-<span class="w">   </span>journalctl<span class="w"> </span>-u<span class="w"> </span>slurmd<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
-
-
-
-Resume<span class="w"> </span>the<span class="w"> </span>node<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>control<span class="w"> </span>node:
+<p><strong>Slurm nodes show “down” state</strong></p>
+<p>Check the Slurm daemon on the affected compute node:</p>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">Run on: affected compute node</span><a class="headerlink" href="#id20" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd
+journalctl<span class="w"> </span>-u<span class="w"> </span>slurmd<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">nodename</span><span class="o">=</span>&lt;node&gt;<span class="w"> </span><span class="nv">state</span><span class="o">=</span>resume
+<p>Resume the node from the control node:</p>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id21" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">nodename</span><span class="o">=</span>&lt;node&gt;<span class="w"> </span><span class="nv">state</span><span class="o">=</span>resume
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>Kubernetes node shows “NotReady”</strong></dt><dd><p>Check kubelet status on the affected node:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">Run on: affected K8s node</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>systemctl<span class="w"> </span>status<span class="w"> </span>kubelet
-<span class="w">   </span>journalctl<span class="w"> </span>-u<span class="w"> </span>kubelet<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
+<p><strong>Kubernetes node shows “NotReady”</strong></p>
+<p>Check kubelet status on the affected node:</p>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">Run on: affected K8s node</span><a class="headerlink" href="#id22" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>kubelet
+journalctl<span class="w"> </span>-u<span class="w"> </span>kubelet<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
 </pre></div>
 </div>
 </div>
-<dl>
-<dt><strong>Slurm srun hangs</strong></dt><dd><ul class="simple">
+<p><strong>Slurm srun hangs</strong></p>
+<p>Troubleshoot this issue:</p>
+<ul class="simple">
 <li><p>Verify <code class="docutils literal notranslate"><span class="pre">munge</span></code> is running on all Slurm nodes:</p></li>
 </ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>ansible<span class="w"> </span>slurm_cluster<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;systemctl is-active munge&quot;</span>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id23" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_cluster<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;systemctl is-active munge&quot;</span>
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 <ul class="simple">
 <li><p>Check firewall rules allow Slurm traffic (ports 6817-6819):</p></li>
 </ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id20">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id20" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>ansible<span class="w"> </span>slurm_cluster<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;firewall-cmd --list-ports&quot;</span>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id24" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_cluster<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;firewall-cmd --list-ports&quot;</span>
 </pre></div>
 </div>
 </div>
-</div></blockquote>
-</dd>
-</dl>
 <p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

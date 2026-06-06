@@ -24,9 +24,9 @@ Docker, Apptainer:
 
 The workflow is:
 
-#. Pull a container image (Docker or SIF format) to shared NFS storage.
-#. Submit Slurm jobs that execute commands inside the container.
-#. All compute nodes access the same SIF image via NFS -- no per-node
+1. Pull a container image (Docker or SIF format) to shared NFS storage.
+2. Submit Slurm jobs that execute commands inside the container.
+3. All compute nodes access the same SIF image via NFS -- no per-node
    image installation required.
 
 
@@ -48,119 +48,117 @@ Procedure
 ---------
 
 
-#. **Verify Apptainer is installed** on compute nodes:
+1. Verify Apptainer is installed on compute nodes:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      ansible slurm_node -m shell -a "apptainer --version"
-
-
-
-#. **Create a shared images directory** on NFS:
-
-   .. code-block:: bash
-      :caption: Run on: Slurm control node or login node
-
-      mkdir -p /home/containers/images
-      chmod 755 /home/containers/images
+   ansible slurm_node -m shell -a "apptainer --version"
 
 
 
-#. **Pull a Docker image** and convert to SIF:
+2. Create a shared images directory on NFS:
 
-   .. code-block:: bash
-      :caption: Run on: Slurm control node or login node
+.. code-block:: bash
+   :caption: Run on: Slurm control node or login node
 
-      apptainer pull /home/containers/images/ubuntu.sif docker://ubuntu:22.04
-
-
-
-#. **Pull an HPC application container**:
-
-   .. code-block:: bash
-      :caption: Run on: Slurm control node or login node
-
-      # Example: GROMACS molecular dynamics
-      apptainer pull /home/containers/images/gromacs.sif docker://nvcr.io/hpc/gromacs:2023.2
-
-      # Example: TensorFlow for AI workloads
-      apptainer pull /home/containers/images/tensorflow.sif docker://nvcr.io/nvidia/tensorflow:24.01-tf2-py3
+   mkdir -p /home/containers/images
+   chmod 755 /home/containers/images
 
 
 
-#. **Run an interactive container** on a compute node:
+3. Pull a Docker image and convert to SIF:
 
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
+.. code-block:: bash
+   :caption: Run on: Slurm control node or login node
 
-      srun -N 1 --pty apptainer shell /home/containers/images/ubuntu.sif
-
-
-
-   This opens an interactive shell inside the container on a compute node.
-
-#. **Run a batch job** with Apptainer:
-
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
-
-      cat <<'EOF' > /home/containers/run_gromacs.sh
-      #!/bin/bash
-      #SBATCH --job-name=gromacs-test
-      #SBATCH --nodes=2
-      #SBATCH --ntasks-per-node=4
-      #SBATCH --time=02:00:00
-      #SBATCH --output=/home/containers/results/gromacs-%j.out
-
-      apptainer exec /home/containers/images/gromacs.sif \
-        mpirun -np 8 gmx_mpi mdrun -s input.tpr -deffnm output
-      EOF
-
-      sbatch /home/containers/run_gromacs.sh
+   apptainer pull /home/containers/images/ubuntu.sif docker://ubuntu:22.04
 
 
 
-#. **Run a GPU container** with Apptainer:
+4. Pull an HPC application container:
 
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
+.. code-block:: bash
+   :caption: Run on: Slurm control node or login node
 
-      cat <<'EOF' > /home/containers/run_tensorflow.sh
-      #!/bin/bash
-      #SBATCH --job-name=tf-test
-      #SBATCH --nodes=1
-      #SBATCH --gres=gpu:1
-      #SBATCH --time=01:00:00
-      #SBATCH --output=/home/containers/results/tf-%j.out
+   # Example: GROMACS molecular dynamics
+   apptainer pull /home/containers/images/gromacs.sif docker://nvcr.io/hpc/gromacs:2023.2
 
-      apptainer exec --nv /home/containers/images/tensorflow.sif \
-        python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
-      EOF
-
-      sbatch /home/containers/run_tensorflow.sh
+   # Example: TensorFlow for AI workloads
+   apptainer pull /home/containers/images/tensorflow.sif docker://nvcr.io/nvidia/tensorflow:24.01-tf2-py3
 
 
 
-#. **Build a custom SIF image** from a definition file:
+5. Run an interactive container on a compute node:
 
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
+.. code-block:: bash
+   :caption: Run on: Slurm control node
 
-      cat <<'EOF' > /home/containers/custom.def
-      Bootstrap: docker
-      From: ubuntu:22.04
+   srun -N 1 --pty apptainer shell /home/containers/images/ubuntu.sif
 
-      %post
-          apt-get update
-          apt-get install -y python3 python3-pip
-          pip3 install numpy scipy
+This opens an interactive shell inside the container on a compute node.
 
-      %runscript
-          python3 "$@"
-      EOF
+6. Run a batch job with Apptainer:
 
-      apptainer build /home/containers/images/custom.sif /home/containers/custom.def
+.. code-block:: bash
+   :caption: Run on: Slurm control node
+
+   cat <<'EOF' > /home/containers/run_gromacs.sh
+   #!/bin/bash
+   #SBATCH --job-name=gromacs-test
+   #SBATCH --nodes=2
+   #SBATCH --ntasks-per-node=4
+   #SBATCH --time=02:00:00
+   #SBATCH --output=/home/containers/results/gromacs-%j.out
+
+   apptainer exec /home/containers/images/gromacs.sif \
+     mpirun -np 8 gmx_mpi mdrun -s input.tpr -deffnm output
+   EOF
+
+   sbatch /home/containers/run_gromacs.sh
+
+
+
+7. Run a GPU container with Apptainer:
+
+.. code-block:: bash
+   :caption: Run on: Slurm control node
+
+   cat <<'EOF' > /home/containers/run_tensorflow.sh
+   #!/bin/bash
+   #SBATCH --job-name=tf-test
+   #SBATCH --nodes=1
+   #SBATCH --gres=gpu:1
+   #SBATCH --time=01:00:00
+   #SBATCH --output=/home/containers/results/tf-%j.out
+
+   apptainer exec --nv /home/containers/images/tensorflow.sif \
+     python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+   EOF
+
+   sbatch /home/containers/run_tensorflow.sh
+
+
+
+8. Build a custom SIF image from a definition file:
+
+.. code-block:: bash
+   :caption: Run on: Slurm control node
+
+   cat <<'EOF' > /home/containers/custom.def
+   Bootstrap: docker
+   From: ubuntu:22.04
+
+   %post
+       apt-get update
+       apt-get install -y python3 python3-pip
+       pip3 install numpy scipy
+
+   %runscript
+       python3 "$@"
+   EOF
+
+   apptainer build /home/containers/images/custom.sif /home/containers/custom.def
 
 
 
@@ -170,39 +168,39 @@ Verification
 ------------
 
 
-#. **Verify SIF images are accessible** from all compute nodes:
+1. Verify SIF images are accessible from all compute nodes:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      ansible slurm_node -m shell -a "ls -la /home/containers/images/"
-
-
-
-#. **Run a quick test** across multiple nodes:
-
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
-
-      srun -N 2 apptainer exec /home/containers/images/ubuntu.sif hostname
+   ansible slurm_node -m shell -a "ls -la /home/containers/images/"
 
 
 
-#. **Verify GPU access** inside containers:
+2. Run a quick test across multiple nodes:
 
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
+.. code-block:: bash
+   :caption: Run on: Slurm control node
 
-      srun -N 1 --gres=gpu:1 apptainer exec --nv /home/containers/images/tensorflow.sif nvidia-smi
+   srun -N 2 apptainer exec /home/containers/images/ubuntu.sif hostname
 
 
 
-#. **Check job output**:
+3. Verify GPU access inside containers:
 
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
+.. code-block:: bash
+   :caption: Run on: Slurm control node
 
-      cat /home/containers/results/*.out
+   srun -N 1 --gres=gpu:1 apptainer exec --nv /home/containers/images/tensorflow.sif nvidia-smi
+
+
+
+4. Check job output:
+
+.. code-block:: bash
+   :caption: Run on: Slurm control node
+
+   cat /home/containers/results/*.out
 
 
 
@@ -226,53 +224,50 @@ Troubleshooting
 
 
 **"apptainer: command not found"**
-   Verify Apptainer is installed:
-
+Verify Apptainer is installed:
 
 .. code-block:: bash
    :caption: Run on: compute node
 
-      dnf install -y apptainer
+   dnf install -y apptainer
 
 
 
 **Pull fails with "permission denied"**
-  - Ensure the NFS directory has write permissions.
-  - Apptainer uses ``/tmp`` for build cache; ensure sufficient space:
+- Ensure the NFS directory has write permissions.
+- Apptainer uses ``/tmp`` for build cache; ensure sufficient space:
 
-   .. code-block:: bash
-      :caption: Run on: compute node
+.. code-block:: bash
+   :caption: Run on: compute node
 
-        df -h /tmp
-        export APPTAINER_TMPDIR=/scratch/tmp
+   df -h /tmp
+   export APPTAINER_TMPDIR=/scratch/tmp
 
 
 
 **GPU not accessible inside container**
-  - Use ``--nv`` for NVIDIA or ``--rocm`` for AMD GPUs.
-  - Verify the host GPU driver is compatible with the container's CUDA
-     version.
+- Use ``--nv`` for NVIDIA or ``--rocm`` for AMD GPUs.
+- Verify the host GPU driver is compatible with the container's CUDA
+   version.
 
 **SIF image corrupted**
-   Re-pull the image:
-
+Re-pull the image:
 
 .. code-block:: bash
    :caption: Run on: Slurm control node
 
-      rm /home/containers/images/broken.sif
-      apptainer pull /home/containers/images/fixed.sif docker://source-image
+   rm /home/containers/images/broken.sif
+   apptainer pull /home/containers/images/fixed.sif docker://source-image
 
 
 
 **MPI inside container fails**
-   Ensure the MPI version inside the container is compatible with the host
-   MPI. Use ``--bind`` to mount the host MPI libraries:
-
+Ensure the MPI version inside the container is compatible with the host
+MPI. Use ``--bind`` to mount the host MPI libraries:
 
 .. code-block:: bash
    :caption: Run on: Slurm control node
 
-      srun -N 2 apptainer exec --bind /usr/lib64/openmpi:/host-mpi \
-        /home/containers/images/app.sif mpirun -np 8 /app/benchmark
+   srun -N 2 apptainer exec --bind /usr/lib64/openmpi:/host-mpi \
+     /home/containers/images/app.sif mpirun -np 8 /app/benchmark
 

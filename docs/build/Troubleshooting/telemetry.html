@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=41ea00ef" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -452,65 +452,59 @@ samplers, Kafka message streaming, VictoriaMetrics storage, and Grafana
 dashboards.</p>
 <section id="idrac-not-sending-telemetry-data">
 <h2>iDRAC not sending telemetry data<a class="headerlink" href="#idrac-not-sending-telemetry-data" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>No iDRAC metrics appear in VictoriaMetrics or Grafana dashboards. The
+<p><strong>Symptom</strong></p>
+<p>No iDRAC metrics appear in VictoriaMetrics or Grafana dashboards. The
 telemetry pipeline shows no incoming data from server BMCs.</p>
-</div></blockquote>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>The iDRAC does not have a <strong>Datacenter</strong> license, which is required for
-telemetry streaming.</p></li>
+<p><strong>Cause</strong></p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>The iDRAC does not have a <strong>Datacenter</strong> license, which is required for</dt><dd><p>telemetry streaming.</p>
+</dd>
+</dl>
+</li>
 <li><p>Redfish telemetry subscriptions are not configured on the iDRAC.</p></li>
-<li><p>Network connectivity between the iDRAC BMC network and the telemetry
-collector is blocked.</p></li>
+<li><dl class="simple">
+<dt>Network connectivity between the iDRAC BMC network and the telemetry</dt><dd><p>collector is blocked.</p>
+</dd>
+</dl>
+</li>
 <li><p>The iDRAC firmware is outdated and does not support Redfish telemetry.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p><strong>Verify the iDRAC license</strong> includes Datacenter features:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>racadm<span class="w"> </span>-r<span class="w"> </span>&lt;bmc_ip&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;pass&gt;<span class="w"> </span>license<span class="w"> </span>view
-
-
-
-<span class="w">   </span>Look<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="sb">``</span>iDRAC<span class="w"> </span>Datacenter<span class="w"> </span>License<span class="sb">``</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>output.<span class="w"> </span>If<span class="w"> </span>not<span class="w"> </span>present,
-<span class="w">   </span>install<span class="w"> </span>the<span class="w"> </span>appropriate<span class="w"> </span>license.
-
-<span class="c1">#. **Check Redfish telemetry support:**</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>racadm<span class="w"> </span>-r<span class="w"> </span>&lt;bmc_ip&gt;<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;pass&gt;<span class="w"> </span>license<span class="w"> </span>view
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>curl<span class="w"> </span>-k<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;:&lt;pass&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">        </span>https://&lt;bmc_ip&gt;/redfish/v1/TelemetryService
-
-
-
-<span class="w">   </span>A<span class="w"> </span><span class="sb">``</span><span class="m">404</span><span class="sb">``</span><span class="w"> </span>response<span class="w"> </span>indicates<span class="w"> </span>the<span class="w"> </span>firmware<span class="w"> </span>does<span class="w"> </span>not<span class="w"> </span>support<span class="w"> </span>telemetry.
-<span class="w">   </span>Update<span class="w"> </span>iDRAC<span class="w"> </span>firmware<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>version.
-
-<span class="c1">#. **Verify telemetry subscriptions:**</span>
+<p>Look for <code class="docutils literal notranslate"><span class="pre">iDRAC</span> <span class="pre">Datacenter</span> <span class="pre">License</span></code> in the output. If not present,
+install the appropriate license.</p>
+<ol class="arabic simple" start="2">
+<li><p><strong>Check Redfish telemetry support:</strong></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-k<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;:&lt;pass&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://&lt;bmc_ip&gt;/redfish/v1/TelemetryService
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>curl<span class="w"> </span>-k<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;:&lt;pass&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">        </span>https://&lt;bmc_ip&gt;/redfish/v1/EventService/Subscriptions
-
-
-
-<span class="c1">#. **Test network connectivity** from the OIM to the BMC:</span>
+<p>A <code class="docutils literal notranslate"><span class="pre">404</span></code> response indicates the firmware does not support telemetry.
+Update iDRAC firmware to the latest version.</p>
+<ol class="arabic simple" start="3">
+<li><p><strong>Verify telemetry subscriptions:</strong></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-k<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;:&lt;pass&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://&lt;bmc_ip&gt;/redfish/v1/EventService/Subscriptions
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ping<span class="w"> </span>&lt;bmc_ip&gt;
-<span class="w">      </span>curl<span class="w"> </span>-k<span class="w"> </span>https://&lt;bmc_ip&gt;/redfish/v1/
-
-
-
-<span class="c1">#. If subscriptions are missing, re-run the telemetry playbook:</span>
+<ol class="arabic simple" start="4">
+<li><p><strong>Test network connectivity</strong> from the OIM to the BMC:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ping<span class="w"> </span>&lt;bmc_ip&gt;
+curl<span class="w"> </span>-k<span class="w"> </span>https://&lt;bmc_ip&gt;/redfish/v1/
 </pre></div>
 </div>
+<ol class="arabic simple" start="5">
+<li><p>If subscriptions are missing, re-run the telemetry playbook:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 <span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>playbooks/telemetry.yml
@@ -519,187 +513,155 @@ ansible-playbook<span class="w"> </span>playbooks/telemetry.yml
 </section>
 <section id="ldms-sampler-failures">
 <h2>LDMS sampler failures<a class="headerlink" href="#ldms-sampler-failures" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>LDMS (Lightweight Distributed Metric Service) samplers on compute nodes are
+<p><strong>Symptom</strong></p>
+<p>LDMS (Lightweight Distributed Metric Service) samplers on compute nodes are
 not collecting or forwarding metrics. The <code class="docutils literal notranslate"><span class="pre">ldmsd</span></code> service may be in a
 failed state.</p>
-</div></blockquote>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">ldmsd</span></code> daemon is not running on the compute node.</p></li>
 <li><p>The sampler configuration references a metric set that is not available on
 the node (for example, GPU metrics on a non-GPU node).</p></li>
 <li><p>The aggregator endpoint is unreachable from the compute node.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Check <code class="docutils literal notranslate"><span class="pre">ldmsd</span></code> status on the compute node:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>&lt;compute_node&gt;<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>ldmsd
-
-
-
-<span class="c1">#. Review LDMS logs:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;compute_node&gt;<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>ldmsd
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>&lt;compute_node&gt;<span class="w"> </span>cat<span class="w"> </span>/var/log/ldmsd.log
-
-
-
-<span class="c1">#. Verify the sampler configuration:</span>
+<ol class="arabic simple" start="2">
+<li><p>Review LDMS logs:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;compute_node&gt;<span class="w"> </span>cat<span class="w"> </span>/var/log/ldmsd.log
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>&lt;compute_node&gt;<span class="w"> </span>cat<span class="w"> </span>/etc/ldms/ldmsd.conf
-
-
-
-<span class="c1">#. Test connectivity to the aggregator:</span>
+<ol class="arabic simple" start="3">
+<li><p>Verify the sampler configuration:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;compute_node&gt;<span class="w"> </span>cat<span class="w"> </span>/etc/ldms/ldmsd.conf
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>&lt;compute_node&gt;<span class="w"> </span>nc<span class="w"> </span>-zv<span class="w"> </span>&lt;aggregator_ip&gt;<span class="w"> </span>&lt;aggregator_port&gt;
-
-
-
-<span class="c1">#. Restart the LDMS daemon:</span>
+<ol class="arabic simple" start="4">
+<li><p>Test connectivity to the aggregator:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;compute_node&gt;<span class="w"> </span>nc<span class="w"> </span>-zv<span class="w"> </span>&lt;aggregator_ip&gt;<span class="w"> </span>&lt;aggregator_port&gt;
 </pre></div>
 </div>
+<ol class="arabic simple" start="5">
+<li><p>Restart the LDMS daemon:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;compute_node&gt;<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>ldmsd
 </pre></div>
 </div>
 </section>
 <section id="kafka-connection-issues">
 <h2>Kafka connection issues<a class="headerlink" href="#kafka-connection-issues" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>Telemetry data producers (iDRAC collectors, LDMS aggregators) cannot connect
+<p><strong>Symptom</strong></p>
+<p>Telemetry data producers (iDRAC collectors, LDMS aggregators) cannot connect
 to Kafka. Logs show connection refused or timeout errors.</p>
-</div></blockquote>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>The Kafka container or service is not running.</p></li>
 <li><p>Kafka listeners are misconfigured (wrong advertised address or port).</p></li>
 <li><p>ZooKeeper (or KRaft controller) is not running.</p></li>
 <li><p>Firewall rules block Kafka ports (default: 9092).</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Verify Kafka is running:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span><span class="c1"># If Kafka runs as a Podman container</span>
-<span class="w">      </span>podman<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kafka
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># If Kafka runs as a Podman container</span>
+podman<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kafka
 
-<span class="w">      </span><span class="c1"># If Kafka runs as a Kubernetes pod</span>
-<span class="w">      </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kafka
-
-
-
-<span class="c1">#. Check Kafka logs:</span>
+<span class="c1"># If Kafka runs as a Kubernetes pod</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>kafka
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>podman<span class="w"> </span>logs<span class="w"> </span>kafka<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-50
-
-
-
-<span class="c1">#. Verify Kafka listeners:</span>
+<ol class="arabic simple" start="2">
+<li><p>Check Kafka logs:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>logs<span class="w"> </span>kafka<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-50
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span><span class="c1"># Test Kafka port</span>
-<span class="w">      </span>nc<span class="w"> </span>-zv<span class="w"> </span>&lt;kafka_host&gt;<span class="w"> </span><span class="m">9092</span>
-
-
-
-<span class="c1">#. Check ZooKeeper status:</span>
+<ol class="arabic simple" start="3">
+<li><p>Verify Kafka listeners:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test Kafka port</span>
+nc<span class="w"> </span>-zv<span class="w"> </span>&lt;kafka_host&gt;<span class="w"> </span><span class="m">9092</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>podman<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>zookeeper
-<span class="w">      </span>podman<span class="w"> </span>logs<span class="w"> </span>zookeeper<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-50
-
-
-
-<span class="c1">#. If Kafka&#39;s advertised listeners are wrong, update the configuration:</span>
+<ol class="arabic simple" start="4">
+<li><p>Check ZooKeeper status:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>zookeeper
+podman<span class="w"> </span>logs<span class="w"> </span>zookeeper<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-50
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span><span class="c1"># In Kafka&#39;s server.properties or environment variables</span>
-<span class="w">      </span><span class="nv">KAFKA_ADVERTISED_LISTENERS</span><span class="o">=</span>PLAINTEXT://&lt;oim_ip&gt;:9092
-
-
-
-<span class="c1">#. Restart Kafka:</span>
+<ol class="arabic simple" start="5">
+<li><p>If Kafka’s advertised listeners are wrong, update the configuration:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># In Kafka&#39;s server.properties or environment variables</span>
+<span class="nv">KAFKA_ADVERTISED_LISTENERS</span><span class="o">=</span>PLAINTEXT://&lt;oim_ip&gt;:9092
 </pre></div>
 </div>
+<ol class="arabic simple" start="6">
+<li><p>Restart Kafka:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>restart<span class="w"> </span>kafka
 </pre></div>
 </div>
 </section>
 <section id="victoriametrics-not-receiving-data">
 <h2>VictoriaMetrics not receiving data<a class="headerlink" href="#victoriametrics-not-receiving-data" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>VictoriaMetrics shows no recent data points. Grafana dashboards display
+<p><strong>Symptom</strong></p>
+<p>VictoriaMetrics shows no recent data points. Grafana dashboards display
 <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">data</span></code> or stale values.</p>
-</div></blockquote>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>The VictoriaMetrics container is not running.</p></li>
 <li><p>The Kafka-to-VictoriaMetrics consumer is not running or is misconfigured.</p></li>
 <li><p>Disk space on the VictoriaMetrics storage volume is exhausted.</p></li>
 <li><p>Ingestion rate limits are rejecting data.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Verify VictoriaMetrics is running:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>podman<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>victoria
-<span class="w">      </span><span class="c1"># or</span>
-<span class="w">      </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>victoria
-
-
-
-<span class="c1">#. Check VictoriaMetrics health:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>victoria
+<span class="c1"># or</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>victoria
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>curl<span class="w"> </span>http://&lt;victoria_host&gt;:8428/health
-
-
-
-<span class="c1">#. Verify data is being ingested:</span>
+<ol class="arabic simple" start="2">
+<li><p>Check VictoriaMetrics health:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>http://&lt;victoria_host&gt;:8428/health
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span><span class="c1"># Check the number of active time series</span>
-<span class="w">      </span>curl<span class="w"> </span>http://&lt;victoria_host&gt;:8428/api/v1/status/tsdb
-
-
-
-<span class="c1">#. Check disk space:</span>
+<ol class="arabic simple" start="3">
+<li><p>Verify data is being ingested:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the number of active time series</span>
+curl<span class="w"> </span>http://&lt;victoria_host&gt;:8428/api/v1/status/tsdb
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>df<span class="w"> </span>-h<span class="w"> </span>&lt;victoria_data_dir&gt;
-
-
-
-<span class="c1">#. Check the Kafka consumer that feeds VictoriaMetrics:</span>
+<ol class="arabic simple" start="4">
+<li><p>Check disk space:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>df<span class="w"> </span>-h<span class="w"> </span>&lt;victoria_data_dir&gt;
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>podman<span class="w"> </span>logs<span class="w"> </span>&lt;kafka_consumer_container&gt;<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-50
-
-
-
-<span class="c1">#. If disk is full, increase storage or reduce retention:</span>
+<ol class="arabic simple" start="5">
+<li><p>Check the Kafka consumer that feeds VictoriaMetrics:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>logs<span class="w"> </span>&lt;kafka_consumer_container&gt;<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-50
 </pre></div>
 </div>
+<ol class="arabic simple" start="6">
+<li><p>If disk is full, increase storage or reduce retention:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Adjust retention period (e.g., 30 days)</span>
 <span class="c1"># Add to VictoriaMetrics startup flags: -retentionPeriod=30d</span>
 </pre></div>
@@ -707,63 +669,50 @@ to Kafka. Logs show connection refused or timeout errors.</p>
 </section>
 <section id="grafana-dashboards-empty">
 <h2>Grafana dashboards empty<a class="headerlink" href="#grafana-dashboards-empty" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>Grafana is accessible but dashboards show no data, <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">data</span></code> messages, or
+<p><strong>Symptom</strong></p>
+<p>Grafana is accessible but dashboards show no data, <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">data</span></code> messages, or
 broken panels.</p>
-</div></blockquote>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>The VictoriaMetrics data source is not configured in Grafana.</p></li>
 <li><p>The data source URL is incorrect.</p></li>
 <li><p>VictoriaMetrics itself has no data (see above).</p></li>
 <li><p>Dashboard queries reference metric names that do not exist in the
 current data.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Verify the Grafana data source:</p></li>
 </ol>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>Navigate to <strong>Grafana</strong> &gt; <strong>Configuration</strong> &gt; <strong>Data Sources</strong>.</p></li>
-<li><dl class="simple">
-<dt>Confirm a Prometheus-compatible data source points to</dt><dd><p><code class="docutils literal notranslate"><span class="pre">http://&lt;victoria_host&gt;:8428</span></code>.</p>
-</dd>
-</dl>
-</li>
+<li><p>Confirm a Prometheus-compatible data source points to
+<code class="docutils literal notranslate"><span class="pre">http://&lt;victoria_host&gt;:8428</span></code>.</p></li>
 <li><p>Click <strong>Test</strong> to verify connectivity.</p></li>
 </ul>
-</div></blockquote>
-<ol class="arabic simple">
+<ol class="arabic simple" start="2">
 <li><p>If no data source exists, add one:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://admin:admin@&lt;grafana_host&gt;:3000/api/datasources<span class="w"> </span><span class="se">\</span>
-<span class="w">        </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">        </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">          &quot;name&quot;: &quot;VictoriaMetrics&quot;,</span>
-<span class="s1">          &quot;type&quot;: &quot;prometheus&quot;,</span>
-<span class="s1">          &quot;url&quot;: &quot;http://&lt;victoria_host&gt;:8428&quot;,</span>
-<span class="s1">          &quot;access&quot;: &quot;proxy&quot;,</span>
-<span class="s1">          &quot;isDefault&quot;: true</span>
-<span class="s1">        }&#39;</span>
-
-
-
-<span class="c1">#. Verify metrics exist in VictoriaMetrics:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://admin:admin@&lt;grafana_host&gt;:3000/api/datasources<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type: application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;name&quot;: &quot;VictoriaMetrics&quot;,</span>
+<span class="s1">    &quot;type&quot;: &quot;prometheus&quot;,</span>
+<span class="s1">    &quot;url&quot;: &quot;http://&lt;victoria_host&gt;:8428&quot;,</span>
+<span class="s1">    &quot;access&quot;: &quot;proxy&quot;,</span>
+<span class="s1">    &quot;isDefault&quot;: true</span>
+<span class="s1">  }&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>curl<span class="w"> </span><span class="s1">&#39;http://&lt;victoria_host&gt;:8428/api/v1/label/__name__/values&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.&#39;</span>
-
-
-
-<span class="c1">#. Re-import Omnia default dashboards if they are missing:</span>
+<ol class="arabic simple" start="3">
+<li><p>Verify metrics exist in VictoriaMetrics:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span><span class="s1">&#39;http://&lt;victoria_host&gt;:8428/api/v1/label/__name__/values&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.&#39;</span>
 </pre></div>
 </div>
+<ol class="arabic simple" start="4">
+<li><p>Re-import Omnia default dashboards if they are missing:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 <span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>playbooks/telemetry.yml<span class="w"> </span>--tags<span class="w"> </span>grafana_dashboards

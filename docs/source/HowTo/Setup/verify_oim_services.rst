@@ -45,91 +45,88 @@ Procedure
 ---------
 
 
-#. **Check the omnia_core service**:
+1. Check the omnia_core service:
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-      systemctl status omnia_core.service
-
-
-
-   Expected: ``Active: active (running)``
-
-#. **List the complete omnia.target dependency tree**:
-
-   .. code-block:: bash
-      :caption: Run on: OIM host
-
-      systemctl list-dependencies omnia.target
+   systemctl status omnia_core.service
 
 
+Expected: ``Active: active (running)``
 
-   Expected output:
+2. List the complete omnia.target dependency tree:
 
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-**Expected output on: OIM host**
-
-.. code-block:: text
-
-      omnia.target
-      ├─minio.service
-      ├─omnia_auth.service
-      ├─omnia_core.service
-      ├─pulp.service
-      ├─registry.service
-      └─openchami.target
-        ├─bss.service
-        ├─coredhcp.service
-        ├─cloud-init-server.service
-        ├─dnsmasq.service
-        ├─hydra.service
-        ├─image-server.service
-        ├─opaal.service
-        ├─smd.service
-        └─tftpd.service
+   systemctl list-dependencies omnia.target
 
 
 
-#. **Check each top-level service individually**:
+Expected output:
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+.. code-block:: bash
+   :caption: Expected output on: OIM host
 
-      for svc in minio omnia_auth omnia_core pulp registry; do
-        echo "=== $svc ==="
-        systemctl is-active ${svc}.service
-      done
-
-
-
-#. **Check OpenCHAMI sub-services**:
-
-   .. code-block:: bash
-      :caption: Run on: OIM host
-
-      for svc in bss coredhcp cloud-init-server dnsmasq hydra image-server opaal smd tftpd; do
-        echo "=== $svc ==="
-        systemctl is-active ${svc}.service
-      done
-
-
-
-#. **Verify running Podman containers**:
-
-   .. code-block:: bash
-      :caption: Run on: OIM host
-
-      podman ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+   omnia.target
+   ├─minio.service
+   ├─omnia_auth.service
+   ├─omnia_core.service
+   ├─pulp.service
+   ├─registry.service
+   └─openchami.target
+   ├─bss.service
+   ├─coredhcp.service
+   ├─cloud-init-server.service
+   ├─dnsmasq.service
+   ├─hydra.service
+   ├─image-server.service
+   ├─opaal.service
+   ├─smd.service
+   └─tftpd.service
 
 
 
-#. **Test the OpenCHAMI CLI**:
+3. Check each top-level service individually:
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-      ssh omnia_core
+   for svc in minio omnia_auth omnia_core pulp registry; do
+     echo "=== $svc ==="
+     systemctl is-active ${svc}.service
+   done
+
+
+
+4. Check OpenCHAMI sub-services:
+
+.. code-block:: bash
+   :caption: Run on: OIM host
+
+   for svc in bss coredhcp cloud-init-server dnsmasq hydra image-server opaal smd tftpd; do
+     echo "=== $svc ==="
+     systemctl is-active ${svc}.service
+   done
+
+
+
+5. Verify running Podman containers:
+
+.. code-block:: bash
+   :caption: Run on: OIM host
+
+   podman ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+
+
+
+6. Test the OpenCHAMI CLI:
+
+.. code-block:: bash
+   :caption: Run on: OIM host
+
+   ssh omnia_core
 
 
 
@@ -137,46 +134,46 @@ Procedure
 .. code-block:: bash
    :caption: Run on: omnia_core container
 
-      ochami --help
+   ochami --help
 
 
 
-   Useful ``ochami`` commands:
+Useful ``ochami`` commands:
 
 
 .. code-block:: bash
    :caption: Run on: omnia_core container
 
-      # List discovered nodes
-      ochami node list
+   # List discovered nodes
+   ochami node list
 
-      # Check SMD status
-      ochami smd status
+   # Check SMD status
+   ochami smd status
 
-      # List boot configurations
-      ochami bss list
-
-
-
-#. **Test MinIO / S3 access**:
-
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
-
-      s3cmd ls
+   # List boot configurations
+   ochami bss list
 
 
 
-#. **Test Pulp accessibility**:
+7. Test MinIO / S3 access:
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      curl -s http://localhost:8080/pulp/api/v3/status/ | python3 -m json.tool
+   s3cmd ls
 
 
 
-   Expected: a JSON response with ``"online_workers"`` and ``"versions"``.
+8. Test Pulp accessibility:
+
+.. code-block:: bash
+   :caption: Run on: OIM host
+
+   curl -s http://localhost:8080/pulp/api/v3/status/ | python3 -m json.tool
+
+
+
+Expected: a JSON response with ``"online_workers"`` and ``"versions"``.
 
 
 
@@ -236,74 +233,81 @@ Troubleshooting
 
 
 **A service shows "inactive (dead)"**
-   Restart the specific service:
+
+Restart the specific service:
 
 
 .. code-block:: bash
    :caption: Run on: OIM host
 
-      systemctl restart <service-name>.service
-      journalctl -u <service-name>.service --no-pager -n 50
+   systemctl restart <service-name>.service
+   journalctl -u <service-name>.service --no-pager -n 50
 
 
 
 **OpenCHAMI services fail with connection errors**
-   Verify the SMD service is running first, as other OpenCHAMI services
-   depend on it:
+
+Verify the SMD service is running first, as other OpenCHAMI services
+depend on it:
 
 
 .. code-block:: bash
    :caption: Run on: OIM host
 
-      systemctl restart smd.service
-      sleep 10
-      systemctl restart openchami.target
+   systemctl restart smd.service
+   sleep 10
+   systemctl restart openchami.target
 
 
 
 **Pulp API returns connection refused**
-   Check that the Pulp container is running and listening on port 8080:
+
+Check that the Pulp container is running and listening on port 8080:
 
 
 .. code-block:: bash
    :caption: Run on: OIM host
 
-      podman logs pulp
-      ss -tlnp | grep 8080
+   podman logs pulp
+   ss -tlnp | grep 8080
 
 
 
 **MinIO not accessible**
-   Verify MinIO container status and port binding:
+
+Verify MinIO container status and port binding:
 
 
 .. code-block:: bash
    :caption: Run on: OIM host
 
-      podman logs minio
-      ss -tlnp | grep 9000
+   podman logs minio
+   ss -tlnp | grep 9000
 
 
 
 **omnia.target not found**
-   Re-run the ``prepare_oim.yml`` playbook to regenerate systemd unit files:
+
+Re-run the ``prepare_oim.yml`` playbook to regenerate systemd unit files:
 
 
 .. code-block:: bash
    :caption: Run on: omnia_core container
 
-      cd /omnia/prepare_oim
-      ansible-playbook prepare_oim.yml --ask-vault-pass
+   cd /omnia/prepare_oim
+   ansible-playbook prepare_oim.yml --ask-vault-pass
 
 
 
 **Container images missing**
-   Rebuild the container images:
+
+
+Rebuild the container images:
 
 
 .. code-block:: bash
    :caption: Run on: OIM host
 
-      cd /opt/omnia
-      bash build_images.sh core
+   cd /opt/omnia
+   bash build_images.sh core
 

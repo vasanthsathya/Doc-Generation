@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -457,32 +457,21 @@ iDRAC credentials) in Ansible Vault files encrypted with AES-256. Rotate these
 credentials periodically to limit the impact of any potential exposure.</p>
 <section id="rotate-vault-passwords">
 <h3>Rotate vault passwords<a class="headerlink" href="#rotate-vault-passwords" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p>Access the <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> container:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</li>
+<ol class="arabic simple">
+<li><p>Access the <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> container:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p>Re-key the vault file with a new password:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</li>
+<ol class="arabic simple" start="2">
+<li><p>Re-key the vault file with a new password:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nb">cd</span><span class="w"> </span>/omnia
-<span class="w">   </span>ansible-vault<span class="w"> </span>rekey<span class="w"> </span>input/credentials.yml
-
-
-
-Enter<span class="w"> </span>the<span class="w"> </span>current<span class="w"> </span>vault<span class="w"> </span>password,<span class="w"> </span><span class="k">then</span><span class="w"> </span>provide<span class="w"> </span>the<span class="w"> </span>new<span class="w"> </span>password<span class="w"> </span>twice.
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
+ansible-vault<span class="w"> </span>rekey<span class="w"> </span>input/credentials.yml
 </pre></div>
 </div>
-<ol class="arabic simple">
+<p>Enter the current vault password, then provide the new password twice.</p>
+<ol class="arabic simple" start="3">
 <li><p>Update any scripts or CI/CD pipelines that reference the old vault password.</p></li>
 </ol>
 <div class="admonition warning">
@@ -496,23 +485,15 @@ control.</p>
 <h3>Rotate service credentials<a class="headerlink" href="#rotate-service-credentials" title="Link to this heading">#</a></h3>
 <p>To rotate individual service credentials (for example, the Slurm database
 password or LDAP admin password):</p>
-<ol class="arabic">
-<li><p>Edit the encrypted credentials file:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</li>
+<ol class="arabic simple">
+<li><p>Edit the encrypted credentials file:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-vault<span class="w"> </span>edit<span class="w"> </span>input/credentials.yml
 </pre></div>
 </div>
-<ol class="arabic">
+<ol class="arabic simple" start="2">
 <li><p>Update the relevant password fields.</p></li>
-<li><p>Re-run the appropriate playbook to propagate the new credentials:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</li>
+<li><p>Re-run the appropriate playbook to propagate the new credentials:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># For Slurm credentials</span>
 ansible-playbook<span class="w"> </span>playbooks/omnia.yml<span class="w"> </span>--tags<span class="w"> </span>slurm
@@ -530,8 +511,7 @@ certificate authority (CA) to issue TLS certificates for inter-service
 communication.</p>
 <section id="check-certificate-expiry">
 <h3>Check certificate expiry<a class="headerlink" href="#check-certificate-expiry" title="Link to this heading">#</a></h3>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id1">
+<div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List certificates and their expiry dates</span>
 step<span class="w"> </span>certificate<span class="w"> </span>inspect<span class="w"> </span>/etc/step/certs/server.crt<span class="w"> </span>--short
@@ -541,14 +521,12 @@ step<span class="w"> </span>certificate<span class="w"> </span>needs-renewal<spa
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 </section>
 <section id="renew-certificates">
 <h3>Renew certificates<a class="headerlink" href="#renew-certificates" title="Link to this heading">#</a></h3>
 <p>Certificates issued by step-ca are typically short-lived and auto-renewed.
 If automatic renewal fails:</p>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id2">
+<div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Manually renew</span>
 step<span class="w"> </span>ca<span class="w"> </span>renew<span class="w"> </span>/etc/step/certs/server.crt<span class="w"> </span>/etc/step/certs/server.key
@@ -558,7 +536,6 @@ podman<span class="w"> </span>restart<span class="w"> </span>&lt;service_contain
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Configure monitoring to alert when certificates are within 7 days of expiry.
@@ -573,8 +550,7 @@ is needed, making it easy to integrate into a cron job or monitoring script.</p>
 required by Omnia services.</p>
 <section id="oim-firewall-configuration">
 <h3>OIM firewall configuration<a class="headerlink" href="#oim-firewall-configuration" title="Link to this heading">#</a></h3>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id3">
+<div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Allow SSH (management)</span>
 firewall-cmd<span class="w"> </span>--permanent<span class="w"> </span>--add-service<span class="o">=</span>ssh
@@ -597,12 +573,10 @@ firewall-cmd<span class="w"> </span>--list-all
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 </section>
 <section id="compute-node-firewall-configuration">
 <h3>Compute node firewall configuration<a class="headerlink" href="#compute-node-firewall-configuration" title="Link to this heading">#</a></h3>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id4">
+<div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Allow Slurm communication</span>
 firewall-cmd<span class="w"> </span>--permanent<span class="w"> </span>--add-port<span class="o">=</span><span class="m">6817</span>-6819/tcp
@@ -619,7 +593,6 @@ firewall-cmd<span class="w"> </span>--reload
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Omnia configures basic firewall rules during deployment. The commands above
@@ -632,22 +605,20 @@ defaults.</p>
 <h2>LDAP hardening<a class="headerlink" href="#ldap-hardening" title="Link to this heading">#</a></h2>
 <p>If you are using OpenLDAP for centralized authentication, apply these hardening
 measures:</p>
-<ol class="arabic">
-<li><p><strong>Enforce TLS for all LDAP connections:</strong></p>
-<p>Ensure <code class="docutils literal notranslate"><span class="pre">ldaps://</span></code> (port 636) is used instead of unencrypted <code class="docutils literal notranslate"><span class="pre">ldap://</span></code> (port 389). Update the LDAP client configuration on all nodes:</p>
-</li>
+<ol class="arabic simple">
+<li><p>Enforce TLS for all LDAP connections:</p></li>
 </ol>
+<p>Ensure <code class="docutils literal notranslate"><span class="pre">ldaps://</span></code> (port 636) is used instead of unencrypted <code class="docutils literal notranslate"><span class="pre">ldap://</span></code> (port 389). Update the LDAP client configuration on all nodes:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># /etc/openldap/ldap.conf</span>
 URI<span class="w"> </span>ldaps://auth-server.example.com
 TLS_CACERT<span class="w"> </span>/etc/openldap/certs/ca.crt
 TLS_REQCERT<span class="w"> </span>demand
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Restrict anonymous binds:</strong></p>
-<p>Configure the LDAP server to disallow anonymous access:</p>
-</li>
+<ol class="arabic simple" start="2">
+<li><p>Restrict anonymous binds:</p></li>
 </ol>
+<p>Configure the LDAP server to disallow anonymous access:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapmodify<span class="w"> </span>-Y<span class="w"> </span>EXTERNAL<span class="w"> </span>-H<span class="w"> </span>ldapi:///<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
 <span class="s">dn: cn=config</span>
 <span class="s">changetype: modify</span>
@@ -656,22 +627,21 @@ TLS_REQCERT<span class="w"> </span>demand
 <span class="s">EOF</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Set strong password policies:</strong></p>
+<ol class="arabic simple" start="3">
+<li><p>Set strong password policies:</p></li>
+</ol>
 <p>Configure password complexity, lockout, and expiry in the LDAP password
 policy overlay.</p>
-</li>
-<li><p><strong>Limit LDAP admin access:</strong></p>
+<ol class="arabic simple" start="4">
+<li><p>Limit LDAP admin access:</p></li>
+</ol>
 <p>Restrict the LDAP admin bind DN to connections originating from the OIM and
 authentication server only.</p>
-</li>
-</ol>
 </section>
 <section id="disable-unnecessary-services">
 <h2>Disable unnecessary services<a class="headerlink" href="#disable-unnecessary-services" title="Link to this heading">#</a></h2>
 <p>Review running services on all nodes and disable anything not required:</p>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id5">
+<div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List all enabled services</span>
 systemctl<span class="w"> </span>list-unit-files<span class="w"> </span>--state<span class="o">=</span>enabled
@@ -686,13 +656,11 @@ systemctl<span class="w"> </span>list-unit-files<span class="w"> </span>--state<
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 </section>
 <section id="routine-security-updates">
 <h2>Routine security updates<a class="headerlink" href="#routine-security-updates" title="Link to this heading">#</a></h2>
 <p>Apply security patches regularly on the OIM and all cluster nodes:</p>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id6">
+<div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install only security updates (RHEL/Rocky)</span>
 yum<span class="w"> </span>update<span class="w"> </span>--security<span class="w"> </span>-y
@@ -706,7 +674,6 @@ systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> 
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Schedule security updates during maintenance windows to avoid disrupting

@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -533,16 +533,18 @@ and related files on the Slurm control node.</p>
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
 <section id="backup">
 <h3>Backup<a class="headerlink" href="#backup" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>Create a backup directory</strong> on the Slurm control node:</p>
+<ol class="arabic simple">
+<li><p>Create a backup directory on the Slurm control node:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>/opt/slurm_backup
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Create a timestamped backup</strong> of all Slurm configuration files:</p>
+<ol class="arabic simple" start="2">
+<li><p>Create a timestamped backup of all Slurm configuration files:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">BACKUP_DIR</span><span class="o">=</span><span class="s2">&quot;/opt/slurm_backup/</span><span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span><span class="s2">&quot;</span>
@@ -560,8 +562,9 @@ ls<span class="w"> </span>-la<span class="w"> </span><span class="s2">&quot;</sp
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>(Optional) Create an automated backup</strong> using a cron job:</p>
+<ol class="arabic simple" start="3">
+<li><p>(Optional) Create an automated backup using a cron job:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /etc/cron.daily/slurm_backup.sh</span>
@@ -578,21 +581,21 @@ chmod<span class="w"> </span>+x<span class="w"> </span>/etc/cron.daily/slurm_bac
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="rollback">
 <h3>Rollback<a class="headerlink" href="#rollback" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>List available backups</strong>:</p>
+<ol class="arabic simple">
+<li><p>List available backups:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-lt<span class="w"> </span>/opt/slurm_backup/
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Restore from a backup</strong>:</p>
+<ol class="arabic simple" start="2">
+<li><p>Restore from a backup:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the backup to restore (e.g., the most recent)</span>
@@ -612,8 +615,9 @@ systemctl<span class="w"> </span>start<span class="w"> </span>slurmctld
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify the restored configuration</strong>:</p>
+<ol class="arabic simple" start="3">
+<li><p>Verify the restored configuration:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>show<span class="w"> </span>config<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
@@ -621,8 +625,9 @@ sinfo
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Distribute the restored config to compute nodes</strong> if needed:</p>
+<ol class="arabic simple" start="4">
+<li><p>Distribute the restored config to compute nodes if needed:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>copy<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;src=/etc/slurm/slurm.conf dest=/etc/slurm/slurm.conf&quot;</span>
@@ -630,13 +635,12 @@ ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="cleanup">
 <h3>Cleanup<a class="headerlink" href="#cleanup" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>Remove old backups</strong> to free disk space:</p>
+<ol class="arabic simple">
+<li><p>Remove old backups to free disk space:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove backups older than 30 days</span>
@@ -647,8 +651,9 @@ ls<span class="w"> </span>-dt<span class="w"> </span>/opt/slurm_backup/*/<span c
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Check remaining backups and disk usage</strong>:</p>
+<ol class="arabic simple" start="2">
+<li><p>Check remaining backups and disk usage:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>du<span class="w"> </span>-sh<span class="w"> </span>/opt/slurm_backup
@@ -656,14 +661,13 @@ ls<span class="w"> </span>-lt<span class="w"> </span>/opt/slurm_backup/
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Verify the current configuration is valid</strong>:</p>
+<ol class="arabic simple">
+<li><p>Verify the current configuration is valid:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id10">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>slurmctld<span class="w"> </span>-t
@@ -671,8 +675,9 @@ ls<span class="w"> </span>-lt<span class="w"> </span>/opt/slurm_backup/
 </div>
 </div>
 <p>If no errors are reported, the configuration is syntactically valid.</p>
-</li>
-<li><p><strong>Verify all nodes are healthy</strong> after a rollback:</p>
+<ol class="arabic simple" start="2">
+<li><p>Verify all nodes are healthy after a rollback:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id11">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sinfo
@@ -680,16 +685,15 @@ scontrol<span class="w"> </span>ping
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Diff the current config against a backup</strong> to see changes:</p>
+<ol class="arabic simple" start="3">
+<li><p>Diff the current config against a backup to see changes:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id12">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>diff<span class="w"> </span>/etc/slurm/slurm.conf<span class="w"> </span>/opt/slurm_backup/&lt;latest&gt;/slurm.conf
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -700,38 +704,32 @@ scontrol<span class="w"> </span>ping
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt><strong>slurmctld fails to start after rollback</strong></dt><dd><p>The backup may reference nodes that no longer exist. Edit
+<p><strong>slurmctld fails to start after rollback</strong>
+The backup may reference nodes that no longer exist. Edit
 <code class="docutils literal notranslate"><span class="pre">slurm.conf</span></code> to match the current cluster state:</p>
-</dd>
-</dl>
 <div class="literal-block-wrapper docutils container" id="id13">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>vi<span class="w"> </span>/etc/slurm/slurm.conf
-<span class="w">   </span>slurmctld<span class="w"> </span>-t<span class="w">  </span><span class="c1"># Test config</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/etc/slurm/slurm.conf
+slurmctld<span class="w"> </span>-t<span class="w">  </span><span class="c1"># Test config</span>
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>Munge key mismatch after rollback</strong></dt><dd><p>Ensure the Munge key is consistent across all nodes. If you restored
+<p><strong>Munge key mismatch after rollback</strong>
+Ensure the Munge key is consistent across all nodes. If you restored
 the Munge key from backup, redistribute it:</p>
-</dd>
-</dl>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ansible<span class="w"> </span>slurm_cluster<span class="w"> </span>-m<span class="w"> </span>copy<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;src=/etc/munge/munge.key dest=/etc/munge/munge.key owner=munge group=munge mode=0400&quot;</span>
-<span class="w">   </span>ansible<span class="w"> </span>slurm_cluster<span class="w"> </span>-m<span class="w"> </span>service<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;name=munge state=restarted&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_cluster<span class="w"> </span>-m<span class="w"> </span>copy<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;src=/etc/munge/munge.key dest=/etc/munge/munge.key owner=munge group=munge mode=0400&quot;</span>
+ansible<span class="w"> </span>slurm_cluster<span class="w"> </span>-m<span class="w"> </span>service<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;name=munge state=restarted&quot;</span>
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>Backup directory runs out of space</strong></dt><dd><p>Reduce the retention period or move backups to external storage:</p>
-</dd>
-</dl>
+<p><strong>Backup directory runs out of space</strong>
+Reduce the retention period or move backups to external storage:</p>
 <div class="literal-block-wrapper docutils container" id="id15">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>du<span class="w"> </span>-sh<span class="w"> </span>/opt/slurm_backup
-<span class="w">   </span><span class="c1"># Adjust the cron cleanup period as needed</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>du<span class="w"> </span>-sh<span class="w"> </span>/opt/slurm_backup
+<span class="c1"># Adjust the cron cleanup period as needed</span>
 </pre></div>
 </div>
 </div>

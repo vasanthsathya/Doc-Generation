@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -515,14 +515,14 @@ home directories, job data, and shared applications.</p>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
 <p>Omnia supports two NFS deployment models:</p>
-<ol class="arabic simple">
+<ul class="simple">
 <li><p><strong>Internal NFS</strong> (managed by Omnia) – Omnia configures an NFS server on a
 designated node (typically the Slurm control node or a dedicated storage
 node) and auto-mounts it on all compute and login nodes.</p></li>
 <li><p><strong>External NFS</strong> – You provide an existing NFS server (e.g., Dell
 PowerScale, NetApp, or a standalone NFS appliance), and Omnia configures
 the mount on all cluster nodes.</p></li>
-</ol>
+</ul>
 <img alt="NFS Configuration Flowchart" src="../../_images/nfs_flowchart_2.0.jpg" />
 <p>Both models use:</p>
 <ul class="simple">
@@ -546,18 +546,22 @@ desired path, and the server IP is reachable from all cluster nodes.</p></li>
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
 <section id="internal-nfs-omnia-managed">
 <h3>Internal NFS (Omnia-Managed)<a class="headerlink" href="#internal-nfs-omnia-managed" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>Configure NFS in omnia_config.yml</strong>:</p>
+<ol class="arabic simple">
+<li><p>Configure NFS in omnia_config.yml:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
+
+
+
+Set<span class="w"> </span>the<span class="w"> </span>NFS<span class="w"> </span>parameters:
 </pre></div>
 </div>
 </div>
-<p>Set the NFS parameters:</p>
-</li>
-</ol>
 <p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/omnia_config.yml</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="nt">enable_omnia_nfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="nt">nfs_node_group</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;slurm_control_node&quot;</span>
@@ -565,42 +569,32 @@ desired path, and the server IP is reachable from all cluster nodes.</p></li>
 <span class="nt">omnia_nfs_opts</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rw,sync,no_root_squash,no_subtree_check&quot;</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Run the omnia.yml playbook</strong> to deploy NFS:</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
-ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass
-</pre></div>
 </div>
-</div>
-<p>The playbook will:</p>
-</li>
+<ol class="arabic simple" start="2">
+<li><p>Run the omnia.yml playbook to deploy NFS:</p></li>
 </ol>
-<blockquote>
-<div><ul class="simple">
-<li><p>Install <code class="docutils literal notranslate"><span class="pre">nfs-utils</span></code> on the NFS server node.</p></li>
+<ul class="simple">
 <li><p>Create the shared directory with 755 permissions.</p></li>
 <li><p>Configure <code class="docutils literal notranslate"><span class="pre">/etc/exports</span></code> with <code class="docutils literal notranslate"><span class="pre">no_root_squash</span></code>.</p></li>
 <li><p>Start and enable the <code class="docutils literal notranslate"><span class="pre">nfs-server</span></code> service.</p></li>
 <li><p>Mount the NFS share on all compute and login nodes.</p></li>
 <li><p>Add the mount to <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code> for persistence across reboots.</p></li>
 </ul>
-</div></blockquote>
 </section>
 <section id="external-nfs">
 <h3>External NFS<a class="headerlink" href="#external-nfs" title="Link to this heading">#</a></h3>
-<ol class="arabic">
-<li><p><strong>Configure external NFS in omnia_config.yml</strong>:</p>
+<ol class="arabic simple">
+<li><p>Configure external NFS in omnia_config.yml:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 <p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/omnia_config.yml</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="nt">enable_omnia_nfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="nt">external_nfs_server</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.1.100&quot;</span>
@@ -609,19 +603,22 @@ ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-v
 <span class="nt">external_nfs_opts</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;rw,hard,intr,nfsvers=3&quot;</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Run the omnia.yml playbook</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Run the omnia.yml playbook:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>(Alternative) Manual NFS mount</strong> on a specific node:</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="3">
+<li><p>(Alternative) Manual NFS mount on a specific node:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nfs-utils
 mkdir<span class="w"> </span>-p<span class="w"> </span>/home
 mount<span class="w"> </span>-t<span class="w"> </span>nfs<span class="w"> </span>-o<span class="w"> </span>rw,hard,intr,nfsvers<span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="m">10</span>.5.1.100:/ifs/omnia/home<span class="w"> </span>/home
@@ -629,11 +626,9 @@ mount<span class="w"> </span>-t<span class="w"> </span>nfs<span class="w"> </spa
 </div>
 </div>
 <p>Add to <code class="docutils literal notranslate"><span class="pre">/etc/fstab</span></code> for persistence:</p>
-</li>
-</ol>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;10.5.1.100:/ifs/omnia/home /home nfs rw,hard,intr,nfsvers=3 0 0&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/fstab
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;10.5.1.100:/ifs/omnia/home /home nfs rw,hard,intr,nfsvers=3 0 0&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/fstab
 </pre></div>
 </div>
 </div>
@@ -641,60 +636,61 @@ mount<span class="w"> </span>-t<span class="w"> </span>nfs<span class="w"> </spa
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Verify the NFS server is exporting</strong> (internal NFS):</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on: NFS server node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<ol class="arabic simple">
+<li><p>Verify the NFS server is exporting (internal NFS):</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on: NFS server node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>exportfs<span class="w"> </span>-v
 </pre></div>
 </div>
 </div>
 <p>Expected output:</p>
-</li>
-</ol>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Expected output on: NFS server node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>   /home  &lt;network&gt;(rw,sync,wdelay,no_root_squash,no_subtree_check,...)
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Expected output on: NFS server node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/home  &lt;network&gt;(rw,sync,wdelay,no_root_squash,no_subtree_check,...)
 </pre></div>
 </div>
 </div>
-<ol class="arabic">
-<li><p><strong>Verify NFS is mounted on compute nodes</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="2">
+<li><p>Verify NFS is mounted on compute nodes:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;df -h /home&quot;</span>
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Test read/write from a compute node</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="3">
+<li><p>Test read/write from a compute node:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;NFS test </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/home/nfs_test.txt
 cat<span class="w"> </span>/home/nfs_test.txt
 rm<span class="w"> </span>/home/nfs_test.txt
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify permissions</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on: NFS server node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="4">
+<li><p>Verify permissions:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Run on: NFS server node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-ld<span class="w"> </span>/home
 <span class="c1"># Expected: drwxr-xr-x (755)</span>
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify mount persists across reboot</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="5">
+<li><p>Verify mount persists across reboot:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span><span class="s2">&quot;/home&quot;</span><span class="w"> </span>/etc/fstab
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -709,59 +705,52 @@ cluster-wide access.</p></li>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt><strong>Mount fails with “access denied”</strong></dt><dd><p>Verify the NFS export allows the client IP:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Run on: NFS server node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>exportfs<span class="w"> </span>-v
-<span class="w">   </span>cat<span class="w"> </span>/etc/exports
-
-
-
-Ensure<span class="w"> </span>the<span class="w"> </span><span class="nb">export</span><span class="w"> </span>includes<span class="w"> </span>the<span class="w"> </span>admin<span class="w"> </span>network<span class="w"> </span>range:
+<p><strong>Mount fails with “access denied”</strong>
+Verify the NFS export allows the client IP:</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on: NFS server node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>exportfs<span class="w"> </span>-v
+cat<span class="w"> </span>/etc/exports
 </pre></div>
 </div>
 </div>
+<p>Ensure the export includes the admin network range:</p>
 <p><strong>File: /etc/exports on NFS server node</strong></p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">File: /etc/exports on NFS server node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/home 10.5.0.0/24(rw,sync,no_root_squash,no_subtree_check)
 </pre></div>
 </div>
-<dl class="simple">
-<dt><strong>“mount.nfs: Connection timed out”</strong></dt><dd><p>Check firewall rules on the NFS server:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Run on: NFS server node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>firewall-cmd<span class="w"> </span>--add-service<span class="o">=</span>nfs<span class="w"> </span>--permanent
-<span class="w">   </span>firewall-cmd<span class="w"> </span>--add-service<span class="o">=</span>mountd<span class="w"> </span>--permanent
-<span class="w">   </span>firewall-cmd<span class="w"> </span>--add-service<span class="o">=</span>rpc-bind<span class="w"> </span>--permanent
-<span class="w">   </span>firewall-cmd<span class="w"> </span>--reload
+</div>
+<p><strong>“mount.nfs: Connection timed out”</strong>
+Check firewall rules on the NFS server:</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Run on: NFS server node</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>firewall-cmd<span class="w"> </span>--add-service<span class="o">=</span>nfs<span class="w"> </span>--permanent
+firewall-cmd<span class="w"> </span>--add-service<span class="o">=</span>mountd<span class="w"> </span>--permanent
+firewall-cmd<span class="w"> </span>--add-service<span class="o">=</span>rpc-bind<span class="w"> </span>--permanent
+firewall-cmd<span class="w"> </span>--reload
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>Stale NFS handles after server restart</strong></dt><dd><p>Remount on affected nodes:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Run on: affected compute node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>umount<span class="w"> </span>-l<span class="w"> </span>/home
-<span class="w">   </span>mount<span class="w"> </span>/home
+<p><strong>Stale NFS handles after server restart</strong>
+Remount on affected nodes:</p>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">Run on: affected compute node</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>umount<span class="w"> </span>-l<span class="w"> </span>/home
+mount<span class="w"> </span>/home
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>Performance is slow</strong></dt><dd><ul class="simple">
-<li><p>Use NFSv3 instead of NFSv4 for HPC workloads (NFSv3 has lower latency).</p></li>
-<li><p>Increase the NFS read/write block size:</p></li>
-</ul>
-</dd>
-</dl>
+<p><strong>Performance is slow</strong>
+- Use NFSv3 instead of NFSv4 for HPC workloads (NFSv3 has lower latency).
+- Increase the NFS read/write block size:</p>
 <p><strong>File: /etc/fstab on compute node</strong></p>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">File: /etc/fstab on compute node</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>10.5.1.100:/ifs/omnia/home /home nfs rw,hard,intr,nfsvers=3,rsize=1048576,wsize=1048576 0 0
 </pre></div>
+</div>
 </div>
 <p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>

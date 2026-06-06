@@ -182,11 +182,8 @@ PowerVault ME5 configuration
 Usage example
 -------------
 
-
-
-**File: /opt/omnia/input/project_default/storage_config.yml**
-
 .. code-block:: yaml
+   :caption: File: /opt/omnia/input/project_default/storage_config.yml
 
    nfs_client_params: "nosuid,rw,sync,hard,intr"
    nfs_shares:

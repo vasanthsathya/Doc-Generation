@@ -17,30 +17,30 @@ NIC not set to PXE boot
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 
-???+ note "Symptom"
+**Symptom**
 
-    The target node does not attempt a network boot. It boots directly to the
-    local disk or enters the BIOS setup instead of requesting a PXE image from
-    the OIM.
+The target node does not attempt a network boot. It boots directly to the
+local disk or enters the BIOS setup instead of requesting a PXE image from
+the OIM.
 
-??? note "Cause"
+**Cause**
 
-    The node's BIOS/UEFI boot order does not include PXE/network boot, or PXE
-    is disabled on the NIC connected to the admin network.
+The node's BIOS/UEFI boot order does not include PXE/network boot, or PXE
+is disabled on the NIC connected to the admin network.
 
-??? note "Resolution"
+**Resolution**
 
-    #. Enter the node's BIOS/UEFI setup (press F2 during POST on Dell PowerEdge
-       servers).
-    #. Navigate to **System BIOS** > **Network Settings**.
-    #. Enable **PXE Boot** on the NIC connected to the admin network.
-    #. Navigate to **Boot Settings** > **BIOS Boot Settings** (or **UEFI Boot
-       Settings**).
-    #. Set **Network Boot** (PXE) as the first boot option.
-    #. Save and exit BIOS. The node should now attempt PXE boot on the next
-       restart.
+#. Enter the node's BIOS/UEFI setup (press F2 during POST on Dell PowerEdge
+    servers).
+#. Navigate to **System BIOS** > **Network Settings**.
+#. Enable **PXE Boot** on the NIC connected to the admin network.
+#. Navigate to **Boot Settings** > **BIOS Boot Settings** (or **UEFI Boot
+    Settings**).
+#. Set **Network Boot** (PXE) as the first boot option.
+#. Save and exit BIOS. The node should now attempt PXE boot on the next
+    restart.
 
-    Alternatively, use ``racadm`` to configure remotely:
+Alternatively, use ``racadm`` to configure remotely:
 
 
 .. code-block:: bash
@@ -55,19 +55,19 @@ Wrong MAC address in mapping file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-???+ note "Symptom"
+**Symptom**
 
-    The node PXE boots but does not receive an IP address, or it receives an IP
-    but is not recognized by OpenCHAMI.
+The node PXE boots but does not receive an IP address, or it receives an IP
+but is not recognized by OpenCHAMI.
 
-??? note "Cause"
+**Cause**
 
-    The MAC address in ``/omnia/input/mapping_file.csv`` does not match the
-    actual MAC address of the NIC being used for PXE boot.
+The MAC address in ``/omnia/input/mapping_file.csv`` does not match the
+actual MAC address of the NIC being used for PXE boot.
 
-??? note "Resolution"
+**Resolution**
 
-    #. Verify the correct MAC address from iDRAC or the node's BIOS:
+#. Verify the correct MAC address from iDRAC or the node's BIOS:
 
 
 .. code-block:: bash
@@ -77,7 +77,7 @@ Wrong MAC address in mapping file
 
 
 
-    #. Update the mapping file with the correct MAC:
+#. Update the mapping file with the correct MAC:
 
 
 .. code-block:: text
@@ -87,7 +87,7 @@ Wrong MAC address in mapping file
 
 
 
-    #. Re-run the discovery playbook:
+#. Re-run the discovery playbook:
 
 
 .. code-block:: bash
@@ -103,9 +103,9 @@ DHCP not serving IP addresses
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-???+ note "Symptom"
+**Symptom**
 
-    Nodes attempt PXE boot but fail with a DHCP timeout error:
+Nodes attempt PXE boot but fail with a DHCP timeout error:
 
 
 .. code-block:: text
@@ -114,16 +114,16 @@ DHCP not serving IP addresses
 
 
 
-??? note "Cause"
+**Cause**
 
-    - The CoreDHCP container on the OIM is not running.
-    - The DHCP range is exhausted.
-    - A network misconfiguration prevents DHCP broadcasts from reaching the OIM.
-    - Another DHCP server on the same network is interfering.
+- The CoreDHCP container on the OIM is not running.
+- The DHCP range is exhausted.
+- A network misconfiguration prevents DHCP broadcasts from reaching the OIM.
+- Another DHCP server on the same network is interfering.
 
-??? note "Resolution"
+**Resolution**
 
-    #. Verify the CoreDHCP container is running:
+1. Verify the CoreDHCP container is running:
 
 
 .. code-block:: bash
@@ -141,7 +141,7 @@ DHCP not serving IP addresses
 
 
 
-    #. Check CoreDHCP logs for errors:
+2. Check CoreDHCP logs for errors:
 
 
 .. code-block:: bash
@@ -150,7 +150,7 @@ DHCP not serving IP addresses
 
 
 
-    #. Verify no rogue DHCP server exists on the admin network:
+3. Verify no rogue DHCP server exists on the admin network:
 
 
 .. code-block:: bash
@@ -159,14 +159,14 @@ DHCP not serving IP addresses
 
 
 
-    #. Ensure the OIM's admin NIC is on the correct VLAN and subnet.
+4. Ensure the OIM's admin NIC is on the correct VLAN and subnet.
 
 
 TFTP timeout during PXE boot
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-???+ note "Symptom"
+**Symptom**
 
     The node receives a DHCP lease but fails to download the boot image:
 
@@ -178,15 +178,15 @@ TFTP timeout during PXE boot
 
 
 
-??? note "Cause"
+**Cause**
 
     - The TFTP service on the OIM is not running.
     - Firewall rules on the OIM are blocking TFTP traffic (UDP port 69).
     - The TFTP root directory does not contain the expected boot files.
 
-??? note "Resolution"
+**Resolution**
 
-    #. Verify the TFTP container is running:
+1. Verify the TFTP container is running:
 
 
 .. code-block:: bash
@@ -195,7 +195,7 @@ TFTP timeout during PXE boot
 
 
 
-    #. Check firewall rules:
+2. Check firewall rules:
 
 
 .. code-block:: bash
@@ -214,7 +214,7 @@ TFTP timeout during PXE boot
 
 
 
-    #. Verify boot files exist in the TFTP root:
+3. Verify boot files exist in the TFTP root:
 
 
 .. code-block:: bash
@@ -228,56 +228,46 @@ cloud-init issues
 -----------------
 
 
-???+ note "Symptom"
+**Symptom**
 
-    Nodes boot the OS successfully but post-boot configuration fails. The node
-    is accessible via console but network settings, hostname, or SSH keys are
-    not configured correctly.
+Nodes boot the OS successfully but post-boot configuration fails. The node
+is accessible via console but network settings, hostname, or SSH keys are
+not configured correctly.
 
-??? note "Cause"
+**Cause**
 
-    - The cloud-init data source is not configured.
-    - The cloud-init configuration file has syntax errors.
-    - The cloud-init service was disabled or removed from the OS image.
+- The cloud-init data source is not configured.
+- The cloud-init configuration file has syntax errors.
+- The cloud-init service was disabled or removed from the OS image.
 
-??? note "Resolution"
+**Resolution**
 
-    #. Check cloud-init status on the affected node:
-
-
-.. code-block:: bash
-
-          cloud-init status --long
-
-
-
-    #. Review cloud-init logs:
-
+1. Check cloud-init status on the affected node:
 
 .. code-block:: bash
 
-          cat /var/log/cloud-init.log
-          cat /var/log/cloud-init-output.log
+   cloud-init status --long
 
-
-
-    #. Verify the data source configuration:
-
+2. Review cloud-init logs:
 
 .. code-block:: bash
 
-          cat /etc/cloud/cloud.cfg.d/
+   cat /var/log/cloud-init.log
+   cat /var/log/cloud-init-output.log
 
-
-
-    #. If cloud-init was disabled, re-enable it:
-
+3. Verify the data source configuration:
 
 .. code-block:: bash
 
-          systemctl enable cloud-init
-          cloud-init clean
-          reboot
+   cat /etc/cloud/cloud.cfg.d/
+
+4. If cloud-init was disabled, re-enable it:
+
+.. code-block:: bash
+
+   systemctl enable cloud-init
+   cloud-init clean
+   reboot
 
 
 
@@ -286,20 +276,20 @@ cloud-init issues
 ------------------------
 
 
-???+ note "Symptom"
+**Symptom**
 
-    The ``discovery.yml`` playbook fails with errors related to OpenCHAMI, BMC
-    connectivity, or inventory population.
+The ``discovery.yml`` playbook fails with errors related to OpenCHAMI, BMC
+connectivity, or inventory population.
 
-??? note "Cause"
+**Cause**
 
-    - OpenCHAMI services (SMD, BSS) are not running on the OIM.
-    - BMC/iDRAC credentials are incorrect.
-    - The BMC network is unreachable from the OIM.
+- OpenCHAMI services (SMD, BSS) are not running on the OIM.
+- BMC/iDRAC credentials are incorrect.
+- The BMC network is unreachable from the OIM.
 
-??? note "Resolution"
+**Resolution**
 
-    #. Verify OpenCHAMI services are running:
+1. Verify OpenCHAMI services are running:
 
 
 .. code-block:: bash
@@ -308,7 +298,7 @@ cloud-init issues
 
 
 
-    #. Test BMC connectivity:
+2. Test BMC connectivity:
 
 
 .. code-block:: bash
@@ -321,7 +311,7 @@ cloud-init issues
 
 
 
-    #. Verify BMC credentials in the configuration:
+3. Verify BMC credentials in the configuration:
 
 
 .. code-block:: bash
@@ -331,7 +321,7 @@ cloud-init issues
 
 
 
-    #. Check discovery logs for detailed errors:
+4. Check discovery logs for detailed errors:
 
 
 .. code-block:: bash
@@ -345,55 +335,45 @@ Nodes not appearing after discovery
 -----------------------------------
 
 
-???+ note "Symptom"
+**Symptom**
 
-    After running ``discovery.yml`` successfully, the expected nodes do not
-    appear in ``ochami-cli smd components list`` or ``sinfo``.
+After running ``discovery.yml`` successfully, the expected nodes do not
+appear in ``ochami-cli smd components list`` or ``sinfo``.
 
-??? note "Cause"
+**Cause**
 
-    - The node's BMC did not respond during the discovery window.
-    - The node's MAC address does not match any entry in the mapping file.
-    - The node booted but failed cloud-init, so it did not register with the
-      OIM.
+- The node's BMC did not respond during the discovery window.
+- The node's MAC address does not match any entry in the mapping file.
+- The node booted but failed cloud-init, so it did not register with the
+  OIM.
 
-??? note "Resolution"
+**Resolution**
 
-    #. Check the OpenCHAMI inventory:
-
-
-.. code-block:: bash
-
-          ssh omnia_core
-          ochami-cli smd components list
-
-
-
-    #. Verify the node's BMC is responsive:
-
+1. Check the OpenCHAMI inventory:
 
 .. code-block:: bash
 
-          ping <bmc_ip>
-          curl -k -u <user>:<pass> https://<bmc_ip>/redfish/v1/Systems
+   ssh omnia_core
+   ochami-cli smd components list
 
-
-
-    #. Re-run discovery for the specific node by power-cycling it via iDRAC:
-
+2. Verify the node's BMC is responsive:
 
 .. code-block:: bash
 
-          racadm -r <bmc_ip> -u <user> -p <pass> serveraction powercycle
+   ping <bmc_ip>
+   curl -k -u <user>:<pass> https://<bmc_ip>/redfish/v1/Systems
 
-
-
-    #. Monitor the discovery log in real time:
-
+3. Re-run discovery for the specific node by power-cycling it via iDRAC:
 
 .. code-block:: bash
 
-          tail -f /opt/omnia/log/core/playbooks/discovery.log
+   racadm -r <bmc_ip> -u <user> -p <pass> serveraction powercycle
+
+4. Monitor the discovery log in real time:
+
+.. code-block:: bash
+
+   tail -f /opt/omnia/log/core/playbooks/discovery.log
 
 
 

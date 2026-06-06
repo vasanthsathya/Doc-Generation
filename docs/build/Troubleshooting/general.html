@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -451,47 +451,38 @@
 Vault operations.</p>
 <section id="hostname-changes-after-oim-reboot">
 <h2>Hostname changes after OIM reboot<a class="headerlink" href="#hostname-changes-after-oim-reboot" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>After rebooting the OIM, the hostname reverts to <code class="docutils literal notranslate"><span class="pre">localhost</span></code> or a different
+<p><strong>Symptom</strong></p>
+<p>After rebooting the OIM, the hostname reverts to <code class="docutils literal notranslate"><span class="pre">localhost</span></code> or a different
 value, causing Ansible playbooks and service connections to fail.</p>
-</div></blockquote>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><p>The OIM’s hostname was set temporarily with <code class="docutils literal notranslate"><span class="pre">hostnamectl</span></code> but not persisted
+<p><strong>Cause</strong></p>
+<p>The OIM’s hostname was set temporarily with <code class="docutils literal notranslate"><span class="pre">hostnamectl</span></code> but not persisted
 in <code class="docutils literal notranslate"><span class="pre">/etc/hostname</span></code>, or a DHCP-assigned hostname overrides the static
 setting on boot.</p>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Set the hostname permanently:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>hostnamectl<span class="w"> </span>set-hostname<span class="w"> </span>oim.example.com
-
-
-
-<span class="c1">#. Verify it persisted in ``/etc/hostname``:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hostnamectl<span class="w"> </span>set-hostname<span class="w"> </span>oim.example.com
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>cat<span class="w"> </span>/etc/hostname
-
-
-
-<span class="c1">#. Ensure the hostname is also in ``/etc/hosts``:</span>
+<ol class="arabic simple" start="2">
+<li><p>Verify it persisted in <code class="docutils literal notranslate"><span class="pre">/etc/hostname</span></code>:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/etc/hostname
 </pre></div>
 </div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>      127.0.0.1   localhost
-      &lt;oim_ip&gt;    oim.example.com oim
-
-
-
-#. If DHCP is overriding the hostname, configure the DHCP client to preserve
-   the static hostname by adding the following to
-   ``/etc/NetworkManager/conf.d/90-hostname.conf``:
+<ol class="arabic simple" start="3">
+<li><p>Ensure the hostname is also in <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code>:</p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>127.0.0.1   localhost
+&lt;oim_ip&gt;    oim.example.com oim
 </pre></div>
 </div>
+<ol class="arabic simple" start="4">
+<li><p>If DHCP is overriding the hostname, configure the DHCP client to preserve
+the static hostname by adding the following to
+<code class="docutils literal notranslate"><span class="pre">/etc/NetworkManager/conf.d/90-hostname.conf</span></code>:</p></li>
+</ol>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[main]</span>
 <span class="na">hostname-mode</span><span class="o">=</span><span class="s">none</span>
 </pre></div>
@@ -499,7 +490,7 @@ setting on boot.</p>
 </section>
 <section id="ssh-key-mismatches">
 <h2>SSH key mismatches<a class="headerlink" href="#ssh-key-mismatches" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
+<p><strong>Symptom</strong></p>
 <blockquote>
 <div><p>SSH connections from the OIM to cluster nodes fail with:</p>
 </div></blockquote>
@@ -508,33 +499,27 @@ setting on boot.</p>
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 </pre></div>
 </div>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><p>The target node was re-provisioned or re-imaged, generating new SSH host
+<p><strong>Cause</strong></p>
+<p>The target node was re-provisioned or re-imaged, generating new SSH host
 keys that conflict with the cached keys in <code class="docutils literal notranslate"><span class="pre">~/.ssh/known_hosts</span></code> on the
 OIM.</p>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Remove the stale key for the affected host:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh-keygen<span class="w"> </span>-R<span class="w"> </span>&lt;node_hostname_or_ip&gt;
-
-
-
-<span class="c1">#. Reconnect to accept the new key:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh-keygen<span class="w"> </span>-R<span class="w"> </span>&lt;node_hostname_or_ip&gt;
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>&lt;node_hostname_or_ip&gt;
-
-
-
-<span class="c1">#. To prevent this issue across bulk re-provisions, clear all known_hosts</span>
-<span class="w">   </span>entries<span class="w"> </span><span class="k">for</span><span class="w"> </span>cluster<span class="w"> </span>nodes:
+<ol class="arabic simple" start="2">
+<li><p>Reconnect to accept the new key:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;node_hostname_or_ip&gt;
 </pre></div>
 </div>
+<ol class="arabic simple" start="3">
+<li><p>To prevent this issue across bulk re-provisions, clear all known_hosts
+entries for cluster nodes:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove entries for a range of IPs</span>
 <span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">101</span><span class="w"> </span><span class="m">110</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">    </span>ssh-keygen<span class="w"> </span>-R<span class="w"> </span><span class="m">10</span>.5.0.<span class="nv">$i</span>
@@ -544,58 +529,48 @@ OIM.</p>
 </section>
 <section id="container-startup-failures">
 <h2>Container startup failures<a class="headerlink" href="#container-startup-failures" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>One or more Podman containers fail to start after an OIM reboot, or
+<p><strong>Symptom</strong></p>
+<p>One or more Podman containers fail to start after an OIM reboot, or
 <code class="docutils literal notranslate"><span class="pre">podman</span> <span class="pre">ps</span></code> shows containers in <code class="docutils literal notranslate"><span class="pre">Exited</span></code> or <code class="docutils literal notranslate"><span class="pre">Error</span></code> state.</p>
-</div></blockquote>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><p>Possible causes include:</p>
+<p><strong>Cause</strong></p>
+<p>Possible causes include:</p>
 <ul class="simple">
 <li><p>The Podman service (<code class="docutils literal notranslate"><span class="pre">podman.socket</span></code>) did not start.</p></li>
 <li><p>Containers were not configured to auto-restart.</p></li>
 <li><p>Disk space exhaustion prevents container layer extraction.</p></li>
 <li><p>Port conflicts with another service.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Check the container status and error message:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>podman<span class="w"> </span>ps<span class="w"> </span>-a
-<span class="w">      </span>podman<span class="w"> </span>logs<span class="w"> </span>&lt;container_name&gt;
-
-
-
-<span class="c1">#. Attempt a manual restart:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>ps<span class="w"> </span>-a
+podman<span class="w"> </span>logs<span class="w"> </span>&lt;container_name&gt;
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>podman<span class="w"> </span>start<span class="w"> </span>&lt;container_name&gt;
-
-
-
-<span class="c1">#. If disk space is the issue:</span>
+<ol class="arabic simple" start="2">
+<li><p>Attempt a manual restart:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>start<span class="w"> </span>&lt;container_name&gt;
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>df<span class="w"> </span>-h<span class="w"> </span>/
-<span class="w">      </span>podman<span class="w"> </span>system<span class="w"> </span>prune<span class="w"> </span>--force
-
-
-
-<span class="c1">#. If a port conflict is reported, identify the conflicting process:</span>
+<ol class="arabic simple" start="3">
+<li><p>If disk space is the issue:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>df<span class="w"> </span>-h<span class="w"> </span>/
+podman<span class="w"> </span>system<span class="w"> </span>prune<span class="w"> </span>--force
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>&lt;port_number&gt;
-
-
-
-<span class="c1">#. If containers consistently fail after reboot, verify that Podman pods</span>
-<span class="w">   </span>have<span class="w"> </span>auto-start<span class="w"> </span>enabled:
+<ol class="arabic simple" start="4">
+<li><p>If a port conflict is reported, identify the conflicting process:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>&lt;port_number&gt;
 </pre></div>
 </div>
+<ol class="arabic simple" start="5">
+<li><p>If containers consistently fail after reboot, verify that Podman pods
+have auto-start enabled:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>generate<span class="w"> </span>systemd<span class="w"> </span>--name<span class="w"> </span>&lt;pod_name&gt;<span class="w"> </span>--files
 systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>pod-&lt;pod_name&gt;.service
 </pre></div>
@@ -603,95 +578,73 @@ systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> 
 </section>
 <section id="ssh-omnia-core-fails-after-sudo">
 <h2><cite>ssh omnia_core</cite> fails after <cite>sudo</cite><a class="headerlink" href="#ssh-omnia-core-fails-after-sudo" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>Running <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">omnia_core</span></code> as a non-root user (or after <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">su</span></code>) returns
+<p><strong>Symptom</strong></p>
+<p>Running <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">omnia_core</span></code> as a non-root user (or after <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">su</span></code>) returns
 a connection error or permission denied:</p>
-</div></blockquote>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Permission denied (publickey).
 </pre></div>
 </div>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><p>The <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> container is configured with SSH keys for the <code class="docutils literal notranslate"><span class="pre">root</span></code>
+<p><strong>Cause</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> container is configured with SSH keys for the <code class="docutils literal notranslate"><span class="pre">root</span></code>
 user. When you use <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">su</span></code> to become root, the SSH agent and key
 environment may not be inherited.</p>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><p>Log in as <code class="docutils literal notranslate"><span class="pre">root</span></code> directly instead of using <a href="#id1"><span class="problematic" id="id2">``</span></a>sudo`:doc:<a href="#id3"><span class="problematic" id="id4">`</span></a>:</p>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># Instead of:</span>
-<span class="w">   </span>sudo<span class="w"> </span>su
-<span class="w">   </span>ssh<span class="w"> </span>omnia_core<span class="w">    </span><span class="c1"># &lt;-- fails</span>
+<p><strong>Resolution</strong></p>
+<p>Log in as <code class="docutils literal notranslate"><span class="pre">root</span></code> directly instead of using <code class="docutils literal notranslate"><span class="pre">sudo</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instead of:</span>
+sudo<span class="w"> </span>su
+ssh<span class="w"> </span>omnia_core<span class="w">    </span><span class="c1"># &lt;-- fails</span>
 
-<span class="w">   </span><span class="c1"># Do this:</span>
-<span class="w">   </span>ssh<span class="w"> </span>root@&lt;oim_ip&gt;
-<span class="w">   </span>ssh<span class="w"> </span>omnia_core<span class="w">    </span><span class="c1"># &lt;-- works</span>
-
-
-
-Alternatively,<span class="w"> </span>explicitly<span class="w"> </span>specify<span class="w"> </span>the<span class="w"> </span>SSH<span class="w"> </span>key:
+<span class="c1"># Do this:</span>
+ssh<span class="w"> </span>root@&lt;oim_ip&gt;
+ssh<span class="w"> </span>omnia_core<span class="w">    </span><span class="c1"># &lt;-- works</span>
 </pre></div>
 </div>
+<p>Alternatively, explicitly specify the SSH key:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>-i<span class="w"> </span>/root/.ssh/id_rsa<span class="w"> </span>omnia_core
 </pre></div>
 </div>
 </section>
 <section id="ansible-vault-encrypted-file-issues">
 <h2>Ansible Vault encrypted file issues<a class="headerlink" href="#ansible-vault-encrypted-file-issues" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>Ansible playbooks fail with:</p>
-</div></blockquote>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>   ERROR! Attempting to decrypt but no vault secrets found
-
-
-
-Or you cannot view the contents of encrypted credential files.
+<p><strong>Symptom</strong></p>
+<p>Ansible playbooks fail with:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ERROR! Attempting to decrypt but no vault secrets found
 </pre></div>
 </div>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><p>The vault password was not provided when running the playbook, or the
+<p>Or you cannot view the contents of encrypted credential files.</p>
+<p><strong>Cause</strong></p>
+<p>The vault password was not provided when running the playbook, or the
 vault password file path is incorrect.</p>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p><strong>View an encrypted file</strong> without editing:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ansible-vault<span class="w"> </span>view<span class="w"> </span>input/credentials.yml
-
-
-
-<span class="c1">#. **Edit an encrypted file:**</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-vault<span class="w"> </span>view<span class="w"> </span>input/credentials.yml
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ansible-vault<span class="w"> </span>edit<span class="w"> </span>input/credentials.yml
-
-
-
-<span class="c1">#. **Run a playbook with vault password prompt:**</span>
+<ol class="arabic simple" start="2">
+<li><p><strong>Edit an encrypted file:</strong></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-vault<span class="w"> </span>edit<span class="w"> </span>input/credentials.yml
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ansible-playbook<span class="w"> </span>playbooks/omnia.yml<span class="w"> </span>--ask-vault-pass
-
-
-
-<span class="c1">#. **Run a playbook with a vault password file:**</span>
+<ol class="arabic simple" start="3">
+<li><p><strong>Run a playbook with vault password prompt:</strong></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>playbooks/omnia.yml<span class="w"> </span>--ask-vault-pass
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ansible-playbook<span class="w"> </span>playbooks/omnia.yml<span class="w"> </span>--vault-password-file<span class="w"> </span>/root/.vault_pass
-
-
-
-<span class="c1">#. If you have forgotten the vault password, you will need to recreate the</span>
-<span class="w">   </span>credentials<span class="w"> </span>file.<span class="w"> </span>There<span class="w"> </span>is<span class="w"> </span>no<span class="w"> </span>way<span class="w"> </span>to<span class="w"> </span>recover<span class="w"> </span>an<span class="w"> </span>AES-256<span class="w"> </span>encrypted<span class="w"> </span>vault
-<span class="w">   </span>without<span class="w"> </span>the<span class="w"> </span>original<span class="w"> </span>password:
+<ol class="arabic simple" start="4">
+<li><p><strong>Run a playbook with a vault password file:</strong></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>playbooks/omnia.yml<span class="w"> </span>--vault-password-file<span class="w"> </span>/root/.vault_pass
 </pre></div>
 </div>
+<ol class="arabic simple" start="5">
+<li><p>If you have forgotten the vault password, you will need to recreate the
+credentials file. There is no way to recover an AES-256 encrypted vault
+without the original password:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Back up the old file</span>
 cp<span class="w"> </span>input/credentials.yml<span class="w"> </span>input/credentials.yml.bak
 

@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -537,25 +537,26 @@ later).</p></li>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Enter the omnia_core container</strong>:</p>
+<ol class="arabic simple">
+<li><p>Enter the omnia_core container:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Configure the RoCE network</strong> in the network specification:</p>
+<ol class="arabic simple" start="2">
+<li><p>Configure the RoCE network in the network specification:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/network_spec.yml
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
-<p><strong>File: /opt/omnia/input/project_default/network_spec.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/network_spec.yml</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="nt">roce_network</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">nic_name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ens10f0&quot;</span>
@@ -565,199 +566,184 @@ later).</p></li>
 <span class="w">  </span><span class="nt">mtu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9000</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Run the omnia.yml playbook</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Run the omnia.yml playbook:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>(If needed) Manually configure RoCE on a compute node</strong>:</p>
+<ol class="arabic simple" start="4">
+<li><p>(If needed) Manually configure RoCE on a compute node:</p></li>
+</ol>
 <ol class="loweralpha simple">
-<li><p><strong>Install OFED packages</strong>:</p></li>
+<li><p>Install OFED packages:</p></li>
 </ol>
-</li>
-</ol>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>rdma-core<span class="w"> </span>libibverbs-utils<span class="w"> </span>infiniband-diags
-
-
-
-b.<span class="w"> </span>**Configure<span class="w"> </span>the<span class="w"> </span>network<span class="w"> </span>interface**<span class="w"> </span>with<span class="w"> </span>jumbo<span class="w"> </span>frames:
-</pre></div>
-</div>
-</div>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /etc/sysconfig/network-scripts/ifcfg-ens10f0</span>
-<span class="s">      DEVICE=ens10f0</span>
-<span class="s">      TYPE=Ethernet</span>
-<span class="s">      BOOTPROTO=static</span>
-<span class="s">      IPADDR=10.231.0.101</span>
-<span class="s">      NETMASK=255.255.255.0</span>
-<span class="s">      ONBOOT=yes</span>
-<span class="s">      MTU=9000</span>
-<span class="s">      EOF</span>
-
-<span class="w">      </span>ifup<span class="w"> </span>ens10f0
-
-
-
-c.<span class="w"> </span>**Enable<span class="w"> </span>RoCEv2<span class="w"> </span>mode**<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>adapter:
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>rdma-core<span class="w"> </span>libibverbs-utils<span class="w"> </span>infiniband-diags
 </pre></div>
 </div>
 </div>
+<ol class="loweralpha simple" start="2">
+<li><p>Configure the network interface with jumbo frames:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>cma_roce_mode<span class="w"> </span>-d<span class="w"> </span>mlx5_0<span class="w"> </span>-p<span class="w"> </span><span class="m">1</span><span class="w"> </span>-m<span class="w"> </span><span class="m">2</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /etc/sysconfig/network-scripts/ifcfg-ens10f0</span>
+<span class="s">DEVICE=ens10f0</span>
+<span class="s">TYPE=Ethernet</span>
+<span class="s">BOOTPROTO=static</span>
+<span class="s">IPADDR=10.231.0.101</span>
+<span class="s">NETMASK=255.255.255.0</span>
+<span class="s">ONBOOT=yes</span>
+<span class="s">MTU=9000</span>
+<span class="s">EOF</span>
 
-
-
-<span class="w">   </span>Mode<span class="w"> </span><span class="sb">``</span><span class="m">2</span><span class="sb">``</span><span class="w"> </span>selects<span class="w"> </span>RoCEv2<span class="w"> </span><span class="o">(</span>UDP/IP<span class="w"> </span>based<span class="o">)</span>.
-
-d.<span class="w"> </span>**Configure<span class="w"> </span>Priority<span class="w"> </span>Flow<span class="w"> </span>Control<span class="w"> </span><span class="o">(</span>PFC<span class="o">)</span>**:
+ifup<span class="w"> </span>ens10f0
 </pre></div>
 </div>
 </div>
+<ol class="loweralpha simple" start="3">
+<li><p>Enable RoCEv2 mode on the adapter:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>mlnx_qos<span class="w"> </span>-i<span class="w"> </span>ens10f0<span class="w"> </span>--pfc<span class="w"> </span><span class="m">0</span>,0,0,1,0,0,0,0
-
-
-
-<span class="w">   </span>This<span class="w"> </span>enables<span class="w"> </span>PFC<span class="w"> </span>on<span class="w"> </span>traffic<span class="w"> </span>class<span class="w"> </span><span class="m">3</span>,<span class="w"> </span>which<span class="w"> </span>is<span class="w"> </span>typically<span class="w"> </span>used<span class="w"> </span><span class="k">for</span><span class="w"> </span>RoCE.
-
-e.<span class="w"> </span>**Configure<span class="w"> </span>ECN<span class="w"> </span><span class="o">(</span>Explicit<span class="w"> </span>Congestion<span class="w"> </span>Notification<span class="o">)</span>**:
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cma_roce_mode<span class="w"> </span>-d<span class="w"> </span>mlx5_0<span class="w"> </span>-p<span class="w"> </span><span class="m">1</span><span class="w"> </span>-m<span class="w"> </span><span class="m">2</span>
 </pre></div>
 </div>
 </div>
+<p>Mode <code class="docutils literal notranslate"><span class="pre">2</span></code> selects RoCEv2 (UDP/IP based).</p>
+<ol class="loweralpha simple" start="4">
+<li><p>Configure Priority Flow Control (PFC):</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>sysctl<span class="w"> </span>-w<span class="w"> </span>net.ipv4.tcp_ecn<span class="o">=</span><span class="m">1</span>
-<span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;net.ipv4.tcp_ecn=1&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/sysctl.d/roce.conf
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mlnx_qos<span class="w"> </span>-i<span class="w"> </span>ens10f0<span class="w"> </span>--pfc<span class="w"> </span><span class="m">0</span>,0,0,1,0,0,0,0
 </pre></div>
 </div>
 </div>
-<ol class="arabic">
-<li><p><strong>Configure the Ethernet switch</strong> for lossless RoCE traffic:</p>
-<p>!!! note</p>
-<blockquote>
-<div><p>Switch configuration is vendor-specific. Consult your switch
-documentation. The following is an example for Dell OS10 switches:</p>
-</div></blockquote>
-</li>
+<p>This enables PFC on traffic class 3, which is typically used for RoCE.</p>
+<ol class="loweralpha simple" start="5">
+<li><p>Configure ECN (Explicit Congestion Notification):</p></li>
 </ol>
 <div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on: Ethernet switch (Dell OS10 example)</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>   configure terminal
-   interface ethernet 1/1/1-1/1/48
-     priority-flow-control mode on
-     priority-flow-control priority 3 no-drop
-     mtu 9216
-   exit
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sysctl<span class="w"> </span>-w<span class="w"> </span>net.ipv4.tcp_ecn<span class="o">=</span><span class="m">1</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;net.ipv4.tcp_ecn=1&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/etc/sysctl.d/roce.conf
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Configure the Ethernet switch for lossless RoCE traffic:</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Switch configuration is vendor-specific. Consult your switch
+documentation. The following is an example for Dell OS10 switches:</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on: Ethernet switch (Dell OS10 example)</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>configure terminal
+interface ethernet 1/1/1-1/1/48
+  priority-flow-control mode on
+  priority-flow-control priority 3 no-drop
+  mtu 9216
+exit
 </pre></div>
 </div>
 </div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Verify the network interface is up</strong> with jumbo frames:</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<ol class="arabic simple">
+<li><p>Verify the network interface is up with jumbo frames:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>ens10f0
 ip<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span>ens10f0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>mtu
 </pre></div>
 </div>
 </div>
 <p>MTU should show <code class="docutils literal notranslate"><span class="pre">9000</span></code>.</p>
-</li>
-<li><p><strong>Verify RDMA devices are available</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="2">
+<li><p>Verify RDMA devices are available:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ibv_devices
 </pre></div>
 </div>
 </div>
 <p>Expected output:</p>
-</li>
-</ol>
-<p><strong>Expected output on: compute node</strong></p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Expected output on: compute node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>device          node GUID
 ------          ----------------
 mlx5_0          0002c9030005abcd
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Verify RoCE mode</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Verify RoCE mode:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cma_roce_mode<span class="w"> </span>-d<span class="w"> </span>mlx5_0<span class="w"> </span>-p<span class="w"> </span><span class="m">1</span>
 </pre></div>
 </div>
 </div>
 <p>Expected: <code class="docutils literal notranslate"><span class="pre">RoCE</span> <span class="pre">v2</span></code></p>
-</li>
-<li><p><strong>Test RDMA bandwidth</strong> over RoCE:</p>
-<p>On the server node:</p>
-</li>
+<ol class="arabic simple" start="4">
+<li><p>Test RDMA bandwidth over RoCE:</p></li>
 </ol>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node 1</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ib_write_bw<span class="w"> </span>-d<span class="w"> </span>mlx5_0
-
-
-
-On<span class="w"> </span>the<span class="w"> </span>client<span class="w"> </span>node:
-</pre></div>
-</div>
-</div>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node 2</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ib_write_bw<span class="w"> </span>-d<span class="w"> </span>mlx5_0<span class="w"> </span><span class="m">10</span>.231.0.101
-</pre></div>
-</div>
-</div>
-<ol class="arabic">
-<li><p><strong>Test RDMA latency</strong> over RoCE:</p>
 <p>On the server node:</p>
-</li>
-</ol>
 <div class="literal-block-wrapper docutils container" id="id15">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node 1</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ib_write_lat<span class="w"> </span>-d<span class="w"> </span>mlx5_0
-
-
-
-On<span class="w"> </span>the<span class="w"> </span>client<span class="w"> </span>node:
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ib_write_bw<span class="w"> </span>-d<span class="w"> </span>mlx5_0
 </pre></div>
 </div>
 </div>
+<p>On the client node:</p>
 <div class="literal-block-wrapper docutils container" id="id16">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node 2</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ib_write_lat<span class="w"> </span>-d<span class="w"> </span>mlx5_0<span class="w"> </span><span class="m">10</span>.231.0.101
-
-
-
-Expected<span class="w"> </span>RoCE<span class="w"> </span>latency:<span class="w"> </span><span class="m">3</span>-10<span class="w"> </span>microseconds<span class="w"> </span><span class="o">(</span>higher<span class="w"> </span>than<span class="w"> </span>IB<span class="w"> </span>but<span class="w"> </span>lower<span class="w"> </span>than
-TCP/IP<span class="o">)</span>.
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ib_write_bw<span class="w"> </span>-d<span class="w"> </span>mlx5_0<span class="w"> </span><span class="m">10</span>.231.0.101
 </pre></div>
 </div>
 </div>
-<ol class="arabic">
-<li><p><strong>Verify PFC counters</strong> (should show no drops):</p>
+<ol class="arabic simple" start="5">
+<li><p>Test RDMA latency over RoCE:</p></li>
+</ol>
+<p>On the server node:</p>
 <div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
+<div class="code-block-caption"><span class="caption-text">Run on: compute node 1</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ib_write_lat<span class="w"> </span>-d<span class="w"> </span>mlx5_0
+</pre></div>
+</div>
+</div>
+<p>On the client node:</p>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node 2</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ib_write_lat<span class="w"> </span>-d<span class="w"> </span>mlx5_0<span class="w"> </span><span class="m">10</span>.231.0.101
+</pre></div>
+</div>
+</div>
+<p>Expected RoCE latency: 3-10 microseconds (higher than IB but lower than
+TCP/IP).</p>
+<ol class="arabic simple" start="6">
+<li><p>Verify PFC counters (should show no drops):</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ethtool<span class="w"> </span>-S<span class="w"> </span>ens10f0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>pfc
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -770,71 +756,56 @@ RoCE.</p></li>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt><strong>ibv_devices shows no devices</strong></dt><dd><p>Verify RDMA modules are loaded:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>modprobe<span class="w"> </span>mlx5_core
-<span class="w">   </span>modprobe<span class="w"> </span>rdma_ucm
-</pre></div>
-</div>
-</div>
-<dl>
-<dt><strong>RDMA tests fail with “Connection refused”</strong></dt><dd><ul class="simple">
-<li><p>Verify both nodes can ping each other on the RoCE network.</p></li>
-<li><p>Check firewall rules:</p></li>
-</ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>firewall-cmd<span class="w"> </span>--add-port<span class="o">=</span><span class="m">18515</span>/tcp<span class="w"> </span>--permanent
-<span class="w">  </span>firewall-cmd<span class="w"> </span>--reload
-</pre></div>
-</div>
-</div>
-</div></blockquote>
-</dd>
-<dt><strong>Performance is poor (&lt; 10 Gbps)</strong></dt><dd><ul class="simple">
-<li><p>Verify MTU is 9000 on both nodes and the switch:</p></li>
-</ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id20">
+<p><strong>ibv_devices shows no devices</strong>
+Verify RDMA modules are loaded:</p>
+<div class="literal-block-wrapper docutils container" id="id20">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id20" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>ip<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span>ens10f0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>modprobe<span class="w"> </span>mlx5_core
+modprobe<span class="w"> </span>rdma_ucm
 </pre></div>
 </div>
 </div>
-</div></blockquote>
+<p><strong>RDMA tests fail with “Connection refused”</strong>
+- Verify both nodes can ping each other on the RoCE network.
+- Check firewall rules:</p>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id21" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>firewall-cmd<span class="w"> </span>--add-port<span class="o">=</span><span class="m">18515</span>/tcp<span class="w"> </span>--permanent
+firewall-cmd<span class="w"> </span>--reload
+</pre></div>
+</div>
+</div>
+<p><strong>Performance is poor (&lt; 10 Gbps)</strong>
+- Verify MTU is 9000 on both nodes and the switch:</p>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id22" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ip<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span>ens10f0
+</pre></div>
+</div>
+</div>
 <ul class="simple">
 <li><p>Verify PFC is enabled to prevent packet drops:</p></li>
 </ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id21">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id21" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>mlnx_qos<span class="w"> </span>-i<span class="w"> </span>ens10f0
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id23" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mlnx_qos<span class="w"> </span>-i<span class="w"> </span>ens10f0
 </pre></div>
 </div>
 </div>
-</div></blockquote>
-</dd>
+<dl class="simple">
 <dt><strong>Packet drops on the switch</strong></dt><dd><p>Ensure PFC is configured correctly on all switch ports in the RoCE VLAN.
 Check switch counters for PFC pause frames.</p>
 </dd>
-<dt><strong>Adapter is in InfiniBand mode instead of Ethernet</strong></dt><dd><p>Change the port mode using <code class="docutils literal notranslate"><span class="pre">mstconfig</span></code>:</p>
-</dd>
 </dl>
-<div class="literal-block-wrapper docutils container" id="id22">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id22" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>mstconfig<span class="w"> </span>-d<span class="w"> </span>mlx5_0<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="nv">LINK_TYPE_P1</span><span class="o">=</span>ETH
-
-
-
-Reboot<span class="w"> </span>the<span class="w"> </span>node<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>change<span class="w"> </span>to<span class="w"> </span>take<span class="w"> </span>effect.
+<p><strong>Adapter is in InfiniBand mode instead of Ethernet</strong>
+Change the port mode using <code class="docutils literal notranslate"><span class="pre">mstconfig</span></code>:</p>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id24" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mstconfig<span class="w"> </span>-d<span class="w"> </span>mlx5_0<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="nv">LINK_TYPE_P1</span><span class="o">=</span>ETH
 </pre></div>
 </div>
 </div>
+<p>Reboot the node for the change to take effect.</p>
 <p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

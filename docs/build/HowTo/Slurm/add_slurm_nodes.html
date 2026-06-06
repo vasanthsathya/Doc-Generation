@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -534,8 +534,9 @@ network.</p></li>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Update the mapping file</strong> with new node entries:</p>
+<ol class="arabic simple">
+<li><p>Update the mapping file with new node entries:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/pxe_mapping_file.csv
@@ -543,94 +544,94 @@ network.</p></li>
 </div>
 </div>
 <p>Add new rows for each new compute node:</p>
-</li>
-</ol>
-<p><strong>File: /opt/omnia/input/project_default/pxe_mapping_file.csv</strong></p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/pxe_mapping_file.csv</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>slurm_node,slurm_cluster,NEWSVCTG1,,,aa:bb:cc:dd:ee:10,10.5.0.110,aa:bb:cc:dd:ff:10,10.3.0.110
 slurm_node,slurm_cluster,NEWSVCTG2,,,aa:bb:cc:dd:ee:11,10.5.0.111,aa:bb:cc:dd:ff:11,10.3.0.111
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Provision the new nodes</strong> if not already provisioned:</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Provision the new nodes if not already provisioned:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia/discovery
 ansible-playbook<span class="w"> </span>discovery.yml<span class="w"> </span>--ask-vault-pass
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Run the add-node playbook</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="3">
+<li><p>Run the add-node playbook:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass<span class="w"> </span>--limit<span class="w"> </span><span class="s2">&quot;new_nodes&quot;</span>
 </pre></div>
 </div>
 </div>
-<p>!!! note</p>
-<blockquote>
-<div><p>If a dedicated <code class="docutils literal notranslate"><span class="pre">add_node.yml</span></code> playbook is available in your Omnia
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If a dedicated <code class="docutils literal notranslate"><span class="pre">add_node.yml</span></code> playbook is available in your Omnia
 version, use it instead:</p>
-</div></blockquote>
-</li>
-</ol>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">       </span>ansible-playbook<span class="w"> </span>utils/add_node.yml<span class="w"> </span>--ask-vault-pass<span class="w"> </span><span class="se">\</span>
-<span class="w">         </span>-e<span class="w"> </span><span class="s2">&quot;target_nodes=10.5.0.110,10.5.0.111&quot;</span>
+</div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>utils/add_node.yml<span class="w"> </span>--ask-vault-pass<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="s2">&quot;target_nodes=10.5.0.110,10.5.0.111&quot;</span>
 </pre></div>
 </div>
 </div>
-<ol class="arabic simple">
-<li><p><strong>Update the Slurm configuration</strong> on the control node to include the new
-nodes:</p></li>
-</ol>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># Reconfigure Slurm to pick up new nodes</span>
-<span class="w">   </span>scontrol<span class="w"> </span>reconfigure
+<p>4. Update the Slurm configuration on the control node to include the new
+nodes:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reconfigure Slurm to pick up new nodes</span>
+scontrol<span class="w"> </span>reconfigure
 </pre></div>
 </div>
 </div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Check that new nodes appear in the cluster</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<ol class="arabic simple">
+<li><p>Check that new nodes appear in the cluster:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sinfo
 </pre></div>
 </div>
 </div>
 <p>New nodes should appear in the <code class="docutils literal notranslate"><span class="pre">normal</span></code> partition with <code class="docutils literal notranslate"><span class="pre">idle</span></code> state.</p>
-</li>
-<li><p><strong>Run a test job on the new nodes</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="2">
+<li><p>Run a test job on the new nodes:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>-w<span class="w"> </span>&lt;new-node-hostname&gt;<span class="w"> </span>hostname
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify Munge authentication</strong> on the new nodes:</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="3">
+<li><p>Verify Munge authentication on the new nodes:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>munge<span class="w"> </span>-n<span class="w"> </span><span class="p">|</span><span class="w"> </span>ssh<span class="w"> </span>&lt;new-node-ip&gt;<span class="w"> </span>unmunge
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Check slurmd is running</strong> on the new nodes:</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on: new compute node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="4">
+<li><p>Check slurmd is running on the new nodes:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on: new compute node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -644,46 +645,48 @@ configured on new nodes.</p></li>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl>
-<dt><strong>New nodes show “down” in sinfo</strong></dt><dd><ul class="simple">
-<li><p>Verify <code class="docutils literal notranslate"><span class="pre">slurmd</span></code> is running:</p></li>
-</ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on: new compute node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd
-<span class="w">  </span>journalctl<span class="w"> </span>-u<span class="w"> </span>slurmd<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
-</pre></div>
-</div>
-</div>
-</div></blockquote>
-<ul class="simple">
-<li><dl class="simple">
-<dt>Check that <code class="docutils literal notranslate"><span class="pre">slurm.conf</span></code> on the new node matches the control node’s</dt><dd><p>version:</p>
-</dd>
-</dl>
-</li>
-</ul>
-</dd>
-</dl>
-<dl class="simple">
-<dt><strong>Munge key mismatch</strong></dt><dd><p>Re-distribute the Munge key from the control node:</p>
-</dd>
-</dl>
+<p><strong>New nodes show “down” in sinfo</strong>
+- Verify <code class="docutils literal notranslate"><span class="pre">slurmd</span></code> is running:</p>
 <div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ansible<span class="w"> </span>new_nodes<span class="w"> </span>-m<span class="w"> </span>copy<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;src=/etc/munge/munge.key dest=/etc/munge/munge.key owner=munge group=munge mode=0400&quot;</span>
-<span class="w">   </span>ansible<span class="w"> </span>new_nodes<span class="w"> </span>-m<span class="w"> </span>service<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;name=munge state=restarted&quot;</span>
+<div class="code-block-caption"><span class="caption-text">Run on: new compute node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>slurmd
+journalctl<span class="w"> </span>-u<span class="w"> </span>slurmd<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>New nodes not in Ansible inventory</strong></dt><dd><p>Re-run discovery or manually add the nodes to the Ansible inventory:</p>
-</dd>
-</dl>
+<ul class="simple">
+<li><p>Check that <code class="docutils literal notranslate"><span class="pre">slurm.conf</span></code> on the new node matches the control node’s
+version:</p></li>
+</ul>
 <div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ochami<span class="w"> </span>node<span class="w"> </span>list
+<div class="code-block-caption"><span class="caption-text">Run on: new compute node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span><span class="s2">&quot;SlurmctldHost&quot;</span><span class="w"> </span>/etc/slurm/slurm.conf
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Resume the node from the controller:</p></li>
+</ul>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">nodename</span><span class="o">=</span>&lt;node&gt;<span class="w"> </span><span class="nv">state</span><span class="o">=</span>resume<span class="w"> </span><span class="nv">reason</span><span class="o">=</span><span class="s2">&quot;added&quot;</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Munge key mismatch</strong>
+Re-distribute the Munge key from the control node:</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>new_nodes<span class="w"> </span>-m<span class="w"> </span>copy<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;src=/etc/munge/munge.key dest=/etc/munge/munge.key owner=munge group=munge mode=0400&quot;</span>
+ansible<span class="w"> </span>new_nodes<span class="w"> </span>-m<span class="w"> </span>service<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;name=munge state=restarted&quot;</span>
+</pre></div>
+</div>
+</div>
+<p><strong>New nodes not in Ansible inventory</strong>
+Re-run discovery or manually add the nodes to the Ansible inventory:</p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ochami<span class="w"> </span>node<span class="w"> </span>list
 </pre></div>
 </div>
 </div>

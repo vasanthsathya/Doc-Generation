@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=1b102097" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -533,11 +533,12 @@ nodes and forward them to the storage backend (Kafka/VictoriaMetrics).</p></li>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Review available LDMS sampler plugins</strong>:</p>
+<ol class="arabic simple">
+<li><p>Review available LDMS sampler plugins:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ldms_ls<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-p<span class="w"> </span><span class="m">411</span><span class="w"> </span>-v
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldms_ls<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-p<span class="w"> </span><span class="m">411</span><span class="w"> </span>-v
 </pre></div>
 </div>
 </div>
@@ -574,67 +575,67 @@ nodes and forward them to the storage backend (Kafka/VictoriaMetrics).</p></li>
 </tbody>
 </table>
 </div>
-</li>
-<li><p><strong>Configure sampler plugins</strong> on a compute node:</p>
+<ol class="arabic simple" start="2">
+<li><p>Configure sampler plugins on a compute node:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>vi<span class="w"> </span>/etc/ldms/ldmsd.conf
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/etc/ldms/ldmsd.conf
 </pre></div>
 </div>
 </div>
 <p>Example sampler configuration:</p>
-</li>
-</ol>
-<p><strong>File: /etc/ldms/ldmsd.conf on compute node</strong></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>   # Transport and authentication
-   auth_add name=munge plugin=munge
-
-   # Listen for connections
-   listen xprt=sock port=411 auth=munge
-
-   # Load sampler plugins
-   load name=meminfo
-   config name=meminfo producer=${HOSTNAME} instance=${HOSTNAME}/meminfo \
-          schema=meminfo component_id=${COMPONENT_ID}
-   start name=meminfo interval=10000000
-
-   load name=vmstat
-   config name=vmstat producer=${HOSTNAME} instance=${HOSTNAME}/vmstat \
-          schema=vmstat component_id=${COMPONENT_ID}
-   start name=vmstat interval=10000000
-
-   load name=procstat
-   config name=procstat producer=${HOSTNAME} instance=${HOSTNAME}/procstat \
-          schema=procstat component_id=${COMPONENT_ID}
-   start name=procstat interval=10000000
-
-
-
-!!! note
-
-    The ``interval`` is in microseconds. ``10000000`` = 10 seconds.
-</pre></div>
-</div>
-<ol class="arabic">
-<li><p><strong>Restart the LDMS sampler daemon</strong> after configuration changes:</p>
 <div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>systemctl<span class="w"> </span>restart<span class="w"> </span>ldmsd
+<div class="code-block-caption"><span class="caption-text">File: /etc/ldms/ldmsd.conf on compute node</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Transport and authentication
+auth_add name=munge plugin=munge
+
+# Listen for connections
+listen xprt=sock port=411 auth=munge
+
+# Load sampler plugins
+load name=meminfo
+config name=meminfo producer=${HOSTNAME} instance=${HOSTNAME}/meminfo \
+       schema=meminfo component_id=${COMPONENT_ID}
+start name=meminfo interval=10000000
+
+load name=vmstat
+config name=vmstat producer=${HOSTNAME} instance=${HOSTNAME}/vmstat \
+       schema=vmstat component_id=${COMPONENT_ID}
+start name=vmstat interval=10000000
+
+load name=procstat
+config name=procstat producer=${HOSTNAME} instance=${HOSTNAME}/procstat \
+       schema=procstat component_id=${COMPONENT_ID}
+start name=procstat interval=10000000
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Configure the LDMS aggregator</strong> on the K8s cluster:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">interval</span></code> is in microseconds. <code class="docutils literal notranslate"><span class="pre">10000000</span></code> = 10 seconds.</p>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Restart the LDMS sampler daemon after configuration changes:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>edit<span class="w"> </span>configmap<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>ldms-aggregator-config
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>ldmsd
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Configure the LDMS aggregator on the K8s cluster:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>edit<span class="w"> </span>configmap<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>ldms-aggregator-config
 </pre></div>
 </div>
 </div>
 <p>Example aggregator configuration:</p>
-</li>
-</ol>
-<p><strong>ConfigMap: ldms-aggregator-config in telemetry namespace</strong></p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">ConfigMap: ldms-aggregator-config in telemetry namespace</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Authentication
 auth_add name=munge plugin=munge
 
@@ -656,65 +657,68 @@ updtr_prdcr_add name=all_nodes regex=.*
 updtr_start name=all_nodes
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Restart the aggregator pod</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>deployment<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>ldms-aggregator
-</pre></div>
 </div>
-</div>
-</li>
-<li><p><strong>(Bulk configuration) Deploy to all compute nodes</strong> via Ansible:</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>copy<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;src=/tmp/ldmsd.conf dest=/etc/ldms/ldmsd.conf&quot;</span>
-<span class="w">   </span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>service<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;name=ldmsd state=restarted&quot;</span>
-</pre></div>
-</div>
-</div>
-</li>
+<ol class="arabic simple" start="5">
+<li><p>Restart the aggregator pod:</p></li>
 </ol>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>deployment<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>ldms-aggregator
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>(Bulk configuration) Deploy to all compute nodes via Ansible:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>copy<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;src=/tmp/ldmsd.conf dest=/etc/ldms/ldmsd.conf&quot;</span>
+ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>service<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;name=ldmsd state=restarted&quot;</span>
+</pre></div>
+</div>
+</div>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Verify sampler data</strong> on a compute node:</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ldms_ls<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-p<span class="w"> </span><span class="m">411</span><span class="w"> </span>-v
+<ol class="arabic simple">
+<li><p>Verify sampler data on a compute node:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldms_ls<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-p<span class="w"> </span><span class="m">411</span><span class="w"> </span>-v
 </pre></div>
 </div>
 </div>
 <p>Expected: list of active metric sets (meminfo, vmstat, procstat).</p>
-</li>
-<li><p><strong>Query specific metrics</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ldms_ls<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-p<span class="w"> </span><span class="m">411</span><span class="w"> </span>-l<span class="w"> </span>-v<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>MemFree
-</pre></div>
-</div>
-</div>
-</li>
-<li><p><strong>Verify the aggregator is collecting</strong> from compute nodes:</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nv">AGG_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>ldms-aggregator<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
-<span class="w">   </span>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="nv">$AGG_POD</span><span class="w"> </span>--<span class="w"> </span>ldms_ls<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-p<span class="w"> </span><span class="m">411</span><span class="w"> </span>-v
-</pre></div>
-</div>
-</div>
-</li>
-<li><p><strong>Verify data reaches VictoriaMetrics</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nv">VM_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>victoriametrics<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
-<span class="w">   </span>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="nv">$VM_POD</span><span class="w"> </span>--<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://localhost:8428/api/v1/query?query=meminfo_MemFree&quot;</span>
-</pre></div>
-</div>
-</div>
-</li>
+<ol class="arabic simple" start="2">
+<li><p>Query specific metrics:</p></li>
 </ol>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldms_ls<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-p<span class="w"> </span><span class="m">411</span><span class="w"> </span>-l<span class="w"> </span>-v<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>MemFree
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Verify the aggregator is collecting from compute nodes:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">AGG_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>ldms-aggregator<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
+kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="nv">$AGG_POD</span><span class="w"> </span>--<span class="w"> </span>ldms_ls<span class="w"> </span>-h<span class="w"> </span>localhost<span class="w"> </span>-p<span class="w"> </span><span class="m">411</span><span class="w"> </span>-v
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Verify data reaches VictoriaMetrics:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">VM_POD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>victoriametrics<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].metadata.name}&#39;</span><span class="k">)</span>
+kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span><span class="nv">$VM_POD</span><span class="w"> </span>--<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://localhost:8428/api/v1/query?query=meminfo_MemFree&quot;</span>
+</pre></div>
+</div>
+</div>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -725,48 +729,46 @@ updtr_start name=all_nodes
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl>
-<dt><strong>ldmsd fails to start</strong></dt><dd><p>Check configuration syntax:</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ldmsd<span class="w"> </span>-c<span class="w"> </span>/etc/ldms/ldmsd.conf<span class="w"> </span>-F<span class="w"> </span>-v<span class="w"> </span>DEBUG<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-50
+<p><strong>ldmsd fails to start</strong>
+Check configuration syntax:</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldmsd<span class="w"> </span>-c<span class="w"> </span>/etc/ldms/ldmsd.conf<span class="w"> </span>-F<span class="w"> </span>-v<span class="w"> </span>DEBUG<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-50
 </pre></div>
 </div>
 </div>
-</dd>
-<dt><strong>“Connection refused” from aggregator to sampler</strong></dt><dd><p>Verify the sampler is listening:</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">411</span>
+<p><strong>“Connection refused” from aggregator to sampler</strong>
+Verify the sampler is listening:</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">411</span>
 </pre></div>
 </div>
 </div>
 <p>Check firewall:</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>firewall-cmd<span class="w"> </span>--add-port<span class="o">=</span><span class="m">411</span>/tcp<span class="w"> </span>--permanent
-<span class="w">   </span>firewall-cmd<span class="w"> </span>--reload
-</pre></div>
-</div>
-</div>
-</dd>
-<dt><strong>Munge authentication failure</strong></dt><dd><p>Ensure the Munge key is the same on compute nodes and aggregator:</p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;md5sum /etc/munge/munge.key&quot;</span>
-</pre></div>
-</div>
-</div>
-</dd>
-<dt><strong>Metrics not appearing in VictoriaMetrics</strong></dt><dd><p>Check the Kafka-to-VictoriaMetrics consumer logs:</p>
 <div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>kafka-consumer<span class="w"> </span>--tail<span class="o">=</span><span class="m">30</span>
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>firewall-cmd<span class="w"> </span>--add-port<span class="o">=</span><span class="m">411</span>/tcp<span class="w"> </span>--permanent
+firewall-cmd<span class="w"> </span>--reload
 </pre></div>
 </div>
 </div>
-</dd>
-</dl>
+<p><strong>Munge authentication failure</strong>
+Ensure the Munge key is the same on compute nodes and aggregator:</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>slurm_node<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;md5sum /etc/munge/munge.key&quot;</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Metrics not appearing in VictoriaMetrics</strong>
+Check the Kafka-to-VictoriaMetrics consumer logs:</p>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>telemetry<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>kafka-consumer<span class="w"> </span>--tail<span class="o">=</span><span class="m">30</span>
+</pre></div>
+</div>
+</div>
 <p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>

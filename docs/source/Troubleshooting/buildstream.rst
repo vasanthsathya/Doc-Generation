@@ -13,61 +13,54 @@ GitLab pipeline failures
 ------------------------
 
 
-???+ note "Symptom"
+**Symptom**
 
-    A BuildStreaM pipeline in GitLab fails with a red status indicator. The
-    pipeline log shows errors in one or more stages (build, deploy, test).
+A BuildStreaM pipeline in GitLab fails with a red status indicator. The
+pipeline log shows errors in one or more stages (build, deploy, test).
 
-??? note "Cause"
+**Cause**
 
-    - The GitLab Runner is not registered or is offline.
-    - Pipeline variables (credentials, URLs) are missing or incorrect.
-    - The runner does not have network access to the OIM or cluster nodes.
-    - A previous pipeline left stale state that conflicts with the current run.
+- The GitLab Runner is not registered or is offline.
+- Pipeline variables (credentials, URLs) are missing or incorrect.
+- The runner does not have network access to the OIM or cluster nodes.
+- A previous pipeline left stale state that conflicts with the current run.
 
-??? note "Resolution"
+**Resolution**
 
-    #. Check the pipeline log in GitLab:
+1. Check the pipeline log in GitLab:
 
-      - Navigate to **CI/CD** > **Pipelines** in the BuildStreaM project.
-      - Click the failed pipeline, then click the failed job to see its log.
+- Navigate to **CI/CD** > **Pipelines** in the BuildStreaM project.
+- Click the failed pipeline, then click the failed job to see its log.
 
-    #. Verify the GitLab Runner is registered and online:
-
-
-.. code-block:: bash
-
-          gitlab-runner list
-          gitlab-runner verify
-
-
-
-    #. Check pipeline variables:
-
-      - Navigate to **Settings** > **CI/CD** > **Variables** in the GitLab project.
-      - Verify all required variables are set (OIM IP, credentials, registry
-         URL).
-
-    #. Test network connectivity from the runner to the OIM:
-
+2. Verify the GitLab Runner is registered and online:
 
 .. code-block:: bash
 
-          # From the GitLab Runner host
-          ping <oim_ip>
-          ssh root@<oim_ip> hostname
+   gitlab-runner list
+   gitlab-runner verify
 
+3. Check pipeline variables:
 
+- Navigate to **Settings** > **CI/CD** > **Variables** in the GitLab project.
+- Verify all required variables are set (OIM IP, credentials, registry
+  URL).
 
-    #. If stale state is the issue, clean up and retry:
-
+4. Test network connectivity from the runner to the OIM:
 
 .. code-block:: bash
 
-          # Clear the runner's build cache
-          gitlab-runner clear-cache
+   # From the GitLab Runner host
+   ping <oim_ip>
+   ssh root@<oim_ip> hostname
 
-          # Retry the pipeline from GitLab UI
+5. If stale state is the issue, clean up and retry:
+
+.. code-block:: bash
+
+   # Clear the runner's build cache
+   gitlab-runner clear-cache
+
+   # Retry the pipeline from GitLab UI
 
 
 
@@ -76,74 +69,58 @@ Registry push failures
 ----------------------
 
 
-???+ note "Symptom"
+**Symptom**
 
-    The BuildStreaM pipeline fails during the image push stage with errors such
-    as:
-
+The BuildStreaM pipeline fails during the image push stage with errors such
+as:
 
 .. code-block:: text
 
-       Error: failed to push image: authentication required
-       Error: failed to push image: denied: requested access to the resource is denied
+   Error: failed to push image: authentication required
+   Error: failed to push image: denied: requested access to the resource is denied
 
+**Cause**
 
+- Container registry credentials are incorrect or expired.
+- The registry URL in the pipeline configuration is wrong.
+- The registry's TLS certificate is not trusted by the runner.
+- The registry storage is full.
 
-??? note "Cause"
+**Resolution**
 
-    - Container registry credentials are incorrect or expired.
-    - The registry URL in the pipeline configuration is wrong.
-    - The registry's TLS certificate is not trusted by the runner.
-    - The registry storage is full.
-
-??? note "Resolution"
-
-    #. Verify registry credentials:
-
+1. Verify registry credentials:
 
 .. code-block:: bash
 
-          podman login <registry_url>
+   podman login <registry_url>
 
-
-
-    #. Check that the registry URL matches the pipeline configuration:
-
+2. Check that the registry URL matches the pipeline configuration:
 
 .. code-block:: bash
 
-          grep -i registry .gitlab-ci.yml
+   grep -i registry .gitlab-ci.yml
 
-
-
-    #. If TLS is the issue, add the registry's CA certificate:
-
+3. If TLS is the issue, add the registry's CA certificate:
 
 .. code-block:: bash
 
-          cp <registry_ca.crt> /etc/pki/ca-trust/source/anchors/
-          update-ca-trust
+   cp <registry_ca.crt> /etc/pki/ca-trust/source/anchors/
+   update-ca-trust
 
-
-
-       Or configure Podman to trust the registry:
-
+Or configure Podman to trust the registry:
 
 .. code-block:: bash
 
-          # /etc/containers/registries.conf.d/buildstream.conf
-          [[registry]]
-          location = "<registry_url>"
-          insecure = true    # Not recommended for production
+   # /etc/containers/registries.conf.d/buildstream.conf
+   [[registry]]
+   location = "<registry_url>"
+   insecure = true    # Not recommended for production
 
-
-
-    #. Check registry storage:
-
+4. Check registry storage:
 
 .. code-block:: bash
 
-          df -h <registry_data_dir>
+   df -h <registry_data_dir>
 
 
 
@@ -152,67 +129,57 @@ Catalog parse errors
 --------------------
 
 
-???+ note "Symptom"
+**Symptom**
 
-    The BuildStreaM pipeline fails during the catalog parsing stage with errors
-    such as:
-
+The BuildStreaM pipeline fails during the catalog parsing stage with errors
+such as:
 
 .. code-block:: text
 
-       Error: Failed to parse catalog: invalid YAML syntax at line 42
-       Error: Unknown component type 'slurm_cluser' in catalog entry
+   Error: Failed to parse catalog: invalid YAML syntax at line 42
+   Error: Unknown component type 'slurm_cluser' in catalog entry
 
+**Cause**
 
+- The catalog YAML file has syntax errors (indentation, missing colons,
+  invalid characters).
+- A catalog entry references a component type that does not exist (typo).
+- Required fields are missing from a catalog entry.
 
-??? note "Cause"
+**Resolution**
 
-    - The catalog YAML file has syntax errors (indentation, missing colons,
-      invalid characters).
-    - A catalog entry references a component type that does not exist (typo).
-    - Required fields are missing from a catalog entry.
-
-??? note "Resolution"
-
-    #. Validate the catalog file syntax:
-
+1. Validate the catalog file syntax:
 
 .. code-block:: bash
 
-          python3 -c "import yaml; yaml.safe_load(open('catalog.yml'))"
+   python3 -c "import yaml; yaml.safe_load(open('catalog.yml'))"
 
-
-
-    #. Use a YAML linter for more detailed error reporting:
-
+2. Use a YAML linter for more detailed error reporting:
 
 .. code-block:: bash
 
-          pip install yamllint
-          yamllint catalog.yml
+   pip install yamllint
+   yamllint catalog.yml
 
+3. Check for typos in component types. Valid types include:
 
+- ``slurm_cluster``
+- ``kubernetes_cluster``
+- ``telemetry``
+- ``authentication``
+- ``storage``
 
-    #. Check for typos in component types. Valid types include:
+4. Verify all required fields are present in each catalog entry. Refer to
+   the :doc:`Update Catalog Pipeline <../HowTo/BuildStreaM/update_catalog_pipeline>` guide for the
+   catalog schema.
 
-      - ``slurm_cluster``
-      - ``kubernetes_cluster``
-      - ``telemetry``
-      - ``authentication``
-      - ``storage``
-
-    #. Verify all required fields are present in each catalog entry. Refer to
-       the :doc:`Update Catalog Pipeline <../HowTo/BuildStreaM/update_catalog_pipeline>` guide for the
-       catalog schema.
-
-    #. After fixing errors, commit and push to trigger a new pipeline:
-
+5. After fixing errors, commit and push to trigger a new pipeline:
 
 .. code-block:: bash
 
-          git add catalog.yml
-          git commit -m "Fix catalog syntax errors"
-          git push
+   git add catalog.yml
+   git commit -m "Fix catalog syntax errors"
+   git push
 
 
 
@@ -221,60 +188,54 @@ OAuth credential issues
 -----------------------
 
 
-???+ note "Symptom"
+**Symptom**
 
-    BuildStreaM operations fail with OAuth authentication errors when
-    communicating with GitLab or external services:
-
+BuildStreaM operations fail with OAuth authentication errors when
+communicating with GitLab or external services:
 
 .. code-block:: text
 
-       Error: OAuth token expired or revoked
-       Error: 401 Unauthorized: invalid_token
+   Error: OAuth token expired or revoked
+   Error: 401 Unauthorized: invalid_token
 
+**Cause**
 
+- The OAuth token has expired.
+- The OAuth application was deleted or its secret was rotated in GitLab.
+- The token scope does not include the required permissions (``api``,
+  ``read_registry``, ``write_registry``).
 
-??? note "Cause"
+**Resolution**
 
-    - The OAuth token has expired.
-    - The OAuth application was deleted or its secret was rotated in GitLab.
-    - The token scope does not include the required permissions (``api``,
-      ``read_registry``, ``write_registry``).
-
-??? note "Resolution"
-
-    #. Check the current token status:
-
+1. Check the current token status:
 
 .. code-block:: bash
 
-          curl -H "Authorization: Bearer <token>" \
-            https://<gitlab_url>/api/v4/user
+   curl -H "Authorization: Bearer <token>" \
+     https://<gitlab_url>/api/v4/user
 
+A ``401`` response confirms the token is invalid.
 
+2. Generate a new personal access token in GitLab:
 
-       A ``401`` response confirms the token is invalid.
+- Navigate to **User Settings** > **Access Tokens**.
+- Create a new token with scopes: ``api``, ``read_registry``,
+  ``write_registry``.
 
-    #. Generate a new personal access token in GitLab:
+3. Update the token in pipeline variables:
 
-      - Navigate to **User Settings** > **Access Tokens**.
-      - Create a new token with scopes: ``api``, ``read_registry``,
-         ``write_registry``.
+- Navigate to **Settings** > **CI/CD** > **Variables**.
+- Update the ``GITLAB_TOKEN`` (or equivalent) variable with the new
+  token.
 
-    #. Update the token in pipeline variables:
+4. If using an OAuth application (rather than personal token):
 
-      - Navigate to **Settings** > **CI/CD** > **Variables**.
-      - Update the ``GITLAB_TOKEN`` (or equivalent) variable with the new
-         token.
+- Navigate to **Admin Area** > **Applications** (or **User Settings** >
+  **Applications**).
+- Verify the application exists and note the Application ID and Secret.
+- Update the pipeline variables with the new credentials.
 
-    #. If using an OAuth application (rather than personal token):
-
-      - Navigate to **Admin Area** > **Applications** (or **User Settings** >
-         **Applications**).
-      - Verify the application exists and note the Application ID and Secret.
-      - Update the pipeline variables with the new credentials.
-
-    #. Re-run the failed pipeline from the GitLab UI.
+5. Re-run the failed pipeline from the GitLab UI.
 
 
 .. note::

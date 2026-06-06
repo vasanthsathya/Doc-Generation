@@ -44,87 +44,80 @@ Procedure
 ---------
 
 
-#. **Enter the omnia_core container**:
+1. Enter the omnia_core container:
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-      ssh omnia_core
-
-
-
-#. **Configure external Kafka** in ``omnia_config.yml``:
-
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
-
-      vi /opt/omnia/input/project_default/omnia_config.yml
+   ssh omnia_core
 
 
 
+2. Configure external Kafka in ``omnia_config.yml``:
 
-**File: /opt/omnia/input/project_default/omnia_config.yml**
+.. code-block:: bash
+   :caption: Run on: omnia_core container
+
+   vi /opt/omnia/input/project_default/omnia_config.yml
+
 
 .. code-block:: yaml
+   :caption: File: /opt/omnia/input/project_default/omnia_config.yml
 
-      ---
-      # External Kafka configuration
-      kafka_external: true
-      kafka_bootstrap_servers: "kafka-broker1.example.com:9092,kafka-broker2.example.com:9092,kafka-broker3.example.com:9092"
-      kafka_telemetry_topic: "omnia-telemetry"
-      kafka_idrac_topic: "omnia-idrac"
-      kafka_ldms_topic: "omnia-ldms"
+   ---
+   # External Kafka configuration
+   kafka_external: true
+   kafka_bootstrap_servers: "kafka-broker1.example.com:9092,kafka-broker2.example.com:9092,kafka-broker3.example.com:9092"
+   kafka_telemetry_topic: "omnia-telemetry"
+   kafka_idrac_topic: "omnia-idrac"
+   kafka_ldms_topic: "omnia-ldms"
    
-      # Optional: Kafka authentication
-      kafka_security_protocol: "SASL_PLAINTEXT"  # or "PLAINTEXT", "SSL", "SASL_SSL"
-      kafka_sasl_mechanism: "PLAIN"
-      kafka_sasl_username: "omnia-telemetry"
-      kafka_sasl_password: ""  # Set via credentials utility
+   # Optional: Kafka authentication
+   kafka_security_protocol: "SASL_PLAINTEXT"  # or "PLAINTEXT", "SSL", "SASL_SSL"
+   kafka_sasl_mechanism: "PLAIN"
+   kafka_sasl_username: "omnia-telemetry"
+   kafka_sasl_password: ""  # Set via credentials utility
 
 
 
-#. **Create the required Kafka topics** on the external cluster (if auto-create
-   is disabled):
-
+3. Create the required Kafka topics on the external cluster (if auto-create is disabled):
 
 .. code-block:: bash
    :caption: Run on: external Kafka broker
 
-      kafka-topics.sh --create \
-        --bootstrap-server localhost:9092 \
-        --topic omnia-telemetry \
-        --partitions 6 \
-        --replication-factor 3
+   kafka-topics.sh --create \
+     --bootstrap-server localhost:9092 \
+     --topic omnia-telemetry \
+     --partitions 6 \
+     --replication-factor 3
 
-      kafka-topics.sh --create \
-        --bootstrap-server localhost:9092 \
-        --topic omnia-idrac \
-        --partitions 3 \
-        --replication-factor 3
+   kafka-topics.sh --create \
+     --bootstrap-server localhost:9092 \
+     --topic omnia-idrac \
+     --partitions 3 \
+     --replication-factor 3
 
-      kafka-topics.sh --create \
-        --bootstrap-server localhost:9092 \
-        --topic omnia-ldms \
-        --partitions 6 \
-        --replication-factor 3
-
-
-
-#. **Run the telemetry playbook** to reconfigure:
-
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
-
-      cd /omnia
-      ansible-playbook telemetry.yml --ask-vault-pass
+   kafka-topics.sh --create \
+     --bootstrap-server localhost:9092 \
+     --topic omnia-ldms \
+     --partitions 6 \
+     --replication-factor 3
 
 
 
-   The playbook will:
+4. Run the telemetry playbook to reconfigure:
 
-  - Skip deploying the built-in Kafka pod.
-  - Configure iDRAC and LDMS collectors to publish to the external Kafka.
-  - Configure VictoriaMetrics consumer to read from the external Kafka.
+.. code-block:: bash
+   :caption: Run on: omnia_core container
+
+   cd /omnia
+   ansible-playbook telemetry.yml --ask-vault-pass
+
+The playbook will:
+
+- Skip deploying the built-in Kafka pod.
+- Configure iDRAC and LDMS collectors to publish to the external Kafka.
+- Configure VictoriaMetrics consumer to read from the external Kafka.
 
 
 
@@ -135,53 +128,47 @@ Verification
 ------------
 
 
-#. **Verify Kafka connectivity** from the K8s cluster:
-
-   .. code-block:: bash
-      :caption: Run on: K8s control plane node
-
-      kubectl run kafka-test --image=bitnami/kafka:latest --restart=Never -- \
-        kafka-topics.sh --list --bootstrap-server kafka-broker1.example.com:9092
-      kubectl logs kafka-test
-      kubectl delete pod kafka-test
-
-
-
-#. **Verify topics have data**:
-
-   .. code-block:: bash
-      :caption: Run on: external Kafka broker
-
-      kafka-console-consumer.sh \
-        --bootstrap-server localhost:9092 \
-        --topic omnia-telemetry \
-        --from-beginning \
-        --max-messages 5
-
-
-
-#. **Verify no built-in Kafka pod** is running:
-
-   .. code-block:: bash
-      :caption: Run on: K8s control plane node
-
-      kubectl get pods -n telemetry | grep kafka
-
-
-
-   Should show no locally deployed Kafka pods.
-
-#. **Verify data reaches VictoriaMetrics**:
-
-
-
-
-**Run on: K8s control plane node**
+1. Verify Kafka connectivity from the K8s cluster:
 
 .. code-block:: bash
+   :caption: Run on: K8s control plane node
 
-      VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
-      kubectl exec -n telemetry $VM_POD -- curl -s "http://localhost:8428/api/v1/query?query=up"
+   kubectl run kafka-test --image=bitnami/kafka:latest --restart=Never -- \
+     kafka-topics.sh --list --bootstrap-server kafka-broker1.example.com:9092
+   kubectl logs kafka-test
+   kubectl delete pod kafka-test
+
+
+
+2. Verify topics have data:
+
+.. code-block:: bash
+   :caption: Run on: external Kafka broker
+
+   kafka-console-consumer.sh \
+     --bootstrap-server localhost:9092 \
+     --topic omnia-telemetry \
+     --from-beginning \
+     --max-messages 5
+
+
+
+3. Verify no built-in Kafka pod is running:
+
+.. code-block:: bash
+   :caption: Run on: K8s control plane node
+
+   kubectl get pods -n telemetry | grep kafka
+
+Should show no locally deployed Kafka pods.
+
+4. Verify data reaches VictoriaMetrics:
+
+.. code-block:: bash
+   :caption: Run on: K8s control plane node
+
+   VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
+   kubectl exec -n telemetry $VM_POD -- curl -s "http://localhost:8428/api/v1/query?query=up"
 
 
 
@@ -204,41 +191,37 @@ Troubleshooting
 
 
 **Collectors cannot connect to Kafka**
-   Verify network connectivity:
-
+Verify network connectivity:
 
 .. code-block:: bash
    :caption: Run on: K8s worker node
 
-      telnet kafka-broker1.example.com 9092
+   telnet kafka-broker1.example.com 9092
 
 
 
 **SASL authentication failure**
-   Verify credentials are correct in the configuration. Check Kafka broker
-   logs for authentication errors.
+Verify credentials are correct in the configuration. Check Kafka broker logs for authentication errors.
 
 **Data not appearing in topics**
-   Check collector logs:
-
+Check collector logs:
 
 .. code-block:: bash
    :caption: Run on: K8s control plane node
 
-      kubectl logs -n telemetry -l app=idrac-collector --tail=30
-      kubectl logs -n telemetry -l app=ldms-aggregator --tail=30
+   kubectl logs -n telemetry -l app=idrac-collector --tail=30
+   kubectl logs -n telemetry -l app=ldms-aggregator --tail=30
 
 
 
 **Consumer lag is high**
-   Check consumer group status:
-
+Check consumer group status:
 
 .. code-block:: bash
    :caption: Run on: external Kafka broker
 
-      kafka-consumer-groups.sh \
-        --bootstrap-server localhost:9092 \
-        --group omnia-victoria-consumer \
-        --describe
+   kafka-consumer-groups.sh \
+     --bootstrap-server localhost:9092 \
+     --group omnia-victoria-consumer \
+     --describe
 

@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=41ea00ef" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -452,58 +452,50 @@ including GitLab pipelines, container registry operations, catalog parsing, and
 OAuth credentials.</p>
 <section id="gitlab-pipeline-failures">
 <h2>GitLab pipeline failures<a class="headerlink" href="#gitlab-pipeline-failures" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>A BuildStreaM pipeline in GitLab fails with a red status indicator. The
+<p><strong>Symptom</strong></p>
+<p>A BuildStreaM pipeline in GitLab fails with a red status indicator. The
 pipeline log shows errors in one or more stages (build, deploy, test).</p>
-</div></blockquote>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>The GitLab Runner is not registered or is offline.</p></li>
 <li><p>Pipeline variables (credentials, URLs) are missing or incorrect.</p></li>
 <li><p>The runner does not have network access to the OIM or cluster nodes.</p></li>
 <li><p>A previous pipeline left stale state that conflicts with the current run.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Check the pipeline log in GitLab:</p></li>
 </ol>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>Navigate to <strong>CI/CD</strong> &gt; <strong>Pipelines</strong> in the BuildStreaM project.</p></li>
 <li><p>Click the failed pipeline, then click the failed job to see its log.</p></li>
 </ul>
-</div></blockquote>
-<ol class="arabic simple">
+<ol class="arabic simple" start="2">
 <li><p>Verify the GitLab Runner is registered and online:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>gitlab-runner<span class="w"> </span>list
-<span class="w">      </span>gitlab-runner<span class="w"> </span>verify
-
-
-
-<span class="c1">#. Check pipeline variables:</span>
-
-<span class="w">  </span>-<span class="w"> </span>Navigate<span class="w"> </span>to<span class="w"> </span>**Settings**<span class="w"> </span>&gt;<span class="w"> </span>**CI/CD**<span class="w"> </span>&gt;<span class="w"> </span>**Variables**<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>GitLab<span class="w"> </span>project.
-<span class="w">  </span>-<span class="w"> </span>Verify<span class="w"> </span>all<span class="w"> </span>required<span class="w"> </span>variables<span class="w"> </span>are<span class="w"> </span><span class="nb">set</span><span class="w"> </span><span class="o">(</span>OIM<span class="w"> </span>IP,<span class="w"> </span>credentials,<span class="w"> </span>registry
-<span class="w">     </span>URL<span class="o">)</span>.
-
-<span class="c1">#. Test network connectivity from the runner to the OIM:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gitlab-runner<span class="w"> </span>list
+gitlab-runner<span class="w"> </span>verify
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span><span class="c1"># From the GitLab Runner host</span>
-<span class="w">      </span>ping<span class="w"> </span>&lt;oim_ip&gt;
-<span class="w">      </span>ssh<span class="w"> </span>root@&lt;oim_ip&gt;<span class="w"> </span>hostname
-
-
-
-<span class="c1">#. If stale state is the issue, clean up and retry:</span>
+<ol class="arabic simple" start="3">
+<li><p>Check pipeline variables:</p></li>
+</ol>
+<ul class="simple">
+<li><p>Navigate to <strong>Settings</strong> &gt; <strong>CI/CD</strong> &gt; <strong>Variables</strong> in the GitLab project.</p></li>
+<li><p>Verify all required variables are set (OIM IP, credentials, registry
+URL).</p></li>
+</ul>
+<ol class="arabic simple" start="4">
+<li><p>Test network connectivity from the runner to the OIM:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># From the GitLab Runner host</span>
+ping<span class="w"> </span>&lt;oim_ip&gt;
+ssh<span class="w"> </span>root@&lt;oim_ip&gt;<span class="w"> </span>hostname
 </pre></div>
 </div>
+<ol class="arabic simple" start="5">
+<li><p>If stale state is the issue, clean up and retry:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clear the runner&#39;s build cache</span>
 gitlab-runner<span class="w"> </span>clear-cache
 
@@ -513,119 +505,100 @@ gitlab-runner<span class="w"> </span>clear-cache
 </section>
 <section id="registry-push-failures">
 <h2>Registry push failures<a class="headerlink" href="#registry-push-failures" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>The BuildStreaM pipeline fails during the image push stage with errors such
+<p><strong>Symptom</strong></p>
+<p>The BuildStreaM pipeline fails during the image push stage with errors such
 as:</p>
-</div></blockquote>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Error: failed to push image: authentication required
 Error: failed to push image: denied: requested access to the resource is denied
 </pre></div>
 </div>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>Container registry credentials are incorrect or expired.</p></li>
 <li><p>The registry URL in the pipeline configuration is wrong.</p></li>
 <li><p>The registry’s TLS certificate is not trusted by the runner.</p></li>
 <li><p>The registry storage is full.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Verify registry credentials:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>podman<span class="w"> </span>login<span class="w"> </span>&lt;registry_url&gt;
-
-
-
-<span class="c1">#. Check that the registry URL matches the pipeline configuration:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>login<span class="w"> </span>&lt;registry_url&gt;
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>grep<span class="w"> </span>-i<span class="w"> </span>registry<span class="w"> </span>.gitlab-ci.yml
-
-
-
-<span class="c1">#. If TLS is the issue, add the registry&#39;s CA certificate:</span>
+<ol class="arabic simple" start="2">
+<li><p>Check that the registry URL matches the pipeline configuration:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span>-i<span class="w"> </span>registry<span class="w"> </span>.gitlab-ci.yml
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>cp<span class="w"> </span>&lt;registry_ca.crt&gt;<span class="w"> </span>/etc/pki/ca-trust/source/anchors/
-<span class="w">   </span>update-ca-trust
-
-
-
-Or<span class="w"> </span>configure<span class="w"> </span>Podman<span class="w"> </span>to<span class="w"> </span>trust<span class="w"> </span>the<span class="w"> </span>registry:
+<ol class="arabic simple" start="3">
+<li><p>If TLS is the issue, add the registry’s CA certificate:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>&lt;registry_ca.crt&gt;<span class="w"> </span>/etc/pki/ca-trust/source/anchors/
+update-ca-trust
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span><span class="c1"># /etc/containers/registries.conf.d/buildstream.conf</span>
-<span class="w">      </span><span class="o">[[</span>registry<span class="o">]]</span>
-<span class="w">      </span><span class="nv">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&lt;registry_url&gt;&quot;</span>
-<span class="w">      </span><span class="nv">insecure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="w">    </span><span class="c1"># Not recommended for production</span>
-
-
-
-<span class="c1">#. Check registry storage:</span>
+<p>Or configure Podman to trust the registry:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># /etc/containers/registries.conf.d/buildstream.conf</span>
+<span class="o">[[</span>registry<span class="o">]]</span>
+<span class="nv">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&lt;registry_url&gt;&quot;</span>
+<span class="nv">insecure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="w">    </span><span class="c1"># Not recommended for production</span>
 </pre></div>
 </div>
+<ol class="arabic simple" start="4">
+<li><p>Check registry storage:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>df<span class="w"> </span>-h<span class="w"> </span>&lt;registry_data_dir&gt;
 </pre></div>
 </div>
 </section>
 <section id="catalog-parse-errors">
 <h2>Catalog parse errors<a class="headerlink" href="#catalog-parse-errors" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>The BuildStreaM pipeline fails during the catalog parsing stage with errors
+<p><strong>Symptom</strong></p>
+<p>The BuildStreaM pipeline fails during the catalog parsing stage with errors
 such as:</p>
-</div></blockquote>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Error: Failed to parse catalog: invalid YAML syntax at line 42
 Error: Unknown component type &#39;slurm_cluser&#39; in catalog entry
 </pre></div>
 </div>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>The catalog YAML file has syntax errors (indentation, missing colons,
 invalid characters).</p></li>
 <li><p>A catalog entry references a component type that does not exist (typo).</p></li>
 <li><p>Required fields are missing from a catalog entry.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Validate the catalog file syntax:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import yaml; yaml.safe_load(open(&#39;catalog.yml&#39;))&quot;</span>
-
-
-
-<span class="c1">#. Use a YAML linter for more detailed error reporting:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import yaml; yaml.safe_load(open(&#39;catalog.yml&#39;))&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>pip<span class="w"> </span>install<span class="w"> </span>yamllint
-<span class="w">      </span>yamllint<span class="w"> </span>catalog.yml
-
-
-
-<span class="c1">#. Check for typos in component types. Valid types include:</span>
-
-<span class="w">  </span>-<span class="w"> </span><span class="sb">``</span>slurm_cluster<span class="sb">``</span>
-<span class="w">  </span>-<span class="w"> </span><span class="sb">``</span>kubernetes_cluster<span class="sb">``</span>
-<span class="w">  </span>-<span class="w"> </span><span class="sb">``</span>telemetry<span class="sb">``</span>
-<span class="w">  </span>-<span class="w"> </span><span class="sb">``</span>authentication<span class="sb">``</span>
-<span class="w">  </span>-<span class="w"> </span><span class="sb">``</span>storage<span class="sb">``</span>
-
-<span class="c1">#. Verify all required fields are present in each catalog entry. Refer to</span>
-<span class="w">   </span>the<span class="w"> </span>:doc:<span class="sb">`</span>Update<span class="w"> </span>Catalog<span class="w"> </span>Pipeline<span class="w"> </span>&lt;../HowTo/BuildStreaM/update_catalog_pipeline&gt;<span class="sb">`</span><span class="w"> </span>guide<span class="w"> </span><span class="k">for</span><span class="w"> </span>the
-<span class="w">   </span>catalog<span class="w"> </span>schema.
-
-<span class="c1">#. After fixing errors, commit and push to trigger a new pipeline:</span>
+<ol class="arabic simple" start="2">
+<li><p>Use a YAML linter for more detailed error reporting:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>yamllint
+yamllint<span class="w"> </span>catalog.yml
 </pre></div>
 </div>
+<ol class="arabic simple" start="3">
+<li><p>Check for typos in component types. Valid types include:</p></li>
+</ol>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">slurm_cluster</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kubernetes_cluster</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">telemetry</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">authentication</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">storage</span></code></p></li>
+</ul>
+<ol class="arabic simple" start="4">
+<li><p>Verify all required fields are present in each catalog entry. Refer to
+the <a class="reference internal" href="../HowTo/BuildStreaM/update_catalog_pipeline.html"><span class="doc">Update Catalog Pipeline</span></a> guide for the
+catalog schema.</p></li>
+<li><p>After fixing errors, commit and push to trigger a new pipeline:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>catalog.yml
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Fix catalog syntax errors&quot;</span>
 git<span class="w"> </span>push
@@ -634,59 +607,57 @@ git<span class="w"> </span>push
 </section>
 <section id="oauth-credential-issues">
 <h2>OAuth credential issues<a class="headerlink" href="#oauth-credential-issues" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>BuildStreaM operations fail with OAuth authentication errors when
+<p><strong>Symptom</strong></p>
+<p>BuildStreaM operations fail with OAuth authentication errors when
 communicating with GitLab or external services:</p>
-</div></blockquote>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Error: OAuth token expired or revoked
 Error: 401 Unauthorized: invalid_token
 </pre></div>
 </div>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>The OAuth token has expired.</p></li>
 <li><p>The OAuth application was deleted or its secret was rotated in GitLab.</p></li>
 <li><p>The token scope does not include the required permissions (<code class="docutils literal notranslate"><span class="pre">api</span></code>,
 <code class="docutils literal notranslate"><span class="pre">read_registry</span></code>, <code class="docutils literal notranslate"><span class="pre">write_registry</span></code>).</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Check the current token status:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer &lt;token&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">        </span>https://&lt;gitlab_url&gt;/api/v4/user
-
-
-
-<span class="w">   </span>A<span class="w"> </span><span class="sb">``</span><span class="m">401</span><span class="sb">``</span><span class="w"> </span>response<span class="w"> </span>confirms<span class="w"> </span>the<span class="w"> </span>token<span class="w"> </span>is<span class="w"> </span>invalid.
-
-<span class="c1">#. Generate a new personal access token in GitLab:</span>
-
-<span class="w">  </span>-<span class="w"> </span>Navigate<span class="w"> </span>to<span class="w"> </span>**User<span class="w"> </span>Settings**<span class="w"> </span>&gt;<span class="w"> </span>**Access<span class="w"> </span>Tokens**.
-<span class="w">  </span>-<span class="w"> </span>Create<span class="w"> </span>a<span class="w"> </span>new<span class="w"> </span>token<span class="w"> </span>with<span class="w"> </span>scopes:<span class="w"> </span><span class="sb">``</span>api<span class="sb">``</span>,<span class="w"> </span><span class="sb">``</span>read_registry<span class="sb">``</span>,
-<span class="w">     </span><span class="sb">``</span>write_registry<span class="sb">``</span>.
-
-<span class="c1">#. Update the token in pipeline variables:</span>
-
-<span class="w">  </span>-<span class="w"> </span>Navigate<span class="w"> </span>to<span class="w"> </span>**Settings**<span class="w"> </span>&gt;<span class="w"> </span>**CI/CD**<span class="w"> </span>&gt;<span class="w"> </span>**Variables**.
-<span class="w">  </span>-<span class="w"> </span>Update<span class="w"> </span>the<span class="w"> </span><span class="sb">``</span>GITLAB_TOKEN<span class="sb">``</span><span class="w"> </span><span class="o">(</span>or<span class="w"> </span>equivalent<span class="o">)</span><span class="w"> </span>variable<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>new
-<span class="w">     </span>token.
-
-<span class="c1">#. If using an OAuth application (rather than personal token):</span>
-
-<span class="w">  </span>-<span class="w"> </span>Navigate<span class="w"> </span>to<span class="w"> </span>**Admin<span class="w"> </span>Area**<span class="w"> </span>&gt;<span class="w"> </span>**Applications**<span class="w"> </span><span class="o">(</span>or<span class="w"> </span>**User<span class="w"> </span>Settings**<span class="w"> </span>&gt;
-<span class="w">     </span>**Applications**<span class="o">)</span>.
-<span class="w">  </span>-<span class="w"> </span>Verify<span class="w"> </span>the<span class="w"> </span>application<span class="w"> </span>exists<span class="w"> </span>and<span class="w"> </span>note<span class="w"> </span>the<span class="w"> </span>Application<span class="w"> </span>ID<span class="w"> </span>and<span class="w"> </span>Secret.
-<span class="w">  </span>-<span class="w"> </span>Update<span class="w"> </span>the<span class="w"> </span>pipeline<span class="w"> </span>variables<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>new<span class="w"> </span>credentials.
-
-<span class="c1">#. Re-run the failed pipeline from the GitLab UI.</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer &lt;token&gt;&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://&lt;gitlab_url&gt;/api/v4/user
 </pre></div>
 </div>
+<p>A <code class="docutils literal notranslate"><span class="pre">401</span></code> response confirms the token is invalid.</p>
+<ol class="arabic simple" start="2">
+<li><p>Generate a new personal access token in GitLab:</p></li>
+</ol>
+<ul class="simple">
+<li><p>Navigate to <strong>User Settings</strong> &gt; <strong>Access Tokens</strong>.</p></li>
+<li><p>Create a new token with scopes: <code class="docutils literal notranslate"><span class="pre">api</span></code>, <code class="docutils literal notranslate"><span class="pre">read_registry</span></code>,
+<code class="docutils literal notranslate"><span class="pre">write_registry</span></code>.</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>Update the token in pipeline variables:</p></li>
+</ol>
+<ul class="simple">
+<li><p>Navigate to <strong>Settings</strong> &gt; <strong>CI/CD</strong> &gt; <strong>Variables</strong>.</p></li>
+<li><p>Update the <code class="docutils literal notranslate"><span class="pre">GITLAB_TOKEN</span></code> (or equivalent) variable with the new
+token.</p></li>
+</ul>
+<ol class="arabic simple" start="4">
+<li><p>If using an OAuth application (rather than personal token):</p></li>
+</ol>
+<ul class="simple">
+<li><p>Navigate to <strong>Admin Area</strong> &gt; <strong>Applications</strong> (or <strong>User Settings</strong> &gt;
+<strong>Applications</strong>).</p></li>
+<li><p>Verify the application exists and note the Application ID and Secret.</p></li>
+<li><p>Update the pipeline variables with the new credentials.</p></li>
+</ul>
+<ol class="arabic simple" start="5">
+<li><p>Re-run the failed pipeline from the GitLab UI.</p></li>
+</ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
