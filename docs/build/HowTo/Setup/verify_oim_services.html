@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../../_static/documentation_options.js?v=392da36c"></script>
+    <script src="../../_static/documentation_options.js?v=f35be339"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -536,8 +536,9 @@ are not.</p>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Check the omnia_core service</strong>:</p>
+<ol class="arabic simple">
+<li><p>Check the omnia_core service:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>omnia_core.service
@@ -545,8 +546,9 @@ are not.</p>
 </div>
 </div>
 <p>Expected: <code class="docutils literal notranslate"><span class="pre">Active:</span> <span class="pre">active</span> <span class="pre">(running)</span></code></p>
-</li>
-<li><p><strong>List the complete omnia.target dependency tree</strong>:</p>
+<ol class="arabic simple" start="2">
+<li><p>List the complete omnia.target dependency tree:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>list-dependencies<span class="w"> </span>omnia.target
@@ -554,31 +556,32 @@ are not.</p>
 </div>
 </div>
 <p>Expected output:</p>
-</li>
-</ol>
-<p><strong>Expected output on: OIM host</strong></p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>omnia.target
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Expected output on: OIM host</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>omnia.target
 ├─minio.service
 ├─omnia_auth.service
 ├─omnia_core.service
 ├─pulp.service
 ├─registry.service
 └─openchami.target
-  ├─bss.service
-  ├─coredhcp.service
-  ├─cloud-init-server.service
-  ├─dnsmasq.service
-  ├─hydra.service
-  ├─image-server.service
-  ├─opaal.service
-  ├─smd.service
-  └─tftpd.service
+├─bss.service
+├─coredhcp.service
+├─cloud-init-server.service
+├─dnsmasq.service
+├─hydra.service
+├─image-server.service
+├─opaal.service
+├─smd.service
+└─tftpd.service
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Check each top-level service individually</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Check each top-level service individually:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>svc<span class="w"> </span><span class="k">in</span><span class="w"> </span>minio<span class="w"> </span>omnia_auth<span class="w"> </span>omnia_core<span class="w"> </span>pulp<span class="w"> </span>registry<span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== </span><span class="nv">$svc</span><span class="s2"> ===&quot;</span>
 <span class="w">  </span>systemctl<span class="w"> </span>is-active<span class="w"> </span><span class="si">${</span><span class="nv">svc</span><span class="si">}</span>.service
@@ -586,10 +589,11 @@ are not.</p>
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Check OpenCHAMI sub-services</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="4">
+<li><p>Check OpenCHAMI sub-services:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>svc<span class="w"> </span><span class="k">in</span><span class="w"> </span>bss<span class="w"> </span>coredhcp<span class="w"> </span>cloud-init-server<span class="w"> </span>dnsmasq<span class="w"> </span>hydra<span class="w"> </span>image-server<span class="w"> </span>opaal<span class="w"> </span>smd<span class="w"> </span>tftpd<span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== </span><span class="nv">$svc</span><span class="s2"> ===&quot;</span>
 <span class="w">  </span>systemctl<span class="w"> </span>is-active<span class="w"> </span><span class="si">${</span><span class="nv">svc</span><span class="si">}</span>.service
@@ -597,72 +601,69 @@ are not.</p>
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify running Podman containers</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="5">
+<li><p>Verify running Podman containers:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>ps<span class="w"> </span>--format<span class="w"> </span><span class="s2">&quot;table {{.Names}}\t{{.Status}}\t{{.Ports}}&quot;</span>
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Test the OpenCHAMI CLI</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
-</pre></div>
-</div>
-</div>
-</li>
+<ol class="arabic simple" start="6">
+<li><p>Test the OpenCHAMI CLI:</p></li>
 </ol>
 <div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ochami<span class="w"> </span>--help
-
-
-
-Useful<span class="w"> </span><span class="sb">``</span>ochami<span class="sb">``</span><span class="w"> </span>commands:
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 </pre></div>
 </div>
 </div>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># List discovered nodes</span>
-<span class="w">   </span>ochami<span class="w"> </span>node<span class="w"> </span>list
-
-<span class="w">   </span><span class="c1"># Check SMD status</span>
-<span class="w">   </span>ochami<span class="w"> </span>smd<span class="w"> </span>status
-
-<span class="w">   </span><span class="c1"># List boot configurations</span>
-<span class="w">   </span>ochami<span class="w"> </span>bss<span class="w"> </span>list
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ochami<span class="w"> </span>--help
 </pre></div>
 </div>
 </div>
-<ol class="arabic">
-<li><p><strong>Test MinIO / S3 access</strong>:</p>
+<p>Useful <code class="docutils literal notranslate"><span class="pre">ochami</span></code> commands:</p>
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List discovered nodes</span>
+ochami<span class="w"> </span>node<span class="w"> </span>list
+
+<span class="c1"># Check SMD status</span>
+ochami<span class="w"> </span>smd<span class="w"> </span>status
+
+<span class="c1"># List boot configurations</span>
+ochami<span class="w"> </span>bss<span class="w"> </span>list
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple" start="7">
+<li><p>Test MinIO / S3 access:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>s3cmd<span class="w"> </span>ls
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Test Pulp accessibility</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="8">
+<li><p>Test Pulp accessibility:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:8080/pulp/api/v3/status/<span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool
 </pre></div>
 </div>
 </div>
 <p>Expected: a JSON response with <code class="docutils literal notranslate"><span class="pre">&quot;online_workers&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;versions&quot;</span></code>.</p>
-</li>
-</ol>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
 <p>All services should report <code class="docutils literal notranslate"><span class="pre">active</span> <span class="pre">(running)</span></code>. Use this summary check:</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>is-active<span class="w"> </span>omnia.target
 </pre></div>
 </div>
@@ -671,8 +672,8 @@ Useful<span class="w"> </span><span class="sb">``</span>ochami<span class="sb">`
 <p>If any service is <code class="docutils literal notranslate"><span class="pre">inactive</span></code> or <code class="docutils literal notranslate"><span class="pre">failed</span></code>, note which one and refer to the
 Troubleshooting section below.</p>
 <p><strong>Quick health summary script</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Omnia Service Health ===&quot;</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;omnia.target:    </span><span class="k">$(</span>systemctl<span class="w"> </span>is-active<span class="w"> </span>omnia.target<span class="k">)</span><span class="s2">&quot;</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;omnia_core:      </span><span class="k">$(</span>systemctl<span class="w"> </span>is-active<span class="w"> </span>omnia_core.service<span class="k">)</span><span class="s2">&quot;</span>
@@ -695,75 +696,63 @@ Troubleshooting section below.</p>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt><strong>A service shows “inactive (dead)”</strong></dt><dd><p>Restart the specific service:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>systemctl<span class="w"> </span>restart<span class="w"> </span>&lt;service-name&gt;.service
-<span class="w">   </span>journalctl<span class="w"> </span>-u<span class="w"> </span>&lt;service-name&gt;.service<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span>
-</pre></div>
-</div>
-</div>
-<dl class="simple">
-<dt><strong>OpenCHAMI services fail with connection errors</strong></dt><dd><p>Verify the SMD service is running first, as other OpenCHAMI services
-depend on it:</p>
-</dd>
-</dl>
+<p><strong>A service shows “inactive (dead)”</strong></p>
+<p>Restart the specific service:</p>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>systemctl<span class="w"> </span>restart<span class="w"> </span>smd.service
-<span class="w">   </span>sleep<span class="w"> </span><span class="m">10</span>
-<span class="w">   </span>systemctl<span class="w"> </span>restart<span class="w"> </span>openchami.target
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>&lt;service-name&gt;.service
+journalctl<span class="w"> </span>-u<span class="w"> </span>&lt;service-name&gt;.service<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span>
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>Pulp API returns connection refused</strong></dt><dd><p>Check that the Pulp container is running and listening on port 8080:</p>
-</dd>
-</dl>
+<p><strong>OpenCHAMI services fail with connection errors</strong></p>
+<p>Verify the SMD service is running first, as other OpenCHAMI services
+depend on it:</p>
 <div class="literal-block-wrapper docutils container" id="id15">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>podman<span class="w"> </span>logs<span class="w"> </span>pulp
-<span class="w">   </span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8080</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>smd.service
+sleep<span class="w"> </span><span class="m">10</span>
+systemctl<span class="w"> </span>restart<span class="w"> </span>openchami.target
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>MinIO not accessible</strong></dt><dd><p>Verify MinIO container status and port binding:</p>
-</dd>
-</dl>
+<p><strong>Pulp API returns connection refused</strong></p>
+<p>Check that the Pulp container is running and listening on port 8080:</p>
 <div class="literal-block-wrapper docutils container" id="id16">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>podman<span class="w"> </span>logs<span class="w"> </span>minio
-<span class="w">   </span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">9000</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>logs<span class="w"> </span>pulp
+ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">8080</span>
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>omnia.target not found</strong></dt><dd><p>Re-run the <code class="docutils literal notranslate"><span class="pre">prepare_oim.yml</span></code> playbook to regenerate systemd unit files:</p>
-</dd>
-</dl>
+<p><strong>MinIO not accessible</strong></p>
+<p>Verify MinIO container status and port binding:</p>
 <div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nb">cd</span><span class="w"> </span>/omnia/prepare_oim
-<span class="w">   </span>ansible-playbook<span class="w"> </span>prepare_oim.yml<span class="w"> </span>--ask-vault-pass
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>logs<span class="w"> </span>minio
+ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="m">9000</span>
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>Container images missing</strong></dt><dd><p>Rebuild the container images:</p>
-</dd>
-</dl>
+<p><strong>omnia.target not found</strong></p>
+<p>Re-run the <code class="docutils literal notranslate"><span class="pre">prepare_oim.yml</span></code> playbook to regenerate systemd unit files:</p>
 <div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
-<span class="w">   </span>bash<span class="w"> </span>build_images.sh<span class="w"> </span>core
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia/prepare_oim
+ansible-playbook<span class="w"> </span>prepare_oim.yml<span class="w"> </span>--ask-vault-pass
 </pre></div>
 </div>
 </div>
-<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+<p><strong>Container images missing</strong></p>
+<p>Rebuild the container images:</p>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
+bash<span class="w"> </span>build_images.sh<span class="w"> </span>core
+</pre></div>
+</div>
+</div>
+<p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>
 
@@ -848,7 +837,7 @@ depend on it:</p>
 
   <p class="copyright">
     
-      © Copyright 2025, Dell Technologies.
+      © Copyright Dell Technologies.
       <br/>
     
   </p>

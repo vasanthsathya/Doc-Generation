@@ -56,38 +56,32 @@ Procedure
 ---------
 
 
-#. **Log in to the OIM as root:**
-
-   .. code-block:: bash
+1. Log in to the OIM as root:
 
 .. code-block:: bash
 
-      ssh root@<oim_ip>
+   ssh root@<oim_ip>
 
 
 
-   !!! note
+.. note::
 
-       Do **not** run this playbook from inside the ``omnia_core`` container.
-       The cleanup process removes the container itself.
+   Do **not** run this playbook from inside the ``omnia_core`` container.
+   The cleanup process removes the container itself.
 
-#. **Navigate to the Omnia utils directory:**
-
-   .. code-block:: bash
+2. Navigate to the Omnia utils directory:
 
 .. code-block:: bash
 
-      cd /omnia/utils/
+   cd /omnia/utils/
 
 
 
-#. **Run the cleanup playbook:**
-
-   .. code-block:: bash
+3. Run the cleanup playbook:
 
 .. code-block:: bash
 
-      ansible-playbook oim_cleanup.yml
+   ansible-playbook oim_cleanup.yml
 
 
 
@@ -101,17 +95,15 @@ Procedure
   - Removes cached OS images and repository data.
 
 
-#. **Verify the cleanup:**
-
-   .. code-block:: bash
+4. Verify the cleanup:
 
 .. code-block:: bash
 
-      # Confirm no Omnia containers remain
-      podman ps -a | grep -i omnia
+   # Confirm no Omnia containers remain
+   podman ps -a | grep -i omnia
 
-      # Confirm no Omnia pods remain
-      podman pod ls
+   # Confirm no Omnia pods remain
+   podman pod ls
 
 
 
@@ -143,12 +135,11 @@ cleanup through extra variables:
 
 Example of selective cleanup:
 
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
-
-      cd /omnia/utils/
-      ansible-playbook oim_cleanup.yml -e "cleanup_telemetry=true"
+   cd /omnia/utils/
+   ansible-playbook oim_cleanup.yml -e "cleanup_telemetry=true"
 
 
 

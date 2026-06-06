@@ -9,10 +9,10 @@ import sys
 import os
 
 project = 'Omnia' # pylint: disable=invalid-name
-copyright = '2025, Dell Technologies' # pylint: disable=invalid-name
+copyright = 'Dell Technologies' # pylint: disable=invalid-name
 author = 'dell/omnia' # pylint: disable=invalid-name
 release = '2.2' # pylint: disable=invalid-name
-rst_epilog = "If you have any feedback about Omnia documentation, please reach out at `omnia.readme@dell.com <mailto:omnia.readme@dell.com>`_." # pylint: disable=invalid-name
+rst_epilog = "If you have any feedback about Omnia documentation, reach out at `omnia.readme@dell.com <mailto:omnia.readme@dell.com>`_." # pylint: disable=invalid-name
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the

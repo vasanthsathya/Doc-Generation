@@ -130,7 +130,7 @@ roles. Create a CSV at ``/opt/omnia/input/project_default/mapping.csv``.
    Replace the placeholder values (``SERVICE_TAG``, ``ADMIN_MAC``,
    ``ADMIN_IP``, ``BMC_IP``) with the actual values from your servers.
    Collect service tags from the server pull-out tab or iDRAC. Collect
-   MAC addresses from ``iDRAC > Network > NIC Selection`` or by running
+   MAC addresses from **iDRAC** > **Network** > **NIC Selection** or by running
    ``ip link`` on each node.
 
 
@@ -240,7 +240,7 @@ Edit the two critical network-related input files, then run
 and HTTP services.
 
 
-**5a. Edit** `network_spec.yml`
+5a. Edit `network_spec.yml`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -255,9 +255,8 @@ and HTTP services.
 Set the following values (adjust to match your environment):
 
 
-**Example network_spec.yml excerpt**
-
 .. code-block:: yaml
+   :caption: Example network_spec.yml excerpt
 
    admin_network:
      nic: eno2                    # OIM NIC connected to admin switch
@@ -273,7 +272,7 @@ Set the following values (adjust to match your environment):
 
 
 
-**5b. Edit** `provision_config.yml`
+5b. Edit `provision_config.yml`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -288,9 +287,8 @@ Set the following values (adjust to match your environment):
 Key fields to verify or set:
 
 
-**Example provision_config.yml excerpt**
-
 .. code-block:: yaml
+   :caption: Example provision_config.yml excerpt
 
    # Path to the RHEL or Rocky Linux ISO on the OIM
    iso_path: /opt/isos/RHEL-8.8-x86_64-dvd.iso
@@ -304,7 +302,7 @@ Key fields to verify or set:
 
 
 
-**5c. Run** `prepare_oim.yml`
+5c. Run `prepare_oim.yml`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -338,21 +336,6 @@ services are running.
 
 .. code-block:: shell
    :caption: Run on OIM (inside omnia_core container)
-
-   systemctl list-dependencies omnia.target
-
-
-
-Every listed service should show a green dot (``●``) indicating
-``active``. Key services to verify:
-
-- ``dhcpd.service`` -- DHCP server for PXE boot
-- ``tftp.socket`` -- TFTP for PXE boot loader delivery
-- ``httpd.service`` -- HTTP for kickstart/autoinstall files
-- ``nfs-server.service`` -- NFS for shared storage
-
-   .. code-block:: shell
-      :caption: Run on OIM (inside omnia_core container)
 
    # Quick health check -- all should return 'active'
    for svc in dhcpd tftp.socket httpd nfs-server; do
@@ -565,9 +548,8 @@ verification commands.
 Expected ``sinfo`` output:
 
 
-**Expected output**
-
 .. code-block:: text
+   :caption: Expected output
 
    PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
    normal*      up   infinite      1   idle compute01

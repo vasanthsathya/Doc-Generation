@@ -45,97 +45,88 @@ Procedure
 ---------
 
 
-#. **Enter the omnia_core container**:
+1. Enter the omnia_core container:
 
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
-
-         ssh omnia_core
-
-
-
-#. **Configure telemetry parameters** in ``omnia_config.yml``:
-
-
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
-
-         vi /opt/omnia/input/project_default/omnia_config.yml
+   ssh omnia_core
 
 
 
+2. Configure telemetry parameters in ``omnia_config.yml``:
 
-**File: /opt/omnia/input/project_default/omnia_config.yml**
+.. code-block:: bash
+   :caption: Run on: omnia_core container
+
+   vi /opt/omnia/input/project_default/omnia_config.yml
+
 
 .. code-block:: yaml
+   :caption: File: /opt/omnia/input/project_default/omnia_config.yml
 
-      ---
-      # Telemetry configuration
-      enable_telemetry: true
-      telemetry_collection_interval: 60  # seconds
-      grafana_admin_password: ""  # Set via credentials utility
+   ---
+   # Telemetry configuration
+   enable_telemetry: true
+   telemetry_collection_interval: 60  # seconds
+   grafana_admin_password: ""  # Set via credentials utility
    
-      # iDRAC telemetry
-      idrac_telemetry_enabled: true
-      idrac_telemetry_metrics:
-        - "SystemBoardInletTemp"
-        - "SystemBoardExhaustTemp"
-        - "TotalPower"
-        - "CPUUsage"
-        - "MemoryUsage"
-        - "FanSpeed"
+   # iDRAC telemetry
+   idrac_telemetry_enabled: true
+   idrac_telemetry_metrics:
+     - "SystemBoardInletTemp"
+     - "SystemBoardExhaustTemp"
+     - "TotalPower"
+     - "CPUUsage"
+     - "MemoryUsage"
+     - "FanSpeed"
    
-      # LDMS configuration
-      ldms_enabled: true
-      ldms_samplers:
-        - "meminfo"
-        - "vmstat"
-        - "procstat"
+   # LDMS configuration
+   ldms_enabled: true
+   ldms_samplers:
+     - "meminfo"
+     - "vmstat"
+     - "procstat"
 
 
 
-#. **Run the telemetry playbook**:
+3. Run the telemetry playbook:
 
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
-
-         cd /omnia
-         ansible-playbook telemetry.yml --ask-vault-pass
-
-
-
-   The playbook performs:
-
-  - Deploys Kafka on the K8s service cluster.
-  - Deploys VictoriaMetrics for time-series storage.
-  - Deploys Grafana with pre-configured dashboards.
-  - Deploys the iDRAC telemetry collector.
-  - Installs and configures LDMS samplers on compute nodes.
-  - Installs LDMS aggregators on the K8s cluster.
-  - Configures data flow: LDMS/iDRAC → Kafka → VictoriaMetrics → Grafana.
-
-   Execution time: **15-30 minutes**.
-
-#. **Access the Grafana dashboard**:
-
-
-   .. code-block:: bash
-      :caption: Run on: K8s control plane node
-
-         kubectl get svc -n telemetry | grep grafana
+   cd /omnia
+   ansible-playbook telemetry.yml --ask-vault-pass
 
 
 
-   Note the external IP (from MetalLB). Open a browser and navigate to:
+The playbook performs:
 
-   ``http://<grafana-external-ip>:3000``
+- Deploys Kafka on the K8s service cluster.
+- Deploys VictoriaMetrics for time-series storage.
+- Deploys Grafana with pre-configured dashboards.
+- Deploys the iDRAC telemetry collector.
+- Installs and configures LDMS samplers on compute nodes.
+- Installs LDMS aggregators on the K8s cluster.
+- Configures data flow: **LDMS/iDRAC** > **Kafka** > **VictoriaMetrics** > **Grafana**.
 
-   Default credentials:
+Execution time: **15-30 minutes**.
 
-  - Username: ``admin``
-  - Password: (as configured in omnia_config.yml or credentials utility)
+4. Access the Grafana dashboard:
+
+.. code-block:: bash
+   :caption: Run on: K8s control plane node
+
+   kubectl get svc -n telemetry | grep grafana
+
+Note the external IP (from MetalLB). Open a browser and navigate to:
+
+``http://<grafana-external-ip>:3000``
+
+Default credentials:
+
+- Username: ``admin``
+- Password: (as configured in omnia_config.yml or credentials utility)
 
 
 
@@ -143,64 +134,56 @@ Verification
 ------------
 
 
-#. **Verify telemetry pods are running**:
+1. Verify telemetry pods are running:
 
+.. code-block:: bash
+   :caption: Run on: K8s control plane node
 
-   .. code-block:: bash
-      :caption: Run on: K8s control plane node
+   kubectl get pods -n telemetry
 
-         kubectl get pods -n telemetry
-
-
-
-   Expected pods:
-
+Expected pods:
 
 .. code-block:: text
    :caption: Expected output on: K8s control plane node
 
-      NAME                                    READY   STATUS    RESTARTS
-      grafana-xxxxxxxxxx-xxxxx                1/1     Running   0
-      kafka-0                                 1/1     Running   0
-      victoriametrics-xxxxxxxxxx-xxxxx        1/1     Running   0
-      idrac-collector-xxxxxxxxxx-xxxxx        1/1     Running   0
-      ldms-aggregator-xxxxxxxxxx-xxxxx        1/1     Running   0
+   NAME                                    READY   STATUS    RESTARTS
+   grafana-xxxxxxxxxx-xxxxx                1/1     Running   0
+   kafka-0                                 1/1     Running   0
+   victoriametrics-xxxxxxxxxx-xxxxx        1/1     Running   0
+   idrac-collector-xxxxxxxxxx-xxxxx        1/1     Running   0
+   ldms-aggregator-xxxxxxxxxx-xxxxx        1/1     Running   0
 
 
 
-#. **Verify LDMS agents on compute nodes**:
+2. Verify LDMS agents on compute nodes:
 
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
-
-         ansible slurm_node -m shell -a "systemctl is-active ldmsd"
-
-
-
-#. **Check Kafka topics** have telemetry data:
-
-
-   .. code-block:: bash
-      :caption: Run on: K8s control plane node
-
-         kubectl exec -n telemetry kafka-0 -- kafka-topics.sh --list --bootstrap-server localhost:9092
+   ansible slurm_node -m shell -a "systemctl is-active ldmsd"
 
 
 
-#. **Verify VictoriaMetrics is receiving data**:
+3. Check Kafka topics have telemetry data:
 
+.. code-block:: bash
+   :caption: Run on: K8s control plane node
 
-   .. code-block:: bash
-      :caption: Run on: K8s control plane node
-
-         VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
-         kubectl exec -n telemetry $VM_POD -- curl -s "http://localhost:8428/api/v1/query?query=up" | python3 -m json.tool
+   kubectl exec -n telemetry kafka-0 -- kafka-topics.sh --list --bootstrap-server localhost:9092
 
 
 
-#. **Verify Grafana dashboards** show data by opening the web UI and checking
-   the pre-configured dashboards for active time-series data.
+4. Verify VictoriaMetrics is receiving data:
+
+.. code-block:: bash
+   :caption: Run on: K8s control plane node
+
+   VM_POD=$(kubectl get pod -n telemetry -l app=victoriametrics -o jsonpath='{.items[0].metadata.name}')
+   kubectl exec -n telemetry $VM_POD -- curl -s "http://localhost:8428/api/v1/query?query=up" | python3 -m json.tool
+
+
+
+5. Verify Grafana dashboards show data by opening the web UI and checking the pre-configured dashboards for active time-series data.
 
 
 
@@ -221,58 +204,53 @@ Troubleshooting
 
 
 **Telemetry pods stuck in Pending**
-   Check for persistent volume issues:
+Check for persistent volume issues:
 
+.. code-block:: bash
+   :caption: Run on: K8s control plane node
 
-   .. code-block:: bash
-      :caption: Run on: K8s control plane node
-
-         kubectl describe pvc -n telemetry
+   kubectl describe pvc -n telemetry
 
 
 
 **iDRAC collector shows errors**
-   Verify iDRAC credentials and Redfish access:
+Verify iDRAC credentials and Redfish access:
 
+.. code-block:: bash
+   :caption: Run on: K8s control plane node
 
-   .. code-block:: bash
-      :caption: Run on: K8s control plane node
-
-         kubectl logs -n telemetry -l app=idrac-collector --tail=30
+   kubectl logs -n telemetry -l app=idrac-collector --tail=30
 
 
 
 **LDMS agents not running on compute nodes**
-   Re-deploy LDMS:
+Re-deploy LDMS:
 
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
-
-         ansible slurm_node -m shell -a "systemctl restart ldmsd"
+   ansible slurm_node -m shell -a "systemctl restart ldmsd"
 
 
 
 **Grafana shows "No data"**
-  - Verify the VictoriaMetrics data source is configured in Grafana.
-  - Check the time range in Grafana (default to "Last 1 hour").
-  - Verify data is flowing through Kafka:
+- Verify the VictoriaMetrics data source is configured in Grafana.
+- Check the time range in Grafana (default to "Last 1 hour").
+- Verify data is flowing through Kafka:
 
+.. code-block:: bash
+   :caption: Run on: K8s control plane node
 
-   .. code-block:: bash
-      :caption: Run on: K8s control plane node
-
-           kubectl exec -n telemetry kafka-0 -- kafka-console-consumer.sh \
-             --bootstrap-server localhost:9092 --topic telemetry --from-beginning --max-messages 5
+   kubectl exec -n telemetry kafka-0 -- kafka-console-consumer.sh \
+     --bootstrap-server localhost:9092 --topic telemetry --from-beginning --max-messages 5
 
 
 
 **Kafka pod CrashLoopBackOff**
-   Check disk space on the K8s worker node:
+Check disk space on the K8s worker node:
 
+.. code-block:: bash
+   :caption: Run on: K8s worker node
 
-   .. code-block:: bash
-      :caption: Run on: K8s worker node
-
-         df -h
+   df -h
 

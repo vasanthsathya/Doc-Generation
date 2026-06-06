@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../../_static/documentation_options.js?v=392da36c"></script>
+    <script src="../../_static/documentation_options.js?v=f35be339"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -502,7 +502,8 @@ deployment and modify as needed.</p>
 <h2>Scenario 1: Slurm-only cluster<a class="headerlink" href="#scenario-1-slurm-only-cluster" title="Link to this heading">#</a></h2>
 <p>Deploys a traditional HPC cluster with Slurm scheduling, NVIDIA GPU support,
 and LDMS telemetry on compute nodes. No Kubernetes.</p>
-<p><strong>Sample software_config.json: Slurm-only cluster</strong></p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Sample software_config.json: Slurm-only cluster</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm_control_node&quot;</span><span class="p">,</span>
@@ -537,6 +538,7 @@ and LDMS telemetry on compute nodes. No Kubernetes.</p>
 <span class="p">]</span>
 </pre></div>
 </div>
+</div>
 <p><strong>Scenario 1 component summary</strong></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -565,7 +567,8 @@ and LDMS telemetry on compute nodes. No Kubernetes.</p>
 <h2>Scenario 2: Slurm + Kubernetes (full deployment)<a class="headerlink" href="#scenario-2-slurm-kubernetes-full-deployment" title="Link to this heading">#</a></h2>
 <p>Production-grade deployment with Slurm for HPC compute and Kubernetes for
 platform services, monitoring, and storage.</p>
-<p><strong>Sample software_config.json: Slurm + Kubernetes</strong></p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Sample software_config.json: Slurm + Kubernetes</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm_control_node&quot;</span><span class="p">,</span>
@@ -619,6 +622,7 @@ platform services, monitoring, and storage.</p>
 <span class="p">]</span>
 </pre></div>
 </div>
+</div>
 <p><strong>Scenario 2 component summary</strong></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -653,7 +657,8 @@ platform services, monitoring, and storage.</p>
 <h2>Scenario 3: Kubernetes + telemetry only (no Slurm)<a class="headerlink" href="#scenario-3-kubernetes-telemetry-only-no-slurm" title="Link to this heading">#</a></h2>
 <p>Deploys a Kubernetes cluster with the full telemetry pipeline for
 infrastructure monitoring without a job scheduler.</p>
-<p><strong>Sample software_config.json: Kubernetes + telemetry only</strong></p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Sample software_config.json: Kubernetes + telemetry only</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;kube_control_plane&quot;</span><span class="p">,</span>
@@ -676,6 +681,7 @@ infrastructure monitoring without a job scheduler.</p>
 <span class="p">]</span>
 </pre></div>
 </div>
+</div>
 <p><strong>Scenario 3 component summary</strong></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -697,7 +703,8 @@ infrastructure monitoring without a job scheduler.</p>
 <section id="scenario-4-amd-gpu-compute-nodes">
 <h2>Scenario 4: AMD GPU compute nodes<a class="headerlink" href="#scenario-4-amd-gpu-compute-nodes" title="Link to this heading">#</a></h2>
 <p>Slurm cluster with AMD Instinct GPU nodes instead of NVIDIA.</p>
-<p><strong>Sample software_config.json: AMD GPU compute nodes</strong></p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Sample software_config.json: AMD GPU compute nodes</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;functional_group_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm_control_node&quot;</span><span class="p">,</span>
@@ -725,6 +732,7 @@ infrastructure monitoring without a job scheduler.</p>
 <span class="p">]</span>
 </pre></div>
 </div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -744,7 +752,7 @@ CSV (see <a class="reference internal" href="pxe_mapping_file.html"><span class=
 bill of materials.</p></li>
 </ul>
 </div>
-<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+<p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>
 
@@ -827,7 +835,7 @@ bill of materials.</p></li>
 
   <p class="copyright">
     
-      © Copyright 2025, Dell Technologies.
+      © Copyright Dell Technologies.
       <br/>
     
   </p>

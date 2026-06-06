@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../_static/documentation_options.js?v=392da36c"></script>
+    <script src="../_static/documentation_options.js?v=f35be339"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -467,7 +467,7 @@ control node).</p></li>
 <section id="procedure">
 <h3>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p><strong>Update the node mapping file.</strong> Add the new node entries (MAC address,
+<li><p>Update the node mapping file. Add the new node entries (MAC address,
 hostname, IP) to the mapping file used during initial deployment:</p></li>
 </ol>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span># /omnia/input/mapping_file.csv
@@ -475,50 +475,33 @@ AA:BB:CC:DD:EE:F1,compute-05,10.5.0.105
 AA:BB:CC:DD:EE:F2,compute-06,10.5.0.106
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Access the omnia_core container</strong> on the OIM:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</li>
+<ol class="arabic simple" start="2">
+<li><p>Access the omnia_core container on the OIM:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Run the add_node playbook:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</li>
+<ol class="arabic simple" start="3">
+<li><p>Run the add_node playbook:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nb">cd</span><span class="w"> </span>/omnia
-<span class="w">    </span>ansible-playbook<span class="w"> </span>playbooks/add_node.yml
-
-
-
-<span class="w"> </span>The<span class="w"> </span>playbook<span class="w"> </span>will:
-
--<span class="w"> </span>Install<span class="w"> </span>and<span class="w"> </span>configure<span class="w"> </span><span class="sb">``</span>slurmd<span class="sb">``</span><span class="w"> </span>on<span class="w"> </span>each<span class="w"> </span>new<span class="w"> </span>node.
--<span class="w"> </span>Register<span class="w"> </span>the<span class="w"> </span>nodes<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>Slurm<span class="w"> </span>controller.
--<span class="w"> </span>Apply<span class="w"> </span>any<span class="w"> </span>GPU<span class="w"> </span>drivers<span class="w"> </span>or<span class="w"> </span>additional<span class="w"> </span>packages<span class="w"> </span>as<span class="w"> </span>specified<span class="w"> </span><span class="k">in</span><span class="w"> </span>the
-<span class="w">   </span>configuration.
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
+ansible-playbook<span class="w"> </span>playbooks/add_node.yml
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Verify the new nodes</strong> are visible to Slurm:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</li>
+<p>The playbook will:</p>
+<ul class="simple">
+<li><p>Install and configure <code class="docutils literal notranslate"><span class="pre">slurmd</span></code> on each new node.</p></li>
+<li><p>Register the nodes with the Slurm controller.</p></li>
+<li><p>Apply any GPU drivers or additional packages as specified in the
+configuration.</p></li>
+</ul>
+<ol class="arabic simple" start="4">
+<li><p>Verify the new nodes are visible to Slurm:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>sinfo
-
-
-
-Expected<span class="w"> </span>output<span class="w"> </span>shows<span class="w"> </span>the<span class="w"> </span>new<span class="w"> </span>nodes<span class="w"> </span><span class="k">in</span><span class="w"> </span>an<span class="w"> </span><span class="sb">``</span>idle<span class="sb">``</span><span class="w"> </span>state:
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sinfo
 </pre></div>
 </div>
+<p>Expected output shows the new nodes in an <code class="docutils literal notranslate"><span class="pre">idle</span></code> state:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>PARTITION  AVAIL  TIMELIMIT  NODES  STATE  NODELIST
 normal*       up   infinite      6   idle  compute-[01-06]
 </pre></div>
@@ -540,10 +523,10 @@ to let them drain).</p></li>
 <section id="id2">
 <h3>Procedure<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
-<li><p><strong>Drain the node</strong> to allow running jobs to complete and prevent new jobs
+<li><p>Drain the node to allow running jobs to complete and prevent new jobs
 from being scheduled:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">NodeName</span><span class="o">=</span>compute-05<span class="w"> </span><span class="nv">State</span><span class="o">=</span>DRAIN<span class="w"> </span><span class="nv">Reason</span><span class="o">=</span><span class="s2">&quot;Decommissioning&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">NodeName</span><span class="o">=</span>compute-05<span class="w"> </span><span class="nv">State</span><span class="o">=</span>DRAIN<span class="w"> </span><span class="nv">Reason</span><span class="o">=</span><span class="s2">&quot;Decommissioning&quot;</span>
 
 
 
@@ -557,51 +540,35 @@ Verify<span class="w"> </span>the<span class="w"> </span>node<span class="w"> </
 normal*       up   infinite      1  drained  compute-05
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Access the omnia_core container</strong> on the OIM:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</li>
+<ol class="arabic simple" start="2">
+<li><p>Access the omnia_core container on the OIM:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Run the remove_node playbook:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</li>
+<ol class="arabic simple" start="3">
+<li><p>Run the remove_node playbook:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>playbooks/remove_node.yml<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;target_nodes=compute-05&quot;</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Update the mapping file.</strong> Remove the decommissioned node entry from
+<ol class="arabic simple" start="4">
+<li><p>Update the mapping file. Remove the decommissioned node entry from
 <code class="docutils literal notranslate"><span class="pre">/omnia/input/mapping_file.csv</span></code> to prevent it from being re-added in
 future operations.</p></li>
-<li><p><strong>Verify the node has been removed:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</li>
+<li><p>Verify the node has been removed:</p></li>
 </ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>sinfo
-
-
-
-The<span class="w"> </span>removed<span class="w"> </span>node<span class="w"> </span>should<span class="w"> </span>no<span class="w"> </span>longer<span class="w"> </span>appear<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>node<span class="w"> </span>list.
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sinfo
 </pre></div>
 </div>
+<p>The removed node should no longer appear in the node list.</p>
 </section>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
 <p>After adding or removing nodes, confirm the cluster state:</p>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id3">
+<div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check overall cluster health</span>
 sinfo
@@ -614,7 +581,6 @@ srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><s
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -623,7 +589,7 @@ srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><s
 <li><p><a class="reference internal" href="reprovision_cluster.html"><span class="doc">Reprovision Cluster</span></a> – Re-image nodes instead of just adding/removing them.</p></li>
 </ul>
 </div>
-<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+<p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>
 
@@ -713,7 +679,7 @@ srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><s
 
   <p class="copyright">
     
-      © Copyright 2025, Dell Technologies.
+      © Copyright Dell Technologies.
       <br/>
     
   </p>

@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../_static/documentation_options.js?v=392da36c"></script>
+    <script src="../_static/documentation_options.js?v=f35be339"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -607,14 +607,15 @@ special character.</p>
 <section id="step-5-prepare-the-oim">
 <h2>Step 5 – Prepare the OIM<a class="headerlink" href="#step-5-prepare-the-oim" title="Link to this heading">#</a></h2>
 <section id="a-edit-network-spec-yml">
-<h3><strong>5a. Edit</strong> <cite>network_spec.yml</cite><a class="headerlink" href="#a-edit-network-spec-yml" title="Link to this heading">#</a></h3>
+<h3>5a. Edit <cite>network_spec.yml</cite><a class="headerlink" href="#a-edit-network-spec-yml" title="Link to this heading">#</a></h3>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/network_spec.yml
 </pre></div>
 </div>
 </div>
-<p><strong>Example network_spec.yml for full deployment</strong></p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Example network_spec.yml for full deployment</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">admin_network</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">nic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eno2</span>
 <span class="w">  </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.5.0.0/16</span>
@@ -627,6 +628,7 @@ special character.</p>
 <span class="w">  </span><span class="nt">static_range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.3.0.100-10.3.0.250</span>
 </pre></div>
 </div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Expand your <code class="docutils literal notranslate"><span class="pre">static_range</span></code> to accommodate both Slurm and K8s nodes.
@@ -634,37 +636,41 @@ In this deployment, you need at least 7 admin IPs and 7 BMC IPs.</p>
 </div>
 </section>
 <section id="b-edit-provision-config-yml">
-<h3><strong>5b. Edit</strong> <cite>provision_config.yml</cite><a class="headerlink" href="#b-edit-provision-config-yml" title="Link to this heading">#</a></h3>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<h3>5b. Edit <cite>provision_config.yml</cite><a class="headerlink" href="#b-edit-provision-config-yml" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/provision_config.yml
 </pre></div>
 </div>
 </div>
-<p><strong>Example provision_config.yml excerpt</strong></p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Example provision_config.yml excerpt</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">iso_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/opt/isos/RHEL-8.8-x86_64-dvd.iso</span>
 <span class="nt">timezone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">America/Chicago</span>
 <span class="nt">domain_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">omnia.local</span>
 </pre></div>
 </div>
+</div>
 </section>
 <section id="c-edit-ha-config-yml-k8s-ha">
-<h3><strong>5c. Edit</strong> <cite>ha_config.yml</cite> <strong>(K8s HA)</strong><a class="headerlink" href="#c-edit-ha-config-yml-k8s-ha" title="Link to this heading">#</a></h3>
+<h3>5c. Edit <cite>ha_config.yml</cite> (K8s HA)<a class="headerlink" href="#c-edit-ha-config-yml-k8s-ha" title="Link to this heading">#</a></h3>
 <p>This file configures the floating virtual IP (VIP) used by <code class="docutils literal notranslate"><span class="pre">kube-vip</span></code>
 to provide HA access to the Kubernetes API server.</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/ha_config.yml
 </pre></div>
 </div>
 </div>
-<p><strong>Example ha_config.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Example ha_config.yml</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Virtual IP for the Kubernetes API server (must be unused on admin network)</span>
 <span class="nt">k8s_vip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.5.0.250</span>
 
 <span class="c1"># Interface on K8s control plane nodes facing the admin network</span>
 <span class="nt">k8s_vip_interface</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eno2</span>
 </pre></div>
+</div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -674,9 +680,9 @@ device. <code class="docutils literal notranslate"><span class="pre">kube-vip</s
 </div>
 </section>
 <section id="d-run-prepare-oim-yml">
-<h3><strong>5d. Run</strong> <cite>prepare_oim.yml</cite><a class="headerlink" href="#d-run-prepare-oim-yml" title="Link to this heading">#</a></h3>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<h3>5d. Run <cite>prepare_oim.yml</cite><a class="headerlink" href="#d-run-prepare-oim-yml" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>prepare_oim.yml<span class="w"> </span>-i<span class="w"> </span>/opt/omnia/input/project_default/mapping.csv
 </pre></div>
@@ -686,8 +692,8 @@ ansible-playbook<span class="w"> </span>prepare_oim.yml<span class="w"> </span>-
 </section>
 <section id="step-6-verify-oim-services">
 <h2>Step 6 – Verify OIM Services<a class="headerlink" href="#step-6-verify-oim-services" title="Link to this heading">#</a></h2>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>list-dependencies<span class="w"> </span>omnia.target
 
 <span class="c1"># Quick check</span>
@@ -703,14 +709,15 @@ ansible-playbook<span class="w"> </span>prepare_oim.yml<span class="w"> </span>-
 <p>Configure LDAP or FreeIPA for centralized user management across the
 entire cluster.</p>
 <section id="a-edit-security-config-yml">
-<h3><strong>7a. Edit</strong> <cite>security_config.yml</cite><a class="headerlink" href="#a-edit-security-config-yml" title="Link to this heading">#</a></h3>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<h3>7a. Edit <cite>security_config.yml</cite><a class="headerlink" href="#a-edit-security-config-yml" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/security_config.yml
 </pre></div>
 </div>
 </div>
-<p><strong>Example security_config.yml excerpt</strong></p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Example security_config.yml excerpt</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authentication method: &#39;freeipa&#39; or &#39;ldap&#39;</span>
 <span class="nt">auth_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">freeipa</span>
 
@@ -724,6 +731,7 @@ entire cluster.</p>
 <span class="nt">admin_user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
 </pre></div>
 </div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>FreeIPA is recommended for new deployments because it bundles Kerberos,
@@ -733,9 +741,9 @@ or OpenLDAP server.</p>
 </div>
 </section>
 <section id="b-run-auth-yml">
-<h3><strong>7b. Run</strong> <cite>auth.yml</cite><a class="headerlink" href="#b-run-auth-yml" title="Link to this heading">#</a></h3>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<h3>7b. Run <cite>auth.yml</cite><a class="headerlink" href="#b-run-auth-yml" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>auth.yml
 </pre></div>
@@ -753,14 +761,15 @@ ansible-playbook<span class="w"> </span>auth.yml
 <section id="step-8-configure-telemetry">
 <h2>Step 8 – Configure Telemetry<a class="headerlink" href="#step-8-configure-telemetry" title="Link to this heading">#</a></h2>
 <section id="a-edit-telemetry-config-yml">
-<h3><strong>8a. Edit</strong> <cite>telemetry_config.yml</cite><a class="headerlink" href="#a-edit-telemetry-config-yml" title="Link to this heading">#</a></h3>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+<h3>8a. Edit <cite>telemetry_config.yml</cite><a class="headerlink" href="#a-edit-telemetry-config-yml" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/telemetry_config.yml
 </pre></div>
 </div>
 </div>
-<p><strong>Example telemetry_config.yml excerpt</strong></p>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">Example telemetry_config.yml excerpt</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enable iDRAC telemetry collection</span>
 <span class="nt">idrac_telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
@@ -777,20 +786,24 @@ ansible-playbook<span class="w"> </span>auth.yml
 <span class="nt">kafka_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>If you only need basic iDRAC hardware metrics (temperatures, fan
 speeds, power draw), set <code class="docutils literal notranslate"><span class="pre">ldms_telemetry:</span> <span class="pre">false</span></code> to skip OS-level
 metric collection. This reduces agent overhead on compute nodes.</p>
 </div>
-<p><strong>8b. Telemetry will be deployed in Step 14</strong> after the cluster is
+</section>
+<section id="b-telemetry-will-be-deployed-in-step-14">
+<h3>8b. Telemetry will be deployed in Step 14<a class="headerlink" href="#b-telemetry-will-be-deployed-in-step-14" title="Link to this heading">#</a></h3>
+<p>Telemetry will be deployed in Step 14 after the cluster is
 provisioned and K8s is running. Continue with the next step.</p>
 </section>
 </section>
 <section id="step-9-create-local-repositories">
 <h2>Step 9 – Create Local Repositories<a class="headerlink" href="#step-9-create-local-repositories" title="Link to this heading">#</a></h2>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>local_repo.yml
 </pre></div>
@@ -807,15 +820,15 @@ Kafka). Expect 45–90 minutes and ~30 GB of downloaded content.</p>
 <h2>Step 10 – Set Up Service Kubernetes Cluster<a class="headerlink" href="#step-10-set-up-service-kubernetes-cluster" title="Link to this heading">#</a></h2>
 <p>Deploy the 3-node HA Kubernetes cluster that will host telemetry services,
 monitoring dashboards, and other infrastructure workloads.</p>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id20" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>k8s.yml
 </pre></div>
 </div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">k8s.yml</span></code> orchestrates:</p>
-<ul>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">kubeadm</span> <span class="pre">init</span></code> on the first control-plane node (<code class="docutils literal notranslate"><span class="pre">kube-cp01</span></code>).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">kubeadm</span> <span class="pre">join</span></code> for the remaining control-plane nodes (<code class="docutils literal notranslate"><span class="pre">kube-cp02</span></code>,
 <code class="docutils literal notranslate"><span class="pre">kube-cp03</span></code>) with <code class="docutils literal notranslate"><span class="pre">--control-plane</span></code> flag.</p></li>
@@ -823,28 +836,25 @@ ansible-playbook<span class="w"> </span>k8s.yml
 <li><p><code class="docutils literal notranslate"><span class="pre">kube-vip</span></code> deployment for API server HA using the VIP from
 <code class="docutils literal notranslate"><span class="pre">ha_config.yml</span></code>.</p></li>
 <li><p>Calico CNI installation for pod networking.</p></li>
-<li><p>MetalLB setup for <code class="docutils literal notranslate"><span class="pre">LoadBalancer</span></code> service type support.</p>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>
+<li><p>MetalLB setup for <code class="docutils literal notranslate"><span class="pre">LoadBalancer</span></code> service type support.</p></li>
+</ul>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id21" title="Link to this code">#</a></div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify K8s cluster from OIM (kubeconfig is auto-copied)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>/opt/omnia/k8s/admin.conf
+kubectl<span class="w"> </span>get<span class="w"> </span>nodes
 </pre></div>
 </div>
 </div>
-<p># Verify K8s cluster from OIM (kubeconfig is auto-copied)
-export KUBECONFIG=/opt/omnia/k8s/admin.conf
-kubectl get nodes</p>
-</div></blockquote>
-</li>
-</ul>
-<p>Expected output (all nodes <code class="docutils literal notranslate"><span class="pre">Ready</span></code>):</p>
-<p><strong>Expected output</strong></p>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">Expected output</span><a class="headerlink" href="#id22" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>NAME        STATUS   ROLES           AGE   VERSION
 kube-cp01   Ready    control-plane   10m   v1.28.x
 kube-cp02   Ready    control-plane   8m    v1.28.x
 kube-cp03   Ready    control-plane   8m    v1.28.x
 kube-wk01   Ready    &lt;none&gt;          6m    v1.28.x
 </pre></div>
+</div>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -855,8 +865,8 @@ in <code class="docutils literal notranslate"><span class="pre">ha_config.yml</s
 </section>
 <section id="step-11-build-node-images">
 <h2>Step 11 – Build Node Images<a class="headerlink" href="#step-11-build-node-images" title="Link to this heading">#</a></h2>
-<div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id23" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>build_image_x86_64.yml
 
@@ -868,8 +878,8 @@ s3cmd<span class="w"> </span>ls<span class="w"> </span>s3://omnia-images/
 </section>
 <section id="step-12-discover-and-provision-nodes">
 <h2>Step 12 – Discover and Provision Nodes<a class="headerlink" href="#step-12-discover-and-provision-nodes" title="Link to this heading">#</a></h2>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id24" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>discovery.yml
 </pre></div>
@@ -882,8 +892,8 @@ minutes</strong>. Nodes are provisioned in parallel when possible, but the
 OIM’s DHCP and HTTP services can bottleneck with many simultaneous PXE
 requests.</p>
 </div>
-<div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id25" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify all nodes are reachable</span>
 ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>ping<span class="w"> </span>-i<span class="w"> </span>/opt/omnia/inventories/project_default/inventory
 </pre></div>
@@ -892,8 +902,8 @@ ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </s
 </section>
 <section id="step-13-deploy-slurm">
 <h2>Step 13 – Deploy Slurm<a class="headerlink" href="#step-13-deploy-slurm" title="Link to this heading">#</a></h2>
-<div class="literal-block-wrapper docutils container" id="id20">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id20" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id26" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>omnia.yml
 </pre></div>
@@ -902,8 +912,8 @@ ansible-playbook<span class="w"> </span>omnia.yml
 <p>This deploys the Slurm stack on the head, compute, and login nodes
 (same as Path A, Step 10). It also configures NFS mounts and integrates
 the FreeIPA/LDAP authentication set up in Step 7.</p>
-<div class="literal-block-wrapper docutils container" id="id21">
-<div class="code-block-caption"><span class="caption-text">Run on head node (head01)</span><a class="headerlink" href="#id21" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text">Run on head node (head01)</span><a class="headerlink" href="#id27" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify Slurm</span>
 ssh<span class="w"> </span>head01
 sinfo
@@ -916,8 +926,8 @@ srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><s
 <h2>Step 14 – Initialize Telemetry<a class="headerlink" href="#step-14-initialize-telemetry" title="Link to this heading">#</a></h2>
 <p>With both the K8s service cluster and Slurm cluster running, deploy the
 telemetry pipeline.</p>
-<div class="literal-block-wrapper docutils container" id="id22">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id22" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id28">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id28" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>telemetry.yml
 </pre></div>
@@ -935,16 +945,16 @@ metrics (CPU, memory, network, GPU utilization) from compute nodes.</p></li>
 </ul>
 <p>All telemetry components are deployed as Kubernetes pods on the service
 cluster (<code class="docutils literal notranslate"><span class="pre">kube-wk01</span></code>).</p>
-<div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id23" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id29">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id29" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify telemetry pods</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>/opt/omnia/k8s/admin.conf
 kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>omnia-telemetry
 </pre></div>
 </div>
 </div>
-<p>Expected output (all pods <code class="docutils literal notranslate"><span class="pre">Running</span></code> or <code class="docutils literal notranslate"><span class="pre">Completed</span></code>):</p>
-<p><strong>Expected output</strong></p>
+<div class="literal-block-wrapper docutils container" id="id30">
+<div class="code-block-caption"><span class="caption-text">Expected output</span><a class="headerlink" href="#id30" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>NAME                                  READY   STATUS    RESTARTS   AGE
 grafana-6b8c4f7d9-xk2p4              1/1     Running   0          5m
 victoriametrics-0                     1/1     Running   0          5m
@@ -953,12 +963,13 @@ idrac-collector-5d9f8b7c6-m3n7q      1/1     Running   0          5m
 ldms-aggregator-7f4b9c8d2-p2r4s      1/1     Running   0          5m
 </pre></div>
 </div>
+</div>
 </section>
 <section id="step-15-verify-the-full-deployment">
 <h2>Step 15 – Verify the Full Deployment<a class="headerlink" href="#step-15-verify-the-full-deployment" title="Link to this heading">#</a></h2>
 <p><strong>Slurm verification:</strong></p>
-<div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-text">Run on head node (head01)</span><a class="headerlink" href="#id24" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id31">
+<div class="code-block-caption"><span class="caption-text">Run on head node (head01)</span><a class="headerlink" href="#id31" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sinfo
 srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>hostname
 sacctmgr<span class="w"> </span>show<span class="w"> </span>cluster
@@ -966,8 +977,8 @@ sacctmgr<span class="w"> </span>show<span class="w"> </span>cluster
 </div>
 </div>
 <p><strong>Kubernetes verification:</strong></p>
-<div class="literal-block-wrapper docutils container" id="id25">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id25" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id32">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id32" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>/opt/omnia/k8s/admin.conf
 kubectl<span class="w"> </span>get<span class="w"> </span>nodes
 kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--all-namespaces<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>Running<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>Completed
@@ -976,8 +987,8 @@ kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> <
 </div>
 <p>Any pods not in <code class="docutils literal notranslate"><span class="pre">Running</span></code> or <code class="docutils literal notranslate"><span class="pre">Completed</span></code> state need investigation.</p>
 <p><strong>Telemetry verification:</strong></p>
-<div class="literal-block-wrapper docutils container" id="id26">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id26" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id33">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id33" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the Grafana service URL</span>
 kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>omnia-telemetry<span class="w"> </span>grafana
 </pre></div>
@@ -998,8 +1009,8 @@ reachable from the K8s worker node:
 <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-sk</span> <span class="pre">-u</span> <span class="pre">root:calvin</span> <span class="pre">https://10.3.0.101/redfish/v1/</span></code></p>
 </div>
 <p><strong>Authentication verification:</strong></p>
-<div class="literal-block-wrapper docutils container" id="id27">
-<div class="code-block-caption"><span class="caption-text">Run on any cluster node</span><a class="headerlink" href="#id27" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id34">
+<div class="code-block-caption"><span class="caption-text">Run on any cluster node</span><a class="headerlink" href="#id34" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify FreeIPA enrollment</span>
 ipa<span class="w"> </span>user-find<span class="w"> </span>--all
 
@@ -1039,7 +1050,7 @@ on top of this deployment.</p>
 <li><p><a class="reference internal" href="prerequisites_checklist.html"><span class="doc">Prerequisites Checklist</span></a> – Master checklist</p></li>
 </ul>
 </div>
-<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+<p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>
 
@@ -1095,20 +1106,21 @@ on top of this deployment.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-provide-inputs">Step 3 – Provide Inputs</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-set-credentials">Step 4 – Set Credentials</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-prepare-the-oim">Step 5 – Prepare the OIM</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-edit-network-spec-yml"><strong>5a. Edit</strong> <cite>network_spec.yml</cite></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-edit-provision-config-yml"><strong>5b. Edit</strong> <cite>provision_config.yml</cite></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-edit-ha-config-yml-k8s-ha"><strong>5c. Edit</strong> <cite>ha_config.yml</cite> <strong>(K8s HA)</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-run-prepare-oim-yml"><strong>5d. Run</strong> <cite>prepare_oim.yml</cite></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-edit-network-spec-yml">5a. Edit <cite>network_spec.yml</cite></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-edit-provision-config-yml">5b. Edit <cite>provision_config.yml</cite></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-edit-ha-config-yml-k8s-ha">5c. Edit <cite>ha_config.yml</cite> (K8s HA)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-run-prepare-oim-yml">5d. Run <cite>prepare_oim.yml</cite></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-verify-oim-services">Step 6 – Verify OIM Services</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-7-set-up-authentication">Step 7 – Set Up Authentication</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-edit-security-config-yml"><strong>7a. Edit</strong> <cite>security_config.yml</cite></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-run-auth-yml"><strong>7b. Run</strong> <cite>auth.yml</cite></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-edit-security-config-yml">7a. Edit <cite>security_config.yml</cite></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-run-auth-yml">7b. Run <cite>auth.yml</cite></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-8-configure-telemetry">Step 8 – Configure Telemetry</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-edit-telemetry-config-yml"><strong>8a. Edit</strong> <cite>telemetry_config.yml</cite></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-edit-telemetry-config-yml">8a. Edit <cite>telemetry_config.yml</cite></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-telemetry-will-be-deployed-in-step-14">8b. Telemetry will be deployed in Step 14</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-9-create-local-repositories">Step 9 – Create Local Repositories</a></li>
@@ -1147,7 +1159,7 @@ on top of this deployment.</p>
 
   <p class="copyright">
     
-      © Copyright 2025, Dell Technologies.
+      © Copyright Dell Technologies.
       <br/>
     
   </p>

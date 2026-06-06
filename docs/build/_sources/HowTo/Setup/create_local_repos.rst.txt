@@ -46,7 +46,7 @@ Procedure
 ---------
 
 
-#. **Enter the omnia_core container**:
+1. Enter the omnia_core container:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -54,22 +54,21 @@ Procedure
       ssh omnia_core
 
 
-
-#. **Verify software_config.json is configured** with the desired software
+2. Verify software_config.json is configured with the desired software
    stacks:
 
 
-.. code-block:: bash
-   :caption: Run on: omnia_core container
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
       cat /opt/omnia/input/project_default/software_config.json | python3 -m json.tool
 
+      Confirm the ``softwares`` list includes all packages you need (e.g.,
+      ``slurm``, ``cuda``, ``openldap``, ``apptainer``).
 
 
-   Confirm the ``softwares`` list includes all packages you need (e.g.,
-   ``slurm``, ``cuda``, ``openldap``, ``apptainer``).
 
-#. **Run the local_repo playbook**:
+3. Run the local_repo playbook:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -79,33 +78,32 @@ Procedure
 
 
 
-   !!! note
+   .. note::
 
-       If credentials are Vault-encrypted:
+      If credentials are Vault-encrypted:
 
 
-.. code-block:: bash
-   :caption: Run on: omnia_core container
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
-          ansible-playbook local_repo.yml --ask-vault-pass
+      ansible-playbook local_repo.yml --ask-vault-pass
 
 
 
    The playbook will:
 
-  - Query ``software_config.json`` to determine which repositories to sync.
-  - Create Pulp remotes for each upstream repository.
-  - Sync repository metadata and RPM packages to local storage.
-  - Create Pulp publications and distributions.
+   - Query ``software_config.json`` to determine which repositories to sync.
+   - Create Pulp remotes for each upstream repository.
+   - Sync repository metadata and RPM packages to local storage.
+   - Create Pulp publications and distributions.
 
+   .. warning::
 
-   !!! warning
+      Initial synchronization can take **1-3 hours** depending on the number
+      of repositories, internet bandwidth, and selected software stacks.
+      CUDA and ROCm repositories are particularly large (10-30 GB each).
 
-       Initial synchronization can take **1-3 hours** depending on the number
-       of repositories, internet bandwidth, and selected software stacks.
-       CUDA and ROCm repositories are particularly large (10-30 GB each).
-
-#. **Monitor synchronization progress** (in a separate terminal):
+4. Monitor synchronization progress** (in a separate terminal):
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -120,7 +118,7 @@ Verification
 ------------
 
 
-#. **Check Pulp repository status** via the API:
+1. Check Pulp repository status via the API:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -131,7 +129,7 @@ Verification
 
    Each synced repository should have a distribution with a ``base_url``.
 
-#. **List available repositories** from a node's perspective:
+2. List available repositories from a node's perspective:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -140,7 +138,7 @@ Verification
 
 
 
-#. **Test package availability** by querying a specific repository:
+3. Test package availability by querying a specific repository:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -151,7 +149,7 @@ Verification
 
    Expected: XML content from the repository metadata.
 
-#. **Verify disk usage** to ensure sync completed:
+4. Verify disk usage to ensure sync completed:
 
    .. code-block:: bash
       :caption: Run on: OIM host

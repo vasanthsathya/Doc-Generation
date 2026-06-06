@@ -40,13 +40,13 @@ Pipeline Failures
 ~~~~~~~~~~~~~~~~~
 
 
-#. **View pipeline logs** in GitLab:
+1. View pipeline logs in GitLab:
 
 
    Navigate to **CI/CD** > **Pipelines** > click the failed pipeline > click
    the failed job. Read the job output from bottom to top for the error.
 
-#. **Common validation-stage failures**:
+2. Common validation-stage failures:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -65,7 +65,7 @@ Pipeline Failures
   - Duplicate service tags or MAC addresses
 
 
-#. **Common provision-stage failures**:
+3. Common provision-stage failures:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -82,7 +82,7 @@ Pipeline Failures
   - Vault password not available to runner
 
 
-#. **Common configure-stage failures**:
+4. Common configure-stage failures:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -107,7 +107,7 @@ GitLab Issues
 ~~~~~~~~~~~~~
 
 
-#. **GitLab is unresponsive or slow**:
+1. GitLab is unresponsive or slow:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -133,26 +133,26 @@ GitLab Issues
 
 
 
-#. **GitLab "502 Bad Gateway"**:
+2. GitLab "502 Bad Gateway":
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-      # GitLab internal services may be restarting
-      podman exec gitlab gitlab-ctl status
+   # GitLab internal services may be restarting
+   podman exec gitlab gitlab-ctl status
 
-      # Restart GitLab services
-      podman exec gitlab gitlab-ctl restart
+   # Restart GitLab services
+   podman exec gitlab gitlab-ctl restart
 
 
 
-#. **GitLab database migration errors**:
+3. GitLab database migration errors:
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-      podman exec gitlab gitlab-rake db:migrate
-      podman exec gitlab gitlab-ctl reconfigure
+   podman exec gitlab gitlab-rake db:migrate
+   podman exec gitlab gitlab-ctl reconfigure
 
 
 
@@ -162,7 +162,7 @@ Runner Issues
 ~~~~~~~~~~~~~
 
 
-#. **Runner is offline or not picking up jobs**:
+1. Runner is offline or not picking up jobs:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -188,7 +188,7 @@ Runner Issues
 
 
 
-#. **Runner fails with "permission denied"**:
+2. Runner fails with "permission denied":
 
 
    Ensure the runner has access to the omnia_core container and playbooks:
@@ -202,7 +202,7 @@ Runner Issues
 
 
 
-#. **Runner jobs time out**:
+3. Runner jobs time out:
 
 
     Increase the job timeout in GitLab:
@@ -219,7 +219,7 @@ Registry Issues
 ~~~~~~~~~~~~~~~
 
 
-#. **Container registry is unreachable**:
+1. Container registry is unreachable:
 
    **Run on OIM host**
 
@@ -240,7 +240,7 @@ Registry Issues
 
 
 
-#. **Image push/pull fails**:
+2. Image push/pull fails:
 
    **Run on OIM host**
 
@@ -268,7 +268,7 @@ General Debugging
 ~~~~~~~~~~~~~~~~~
 
 
-#. **Enable verbose Ansible output** in pipelines:
+1. Enable verbose Ansible output in pipelines:
 
 
     Edit ``.gitlab-ci.yml`` to add ``-vvv`` to playbook commands:
@@ -289,22 +289,22 @@ General Debugging
 
 
 
-#. **Check system resources** on the OIM:
+2. Check system resources on the OIM:
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-       # Check disk space
-       df -h
+   # Check disk space
+   df -h
 
-       # Check memory
-       free -h
+   # Check memory
+   free -h
 
-       # Check running containers
-       podman ps -a
+   # Check running containers
+   podman ps -a
 
-       # Check container resource usage
-       podman stats --no-stream
+   # Check container resource usage
+   podman stats --no-stream
 
 
 
@@ -316,12 +316,12 @@ Verification
 
 After resolving issues, verify the pipeline works end-to-end:
 
-#. **Make a trivial change** to the catalog (e.g., add a comment).
-#. **Push the change** and verify the validation stage passes.
-#. **Trigger the full pipeline** and confirm all stages complete.
+1. Make a trivial change to the catalog (e.g., add a comment).
+2. Push the change and verify the validation stage passes.
+3. Trigger the full pipeline and confirm all stages complete.
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
    cd /opt/omnia/buildstream-catalog
    echo "# Test commit $(date)" >> catalog.yml

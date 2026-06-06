@@ -162,9 +162,8 @@ Example
 
 
 
-**Example: mapping.csv**
-
 .. code-block:: text
+   :caption: Example: mapping.csv
 
    FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP
    slurm_control_node,manager,ABC1234,,head01,aa:bb:cc:dd:ee:01,10.10.1.10,aa:bb:cc:dd:ff:01,10.20.1.10

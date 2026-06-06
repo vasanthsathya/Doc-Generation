@@ -120,7 +120,7 @@ that all BuildStreaM-specific services and packages are included from the
 start.
 
 
-**2a. Edit** `build_stream_config.yml`
+2a. Edit `build_stream_config.yml`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -132,11 +132,8 @@ start.
    vi /opt/omnia/input/project_default/build_stream_config.yml
 
 
-
-
-**Example build_stream_config.yml**
-
 .. code-block:: yaml
+   :caption: Example build_stream_config.yml
 
    # Enable the BuildStreaM catalog-driven deployment framework
    build_stream_enabled: true
@@ -168,7 +165,8 @@ start.
    all steps.
 
 
-**2b. Configure OAuth credentials**
+2b. Configure OAuth credentials
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 BuildStreaM authenticates with GitLab via OAuth. Generate an OAuth
 application in GitLab (or prepare to do so after GitLab is deployed in
@@ -179,13 +177,11 @@ Step 4).
    :caption: Run on OIM (inside omnia_core container)
 
    vi /opt/omnia/input/project_default/build_stream_oauth_credentials.yml
+   
 
-
-
-
-**Example build_stream_oauth_credentials.yml**
 
 .. code-block:: yaml
+   :caption: Example build_stream_oauth_credentials.yml
 
    # OAuth Application ID from GitLab
    oauth_app_id: ""
@@ -216,7 +212,8 @@ Follow the same infrastructure preparation as Path B. These steps are
 identical -- BuildStreaM automates the *deployment* workflow, not the
 initial OIM setup.
 
-**3a. Create the mapping file**
+3a. Create the mapping file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: shell
@@ -242,7 +239,8 @@ initial OIM setup.
    Replace all placeholder values with your actual hardware data.
 
 
-**3b. Copy input templates**
+3b. Copy input templates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: shell
@@ -253,12 +251,14 @@ initial OIM setup.
 
 
 
-**3c. Edit network and provisioning inputs**
+3c. Edit network and provisioning inputs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Edit ``network_spec.yml``, ``provision_config.yml``, and ``ha_config.yml``
 as described in `Full Deployment <full_deployment>` Steps 5a--5c.
 
-**3d. Set credentials**
+3d. Set credentials
+~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: shell
@@ -269,7 +269,8 @@ as described in `Full Deployment <full_deployment>` Steps 5a--5c.
 
 
 
-**3e. Prepare the OIM**
+3e. Prepare the OIM
+~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: shell
@@ -279,7 +280,8 @@ as described in `Full Deployment <full_deployment>` Steps 5a--5c.
 
 
 
-**3f. Verify OIM services**
+3f. Verify OIM services
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: shell
@@ -289,7 +291,8 @@ as described in `Full Deployment <full_deployment>` Steps 5a--5c.
 
 
 
-**3g. Create local repos and build images**
+3g. Create local repos and build images
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: shell
@@ -303,7 +306,8 @@ as described in `Full Deployment <full_deployment>` Steps 5a--5c.
 
 
 
-**3h. Discover and provision nodes**
+3h. Discover and provision nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: shell
@@ -316,7 +320,8 @@ as described in `Full Deployment <full_deployment>` Steps 5a--5c.
 
 
 
-**3i. Deploy Kubernetes service cluster**
+3i. Deploy Kubernetes service cluster
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: shell
@@ -356,8 +361,8 @@ This playbook:
   ``build_stream_config.yml``.
 - Registers a GitLab Runner on the OIM for executing CI/CD pipelines.
 
-   .. code-block:: shell
-      :caption: Run on OIM (inside omnia_core container)
+.. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    # Verify GitLab pods
    export KUBECONFIG=/opt/omnia/k8s/admin.conf
@@ -378,11 +383,12 @@ This playbook:
    ``kubectl wait --for=condition=ready pod -l app=gitlab -n gitlab --timeout=600s``
 
 
-**4a. Access GitLab and create the OAuth application**
+4a. Access GitLab and create the OAuth application
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. Open ``http://<k8s_vip>:8080`` in a browser.
 #. Log in with the root credentials from the deployment output.
-#. Navigate to **Admin Area > Applications > New Application**.
+#. Navigate to **Admin Area** > **Applications** > **New Application**.
 #. Fill in:
 
 
@@ -395,7 +401,8 @@ This playbook:
 #. Click **Save application** and copy the **Application ID** and **Secret**.
 
 
-**4b. Update OAuth credentials**
+4b. Update OAuth credentials
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: shell
@@ -405,10 +412,8 @@ This playbook:
 
 
 
-
-**Updated build_stream_oauth_credentials.yml**
-
 .. code-block:: yaml
+   :caption: Updated build_stream_oauth_credentials.yml
 
    oauth_app_id: "your-application-id-from-gitlab"
    oauth_app_secret: "your-secret-from-gitlab"
@@ -435,7 +440,8 @@ cluster: hardware inventory, software stack, network topology, and
 deployment parameters. BuildStreaM parses this catalog to generate all
 Omnia input files and orchestrate the deployment pipeline.
 
-**5a. Initialize the catalog repository**
+5a. Initialize the catalog repository
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: shell
@@ -449,11 +455,12 @@ Omnia input files and orchestrate the deployment pipeline.
 
 If the repository does not exist yet, create it in GitLab first:
 
-#. In GitLab, go to **Projects > New Project > Create Blank Project**.
+#. In GitLab, go to **Projects** > **New Project** > **Create Blank Project**.
 #. Name: ``cluster-catalog``, Group: ``omnia``, Visibility: **Private**.
 
 
-**5b. Create the catalog file**
+5b. Create the catalog file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: shell
@@ -464,9 +471,8 @@ If the repository does not exist yet, create it in GitLab first:
 
 
 
-**Example catalog.yml**
-
 .. code-block:: yaml
+   :caption: Example catalog.yml
 
    ---
    # BuildStreaM Cluster Catalog
@@ -543,23 +549,23 @@ If the repository does not exist yet, create it in GitLab first:
        admin_ip: "10.5.0.204"
        bmc_ip: "10.3.0.204"
    
-   software:
-     os_iso: "/opt/isos/RHEL-8.8-x86_64-dvd.iso"
-     slurm: true
-     kubernetes: true
-     telemetry: true
-     auth_type: "freeipa"
-     realm: "OMNIA.LOCAL"
+      software:
+         os_iso: "/opt/isos/RHEL-8.8-x86_64-dvd.iso"
+         slurm: true
+         kubernetes: true
+         telemetry: true
+         auth_type: "freeipa"
+         realm: "OMNIA.LOCAL"
    
-   kubernetes:
-     ha_vip: "10.5.0.250"
-     ha_interface: "eno2"
-   
-   telemetry:
-     idrac_telemetry: true
-     ldms_telemetry: true
-     grafana_port: 3000
-     retention: "30d"
+      kubernetes:
+      ha_vip: "10.5.0.250"
+      ha_interface: "eno2"
+      
+      telemetry:
+      idrac_telemetry: true
+      ldms_telemetry: true
+      grafana_port: 3000
+      retention: "30d"
 
 
 
@@ -572,7 +578,8 @@ If the repository does not exist yet, create it in GitLab first:
    Review changes via merge requests before deploying.
 
 
-**5c. Create the CI/CD pipeline definition**
+5c. Create the CI/CD pipeline definition
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: shell
@@ -583,9 +590,8 @@ If the repository does not exist yet, create it in GitLab first:
 
 
 
-**.gitlab-ci.yml**
-
 .. code-block:: yaml
+   :caption: .gitlab-ci.yml
 
    ---
    stages:
@@ -699,11 +705,11 @@ This push triggers the BuildStreaM pipeline:
 **Monitor the pipeline:**
 
 #. Open GitLab at ``http://<k8s_vip>:8080``.
-#. Navigate to **omnia/cluster-catalog > CI/CD > Pipelines**.
+#. Navigate to **omnia/cluster-catalog** > **CI/CD** > **Pipelines**.
 #. Click the pipeline to see per-stage logs in real time.
 
-   .. code-block:: shell
-      :caption: Run on OIM (inside omnia_core container)
+.. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    # Alternatively, monitor from the CLI
    gitlab-runner status

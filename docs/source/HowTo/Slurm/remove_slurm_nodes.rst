@@ -43,90 +43,83 @@ Procedure
 ---------
 
 
-#. **Drain the target node** to prevent new jobs from being scheduled:
-
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
-
-      scontrol update nodename=<node-to-remove> state=drain reason="Decommissioning"
-
-
-
-#. **Verify the node is draining** and check for running jobs:
-
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
-
-      sinfo -n <node-to-remove>
-      squeue -w <node-to-remove>
-
-
-
-   Wait for all jobs on the node to complete. If immediate removal is needed,
-   cancel running jobs:
-
+1. Drain the target node to prevent new jobs from being scheduled:
 
 .. code-block:: bash
    :caption: Run on: Slurm control node
 
-      # Cancel all jobs on the target node
-      scancel -w <node-to-remove>
+   scontrol update nodename=<node-to-remove> state=drain reason="Decommissioning"
 
 
 
-#. **Set the node to down**:
+2. Verify the node is draining and check for running jobs:
 
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
+.. code-block:: bash
+   :caption: Run on: Slurm control node
 
-      scontrol update nodename=<node-to-remove> state=down reason="Removed from cluster"
+   sinfo -n <node-to-remove>
+   squeue -w <node-to-remove>
 
+Wait for all jobs on the node to complete. If immediate removal is needed,
+cancel running jobs:
 
+.. code-block:: bash
+   :caption: Run on: Slurm control node
 
-#. **Stop Slurm services on the target node**:
-
-   .. code-block:: bash
-      :caption: Run on: node being removed
-
-      systemctl stop slurmd
-      systemctl disable slurmd
-      systemctl stop munge
-      systemctl disable munge
+   # Cancel all jobs on the target node
+   scancel -w <node-to-remove>
 
 
 
-#. **Remove the node from slurm.conf** on the control node:
+3. Set the node to down:
 
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
+.. code-block:: bash
+   :caption: Run on: Slurm control node
 
-      vi /etc/slurm/slurm.conf
-
-
-
-   Remove or comment out the ``NodeName=`` line for the target node. Also
-   update the ``PartitionName=`` line to remove the node from the ``Nodes=``
-   list.
-
-#. **Reconfigure Slurm** to apply changes:
-
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
-
-      scontrol reconfigure
+   scontrol update nodename=<node-to-remove> state=down reason="Removed from cluster"
 
 
 
-#. **(Optional) Remove the node from the mapping file**:
+4. Stop Slurm services on the target node:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: node being removed
 
-      vi /opt/omnia/input/project_default/pxe_mapping_file.csv
+   systemctl stop slurmd
+   systemctl disable slurmd
+   systemctl stop munge
+   systemctl disable munge
 
 
 
-   Remove or comment out the row for the decommissioned node.
+5. Remove the node from slurm.conf on the control node:
+
+.. code-block:: bash
+   :caption: Run on: Slurm control node
+
+   vi /etc/slurm/slurm.conf
+
+Remove or comment out the ``NodeName=`` line for the target node. Also
+update the ``PartitionName=`` line to remove the node from the ``Nodes=``
+list.
+
+6. Reconfigure Slurm to apply changes:
+
+.. code-block:: bash
+   :caption: Run on: Slurm control node
+
+   scontrol reconfigure
+
+
+
+7. (Optional) Remove the node from the mapping file:
+
+.. code-block:: bash
+   :caption: Run on: omnia_core container
+
+   vi /opt/omnia/input/project_default/pxe_mapping_file.csv
+
+Remove or comment out the row for the decommissioned node.
 
 
 
@@ -134,33 +127,29 @@ Verification
 ------------
 
 
-#. **Confirm the node is no longer in the cluster**:
+1. Confirm the node is no longer in the cluster:
 
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
+.. code-block:: bash
+   :caption: Run on: Slurm control node
 
-      sinfo
-      scontrol show nodes
+   sinfo
+   scontrol show nodes
 
+The removed node should no longer appear.
 
+2. Run a test job to confirm remaining nodes are functional:
 
-   The removed node should no longer appear.
+.. code-block:: bash
+   :caption: Run on: Slurm control node
 
-#. **Run a test job** to confirm remaining nodes are functional:
+   srun -N 1 hostname
 
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
+3. Verify no orphaned jobs reference the removed node:
 
-      srun -N 1 hostname
+.. code-block:: bash
+   :caption: Run on: Slurm control node
 
-
-
-#. **Verify no orphaned jobs** reference the removed node:
-
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
-
-      squeue -t all
+   squeue -t all
 
 
 
@@ -183,39 +172,34 @@ Troubleshooting
 
 
 **Node still appears in sinfo after removal**
-   Ensure you ran ``scontrol reconfigure`` after editing ``slurm.conf``:
-
+Ensure you ran ``scontrol reconfigure`` after editing ``slurm.conf``:
 
 .. code-block:: bash
    :caption: Run on: Slurm control node
 
-      scontrol reconfigure
+   scontrol reconfigure
 
 
 
 **Jobs were running on the removed node**
-   If jobs were not properly drained, they may show as ``FAILED`` or
-   ``NODE_FAIL`` in the accounting:
-
+If jobs were not properly drained, they may show as ``FAILED`` or
+``NODE_FAIL`` in the accounting:
 
 .. code-block:: bash
    :caption: Run on: Slurm control node
 
-      sacct --starttime=today --state=FAILED,NODE_FAIL
+   sacct --starttime=today --state=FAILED,NODE_FAIL
 
-
-
-   Resubmit affected jobs as needed.
+Resubmit affected jobs as needed.
 
 **slurm.conf syntax error after editing**
-   Validate the configuration:
-
+Validate the configuration:
 
 .. code-block:: bash
    :caption: Run on: Slurm control node
 
-      slurmd -C  # Show computed node configuration
-      slurmctld -t  # Test configuration file syntax
+   slurmd -C  # Show computed node configuration
+   slurmctld -t  # Test configuration file syntax
 
 
 

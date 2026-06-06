@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../_static/documentation_options.js?v=392da36c"></script>
+    <script src="../_static/documentation_options.js?v=f35be339"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -498,20 +498,16 @@ ensure your hardware, networking, and software environment are ready.</p>
 </section>
 <section id="which-path-should-i-choose">
 <h2>Which Path Should I Choose?<a class="headerlink" href="#which-path-should-i-choose" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt><strong>“I just want Slurm running as fast as possible.”</strong></dt><dd><p>Start with <a class="reference internal" href="slurm_quickstart.html"><span class="doc">Slurm Quickstart</span></a> (Path A). You can always add
-Kubernetes and telemetry later.</p>
-</dd>
-<dt><strong>“I need a production cluster with monitoring and authentication.”</strong></dt><dd><p>Go with <a class="reference internal" href="full_deployment.html"><span class="doc">Full Deployment</span></a> (Path B). This is the canonical Omnia
-deployment that exercises every major subsystem.</p>
-</dd>
-<dt><strong>“I only need telemetry dashboards – no job scheduler.”</strong></dt><dd><p>Choose <a class="reference internal" href="k8s_telemetry_only.html"><span class="doc">K8S Telemetry Only</span></a> (Path C). This gives you
-iDRAC-to-Grafana visibility without the overhead of Slurm.</p>
-</dd>
-<dt><strong>“I want CI/CD-driven, repeatable infrastructure.”</strong></dt><dd><p>Use <a class="reference internal" href="buildstream_deployment.html"><span class="doc">Buildstream Deployment</span></a> (Path D). BuildStreaM automates the
-entire lifecycle through GitLab pipelines and a declarative catalog.</p>
-</dd>
-</dl>
+<ul class="simple">
+<li><p><strong>“I just want Slurm running as fast as possible.”</strong>
+Start with <a class="reference internal" href="slurm_quickstart.html"><span class="doc">Slurm Quickstart</span></a> (Path A). You can always add Kubernetes and telemetry later.</p></li>
+<li><p><strong>“I need a production cluster with monitoring and authentication.”</strong>
+Go with <a class="reference internal" href="full_deployment.html"><span class="doc">Full Deployment</span></a> (Path B). This is the canonical Omnia deployment that exercises every major subsystem.</p></li>
+<li><p><strong>“I only need telemetry dashboards – no job scheduler.”</strong>
+Choose <a class="reference internal" href="k8s_telemetry_only.html"><span class="doc">K8S Telemetry Only</span></a> (Path C). This gives you iDRAC-to-Grafana visibility without the overhead of Slurm.</p></li>
+<li><p><strong>“I want CI/CD-driven, repeatable infrastructure.”</strong>
+Use <a class="reference internal" href="buildstream_deployment.html"><span class="doc">Buildstream Deployment</span></a> (Path D). BuildStreaM automates the entire lifecycle through GitLab pipelines and a declarative catalog.</p></li>
+</ul>
 </section>
 <section id="before-you-begin">
 <h2>Before You Begin<a class="headerlink" href="#before-you-begin" title="Link to this heading">#</a></h2>
@@ -610,7 +606,7 @@ day-of-deployment runbook you can hand to a datacenter technician.</p>
 </li>
 </ul>
 </div>
-<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+<p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>
 
@@ -692,7 +688,7 @@ day-of-deployment runbook you can hand to a datacenter technician.</p>
 
   <p class="copyright">
     
-      © Copyright 2025, Dell Technologies.
+      © Copyright Dell Technologies.
       <br/>
     
   </p>

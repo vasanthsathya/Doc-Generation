@@ -219,7 +219,7 @@ Step 5 -- Prepare the OIM
 
 
 
-**5a. Edit** `network_spec.yml`
+5a. Edit `network_spec.yml`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -250,7 +250,7 @@ Step 5 -- Prepare the OIM
 
 
 
-**5b. Edit** `provision_config.yml`
+5b. Edit `provision_config.yml`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -274,7 +274,7 @@ Step 5 -- Prepare the OIM
 
 
 
-**5c. Edit** `ha_config.yml`
+5c. Edit `ha_config.yml`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -286,10 +286,8 @@ Step 5 -- Prepare the OIM
 
 
 
-
-**Example ha_config.yml**
-
 .. code-block:: yaml
+   :caption: Example ha_config.yml
 
    # Virtual IP for K8s API HA -- must be unused on the admin network
    k8s_vip: 10.5.0.250
@@ -306,7 +304,7 @@ Step 5 -- Prepare the OIM
 
 
 
-**5d. Run** `prepare_oim.yml`
+5d. Run `prepare_oim.yml`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -488,8 +486,8 @@ This playbook:
 - Deploys ``kube-vip`` for API server HA.
 - Installs Calico CNI and MetalLB.
 
-   .. code-block:: shell
-      :caption: Run on OIM (inside omnia_core container)
+.. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    # Verify the K8s cluster
    export KUBECONFIG=/opt/omnia/k8s/admin.conf
@@ -499,10 +497,8 @@ This playbook:
 
 Expected output (all nodes ``Ready``):
 
-
-**Expected output**
-
 .. code-block:: text
+   :caption: Expected output
 
    NAME        STATUS   ROLES           AGE   VERSION
    kube-cp01   Ready    control-plane   10m   v1.28.x
@@ -579,18 +575,16 @@ With the K8s cluster operational, deploy the full telemetry pipeline.
    .. code-block:: shell
       :caption: Run on OIM (inside omnia_core container)
 
-   # Verify all telemetry pods are running
-   export KUBECONFIG=/opt/omnia/k8s/admin.conf
-   kubectl get pods -n omnia-telemetry
+      # Verify all telemetry pods are running
+      export KUBECONFIG=/opt/omnia/k8s/admin.conf
+      kubectl get pods -n omnia-telemetry
 
 
 
 Expected output (all pods ``Running`` or ``Completed``):
 
-
-**Expected output**
-
 .. code-block:: text
+   :caption: Expected output
 
    NAME                                  READY   STATUS    RESTARTS   AGE
    grafana-6b8c4f7d9-xk2p4              1/1     Running   0          5m
@@ -616,7 +610,8 @@ Step 13 -- Verify the Telemetry Pipeline
 ----------------------------------------
 
 
-**13a. Access Grafana**
+13a. Access Grafana
+~~~~~~~~~~~~~~~~~~~~~
 
 Open a browser and navigate to ``http://<k8s_vip>:3000`` (e.g.,
 ``http://10.5.0.250:3000``). Log in with:
@@ -632,7 +627,8 @@ You should see pre-built dashboards in the **Omnia** folder:
 - **System Metrics** -- CPU, memory, disk, and network utilization.
 
 
-**13b. Verify data flow**
+13b. Verify data flow
+~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: shell
@@ -663,7 +659,8 @@ You should see pre-built dashboards in the **Omnia** folder:
       is not sufficient for streaming telemetry).
 
 
-**13c. Verify iDRAC metrics specifically**
+13c. Verify iDRAC metrics specifically
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 .. code-block:: shell
@@ -678,12 +675,13 @@ You should see pre-built dashboards in the **Omnia** folder:
 You should see metric results with labels identifying each server by
 service tag and BMC IP.
 
-**13d. Test alerting (optional)**
+13d. Test alerting (optional)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In Grafana, navigate to **Alerting > Alert Rules** to see the default
+In Grafana, navigate to **Alerting** > **Alert Rules** to see the default
 Omnia alert rules (high temperature, disk failure, power anomaly). You can
 configure notification channels (email, Slack, PagerDuty) under
-**Alerting > Contact Points**.
+**Alerting** > **Contact Points**.
 
 
 

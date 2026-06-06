@@ -90,24 +90,23 @@ Container logs
 OIM services run as Podman containers. Access their logs with the ``podman
 logs`` command:
 
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+   # List all running containers
+   podman ps
 
-      # List all running containers
-      podman ps
+   # View logs for a specific container
+   podman logs omnia_core
+   podman logs ochami-smd
+   podman logs ochami-bss
+   podman logs coredhcp
 
-      # View logs for a specific container
-      podman logs omnia_core
-      podman logs ochami-smd
-      podman logs ochami-bss
-      podman logs coredhcp
+   # Follow logs in real time
+   podman logs -f omnia_core
 
-      # Follow logs in real time
-      podman logs -f omnia_core
-
-      # View only the last 100 lines
-      podman logs --tail 100 omnia_core
+   # View only the last 100 lines
+   podman logs --tail 100 omnia_core
 
 
 
@@ -140,15 +139,14 @@ OpenCHAMI logs
 
 OpenCHAMI components write structured JSON logs accessible via Podman:
 
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+   # SMD logs (node state changes)
+   podman logs ochami-smd 2>&1 | jq '.'
 
-      # SMD logs (node state changes)
-      podman logs ochami-smd 2>&1 | jq '.'
-
-      # BSS logs (boot requests)
-      podman logs ochami-bss 2>&1 | jq '.'
+   # BSS logs (boot requests)
+   podman logs ochami-bss 2>&1 | jq '.'
 
 
 
@@ -173,8 +171,8 @@ On Slurm cluster nodes, logs are stored in standard Slurm log directories:
    * - ``/var/log/slurm/slurmdbd.log``
      - Slurm database daemon log (job accounting).
 
-   .. code-block:: bash
-      :caption: Run on: Slurm nodes
+.. code-block:: bash
+   :caption: Run on: Slurm nodes
 
    # On the Slurm control node
    tail -f /var/log/slurm/slurmctld.log
@@ -191,15 +189,14 @@ Kubernetes logs
 
 On Kubernetes cluster nodes, use ``kubectl`` or ``journalctl`` to access logs:
 
+.. code-block:: bash
+   :caption: Run on: Kubernetes nodes
 
-   .. code-block:: bash
-      :caption: Run on: Kubernetes nodes
+   # Pod logs
+   kubectl logs <pod_name> -n <namespace>
 
-      # Pod logs
-      kubectl logs <pod_name> -n <namespace>
-
-      # Kubelet logs on a specific node
-      ssh <kube_node> journalctl -u kubelet -f
+   # Kubelet logs on a specific node
+   ssh <kube_node> journalctl -u kubelet -f
 
 
 
@@ -218,9 +215,8 @@ Default settings
 
 
 
-**File: /etc/logrotate.d/omnia**
-
 .. code-block:: text
+   :caption: File: /etc/logrotate.d/omnia
 
    # /etc/logrotate.d/omnia
    /opt/omnia/log/core/playbooks/*.log {
@@ -252,51 +248,44 @@ Customizing logrotate
 To adjust the rotation policy (for example, to rotate daily in high-throughput
 environments):
 
-#. Edit the logrotate configuration:
-
-   .. code-block:: bash
+1. Edit the logrotate configuration:
 
 .. code-block:: bash
 
-      vi /etc/logrotate.d/omnia
+   vi /etc/logrotate.d/omnia
 
 
 
-#. Change ``weekly`` to ``daily`` and adjust ``rotate`` to the desired number
+2. Change ``weekly`` to ``daily`` and adjust ``rotate`` to the desired number
    of files:
-
 
 .. code-block:: text
 
-      /opt/omnia/log/core/playbooks/*.log {
-          daily
-          rotate 30
-          compress
-          delaycompress
-          missingok
-          notifempty
-          create 0640 root root
-      }
+   /opt/omnia/log/core/playbooks/*.log {
+       daily
+       rotate 30
+       compress
+       delaycompress
+       missingok
+       notifempty
+       create 0640 root root
+   }
 
 
 
-#. Test the configuration:
-
-   .. code-block:: bash
+3. Test the configuration:
 
 .. code-block:: bash
 
-      logrotate -d /etc/logrotate.d/omnia
+   logrotate -d /etc/logrotate.d/omnia
 
 
 
-#. Force an immediate rotation (optional):
-
-   .. code-block:: bash
+4. Force an immediate rotation (optional):
 
 .. code-block:: bash
 
-      logrotate -f /etc/logrotate.d/omnia
+   logrotate -f /etc/logrotate.d/omnia
 
 
 
@@ -308,10 +297,8 @@ Slurm logrotate
 Slurm logs are rotated separately. Omnia installs a Slurm-specific logrotate
 configuration on the control node:
 
-
-**File: /etc/logrotate.d/slurm**
-
 .. code-block:: text
+   :caption: File: /etc/logrotate.d/slurm
 
    # /etc/logrotate.d/slurm
    /var/log/slurm/*.log {
@@ -338,10 +325,8 @@ Sample log output
 
 A sample of the ``omnia.log`` is provided below:
 
-
-**Sample omnia.log output**
-
 .. code-block:: text
+   :caption: Sample omnia.log output
 
    2021-02-15 15:17:36,877 p=2778 u=omnia n=ansible | [WARNING]: provided hosts
    list is empty, only localhost is available. Note that the implicit localhost does not

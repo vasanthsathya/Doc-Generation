@@ -95,9 +95,8 @@ Usage example
 
 
 
-**File: /opt/omnia/input/project_default/high_availability_config.yml**
-
 .. code-block:: yaml
+   :caption: File: /opt/omnia/input/project_default/high_availability_config.yml
 
    ha_enabled: true
    ha_virtual_ip: "10.5.0.250"

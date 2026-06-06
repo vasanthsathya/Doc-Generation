@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../_static/documentation_options.js?v=392da36c"></script>
+    <script src="../_static/documentation_options.js?v=f35be339"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -529,8 +529,7 @@ second terminal on the OIM host:</p>
 <h3>Container logs<a class="headerlink" href="#container-logs" title="Link to this heading">#</a></h3>
 <p>OIM services run as Podman containers. Access their logs with the <code class="docutils literal notranslate"><span class="pre">podman</span>
 <span class="pre">logs</span></code> command:</p>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id1">
+<div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List all running containers</span>
 podman<span class="w"> </span>ps
@@ -549,7 +548,6 @@ podman<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w">
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Container</p></th>
@@ -579,8 +577,7 @@ podman<span class="w"> </span>logs<span class="w"> </span>--tail<span class="w">
 <section id="openchami-logs">
 <h3>OpenCHAMI logs<a class="headerlink" href="#openchami-logs" title="Link to this heading">#</a></h3>
 <p>OpenCHAMI components write structured JSON logs accessible via Podman:</p>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id2">
+<div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># SMD logs (node state changes)</span>
 podman<span class="w"> </span>logs<span class="w"> </span>ochami-smd<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.&#39;</span>
@@ -590,18 +587,45 @@ podman<span class="w"> </span>logs<span class="w"> </span>ochami-bss<span class=
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 </section>
 <section id="slurm-logs">
 <h3>Slurm logs<a class="headerlink" href="#slurm-logs" title="Link to this heading">#</a></h3>
 <p>On Slurm cluster nodes, logs are stored in standard Slurm log directories:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Path</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/var/log/slurm/slurmctld.log</span></code></p></td>
+<td><p>Slurm controller daemon log (on the control node).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/var/log/slurm/slurmd.log</span></code></p></td>
+<td><p>Slurm compute daemon log (on each compute node).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/var/log/slurm/slurmdbd.log</span></code></p></td>
+<td><p>Slurm database daemon log (job accounting).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm nodes</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># On the Slurm control node</span>
+tail<span class="w"> </span>-f<span class="w"> </span>/var/log/slurm/slurmctld.log
+
+<span class="c1"># On a compute node</span>
+tail<span class="w"> </span>-f<span class="w"> </span>/var/log/slurm/slurmd.log
+</pre></div>
+</div>
+</div>
 </section>
 <section id="kubernetes-logs">
 <h3>Kubernetes logs<a class="headerlink" href="#kubernetes-logs" title="Link to this heading">#</a></h3>
 <p>On Kubernetes cluster nodes, use <code class="docutils literal notranslate"><span class="pre">kubectl</span></code> or <code class="docutils literal notranslate"><span class="pre">journalctl</span></code> to access logs:</p>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Run on: Kubernetes nodes</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on: Kubernetes nodes</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pod logs</span>
 kubectl<span class="w"> </span>logs<span class="w"> </span>&lt;pod_name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
 
@@ -610,7 +634,6 @@ ssh<span class="w"> </span>&lt;kube_node&gt;<span class="w"> </span>journalctl<s
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 </section>
 </section>
 <section id="logrotate-configuration">
@@ -619,7 +642,8 @@ ssh<span class="w"> </span>&lt;kube_node&gt;<span class="w"> </span>journalctl<s
 disk exhaustion. The default configuration rotates logs based on size and age.</p>
 <section id="default-settings">
 <h3>Default settings<a class="headerlink" href="#default-settings" title="Link to this heading">#</a></h3>
-<p><strong>File: /etc/logrotate.d/omnia</strong></p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">File: /etc/logrotate.d/omnia</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span># /etc/logrotate.d/omnia
 /opt/omnia/log/core/playbooks/*.log {
     weekly
@@ -631,6 +655,7 @@ disk exhaustion. The default configuration rotates logs based on size and age.</
     create 0640 root root
 }
 </pre></div>
+</div>
 </div>
 <p>This configuration:</p>
 <ul class="simple">
@@ -644,17 +669,13 @@ disk exhaustion. The default configuration rotates logs based on size and age.</
 <h3>Customizing logrotate<a class="headerlink" href="#customizing-logrotate" title="Link to this heading">#</a></h3>
 <p>To adjust the rotation policy (for example, to rotate daily in high-throughput
 environments):</p>
-<ol class="arabic">
-<li><p>Edit the logrotate configuration:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</li>
+<ol class="arabic simple">
+<li><p>Edit the logrotate configuration:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/etc/logrotate.d/omnia
 </pre></div>
 </div>
-<ol class="arabic simple">
+<ol class="arabic simple" start="2">
 <li><p>Change <code class="docutils literal notranslate"><span class="pre">weekly</span></code> to <code class="docutils literal notranslate"><span class="pre">daily</span></code> and adjust <code class="docutils literal notranslate"><span class="pre">rotate</span></code> to the desired number
 of files:</p></li>
 </ol>
@@ -669,22 +690,14 @@ of files:</p></li>
 }
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p>Test the configuration:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</li>
+<ol class="arabic simple" start="3">
+<li><p>Test the configuration:</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>logrotate<span class="w"> </span>-d<span class="w"> </span>/etc/logrotate.d/omnia
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p>Force an immediate rotation (optional):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</li>
+<ol class="arabic simple" start="4">
+<li><p>Force an immediate rotation (optional):</p></li>
 </ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>logrotate<span class="w"> </span>-f<span class="w"> </span>/etc/logrotate.d/omnia
 </pre></div>
@@ -694,7 +707,8 @@ of files:</p></li>
 <h3>Slurm logrotate<a class="headerlink" href="#slurm-logrotate" title="Link to this heading">#</a></h3>
 <p>Slurm logs are rotated separately. Omnia installs a Slurm-specific logrotate
 configuration on the control node:</p>
-<p><strong>File: /etc/logrotate.d/slurm</strong></p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">File: /etc/logrotate.d/slurm</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span># /etc/logrotate.d/slurm
 /var/log/slurm/*.log {
     weekly
@@ -711,12 +725,14 @@ configuration on the control node:</p>
 }
 </pre></div>
 </div>
+</div>
 </section>
 </section>
 <section id="sample-log-output">
 <h2>Sample log output<a class="headerlink" href="#sample-log-output" title="Link to this heading">#</a></h2>
 <p>A sample of the <code class="docutils literal notranslate"><span class="pre">omnia.log</span></code> is provided below:</p>
-<p><strong>Sample omnia.log output</strong></p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Sample omnia.log output</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2021-02-15 15:17:36,877 p=2778 u=omnia n=ansible | [WARNING]: provided hosts
 list is empty, only localhost is available. Note that the implicit localhost does not
 match &#39;all&#39;
@@ -729,6 +745,7 @@ match &#39;all&#39;
 **************************************************************************************
 2021-02-15 15:17:38,969 p=2778 u=omnia n=ansible | ok: [localhost]
 </pre></div>
+</div>
 </div>
 <p>These logs are intended to enable debugging.</p>
 <div class="admonition note">
@@ -814,7 +831,7 @@ as a primary diagnostic tool.</p></li>
 <li><p><a class="reference internal" href="best_practices_checklist.html"><span class="doc">Best Practices Checklist</span></a> – Storage and maintenance best practices.</p></li>
 </ul>
 </div>
-<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+<p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>
 
@@ -910,7 +927,7 @@ as a primary diagnostic tool.</p></li>
 
   <p class="copyright">
     
-      © Copyright 2025, Dell Technologies.
+      © Copyright Dell Technologies.
       <br/>
     
   </p>

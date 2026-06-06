@@ -44,114 +44,106 @@ Procedure
 ---------
 
 
-#. **Configure the primary server** (provider) for replication:
+1. Configure the primary server (provider) for replication:
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-      podman exec -it omnia_auth bash
-
-
-
+   podman exec -it omnia_auth bash
 
 .. code-block:: bash
    :caption: Run on: omnia_auth container (primary)
 
-      cat <<'EOF' > /tmp/enable_syncprov.ldif
-      dn: cn=module{0},cn=config
-      changetype: modify
-      add: olcModuleLoad
-      olcModuleLoad: syncprov
+   cat <<'EOF' > /tmp/enable_syncprov.ldif
+   dn: cn=module{0},cn=config
+   changetype: modify
+   add: olcModuleLoad
+   olcModuleLoad: syncprov
 
-      dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config
-      changetype: add
-      objectClass: olcOverlayConfig
-      objectClass: olcSyncProvConfig
-      olcOverlay: syncprov
-      olcSyncProvCheckpoint: 50 10
-      olcSyncProvSessionlog: 100
-      EOF
+   dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config
+   changetype: add
+   objectClass: olcOverlayConfig
+   objectClass: olcSyncProvConfig
+   olcOverlay: syncprov
+   olcSyncProvCheckpoint: 50 10
+   olcSyncProvSessionlog: 100
+   EOF
 
-      ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /tmp/enable_syncprov.ldif
-
-
-
-#. **Create a replication service account** on the primary:
-
-   .. code-block:: bash
-      :caption: Run on: omnia_auth container (primary)
-
-      cat <<'EOF' > /tmp/repl_user.ldif
-      dn: cn=replicator,dc=omnia,dc=example,dc=com
-      objectClass: simpleSecurityObject
-      objectClass: organizationalRole
-      cn: replicator
-      userPassword: {SSHA}ReplicaPassword
-      EOF
-
-      ldapadd -x -D "cn=admin,dc=omnia,dc=example,dc=com" -W -f /tmp/repl_user.ldif
+   ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /tmp/enable_syncprov.ldif
 
 
 
-#. **Configure the replica** (consumer) server:
+2. Create a replication service account on the primary:
 
-   .. code-block:: bash
-      :caption: Run on: replica LDAP server
+.. code-block:: bash
+   :caption: Run on: omnia_auth container (primary)
 
-      cat <<'EOF' > /tmp/syncrepl.ldif
-      dn: olcDatabase={1}mdb,cn=config
-      changetype: modify
-      add: olcSyncRepl
-      olcSyncRepl: rid=001
-        provider=ldap://<primary-oim-ip>:389
-        bindmethod=simple
-        binddn="cn=replicator,dc=omnia,dc=example,dc=com"
-        credentials=ReplicaPassword
-        searchbase="dc=omnia,dc=example,dc=com"
-        scope=sub
-        schemachecking=on
-        type=refreshAndPersist
-        retry="30 5 300 3"
-        interval=00:00:05:00
-      EOF
+   cat <<'EOF' > /tmp/repl_user.ldif
+   dn: cn=replicator,dc=omnia,dc=example,dc=com
+   objectClass: simpleSecurityObject
+   objectClass: organizationalRole
+   cn: replicator
+   userPassword: {SSHA}ReplicaPassword
+   EOF
 
-      ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /tmp/syncrepl.ldif
+   ldapadd -x -D "cn=admin,dc=omnia,dc=example,dc=com" -W -f /tmp/repl_user.ldif
 
 
 
-   Replace ``<primary-oim-ip>`` with the actual IP of the OIM.
+3. Configure the replica (consumer) server:
 
-#. **Configure SSSD on cluster nodes** to use both LDAP servers:
+.. code-block:: bash
+   :caption: Run on: replica LDAP server
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+   cat <<'EOF' > /tmp/syncrepl.ldif
+   dn: olcDatabase={1}mdb,cn=config
+   changetype: modify
+   add: olcSyncRepl
+   olcSyncRepl: rid=001
+     provider=ldap://<primary-oim-ip>:389
+     bindmethod=simple
+     binddn="cn=replicator,dc=omnia,dc=example,dc=com"
+     credentials=ReplicaPassword
+     searchbase="dc=omnia,dc=example,dc=com"
+     scope=sub
+     schemachecking=on
+     type=refreshAndPersist
+     retry="30 5 300 3"
+     interval=00:00:05:00
+   EOF
 
-      vi /opt/omnia/input/project_default/omnia_config.yml
+   ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /tmp/syncrepl.ldif
 
+Replace ``<primary-oim-ip>`` with the actual IP of the OIM.
 
+4. Configure SSSD on cluster nodes to use both LDAP servers:
 
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-**File: /opt/omnia/input/project_default/omnia_config.yml**
+   vi /opt/omnia/input/project_default/omnia_config.yml
+
 
 .. code-block:: yaml
+   :caption: File: /opt/omnia/input/project_default/omnia_config.yml
 
-      ---
-      ldap_uris:
-        - "ldap://<primary-oim-ip>"
-        - "ldap://<replica-ip>"
-
-
-
+   ---
+   ldap_uris:
+     - "ldap://<primary-oim-ip>"
+     - "ldap://<replica-ip>"
 
 
 
-#. **Re-run the auth playbook** to update SSSD configuration:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
 
-      cd /omnia
-      ansible-playbook auth.yml --ask-vault-pass
+
+5. Re-run the auth playbook to update SSSD configuration:
+
+.. code-block:: bash
+   :caption: Run on: omnia_core container
+
+   cd /omnia
+   ansible-playbook auth.yml --ask-vault-pass
 
 
 
@@ -161,77 +153,64 @@ Verification
 ------------
 
 
-#. **Verify replication status** on the replica:
-
-   .. code-block:: bash
-      :caption: Run on: replica LDAP server
-
-      ldapsearch -x -H ldap://localhost -b "dc=omnia,dc=example,dc=com" "(uid=testuser)"
-
-
-
-   The user created on the primary should be visible on the replica.
-
-#. **Add a user on the primary** and verify it replicates:
-
-   .. code-block:: bash
-      :caption: Run on: omnia_auth container (primary)
-
-      cat <<'EOF' > /tmp/new_user.ldif
-      dn: uid=repltest,ou=People,dc=omnia,dc=example,dc=com
-      objectClass: inetOrgPerson
-      objectClass: posixAccount
-      uid: repltest
-      cn: Replication Test
-      sn: Test
-      uidNumber: 10099
-      gidNumber: 10099
-      homeDirectory: /home/repltest
-      loginShell: /bin/bash
-      EOF
-
-      ldapadd -x -D "cn=admin,dc=omnia,dc=example,dc=com" -W -f /tmp/new_user.ldif
-
-
-
-   Then check the replica:
-
+1. Verify replication status on the replica:
 
 .. code-block:: bash
    :caption: Run on: replica LDAP server
 
-      ldapsearch -x -H ldap://localhost -b "dc=omnia,dc=example,dc=com" "(uid=repltest)"
+   ldapsearch -x -H ldap://localhost -b "dc=omnia,dc=example,dc=com" "(uid=testuser)"
+
+The user created on the primary should be visible on the replica.
+
+2. Add a user on the primary and verify it replicates:
+
+.. code-block:: bash
+   :caption: Run on: omnia_auth container (primary)
+
+   cat <<'EOF' > /tmp/new_user.ldif
+   dn: uid=repltest,ou=People,dc=omnia,dc=example,dc=com
+   objectClass: inetOrgPerson
+   objectClass: posixAccount
+   uid: repltest
+   cn: Replication Test
+   sn: Test
+   uidNumber: 10099
+   gidNumber: 10099
+   homeDirectory: /home/repltest
+   loginShell: /bin/bash
+   EOF
+
+   ldapadd -x -D "cn=admin,dc=omnia,dc=example,dc=com" -W -f /tmp/new_user.ldif
+
+Then check the replica:
+
+.. code-block:: bash
+   :caption: Run on: replica LDAP server
+
+   ldapsearch -x -H ldap://localhost -b "dc=omnia,dc=example,dc=com" "(uid=repltest)"
 
 
 
-#. **Test failover** by stopping the primary and verifying authentication
-   still works:
-
+3. Test failover by stopping the primary and verifying authentication still works:
 
 .. code-block:: bash
    :caption: Run on: OIM host
 
-      podman stop omnia_auth
-
-
-
+   podman stop omnia_auth
 
 .. code-block:: bash
    :caption: Run on: compute node
 
-      # SSSD should failover to the replica
-      id testuser
-      ssh testuser@localhost
+   # SSSD should failover to the replica
+   id testuser
+   ssh testuser@localhost
 
-
-
-   Remember to restart the primary:
-
+Remember to restart the primary:
 
 .. code-block:: bash
    :caption: Run on: OIM host
 
-      podman start omnia_auth
+   podman start omnia_auth
 
 
 
@@ -252,13 +231,12 @@ Troubleshooting
 
 
 **Replica does not receive updates**
-   Check the syncrepl connection from the replica logs:
-
+Check the syncrepl connection from the replica logs:
 
 .. code-block:: bash
    :caption: Run on: replica LDAP server
 
-      journalctl -u slapd --no-pager -n 30
+   journalctl -u slapd --no-pager -n 30
 
 
 
@@ -267,31 +245,25 @@ Troubleshooting
    configuration and the consumer's syncrepl credentials.
 
 **Data is stale on the replica**
-   Force a full resync by removing and re-adding the syncrepl configuration:
-
+Force a full resync by removing and re-adding the syncrepl configuration:
 
 .. code-block:: bash
    :caption: Run on: replica LDAP server
 
-      ldapmodify -Q -Y EXTERNAL -H ldapi:/// <<'EOF'
-      dn: olcDatabase={1}mdb,cn=config
-      changetype: modify
-      delete: olcSyncRepl
-      EOF
+   ldapmodify -Q -Y EXTERNAL -H ldapi:/// <<'EOF'
+   dn: olcDatabase={1}mdb,cn=config
+   changetype: modify
+   delete: olcSyncRepl
+   EOF
 
-
-
-   Then re-apply the syncrepl configuration from step 3.
+Then re-apply the syncrepl configuration from step 3.
 
 **SSSD does not failover to the replica**
-   Check the SSSD configuration on the compute node:
-
+Check the SSSD configuration on the compute node:
 
 .. code-block:: bash
    :caption: Run on: compute node
 
-      cat /etc/sssd/sssd.conf | grep ldap_uri
+   cat /etc/sssd/sssd.conf | grep ldap_uri
 
-
-
-   Ensure both LDAP URIs are listed with the primary first.
+Ensure both LDAP URIs are listed with the primary first.

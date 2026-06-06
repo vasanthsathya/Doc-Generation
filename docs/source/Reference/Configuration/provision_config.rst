@@ -95,11 +95,8 @@ Parameter reference
 Usage example
 -------------
 
-
-
-**File: /opt/omnia/input/project_default/provision_config.yml**
-
 .. code-block:: yaml
+   :caption: File: /opt/omnia/input/project_default/provision_config.yml
 
    pxe_mapping_file_path: "/opt/omnia/input/project_default/pxe_mapping.csv"
    timezone: "America/Chicago"

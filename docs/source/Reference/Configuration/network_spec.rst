@@ -19,9 +19,9 @@ Top-level structure
 YAML list of network definitions.
 
 
-**File: /opt/omnia/input/project_default/network_spec.yml**
 
 .. code-block:: yaml
+   :caption: File: /opt/omnia/input/project_default/network_spec.yml
 
    Networks:
      - admin_network:
@@ -220,9 +220,8 @@ Usage example
 
 
 
-**File: /opt/omnia/input/project_default/network_spec.yml**
-
 .. code-block:: yaml
+   :caption: File: /opt/omnia/input/project_default/network_spec.yml
 
    Networks:
      - admin_network:

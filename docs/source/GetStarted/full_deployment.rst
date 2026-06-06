@@ -205,7 +205,7 @@ Step 5 -- Prepare the OIM
 
 
 
-**5a. Edit** `network_spec.yml`
+5a. Edit `network_spec.yml`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -218,9 +218,8 @@ Step 5 -- Prepare the OIM
 
 
 
-**Example network_spec.yml for full deployment**
-
 .. code-block:: yaml
+   :caption: Example network_spec.yml for full deployment
 
    admin_network:
      nic: eno2
@@ -244,7 +243,7 @@ Step 5 -- Prepare the OIM
 
 
 
-**5b. Edit** `provision_config.yml`
+5b. Edit `provision_config.yml`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -257,9 +256,8 @@ Step 5 -- Prepare the OIM
 
 
 
-**Example provision_config.yml excerpt**
-
 .. code-block:: yaml
+   :caption: Example provision_config.yml excerpt
 
    iso_path: /opt/isos/RHEL-8.8-x86_64-dvd.iso
    timezone: America/Chicago
@@ -268,7 +266,7 @@ Step 5 -- Prepare the OIM
 
 
 
-**5c. Edit** `ha_config.yml` **(K8s HA)**
+5c. Edit `ha_config.yml` (K8s HA)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -284,9 +282,8 @@ to provide HA access to the Kubernetes API server.
 
 
 
-**Example ha_config.yml**
-
 .. code-block:: yaml
+   :caption: Example ha_config.yml
 
    # Virtual IP for the Kubernetes API server (must be unused on admin network)
    k8s_vip: 10.5.0.250
@@ -306,7 +303,7 @@ to provide HA access to the Kubernetes API server.
 
 
 
-**5d. Run** `prepare_oim.yml`
+5d. Run `prepare_oim.yml`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -348,7 +345,7 @@ Configure LDAP or FreeIPA for centralized user management across the
 entire cluster.
 
 
-**7a. Edit** `security_config.yml`
+7a. Edit `security_config.yml`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -361,9 +358,8 @@ entire cluster.
 
 
 
-**Example security_config.yml excerpt**
-
 .. code-block:: yaml
+   :caption: Example security_config.yml excerpt
 
    # Authentication method: 'freeipa' or 'ldap'
    auth_type: freeipa
@@ -390,7 +386,7 @@ entire cluster.
 
 
 
-**7b. Run** `auth.yml`
+7b. Run `auth.yml`
 ~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -420,7 +416,7 @@ Step 8 -- Configure Telemetry
 
 
 
-**8a. Edit** `telemetry_config.yml`
+8a. Edit `telemetry_config.yml`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -433,9 +429,8 @@ Step 8 -- Configure Telemetry
 
 
 
-**Example telemetry_config.yml excerpt**
-
 .. code-block:: yaml
+   :caption: Example telemetry_config.yml excerpt
 
    # Enable iDRAC telemetry collection
    idrac_telemetry: true
@@ -463,7 +458,10 @@ Step 8 -- Configure Telemetry
    metric collection. This reduces agent overhead on compute nodes.
 
 
-**8b. Telemetry will be deployed in Step 14** after the cluster is
+8b. Telemetry will be deployed in Step 14
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Telemetry will be deployed in Step 14 after the cluster is
 provisioned and K8s is running. Continue with the next step.
 
 
@@ -518,21 +516,15 @@ monitoring dashboards, and other infrastructure workloads.
 - Calico CNI installation for pod networking.
 - MetalLB setup for ``LoadBalancer`` service type support.
 
-   .. code-block:: shell
-      :caption: Run on OIM (inside omnia_core container)
+.. code-block:: shell
+   :caption: Run on OIM (inside omnia_core container)
 
    # Verify K8s cluster from OIM (kubeconfig is auto-copied)
    export KUBECONFIG=/opt/omnia/k8s/admin.conf
    kubectl get nodes
 
-
-
-Expected output (all nodes ``Ready``):
-
-
-**Expected output**
-
 .. code-block:: text
+   :caption: Expected output
 
    NAME        STATUS   ROLES           AGE   VERSION
    kube-cp01   Ready    control-plane   10m   v1.28.x
@@ -674,12 +666,8 @@ cluster (``kube-wk01``).
 
 
 
-Expected output (all pods ``Running`` or ``Completed``):
-
-
-**Expected output**
-
 .. code-block:: text
+   :caption: Expected output
 
    NAME                                  READY   STATUS    RESTARTS   AGE
    grafana-6b8c4f7d9-xk2p4              1/1     Running   0          5m

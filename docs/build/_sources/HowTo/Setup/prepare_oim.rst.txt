@@ -51,7 +51,7 @@ Procedure
 ---------
 
 
-1. **Enter the omnia_core container**:
+1. Enter the omnia_core container:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -60,21 +60,20 @@ Procedure
 
 
 
-2. **Review and edit network_spec.yml** (if not already done):
+2. Review and edit network_spec.yml (if not already done):
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
 
       vi /opt/omnia/input/project_default/network_spec.yml
+      
 
 
+3. Ensure the admin and BMC network parameters match your physical network:
 
-   Ensure the admin and BMC network parameters match your physical network:
+   .. code-block:: yaml
+      :caption: File: /opt/omnia/input/project_default/network_spec.yml
 
-
-
-.. code-block:: yaml
-   :caption: File: /opt/omnia/input/project_default/network_spec.yml 
       ---
       admin_network:
         nic_name: "eno1"
@@ -92,8 +91,7 @@ Procedure
         netmask: "255.255.255.0"
 
 
-
-3. **Review and edit provision_config.yml** (if not already done):
+4. Review and edit provision_config.yml (if not already done):
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -101,11 +99,8 @@ Procedure
       vi /opt/omnia/input/project_default/provision_config.yml
 
 
-
-
-**File: /opt/omnia/input/project_default/provision_config.yml**
-
-.. code-block:: yaml
+   .. code-block:: yaml
+      :caption: File: /opt/omnia/input/project_default/provision_config.yml
 
       ---
       timezone: "America/Chicago"
@@ -116,7 +111,7 @@ Procedure
 
 
 
-4. **Run the prepare_oim playbook**:
+5. Run the prepare_oim playbook:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -126,16 +121,15 @@ Procedure
 
 
 
-   !!! note
+   .. note::
 
        If your credentials file is encrypted with Ansible Vault, add the
        ``--ask-vault-pass`` flag:
 
+   .. code-block:: bash
+      :caption: Run on: omnia_core container
 
-.. code-block:: bash
-   :caption: Run on: omnia_core container
-
-          ansible-playbook prepare_oim.yml --ask-vault-pass
+      ansible-playbook prepare_oim.yml --ask-vault-pass
 
 
 
@@ -150,7 +144,7 @@ Procedure
   - Optionally deploys BuildStreaM and Omnia Auth containers.
 
 
-   Execution time: **15-30 minutes** depending on network speed and hardware.
+Execution time: **15-30 minutes** depending on network speed and hardware.
 
 
 
@@ -158,7 +152,7 @@ Verification
 ------------
 
 
-1. **Check the omnia.target service tree**:
+1. Check the omnia.target service tree:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -170,9 +164,8 @@ Verification
    Expected service tree:
 
 
-**Expected output on: OIM host**
-
-.. code-block:: text
+   .. code-block:: text
+      :caption: Expected output on: OIM host
 
       omnia.target
       ├─minio.service
@@ -193,7 +186,7 @@ Verification
 
 
 
-2. **Verify all services are active**:
+2. Verify all services are active:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -203,7 +196,7 @@ Verification
 
 
 
-3. **Test OpenCHAMI CLI**:
+3. Test OpenCHAMI CLI:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -215,7 +208,7 @@ Verification
    This should display the OpenCHAMI command-line help, confirming the CLI is
    installed and the services are accessible.
 
-4. **Verify Pulp is running**:
+4. Verify Pulp is running:
 
    .. code-block:: bash
       :caption: Run on: OIM host
@@ -224,7 +217,7 @@ Verification
 
 
 
-5. **Verify MinIO is accessible**:
+5. Verify MinIO is accessible:
 
    .. code-block:: bash
       :caption: Run on: omnia_core container
@@ -253,7 +246,7 @@ Troubleshooting
 
 
 **Playbook fails with "network interface not found"**
-   Verify the ``nic_name`` in ``network_spec.yml`` matches the actual interface
+Verify the ``nic_name`` in ``network_spec.yml`` matches the actual interface
    names on the OIM:
 
 
@@ -265,7 +258,7 @@ Troubleshooting
 
 
 **OpenCHAMI services fail to start**
-   Check the OpenCHAMI container logs:
+Check the OpenCHAMI container logs:
 
 
 .. code-block:: bash
@@ -278,7 +271,7 @@ Troubleshooting
 
 
 **Pulp container fails to start**
-   Ensure sufficient disk space is available (Pulp requires significant storage
+Ensure sufficient disk space is available (Pulp requires significant storage
    for repository synchronization):
 
 
@@ -290,7 +283,7 @@ Troubleshooting
 
 
 **Port conflicts**
-   Ensure no other services are listening on ports used by OIM services
+Ensure no other services are listening on ports used by OIM services
    (DHCP: 67, TFTP: 69, HTTP: 80/8080, MinIO: 9000):
 
 
@@ -302,4 +295,4 @@ Troubleshooting
 
 
 **Playbook fails at credentials step**
-   Ensure you pass ``--ask-vault-pass`` and enter the correct Vault password.
+Ensure you pass ``--ask-vault-pass`` and enter the correct Vault password.

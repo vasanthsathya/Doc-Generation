@@ -44,43 +44,41 @@ Verify Node Connectivity
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-#. **Ping all nodes** from the omnia_core container:
+1. Ping all nodes from the omnia_core container:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      ansible all -m ping
-
-
-
-   Expected output for each node:
-
-
-**Expected output on: omnia_core container**
-
-.. code-block:: text
-
-      10.5.0.101 | SUCCESS => {
-          "ping": "pong"
-      }
+   ansible all -m ping
 
 
 
-#. **Check OS version on all nodes**:
+Expected output for each node:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      ansible all -m shell -a "cat /etc/os-release | grep PRETTY_NAME"
+   10.5.0.101 | SUCCESS => {
+      "ping": "pong"
+   }
 
 
 
-#. **Check hostnames are correctly set**:
+2. Check OS version on all nodes:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      ansible all -m shell -a "hostname"
+   ansible all -m shell -a "cat /etc/os-release | grep PRETTY_NAME"
+
+
+
+3. Check hostnames are correctly set:
+
+.. code-block:: bash
+   :caption: Run on: omnia_core container
+
+   ansible all -m shell -a "hostname"
 
 
 
@@ -90,12 +88,12 @@ Verify Slurm
 ~~~~~~~~~~~~
 
 
-#. **SSH to the Slurm control node** and check the cluster status:
+1. SSH to the Slurm control node and check the cluster status:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      ssh root@<slurm-control-node-ip>
+   ssh root@<slurm-control-node-ip>
 
 
 
@@ -103,61 +101,57 @@ Verify Slurm
 .. code-block:: bash
    :caption: Run on: Slurm control node
 
-      sinfo
+   sinfo
 
 
 
-   Expected output:
+Expected output:
 
 
-**Expected output on: Slurm control node**
+.. code-block:: bash
+   :caption: Run on: Slurm control node
 
-.. code-block:: text
-
-      PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
-      normal*      up   infinite      2   idle compute[01-02]
-
-
-
-   All nodes should show ``idle`` state. If any show ``down`` or ``drain``,
-   investigate further.
-
-#. **Run a test job** across all compute nodes:
-
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
-
-      srun -N 2 hostname
+   PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
+   normal*      up   infinite      2   idle compute[01-02]
 
 
 
-   Expected output shows the hostnames of the compute nodes that executed the
-   job:
+All nodes should show ``idle`` state. If any show ``down`` or ``drain``,
+investigate further.
+
+2. Run a test job across all compute nodes:
+
+.. code-block:: bash
+   :caption: Run on: Slurm control node
+
+   srun -N 2 hostname
 
 
-**Expected output on: Slurm control node**
-
-.. code-block:: text
-
-      compute01
-      compute02
+Expected output shows the hostnames of the compute nodes that executed the job:
 
 
+.. code-block:: bash
+   :caption: Expected output on: Slurm control node
 
-#. **Submit a batch job**:
+   compute01
+   compute02
 
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
 
-      cat <<'EOF' > /tmp/test_job.sh
-      #!/bin/bash
-      #SBATCH --job-name=test
-      #SBATCH --nodes=1
-      #SBATCH --time=00:01:00
-      echo "Hello from $(hostname) at $(date)"
-      EOF
 
-      sbatch /tmp/test_job.sh
+3. Submit a batch job:
+
+.. code-block:: bash
+   :caption: Run on: Slurm control node
+
+   cat <<'EOF' > /tmp/test_job.sh
+   #!/bin/bash
+   #SBATCH --job-name=test
+   #SBATCH --nodes=1
+   #SBATCH --time=00:01:00
+   echo "Hello from $(hostname) at $(date)"
+   EOF
+
+   sbatch /tmp/test_job.sh
 
 
 
@@ -165,20 +159,20 @@ Verify Slurm
 .. code-block:: bash
    :caption: Run on: Slurm control node
 
-      # Check job status
-      squeue
+   # Check job status
+   squeue
 
-      # View job output after completion
-      cat slurm-*.out
+   # View job output after completion
+   cat slurm-*.out
 
 
 
-#. **Verify Slurm accounting**:
+4. Verify Slurm accounting:
 
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
+.. code-block:: bash
+   :caption: Run on: Slurm control node
 
-      sacct --starttime=today
+   sacct --starttime=today
 
 
 
@@ -188,12 +182,12 @@ Verify Kubernetes
 ~~~~~~~~~~~~~~~~~
 
 
-#. **Check Kubernetes node status** from a control-plane node:
+1. Check Kubernetes node status from a control-plane node:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      ssh root@<k8s-control-plane-ip>
+   ssh root@<k8s-control-plane-ip>
 
 
 
@@ -201,47 +195,45 @@ Verify Kubernetes
 .. code-block:: bash
    :caption: Run on: K8s control plane node
 
-      kubectl get nodes
+   kubectl get nodes
 
 
 
-   Expected output:
+Expected output:
 
 
-**Expected output on: K8s control plane node**
+.. code-block:: 
+   :caption: Expected output on: K8s control plane node
 
-.. code-block:: text
-
-      NAME          STATUS   ROLES           AGE   VERSION
-      k8s-cp01      Ready    control-plane   1h    v1.28.x
-      k8s-cp02      Ready    control-plane   1h    v1.28.x
-      k8s-cp03      Ready    control-plane   1h    v1.28.x
-      k8s-worker01  Ready    <none>          1h    v1.28.x
-
+   NAME          STATUS   ROLES           AGE   VERSION
+   k8s-cp01      Ready    control-plane   1h    v1.28.x
+   k8s-cp02      Ready    control-plane   1h    v1.28.x
+   k8s-cp03      Ready    control-plane   1h    v1.28.x
+   k8s-worker01  Ready    <none>          1h    v1.28.x
 
 
-   All nodes should show ``Ready`` status.
+All nodes should show ``Ready`` status.
 
-#. **Verify core Kubernetes components**:
+2. Verify core Kubernetes components:
 
-   .. code-block:: bash
-      :caption: Run on: K8s control plane node
+.. code-block:: bash
+   :caption: Run on: K8s control plane node
 
-      kubectl get pods -A
+   kubectl get pods -A
 
 
 
-   All system pods (``kube-system``, ``calico-system``, ``metallb-system``)
-   should be ``Running``.
+All system pods (``kube-system``, ``calico-system``, ``metallb-system``)
+should be ``Running``.
 
-#. **Test pod scheduling**:
+3. Test pod scheduling:
 
-   .. code-block:: bash
-      :caption: Run on: K8s control plane node
+.. code-block:: bash
+   :caption: Run on: K8s control plane node
 
-       kubectl run test-pod --image=busybox --restart=Never -- echo "Hello from K8s"
-       kubectl logs test-pod
-       kubectl delete pod test-pod
+   kubectl run test-pod --image=busybox --restart=Never -- echo "Hello from K8s"
+   kubectl logs test-pod
+   kubectl delete pod test-pod
 
 
 
@@ -302,72 +294,76 @@ Troubleshooting
 
 
 **Ansible ping fails for some nodes**
-  - Verify SSH keys are deployed:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+- Verify SSH keys are deployed:
 
-        ssh-copy-id root@<node-ip>
+.. code-block:: bash
+   :caption: Run on: omnia_core container
+
+   ssh-copy-id root@<node-ip>
 
 
+- Check network connectivity:
 
-  - Check network connectivity:
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
-
-        ping -c 3 <node-ip>
+   ping -c 3 <node-ip>
 
 
 
 **Slurm nodes show "down" state**
-   Check the Slurm daemon on the affected compute node:
+
+Check the Slurm daemon on the affected compute node:
 
 
 .. code-block:: bash
    :caption: Run on: affected compute node
 
-      systemctl status slurmd
-      journalctl -u slurmd --no-pager -n 20
+   systemctl status slurmd
+   journalctl -u slurmd --no-pager -n 20
 
 
-
-   Resume the node from the control node:
+Resume the node from the control node:
 
 
 .. code-block:: bash
    :caption: Run on: Slurm control node
 
-      scontrol update nodename=<node> state=resume
+   scontrol update nodename=<node> state=resume
 
 
 
 **Kubernetes node shows "NotReady"**
-   Check kubelet status on the affected node:
+
+Check kubelet status on the affected node:
 
 
 .. code-block:: bash
    :caption: Run on: affected K8s node
 
-      systemctl status kubelet
-      journalctl -u kubelet --no-pager -n 20
+   systemctl status kubelet
+   journalctl -u kubelet --no-pager -n 20
 
 
 
 **Slurm srun hangs**
-  - Verify ``munge`` is running on all Slurm nodes:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+Troubleshoot this issue:
 
-        ansible slurm_cluster -m shell -a "systemctl is-active munge"
+- Verify ``munge`` is running on all Slurm nodes:
+
+.. code-block:: bash
+   :caption: Run on: omnia_core container
+
+   ansible slurm_cluster -m shell -a "systemctl is-active munge"
 
 
 
-  - Check firewall rules allow Slurm traffic (ports 6817-6819):
+- Check firewall rules allow Slurm traffic (ports 6817-6819):
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-        ansible slurm_cluster -m shell -a "firewall-cmd --list-ports"
+   ansible slurm_cluster -m shell -a "firewall-cmd --list-ports"
 

@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../_static/documentation_options.js?v=392da36c"></script>
+    <script src="../_static/documentation_options.js?v=f35be339"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -547,7 +547,7 @@ systemctl<span class="w"> </span>status<span class="w"> </span>omnia_core
 that all BuildStreaM-specific services and packages are included from the
 start.</p>
 <section id="a-edit-build-stream-config-yml">
-<h3><strong>2a. Edit</strong> <cite>build_stream_config.yml</cite><a class="headerlink" href="#a-edit-build-stream-config-yml" title="Link to this heading">#</a></h3>
+<h3>2a. Edit <cite>build_stream_config.yml</cite><a class="headerlink" href="#a-edit-build-stream-config-yml" title="Link to this heading">#</a></h3>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
@@ -555,7 +555,8 @@ vi<span class="w"> </span>/opt/omnia/input/project_default/build_stream_config.y
 </pre></div>
 </div>
 </div>
-<p><strong>Example build_stream_config.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Example build_stream_config.yml</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enable the BuildStreaM catalog-driven deployment framework</span>
 <span class="nt">build_stream_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
@@ -575,6 +576,7 @@ vi<span class="w"> </span>/opt/omnia/input/project_default/build_stream_config.y
 <span class="nt">catalog_file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;catalog.yml&quot;</span>
 </pre></div>
 </div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If you plan to use an <strong>existing</strong> GitLab instance, set <code class="docutils literal notranslate"><span class="pre">gitlab_url</span></code>
@@ -582,17 +584,20 @@ to its URL and skip Step 4. If you want Omnia to deploy GitLab for
 you on the K8s service cluster, keep the default and proceed through
 all steps.</p>
 </div>
-<p><strong>2b. Configure OAuth credentials</strong></p>
+</section>
+<section id="b-configure-oauth-credentials">
+<h3>2b. Configure OAuth credentials<a class="headerlink" href="#b-configure-oauth-credentials" title="Link to this heading">#</a></h3>
 <p>BuildStreaM authenticates with GitLab via OAuth. Generate an OAuth
 application in GitLab (or prepare to do so after GitLab is deployed in
 Step 4).</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/build_stream_oauth_credentials.yml
 </pre></div>
 </div>
 </div>
-<p><strong>Example build_stream_oauth_credentials.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Example build_stream_oauth_credentials.yml</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># OAuth Application ID from GitLab</span>
 <span class="nt">oauth_app_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
 
@@ -602,6 +607,7 @@ Step 4).</p>
 <span class="c1"># OAuth callback URL (must match GitLab OAuth app configuration)</span>
 <span class="nt">oauth_callback_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://10.5.0.10:8080/oauth/callback&quot;</span>
 </pre></div>
+</div>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -616,9 +622,10 @@ GitLab is running and you create the OAuth application.</p>
 <p>Follow the same infrastructure preparation as Path B. These steps are
 identical – BuildStreaM automates the <em>deployment</em> workflow, not the
 initial OIM setup.</p>
-<p><strong>3a. Create the mapping file</strong></p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (as root)</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<section id="a-create-the-mapping-file">
+<h3>3a. Create the mapping file<a class="headerlink" href="#a-create-the-mapping-file" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (as root)</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>&gt;<span class="w"> </span>/opt/omnia/input/project_default/mapping.csv<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
 <span class="s">FUNCTIONAL_GROUP_NAME,GROUP_NAME,SERVICE_TAG,PARENT_SERVICE_TAG,HOSTNAME,ADMIN_MAC,ADMIN_IP,BMC_MAC,BMC_IP</span>
 <span class="s">slurm_control_node,slurm,SVCTAG01,,head01,24:6E:96:CC:01:01,10.5.0.101,,10.3.0.101</span>
@@ -636,42 +643,54 @@ initial OIM setup.</p>
 <p class="admonition-title">Warning</p>
 <p>Replace all placeholder values with your actual hardware data.</p>
 </div>
-<p><strong>3b. Copy input templates</strong></p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+</section>
+<section id="b-copy-input-templates">
+<h3>3b. Copy input templates<a class="headerlink" href="#b-copy-input-templates" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>-r<span class="w"> </span>/opt/omnia/examples/input_template/bare_metal_slurm/x86_64/with_service_k8s/*<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>/opt/omnia/input/project_default/
 </pre></div>
 </div>
 </div>
-<p><strong>3c. Edit network and provisioning inputs</strong></p>
+</section>
+<section id="c-edit-network-and-provisioning-inputs">
+<h3>3c. Edit network and provisioning inputs<a class="headerlink" href="#c-edit-network-and-provisioning-inputs" title="Link to this heading">#</a></h3>
 <p>Edit <code class="docutils literal notranslate"><span class="pre">network_spec.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">provision_config.yml</span></code>, and <code class="docutils literal notranslate"><span class="pre">ha_config.yml</span></code>
 as described in <cite>Full Deployment &lt;full_deployment&gt;</cite> Steps 5a–5c.</p>
-<p><strong>3d. Set credentials</strong></p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+</section>
+<section id="d-set-credentials">
+<h3>3d. Set credentials<a class="headerlink" href="#d-set-credentials" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>credentials_utility.yml
 </pre></div>
 </div>
 </div>
-<p><strong>3e. Prepare the OIM</strong></p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+</section>
+<section id="e-prepare-the-oim">
+<h3>3e. Prepare the OIM<a class="headerlink" href="#e-prepare-the-oim" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>prepare_oim.yml<span class="w"> </span>-i<span class="w"> </span>/opt/omnia/input/project_default/mapping.csv
 </pre></div>
 </div>
 </div>
-<p><strong>3f. Verify OIM services</strong></p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+</section>
+<section id="f-verify-oim-services">
+<h3>3f. Verify OIM services<a class="headerlink" href="#f-verify-oim-services" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>list-dependencies<span class="w"> </span>omnia.target
 </pre></div>
 </div>
 </div>
-<p><strong>3g. Create local repos and build images</strong></p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+</section>
+<section id="g-create-local-repos-and-build-images">
+<h3>3g. Create local repos and build images<a class="headerlink" href="#g-create-local-repos-and-build-images" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>local_repo.yml
 ansible-playbook<span class="w"> </span>build_image_x86_64.yml
 
@@ -680,9 +699,11 @@ s3cmd<span class="w"> </span>ls<span class="w"> </span>s3://omnia-images/
 </pre></div>
 </div>
 </div>
-<p><strong>3h. Discover and provision nodes</strong></p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+</section>
+<section id="h-discover-and-provision-nodes">
+<h3>3h. Discover and provision nodes<a class="headerlink" href="#h-discover-and-provision-nodes" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>discovery.yml
 
 <span class="c1"># Verify</span>
@@ -690,9 +711,11 @@ ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </s
 </pre></div>
 </div>
 </div>
-<p><strong>3i. Deploy Kubernetes service cluster</strong></p>
-<div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
+</section>
+<section id="i-deploy-kubernetes-service-cluster">
+<h3>3i. Deploy Kubernetes service cluster<a class="headerlink" href="#i-deploy-kubernetes-service-cluster" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>k8s.yml
 
 <span class="c1"># Verify</span>
@@ -702,39 +725,37 @@ kubectl<span class="w"> </span>get<span class="w"> </span>nodes
 </div>
 </div>
 </section>
+</section>
 <section id="step-4-deploy-gitlab-on-the-service-cluster">
 <h2>Step 4 – Deploy GitLab on the Service Cluster<a class="headerlink" href="#step-4-deploy-gitlab-on-the-service-cluster" title="Link to this heading">#</a></h2>
 <p>If you do not have an existing GitLab instance, Omnia can deploy one on
 the K8s service cluster.</p>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia
 ansible-playbook<span class="w"> </span>build_stream_gitlab.yml
 </pre></div>
 </div>
 </div>
 <p>This playbook:</p>
-<ul>
+<ul class="simple">
 <li><p>Deploys GitLab CE as a Kubernetes workload on the service cluster.</p></li>
 <li><p>Configures persistent storage for Git repositories and CI/CD artifacts.</p></li>
 <li><p>Exposes GitLab on the K8s VIP at the port specified in
 <code class="docutils literal notranslate"><span class="pre">build_stream_config.yml</span></code>.</p></li>
-<li><p>Registers a GitLab Runner on the OIM for executing CI/CD pipelines.</p>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>
+<li><p>Registers a GitLab Runner on the OIM for executing CI/CD pipelines.</p></li>
+</ul>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify GitLab pods</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>/opt/omnia/k8s/admin.conf
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>gitlab
+
+<span class="c1"># Get the GitLab service URL</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>gitlab
 </pre></div>
 </div>
 </div>
-<p># Verify GitLab pods
-export KUBECONFIG=/opt/omnia/k8s/admin.conf
-kubectl get pods -n gitlab</p>
-<p># Get the GitLab service URL
-kubectl get svc -n gitlab</p>
-</div></blockquote>
-</li>
-</ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>GitLab takes 5–10 minutes to fully initialize after the pods are
@@ -742,11 +763,12 @@ kubectl get svc -n gitlab</p>
 the UI:
 <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">wait</span> <span class="pre">--for=condition=ready</span> <span class="pre">pod</span> <span class="pre">-l</span> <span class="pre">app=gitlab</span> <span class="pre">-n</span> <span class="pre">gitlab</span> <span class="pre">--timeout=600s</span></code></p>
 </div>
-<p><strong>4a. Access GitLab and create the OAuth application</strong></p>
+<section id="a-access-gitlab-and-create-the-oauth-application">
+<h3>4a. Access GitLab and create the OAuth application<a class="headerlink" href="#a-access-gitlab-and-create-the-oauth-application" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>Open <code class="docutils literal notranslate"><span class="pre">http://&lt;k8s_vip&gt;:8080</span></code> in a browser.</p></li>
 <li><p>Log in with the root credentials from the deployment output.</p></li>
-<li><p>Navigate to <strong>Admin Area &gt; Applications &gt; New Application</strong>.</p></li>
+<li><p>Navigate to <strong>Admin Area</strong> &gt; <strong>Applications</strong> &gt; <strong>New Application</strong>.</p></li>
 <li><p>Fill in:</p></li>
 </ol>
 <blockquote>
@@ -763,18 +785,22 @@ the UI:
 <ol class="arabic simple">
 <li><p>Click <strong>Save application</strong> and copy the <strong>Application ID</strong> and <strong>Secret</strong>.</p></li>
 </ol>
-<p><strong>4b. Update OAuth credentials</strong></p>
-<div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
+</section>
+<section id="b-update-oauth-credentials">
+<h3>4b. Update OAuth credentials<a class="headerlink" href="#b-update-oauth-credentials" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/build_stream_oauth_credentials.yml
 </pre></div>
 </div>
 </div>
-<p><strong>Updated build_stream_oauth_credentials.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">Updated build_stream_oauth_credentials.yml</span><a class="headerlink" href="#id20" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">oauth_app_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your-application-id-from-gitlab&quot;</span>
 <span class="nt">oauth_app_secret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your-secret-from-gitlab&quot;</span>
 <span class="nt">oauth_callback_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://10.5.0.10:8080/oauth/callback&quot;</span>
 </pre></div>
+</div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -783,15 +809,17 @@ Git repository. Use GitLab CI/CD variables (masked) for production
 environments.</p>
 </div>
 </section>
+</section>
 <section id="step-5-create-the-cluster-catalog">
 <h2>Step 5 – Create the Cluster Catalog<a class="headerlink" href="#step-5-create-the-cluster-catalog" title="Link to this heading">#</a></h2>
 <p>The cluster catalog is a declarative YAML file that describes your entire
 cluster: hardware inventory, software stack, network topology, and
 deployment parameters. BuildStreaM parses this catalog to generate all
 Omnia input files and orchestrate the deployment pipeline.</p>
-<p><strong>5a. Initialize the catalog repository</strong></p>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
+<section id="a-initialize-the-catalog-repository">
+<h3>5a. Initialize the catalog repository<a class="headerlink" href="#a-initialize-the-catalog-repository" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id21" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt
 git<span class="w"> </span>clone<span class="w"> </span>http://&lt;k8s_vip&gt;:8080/omnia/cluster-catalog.git
 <span class="nb">cd</span><span class="w"> </span>cluster-catalog
@@ -800,17 +828,20 @@ git<span class="w"> </span>clone<span class="w"> </span>http://&lt;k8s_vip&gt;:8
 </div>
 <p>If the repository does not exist yet, create it in GitLab first:</p>
 <ol class="arabic simple">
-<li><p>In GitLab, go to <strong>Projects &gt; New Project &gt; Create Blank Project</strong>.</p></li>
+<li><p>In GitLab, go to <strong>Projects</strong> &gt; <strong>New Project</strong> &gt; <strong>Create Blank Project</strong>.</p></li>
 <li><p>Name: <code class="docutils literal notranslate"><span class="pre">cluster-catalog</span></code>, Group: <code class="docutils literal notranslate"><span class="pre">omnia</span></code>, Visibility: <strong>Private</strong>.</p></li>
 </ol>
-<p><strong>5b. Create the catalog file</strong></p>
-<div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
+</section>
+<section id="b-create-the-catalog-file">
+<h3>5b. Create the catalog file<a class="headerlink" href="#b-create-the-catalog-file" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id22" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/cluster-catalog/catalog.yml
 </pre></div>
 </div>
 </div>
-<p><strong>Example catalog.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">Example catalog.yml</span><a class="headerlink" href="#id23" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="c1"># BuildStreaM Cluster Catalog</span>
 <span class="c1"># This file declaratively defines the target cluster state.</span>
@@ -886,24 +917,25 @@ git<span class="w"> </span>clone<span class="w"> </span>http://&lt;k8s_vip&gt;:8
 <span class="w">    </span><span class="nt">admin_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.204&quot;</span>
 <span class="w">    </span><span class="nt">bmc_ip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.3.0.204&quot;</span>
 
-<span class="nt">software</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">os_iso</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/isos/RHEL-8.8-x86_64-dvd.iso&quot;</span>
-<span class="w">  </span><span class="nt">slurm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">kubernetes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">auth_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;freeipa&quot;</span>
-<span class="w">  </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;OMNIA.LOCAL&quot;</span>
+<span class="w">  </span><span class="w w-Error"> </span><span class="nt">software</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">os_iso</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/isos/RHEL-8.8-x86_64-dvd.iso&quot;</span>
+<span class="w">      </span><span class="nt">slurm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">kubernetes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">auth_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;freeipa&quot;</span>
+<span class="w">      </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;OMNIA.LOCAL&quot;</span>
 
-<span class="nt">kubernetes</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">ha_vip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.250&quot;</span>
-<span class="w">  </span><span class="nt">ha_interface</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno2&quot;</span>
+<span class="w">   </span><span class="nt">kubernetes</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">ha_vip</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;10.5.0.250&quot;</span>
+<span class="w">   </span><span class="nt">ha_interface</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;eno2&quot;</span>
 
-<span class="nt">telemetry</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">idrac_telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">ldms_telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">grafana_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span>
-<span class="w">  </span><span class="nt">retention</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;30d&quot;</span>
+<span class="w">   </span><span class="nt">telemetry</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">idrac_telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">   </span><span class="nt">ldms_telemetry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">   </span><span class="nt">grafana_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span>
+<span class="w">   </span><span class="nt">retention</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;30d&quot;</span>
 </pre></div>
+</div>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -911,14 +943,17 @@ git<span class="w"> </span>clone<span class="w"> </span>http://&lt;k8s_vip&gt;:8
 Store it in Git so that every cluster change is tracked as a commit.
 Review changes via merge requests before deploying.</p>
 </div>
-<p><strong>5c. Create the CI/CD pipeline definition</strong></p>
-<div class="literal-block-wrapper docutils container" id="id20">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id20" title="Link to this code">#</a></div>
+</section>
+<section id="c-create-the-ci-cd-pipeline-definition">
+<h3>5c. Create the CI/CD pipeline definition<a class="headerlink" href="#c-create-the-ci-cd-pipeline-definition" title="Link to this heading">#</a></h3>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id24" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/cluster-catalog/.gitlab-ci.yml
 </pre></div>
 </div>
 </div>
-<p><strong>.gitlab-ci.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">.gitlab-ci.yml</span><a class="headerlink" href="#id25" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="nt">stages</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validate</span>
@@ -982,6 +1017,7 @@ Review changes via merge requests before deploying.</p>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;$CI_COMMIT_BRANCH</span><span class="nv"> </span><span class="s">==</span><span class="nv"> </span><span class="s">&quot;main&quot;&#39;</span>
 </pre></div>
 </div>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">deploy_cluster</span></code> stage is set to <code class="docutils literal notranslate"><span class="pre">when:</span> <span class="pre">manual</span></code> on the
@@ -991,10 +1027,11 @@ the GitLab pipeline UI to trigger the deployment. Remove the
 validating the pipeline on a test cluster.</p>
 </div>
 </section>
+</section>
 <section id="step-6-push-the-catalog-and-trigger-the-pipeline">
 <h2>Step 6 – Push the Catalog and Trigger the Pipeline<a class="headerlink" href="#step-6-push-the-catalog-and-trigger-the-pipeline" title="Link to this heading">#</a></h2>
-<div class="literal-block-wrapper docutils container" id="id21">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id21" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id26" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/cluster-catalog
 
 git<span class="w"> </span>add<span class="w"> </span>catalog.yml<span class="w"> </span>.gitlab-ci.yml
@@ -1017,22 +1054,20 @@ full cluster.</p></li>
 <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">get</span> <span class="pre">nodes</span></code>, telemetry health checks).</p></li>
 </ol>
 <p><strong>Monitor the pipeline:</strong></p>
-<ol class="arabic">
+<ol class="arabic simple">
 <li><p>Open GitLab at <code class="docutils literal notranslate"><span class="pre">http://&lt;k8s_vip&gt;:8080</span></code>.</p></li>
-<li><p>Navigate to <strong>omnia/cluster-catalog &gt; CI/CD &gt; Pipelines</strong>.</p></li>
-<li><p>Click the pipeline to see per-stage logs in real time.</p>
-<div class="literal-block-wrapper docutils container" id="id22">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id22" title="Link to this code">#</a></div>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>
+<li><p>Navigate to <strong>omnia/cluster-catalog</strong> &gt; <strong>CI/CD</strong> &gt; <strong>Pipelines</strong>.</p></li>
+<li><p>Click the pipeline to see per-stage logs in real time.</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id27" title="Link to this code">#</a></div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Alternatively, monitor from the CLI</span>
+gitlab-runner<span class="w"> </span>status
+<span class="c1"># Watch the pipeline log from the runner</span>
+tail<span class="w"> </span>-f<span class="w"> </span>/var/log/gitlab-runner/runner.log
 </pre></div>
 </div>
 </div>
-<p># Alternatively, monitor from the CLI
-gitlab-runner status
-# Watch the pipeline log from the runner
-tail -f /var/log/gitlab-runner/runner.log</p>
-</li>
-</ol>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>If the <strong>Validate</strong> stage fails, read the error output – it tells you
@@ -1046,8 +1081,8 @@ and push to re-trigger.</p>
 <h2>Step 7 – Verify the Deployment<a class="headerlink" href="#step-7-verify-the-deployment" title="Link to this heading">#</a></h2>
 <p>After the pipeline completes (all stages green), verify the cluster.</p>
 <p><strong>Slurm verification:</strong></p>
-<div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-text">Run on head node (head01)</span><a class="headerlink" href="#id23" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id28">
+<div class="code-block-caption"><span class="caption-text">Run on head node (head01)</span><a class="headerlink" href="#id28" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>head01
 sinfo
 srun<span class="w"> </span>-N<span class="w"> </span><span class="m">1</span><span class="w"> </span>hostname
@@ -1056,8 +1091,8 @@ sacctmgr<span class="w"> </span>show<span class="w"> </span>cluster
 </div>
 </div>
 <p><strong>Kubernetes verification:</strong></p>
-<div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id24" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id29">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id29" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>/opt/omnia/k8s/admin.conf
 kubectl<span class="w"> </span>get<span class="w"> </span>nodes
 kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>--all-namespaces<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>Running<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>Completed
@@ -1065,16 +1100,16 @@ kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> <
 </div>
 </div>
 <p><strong>Telemetry verification:</strong></p>
-<div class="literal-block-wrapper docutils container" id="id25">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id25" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id30">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id30" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>omnia-telemetry
 <span class="c1"># Open Grafana at http://&lt;k8s_vip&gt;:3000</span>
 </pre></div>
 </div>
 </div>
 <p><strong>BuildStreaM pipeline verification:</strong></p>
-<div class="literal-block-wrapper docutils container" id="id26">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id26" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id31">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (inside omnia_core container)</span><a class="headerlink" href="#id31" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify the pipeline artifacts were generated correctly</span>
 ls<span class="w"> </span>-la<span class="w"> </span>/opt/omnia/input/project_default/
 
@@ -1118,8 +1153,8 @@ engineer before being deployed. Set up <strong>protected branches</strong> on
 <p><strong>Disaster recovery</strong></p>
 <p>If the cluster needs to be rebuilt from scratch (e.g., after a datacenter
 move):</p>
-<div class="literal-block-wrapper docutils container" id="id27">
-<div class="code-block-caption"><span class="caption-text">Run on OIM (as root)</span><a class="headerlink" href="#id27" title="Link to this code">#</a></div>
+<div class="literal-block-wrapper docutils container" id="id32">
+<div class="code-block-caption"><span class="caption-text">Run on OIM (as root)</span><a class="headerlink" href="#id32" title="Link to this code">#</a></div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Re-clone the catalog repository</span>
 <span class="nb">cd</span><span class="w"> </span>/opt
 git<span class="w"> </span>clone<span class="w"> </span>http://&lt;gitlab_url&gt;/omnia/cluster-catalog.git
@@ -1160,7 +1195,7 @@ Slurm job, verify Grafana data sources, check NFS mounts).</p>
 <li><p><a class="reference internal" href="slurm_quickstart.html"><span class="doc">Slurm Quickstart</span></a> – Simplified manual deployment for comparison</p></li>
 </ul>
 </div>
-<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+<p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>
 
@@ -1213,12 +1248,33 @@ Slurm job, verify Grafana data sources, check NFS mounts).</p>
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-deploy-the-omnia-core-container">Step 1 – Deploy the omnia_core Container</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-enable-buildstream">Step 2 – Enable BuildStreaM</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-edit-build-stream-config-yml"><strong>2a. Edit</strong> <cite>build_stream_config.yml</cite></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-edit-build-stream-config-yml">2a. Edit <cite>build_stream_config.yml</cite></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-configure-oauth-credentials">2b. Configure OAuth credentials</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-prepare-the-oim-and-infrastructure">Step 3 – Prepare the OIM and Infrastructure</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-deploy-gitlab-on-the-service-cluster">Step 4 – Deploy GitLab on the Service Cluster</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-create-the-cluster-catalog">Step 5 – Create the Cluster Catalog</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-prepare-the-oim-and-infrastructure">Step 3 – Prepare the OIM and Infrastructure</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-create-the-mapping-file">3a. Create the mapping file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-copy-input-templates">3b. Copy input templates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-edit-network-and-provisioning-inputs">3c. Edit network and provisioning inputs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-set-credentials">3d. Set credentials</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#e-prepare-the-oim">3e. Prepare the OIM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-verify-oim-services">3f. Verify OIM services</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#g-create-local-repos-and-build-images">3g. Create local repos and build images</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h-discover-and-provision-nodes">3h. Discover and provision nodes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i-deploy-kubernetes-service-cluster">3i. Deploy Kubernetes service cluster</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-deploy-gitlab-on-the-service-cluster">Step 4 – Deploy GitLab on the Service Cluster</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-access-gitlab-and-create-the-oauth-application">4a. Access GitLab and create the OAuth application</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-update-oauth-credentials">4b. Update OAuth credentials</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-create-the-cluster-catalog">Step 5 – Create the Cluster Catalog</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-initialize-the-catalog-repository">5a. Initialize the catalog repository</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-create-the-catalog-file">5b. Create the catalog file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-create-the-ci-cd-pipeline-definition">5c. Create the CI/CD pipeline definition</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-push-the-catalog-and-trigger-the-pipeline">Step 6 – Push the Catalog and Trigger the Pipeline</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-7-verify-the-deployment">Step 7 – Verify the Deployment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#day-2-operations-with-buildstream">Day-2 Operations with BuildStreaM</a></li>
@@ -1251,7 +1307,7 @@ Slurm job, verify Grafana data sources, check NFS mounts).</p>
 
   <p class="copyright">
     
-      © Copyright 2025, Dell Technologies.
+      © Copyright Dell Technologies.
       <br/>
     
   </p>

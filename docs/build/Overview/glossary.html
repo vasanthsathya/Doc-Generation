@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=41ea00ef" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../_static/documentation_options.js?v=392da36c"></script>
+    <script src="../_static/documentation_options.js?v=f35be339"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -447,57 +447,32 @@
 <p>This glossary defines key terms used throughout the Omnia documentation. Terms
 are listed alphabetically. Where applicable, entries link to the documentation
 page that provides a full explanation.</p>
-<p><strong>OIM</strong>
-:   Omnia Infrastructure Manager. The dedicated management node that runs all Omnia control-plane services, including the <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> Ansible container, OpenCHAMI, Pulp, and telemetry collectors. The OIM is the single point from which the entire cluster is provisioned and managed. See <a class="reference internal" href="architecture.html"><span class="doc">Architecture</span></a>.</p>
-<p><strong>BMC</strong>
-:   Baseboard Management Controller. A dedicated microcontroller embedded in server motherboards that provides out-of-band management capabilities (power control, hardware monitoring, remote console) independent of the host operating system. On Dell PowerEdge servers, the BMC is implemented as <strong>iDRAC</strong>.</p>
-<p><strong>iDRAC</strong>
-:   Integrated Dell Remote Access Controller. Dell’s implementation of the <strong>BMC</strong>, providing Redfish API access, remote console, virtual media, firmware management, and hardware telemetry for Dell PowerEdge servers. See <a class="reference internal" href="telemetry_architecture.html"><span class="doc">Telemetry Architecture</span></a>.</p>
-<p><strong>PXE</strong>
-:   Preboot Execution Environment. An industry-standard protocol that allows servers to boot an operating system image over the network rather than from local disk. Omnia uses PXE for initial node discovery and OS provisioning.</p>
-<p><strong>TFTP</strong>
-:   Trivial File Transfer Protocol. A simple file transfer protocol used during PXE boot to deliver the initial bootloader binary (typically <strong>iPXE</strong>) to bare-metal nodes.</p>
-<p><strong>iPXE</strong>
-:   An open-source network bootloader that extends <strong>PXE</strong> with HTTP, iSCSI, and scripting capabilities. Omnia uses iPXE to chain to the <strong>BSS</strong> endpoint, which returns a customized boot script for each node.</p>
-<p><strong>OpenCHAMI</strong>
-:   Composable Hierarchical Automated Management Infrastructure. The provisioning engine at the core of Omnia, providing API-driven node discovery, hardware inventory, and bare-metal lifecycle management. Includes <strong>SMD</strong> and <strong>BSS</strong> as sub-services. See <a class="reference internal" href="components.html"><span class="doc">Components</span></a>.</p>
-<p><strong>SMD</strong>
-:   State Manager Daemon. The inventory and state-tracking service within <strong>OpenCHAMI</strong>. SMD maintains a real-time record of every node’s hardware configuration, power state, and component hierarchy.</p>
-<p><strong>BSS</strong>
-:   Boot Script Service. A component of <strong>OpenCHAMI</strong> that dynamically generates per-node boot scripts based on the node’s hardware profile and assigned role. BSS is queried by <strong>iPXE</strong> during network boot.</p>
-<p><strong>LDMS</strong>
-:   Lightweight Distributed Metric Service. A high-performance, low-overhead metric collection framework developed by Sandia National Laboratories for HPC environments. Omnia deploys LDMS agents on compute nodes to collect in-band OS and application metrics. See <a class="reference internal" href="telemetry_architecture.html"><span class="doc">Telemetry Architecture</span></a>.</p>
-<p><strong>Slurm</strong>
-:   Simple Linux Utility for Resource Management. An open-source, highly scalable job scheduler and workload manager widely used in HPC clusters. Omnia deploys and configures Slurm for batch job scheduling on compute nodes. See <a class="reference internal" href="architecture.html"><span class="doc">Architecture</span></a>.</p>
-<p><strong>AWX</strong>
-:   The open-source upstream project for Red Hat Ansible Automation Platform (formerly Ansible Tower). Provides a web-based UI and REST API for managing Ansible playbooks, inventories, and job scheduling. AWX is an optional component in Omnia.</p>
-<p><strong>Podman</strong>
-:   A daemonless, rootless container engine for running OCI containers on Linux. Omnia uses Podman on the <strong>OIM</strong> to run all management services (<code class="docutils literal notranslate"><span class="pre">omnia_core</span></code>, OpenCHAMI, Pulp, OpenLDAP) as isolated containers without requiring Docker. See <a class="reference internal" href="architecture.html"><span class="doc">Architecture</span></a>.</p>
-<p><strong>MetalLB</strong>
-:   A bare-metal load balancer for Kubernetes. MetalLB assigns external IP addresses to Kubernetes <code class="docutils literal notranslate"><span class="pre">LoadBalancer</span></code> services in environments without a cloud provider. Omnia deploys MetalLB automatically in the Kubernetes cluster.</p>
-<p><strong>Calico</strong>
-:   A CNI (Container Network Interface) plugin for Kubernetes that provides pod-to-pod networking and network policy enforcement. Omnia deploys Calico as the default CNI in the Kubernetes cluster.</p>
-<p><strong>NFS CSI</strong>
-:   NFS Container Storage Interface driver. A Kubernetes CSI driver that provisions persistent volumes backed by NFS shares, enabling shared storage across pods and Slurm compute nodes.</p>
-<p><strong>Apptainer</strong>
-:   Formerly known as Singularity. A container runtime designed for HPC environments that allows users to run containers without root privileges. Supported on Slurm compute nodes in Omnia 2.1+.</p>
-<p><strong>ROCm</strong>
-:   Radeon Open Compute. AMD’s open-source software platform for GPU-accelerated computing. Omnia supports ROCm installation on nodes with AMD Instinct GPUs for AI/ML and HPC workloads.</p>
-<p><strong>BuildStreaM</strong>
-:   Omnia’s GitLab CI-based automation pipeline for catalog-driven deployment. Administrators define a deployment catalog (YAML manifest), and BuildStreaM generates a CI/CD pipeline that executes the required Ansible playbooks in order. See <a class="reference internal" href="components.html"><span class="doc">Components</span></a>.</p>
-<p><strong>Composable Roles</strong>
-:   Omnia’s system for assigning server functions via a declarative mapping file. A single server can hold multiple roles (e.g., Slurm control node + login node), decoupling physical hardware from logical cluster functions. See <a class="reference internal" href="composable_roles.html"><span class="doc">Composable Roles</span></a>.</p>
-<p><strong>Functional Groups</strong>
-:   Named role definitions in Omnia’s <strong>Composable Roles</strong> system. Each functional group (e.g., <code class="docutils literal notranslate"><span class="pre">slurm_node</span></code>, <code class="docutils literal notranslate"><span class="pre">service_kube_control_plane</span></code>) determines which software and configuration is applied to a server. See <a class="reference internal" href="composable_roles.html"><span class="doc">Composable Roles</span></a>.</p>
-<p><strong>Pulp</strong>
-:   An open-source repository management platform. Omnia deploys Pulp as a Podman container on the <strong>OIM</strong> to mirror RPM repositories, container images, and Python packages locally. Essential for air-gapped deployments. See <a class="reference internal" href="components.html"><span class="doc">Components</span></a>.</p>
-<p><strong>Kafka</strong>
-:   Apache Kafka. A distributed event-streaming platform used as the central message broker in Omnia’s telemetry pipeline. All metrics from <strong>iDRAC</strong> and <strong>LDMS</strong> flow through Kafka before reaching <strong>VictoriaMetrics</strong>. See <a class="reference internal" href="telemetry_architecture.html"><span class="doc">Telemetry Architecture</span></a>.</p>
-<p><strong>VictoriaMetrics</strong>
-:   A high-performance time-series database that stores all telemetry data in Omnia’s monitoring pipeline. Supports PromQL and MetricsQL for querying, and achieves high compression ratios for efficient long-term metric retention. See <a class="reference internal" href="telemetry_architecture.html"><span class="doc">Telemetry Architecture</span></a>.</p>
-<p><strong>Grafana</strong>
-:   An open-source analytics and visualization platform. Omnia deploys Grafana with pre-built dashboards for cluster monitoring, GPU performance, power and thermal analysis, and Slurm job metrics. Connects to <strong>VictoriaMetrics</strong> as its data source. See <a class="reference internal" href="telemetry_architecture.html"><span class="doc">Telemetry Architecture</span></a>.</p>
-<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+<p><strong>OIM</strong>: Omnia Infrastructure Manager. The dedicated management node that runs all Omnia control-plane services, including the <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> Ansible container, OpenCHAMI, Pulp, and telemetry collectors. The OIM is the single point from which the entire cluster is provisioned and managed. See <a class="reference internal" href="architecture.html"><span class="doc">Architecture</span></a>.</p>
+<p><strong>BMC</strong>: Baseboard Management Controller. A dedicated microcontroller embedded in server motherboards that provides out-of-band management capabilities (power control, hardware monitoring, remote console) independent of the host operating system. On Dell PowerEdge servers, the BMC is implemented as <strong>iDRAC</strong>.</p>
+<p><strong>iDRAC</strong>: Integrated Dell Remote Access Controller. Dell’s implementation of the <strong>BMC</strong>, providing Redfish API access, remote console, virtual media, firmware management, and hardware telemetry for Dell PowerEdge servers. See <a class="reference internal" href="telemetry_architecture.html"><span class="doc">Telemetry Architecture</span></a>.</p>
+<p><strong>PXE</strong>: Preboot Execution Environment. An industry-standard protocol that allows servers to boot an operating system image over the network rather than from local disk. Omnia uses PXE for initial node discovery and OS provisioning.</p>
+<p><strong>TFTP</strong>: Trivial File Transfer Protocol. A simple file transfer protocol used during PXE boot to deliver the initial bootloader binary (typically <strong>iPXE</strong>) to bare-metal nodes.</p>
+<p><strong>iPXE</strong>: An open-source network bootloader that extends <strong>PXE</strong> with HTTP, iSCSI, and scripting capabilities. Omnia uses iPXE to chain to the <strong>BSS</strong> endpoint, which returns a customized boot script for each node.</p>
+<p><strong>OpenCHAMI</strong>: Composable Hierarchical Automated Management Infrastructure. The provisioning engine at the core of Omnia, providing API-driven node discovery, hardware inventory, and bare-metal lifecycle management. Includes <strong>SMD</strong> and <strong>BSS</strong> as sub-services. See <a class="reference internal" href="components.html"><span class="doc">Components</span></a>.</p>
+<p><strong>SMD</strong>: State Manager Daemon. The inventory and state-tracking service within <strong>OpenCHAMI</strong>. SMD maintains a real-time record of every node’s hardware configuration, power state, and component hierarchy.</p>
+<p><strong>BSS</strong>: Boot Script Service. A component of <strong>OpenCHAMI</strong> that dynamically generates per-node boot scripts based on the node’s hardware profile and assigned role. BSS is queried by <strong>iPXE</strong> during network boot.</p>
+<p><strong>LDMS</strong>: Lightweight Distributed Metric Service. A high-performance, low-overhead metric collection framework developed by Sandia National Laboratories for HPC environments. Omnia deploys LDMS agents on compute nodes to collect in-band OS and application metrics. See <a class="reference internal" href="telemetry_architecture.html"><span class="doc">Telemetry Architecture</span></a>.</p>
+<p><strong>Slurm</strong>: Simple Linux Utility for Resource Management. An open-source, highly scalable job scheduler and workload manager widely used in HPC clusters. Omnia deploys and configures Slurm for batch job scheduling on compute nodes. See <a class="reference internal" href="architecture.html"><span class="doc">Architecture</span></a>.</p>
+<p><strong>AWX</strong>: The open-source upstream project for Red Hat Ansible Automation Platform (formerly Ansible Tower). Provides a web-based UI and REST API for managing Ansible playbooks, inventories, and job scheduling. AWX is an optional component in Omnia.</p>
+<p><strong>Podman</strong>: A daemonless, rootless container engine for running OCI containers on Linux. Omnia uses Podman on the <strong>OIM</strong> to run all management services (<code class="docutils literal notranslate"><span class="pre">omnia_core</span></code>, OpenCHAMI, Pulp, OpenLDAP) as isolated containers without requiring Docker. See <a class="reference internal" href="architecture.html"><span class="doc">Architecture</span></a>.</p>
+<p><strong>MetalLB</strong>: A bare-metal load balancer for Kubernetes. MetalLB assigns external IP addresses to Kubernetes <code class="docutils literal notranslate"><span class="pre">LoadBalancer</span></code> services in environments without a cloud provider. Omnia deploys MetalLB automatically in the Kubernetes cluster.</p>
+<p><strong>Calico</strong>: A CNI (Container Network Interface) plugin for Kubernetes that provides pod-to-pod networking and network policy enforcement. Omnia deploys Calico as the default CNI in the Kubernetes cluster.</p>
+<p><strong>NFS CSI</strong>: NFS Container Storage Interface driver. A Kubernetes CSI driver that provisions persistent volumes backed by NFS shares, enabling shared storage across pods and Slurm compute nodes.</p>
+<p><strong>Apptainer</strong>: Formerly known as Singularity. A container runtime designed for HPC environments that allows users to run containers without root privileges. Supported on Slurm compute nodes in Omnia 2.1+.</p>
+<p><strong>ROCm</strong>: Radeon Open Compute. AMD’s open-source software platform for GPU-accelerated computing. Omnia supports ROCm installation on nodes with AMD Instinct GPUs for AI/ML and HPC workloads.</p>
+<p><strong>BuildStreaM</strong>: Omnia’s GitLab CI-based automation pipeline for catalog-driven deployment. Administrators define a deployment catalog (YAML manifest), and BuildStreaM generates a CI/CD pipeline that executes the required Ansible playbooks in order. See <a class="reference internal" href="components.html"><span class="doc">Components</span></a>.</p>
+<p><strong>Composable Roles</strong>: Omnia’s system for assigning server functions via a declarative mapping file. A single server can hold multiple roles (e.g., Slurm control node + login node), decoupling physical hardware from logical cluster functions. See <a class="reference internal" href="composable_roles.html"><span class="doc">Composable Roles</span></a>.</p>
+<p><strong>Functional Groups</strong>: Named role definitions in Omnia’s <strong>Composable Roles</strong> system. Each functional group (e.g., <code class="docutils literal notranslate"><span class="pre">slurm_node</span></code>, <code class="docutils literal notranslate"><span class="pre">service_kube_control_plane</span></code>) determines which software and configuration is applied to a server. See <a class="reference internal" href="composable_roles.html"><span class="doc">Composable Roles</span></a>.</p>
+<p><strong>Pulp</strong>: An open-source repository management platform. Omnia deploys Pulp as a Podman container on the <strong>OIM</strong> to mirror RPM repositories, container images, and Python packages locally. Essential for air-gapped deployments. See <a class="reference internal" href="components.html"><span class="doc">Components</span></a>.</p>
+<p><strong>Kafka</strong>: Apache Kafka. A distributed event-streaming platform used as the central message broker in Omnia’s telemetry pipeline. All metrics from <strong>iDRAC</strong> and <strong>LDMS</strong> flow through Kafka before reaching <strong>VictoriaMetrics</strong>. See <a class="reference internal" href="telemetry_architecture.html"><span class="doc">Telemetry Architecture</span></a>.</p>
+<p><strong>VictoriaMetrics</strong>: A high-performance time-series database that stores all telemetry data in Omnia’s monitoring pipeline. Supports PromQL and MetricsQL for querying, and achieves high compression ratios for efficient long-term metric retention. See <a class="reference internal" href="telemetry_architecture.html"><span class="doc">Telemetry Architecture</span></a>.</p>
+<p><strong>Grafana</strong>: An open-source analytics and visualization platform. Omnia deploys Grafana with pre-built dashboards for cluster monitoring, GPU performance, power and thermal analysis, and Slurm job metrics. Connects to <strong>VictoriaMetrics</strong> as its data source. See <a class="reference internal" href="telemetry_architecture.html"><span class="doc">Telemetry Architecture</span></a>.</p>
+<p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 
 
@@ -558,7 +533,7 @@ page that provides a full explanation.</p>
 
   <p class="copyright">
     
-      © Copyright 2025, Dell Technologies.
+      © Copyright Dell Technologies.
       <br/>
     
   </p>

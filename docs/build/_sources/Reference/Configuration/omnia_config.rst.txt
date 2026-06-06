@@ -171,11 +171,8 @@ Miscellaneous settings
 Usage example
 -------------
 
-
-
-**File: /opt/omnia/input/project_default/omnia_config.yml**
-
 .. code-block:: yaml
+   :caption: File: /opt/omnia/input/project_default/omnia_config.yml
 
    scheduler_type: "slurm,k8s"
    slurm_installation_type: "nfs_share"

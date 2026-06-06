@@ -65,34 +65,28 @@ Before re-provisioning, gracefully drain all workloads from the target nodes.
 
 **For Slurm nodes:**
 
+.. code-block:: bash
+   :caption: Run on: Slurm control node
 
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
-
-      scontrol update NodeName=compute-03 State=DRAIN Reason="Re-provisioning"
-
+   scontrol update NodeName=compute-03 State=DRAIN Reason="Re-provisioning"
 
 Wait for running jobs to complete, or cancel them if immediate action is needed:
 
+.. code-block:: bash
+   :caption: Run on: Slurm control node
 
-   .. code-block:: bash
-      :caption: Run on: Slurm control node
+   # Check for running jobs on the node
+   squeue -w compute-03
 
-      # Check for running jobs on the node
-      squeue -w compute-03
-
-      # Cancel if necessary
-      scancel <job_id>
-
-
+   # Cancel if necessary
+   scancel <job_id>
 
 **For Kubernetes nodes:**
 
+.. code-block:: bash
+   :caption: Run on: Kubernetes control plane
 
-   .. code-block:: bash
-      :caption: Run on: Kubernetes control plane
-
-      kubectl drain kube-worker-02 --ignore-daemonsets --delete-emptydir-data
+   kubectl drain kube-worker-02 --ignore-daemonsets --delete-emptydir-data
 
 
 
@@ -101,25 +95,18 @@ Step 2: Update configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-#. Review and update the input configuration files as needed:
-
-   .. code-block:: bash
+1. Review and update the input configuration files as needed:
 
 .. code-block:: bash
 
    ssh omnia_core
    cd /omnia/input
 
+- ``mapping_file.csv`` -- Update node roles if changing.
+- ``provision_config.yml`` -- Update OS image or provisioning parameters.
+- ``omnia_config.yml`` -- Update cluster-level settings.
 
-
-  - ``mapping_file.csv`` -- Update node roles if changing.
-  - ``provision_config.yml`` -- Update OS image or provisioning parameters.
-  - ``omnia_config.yml`` -- Update cluster-level settings.
-
-
-#. If building a new OS image, run the image-build process:
-
-   .. code-block:: bash
+2. If building a new OS image, run the image-build process:
 
 .. code-block:: bash
 
@@ -136,20 +123,17 @@ Step 3: Re-image the nodes
 Run ``discovery.yml`` to re-discover and PXE-boot the target nodes with the
 updated OS image:
 
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
-
-      cd /omnia
-      ansible-playbook playbooks/discovery.yml
-
-
+   cd /omnia
+   ansible-playbook playbooks/discovery.yml
 
 The nodes will:
 
-#. Reboot into the PXE environment.
-#. Receive the new OS image from the OIM.
-#. Complete the cloud-init first-boot configuration.
+1. Reboot into the PXE environment.
+2. Receive the new OS image from the OIM.
+3. Complete the cloud-init first-boot configuration.
 
 
 
@@ -169,12 +153,11 @@ Step 4: Redeploy cluster software
 After the nodes have been re-imaged and are accessible via SSH, redeploy the
 Omnia cluster software:
 
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
-
-      cd /omnia
-      ansible-playbook playbooks/omnia.yml
+   cd /omnia
+   ansible-playbook playbooks/omnia.yml
 
 
 
@@ -197,21 +180,20 @@ Verification
 
 After re-provisioning is complete:
 
+.. code-block:: bash
+   :caption: Run on: OIM host
 
-   .. code-block:: bash
-      :caption: Run on: OIM host
+   # Verify Slurm nodes are back online
+   sinfo
 
-      # Verify Slurm nodes are back online
-      sinfo
+   # Verify Kubernetes nodes are Ready
+   kubectl get nodes
 
-      # Verify Kubernetes nodes are Ready
-      kubectl get nodes
+   # Check for any failed Ansible tasks in the log
+   cat /opt/omnia/log/core/playbooks/omnia.log | grep -i "failed"
 
-      # Check for any failed Ansible tasks in the log
-      cat /opt/omnia/log/core/playbooks/omnia.log | grep -i "failed"
-
-      # Run a test Slurm job
-      srun -N 1 hostname
+   # Run a test Slurm job
+   srun -N 1 hostname
 
 
 

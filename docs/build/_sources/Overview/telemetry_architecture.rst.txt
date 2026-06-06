@@ -15,8 +15,8 @@ architecture, each stage of the data flow, and the design decisions behind it.
    :alt: Omnia Telemetry Architecture
 
 
-Omnia's telemetry pipeline follows a standard *collect → transport → store →
-visualize* pattern.
+Omnia's telemetry pipeline follows a standard **collect** > **transport** > **store** >
+**visualize** pattern.
 
 
 Data collection
@@ -230,7 +230,7 @@ Dell infrastructure management tools:
 - **Smart Fabric Manager (SFM)** -- Network fabric metrics including switch
   port utilization, link errors, and fabric health.
 
-These metrics are ingested into the same Kafka → VictoriaMetrics → Grafana
+These metrics are ingested into the same **Kafka** > **VictoriaMetrics** > **Grafana**
 pipeline, providing a unified view of compute and network infrastructure.
 
 

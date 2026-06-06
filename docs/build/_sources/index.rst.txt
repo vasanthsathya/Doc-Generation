@@ -173,6 +173,3 @@ Omnia Community Members
 
 
 ----
-
-
-*If you have any feedback about Omnia documentation, please reach out at omnia.readme@dell.com.*

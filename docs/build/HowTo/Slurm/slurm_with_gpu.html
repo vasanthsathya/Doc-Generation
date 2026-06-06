@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../../_static/documentation_options.js?v=392da36c"></script>
+    <script src="../../_static/documentation_options.js?v=f35be339"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -530,15 +530,17 @@ request specific GPU types and quantities.</p>
 <li><p>Compute nodes with GPUs are provisioned and in the Slurm cluster.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">software_config.json</span></code> includes the GPU software stack:</p></li>
 </ul>
-<p><strong>File: /opt/omnia/input/project_default/software_config.json</strong></p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;softwares&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;12.2&quot;</span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rocm&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6.0&quot;</span><span class="p">}</span>
-<span class="w">    </span><span class="p">]</span>
-<span class="p">}</span>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/software_config.json</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;softwares&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slurm&quot;</span><span class="p">},</span>
+<span class="w">          </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;12.2&quot;</span><span class="p">},</span>
+<span class="w">          </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rocm&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6.0&quot;</span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
 </pre></div>
+</div>
 </div>
 <ul class="simple">
 <li><p>Local repositories are synced with GPU packages (see
@@ -549,34 +551,36 @@ mapping file.</p></li>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Enter the omnia_core container</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
+<ol class="arabic simple">
+<li><p>Enter the omnia_core container:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify GPU software is listed in software_config.json</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="2">
+<li><p>Verify GPU software is listed in software_config.json:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/opt/omnia/input/project_default/software_config.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>json.tool
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Configure GPU-related parameters in omnia_config.yml</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="3">
+<li><p>Configure GPU-related parameters in omnia_config.yml:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
 </pre></div>
 </div>
 </div>
 <p>GPU-related parameters:</p>
-</li>
-</ol>
-<p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/omnia_config.yml</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="c1"># GPU configuration</span>
 <span class="nt">cuda_toolkit_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/usr/local/cuda&quot;</span>
@@ -586,103 +590,93 @@ mapping file.</p></li>
 <span class="nt">slurm_gres_config</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Run the omnia.yml playbook</strong> (or re-run if Slurm is already deployed):</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Run the omnia.yml playbook (or re-run if Slurm is already deployed):</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>omnia.yml<span class="w"> </span>--ask-vault-pass
 </pre></div>
 </div>
 </div>
 <p>The playbook will:</p>
-</li>
-</ol>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>Detect GPU hardware on each compute node.</p></li>
 <li><p>Install CUDA, ROCm, or Gaudi drivers as appropriate.</p></li>
 <li><p>Generate <code class="docutils literal notranslate"><span class="pre">gres.conf</span></code> with GPU device mappings.</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">slurm.conf</span></code> with GRES definitions.</p></li>
 <li><p>Restart Slurm services to apply changes.</p></li>
 </ul>
-</div></blockquote>
-<ol class="arabic">
-<li><p><strong>Reconfigure Slurm</strong> to load GRES definitions:</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="5">
+<li><p>Reconfigure Slurm to load GRES definitions:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>reconfigure
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Verify GPU drivers are installed</strong> on a compute node:</p>
-<p>For NVIDIA:</p>
-</li>
+<ol class="arabic simple">
+<li><p>Verify GPU drivers are installed on a compute node:</p></li>
 </ol>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Run on: GPU compute node</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>nvidia-smi
-
-
-
-Expected<span class="w"> </span>output<span class="w"> </span>shows<span class="w"> </span>GPU<span class="w"> </span>model,<span class="w"> </span>driver<span class="w"> </span>version,<span class="w"> </span>and<span class="w"> </span>memory<span class="w"> </span>usage.
-
-For<span class="w"> </span>AMD:
-</pre></div>
-</div>
-</div>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on: GPU compute node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>rocm-smi
-
-
-
-For<span class="w"> </span>Intel<span class="w"> </span>Gaudi:
-</pre></div>
-</div>
-</div>
+<p>For NVIDIA:</p>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">Run on: GPU compute node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>hl-smi
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvidia-smi
 </pre></div>
 </div>
 </div>
-<ol class="arabic">
-<li><p><strong>Check Slurm GRES configuration</strong>:</p>
+<p>Expected output shows GPU model, driver version, and memory usage.</p>
+<p>For AMD:</p>
 <div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<div class="code-block-caption"><span class="caption-text">Run on: GPU compute node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rocm-smi
+</pre></div>
+</div>
+</div>
+<p>For Intel Gaudi:</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on: GPU compute node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hl-smi
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Check Slurm GRES configuration:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scontrol<span class="w"> </span>show<span class="w"> </span>nodes<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>gres
 </pre></div>
 </div>
 </div>
 <p>Expected output:</p>
-</li>
-</ol>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Expected output on: Slurm control node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>   Gres=gpu:nvidia_a100:4
-   GresUsed=gpu:nvidia_a100:0
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Expected output on: Slurm control node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Gres=gpu:nvidia_a100:4
+GresUsed=gpu:nvidia_a100:0
 </pre></div>
 </div>
 </div>
-<ol class="arabic">
-<li><p><strong>Submit a GPU job</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="3">
+<li><p>Submit a GPU job:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun<span class="w"> </span>--gres<span class="o">=</span>gpu:1<span class="w"> </span>nvidia-smi
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Submit a multi-GPU batch job</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="4">
+<li><p>Submit a multi-GPU batch job:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /tmp/gpu_test.sh</span>
 <span class="s">#!/bin/bash</span>
 <span class="s">#SBATCH --job-name=gpu_test</span>
@@ -699,17 +693,16 @@ sbatch<span class="w"> </span>/tmp/gpu_test.sh
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify CUDA toolkit</strong> (NVIDIA):</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Run on: GPU compute node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="5">
+<li><p>Verify CUDA toolkit (NVIDIA):</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Run on: GPU compute node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nvcc<span class="w"> </span>--version
 ls<span class="w"> </span>/usr/local/cuda/
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -720,77 +713,59 @@ ls<span class="w"> </span>/usr/local/cuda/
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl>
-<dt><strong>nvidia-smi reports “no devices found”</strong></dt><dd><ul class="simple">
-<li><p>Verify the GPU is physically seated and powered.</p></li>
-<li><p>Check that the NVIDIA driver module is loaded:</p></li>
-</ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Run on: GPU compute node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nvidia
-<span class="w">  </span>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>nvidia
+<p><strong>nvidia-smi reports “no devices found”</strong>
+- Verify the GPU is physically seated and powered.
+- Check that the NVIDIA driver module is loaded:</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text">Run on: GPU compute node</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nvidia
+dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>nvidia
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 <ul class="simple">
 <li><p>Reinstall the driver:</p></li>
 </ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Run on: GPU compute node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>dnf<span class="w"> </span>reinstall<span class="w"> </span>nvidia-driver<span class="w"> </span>cuda-toolkit
-</pre></div>
-</div>
-</div>
-</div></blockquote>
-</dd>
-<dt><strong>GRES not showing in scontrol</strong></dt><dd><p>Check <code class="docutils literal notranslate"><span class="pre">gres.conf</span></code> on the compute node:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">Run on: GPU compute node</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>cat<span class="w"> </span>/etc/slurm/gres.conf
-
-
-
-The<span class="w"> </span>file<span class="w"> </span>should<span class="w"> </span>list<span class="w"> </span>each<span class="w"> </span>GPU<span class="w"> </span>device:
-</pre></div>
-</div>
-</div>
 <div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">Expected content on: GPU compute node</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>   NodeName=compute01 Name=gpu Type=nvidia_a100 File=/dev/nvidia[0-3]
+<div class="code-block-caption"><span class="caption-text">Run on: GPU compute node</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>reinstall<span class="w"> </span>nvidia-driver<span class="w"> </span>cuda-toolkit
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>“Invalid GRES” error when submitting jobs</strong></dt><dd><p>Ensure <code class="docutils literal notranslate"><span class="pre">slurm.conf</span></code> on the control node includes the <code class="docutils literal notranslate"><span class="pre">GresTypes</span></code>
-directive:</p>
-</dd>
-</dl>
+<p><strong>GRES not showing in scontrol</strong>
+Check <code class="docutils literal notranslate"><span class="pre">gres.conf</span></code> on the compute node:</p>
 <div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>grep<span class="w"> </span>GresTypes<span class="w"> </span>/etc/slurm/slurm.conf
-
-
-
-Expected:<span class="w"> </span><span class="sb">``</span><span class="nv">GresTypes</span><span class="o">=</span>gpu<span class="sb">``</span>
+<div class="code-block-caption"><span class="caption-text">Run on: GPU compute node</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span>/etc/slurm/gres.conf
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>ROCm driver fails to install</strong></dt><dd><p>Verify the ROCm repository was synced successfully:</p>
-</dd>
-</dl>
+<p>The file should list each GPU device:</p>
 <div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:8080/pulp/content/rocm/<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
+<div class="code-block-caption"><span class="caption-text">Expected content on: GPU compute node</span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>NodeName=compute01 Name=gpu Type=nvidia_a100 File=/dev/nvidia[0-3]
 </pre></div>
 </div>
 </div>
-<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+<p><strong>“Invalid GRES” error when submitting jobs</strong>
+Ensure <code class="docutils literal notranslate"><span class="pre">slurm.conf</span></code> on the control node includes the <code class="docutils literal notranslate"><span class="pre">GresTypes</span></code>
+directive:</p>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text">Run on: Slurm control node</span><a class="headerlink" href="#id20" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span>GresTypes<span class="w"> </span>/etc/slurm/slurm.conf
+</pre></div>
+</div>
+</div>
+<p>Expected: <code class="docutils literal notranslate"><span class="pre">GresTypes=gpu</span></code></p>
+<p><strong>ROCm driver fails to install</strong>
+Verify the ROCm repository was synced successfully:</p>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id21" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:8080/pulp/content/rocm/<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
+</pre></div>
+</div>
+</div>
+<p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>
 
@@ -875,7 +850,7 @@ Expected:<span class="w"> </span><span class="sb">``</span><span class="nv">Gres
 
   <p class="copyright">
     
-      © Copyright 2025, Dell Technologies.
+      © Copyright Dell Technologies.
       <br/>
     
   </p>

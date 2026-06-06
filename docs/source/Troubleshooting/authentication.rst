@@ -12,9 +12,9 @@ LDAP bind failures
 ------------------
 
 
-???+ note "Symptom"
+**Symptom**
 
-    LDAP client operations fail with bind errors:
+LDAP client operations fail with bind errors:
 
 
 .. code-block:: text
@@ -26,66 +26,53 @@ LDAP bind failures
     Or Ansible playbooks fail when attempting to configure LDAP with
     authentication errors.
 
-??? note "Cause"
+**Cause**
 
-    - The LDAP admin bind DN or password is incorrect.
-    - The LDAP server is not running.
-    - TLS certificate verification fails, preventing the secure bind.
+- The LDAP admin bind DN or password is incorrect.
+- The LDAP server is not running.
+- TLS certificate verification fails, preventing the secure bind.
 
-??? note "Resolution"
+**Resolution**
 
-    #. Verify the LDAP server is running:
-
-
-.. code-block:: bash
-
-          # If running as a container on the auth_server node
-          ssh <auth_server> podman ps | grep ldap
-          # or
-          ssh <auth_server> systemctl status slapd
-
-
-
-    #. Test a manual bind:
-
+1. Verify the LDAP server is running:
 
 .. code-block:: bash
 
-          ldapsearch -x -H ldap://<auth_server>:389 \
-            -D "cn=admin,dc=example,dc=com" \
-            -W -b "dc=example,dc=com" "(objectClass=*)"
+   # If running as a container on the auth_server node
+   ssh <auth_server> podman ps | grep ldap
+   # or
+   ssh <auth_server> systemctl status slapd
 
-
-
-    #. Verify credentials in the Omnia vault:
-
+2. Test a manual bind:
 
 .. code-block:: bash
 
-          ssh omnia_core
-          ansible-vault view /omnia/input/credentials.yml
+   ldapsearch -x -H ldap://<auth_server>:389 \
+     -D "cn=admin,dc=example,dc=com" \
+     -W -b "dc=example,dc=com" "(objectClass=*)"
 
-
-
-       Confirm the LDAP bind DN and password match what the LDAP server expects.
-
-    #. If TLS is the issue, test without TLS first to isolate:
-
+3. Verify credentials in the Omnia vault:
 
 .. code-block:: bash
 
-          ldapsearch -x -H ldap://<auth_server>:389 \
-            -D "cn=admin,dc=example,dc=com" -W -b "dc=example,dc=com"
+   ssh omnia_core
+   ansible-vault view /omnia/input/credentials.yml
 
+Confirm the LDAP bind DN and password match what the LDAP server expects.
 
-
-       Then test with TLS:
-
+4. If TLS is the issue, test without TLS first to isolate:
 
 .. code-block:: bash
 
-          ldapsearch -x -H ldaps://<auth_server>:636 \
-            -D "cn=admin,dc=example,dc=com" -W -b "dc=example,dc=com"
+   ldapsearch -x -H ldap://<auth_server>:389 \
+     -D "cn=admin,dc=example,dc=com" -W -b "dc=example,dc=com"
+
+Then test with TLS:
+
+.. code-block:: bash
+
+   ldapsearch -x -H ldaps://<auth_server>:636 \
+     -D "cn=admin,dc=example,dc=com" -W -b "dc=example,dc=com"
 
 
 
@@ -94,7 +81,7 @@ User login fails on cluster nodes
 ---------------------------------
 
 
-???+ note "Symptom"
+**Symptom**
 
     Users cannot log in to Slurm compute nodes or login nodes via SSH. Login
     attempts fail with:
@@ -109,78 +96,59 @@ User login fails on cluster nodes
     Even though the user exists in LDAP and can authenticate on the auth server
     directly.
 
-??? note "Cause"
+**Cause**
 
-    - The LDAP client (``sssd`` or ``nslcd``) is not running on the target node.
-    - The LDAP client is configured with the wrong server URI or search base.
-    - NSS (Name Service Switch) is not configured to use LDAP.
-    - The user's home directory does not exist on the target node.
+- The LDAP client (``sssd`` or ``nslcd``) is not running on the target node.
+- The LDAP client is configured with the wrong server URI or search base.
+- NSS (Name Service Switch) is not configured to use LDAP.
+- The user's home directory does not exist on the target node.
 
-??? note "Resolution"
+**Resolution**
 
-    #. Check SSSD status on the target node:
-
-
-.. code-block:: bash
-
-          ssh <node> systemctl status sssd
-
-
-
-       If not running:
-
+1. Check SSSD status on the target node:
 
 .. code-block:: bash
 
-          ssh <node> systemctl start sssd
+   ssh <node> systemctl status sssd
 
-
-
-    #. Verify SSSD configuration:
-
+If not running:
 
 .. code-block:: bash
 
-          ssh <node> cat /etc/sssd/sssd.conf | grep -E 'ldap_uri|ldap_search_base'
+   ssh <node> systemctl start sssd
 
-
-
-    #. Test user lookup via NSS:
-
+2. Verify SSSD configuration:
 
 .. code-block:: bash
 
-          ssh <node> getent passwd <username>
+   ssh <node> cat /etc/sssd/sssd.conf | grep -E 'ldap_uri|ldap_search_base'
 
-
-
-       If the user does not appear, SSSD or NSS is misconfigured.
-
-    #. Check if the home directory exists:
-
+3. Test user lookup via NSS:
 
 .. code-block:: bash
 
-          ssh <node> ls -la /home/<username>
+   ssh <node> getent passwd <username>
 
+If the user does not appear, SSSD or NSS is misconfigured.
 
-
-       If it does not exist, enable automatic home directory creation:
-
-
-.. code-block:: bash
-
-          ssh <node> authconfig --enablemkhomedir --update
-
-
-
-    #. Clear the SSSD cache and restart:
-
+4. Check if the home directory exists:
 
 .. code-block:: bash
 
-          ssh <node> sss_cache -E
-          ssh <node> systemctl restart sssd
+   ssh <node> ls -la /home/<username>
+
+If it does not exist, enable automatic home directory creation:
+
+.. code-block:: bash
+
+   ssh <node> authconfig --enablemkhomedir --update
+
+5. Clear the SSSD cache and restart:
+
+.. code-block:: bash
+
+   ssh <node> sss_cache -E
+   ssh <node> systemctl restart sssd
 
 
 
@@ -189,82 +157,63 @@ User login fails on cluster nodes
 -----------------------------------
 
 
-???+ note "Symptom"
+**Symptom**
 
-    The ``omnia_auth`` container fails to start or repeatedly crashes. ``podman
-    ps -a`` shows it in ``Exited`` state.
+The ``omnia_auth`` container fails to start or repeatedly crashes. ``podman
+ps -a`` shows it in ``Exited`` state.
 
-??? note "Cause"
+**Cause**
 
-    - Port conflicts (another service is using ports 389 or 636).
-    - Missing or corrupt TLS certificates.
-    - Insufficient permissions on data volumes.
-    - The container image is missing or corrupt.
+- Port conflicts (another service is using ports 389 or 636).
+- Missing or corrupt TLS certificates.
+- Insufficient permissions on data volumes.
+- The container image is missing or corrupt.
 
-??? note "Resolution"
+**Resolution**
 
-    #. Check container logs:
-
-
-.. code-block:: bash
-
-          podman logs omnia_auth
-
-
-
-    #. Check for port conflicts:
-
+1. Check container logs:
 
 .. code-block:: bash
 
-          ss -tlnp | grep -E '389|636'
+   podman logs omnia_auth
 
-
-
-       If another service is using the ports, stop it or reconfigure:
-
+2. Check for port conflicts:
 
 .. code-block:: bash
 
-          systemctl stop <conflicting_service>
+   ss -tlnp | grep -E '389|636'
 
-
-
-    #. Verify TLS certificate files exist and are readable:
-
+If another service is using the ports, stop it or reconfigure:
 
 .. code-block:: bash
 
-          ls -la /etc/omnia/certs/ldap/
+   systemctl stop <conflicting_service>
 
-
-
-    #. Verify data directory permissions:
-
+3. Verify TLS certificate files exist and are readable:
 
 .. code-block:: bash
 
-          ls -la /var/lib/omnia/ldap/
+   ls -la /etc/omnia/certs/ldap/
 
-
-
-    #. Re-pull the container image if it is corrupt:
-
+4. Verify data directory permissions:
 
 .. code-block:: bash
 
-          podman pull <registry>/omnia_auth:<tag>
+   ls -la /var/lib/omnia/ldap/
 
-
-
-    #. Re-run the authentication playbook:
-
+5. Re-pull the container image if it is corrupt:
 
 .. code-block:: bash
 
-          ssh omnia_core
-          cd /omnia
-          ansible-playbook playbooks/auth.yml
+   podman pull <registry>/omnia_auth:<tag>
+
+6. Re-run the authentication playbook:
+
+.. code-block:: bash
+
+   ssh omnia_core
+   cd /omnia
+   ansible-playbook playbooks/auth.yml
 
 
 
@@ -273,95 +222,73 @@ Certificate errors
 ------------------
 
 
-???+ note "Symptom"
+**Symptom**
 
-    LDAP or other services fail with TLS certificate errors:
-
+LDAP or other services fail with TLS certificate errors:
 
 .. code-block:: text
 
-       TLS: peer cert untrusted or revoked
-       SSL routines:ssl3_get_server_certificate:certificate verify failed
+   TLS: peer cert untrusted or revoked
+   SSL routines:ssl3_get_server_certificate:certificate verify failed
 
+**Cause**
 
+- The CA certificate used by step-ca is not installed on the client node.
+- The service certificate has expired.
+- The certificate's Subject Alternative Name (SAN) does not match the
+  hostname or IP being used to connect.
 
-??? note "Cause"
+**Resolution**
 
-    - The CA certificate used by step-ca is not installed on the client node.
-    - The service certificate has expired.
-    - The certificate's Subject Alternative Name (SAN) does not match the
-      hostname or IP being used to connect.
-
-??? note "Resolution"
-
-    #. Check the certificate expiry:
-
+1. Check the certificate expiry:
 
 .. code-block:: bash
 
-          # Using openssl
-          openssl x509 -in /etc/step/certs/server.crt -noout -dates
+   # Using openssl
+   openssl x509 -in /etc/step/certs/server.crt -noout -dates
 
-          # Using step-cli
-          step certificate inspect /etc/step/certs/server.crt --short
+   # Using step-cli
+   step certificate inspect /etc/step/certs/server.crt --short
 
-
-
-    #. If expired, renew the certificate:
-
+2. If expired, renew the certificate:
 
 .. code-block:: bash
 
-          step ca renew /etc/step/certs/server.crt /etc/step/certs/server.key
+   step ca renew /etc/step/certs/server.crt /etc/step/certs/server.key
 
-
-
-    #. Verify the CA certificate is installed on client nodes:
-
+3. Verify the CA certificate is installed on client nodes:
 
 .. code-block:: bash
 
-          ssh <client_node> ls /etc/pki/ca-trust/source/anchors/
+   ssh <client_node> ls /etc/pki/ca-trust/source/anchors/
 
-
-
-       If the CA cert is missing, copy it and update the trust store:
-
+If the CA cert is missing, copy it and update the trust store:
 
 .. code-block:: bash
 
-          scp /etc/step/certs/root_ca.crt <client_node>:/etc/pki/ca-trust/source/anchors/
-          ssh <client_node> update-ca-trust
+   scp /etc/step/certs/root_ca.crt <client_node>:/etc/pki/ca-trust/source/anchors/
+   ssh <client_node> update-ca-trust
 
-
-
-    #. Verify the SAN matches the connection target:
-
+4. Verify the SAN matches the connection target:
 
 .. code-block:: bash
 
-          openssl x509 -in /etc/step/certs/server.crt -noout -ext subjectAltName
+   openssl x509 -in /etc/step/certs/server.crt -noout -ext subjectAltName
 
-
-
-       If the SAN does not include the correct hostname or IP, reissue the
-       certificate:
-
+If the SAN does not include the correct hostname or IP, reissue the
+certificate:
 
 .. code-block:: bash
 
-          step ca certificate <hostname> /etc/step/certs/server.crt \
-            /etc/step/certs/server.key --san <hostname> --san <ip_address>
+   step ca certificate <hostname> /etc/step/certs/server.crt \
+     /etc/step/certs/server.key --san <hostname> --san <ip_address>
 
-
-
-    #. Restart services after updating certificates:
-
+5. Restart services after updating certificates:
 
 .. code-block:: bash
 
-          systemctl restart sssd
-          podman restart omnia_auth
+   systemctl restart sssd
+   podman restart omnia_auth
 
 
 

@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=41ea00ef" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../_static/documentation_options.js?v=392da36c"></script>
+    <script src="../_static/documentation_options.js?v=f35be339"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -462,46 +462,36 @@ all Omnia playbooks execute. It does <em>not</em> participate in the compute
 cluster.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>☑</p></th>
-<th class="head"><p>Requirement</p></th>
+<tr class="row-odd"><th class="head"><p>Requirement</p></th>
 <th class="head"><p>Details</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>64 GB RAM minimum (128 GB recommended)</p></td>
+<tr class="row-even"><td><p>64 GB RAM minimum (128 GB recommended)</p></td>
 <td><p>The <code class="docutils literal notranslate"><span class="pre">omnia_core</span></code> Podman container, local repos, and image-building tasks are memory-intensive.</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p>RHEL 8.8+ or Rocky Linux 8.8+ with <strong>Server with GUI</strong> group</p></td>
+<tr class="row-odd"><td><p>RHEL 8.8+ or Rocky Linux 8.8+ with <strong>Server with GUI</strong> group</p></td>
 <td><p>Minimal installs are <strong>not</strong> supported. The GUI group pulls in required libraries used by Ansible and Podman.</p></td>
 </tr>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>Podman 4.x or later installed</p></td>
+<tr class="row-even"><td><p>Podman 4.x or later installed</p></td>
 <td><p>Verify: <code class="docutils literal notranslate"><span class="pre">podman</span> <span class="pre">--version</span></code>. If missing, install via <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">podman</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p>Two active NIC ports</p></td>
+<tr class="row-odd"><td><p>Two active NIC ports</p></td>
 <td><p><strong>NIC 1 (public):</strong> Internet-facing, for downloading packages and container images. <strong>NIC 2 (internal/admin):</strong> Connected to the admin switch for PXE provisioning and cluster management.</p></td>
 </tr>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>Internet access (direct or via proxy)</p></td>
+<tr class="row-even"><td><p>Internet access (direct or via proxy)</p></td>
 <td><p>Required during <code class="docutils literal notranslate"><span class="pre">local_repo.yml</span></code> to pull OS packages, Python modules, and container images. After repo sync, air-gapped operation is possible.</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p>Git 2.x+ installed</p></td>
+<tr class="row-odd"><td><p>Git 2.x+ installed</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">git</span></code>. Needed to clone the Omnia repository.</p></td>
 </tr>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>500 GB+ free disk on <code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
+<tr class="row-even"><td><p>500 GB+ free disk on <code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
 <td><p>Local repos, container images, and node OS images consume significant space. Use <code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">-h</span> <span class="pre">/</span></code> to check.</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p>SELinux set to <strong>permissive</strong> or <strong>disabled</strong></p></td>
+<tr class="row-odd"><td><p>SELinux set to <strong>permissive</strong> or <strong>disabled</strong></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">setenforce</span> <span class="pre">0</span> <span class="pre">&amp;&amp;</span> <span class="pre">sed</span> <span class="pre">-i</span> <span class="pre">'s/^SELINUX=.*/SELINUX=permissive/'</span> <span class="pre">/etc/selinux/config</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>Firewall allows required ports</p></td>
+<tr class="row-even"><td><p>Firewall allows required ports</p></td>
 <td><p>DHCP (67-68/udp), TFTP (69/udp), HTTP (80, 8080/tcp), NFS (111, 2049/tcp+udp), SSH (22/tcp), and Kubernetes API (6443/tcp).</p></td>
 </tr>
 </tbody>
@@ -512,34 +502,27 @@ cluster.</p>
 <h2>Networking Prerequisites<a class="headerlink" href="#networking-prerequisites" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>☑</p></th>
-<th class="head"><p>Requirement</p></th>
+<tr class="row-odd"><th class="head"><p>Requirement</p></th>
 <th class="head"><p>Details</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>Admin network switch configured</p></td>
+<tr class="row-even"><td><p>Admin network switch configured</p></td>
 <td><p>A dedicated VLAN or flat L2 segment connecting OIM NIC 2 to all target-node admin NICs. DHCP must <strong>not</strong> already be running on this segment (Omnia provides its own).</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p>BMC network switch configured</p></td>
+<tr class="row-odd"><td><p>BMC network switch configured</p></td>
 <td><p>A separate VLAN or segment connecting OIM to all target-node iDRAC BMC ports. Can share a physical switch with admin if VLANs are used.</p></td>
 </tr>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>IP ranges planned for admin and BMC subnets</p></td>
+<tr class="row-even"><td><p>IP ranges planned for admin and BMC subnets</p></td>
 <td><p>You will enter these CIDRs in <code class="docutils literal notranslate"><span class="pre">network_spec.yml</span></code>. Example: admin <code class="docutils literal notranslate"><span class="pre">10.5.0.0/16</span></code>, BMC <code class="docutils literal notranslate"><span class="pre">10.3.0.0/16</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p>No conflicting DHCP servers on admin or BMC subnets</p></td>
+<tr class="row-odd"><td><p>No conflicting DHCP servers on admin or BMC subnets</p></td>
 <td><p>Omnia’s DHCP (via <code class="docutils literal notranslate"><span class="pre">prepare_oim.yml</span></code>) must be the sole DHCP source on the PXE/admin network.</p></td>
 </tr>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>InfiniBand OpenSM configured (if using IB fabric)</p></td>
+<tr class="row-even"><td><p>InfiniBand OpenSM configured (if using IB fabric)</p></td>
 <td><p>Install <code class="docutils literal notranslate"><span class="pre">opensm</span></code> on the OIM or a dedicated subnet manager. Verify: <code class="docutils literal notranslate"><span class="pre">ibstat</span></code> shows ports <strong>Active</strong>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p>DNS resolution working on OIM</p></td>
+<tr class="row-odd"><td><p>DNS resolution working on OIM</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">nslookup</span> <span class="pre">google.com</span></code> must succeed. Configure <code class="docutils literal notranslate"><span class="pre">/etc/resolv.conf</span></code> or NetworkManager DNS if needed.</p></td>
 </tr>
 </tbody>
@@ -553,26 +536,21 @@ cluster.</p>
 <h2>RHEL Subscriptions and Repositories<a class="headerlink" href="#rhel-subscriptions-and-repositories" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>☑</p></th>
-<th class="head"><p>Requirement</p></th>
+<tr class="row-odd"><th class="head"><p>Requirement</p></th>
 <th class="head"><p>Details</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>RHEL subscription active on OIM</p></td>
+<tr class="row-even"><td><p>RHEL subscription active on OIM</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">subscription-manager</span> <span class="pre">status</span></code> must show <strong>Current</strong>. Required for <code class="docutils literal notranslate"><span class="pre">AppStream</span></code> and <code class="docutils literal notranslate"><span class="pre">BaseOS</span></code> repos.</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">AppStream</span></code> and <code class="docutils literal notranslate"><span class="pre">BaseOS</span></code> repos enabled</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AppStream</span></code> and <code class="docutils literal notranslate"><span class="pre">BaseOS</span></code> repos enabled</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">repolist</span></code> must list both. Enable with: <code class="docutils literal notranslate"><span class="pre">subscription-manager</span> <span class="pre">repos</span> <span class="pre">--enable=rhel-8-for-x86_64-appstream-rpms</span> <span class="pre">--enable=rhel-8-for-x86_64-baseos-rpms</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>Docker Hub credentials available</p></td>
+<tr class="row-even"><td><p>Docker Hub credentials available</p></td>
 <td><p>A Docker Hub account (free tier is sufficient) is needed for pulling container images during <code class="docutils literal notranslate"><span class="pre">local_repo.yml</span></code>. You will enter these in <code class="docutils literal notranslate"><span class="pre">local_repo_config.yml</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p>(Optional) Red Hat container registry credentials</p></td>
+<tr class="row-odd"><td><p>(Optional) Red Hat container registry credentials</p></td>
 <td><p>Required only if pulling UBI-based images from <code class="docutils literal notranslate"><span class="pre">registry.redhat.io</span></code>.</p></td>
 </tr>
 </tbody>
@@ -585,35 +563,28 @@ cluster.</p>
 via iDRAC or BIOS Setup (F2 at POST).</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>☑</p></th>
-<th class="head"><p>Setting</p></th>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
 <th class="head"><p>Value</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>System Profile (Performance)</p></td>
-<td><p>Set <strong>System Profile</strong> to <code class="docutils literal notranslate"><span class="pre">Performance</span></code> in BIOS &gt; System Profile Settings. This maximizes CPU frequency and disables power-saving C-states.</p></td>
+<tr class="row-even"><td><p>System Profile (Performance)</p></td>
+<td><p>Set <strong>System Profile</strong> to <code class="docutils literal notranslate"><span class="pre">Performance</span></code> in <strong>BIOS</strong> &gt; <strong>System Profile Settings</strong>. This maximizes CPU frequency and disables power-saving C-states.</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p>Power Cap disabled</p></td>
-<td><p>BIOS &gt; System Profile Settings &gt; Power Cap Policy: <strong>Disabled</strong>. Power capping can throttle CPUs during Slurm jobs.</p></td>
+<tr class="row-odd"><td><p>Power Cap disabled</p></td>
+<td><p><strong>BIOS</strong> &gt; <strong>System Profile Settings</strong> &gt; <strong>Power Cap Policy</strong>: <strong>Disabled</strong>. Power capping can throttle CPUs during Slurm jobs.</p></td>
 </tr>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>PXE boot enabled on admin NIC</p></td>
-<td><p>BIOS &gt; Network Settings &gt; NIC Configuration &gt; enable <strong>PXE Boot</strong> on the NIC connected to the admin switch. Disable PXE on all other NICs to avoid boot-order confusion.</p></td>
+<tr class="row-even"><td><p>PXE boot enabled on admin NIC</p></td>
+<td><p><strong>BIOS</strong> &gt; <strong>Network Settings</strong> &gt; <strong>NIC Configuration</strong> &gt; enable <strong>PXE Boot</strong> on the NIC connected to the admin switch. Disable PXE on all other NICs to avoid boot-order confusion.</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p>Boot order: NIC first, then disk</p></td>
-<td><p>BIOS &gt; Boot Settings &gt; Boot Sequence: move the PXE-enabled NIC above the hard drive. After initial provisioning, Omnia configures disk-first boot automatically.</p></td>
+<tr class="row-odd"><td><p>Boot order: NIC first, then disk</p></td>
+<td><p><strong>BIOS</strong> &gt; <strong>Boot Settings</strong> &gt; <strong>Boot Sequence</strong>: move the PXE-enabled NIC above the hard drive. After initial provisioning, Omnia configures disk-first boot automatically.</p></td>
 </tr>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>Virtualization Technology (VT-x/VT-d) enabled</p></td>
+<tr class="row-even"><td><p>Virtualization Technology (VT-x/VT-d) enabled</p></td>
 <td><p>Required for K8s nodes running containerized workloads.</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p>SR-IOV enabled (if using SR-IOV NICs)</p></td>
-<td><p>BIOS &gt; Integrated Devices &gt; SR-IOV Global Enable: <strong>Enabled</strong>.</p></td>
+<tr class="row-odd"><td><p>SR-IOV enabled (if using SR-IOV NICs)</p></td>
+<td><p><strong>BIOS</strong> &gt; <strong>Integrated Devices</strong> &gt; <strong>SR-IOV Global Enable</strong>: <strong>Enabled</strong>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -623,30 +594,24 @@ via iDRAC or BIOS Setup (F2 at POST).</p>
 <h2>iDRAC Settings<a class="headerlink" href="#idrac-settings" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>☑</p></th>
-<th class="head"><p>Setting</p></th>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
 <th class="head"><p>Value</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>Redfish API enabled</p></td>
-<td><p>iDRAC Settings &gt; Network &gt; Services: <strong>Redfish</strong> enabled. Omnia uses Redfish for out-of-band discovery and firmware inventory.</p></td>
+<tr class="row-even"><td><p>Redfish API enabled</p></td>
+<td><p><strong>iDRAC Settings</strong> &gt; <strong>Network</strong> &gt; <strong>Services</strong>: <strong>Redfish</strong> enabled. Omnia uses Redfish for out-of-band discovery and firmware inventory.</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p>iDRAC firmware updated to latest version</p></td>
+<tr class="row-odd"><td><p>iDRAC firmware updated to latest version</p></td>
 <td><p>Download from <a class="reference external" href="https://www.dell.com/support">Dell Support</a>. Minimum recommended: iDRAC 6.10.x+ for 15th-gen, 5.10.x+ for 14th-gen.</p></td>
 </tr>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>Datacenter license installed (for telemetry)</p></td>
+<tr class="row-even"><td><p>Datacenter license installed (for telemetry)</p></td>
 <td><p><strong>Required only for Paths B and C.</strong> The Datacenter license enables streaming telemetry via iDRAC. Enterprise license is insufficient.</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p>iDRAC IP assigned on BMC network</p></td>
+<tr class="row-odd"><td><p>iDRAC IP assigned on BMC network</p></td>
 <td><p>Can be DHCP (Omnia will assign) or static. If static, record each iDRAC IP for the mapping file.</p></td>
 </tr>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>Default iDRAC credentials known</p></td>
+<tr class="row-even"><td><p>Default iDRAC credentials known</p></td>
 <td><p>Factory default is <code class="docutils literal notranslate"><span class="pre">root</span></code> / <code class="docutils literal notranslate"><span class="pre">calvin</span></code>. If changed, you must provide the current credentials in <code class="docutils literal notranslate"><span class="pre">provision_config.yml</span></code>.</p></td>
 </tr>
 </tbody>
@@ -659,26 +624,21 @@ via iDRAC or BIOS Setup (F2 at POST).</p>
 cluster is deployed.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p>☑</p></th>
-<th class="head"><p>Requirement</p></th>
+<tr class="row-odd"><th class="head"><p>Requirement</p></th>
 <th class="head"><p>Details</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>Minimum <strong>3 control-plane nodes</strong> allocated</p></td>
+<tr class="row-even"><td><p>Minimum <strong>3 control-plane nodes</strong> allocated</p></td>
 <td><p>Kubernetes HA requires an odd number of control-plane nodes (3 or 5). Each must have 64 GB RAM minimum and 4+ CPU cores.</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p>At least <strong>1 worker node</strong> allocated</p></td>
+<tr class="row-odd"><td><p>At least <strong>1 worker node</strong> allocated</p></td>
 <td><p>Worker nodes run telemetry collectors, Grafana, and VictoriaMetrics. 64 GB RAM recommended.</p></td>
 </tr>
-<tr class="row-even"><td><p>☐</p></td>
-<td><p>Dedicated IP range for K8s pod and service networks</p></td>
+<tr class="row-even"><td><p>Dedicated IP range for K8s pod and service networks</p></td>
 <td><p>Defaults: pod CIDR <code class="docutils literal notranslate"><span class="pre">10.244.0.0/16</span></code>, service CIDR <code class="docutils literal notranslate"><span class="pre">10.96.0.0/12</span></code>. These must not overlap with admin or BMC subnets.</p></td>
 </tr>
-<tr class="row-odd"><td><p>☐</p></td>
-<td><p>Virtual IP (VIP) reserved for K8s API HA</p></td>
+<tr class="row-odd"><td><p>Virtual IP (VIP) reserved for K8s API HA</p></td>
 <td><p>A single unused IP on the admin network that <code class="docutils literal notranslate"><span class="pre">kube-vip</span></code> will float across control-plane nodes. Enter this in <code class="docutils literal notranslate"><span class="pre">ha_config.yml</span></code>.</p></td>
 </tr>
 </tbody>
@@ -727,7 +687,7 @@ Deploying with unmet prerequisites will produce difficult-to-debug errors
 deep in the Ansible playbook execution.</p>
 </div>
 <p>You are now ready to choose your deployment path. Return to <a class="reference internal" href="index.html"><span class="doc">Index</span></a>.</p>
-<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+<p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>
 
@@ -815,7 +775,7 @@ deep in the Ansible playbook execution.</p>
 
   <p class="copyright">
     
-      © Copyright 2025, Dell Technologies.
+      © Copyright Dell Technologies.
       <br/>
     
   </p>

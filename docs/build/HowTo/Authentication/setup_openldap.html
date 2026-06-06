@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../../_static/documentation_options.js?v=392da36c"></script>
+    <script src="../../_static/documentation_options.js?v=f35be339"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -537,16 +537,18 @@ container is running).</p></li>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Enter the omnia_core container</strong>:</p>
+<ol class="arabic simple">
+<li><p>Enter the omnia_core container:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Configure authentication parameters</strong> in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p>
+<ol class="arabic simple" start="2">
+<li><p>Configure authentication parameters in <code class="docutils literal notranslate"><span class="pre">omnia_config.yml</span></code>:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vi<span class="w"> </span>/opt/omnia/input/project_default/omnia_config.yml
@@ -554,9 +556,8 @@ container is running).</p></li>
 </div>
 </div>
 <p>Add or update the LDAP parameters:</p>
-</li>
-</ol>
-<p><strong>File: /opt/omnia/input/project_default/omnia_config.yml</strong></p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">File: /opt/omnia/input/project_default/omnia_config.yml</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="c1"># Authentication configuration</span>
 <span class="nt">auth_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;openldap&quot;</span>
@@ -565,20 +566,19 @@ container is running).</p></li>
 <span class="nt">ldap_organization</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Omnia</span><span class="nv"> </span><span class="s">HPC</span><span class="nv"> </span><span class="s">Cluster&quot;</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Run the auth.yml playbook</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Run the auth.yml playbook:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>auth.yml<span class="w"> </span>--ask-vault-pass
 </pre></div>
 </div>
 </div>
 <p>The playbook performs:</p>
-</li>
-</ol>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>Configures the OpenLDAP directory in the <code class="docutils literal notranslate"><span class="pre">omnia_auth</span></code> container.</p></li>
 <li><p>Sets the admin (cn=admin) password.</p></li>
 <li><p>Creates the organizational structure (OUs for users and groups).</p></li>
@@ -586,106 +586,104 @@ ansible-playbook<span class="w"> </span>auth.yml<span class="w"> </span>--ask-va
 <li><p>Configures PAM for LDAP authentication.</p></li>
 <li><p>Sets up automatic home directory creation on first login.</p></li>
 </ul>
-<blockquote>
-<div><p>Execution time: <strong>10-20 minutes</strong>.</p>
-</div></blockquote>
-</div></blockquote>
-<ol class="arabic">
-<li><p><strong>Add LDAP users</strong> from the omnia_auth container:</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<p>Execution time: <strong>10-20 minutes</strong>.</p>
+<ol class="arabic simple" start="4">
+<li><p>Add LDAP users from the omnia_auth container:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>omnia_auth<span class="w"> </span>bash
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_auth container</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># Create an LDIF file for a new user</span>
-<span class="w">   </span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /tmp/add_user.ldif</span>
-<span class="s">   dn: uid=testuser,ou=People,dc=omnia,dc=example,dc=com</span>
-<span class="s">   objectClass: inetOrgPerson</span>
-<span class="s">   objectClass: posixAccount</span>
-<span class="s">   objectClass: shadowAccount</span>
-<span class="s">   uid: testuser</span>
-<span class="s">   cn: Test User</span>
-<span class="s">   sn: User</span>
-<span class="s">   uidNumber: 10001</span>
-<span class="s">   gidNumber: 10001</span>
-<span class="s">   homeDirectory: /home/testuser</span>
-<span class="s">   loginShell: /bin/bash</span>
-<span class="s">   userPassword: {SSHA}TemporaryPassword</span>
-<span class="s">   EOF</span>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_auth container</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an LDIF file for a new user</span>
+cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /tmp/add_user.ldif</span>
+<span class="s">dn: uid=testuser,ou=People,dc=omnia,dc=example,dc=com</span>
+<span class="s">objectClass: inetOrgPerson</span>
+<span class="s">objectClass: posixAccount</span>
+<span class="s">objectClass: shadowAccount</span>
+<span class="s">uid: testuser</span>
+<span class="s">cn: Test User</span>
+<span class="s">sn: User</span>
+<span class="s">uidNumber: 10001</span>
+<span class="s">gidNumber: 10001</span>
+<span class="s">homeDirectory: /home/testuser</span>
+<span class="s">loginShell: /bin/bash</span>
+<span class="s">userPassword: {SSHA}TemporaryPassword</span>
+<span class="s">EOF</span>
 
-<span class="w">   </span>ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>/tmp/add_user.ldif
+ldapadd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span>-W<span class="w"> </span>-f<span class="w"> </span>/tmp/add_user.ldif
 </pre></div>
 </div>
 </div>
-<ol class="arabic">
-<li><p><strong>Set the user’s password</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_auth container</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="5">
+<li><p>Set the user’s password:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_auth container</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldappasswd<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span>-W<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-S<span class="w"> </span><span class="s2">&quot;uid=testuser,ou=People,dc=omnia,dc=example,dc=com&quot;</span>
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Verify OpenLDAP is running</strong> in the omnia_auth container:</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<ol class="arabic simple">
+<li><p>Verify OpenLDAP is running in the omnia_auth container:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>omnia_auth<span class="w"> </span>slapcat<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Test LDAP search</strong> from the omnia_core container:</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="2">
+<li><p>Test LDAP search from the omnia_core container:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://omnia_auth<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span><span class="s2">&quot;(uid=testuser)&quot;</span>
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Verify SSSD is running</strong> on cluster nodes:</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="3">
+<li><p>Verify SSSD is running on cluster nodes:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;systemctl is-active sssd&quot;</span>
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Test user resolution</strong> on a compute node:</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="4">
+<li><p>Test user resolution on a compute node:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>id<span class="w"> </span>testuser
 getent<span class="w"> </span>passwd<span class="w"> </span>testuser
 </pre></div>
 </div>
 </div>
 <p>Expected output:</p>
-</li>
-</ol>
-<p><strong>Expected output on: compute node</strong></p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Expected output on: compute node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>uid=10001(testuser) gid=10001(testuser) groups=10001(testuser)
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Test SSH login</strong> as the LDAP user:</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on: any node with network access</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Test SSH login as the LDAP user:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on: any node with network access</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>testuser@&lt;compute-node-ip&gt;
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -698,72 +696,58 @@ directory.</p></li>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt><strong>SSSD cannot connect to LDAP</strong></dt><dd><p>Verify network connectivity and the LDAP URI:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://&lt;oim-ip&gt;<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=omnia,dc=example,dc=com&quot;</span>
+<p><strong>SSSD cannot connect to LDAP</strong>
+Verify network connectivity and the LDAP URI:</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://&lt;oim-ip&gt;<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=omnia,dc=example,dc=com&quot;</span>
 </pre></div>
 </div>
 </div>
-<dl>
-<dt><strong>User not found (getent returns nothing)</strong></dt><dd><ul class="simple">
-<li><p>Clear the SSSD cache:</p></li>
-</ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>sss_cache<span class="w"> </span>-E
-<span class="w">  </span>systemctl<span class="w"> </span>restart<span class="w"> </span>sssd
+<p><strong>User not found (getent returns nothing)</strong>
+- Clear the SSSD cache:</p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sss_cache<span class="w"> </span>-E
+systemctl<span class="w"> </span>restart<span class="w"> </span>sssd
 </pre></div>
 </div>
 </div>
-</div></blockquote>
 <ul class="simple">
 <li><p>Check SSSD logs:</p></li>
 </ul>
-<blockquote>
-<div><div class="literal-block-wrapper docutils container" id="id14">
-<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>journalctl<span class="w"> </span>-u<span class="w"> </span>sssd<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">30</span>
-</pre></div>
-</div>
-</div>
-</div></blockquote>
-</dd>
-<dt><strong>ldapadd returns “invalid credentials”</strong></dt><dd><p>Ensure you are using the correct admin DN and password:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Run on: omnia_auth container</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ldapwhoami<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span>-W
-</pre></div>
-</div>
-</div>
-<dl class="simple">
-<dt><strong>Home directory not created on first login</strong></dt><dd><p>Verify the <code class="docutils literal notranslate"><span class="pre">pam_mkhomedir</span></code> module is configured:</p>
-</dd>
-</dl>
 <div class="literal-block-wrapper docutils container" id="id16">
 <div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>grep<span class="w"> </span>mkhomedir<span class="w"> </span>/etc/pam.d/system-auth
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>journalctl<span class="w"> </span>-u<span class="w"> </span>sssd<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">30</span>
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>Auth playbook fails with “omnia_auth container not found”</strong></dt><dd><p>Ensure the container is running:</p>
-</dd>
-</dl>
+<p><strong>ldapadd returns “invalid credentials”</strong>
+Ensure you are using the correct admin DN and password:</p>
 <div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>systemctl<span class="w"> </span>status<span class="w"> </span>omnia_auth.service
-<span class="w">   </span>podman<span class="w"> </span>ps<span class="w"> </span>--filter<span class="w"> </span><span class="nv">name</span><span class="o">=</span>omnia_auth
+<div class="code-block-caption"><span class="caption-text">Run on: omnia_auth container</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapwhoami<span class="w"> </span>-x<span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=omnia,dc=example,dc=com&quot;</span><span class="w"> </span>-W
 </pre></div>
 </div>
 </div>
-<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+<p><strong>Home directory not created on first login</strong>
+Verify the <code class="docutils literal notranslate"><span class="pre">pam_mkhomedir</span></code> module is configured:</p>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text">Run on: compute node</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span>mkhomedir<span class="w"> </span>/etc/pam.d/system-auth
+</pre></div>
+</div>
+</div>
+<p><strong>Auth playbook fails with “omnia_auth container not found”</strong>
+Ensure the container is running:</p>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id19" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>status<span class="w"> </span>omnia_auth.service
+podman<span class="w"> </span>ps<span class="w"> </span>--filter<span class="w"> </span><span class="nv">name</span><span class="o">=</span>omnia_auth
+</pre></div>
+</div>
+</div>
+<p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>
 
@@ -848,7 +832,7 @@ directory.</p></li>
 
   <p class="copyright">
     
-      © Copyright 2025, Dell Technologies.
+      © Copyright Dell Technologies.
       <br/>
     
   </p>

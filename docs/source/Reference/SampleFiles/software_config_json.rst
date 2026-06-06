@@ -18,10 +18,8 @@ Scenario 1: Slurm-only cluster
 Deploys a traditional HPC cluster with Slurm scheduling, NVIDIA GPU support,
 and LDMS telemetry on compute nodes. No Kubernetes.
 
-
-**Sample software_config.json: Slurm-only cluster**
-
 .. code-block:: json
+   :caption: Sample software_config.json: Slurm-only cluster
 
    [
      {
@@ -85,10 +83,8 @@ Scenario 2: Slurm + Kubernetes (full deployment)
 Production-grade deployment with Slurm for HPC compute and Kubernetes for
 platform services, monitoring, and storage.
 
-
-**Sample software_config.json: Slurm + Kubernetes**
-
 .. code-block:: json
+   :caption: Sample software_config.json: Slurm + Kubernetes
 
    [
      {
@@ -175,10 +171,8 @@ Scenario 3: Kubernetes + telemetry only (no Slurm)
 Deploys a Kubernetes cluster with the full telemetry pipeline for
 infrastructure monitoring without a job scheduler.
 
-
-**Sample software_config.json: Kubernetes + telemetry only**
-
 .. code-block:: json
+   :caption: Sample software_config.json: Kubernetes + telemetry only
 
    [
      {
@@ -225,10 +219,8 @@ Scenario 4: AMD GPU compute nodes
 
 Slurm cluster with AMD Instinct GPU nodes instead of NVIDIA.
 
-
-**Sample software_config.json: AMD GPU compute nodes**
-
 .. code-block:: json
+   :caption: Sample software_config.json: AMD GPU compute nodes
 
    [
      {

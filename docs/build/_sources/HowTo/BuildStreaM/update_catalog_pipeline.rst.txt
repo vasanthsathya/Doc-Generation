@@ -45,32 +45,28 @@ Procedure
 ---------
 
 
-#. **Clone the catalog repository** (if not already cloned):
+1. Clone the catalog repository (if not already cloned):
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      cd /opt/omnia
-      git clone http://<oim-ip>:8082/root/buildstream-catalog.git
-      cd buildstream-catalog
-
-
-
-#. **Edit the catalog file**:
-
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
-
-      vi catalog.yml
+   cd /opt/omnia
+   git clone http://<oim-ip>:8082/root/buildstream-catalog.git
+   cd buildstream-catalog
 
 
 
-   Example catalog structure:
+2. Edit the catalog file:
 
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-**File: /opt/omnia/buildstream-catalog/catalog.yml**
+   vi catalog.yml
+
+Example catalog structure:
 
 .. code-block:: yaml
+   :caption: File: /opt/omnia/buildstream-catalog/catalog.yml
 
       ---
       catalog_version: "2.1.0"
@@ -128,54 +124,50 @@ Procedure
 
 
 
-#. **Make your changes**. Common modifications include:
+3. Make your changes. Common modifications include:
+
+- Adding new nodes to a ``node_groups`` section.
+- Changing the software stack.
+- Updating network ranges.
+- Enabling/disabling telemetry.
 
 
-  - Adding new nodes to a ``node_groups`` section.
-  - Changing the software stack.
-  - Updating network ranges.
-  - Enabling/disabling telemetry.
+4. Commit and push the changes:
 
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-#. **Commit and push the changes**:
-
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
-
-      cd /opt/omnia/buildstream-catalog
-      git add catalog.yml
-      git commit -m "Add 2 new compute nodes to slurm cluster"
-      git push origin main
+   cd /opt/omnia/buildstream-catalog
+   git add catalog.yml
+   git commit -m "Add 2 new compute nodes to slurm cluster"
+   git push origin main
 
 
 
-#. **Monitor the pipeline** in GitLab:
+5. Monitor the pipeline in GitLab:
+
+Open the GitLab web UI and navigate to:
+**CI/CD** > **Pipelines**
+
+The pipeline runs through the following stages:
+
+- **validate** -- Checks catalog syntax and validates input files.
+- **provision** -- Discovers and provisions new/changed nodes (manual
+   trigger).
+- **configure** -- Applies Slurm/K8s/telemetry configuration (manual
+   trigger).
+- **verify** -- Runs health checks on the updated cluster.
 
 
-   Open the GitLab web UI and navigate to:
-   **CI/CD** > **Pipelines**
+6. Manually trigger deployment stages:
 
-   The pipeline runs through the following stages:
+In the GitLab pipeline view, click the **Play** button next to the
+``provision`` and ``configure`` stages to execute them.
 
-  - **validate** -- Checks catalog syntax and validates input files.
-  - **provision** -- Discovers and provisions new/changed nodes (manual
-     trigger).
-  - **configure** -- Applies Slurm/K8s/telemetry configuration (manual
-     trigger).
-  - **verify** -- Runs health checks on the updated cluster.
+7. Review pipeline artifacts and logs:
 
-
-#. **Manually trigger deployment stages**:
-
-
-   In the GitLab pipeline view, click the **Play** button next to the
-   ``provision`` and ``configure`` stages to execute them.
-
-#. **Review pipeline artifacts and logs**:
-
-
-   Click on a completed job to view its logs. Download artifacts from the
-   **Artifacts** section if available.
+Click on a completed job to view its logs. Download artifacts from the
+**Artifacts** section if available.
 
 
 
@@ -183,31 +175,30 @@ Verification
 ------------
 
 
-#. **Verify the pipeline completed successfully**:
+1. Verify the pipeline completed successfully:
+
+In GitLab, navigate to **CI/CD** > **Pipelines**. The latest pipeline
+should show all stages with green checkmarks.
+
+2. Verify catalog changes were applied:
+
+.. code-block:: bash
+   :caption: Run on: omnia_core container
+
+   # Check if new nodes were provisioned
+   ochami node list
+
+   # Check Slurm configuration
+   ssh <slurm-control-ip> sinfo
 
 
-   In GitLab, navigate to **CI/CD** > **Pipelines**. The latest pipeline
-   should show all stages with green checkmarks.
 
-#. **Verify catalog changes were applied**:
+3. Run the verification stage to confirm cluster health:
 
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
+.. code-block:: bash
+   :caption: Run on: omnia_core container
 
-      # Check if new nodes were provisioned
-      ochami node list
-
-      # Check Slurm configuration
-      ssh <slurm-control-ip> sinfo
-
-
-
-#. **Run the verification stage** to confirm cluster health:
-
-   .. code-block:: bash
-      :caption: Run on: omnia_core container
-
-      ansible all -m ping
+   ansible all -m ping
 
 
 
@@ -230,46 +221,43 @@ Troubleshooting
 
 
 **Pipeline fails at "validate" stage**
-   Check the job logs for validation errors. Common issues:
+Check the job logs for validation errors. Common issues:
 
-  - YAML syntax errors in ``catalog.yml``
-  - Missing required fields
-  - IP address conflicts
+- YAML syntax errors in ``catalog.yml``
+- Missing required fields
+- IP address conflicts
 
-
-   Fix the catalog and push a new commit.
+Fix the catalog and push a new commit.
 
 **Pipeline fails at "provision" stage**
-  - Check that BMC IPs are reachable for new nodes.
-  - Verify credentials are configured.
-  - Review the Ansible playbook output in the job logs.
+- Check that BMC IPs are reachable for new nodes.
+- Verify credentials are configured.
+- Review the Ansible playbook output in the job logs.
 
 
 **Pipeline fails at "configure" stage**
-  - Check that provisioned nodes are reachable.
-  - Verify the Vault password is available to the runner.
-  - Review Ansible output for specific task failures.
+- Check that provisioned nodes are reachable.
+- Verify the Vault password is available to the runner.
+- Review Ansible output for specific task failures.
 
 
 **Git push is rejected**
-   Check GitLab authentication:
-
+Check GitLab authentication:
 
 .. code-block:: bash
    :caption: Run on: omnia_core container
 
-      git remote -v
-      # Ensure URL is correct and credentials are configured
+   git remote -v
+   # Ensure URL is correct and credentials are configured
 
 
 
 **Pipeline not triggered on push**
-   Verify ``.gitlab-ci.yml`` exists in the repository root and the runner
-   is active:
-
+Verify ``.gitlab-ci.yml`` exists in the repository root and the runner
+is active:
 
 .. code-block:: bash
    :caption: Run on: OIM host
 
-      podman exec gitlab-runner gitlab-runner list
+   podman exec gitlab-runner gitlab-runner list
 

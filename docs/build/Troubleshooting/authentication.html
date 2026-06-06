@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../_static/documentation_options.js?v=392da36c"></script>
+    <script src="../_static/documentation_options.js?v=f35be339"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -451,10 +451,8 @@
 container, and TLS certificate errors.</p>
 <section id="ldap-bind-failures">
 <h2>LDAP bind failures<a class="headerlink" href="#ldap-bind-failures" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>LDAP client operations fail with bind errors:</p>
-</div></blockquote>
+<p><strong>Symptom</strong></p>
+<p>LDAP client operations fail with bind errors:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>   ldap_bind: Invalid credentials (49)
 
 
@@ -463,57 +461,46 @@ Or Ansible playbooks fail when attempting to configure LDAP with
 authentication errors.
 </pre></div>
 </div>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>The LDAP admin bind DN or password is incorrect.</p></li>
 <li><p>The LDAP server is not running.</p></li>
 <li><p>TLS certificate verification fails, preventing the secure bind.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Verify the LDAP server is running:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span><span class="c1"># If running as a container on the auth_server node</span>
-<span class="w">      </span>ssh<span class="w"> </span>&lt;auth_server&gt;<span class="w"> </span>podman<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ldap
-<span class="w">      </span><span class="c1"># or</span>
-<span class="w">      </span>ssh<span class="w"> </span>&lt;auth_server&gt;<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>slapd
-
-
-
-<span class="c1">#. Test a manual bind:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># If running as a container on the auth_server node</span>
+ssh<span class="w"> </span>&lt;auth_server&gt;<span class="w"> </span>podman<span class="w"> </span>ps<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ldap
+<span class="c1"># or</span>
+ssh<span class="w"> </span>&lt;auth_server&gt;<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>slapd
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://&lt;auth_server&gt;:389<span class="w"> </span><span class="se">\</span>
-<span class="w">        </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=example,dc=com&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">        </span>-W<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=example,dc=com&quot;</span><span class="w"> </span><span class="s2">&quot;(objectClass=*)&quot;</span>
-
-
-
-<span class="c1">#. Verify credentials in the Omnia vault:</span>
+<ol class="arabic simple" start="2">
+<li><p>Test a manual bind:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://&lt;auth_server&gt;:389<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=example,dc=com&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-W<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=example,dc=com&quot;</span><span class="w"> </span><span class="s2">&quot;(objectClass=*)&quot;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>omnia_core
-<span class="w">      </span>ansible-vault<span class="w"> </span>view<span class="w"> </span>/omnia/input/credentials.yml
-
-
-
-<span class="w">   </span>Confirm<span class="w"> </span>the<span class="w"> </span>LDAP<span class="w"> </span><span class="nb">bind</span><span class="w"> </span>DN<span class="w"> </span>and<span class="w"> </span>password<span class="w"> </span>match<span class="w"> </span>what<span class="w"> </span>the<span class="w"> </span>LDAP<span class="w"> </span>server<span class="w"> </span>expects.
-
-<span class="c1">#. If TLS is the issue, test without TLS first to isolate:</span>
+<ol class="arabic simple" start="3">
+<li><p>Verify credentials in the Omnia vault:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
+ansible-vault<span class="w"> </span>view<span class="w"> </span>/omnia/input/credentials.yml
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://&lt;auth_server&gt;:389<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=example,dc=com&quot;</span><span class="w"> </span>-W<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=example,dc=com&quot;</span>
-
-
-
-Then<span class="w"> </span><span class="nb">test</span><span class="w"> </span>with<span class="w"> </span>TLS:
+<p>Confirm the LDAP bind DN and password match what the LDAP server expects.</p>
+<ol class="arabic simple" start="4">
+<li><p>If TLS is the issue, test without TLS first to isolate:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://&lt;auth_server&gt;:389<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=example,dc=com&quot;</span><span class="w"> </span>-W<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=example,dc=com&quot;</span>
 </pre></div>
 </div>
+<p>Then test with TLS:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldaps://&lt;auth_server&gt;:636<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-D<span class="w"> </span><span class="s2">&quot;cn=admin,dc=example,dc=com&quot;</span><span class="w"> </span>-W<span class="w"> </span>-b<span class="w"> </span><span class="s2">&quot;dc=example,dc=com&quot;</span>
 </pre></div>
@@ -521,7 +508,7 @@ Then<span class="w"> </span><span class="nb">test</span><span class="w"> </span>
 </section>
 <section id="user-login-fails-on-cluster-nodes">
 <h2>User login fails on cluster nodes<a class="headerlink" href="#user-login-fails-on-cluster-nodes" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
+<p><strong>Symptom</strong></p>
 <blockquote>
 <div><p>Users cannot log in to Slurm compute nodes or login nodes via SSH. Login
 attempts fail with:</p>
@@ -534,65 +521,50 @@ Even though the user exists in LDAP and can authenticate on the auth server
 directly.
 </pre></div>
 </div>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>The LDAP client (<code class="docutils literal notranslate"><span class="pre">sssd</span></code> or <code class="docutils literal notranslate"><span class="pre">nslcd</span></code>) is not running on the target node.</p></li>
 <li><p>The LDAP client is configured with the wrong server URI or search base.</p></li>
 <li><p>NSS (Name Service Switch) is not configured to use LDAP.</p></li>
 <li><p>The user’s home directory does not exist on the target node.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Check SSSD status on the target node:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ssh<span class="w"> </span>&lt;node&gt;<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>sssd
-
-
-
-If<span class="w"> </span>not<span class="w"> </span>running:
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;node&gt;<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>sssd
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>&lt;node&gt;<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>sssd
-
-
-
-<span class="c1">#. Verify SSSD configuration:</span>
+<p>If not running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;node&gt;<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>sssd
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>&lt;node&gt;<span class="w"> </span>cat<span class="w"> </span>/etc/sssd/sssd.conf<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;ldap_uri|ldap_search_base&#39;</span>
-
-
-
-<span class="c1">#. Test user lookup via NSS:</span>
+<ol class="arabic simple" start="2">
+<li><p>Verify SSSD configuration:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;node&gt;<span class="w"> </span>cat<span class="w"> </span>/etc/sssd/sssd.conf<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;ldap_uri|ldap_search_base&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>&lt;node&gt;<span class="w"> </span>getent<span class="w"> </span>passwd<span class="w"> </span>&lt;username&gt;
-
-
-
-<span class="w">   </span>If<span class="w"> </span>the<span class="w"> </span>user<span class="w"> </span>does<span class="w"> </span>not<span class="w"> </span>appear,<span class="w"> </span>SSSD<span class="w"> </span>or<span class="w"> </span>NSS<span class="w"> </span>is<span class="w"> </span>misconfigured.
-
-<span class="c1">#. Check if the home directory exists:</span>
+<ol class="arabic simple" start="3">
+<li><p>Test user lookup via NSS:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;node&gt;<span class="w"> </span>getent<span class="w"> </span>passwd<span class="w"> </span>&lt;username&gt;
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ssh<span class="w"> </span>&lt;node&gt;<span class="w"> </span>ls<span class="w"> </span>-la<span class="w"> </span>/home/&lt;username&gt;
-
-
-
-If<span class="w"> </span>it<span class="w"> </span>does<span class="w"> </span>not<span class="w"> </span>exist,<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>automatic<span class="w"> </span>home<span class="w"> </span>directory<span class="w"> </span>creation:
+<p>If the user does not appear, SSSD or NSS is misconfigured.</p>
+<ol class="arabic simple" start="4">
+<li><p>Check if the home directory exists:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;node&gt;<span class="w"> </span>ls<span class="w"> </span>-la<span class="w"> </span>/home/&lt;username&gt;
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>&lt;node&gt;<span class="w"> </span>authconfig<span class="w"> </span>--enablemkhomedir<span class="w"> </span>--update
-
-
-
-<span class="c1">#. Clear the SSSD cache and restart:</span>
+<p>If it does not exist, enable automatic home directory creation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;node&gt;<span class="w"> </span>authconfig<span class="w"> </span>--enablemkhomedir<span class="w"> </span>--update
 </pre></div>
 </div>
+<ol class="arabic simple" start="5">
+<li><p>Clear the SSSD cache and restart:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;node&gt;<span class="w"> </span>sss_cache<span class="w"> </span>-E
 ssh<span class="w"> </span>&lt;node&gt;<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>sssd
 </pre></div>
@@ -600,68 +572,54 @@ ssh<span class="w"> </span>&lt;node&gt;<span class="w"> </span>systemctl<span cl
 </section>
 <section id="omnia-auth-container-not-starting">
 <h2><cite>omnia_auth</cite> container not starting<a class="headerlink" href="#omnia-auth-container-not-starting" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>The <code class="docutils literal notranslate"><span class="pre">omnia_auth</span></code> container fails to start or repeatedly crashes. <code class="docutils literal notranslate"><span class="pre">podman</span>
+<p><strong>Symptom</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">omnia_auth</span></code> container fails to start or repeatedly crashes. <code class="docutils literal notranslate"><span class="pre">podman</span>
 <span class="pre">ps</span> <span class="pre">-a</span></code> shows it in <code class="docutils literal notranslate"><span class="pre">Exited</span></code> state.</p>
-</div></blockquote>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>Port conflicts (another service is using ports 389 or 636).</p></li>
 <li><p>Missing or corrupt TLS certificates.</p></li>
 <li><p>Insufficient permissions on data volumes.</p></li>
 <li><p>The container image is missing or corrupt.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Check container logs:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>podman<span class="w"> </span>logs<span class="w"> </span>omnia_auth
-
-
-
-<span class="c1">#. Check for port conflicts:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>logs<span class="w"> </span>omnia_auth
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;389|636&#39;</span>
-
-
-
-If<span class="w"> </span>another<span class="w"> </span>service<span class="w"> </span>is<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>ports,<span class="w"> </span>stop<span class="w"> </span>it<span class="w"> </span>or<span class="w"> </span>reconfigure:
+<ol class="arabic simple" start="2">
+<li><p>Check for port conflicts:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;389|636&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>systemctl<span class="w"> </span>stop<span class="w"> </span>&lt;conflicting_service&gt;
-
-
-
-<span class="c1">#. Verify TLS certificate files exist and are readable:</span>
+<p>If another service is using the ports, stop it or reconfigure:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>stop<span class="w"> </span>&lt;conflicting_service&gt;
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ls<span class="w"> </span>-la<span class="w"> </span>/etc/omnia/certs/ldap/
-
-
-
-<span class="c1">#. Verify data directory permissions:</span>
+<ol class="arabic simple" start="3">
+<li><p>Verify TLS certificate files exist and are readable:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-la<span class="w"> </span>/etc/omnia/certs/ldap/
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ls<span class="w"> </span>-la<span class="w"> </span>/var/lib/omnia/ldap/
-
-
-
-<span class="c1">#. Re-pull the container image if it is corrupt:</span>
+<ol class="arabic simple" start="4">
+<li><p>Verify data directory permissions:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>-la<span class="w"> </span>/var/lib/omnia/ldap/
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>podman<span class="w"> </span>pull<span class="w"> </span>&lt;registry&gt;/omnia_auth:&lt;tag&gt;
-
-
-
-<span class="c1">#. Re-run the authentication playbook:</span>
+<ol class="arabic simple" start="5">
+<li><p>Re-pull the container image if it is corrupt:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>pull<span class="w"> </span>&lt;registry&gt;/omnia_auth:&lt;tag&gt;
 </pre></div>
 </div>
+<ol class="arabic simple" start="6">
+<li><p>Re-run the authentication playbook:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 <span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>playbooks/auth.yml
@@ -670,78 +628,62 @@ ansible-playbook<span class="w"> </span>playbooks/auth.yml
 </section>
 <section id="certificate-errors">
 <h2>Certificate errors<a class="headerlink" href="#certificate-errors" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>LDAP or other services fail with TLS certificate errors:</p>
-</div></blockquote>
+<p><strong>Symptom</strong></p>
+<p>LDAP or other services fail with TLS certificate errors:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TLS: peer cert untrusted or revoked
 SSL routines:ssl3_get_server_certificate:certificate verify failed
 </pre></div>
 </div>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>The CA certificate used by step-ca is not installed on the client node.</p></li>
 <li><p>The service certificate has expired.</p></li>
 <li><p>The certificate’s Subject Alternative Name (SAN) does not match the
 hostname or IP being used to connect.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Check the certificate expiry:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span><span class="c1"># Using openssl</span>
-<span class="w">      </span>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>/etc/step/certs/server.crt<span class="w"> </span>-noout<span class="w"> </span>-dates
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using openssl</span>
+openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>/etc/step/certs/server.crt<span class="w"> </span>-noout<span class="w"> </span>-dates
 
-<span class="w">      </span><span class="c1"># Using step-cli</span>
-<span class="w">      </span>step<span class="w"> </span>certificate<span class="w"> </span>inspect<span class="w"> </span>/etc/step/certs/server.crt<span class="w"> </span>--short
-
-
-
-<span class="c1">#. If expired, renew the certificate:</span>
+<span class="c1"># Using step-cli</span>
+step<span class="w"> </span>certificate<span class="w"> </span>inspect<span class="w"> </span>/etc/step/certs/server.crt<span class="w"> </span>--short
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>step<span class="w"> </span>ca<span class="w"> </span>renew<span class="w"> </span>/etc/step/certs/server.crt<span class="w"> </span>/etc/step/certs/server.key
-
-
-
-<span class="c1">#. Verify the CA certificate is installed on client nodes:</span>
+<ol class="arabic simple" start="2">
+<li><p>If expired, renew the certificate:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>step<span class="w"> </span>ca<span class="w"> </span>renew<span class="w"> </span>/etc/step/certs/server.crt<span class="w"> </span>/etc/step/certs/server.key
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ssh<span class="w"> </span>&lt;client_node&gt;<span class="w"> </span>ls<span class="w"> </span>/etc/pki/ca-trust/source/anchors/
-
-
-
-If<span class="w"> </span>the<span class="w"> </span>CA<span class="w"> </span>cert<span class="w"> </span>is<span class="w"> </span>missing,<span class="w"> </span>copy<span class="w"> </span>it<span class="w"> </span>and<span class="w"> </span>update<span class="w"> </span>the<span class="w"> </span>trust<span class="w"> </span>store:
+<ol class="arabic simple" start="3">
+<li><p>Verify the CA certificate is installed on client nodes:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;client_node&gt;<span class="w"> </span>ls<span class="w"> </span>/etc/pki/ca-trust/source/anchors/
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>scp<span class="w"> </span>/etc/step/certs/root_ca.crt<span class="w"> </span>&lt;client_node&gt;:/etc/pki/ca-trust/source/anchors/
-<span class="w">      </span>ssh<span class="w"> </span>&lt;client_node&gt;<span class="w"> </span>update-ca-trust
-
-
-
-<span class="c1">#. Verify the SAN matches the connection target:</span>
+<p>If the CA cert is missing, copy it and update the trust store:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>/etc/step/certs/root_ca.crt<span class="w"> </span>&lt;client_node&gt;:/etc/pki/ca-trust/source/anchors/
+ssh<span class="w"> </span>&lt;client_node&gt;<span class="w"> </span>update-ca-trust
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>/etc/step/certs/server.crt<span class="w"> </span>-noout<span class="w"> </span>-ext<span class="w"> </span>subjectAltName
-
-
-
-If<span class="w"> </span>the<span class="w"> </span>SAN<span class="w"> </span>does<span class="w"> </span>not<span class="w"> </span>include<span class="w"> </span>the<span class="w"> </span>correct<span class="w"> </span>hostname<span class="w"> </span>or<span class="w"> </span>IP,<span class="w"> </span>reissue<span class="w"> </span>the
-certificate:
+<ol class="arabic simple" start="4">
+<li><p>Verify the SAN matches the connection target:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>x509<span class="w"> </span>-in<span class="w"> </span>/etc/step/certs/server.crt<span class="w"> </span>-noout<span class="w"> </span>-ext<span class="w"> </span>subjectAltName
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>step<span class="w"> </span>ca<span class="w"> </span>certificate<span class="w"> </span>&lt;hostname&gt;<span class="w"> </span>/etc/step/certs/server.crt<span class="w"> </span><span class="se">\</span>
-<span class="w">        </span>/etc/step/certs/server.key<span class="w"> </span>--san<span class="w"> </span>&lt;hostname&gt;<span class="w"> </span>--san<span class="w"> </span>&lt;ip_address&gt;
-
-
-
-<span class="c1">#. Restart services after updating certificates:</span>
+<p>If the SAN does not include the correct hostname or IP, reissue the
+certificate:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>step<span class="w"> </span>ca<span class="w"> </span>certificate<span class="w"> </span>&lt;hostname&gt;<span class="w"> </span>/etc/step/certs/server.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>/etc/step/certs/server.key<span class="w"> </span>--san<span class="w"> </span>&lt;hostname&gt;<span class="w"> </span>--san<span class="w"> </span>&lt;ip_address&gt;
 </pre></div>
 </div>
+<ol class="arabic simple" start="5">
+<li><p>Restart services after updating certificates:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl<span class="w"> </span>restart<span class="w"> </span>sssd
 podman<span class="w"> </span>restart<span class="w"> </span>omnia_auth
 </pre></div>
@@ -754,7 +696,7 @@ podman<span class="w"> </span>restart<span class="w"> </span>omnia_auth
 <li><p><a class="reference internal" href="../Operations/security_hardening.html"><span class="doc">Security Hardening</span></a> – Credential rotation procedures.</p></li>
 </ul>
 </div>
-<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+<p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>
 
@@ -837,7 +779,7 @@ podman<span class="w"> </span>restart<span class="w"> </span>omnia_auth
 
   <p class="copyright">
     
-      © Copyright 2025, Dell Technologies.
+      © Copyright Dell Technologies.
       <br/>
     
   </p>

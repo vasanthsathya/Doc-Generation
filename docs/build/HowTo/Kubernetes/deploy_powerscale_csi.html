@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../../_static/documentation_options.js?v=392da36c"></script>
+    <script src="../../_static/documentation_options.js?v=f35be339"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -539,27 +539,30 @@ ISI_PRIV_QUOTA).</p></li>
 </section>
 <section id="procedure">
 <h2>Procedure<a class="headerlink" href="#procedure" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Install Helm</strong> on a K8s control-plane node (if not already installed):</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<ol class="arabic simple">
+<li><p>Install Helm on a K8s control-plane node (if not already installed):</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
 helm<span class="w"> </span>version
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Create a namespace</strong> for the CSI driver:</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="2">
+<li><p>Create a namespace for the CSI driver:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>csi-powerscale
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Create the PowerScale secret</strong> with cluster connection details:</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="3">
+<li><p>Create the PowerScale secret with cluster connection details:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; &gt; /tmp/powerscale-secret.yaml</span>
 <span class="s">apiVersion: v1</span>
 <span class="s">kind: Secret</span>
@@ -584,33 +587,33 @@ kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> <
 </pre></div>
 </div>
 </div>
-<p>!!! warning</p>
-<blockquote>
-<div><p>Replace <code class="docutils literal notranslate"><span class="pre">username</span></code>, <code class="docutils literal notranslate"><span class="pre">password</span></code>, and <a href="#id1"><span class="problematic" id="id2">``</span></a>endpoint`:doc:` with your actual
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">username</span></code>, <code class="docutils literal notranslate"><span class="pre">password</span></code>, and <code class="docutils literal notranslate"><span class="pre">endpoint</span></code> with your actual
 PowerScale credentials and management IP. Delete the temporary file
 after applying.</p>
-</div></blockquote>
-</li>
-</ol>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>rm<span class="w"> </span>-f<span class="w"> </span>/tmp/powerscale-secret.yaml
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rm<span class="w"> </span>-f<span class="w"> </span>/tmp/powerscale-secret.yaml
 </pre></div>
 </div>
 </div>
-<ol class="arabic">
-<li><p><strong>Add the Dell CSI Helm repository</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="4">
+<li><p>Add the Dell CSI Helm repository:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>dell<span class="w"> </span>https://dell.github.io/helm-charts
 helm<span class="w"> </span>repo<span class="w"> </span>update
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Install the PowerScale CSI driver</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="5">
+<li><p>Install the PowerScale CSI driver:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>helm<span class="w"> </span>install<span class="w"> </span>isilon<span class="w"> </span>dell/csi-isilon<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--namespace<span class="w"> </span>csi-powerscale<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--set<span class="w"> </span>controller.replicas<span class="o">=</span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
@@ -620,10 +623,11 @@ helm<span class="w"> </span>repo<span class="w"> </span>update
 </div>
 </div>
 <p>Execution time: <strong>2-5 minutes</strong>.</p>
-</li>
-<li><p><strong>Create a StorageClass</strong> for dynamic provisioning:</p>
-<div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="6">
+<li><p>Create a StorageClass for dynamic provisioning:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; | kubectl apply -f -</span>
 <span class="s">apiVersion: storage.k8s.io/v1</span>
 <span class="s">kind: StorageClass</span>
@@ -643,33 +647,34 @@ helm<span class="w"> </span>repo<span class="w"> </span>update
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
-<ol class="arabic">
-<li><p><strong>Verify CSI driver pods are running</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
+<ol class="arabic simple">
+<li><p>Verify CSI driver pods are running:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>csi-powerscale
 </pre></div>
 </div>
 </div>
 <p>Expected: controller pods (2 replicas) and node pods (one per worker) in
 <code class="docutils literal notranslate"><span class="pre">Running</span></code> state.</p>
-</li>
-<li><p><strong>Verify the StorageClass was created</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="2">
+<li><p>Verify the StorageClass was created:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>storageclass<span class="w"> </span>powerscale-nfs
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>Test dynamic provisioning</strong> by creating a PVC:</p>
-<div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="3">
+<li><p>Test dynamic provisioning by creating a PVC:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id10" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39; | kubectl apply -f -</span>
 <span class="s">apiVersion: v1</span>
 <span class="s">kind: PersistentVolumeClaim</span>
@@ -689,16 +694,15 @@ kubectl<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </
 </div>
 </div>
 <p>The PVC should transition from <code class="docutils literal notranslate"><span class="pre">Pending</span></code> to <code class="docutils literal notranslate"><span class="pre">Bound</span></code>.</p>
-</li>
-<li><p><strong>Clean up the test PVC</strong>:</p>
-<div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+<ol class="arabic simple" start="4">
+<li><p>Clean up the test PVC:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id11" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>delete<span class="w"> </span>pvc<span class="w"> </span>test-pvc
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -711,59 +715,48 @@ nodes to share the same PowerScale storage.</p></li>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">#</a></h2>
-<dl class="simple">
-<dt><strong>CSI pods stuck in CrashLoopBackOff</strong></dt><dd><p>Check the driver logs:</p>
-</dd>
-</dl>
+<p><strong>CSI pods stuck in CrashLoopBackOff</strong>
+Check the driver logs:</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id12" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>csi-powerscale<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>isilon-controller<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span>
+</pre></div>
+</div>
+</div>
+<p><strong>PVC stuck in Pending</strong>
+Check the CSI provisioner events:</p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id13" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>describe<span class="w"> </span>pvc<span class="w"> </span>test-pvc
+kubectl<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>-n<span class="w"> </span>csi-powerscale
+</pre></div>
+</div>
+</div>
+<p><strong>Authentication failure to PowerScale</strong>
+Verify the secret credentials:</p>
 <div class="literal-block-wrapper docutils container" id="id14">
 <div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id14" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>csi-powerscale<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>isilon-controller<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>isilon-creds<span class="w"> </span>-n<span class="w"> </span>csi-powerscale<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.data.config}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>PVC stuck in Pending</strong></dt><dd><p>Check the CSI provisioner events:</p>
-</dd>
-</dl>
+<p>Test API connectivity:</p>
 <div class="literal-block-wrapper docutils container" id="id15">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>describe<span class="w"> </span>pvc<span class="w"> </span>test-pvc
-<span class="w">   </span>kubectl<span class="w"> </span>get<span class="w"> </span>events<span class="w"> </span>-n<span class="w"> </span>csi-powerscale
+<div class="code-block-caption"><span class="caption-text">Run on: K8s worker node</span><a class="headerlink" href="#id15" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-sk<span class="w"> </span>https://10.5.1.100:8080/platform/latest/protocols/nfs/exports
 </pre></div>
 </div>
 </div>
-<dl class="simple">
-<dt><strong>Authentication failure to PowerScale</strong></dt><dd><p>Verify the secret credentials:</p>
-</dd>
-</dl>
+<p><strong>Mount failure on worker nodes</strong>
+Ensure NFS client packages are installed:</p>
 <div class="literal-block-wrapper docutils container" id="id16">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s control plane node</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>isilon-creds<span class="w"> </span>-n<span class="w"> </span>csi-powerscale<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.data.config}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d
-
-
-
-Test<span class="w"> </span>API<span class="w"> </span>connectivity:
+<div class="code-block-caption"><span class="caption-text">Run on: K8s worker node</span><a class="headerlink" href="#id16" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nfs-utils
+showmount<span class="w"> </span>-e<span class="w"> </span><span class="m">10</span>.5.1.100
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s worker node</span><a class="headerlink" href="#id17" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>curl<span class="w"> </span>-sk<span class="w"> </span>https://10.5.1.100:8080/platform/latest/protocols/nfs/exports
-</pre></div>
-</div>
-</div>
-<dl class="simple">
-<dt><strong>Mount failure on worker nodes</strong></dt><dd><p>Ensure NFS client packages are installed:</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">Run on: K8s worker node</span><a class="headerlink" href="#id18" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>nfs-utils
-<span class="w">   </span>showmount<span class="w"> </span>-e<span class="w"> </span><span class="m">10</span>.5.1.100
-</pre></div>
-</div>
-</div>
-<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+<p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>
 
@@ -848,7 +841,7 @@ Test<span class="w"> </span>API<span class="w"> </span>connectivity:
 
   <p class="copyright">
     
-      © Copyright 2025, Dell Technologies.
+      © Copyright Dell Technologies.
       <br/>
     
   </p>

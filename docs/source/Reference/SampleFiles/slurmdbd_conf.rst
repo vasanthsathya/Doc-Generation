@@ -14,9 +14,9 @@ Complete sample
 
 
 
-**File: /etc/slurm/slurmdbd.conf**
 
 .. code-block:: bash
+   :caption: File: /etc/slurm/slurmdbd.conf
 
    # ===========================================================================
    # slurmdbd.conf -- Slurm Database Daemon configuration

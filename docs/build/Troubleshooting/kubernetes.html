@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../_static/documentation_options.js?v=392da36c"></script>
+    <script src="../_static/documentation_options.js?v=f35be339"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
@@ -451,57 +451,45 @@
 initialization, pod scheduling, networking, storage, and load balancing.</p>
 <section id="control-plane-not-initializing">
 <h2>Control plane not initializing<a class="headerlink" href="#control-plane-not-initializing" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>The Kubernetes control plane fails to initialize. <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">get</span> <span class="pre">nodes</span></code>
+<p><strong>Symptom</strong></p>
+<p>The Kubernetes control plane fails to initialize. <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">get</span> <span class="pre">nodes</span></code>
 returns a connection error, or the <code class="docutils literal notranslate"><span class="pre">omnia.yml</span></code> playbook fails during the
 Kubernetes deployment phase.</p>
-</div></blockquote>
-<p>??? note “Cause”</p>
-<blockquote>
-<div><ul class="simple">
+<p><strong>Cause</strong></p>
+<ul class="simple">
 <li><p>Required ports (6443, 2379-2380, 10250-10252) are blocked by a firewall.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">kubelet</span></code> service failed to start.</p></li>
 <li><p>Insufficient resources (CPU, memory) on the control plane node.</p></li>
 <li><p>A previous Kubernetes installation was not fully cleaned up.</p></li>
 </ul>
-</div></blockquote>
-<p>??? note “Resolution”</p>
-<blockquote>
-<div><ol class="arabic simple">
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
 <li><p>Check <code class="docutils literal notranslate"><span class="pre">kubelet</span></code> status on the control plane node:</p></li>
 </ol>
-</div></blockquote>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>&lt;kube_control_plane&gt;<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>kubelet
-<span class="w">      </span>ssh<span class="w"> </span>&lt;kube_control_plane&gt;<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>kubelet<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span>
-
-
-
-<span class="c1">#. Verify required ports are open:</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;kube_control_plane&gt;<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>kubelet
+ssh<span class="w"> </span>&lt;kube_control_plane&gt;<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>kubelet<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>&lt;kube_control_plane&gt;<span class="w"> </span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;6443|2379|10250&#39;</span>
-
-
-
-<span class="c1">#. Check for leftover state from a previous installation:</span>
+<ol class="arabic simple" start="2">
+<li><p>Verify required ports are open:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;kube_control_plane&gt;<span class="w"> </span>ss<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;6443|2379|10250&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ssh<span class="w"> </span>&lt;kube_control_plane&gt;<span class="w"> </span>ls<span class="w"> </span>/etc/kubernetes/manifests/
-
-
-
-If<span class="w"> </span>stale<span class="w"> </span>files<span class="w"> </span>exist,<span class="w"> </span>reset<span class="w"> </span>Kubernetes:
+<ol class="arabic simple" start="3">
+<li><p>Check for leftover state from a previous installation:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;kube_control_plane&gt;<span class="w"> </span>ls<span class="w"> </span>/etc/kubernetes/manifests/
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">      </span>ssh<span class="w"> </span>&lt;kube_control_plane&gt;<span class="w"> </span>kubeadm<span class="w"> </span>reset<span class="w"> </span>-f
-<span class="w">      </span>ssh<span class="w"> </span>&lt;kube_control_plane&gt;<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/etc/kubernetes/<span class="w"> </span>/var/lib/etcd/
-
-
-
-<span class="c1">#. Re-run the Omnia Kubernetes deployment:</span>
+<p>If stale files exist, reset Kubernetes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;kube_control_plane&gt;<span class="w"> </span>kubeadm<span class="w"> </span>reset<span class="w"> </span>-f
+ssh<span class="w"> </span>&lt;kube_control_plane&gt;<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/etc/kubernetes/<span class="w"> </span>/var/lib/etcd/
 </pre></div>
 </div>
+<ol class="arabic simple" start="4">
+<li><p>Re-run the Omnia Kubernetes deployment:</p></li>
+</ol>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>omnia_core
 <span class="nb">cd</span><span class="w"> </span>/omnia
 ansible-playbook<span class="w"> </span>playbooks/omnia.yml<span class="w"> </span>--tags<span class="w"> </span>kubernetes
@@ -510,259 +498,218 @@ ansible-playbook<span class="w"> </span>playbooks/omnia.yml<span class="w"> </sp
 </section>
 <section id="pod-scheduling-failures">
 <h2>Pod scheduling failures<a class="headerlink" href="#pod-scheduling-failures" title="Link to this heading">#</a></h2>
-<p>???+ note “Symptom”</p>
-<blockquote>
-<div><p>Pods remain in <code class="docutils literal notranslate"><span class="pre">Pending</span></code> state indefinitely. <a href="#id1"><span class="problematic" id="id2">``</span></a>kubectl describe pod</p>
-</div></blockquote>
-    <pod_name>`` shows scheduling errors:
-
-    ```text
-    Warning  FailedScheduling  0/3 nodes are available: 3 node(s) had taint
-    {node-role.kubernetes.io/control-plane: }, that the pod didn't tolerate.
-    ```
-
-
-??? note "Cause"
-
-    - No worker nodes are available (only control plane nodes exist).
-    - Worker nodes are in `NotReady` state.
-    - Resource requests exceed available capacity on worker nodes.
-    - Taints on nodes prevent pod scheduling.
-
-??? note "Resolution"
-
-    1. Check node status:
-
-       ```bash
-       kubectl get nodes
-       ```
-
-
-    2. If worker nodes are `NotReady`, check kubelet on those nodes:
-
-       ```bash
-       ssh <kube_worker> systemctl status kubelet
-       ssh <kube_worker> journalctl -u kubelet --no-pager -n 50
-       ```
-
-
-    3. If only control plane nodes exist, either add worker nodes or allow
-       scheduling on control planes (not recommended for production):
-
-       ```bash
-       # Add worker nodes via Omnia
-       ssh omnia_core
-       cd /omnia
-       ansible-playbook playbooks/add_node.yml
-       ```
-
-
-    4. Check resource availability:
-
-       ```bash
-       kubectl describe nodes | grep -A 5 "Allocated resources"
-       ```
-
-
-    5. Remove problematic taints if appropriate:
-
-       ```bash
-       kubectl taint nodes <node_name> <taint_key>-
-       ```
-
-
-## MetalLB not assigning IP addresses
-
-
-???+ note "Symptom"
-
-    Services of type `LoadBalancer` remain in `<pending>` state and never
-    receive an external IP:
-
-    ```bash
-    kubectl get svc
-    # EXTERNAL-IP shows <pending>
-    ```
-
-
-??? note "Cause"
-
-    - MetalLB is not deployed or its pods are not running.
-    - The MetalLB IP address pool is not configured or is exhausted.
-    - The MetalLB speaker pods cannot reach the network.
-
-??? note "Resolution"
-
-    1. Verify MetalLB pods are running:
-
-       ```bash
-       kubectl get pods -n metallb-system
-       ```
-
-
-    2. Check MetalLB logs:
-
-       ```bash
-       kubectl logs -n metallb-system -l app=metallb,component=controller
-       kubectl logs -n metallb-system -l app=metallb,component=speaker
-       ```
-
-
-    3. Verify the IP address pool configuration:
-
-       ```bash
-       kubectl get ipaddresspool -n metallb-system -o yaml
-       ```
-
-
-       If no pool exists, create one:
-
-       ```yaml
-       apiVersion: metallb.io/v1beta1
-       kind: IPAddressPool
-       metadata:
-         name: default-pool
-         namespace: metallb-system
-       spec:
-         addresses:
-         - 10.5.1.100-10.5.1.200
-       ```
-
-
-    4. Verify the L2 advertisement is configured:
-
-       ```bash
-       kubectl get l2advertisement -n metallb-system
-       ```
-
-
-## NFS CSI mount failures
-
-
-???+ note "Symptom"
-
-    Pods that use NFS-backed persistent volumes fail to start. ``kubectl
-    describe pod`` shows mount errors:
-
-    ```text
-    Warning  FailedMount  Unable to attach or mount volumes: timed out waiting
-    for the condition
-    ```
-
-
-??? note "Cause"
-
-    - The NFS server is unreachable from the Kubernetes worker nodes.
-    - The NFS CSI driver pods are not running.
-    - The NFS export path is incorrect in the PersistentVolume definition.
-    - Firewall rules block NFS traffic (ports 2049, 111).
-
-??? note "Resolution"
-
-    1. Verify the NFS CSI driver is running:
-
-       ```bash
-       kubectl get pods -n kube-system | grep nfs
-       ```
-
-
-    2. Test NFS connectivity from a worker node:
-
-       ```bash
-       ssh <kube_worker> showmount -e <nfs_server_ip>
-       ```
-
-
-    3. Verify the PersistentVolume configuration:
-
-       ```bash
-       kubectl get pv -o yaml | grep -A 5 nfs
-       ```
-
-
-    4. Check NFS firewall rules on the NFS server:
-
-       ```bash
-       ssh <nfs_server> firewall-cmd --list-all | grep -E 'nfs|2049|111'
-       ```
-
-
-    5. If the NFS server is unreachable, verify it is on the admin network:
-
-       ```bash
-       ssh <kube_worker> ping <nfs_server_ip>
-       ```
-
-
-    !!! tip
-
-        For production environments, use the PowerScale CSI driver instead of
-        external NFS. See [Deploy Powerscale Csi](../HowTo/Kubernetes/deploy_powerscale_csi.rst).
-
-
-## Calico networking issues
-
-
-???+ note "Symptom"
-
-    Pods cannot communicate with each other across nodes. `kubectl exec`
-    into a pod and pinging another pod's IP fails. Calico pods may show errors
-    in their logs.
-
-??? note "Cause"
-
-    - Calico pods are not running on all nodes.
-    - The pod CIDR overlaps with an existing network range.
-    - BGP peering is misconfigured (in BGP mode).
-    - IP-in-IP or VXLAN encapsulation is blocked by network infrastructure.
-
-??? note "Resolution"
-
-    1. Check Calico pod status:
-
-       ```bash
-       kubectl get pods -n calico-system
-       # or
-       kubectl get pods -n kube-system | grep calico
-       ```
-
-
-    2. Check Calico node status:
-
-       ```bash
-       kubectl get nodes -o wide
-       calicoctl node status    # if calicoctl is installed
-       ```
-
-
-    3. Verify the pod CIDR does not overlap with existing networks:
-
-       ```bash
-       kubectl cluster-info dump | grep -m 1 cluster-cidr
-       ```
-
-
-    4. Check Calico logs for errors:
-
-       ```bash
-       kubectl logs -n calico-system -l k8s-app=calico-node --tail=50
-       ```
-
-
-    5. If encapsulation is blocked, switch Calico to VXLAN mode:
-
-       ```bash
-       kubectl patch felixconfiguration default \
-         --type='merge' \
-         -p '{"spec":{"vxlanEnabled":true,"ipipEnabled":false}}'
-       ```
-
-
-!!! info
-
-    - [Setup Service K8S](../HowTo/Kubernetes/setup_service_k8s.rst) -- Kubernetes cluster setup.
-    - [Configure Ha](../HowTo/Kubernetes/configure_ha.rst) -- High availability configuration.
-    - [Add Remove Nodes](../Operations/add_remove_nodes.rst) -- Adding worker nodes.<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+<p><strong>Symptom</strong></p>
+<p>Pods remain in <code class="docutils literal notranslate"><span class="pre">Pending</span></code> state indefinitely. <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">describe</span> <span class="pre">pod</span>
+<span class="pre">&lt;pod_name&gt;</span></code> shows scheduling errors:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Warning  FailedScheduling  0/3 nodes are available: 3 node(s) had taint
+{node-role.kubernetes.io/control-plane: }, that the pod didn&#39;t tolerate.
+</pre></div>
+</div>
+<p><strong>Cause</strong></p>
+<ul class="simple">
+<li><p>No worker nodes are available (only control plane nodes exist).</p></li>
+<li><p>Worker nodes are in <code class="docutils literal notranslate"><span class="pre">NotReady</span></code> state.</p></li>
+<li><p>Resource requests exceed available capacity on worker nodes.</p></li>
+<li><p>Taints on nodes prevent pod scheduling.</p></li>
+</ul>
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
+<li><p>Check node status:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>If worker nodes are <code class="docutils literal notranslate"><span class="pre">NotReady</span></code>, check kubelet on those nodes:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;kube_worker&gt;<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>kubelet
+ssh<span class="w"> </span>&lt;kube_worker&gt;<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>kubelet<span class="w"> </span>--no-pager<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>If only control plane nodes exist, either add worker nodes or allow
+scheduling on control planes (not recommended for production):</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add worker nodes via Omnia</span>
+ssh<span class="w"> </span>omnia_core
+<span class="nb">cd</span><span class="w"> </span>/omnia
+ansible-playbook<span class="w"> </span>playbooks/add_node.yml
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Check resource availability:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>describe<span class="w"> </span>nodes<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;Allocated resources&quot;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Remove problematic taints if appropriate:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>taint<span class="w"> </span>nodes<span class="w"> </span>&lt;node_name&gt;<span class="w"> </span>&lt;taint_key&gt;-
+</pre></div>
+</div>
+</section>
+<section id="metallb-not-assigning-ip-addresses">
+<h2>MetalLB not assigning IP addresses<a class="headerlink" href="#metallb-not-assigning-ip-addresses" title="Link to this heading">#</a></h2>
+<p><strong>Symptom</strong></p>
+<p>Services of type <code class="docutils literal notranslate"><span class="pre">LoadBalancer</span></code> remain in <code class="docutils literal notranslate"><span class="pre">&lt;pending&gt;</span></code> state and never
+receive an external IP:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>svc
+<span class="c1"># EXTERNAL-IP shows &lt;pending&gt;</span>
+</pre></div>
+</div>
+<p><strong>Cause</strong></p>
+<ul class="simple">
+<li><p>MetalLB is not deployed or its pods are not running.</p></li>
+<li><p>The MetalLB IP address pool is not configured or is exhausted.</p></li>
+<li><p>The MetalLB speaker pods cannot reach the network.</p></li>
+</ul>
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
+<li><p>Verify MetalLB pods are running:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>metallb-system
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Check MetalLB logs:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>metallb-system<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>metallb,component<span class="o">=</span>controller
+kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>metallb-system<span class="w"> </span>-l<span class="w"> </span><span class="nv">app</span><span class="o">=</span>metallb,component<span class="o">=</span>speaker
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Verify the IP address pool configuration:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>ipaddresspool<span class="w"> </span>-n<span class="w"> </span>metallb-system<span class="w"> </span>-o<span class="w"> </span>yaml
+</pre></div>
+</div>
+<p>If no pool exists, create one:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metallb.io/v1beta1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IPAddressPool</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default-pool</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">metallb-system</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">addresses</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.5.1.100-10.5.1.200</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Verify the L2 advertisement is configured:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>l2advertisement<span class="w"> </span>-n<span class="w"> </span>metallb-system
+</pre></div>
+</div>
+</section>
+<section id="nfs-csi-mount-failures">
+<h2>NFS CSI mount failures<a class="headerlink" href="#nfs-csi-mount-failures" title="Link to this heading">#</a></h2>
+<p><strong>Symptom</strong></p>
+<p>Pods that use NFS-backed persistent volumes fail to start. <code class="docutils literal notranslate"><span class="pre">kubectl</span>
+<span class="pre">describe</span> <span class="pre">pod</span></code> shows mount errors:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Warning  FailedMount  Unable to attach or mount volumes: timed out waiting
+for the condition
+</pre></div>
+</div>
+<p><strong>Cause</strong></p>
+<ul class="simple">
+<li><p>The NFS server is unreachable from the Kubernetes worker nodes.</p></li>
+<li><p>The NFS CSI driver pods are not running.</p></li>
+<li><p>The NFS export path is incorrect in the PersistentVolume definition.</p></li>
+<li><p>Firewall rules block NFS traffic (ports 2049, 111).</p></li>
+</ul>
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
+<li><p>Verify the NFS CSI driver is running:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nfs
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Test NFS connectivity from a worker node:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;kube_worker&gt;<span class="w"> </span>showmount<span class="w"> </span>-e<span class="w"> </span>&lt;nfs_server_ip&gt;
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Verify the PersistentVolume configuration:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pv<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span>nfs
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Check NFS firewall rules on the NFS server:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;nfs_server&gt;<span class="w"> </span>firewall-cmd<span class="w"> </span>--list-all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;nfs|2049|111&#39;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>If the NFS server is unreachable, verify it is on the admin network:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>&lt;kube_worker&gt;<span class="w"> </span>ping<span class="w"> </span>&lt;nfs_server_ip&gt;
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>For production environments, use the PowerScale CSI driver instead of
+external NFS. See <a class="reference internal" href="../HowTo/Kubernetes/deploy_powerscale_csi.html"><span class="doc">Deploy Powerscale Csi</span></a>.</p>
+</div>
+</section>
+<section id="calico-networking-issues">
+<h2>Calico networking issues<a class="headerlink" href="#calico-networking-issues" title="Link to this heading">#</a></h2>
+<p><strong>Symptom</strong></p>
+<p>Pods cannot communicate with each other across nodes. <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">exec</span></code>
+into a pod and pinging another pod’s IP fails. Calico pods may show errors
+in their logs.</p>
+<p><strong>Cause</strong></p>
+<ul class="simple">
+<li><p>Calico pods are not running on all nodes.</p></li>
+<li><p>The pod CIDR overlaps with an existing network range.</p></li>
+<li><p>BGP peering is misconfigured (in BGP mode).</p></li>
+<li><p>IP-in-IP or VXLAN encapsulation is blocked by network infrastructure.</p></li>
+</ul>
+<p><strong>Resolution</strong></p>
+<ol class="arabic simple">
+<li><p>Check Calico pod status:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>calico-system
+<span class="c1"># or</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>kube-system<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>calico
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Check Calico node status:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-o<span class="w"> </span>wide
+calicoctl<span class="w"> </span>node<span class="w"> </span>status<span class="w">    </span><span class="c1"># if calicoctl is installed</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Verify the pod CIDR does not overlap with existing networks:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>cluster-info<span class="w"> </span>dump<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-m<span class="w"> </span><span class="m">1</span><span class="w"> </span>cluster-cidr
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Check Calico logs for errors:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>calico-system<span class="w"> </span>-l<span class="w"> </span>k8s-app<span class="o">=</span>calico-node<span class="w"> </span>--tail<span class="o">=</span><span class="m">50</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>If encapsulation is blocked, switch Calico to VXLAN mode:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>patch<span class="w"> </span>felixconfiguration<span class="w"> </span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--type<span class="o">=</span><span class="s1">&#39;merge&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="s1">&#39;{&quot;spec&quot;:{&quot;vxlanEnabled&quot;:true,&quot;ipipEnabled&quot;:false}}&#39;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><a class="reference internal" href="../HowTo/Kubernetes/setup_service_k8s.html"><span class="doc">Setup Service K8S</span></a> – Kubernetes cluster setup.</p></li>
+<li><p><a class="reference internal" href="../HowTo/Kubernetes/configure_ha.html"><span class="doc">Configure Ha</span></a> – High availability configuration.</p></li>
+<li><p><a class="reference internal" href="../Operations/add_remove_nodes.html"><span class="doc">Add Remove Nodes</span></a> – Adding worker nodes.</p></li>
+</ul>
+<p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>
 
@@ -815,6 +762,9 @@ ansible-playbook<span class="w"> </span>playbooks/omnia.yml<span class="w"> </sp
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-plane-not-initializing">Control plane not initializing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pod-scheduling-failures">Pod scheduling failures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metallb-not-assigning-ip-addresses">MetalLB not assigning IP addresses</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nfs-csi-mount-failures">NFS CSI mount failures</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calico-networking-issues">Calico networking issues</a></li>
 </ul>
   </nav></div>
 
@@ -843,7 +793,7 @@ ansible-playbook<span class="w"> </span>playbooks/omnia.yml<span class="w"> </sp
 
   <p class="copyright">
     
-      © Copyright 2025, Dell Technologies.
+      © Copyright Dell Technologies.
       <br/>
     
   </p>

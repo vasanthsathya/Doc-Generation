@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=33511658" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=abc5f563" />
     <link rel="stylesheet" type="text/css" href="../../_static/dell-brand.css?v=4b6d00fb" />
   
   <!-- So that users can add custom icons -->
@@ -42,7 +42,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
-    <script src="../../_static/documentation_options.js?v=392da36c"></script>
+    <script src="../../_static/documentation_options.js?v=f35be339"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
@@ -530,11 +530,11 @@ stage. This guide provides systematic troubleshooting for each component.</p>
 <section id="pipeline-failures">
 <h3>Pipeline Failures<a class="headerlink" href="#pipeline-failures" title="Link to this heading">#</a></h3>
 <ol class="arabic">
-<li><p><strong>View pipeline logs</strong> in GitLab:</p>
+<li><p>View pipeline logs in GitLab:</p>
 <p>Navigate to <strong>CI/CD</strong> &gt; <strong>Pipelines</strong> &gt; click the failed pipeline &gt; click
 the failed job. Read the job output from bottom to top for the error.</p>
 </li>
-<li><p><strong>Common validation-stage failures</strong>:</p>
+<li><p>Common validation-stage failures:</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Manually re-run validation to see errors</span>
@@ -554,8 +554,8 @@ ansible-playbook<span class="w"> </span>input_validator.yml<span class="w"> </sp
 <li><p>Duplicate service tags or MAC addresses</p></li>
 </ul>
 </div></blockquote>
-<ol class="arabic">
-<li><p><strong>Common provision-stage failures</strong>:</p>
+<ol class="arabic" start="3">
+<li><p>Common provision-stage failures:</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test BMC connectivity for a specific node</span>
@@ -573,8 +573,8 @@ curl<span class="w"> </span>-sk<span class="w"> </span>https://&lt;bmc-ip&gt;/re
 <li><p>Vault password not available to runner</p></li>
 </ul>
 </div></blockquote>
-<ol class="arabic">
-<li><p><strong>Common configure-stage failures</strong>:</p>
+<ol class="arabic" start="4">
+<li><p>Common configure-stage failures:</p>
 <div class="literal-block-wrapper docutils container" id="id3">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test node connectivity</span>
@@ -596,7 +596,7 @@ ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </s
 <section id="gitlab-issues">
 <h3>GitLab Issues<a class="headerlink" href="#gitlab-issues" title="Link to this heading">#</a></h3>
 <ol class="arabic">
-<li><p><strong>GitLab is unresponsive or slow</strong>:</p>
+<li><p>GitLab is unresponsive or slow:</p>
 <div class="literal-block-wrapper docutils container" id="id4">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span>stats<span class="w"> </span>gitlab<span class="w"> </span>--no-stream
@@ -616,7 +616,8 @@ podman<span class="w"> </span>rm<span class="w"> </span>gitlab
 </pre></div>
 </div>
 </li>
-<li><p><strong>GitLab “502 Bad Gateway”</strong>:</p>
+<li><p>GitLab “502 Bad Gateway”:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id5">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># GitLab internal services may be restarting</span>
@@ -627,8 +628,9 @@ podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 </pre></div>
 </div>
 </div>
-</li>
-<li><p><strong>GitLab database migration errors</strong>:</p>
+<ol class="arabic simple" start="3">
+<li><p>GitLab database migration errors:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id6">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>gitlab<span class="w"> </span>gitlab-rake<span class="w"> </span>db:migrate
@@ -636,13 +638,11 @@ podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 <section id="runner-issues">
 <h3>Runner Issues<a class="headerlink" href="#runner-issues" title="Link to this heading">#</a></h3>
 <ol class="arabic">
-<li><p><strong>Runner is offline or not picking up jobs</strong>:</p>
+<li><p>Runner is offline or not picking up jobs:</p>
 <div class="literal-block-wrapper docutils container" id="id7">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id7" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>gitlab-runner<span class="w"> </span>gitlab-runner<span class="w"> </span>list
@@ -662,7 +662,7 @@ podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 </pre></div>
 </div>
 </li>
-<li><p><strong>Runner fails with “permission denied”</strong>:</p>
+<li><p>Runner fails with “permission denied”:</p>
 <p>Ensure the runner has access to the omnia_core container and playbooks:</p>
 <p><strong>Run on: OIM host</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>gitlab-runner<span class="w"> </span>ls<span class="w"> </span>/omnia/
@@ -670,7 +670,7 @@ podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 </pre></div>
 </div>
 </li>
-<li><p><strong>Runner jobs time out</strong>:</p>
+<li><p>Runner jobs time out:</p>
 <blockquote>
 <div><p>Increase the job timeout in GitLab:</p>
 <ul class="simple">
@@ -684,7 +684,7 @@ podman<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <section id="registry-issues">
 <h3>Registry Issues<a class="headerlink" href="#registry-issues" title="Link to this heading">#</a></h3>
 <ol class="arabic">
-<li><p><strong>Container registry is unreachable</strong>:</p>
+<li><p>Container registry is unreachable:</p>
 <p><strong>Run on OIM host</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>systemctl<span class="w"> </span>status<span class="w"> </span>registry.service
 <span class="w">   </span>podman<span class="w"> </span>logs<span class="w"> </span>registry
@@ -699,7 +699,7 @@ Restart<span class="w"> </span>the<span class="w"> </span>registry:
 </pre></div>
 </div>
 </li>
-<li><p><strong>Image push/pull fails</strong>:</p>
+<li><p>Image push/pull fails:</p>
 <p><strong>Run on OIM host</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span><span class="c1"># Test registry connectivity</span>
 <span class="w">   </span>curl<span class="w"> </span>-s<span class="w"> </span>http://localhost:5000/v2/_catalog
@@ -720,7 +720,7 @@ insecure<span class="w"> </span>registries<span class="w"> </span>list:
 <section id="general-debugging">
 <h3>General Debugging<a class="headerlink" href="#general-debugging" title="Link to this heading">#</a></h3>
 <ol class="arabic">
-<li><p><strong>Enable verbose Ansible output</strong> in pipelines:</p>
+<li><p>Enable verbose Ansible output in pipelines:</p>
 <blockquote>
 <div><p>Edit <code class="docutils literal notranslate"><span class="pre">.gitlab-ci.yml</span></code> to add <code class="docutils literal notranslate"><span class="pre">-vvv</span></code> to playbook commands:</p>
 </div></blockquote>
@@ -734,48 +734,45 @@ insecure<span class="w"> </span>registries<span class="w"> </span>list:
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ansible-playbook omnia.yml --ask-vault-pass -vvv</span>
 </pre></div>
 </div>
-<ol class="arabic">
-<li><p><strong>Check system resources</strong> on the OIM:</p>
+<ol class="arabic simple" start="2">
+<li><p>Check system resources on the OIM:</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id8">
 <div class="code-block-caption"><span class="caption-text">Run on: OIM host</span><a class="headerlink" href="#id8" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1"># Check disk space</span>
-<span class="w"> </span>df<span class="w"> </span>-h
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check disk space</span>
+df<span class="w"> </span>-h
 
-<span class="w"> </span><span class="c1"># Check memory</span>
-<span class="w"> </span>free<span class="w"> </span>-h
+<span class="c1"># Check memory</span>
+free<span class="w"> </span>-h
 
-<span class="w"> </span><span class="c1"># Check running containers</span>
-<span class="w"> </span>podman<span class="w"> </span>ps<span class="w"> </span>-a
+<span class="c1"># Check running containers</span>
+podman<span class="w"> </span>ps<span class="w"> </span>-a
 
-<span class="w"> </span><span class="c1"># Check container resource usage</span>
-<span class="w"> </span>podman<span class="w"> </span>stats<span class="w"> </span>--no-stream
+<span class="c1"># Check container resource usage</span>
+podman<span class="w"> </span>stats<span class="w"> </span>--no-stream
 </pre></div>
 </div>
 </div>
-</li>
-</ol>
 </section>
 </section>
 <section id="verification">
 <h2>Verification<a class="headerlink" href="#verification" title="Link to this heading">#</a></h2>
 <p>After resolving issues, verify the pipeline works end-to-end:</p>
-<ol class="arabic">
-<li><p><strong>Make a trivial change</strong> to the catalog (e.g., add a comment).</p></li>
-<li><p><strong>Push the change</strong> and verify the validation stage passes.</p></li>
-<li><p><strong>Trigger the full pipeline</strong> and confirm all stages complete.</p>
+<ol class="arabic simple">
+<li><p>Make a trivial change to the catalog (e.g., add a comment).</p></li>
+<li><p>Push the change and verify the validation stage passes.</p></li>
+<li><p>Trigger the full pipeline and confirm all stages complete.</p></li>
+</ol>
 <div class="literal-block-wrapper docutils container" id="id9">
 <div class="code-block-caption"><span class="caption-text">Run on: omnia_core container</span><a class="headerlink" href="#id9" title="Link to this code">#</a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>/opt/omnia/buildstream-catalog
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;# Test commit </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>catalog.yml
+git<span class="w"> </span>add<span class="w"> </span>catalog.yml
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Test pipeline trigger&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
 </pre></div>
 </div>
 </div>
-<p>cd /opt/omnia/buildstream-catalog
-echo “# Test commit $(date)” &gt;&gt; catalog.yml
-git add catalog.yml
-git commit -m “Test pipeline trigger”
-git push origin main</p>
-</li>
-</ol>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
@@ -799,7 +796,7 @@ GitLab-specific issues.</p></li>
 <li><p>Open an issue on the <a class="reference external" href="https://github.com/dell/omnia/issues">Omnia GitHub repository</a> for Omnia-specific issues.</p></li>
 </ul>
 </div>
-<p>If you have any feedback about Omnia documentation, please reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
+<p>If you have any feedback about Omnia documentation, reach out at <a class="reference external" href="mailto:omnia&#46;readme&#37;&#52;&#48;dell&#46;com">omnia<span>&#46;</span>readme<span>&#64;</span>dell<span>&#46;</span>com</a>.</p>
 </section>
 </section>
 
@@ -891,7 +888,7 @@ GitLab-specific issues.</p></li>
 
   <p class="copyright">
     
-      © Copyright 2025, Dell Technologies.
+      © Copyright Dell Technologies.
       <br/>
     
   </p>
